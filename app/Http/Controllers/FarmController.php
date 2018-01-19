@@ -21,7 +21,6 @@ class FarmController extends Controller
 
     public function __construct()
     {
-
       $this->middleware(function($request, $next){
           $this->user = Auth::user();
           return $next($request);
@@ -407,16 +406,271 @@ class FarmController extends Controller
     public function getPageReplacementIndividualRecord(){
       return view('poultry.chicken.replacement.individualrecord');
     }
+
+    /*
+      @TODO Fix Date in request sent
+    */
+
+    public function addReplacementIndividualRecord(Request $request){
+      $now = new Carbon;
+      $animal = new Animal;
+      $farm = $this->user->getFarm();
+      $breed = $farm->getBreed();
+      $animaltype = $farm->getFarmType();
+      $registryid = $farm->code.'-'.$now->year.$request->gender.$request->generation.$request->line.$request->family.$request->individual_id;
+
+      $animal->animaltype_id = $animaltype->id;
+      $animal->farm_id = $farm->id;
+      $animal->breed_id = $breed->id;
+      $animal->status = "replacement";
+      $animal->registryid = $registryid;
+      $animal->save();
+
+      $animalproperty1 = new AnimalProperty;
+      $animalproperty1->animal_id = $animal->id;
+      $animalproperty1->property_id = 1;
+      $animalproperty1->value = $request->date_hatched;
+      $animalproperty1->save();
+
+      $animalproperty2 = new AnimalProperty;
+      $animalproperty2->animal_id = $animal->id;
+      $animalproperty2->property_id = 2;
+      $animalproperty2->value = $request->individual_id;
+      $animalproperty2->save();
+
+      $animalproperty3 = new AnimalProperty;
+      $animalproperty3->animal_id = $animal->id;
+      $animalproperty3->property_id = 3;
+      $animalproperty3->value = $request->generation;
+      $animalproperty3->save();
+
+      $animalproperty4 = new AnimalProperty;
+      $animalproperty4->animal_id = $animal->id;
+      $animalproperty4->property_id = 4;
+      $animalproperty4->value = $request->line;
+      $animalproperty4->save();
+
+      $animalproperty5 = new AnimalProperty;
+      $animalproperty5->animal_id = $animal->id;
+      $animalproperty5->property_id = 5;
+      $animalproperty5->value = $request->family;
+      $animalproperty5->save();
+
+      $animalproperty6 = new AnimalProperty;
+      $animalproperty6->animal_id = $animal->id;
+      $animalproperty6->property_id = 6;
+      $animalproperty6->value = $request->gender;
+      $animalproperty6->save();
+
+      $animalproperty7 = new AnimalProperty;
+      $animalproperty7->animal_id = $animal->id;
+      $animalproperty7->property_id = 7;
+      $animalproperty7->value = $request->date_transferred;
+      $animalproperty7->save();
+
+      return Redirect::back()->with('message','Animal record successfully saved');
+    }
+
     public function getPageReplacementGrowthPerformance(){
       return view('poultry.chicken.replacement.growthperformance');
     }
 
-    public function getPageReplacementPhenotypic(){
-      return view('poultry.chicken.breeder.phenotypic');
+    public function getPageSearchID(){
+        $replacement = Animal::where('status', 'replacement')->get();
+        return view('poultry.chicken.replacement.phenomorphoidsearch', compact('replacement'));
     }
 
-    public function getPageReplacementMorphometric(){
-      return view('poultry.chicken.breeder.morphometric');
+    public function getPageReplacementPhenotypic($id){
+      $farm = $this->user->getFarm();
+      $breed = $farm->getBreed();
+      $animaltype = $farm->getFarmType();
+      $province = $farm->address;
+      $breedname = $breed->breed;
+      $animaltype_name = $animaltype->species;
+      $code = $farm->code;
+      $animal = Animal::find($id);
+      $properties = $animal->getAnimalProperties();
+      return view('poultry.chicken.breeder.phenotypic', compact('province', 'breedname', 'animaltype_name', 'code', 'animal', 'properties'));
+    }
+
+    public function fetchDataReplacementPhenotypic(Request $request){
+      $pheno1 = new AnimalProperty;
+      $pheno2 = new AnimalProperty;
+      $pheno3 = new AnimalProperty;
+      $pheno4 = new AnimalProperty;
+      $pheno5 = new AnimalProperty;
+      $pheno6 = new AnimalProperty;
+      $pheno7 = new AnimalProperty;
+      $pheno8 = new AnimalProperty;
+      $pheno9 = new AnimalProperty;
+      $pheno10 = new AnimalProperty;
+      $pheno11 = new AnimalProperty;
+
+      $pheno1->animal_id = $request->animal_id;
+      $pheno1->property_id = 8;
+      if($request->plummage_color_others != null && $request->plummage_color != null){
+        $pheno1->value = $request->plummage_color.','.ucfirst($request->plummage_color_others);
+      }else{
+        $pheno1->value = $request->plummage_color.ucfirst($request->plummage_color_others);
+      }
+
+      $pheno2->animal_id = $request->animal_id;
+      $pheno2->property_id = 9;
+      if($request->plummage_pattern_others != null && $request->plummage_pattern != null){
+        $pheno2->value = $request->plummage_pattern.','.ucfirst($request->plummage_pattern_others);
+      }else{
+        $pheno2->value = $request->plummage_pattern.ucfirst($request->plummage_pattern_others);
+      }
+
+      $pheno3->animal_id = $request->animal_id;
+      $pheno3->property_id = 10;
+      if($request->body_carriage_others != null && $request->body_carriage != null){
+        $pheno3->value = $request->body_carriage.','.ucfirst($request->body_carriage_others);
+      }else{
+        $pheno3->value = $request->body_carriage.ucfirst($request->body_carriage_others);
+      }
+
+      $pheno4->animal_id = $request->animal_id;
+      $pheno4->property_id = 11;
+      if($request->comb_type_others != null && $request->comb_type != null){
+        $pheno4->value = $request->comb_type.','.ucfirst($request->comb_type_others);
+      }else{
+        $pheno4->value = $request->comb_type.ucfirst($request->comb_type_others);
+      }
+
+      $pheno5->animal_id = $request->animal_id;
+      $pheno5->property_id = 12;
+      if($request->comb_color_others != null && $request->comb_color != null){
+        $pheno5->value = $request->comb_color.','.ucfirst($request->comb_color_others);
+      }else{
+        $pheno5->value = $request->comb_color.ucfirst($request->comb_color_others);
+      }
+
+      $pheno6->animal_id = $request->animal_id;
+      $pheno6->property_id = 13;
+      if($request->earlobe_color_others != null && $request->earlobe_color != null){
+        $pheno6->value = $request->earlobe_color.','.ucfirst($request->earlobe_color_others);
+      }else{
+        $pheno6->value = $request->earlobe_color.ucfirst($request->earlobe_color_others);
+      }
+
+      $pheno7->animal_id = $request->animal_id;
+      $pheno7->property_id = 14;
+      if($request->shank_color_others != null && $request->shank_color != null){
+        $pheno7->value = $request->shank_color.','.ucfirst($request->shank_color_others);
+      }else{
+        $pheno7->value = $request->shank_color.ucfirst($request->shank_color_others);
+      }
+
+      $pheno8->animal_id = $request->animal_id;
+      $pheno8->property_id = 15;
+      if($request->skin_color_others != null && $request->skin_color != null){
+        $pheno8->value = $request->skin_color.','.ucfirst($request->skin_color_others);
+      }else{
+        $pheno8->value = $request->skin_color.ucfirst($request->skin_color_others);
+      }
+
+      $pheno9->animal_id = $request->animal_id;
+      $pheno9->property_id = 16;
+      if($request->iris_color_others != null && $request->iris_color != null){
+        $pheno9->value = $request->iris_color.','.ucfirst($request->iris_color_others);
+      }else{
+        $pheno9->value = $request->iris_color.ucfirst($request->iris_color_others);
+      }
+
+      $pheno10->animal_id = $request->animal_id;
+      $pheno10->property_id = 17;
+      if($request->beak_color_others != null && $request->beak_color != null){
+        $pheno10->value = $request->beak_color.','.ucfirst($request->beak_color_others);
+      }else{
+        $pheno10->value = $request->beak_color.ucfirst($request->beak_color_others);
+      }
+
+      $pheno11->animal_id = $request->animal_id;
+      $pheno11->property_id = 18;
+      if($request->other_features != null){
+        $pheno11->value = ucfirst($request->other_features);
+      }else{
+        $pheno11->value = "None";
+      }
+
+      $pheno1->save();
+      $pheno2->save();
+      $pheno3->save();
+      $pheno4->save();
+      $pheno5->save();
+      $pheno6->save();
+      $pheno7->save();
+      $pheno8->save();
+      $pheno9->save();
+      $pheno10->save();
+      $pheno11->save();
+
+      $animal = Animal::find($request->animal_id);
+      $animal->phenotypic = 1;
+      $animal->save();
+      $replacement = Animal::where('status', 'replacement')->get();
+      return view('poultry.chicken.replacement.phenomorphoidsearch', compact('replacement'));
+    }
+
+    public function getPageReplacementMorphometric($id){
+      $farm = $this->user->getFarm();
+      $breed = $farm->getBreed();
+      $animaltype = $farm->getFarmType();
+      $province = $farm->address;
+      $breedname = $breed->breed;
+      $animaltype_name = $animaltype->species;
+      $code = $farm->code;
+      $animal = Animal::find($id);
+      $properties = $animal->getAnimalProperties();
+
+      return view('poultry.chicken.breeder.morphometric', compact('province', 'breedname', 'animaltype_name', 'code', 'animal', 'properties'));
+    }
+
+    public function fetchDataReplacementMorphometric(Request $request){
+      $morpho1 = new AnimalProperty;
+      $morpho2 = new AnimalProperty;
+      $morpho3 = new AnimalProperty;
+      $morpho4 = new AnimalProperty;
+      $morpho5 = new AnimalProperty;
+      $morpho6 = new AnimalProperty;
+
+      $morpho1->animal_id = $request->animal_id;
+      $morpho1->property_id = 19;
+      $morpho1->value = $request->height;
+
+      $morpho2->animal_id = $request->animal_id;
+      $morpho2->property_id = 20;
+      $morpho2->value = $request->body_length;
+
+      $morpho3->animal_id = $request->animal_id;
+      $morpho3->property_id = 21;
+      $morpho3->value = $request->chest_circumference;
+
+      $morpho4->animal_id = $request->animal_id;
+      $morpho4->property_id = 22;
+      $morpho4->value = $request->wing_span;
+
+      $morpho5->animal_id = $request->animal_id;
+      $morpho5->property_id = 23;
+      $morpho5->value = $request->shank_length;
+
+      $morpho6->animal_id = $request->animal_id;
+      $morpho6->property_id = 24;
+      $morpho6->value = $request->date_first_lay;
+
+      $morpho1->save();
+      $morpho2->save();
+      $morpho3->save();
+      $morpho4->save();
+      $morpho5->save();
+      $morpho6->save();
+
+      $animal = Animal::find($request->animal_id);
+      $animal->morphometric = 1;
+      $animal->save();
+      $replacement = Animal::where('status', 'replacement')->get();
+      return view('poultry.chicken.replacement.phenomorphoidsearch', compact('replacement'));
     }
 
     public function getPageFeedingRecords(){

@@ -15,7 +15,8 @@ class CreatePropertiesTable extends Migration
     {
         Schema::create('properties', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
+            $table->string('name');   // label of the form in the web page
+            $table->string('fname');  // name property in the input of the web page
             $table->text('description')->nullable();
         });
     }

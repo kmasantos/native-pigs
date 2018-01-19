@@ -19,19 +19,184 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        $date = Carbon::now();
+        $now = Carbon::now();
 
         $sampleFarm = new Farm;
         $sampleFarm->name = "SampleFarm";
         $sampleFarm->code = "QUEBAIBP";
         $sampleFarm->address = "Quezon";
 
-
         $sampleUser = new User;
         $sampleUser->name = "SampleUser";
         $sampleUser->email = "sfretuerma@gmail.com";
 
+        /**********************************/
+        /********* Chicken Seeder *********/
+        /**********************************/
 
+        // Individual Records Seeder (Chicken)
+        $individuale1 = new Property;
+        $individuale1->name = "Date Hatched";
+        $individuale1->fname = "date_hatched";
+        $individuale1->description = "Date when chicken/duck hatched";
+        $individuale1->save();
+
+        $individuale2 = new Property;
+        $individuale2->name = "Individual ID";
+        $individuale2->fname = "individual_id";
+        $individuale2->description = "Individual ID derived from the wing band";
+        $individuale2->save();
+
+        $individuale3 = new Property;
+        $individuale3->name = "Generation";
+        $individuale3->fname = "generation";
+        $individuale3->description = "Generation of the animal add";
+        $individuale3->save();
+
+        $individuale4 = new Property;
+        $individuale4->name = "Line";
+        $individuale4->fname = "line";
+        $individuale4->description = "Line property of the animal to add";
+        $individuale4->save();
+
+        $individuale5 = new Property;
+        $individuale5->name = "Family";
+        $individuale5->fname = "family";
+        $individuale5->description = "Family of the animal to add";
+        $individuale5->save();
+
+        $individuale6 = new Property;
+        $individuale6->name = "Gender";
+        $individuale6->fname = "gender";
+        $individuale6->description = "Gender of the animal to add";
+        $individuale6->save();
+
+        $individuale7 = new Property;
+        $individuale7->name = "Date Transferred";
+        $individuale7->fname = "date_transferred";
+        $individuale7->description = "Date when the animal was transferred to the replacement stocks";
+        $individuale7->save();
+
+        $this->command->info('Chicken individual properties seeded');
+
+        // Phenotypic Characteristics Seeder (Chicken)
+        $pheno1 = new Property;
+        $pheno1->name = "Plummage Color";
+        $pheno1->fname = "plummage_color";
+        $pheno1->description = "Plummage color of the chicken";
+        $pheno1->save();
+
+        $pheno2 = new Property;
+        $pheno2->name = "Plummage Pattern";
+        $pheno2->fname = "plummage_pattern";
+        $pheno2->description = "Plummage pattern of the chicken";
+        $pheno2->save();
+
+        $pheno3 = new Property;
+        $pheno3->name = "Body Carriage";
+        $pheno3->fname = "body_carriage";
+        $pheno3->description = "Body carriage of the chicken";
+        $pheno3->save();
+
+        $pheno4 = new Property;
+        $pheno4->name = "Comb Type";
+        $pheno4->fname = "comb_type";
+        $pheno4->description = "Comb type of the chicken";
+        $pheno4->save();
+
+        $pheno5 = new Property;
+        $pheno5->name = "Comb Color";
+        $pheno5->fname = "comb_color";
+        $pheno5->description = "Comb color of the chicken";
+        $pheno5->save();
+
+        $pheno6 = new Property;
+        $pheno6->name = "Earlobe Color";
+        $pheno6->fname = "earlobe_color";
+        $pheno6->description = "Earlobe color of the chicken";
+        $pheno6->save();
+
+        $pheno7 = new Property;
+        $pheno7->name = "Shank Color";
+        $pheno7->fname = "shank_color";
+        $pheno7->description = "Shank color of the chicken";
+        $pheno7->save();
+
+        $pheno8 = new Property;
+        $pheno8->name = "Skin Color";
+        $pheno8->fname = "skin_color";
+        $pheno8->description = "Skin color of the chicken";
+        $pheno8->save();
+
+        $pheno9 = new Property;
+        $pheno9->name = "Iris Color";
+        $pheno9->fname = "iris_color";
+        $pheno9->description = "Iris color of the chicken";
+        $pheno9->save();
+
+        $pheno10 = new Property;
+        $pheno10->name = "Beak Color";
+        $pheno10->fname = "beak_color";
+        $pheno10->description = "Beak color of the chicken";
+        $pheno10->save();
+
+        $pheno11 = new Property;
+        $pheno11->name = "Other Unique Features";
+        $pheno11->fname = "other_features";
+        $pheno11->description = "Other noticeable features of the chicken";
+        $pheno11->save();
+
+        $this->command->info('Chicken phenotypic properties seeded');
+
+        // Morphometric Characteristics
+        $morpho1 = new Property;
+        $morpho1->name = "height";
+        $morpho1->fname = "height";
+        $morpho1->description = "Height of the chicken";
+        $morpho1->save();
+
+        $morpho2 = new Property;
+        $morpho2->name = "Body Lenght";
+        $morpho2->fname = "body_lenght";
+        $morpho2->description = "Body lenght of the chicken";
+        $morpho2->save();
+
+        $morpho3 = new Property;
+        $morpho3->name = "Chest Circumference";
+        $morpho3->fname = "chest_circumference";
+        $morpho3->description = "Chest circumference of the chicken";
+        $morpho3->save();
+
+        $morpho4 = new Property;
+        $morpho4->name = "Wing Span";
+        $morpho4->fname = "wing_span";
+        $morpho4->description = "Wing span of the chicken";
+        $morpho4->save();
+
+        $morpho5 = new Property;
+        $morpho5->name = "Shank Lenghth";
+        $morpho5->fname = "shank_length";
+        $morpho5->description = "Shank length of the chicken";
+        $morpho5->save();
+
+        $morpho6 = new Property;
+        $morpho6->name = "Date at First Lay";
+        $morpho6->fname = "date_first_lay";
+        $morpho6->description = "Date when the chicken first layed it's eggs";
+        $morpho6->save();
+
+        $this->command->info('Chicken morphometric properties seeded');
+
+
+        /**********************************/
+        /********** Duck Seeder ***********/
+        /**********************************/
+
+        /**********************************/
+        /*********** Pig Seeder ***********/
+        /**********************************/
+
+        $this->command->info('Properties value seeded');
 
         $duck = new AnimalType;
         $chicken = new AnimalType;
@@ -65,121 +230,61 @@ class UsersTableSeeder extends Seeder
         $animal->animaltype_id = $chicken->id;
         $animal->farm_id = $sampleFarm->id;
         $animal->breed_id = $quezon->id;
-        $animal->registryid = "QUEBAIBP-20161F1234";
+        $animal->status = "replacement";
         $animal->save();
         $this->command->info('Animal seeded');
 
-        $hairtypeprop = new Property;
-        $hairtypeprop->name = "Hair Type";
-        $hairtypeprop->description = "Swine Hair Type";
-        $hairtypeprop->save();
+        $animalproperty1 = new AnimalProperty;
+        $animalproperty1->animal_id = $animal->id;
+        $animalproperty1->property_id = $individuale1->id;
+        $date = new Carbon();
+        $animalproperty1->value = $date->subMonths(2)->toDateString();
+        $animalproperty1->save();
 
-        $tuskprop = new Property;
-        $tuskprop->name = "Tusks";
-        $tuskprop->description = "Tusk Type";
-        $tuskprop->save();
+        $animalproperty2 = new AnimalProperty;
+        $animalproperty2->animal_id = $animal->id;
+        $animalproperty2->property_id = $individuale2->id;
+        $animalproperty2->value = $sampleFarm->code.'-'.$now->year.'F1233';
+        $animalproperty2->save();
 
-        $snoutprop = new Property;
-        $snoutprop->name = "Snout Shape";
-        $snoutprop->description = "Snout Type";
-        $snoutprop->save();
+        $animalproperty3 = new AnimalProperty;
+        $animalproperty3->animal_id = $animal->id;
+        $animalproperty3->property_id = $individuale3->id;
+        $animalproperty3->value = "A";
+        $animalproperty3->save();
 
-        $coatprop = new Property;
-        $coatprop->name = "Coat Color";
-        $coatprop->description = "Coat Color";
-        $coatprop->save();
+        $animalproperty4 = new AnimalProperty;
+        $animalproperty4->animal_id = $animal->id;
+        $animalproperty4->property_id = $individuale4->id;
+        $animalproperty4->value = "C";
+        $animalproperty4->save();
 
-        $colorpatternprop = new Property;
-        $colorpatternprop->name = "Color Pattern";
-        $colorpatternprop->description = "Color Pattern";
-        $colorpatternprop->save();
+        $animalproperty5 = new AnimalProperty;
+        $animalproperty5->animal_id = $animal->id;
+        $animalproperty5->property_id = $individuale5->id;
+        $animalproperty5->value = "B";
+        $animalproperty5->save();
 
-        $headprop = new Property;
-        $headprop->name = "Head Shape";
-        $headprop->description = "Head Shape";
-        $headprop->save();
+        $animalproperty6 = new AnimalProperty;
+        $animalproperty6->animal_id = $animal->id;
+        $animalproperty6->property_id = $individuale6->id;
+        $animalproperty6->value = "F";
+        $animalproperty6->save();
 
-        $skintypeprop = new Property;
-        $skintypeprop->name = "Skin Type";
-        $skintypeprop->description = "Skin Type";
-        $skintypeprop->save();
-
-        $eartypeprop = new Property;
-        $eartypeprop->name = "Ear Type";
-        $eartypeprop->description = "Ear Type";
-        $eartypeprop->save();
-
-        $earorientationprop = new Property;
-        $earorientationprop->name = "Ear Orientation";
-        $earorientationprop->description = "Ear Orientation";
-        $earorientationprop->save();
-
-        $tailtypeprop = new Property;
-        $tailtypeprop->name = "Tail Type";
-        $tailtypeprop->description = "Tail Type";
-        $tailtypeprop->save();
-
-        $backlineprop = new Property;
-        $backlineprop->name = "Backline";
-        $backlineprop->description = "Backline";
-        $backlineprop->save();
-
-        $othermarksprop = new Property;
-        $othermarksprop->name = "Other Marks";
-        $othermarksprop->description = "Other Marks";
-        $othermarksprop->save();
-        $this->command->info('Property seeded');
-
-        $agefirstmateprop = new Property;
-        $agefirstmateprop->name = "Age at First Mating (months)";
-        $agefirstmateprop->description = "Age at first mating";
-        $agefirstmateprop->save();
-
-        $wfirstbreedprop = new Property;
-        $wfirstbreedprop->name = "Body weight prior to first breeding (kg)";
-        $wfirstbreedprop->description = "Body weight prior to first breeding in kilogram";
-        $wfirstbreedprop->save();
-
-        $wfinalprop = new Property;
-        $wfinalprop->name = "Final weight at 8 months (kg)";
-        $wfinalprop->description = "Body weight at eight months";
-        $wfinalprop->save();
-
-        $hlengthprop = new Property;
-        $hlengthprop->name = "Head lenght (cm)";
-        $hlengthprop->description = "Head lenght";
-        $hlengthprop->save();
-
-        $blengthprop = new Property;
-        $blengthprop->name = "Body lenght (cm)";
-        $blengthprop->description = "Body lenght in centimeters";
-        $blengthprop->save();
-
-        $pwidthprop = new Property;
-        $pwidthprop->name = "Pelvic width (cm)";
-        $pwidthprop->description = "Pelvic width in centimeters";
-        $pwidthprop->save();
-
-        $hgirthprop = new Property;
-        $hgirthprop->name = "Hearth girth (cm)";
-        $hgirthprop->description = "Hearth girth in centimeters";
-        $hgirthprop->save();
-
-        $pindexprop = new Property;
-        $pindexprop->name = "Ponderal index (kg)";
-        $pindexprop->description = "Ponderal index in kilogram";
-        $pindexprop->save();
-
-        $nnteatsprop = new Property;
-        $nnteatsprop->name = "Number of normal teats";
-        $nnteatsprop->description = "Number of normal teats";
-        $nnteatsprop->save();
-
-        $animalproperty = new AnimalProperty;
-        $animalproperty->animal_id = $animal->id;
-        $animalproperty->property_id = $hairtypeprop->id;
-        $animalproperty->value = "Curly,Short,Dense";
-        $animalproperty->save();
+        $animalproperty7 = new AnimalProperty;
+        $animalproperty7->animal_id = $animal->id;
+        $animalproperty7->property_id = $individuale7->id;
+        $animalproperty7->value = $now->toDateString();
+        $animalproperty7->save();
         $this->command->info('AnimalProperty seeded');
+
+        $animal->registryid = $animalproperty2->value ;
+        $animal->save();
+        $this->command->info('Registry ID added to animal');
+
+        /**********************************/
+        /**** Swine Seeder ****/
+        /**********************************/
+
     }
 }

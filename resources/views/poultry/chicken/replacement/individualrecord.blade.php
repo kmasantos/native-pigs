@@ -17,7 +17,7 @@
         <div class="row">
           <div class="col s12 m12 l12">
             <div class="card-panel">
-              {!! Form::open([ 'method' => 'post']) !!}
+              {!! Form::open(['route' => 'farm.poultry.get_replacement_individual_record', 'method' => 'post']) !!}
                 <div class="row">
                   <div class="col s12 m12 l12">
                       <div class="input-field col s12 m6 l6">
@@ -63,22 +63,14 @@
                     <div class="row">
                       <div class="col s12 m12 l12">
                         <div class="input-field col s6 m6 l6">
-                          <select>
+                          <select name="gender">
                             <option value="" disabled selected>Select Gender</option>
-                            <option value="male">Male</option>
-                            <option value="female">Female</option>
+                            <option value="M">Male</option>
+                            <option value="F">Female</option>
                           </select>
                           <label>Gender</label>
                         </div>
                       </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col s12 m12 l12">
-                    <div class="input-field col s12 m6 l6">
-                      <input id="pen" type="text" class="validate" name="pen">
-                      <label for="pen">Moved to Pen No.</label>
                     </div>
                   </div>
                 </div>

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateGroupingMembersTable extends Migration
+class CreateSalesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateGroupingMembersTable extends Migration
      */
     public function up()
     {
-        Schema::create('grouping_members', function (Blueprint $table) {
+        Schema::create('sales', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('grouping_id')->unsigned();
+            $table->double('weight');
             $table->integer('animal_id')->unsigned();
-            $table->date('datestart');
-            $table->date('dateend');
+            $table->string('age');
+            $table->timestamps();
         });
     }
 
@@ -29,6 +29,6 @@ class CreateGroupingMembersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('grouping_members');
+        Schema::dropIfExists('sales');
     }
 }

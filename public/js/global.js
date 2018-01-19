@@ -8,6 +8,7 @@ $(document).ready(function(){
     selectYears: 15, // Creates a dropdown of 15 years to control year,
     today: 'Today',
     clear: 'Clear',
+    format: 'yyyy-mm-dd',
     close: 'Ok',
     closeOnSelect: false // Close upon selecting a date,
   });

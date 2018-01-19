@@ -3,15 +3,20 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\AnimalProperty;
 
 class Animal extends Model
 {
 
   protected $table = 'animals';
   protected $fillable = [
-      'registryid'
+      'registryid',
+      'status'
   ];
 
+  /*
+    Eloquent ORM
+  */
   public function farms(){
     return $this->belongsTo('App\Models\Farm');
   }
@@ -36,6 +41,25 @@ class Animal extends Model
     return $this->belongsTo('App\Models\AnimalProperty');
   }
 
+  public function sales()
+  {
+    return $this->hasOne('App\Models\Sale');
+  }
+
+  public function weights()
+  {
+    return $this->hasMany('App\Models\Weight');
+  }
+
+  public function mortalities()
+  {
+    return $this->hasOne('App\Models\Mortality');
+  }
+
+
+  /*
+    Model Functions
+  */
   public function getAnimalType(){
     return $this->animaltype_id;
   }
@@ -45,6 +69,11 @@ class Animal extends Model
 
   public function getBreedId(){
     return $this->breed_id;
+  }
+
+  public function getStatus()
+  {
+    return $this->status;
   }
 
   public function setAnimalType($animaltype_id){
@@ -57,6 +86,17 @@ class Animal extends Model
 
   public function setFarm($farm_id){
     $this->farm_id = $farm_id;
+  }
+
+  public function setStatus($status)
+  {
+    $this->status = $status;
+  }
+
+  public function getAnimalProperties()
+  {
+    $properties = AnimalProperty::where('animal_id', $this->id)->get();
+    return $properties;
   }
 
 }
