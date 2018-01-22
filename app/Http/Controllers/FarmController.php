@@ -121,7 +121,15 @@ class FarmController extends Controller
     }
 
     public function getAddSowLitterRecordPage(){
-      return view('pigs.addsowlitter');
+      return view('pigs.sowlitterrecord');
+    }
+
+    public function getMatingRecordPage(){
+      return view('pigs.matingrecord');
+    }
+
+    public function getMortalityAndSalesPage(){
+      return view('pigs.mortalityandsales');
     }
 
     public function getAnimalRecordPage(){

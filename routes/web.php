@@ -29,6 +29,8 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('add_boar_record', ['as' => 'farm.pig.add_boar_record', 'uses' => 'FarmController@getAddBoarRecordPage']);
     Route::post('submit_boar_record', ['as' => 'farm.pig.submit_boar_record', 'uses' => 'FarmController@addBoarRecord']);
     Route::get('add_sowlitter_record', ['as' => 'farm.pig.add_sowlitter_record', 'uses' => 'FarmController@getAddSowLitterRecordPage']);
+    Route::get('mating_record', ['as' => 'farm.pig.mating_record', 'uses' => 'FarmController@getMatingRecordPage']);
+    Route::get('mortality_and_sales', ['as' => 'farm.pig.mortality_and_sales', 'uses' => 'FarmController@getMortalityAndSalesPage']);
     Route::get('animal_record', ['as' => 'farm.pig.animal_record', 'uses' => 'FarmController@getAnimalRecordPage']);
     // Chicken and Duck Routes
     Route::get('test_page', ['as' => 'farm.test', 'uses' => 'FarmController@getTestPage']);
