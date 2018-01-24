@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>Native Ducks and Chicken | @yield('title')</title>
+    <link rel="stylesheet" href="/thirdparty/fontawesome-free-5.0.4/web-fonts-with-css/css/fontawesome-all.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="/thirdparty/materialize/css/materialize.min.css">
     <link rel="stylesheet" href="/css/global.css">
@@ -35,7 +36,7 @@
             <div class="collapsible-body">
               <ul class="yellow lighten-3">
                 <li><a href="{{route('farm.poultry.page_family_record')}}">Family Record</a></li>
-                <li><a href="{{route('farm.poultry.page_add_to_family')}}">Add to Family</a></li>
+                <li><a href="{{route('farm.poultry.page_add_to_breeder')}}">Add to Family</a></li>
                 {{-- <li><a href="{{route('farm.poultry.page_phenotypic_characteristics')}}">Phenotypic Characteristics</a></li> --}}
                 {{-- s<li><a href="{{route('farm.poultry.page_morphometric_characteristics')}}">Morphometric Characteristics</a></li> --}}
                 <li><a href="{{route('farm.poultry.page_daily_records')}}">Daily Records</a></li>
@@ -55,8 +56,8 @@
               <ul class="yellow lighten-3">
                 <li><a href="{{route('farm.poultry.page_replacement_individual_record')}}">Individual Record</a></li>
                 <li><a href="{{route('farm.poultry.page_replacement_growth_performance')}}">Growth Performance</a></li>
-                <li><a href="{{route('farm.poultry.page_phenomorphosearchid')}}">Phenotypic Characteristics</a></li>
-                <li><a href="{{route('farm.poultry.page_phenomorphosearchid')}}">Morphometric Characteristics</a></li>
+                <li><a href="{{route('farm.poultry.page_phenomorphosearchid')}}">Phenotypic and Morphometric</a></li>
+                {{-- <li><a href="{{route('farm.poultry.page_phenomorphosearchid')}}">Morphometric Characteristics</a></li> --}}
               </ul>
             </div>
           </li>

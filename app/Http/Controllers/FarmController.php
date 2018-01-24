@@ -9,6 +9,8 @@ use App\Models\Property;
 use App\Models\AnimalType;
 use App\Models\AnimalProperty;
 use App\Models\Breed;
+use App\Models\Grouping;
+use App\Models\GroupingMember;
 use Auth;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -379,9 +381,48 @@ class FarmController extends Controller
       return view('poultry.chicken.breeder.familyrecord');
     }
 
-    public function getPageAddToFamily(){
-      return view('poultry.chicken.breeder.addtofamily');
+    public function getPageAddToBreeder() {
+      $families = AnimalProperty::where('property_id', 5)->get();
+      $replacements = Animal::where('status', 'replacement')->get();
+      $breeders = Animal::where('status', 'breeder')->get();
+      // $femalebreeders = [];
+      // $malebreeders = [];
+      // foreach($breeders as $breeder){
+      //   if(substr($breeder->registryid, 13, 1) == 'F'){
+      //     array_push($femalebreeders, $breeder);
+      //   }
+      //   if(substr($breeder->registryid, 13, 1) == 'M'){
+      //     array_push($malebreeders, $breeder);
+      //   }
+      // }
+      return view('poultry.chicken.breeder.addtobreeder', compact('replacements', 'families'));
     }
+
+    public function addToFamily(){
+
+    }
+
+    public function createFamily($id){
+      $families = AnimalProperty::where('property_id', 5)->get();
+      $replacements = Animal::where('status', 'replacement')->get();
+      $group = new Grouping;
+      $animal = Animal::where('id', $id)->first();
+      $group->registryid = $animal->registryid;
+      $group->father_id = $animal->id;
+      $group->save();
+
+      $breedermember = new GroupingMember;
+      $breedermember->grouping_id = $group->id;
+      $breedermember->animal_id = $animal->id;
+      $breedermember->save();
+      $animal->status = "breeder";
+      $animal->save();
+      return Redirect::back()->with('message','Operation Successful !');
+    }
+
+    // public function addAnimalsToBreeder(Request $request){
+    //   dd($request);
+    // }
 
     public function getDailyRecords(){
       return view('poultry.chicken.breeder.eggproductionanddaily');
@@ -407,17 +448,14 @@ class FarmController extends Controller
       return view('poultry.chicken.replacement.individualrecord');
     }
 
-    /*
-      @TODO Fix Date in request sent
-    */
-
+    // Registry ID -> year.generation.line.family.gender.wingband_id
     public function addReplacementIndividualRecord(Request $request){
       $now = new Carbon;
       $animal = new Animal;
       $farm = $this->user->getFarm();
       $breed = $farm->getBreed();
       $animaltype = $farm->getFarmType();
-      $registryid = $farm->code.'-'.$now->year.$request->gender.$request->generation.$request->line.$request->family.$request->individual_id;
+      $registryid = $farm->code.'-'.$now->year.$request->generation.$request->line.$request->family.$request->gender.$request->individual_id;
 
       $animal->animaltype_id = $animaltype->id;
       $animal->farm_id = $farm->id;
@@ -476,8 +514,26 @@ class FarmController extends Controller
     }
 
     public function getPageSearchID(){
-        $replacement = Animal::where('status', 'replacement')->get();
+        $replacement = Animal::where('status', 'replacement')->where(function ($query) {
+                      $query->where('phenotypic', '==', false)
+                            ->orWhere('morphometric', '==', false);
+                            })->get();
         return view('poultry.chicken.replacement.phenomorphoidsearch', compact('replacement'));
+    }
+
+    public function searchID(Request $request){
+      $animals =  Animal::where('status', 'replacement')->where(function ($query) {
+                    $query->where('phenotypic', '==', false)
+                          ->orWhere('morphometric', '==', false);
+                          })->get();
+      $replacement = [];
+      foreach ($animals as $animal) {
+        $id = substr($animal->registryid, 8);
+        if(strpos($id, $request->id_no)!== false){
+          array_push($replacement, $animal);
+        }
+      }
+      return view('poultry.chicken.replacement.phenomorphoidsearch', compact('replacement'));
     }
 
     public function getPageReplacementPhenotypic($id){
@@ -609,7 +665,10 @@ class FarmController extends Controller
       $animal = Animal::find($request->animal_id);
       $animal->phenotypic = 1;
       $animal->save();
-      $replacement = Animal::where('status', 'replacement')->get();
+      $replacement = Animal::where('status', 'replacement')->where(function ($query) {
+                    $query->where('phenotypic', '==', false)
+                          ->orWhere('morphometric', '==', false);
+                          })->get();
       return view('poultry.chicken.replacement.phenomorphoidsearch', compact('replacement'));
     }
 
@@ -669,7 +728,10 @@ class FarmController extends Controller
       $animal = Animal::find($request->animal_id);
       $animal->morphometric = 1;
       $animal->save();
-      $replacement = Animal::where('status', 'replacement')->get();
+      $replacement = Animal::where('status', 'replacement')->where(function ($query) {
+                    $query->where('phenotypic', '==', false)
+                          ->orWhere('morphometric', '==', false);
+                          })->get();
       return view('poultry.chicken.replacement.phenomorphoidsearch', compact('replacement'));
     }
 

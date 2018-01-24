@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Grouping extends Model
 {
     protected $table = 'groupings';
+    public $timestamps = false;
 
     public function animals()
     {

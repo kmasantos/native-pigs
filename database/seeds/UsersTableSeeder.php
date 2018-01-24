@@ -9,6 +9,9 @@ use App\Models\AnimalType;
 use App\Models\AnimalProperty;
 use App\Models\Property;
 use App\Models\Breed;
+use App\Models\Grouping;
+use App\Models\GroupingMember;
+
 
 class UsersTableSeeder extends Seeder
 {
@@ -29,6 +32,8 @@ class UsersTableSeeder extends Seeder
         $sampleUser = new User;
         $sampleUser->name = "SampleUser";
         $sampleUser->email = "sfretuerma@gmail.com";
+
+        $group = new Grouping;
 
         /**********************************/
         /********* Chicken Seeder *********/
@@ -187,17 +192,6 @@ class UsersTableSeeder extends Seeder
 
         $this->command->info('Chicken morphometric properties seeded');
 
-
-        /**********************************/
-        /********** Duck Seeder ***********/
-        /**********************************/
-
-        /**********************************/
-        /*********** Pig Seeder ***********/
-        /**********************************/
-
-        $this->command->info('Properties value seeded');
-
         $duck = new AnimalType;
         $chicken = new AnimalType;
         $pig = new AnimalType;
@@ -226,12 +220,20 @@ class UsersTableSeeder extends Seeder
         $this->command->info('User seeded');
 
         $animal = new Animal;
+        $animalbreeder = new Animal;
         $sampleFarm->animaltypes()->attach($chicken->id);
         $animal->animaltype_id = $chicken->id;
         $animal->farm_id = $sampleFarm->id;
         $animal->breed_id = $quezon->id;
         $animal->status = "replacement";
         $animal->save();
+
+        $animalbreeder->animaltype_id = $chicken->id;
+        $animalbreeder->farm_id = $sampleFarm->id;
+        $animalbreeder->breed_id = $quezon->id;
+        $animalbreeder->status = "breeder";
+        $animalbreeder->save();
+
         $this->command->info('Animal seeded');
 
         $animalproperty1 = new AnimalProperty;
@@ -241,11 +243,24 @@ class UsersTableSeeder extends Seeder
         $animalproperty1->value = $date->subMonths(2)->toDateString();
         $animalproperty1->save();
 
+        $breederproperty1 = new AnimalProperty;
+        $breederproperty1->animal_id = $animalbreeder->id;
+        $breederproperty1->property_id = $individuale1->id;
+        $date2 = new Carbon();
+        $breederproperty1->value = $date2->subMonths(1)->toDateString();
+        $breederproperty1->save();
+
         $animalproperty2 = new AnimalProperty;
         $animalproperty2->animal_id = $animal->id;
         $animalproperty2->property_id = $individuale2->id;
-        $animalproperty2->value = $sampleFarm->code.'-'.$now->year.'F1233';
+        $animalproperty2->value = "13";
         $animalproperty2->save();
+
+        $breederproperty2 = new AnimalProperty;
+        $breederproperty2->animal_id = $animalbreeder->id;
+        $breederproperty2->property_id = $individuale2->id;
+        $breederproperty2->value = "33";
+        $breederproperty2->save();
 
         $animalproperty3 = new AnimalProperty;
         $animalproperty3->animal_id = $animal->id;
@@ -253,11 +268,23 @@ class UsersTableSeeder extends Seeder
         $animalproperty3->value = "A";
         $animalproperty3->save();
 
+        $breederproperty3 = new AnimalProperty;
+        $breederproperty3->animal_id = $animalbreeder->id;
+        $breederproperty3->property_id = $individuale3->id;
+        $breederproperty3->value = "C";
+        $breederproperty3->save();
+
         $animalproperty4 = new AnimalProperty;
         $animalproperty4->animal_id = $animal->id;
         $animalproperty4->property_id = $individuale4->id;
         $animalproperty4->value = "C";
         $animalproperty4->save();
+
+        $breederproperty4 = new AnimalProperty;
+        $breederproperty4->animal_id = $animalbreeder->id;
+        $breederproperty4->property_id = $individuale4->id;
+        $breederproperty4->value = "D";
+        $breederproperty4->save();
 
         $animalproperty5 = new AnimalProperty;
         $animalproperty5->animal_id = $animal->id;
@@ -265,25 +292,64 @@ class UsersTableSeeder extends Seeder
         $animalproperty5->value = "B";
         $animalproperty5->save();
 
+        $breederproperty5 = new AnimalProperty;
+        $breederproperty5->animal_id = $animalbreeder->id;
+        $breederproperty5->property_id = $individuale5->id;
+        $breederproperty5->value = "D";
+        $breederproperty5->save();
+
         $animalproperty6 = new AnimalProperty;
         $animalproperty6->animal_id = $animal->id;
         $animalproperty6->property_id = $individuale6->id;
         $animalproperty6->value = "F";
         $animalproperty6->save();
 
+        $breederproperty6 = new AnimalProperty;
+        $breederproperty6->animal_id = $animalbreeder->id;
+        $breederproperty6->property_id = $individuale6->id;
+        $breederproperty6->value = "M";
+        $breederproperty6->save();
+
         $animalproperty7 = new AnimalProperty;
         $animalproperty7->animal_id = $animal->id;
         $animalproperty7->property_id = $individuale7->id;
         $animalproperty7->value = $now->toDateString();
         $animalproperty7->save();
-        $this->command->info('AnimalProperty seeded');
 
-        $animal->registryid = $animalproperty2->value ;
+        $breederproperty7 = new AnimalProperty;
+        $breederproperty7->animal_id = $animalbreeder->id;
+        $breederproperty7->property_id = $individuale7->id;
+        $breederproperty7->value = $now->toDateString();
+        $breederproperty7->save();
+
+        $this->command->info('AnimalProperty seeded');
+        
+        $year = $date->subMonths(2)->year;
+        $year2 = $date2->subMonths(1)->year;
+        $animal->registryid = $sampleFarm->code."-".$year.$animalproperty3->value.$animalproperty4->value.$animalproperty5->value.$animalproperty6->value.$animalproperty2->value;
         $animal->save();
+        $animalbreeder->registryid = $sampleFarm->code."-".$year.$breederproperty3->value.$breederproperty4->value.$breederproperty5->value.$breederproperty6->value.$breederproperty2->value;
+        $animalbreeder->save();
         $this->command->info('Registry ID added to animal');
 
+        // Seeding a group
+        $group->registryid = $animalbreeder->registryid;
+        $group->father_id = $animalbreeder->id;
+        $group->save();
+        $this->command->info('Group Seeded');
+
+        // Seeding a group member
+        $breedermember = new GroupingMember;
+        $breedermember->grouping_id = $group->id;
+        $breedermember->animal_id = $animalbreeder->id;
+        $breedermember->save();
+        $this->command->info('Breeder added to Group');
         /**********************************/
-        /**** Swine Seeder ****/
+        /********** Duck Seeder ***********/
+        /**********************************/
+
+        /**********************************/
+        /********** Swine Seeder **********/
         /**********************************/
 
     }

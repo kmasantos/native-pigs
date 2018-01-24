@@ -30,3 +30,12 @@ main {
 .nav-wrapper{
   padding-left: 320px;
 }
+
+#add_to_family_modal{
+  height: 300px;
+  width: 500px;;
+}
+
+.select-dropdown{
+    overflow-y: auto !important;
+}

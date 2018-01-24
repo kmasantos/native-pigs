@@ -29,10 +29,6 @@
                 <div class="row">
                   <div class="col s12 m12 l12">
                     <div class="input-field col s12 m6 l6">
-                      <input id="breed_name" type="text" class="validate" name="breed_name">
-                      <label for="breed_name">Breed Name</label>
-                    </div>
-                    <div class="input-field col s12 m6 l6">
                       <input id="date_transferred" type="text" class="datepicker" name="date_transferred">
                       <label for="date_transferred">Date Transferred to Breeder Area</label>
                     </div>
