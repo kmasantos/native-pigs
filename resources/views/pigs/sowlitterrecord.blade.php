@@ -75,8 +75,8 @@
 											<label for="sex">Sex (M/F)</label>
 										</div>
 										<div class="input-field col s4">
-											<input id="remarks" type="text" name="remarks" class="validate">
-											<label for="remarks">Remarks</label>
+											<input id="litter_remarks" type="text" name="remarks" class="validate">
+											<label for="litter_remarks">Remarks</label>
 										</div>
 										<div class="input-field col s6">
 											<input id="birth_weight" type="text" name="birth_weight">

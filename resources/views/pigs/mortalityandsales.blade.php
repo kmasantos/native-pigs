@@ -62,7 +62,7 @@
 									<label for="registration_id">Registration ID</label>
 								</div>
 								<div class="input-field col s6">
-									<input id="date_bred" type="text" placeholder="Date Died" name="date_bred" class="datepicker">
+									<input id="date_died" type="text" placeholder="Date Died" name="date_died" class="datepicker">
 								</div>
 							</div>
 						</div>
@@ -120,7 +120,7 @@
 									<label for="registration_id">Registration ID</label>
 								</div>
 								<div class="input-field col s4">
-									<input id="date_bred" type="text" placeholder="Date Sold" name="date_bred" class="datepicker">
+									<input id="date_sold" type="text" placeholder="Date Sold" name="date_sold" class="datepicker">
 								</div>
 								<div class="input-field col s4">
 									<input id="weight_sold" type="text" name="weight_sold" class="validate" />

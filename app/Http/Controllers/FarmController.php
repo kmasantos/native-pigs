@@ -169,6 +169,8 @@ class FarmController extends Controller
       $boar->breed_id = $breed->id;
       $boar->registryid = $farm->code."-".$now->year."M".$request->earnotchnumber;
       $boar->save();
+
+      $date_bred = new GroupingProperty;
     }
 
     public function getRecords($request, $animal)

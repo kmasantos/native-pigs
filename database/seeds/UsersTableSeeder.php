@@ -345,6 +345,66 @@ class UsersTableSeeder extends Seeder
 
 				$this->command->info('Pig body weight properties seeded');
 
+				$mating1 = new Property;
+				$mating1->name = "Date Bred";
+				$mating1->fname = "date_bred";
+				$mating1->description = "Date when the sow and boar was bred";
+				$mating1->save();
+
+				$mating2 = new Property;
+				$mating2->name = "Expected Date of Farrowing";
+				$mating2->fname = "expected_date_of_farrowing";
+				$mating2->description = "Expected date of farrowing";
+				$mating2->save();
+
+				$mating3 = new Property;
+				$mating3->name = "Date Pregnant";
+				$mating3->fname = "date_pregnant";
+				$mating3->description = "Date when sow became pregnant";
+				$mating3->save();
+
+				$this->command->info('Pig mating properties seeded');
+
+				$sowlitter1 = new Property;
+				$sowlitter1->name = "Remarks";
+				$sowlitter1->fname = "litter_remarks";
+				$sowlitter1->description = "Remarks about the offspring";
+				$sowlitter1->save();
+
+				$sowlitter2 = new Property;
+				$sowlitter2->name = "Birth Weight";
+				$sowlitter2->fname = "birth_weight";
+				$sowlitter2->description = "Birth weight of offspring";
+				$sowlitter2->save();
+
+				$sowlitter3 = new Property;
+				$sowlitter3->name = "Weaning weight";
+				$sowlitter3->fname = "weaning_weight";
+				$sowlitter3->description = "Weaning weight of offspring";
+				$sowlitter3->save();
+
+				$this->command->info('Pig sow-litter properties seeded');
+
+				$mortality = new Property;
+				$mortality->name = "Date Died";
+				$mortality->fname = "date_died";
+				$mortality->description = "Date when pig died";
+				$mortality->save();
+
+				$sales1 = new Property;
+				$sales1->name = "Date Sold";
+				$sales1->fname = "date_sold";
+				$sales1->description = "Date when pig was sold";
+				$sales1->save();
+
+				$sales2 = new Property;
+				$sales2->name = "Weight Sold";
+				$sales2->fname = "weight_sold";
+				$sales2->description = "Weight of pig when it was sold";
+				$sales2->save();
+
+				$this->command->info('Pig mortality and sales properties seeded');
+
 				$this->command->info('Properties value seeded');
 
 				$duck = new AnimalType;
