@@ -17,8 +17,7 @@ class CreateGroupingMembersTable extends Migration
             $table->increments('id');
             $table->integer('grouping_id')->unsigned();
             $table->integer('animal_id')->unsigned();
-            $table->date('datestart');
-            $table->date('dateend');
+            $table->timestamps();
         });
     }
 

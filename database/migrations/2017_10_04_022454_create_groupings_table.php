@@ -15,7 +15,7 @@ class CreateGroupingsTable extends Migration
     {
         Schema::create('groupings', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('registryid')->unsigned();
+            $table->string('registryid');
             $table->integer('mother_id')->unsigned()->nullable();
             $table->integer('father_id')->unsigned()->nullable();
         });

@@ -1,7 +1,7 @@
 @extends('layouts.newLayout')
 
 @section('title')
-  Breeder - Morphometric Characteristics {{-- Specify if breeder or replacement when backend added through variable passed --}}
+  Breeder - Morphometric Characteristics{{-- Specify if breeder or replacement when backend added through variable passed --}}
 @endsection
 
 @section('initScriptsAndStyles')
