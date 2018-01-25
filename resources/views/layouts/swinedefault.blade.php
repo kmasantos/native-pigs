@@ -42,7 +42,7 @@
 			<li><a href="{{route('farm.pig.animal_record')}}">Animal Records</a></li>
 			<li><a href="{{route('farm.pig.mortality_and_sales')}}">Mortality and Sales</a></li>
 			<li><div class="divider red lighten-2"></div></li>
-			<li><a href="#!"><i class="material-icons">settings</i>Farm Profile</a></li>
+			<li><a href="{{route('farm.pig.farm_profile')}}"><i class="material-icons">settings</i>Farm Profile</a></li>
 		</ul>
 
 		{{-- Extra components --}}

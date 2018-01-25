@@ -13,7 +13,7 @@ use Auth;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
-
+use DB;
 
 class FarmController extends Controller
 {
@@ -135,6 +135,40 @@ class FarmController extends Controller
     public function getAnimalRecordPage(){
 
       return view('pigs.animalrecords');
+    }
+
+    public function getFarmProfilePage(){
+      return view('pigs.farmprofile');
+    }
+
+    public function getPigRecords(){
+      $pigs = DB::table('animals')->where("animaltype_id", 3)->get();
+
+      return view('pigs.animalrecords', compact('pigs'));
+    }
+
+    public function addMatingRecord(Request $request){
+      $now = new Carbon;
+      $sow = new Animal;
+      $farm = $this->user->getFarm();
+      $animaltype = $farm->getFarmType();
+      $breed = $farm->getBreed();
+      $sow->animaltype_id = $animaltype->id;
+      $sow->farm_id = $farm->id;
+      $sow->breed_id = $breed->id;
+      $sow->registryid = $farm->code."-".$now->year."F".$request->earnotchnumber;
+      $sow->save();
+
+      $now = new Carbon;
+      $boar = new Animal;
+      $farm = $this->user->getFarm();
+      $animaltype = $farm->getFarmType();
+      $breed = $farm->getBreed();
+      $boar->animaltype_id = $animaltype->id;
+      $boar->farm_id = $farm->id;
+      $boar->breed_id = $breed->id;
+      $boar->registryid = $farm->code."-".$now->year."M".$request->earnotchnumber;
+      $boar->save();
     }
 
     public function getRecords($request, $animal)

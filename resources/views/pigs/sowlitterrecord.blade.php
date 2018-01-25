@@ -13,16 +13,16 @@
 					<div class="col s12 card-panel red darken-4 white-text">
 						<div class="input-field col s3 push-s2">
 							Sow ID
-							<input placeholder="QUEBAIBP-20161F1000" id="sowid" type="text" class="validate">
+							<input placeholder="Search Sow" id="sowid" type="text" class="validate">
 						</div>
 						<div class="input-field col s3 push-s4">
 							Boar ID
-							<input placeholder="QUEBAIBP-20162M2000" id="boarid" type="text" class="validate">
+							<input placeholder="Search Boar" id="boarid" type="text" class="validate">
 						</div>
 					</div>
 				</div>
 				<div class="row center">
-					<div class="col s12 card-panel grey lighten-2">
+					<div class="col s12">
 						<div class="row">
 							<div class="col s8">
 								<div class="row" style="padding-top:10px;">

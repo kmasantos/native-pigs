@@ -7,7 +7,7 @@
 @section('content')
 	<h4 class="headline">Mating Record</h4>
 	<div class="container">
-		<form class="row">
+		<div class="row">
 			<div class="col s12">
 				<div class="row">
 					<div class="input-field col s4">
@@ -83,12 +83,13 @@
 										Yes
 									</td>
                 </tr>
+                {!! Form::open(['route' => 'farm.pig.get_mating_record', 'method' => 'post']) !!}
 								<tr>
 									<td class="input-field">
-										<input id="sow_id" type="text" placeholder="QUEBAIBP-20161F1002" name="sow_id" class="validate">
+										<input id="sow_id" type="text" placeholder="Sow Earnotch" name="sow_id" class="validate">
 									</td>
 									<td class="input-field">
-										<input id="boar_id" type="text" placeholder="QUEBAIBP-20161M2002" name="boar_id" class="validate">
+										<input id="boar_id" type="text" placeholder="Boar Earnotch" name="boar_id" class="validate">
 									</td>
 									<td class="input-field">
 										<input id="date_bred" type="text" placeholder="Pick date" name="date_bred" class="datepicker">
@@ -115,7 +116,8 @@
             <i class="material-icons right">add</i>
           </button>
 				</div>
+				{!! Form::close() !!}
 			</div>
-		</form>
+		</div>
   </div>
 @endsection

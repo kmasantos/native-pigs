@@ -30,17 +30,19 @@
               <thead>
                 <tr>
                   <th>Registration ID</th>
-                  <th>Edit/Delete</th>
+                  <th>Action</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td><a class="modal-trigger" href="#modalsow">QUEBAIBP-20161F1000</a></td>
-                  <td>
-                    <a href="#modal2" class="btn-floating yellow waves-light waves-effect modal-trigger"><i class="material-icons">edit</i></a>
-                    <a href="#!" class="btn-floating red waves-light waves-effect"><i class="material-icons">delete</i></a>
-                  </td>
-                </tr>
+                @foreach($pigs as $pig)
+                  <tr>
+                    <td><a class="modal-trigger" href="#modalsow">{{ $pig->registryid }}</a></td>
+                    <td>
+                      <a href="#modal2" class="btn-floating yellow waves-light waves-effect modal-trigger"><i class="material-icons">edit</i></a>
+                      <a href="#!" class="btn-floating red waves-light waves-effect"><i class="material-icons">delete</i></a>
+                    </td>
+                  </tr>
+                @endforeach
               </tbody>
             </table>
           </div>
@@ -49,17 +51,19 @@
               <thead>
                 <tr>
                   <th>Registration ID</th>
-                  <th>Edit/Delete</th>
+                  <th>Action</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td><a class="modal-trigger" href="#modalboar">QUEBAIBP-20161M2000</a></td>
-                  <td>
-                    <a href="#modal2" class="btn-floating yellow waves-light waves-effect modal-trigger"><i class="material-icons">edit</i></a>
-                    <a href="#!" class="btn-floating red waves-light waves-effect"><i class="material-icons">delete</i></a>
-                  </td>
-                </tr>
+
+                  <tr>
+                    <td><a class="modal-trigger" href="#modalboar"></a></td>
+                    <td>
+                      <a href="#modal2" class="btn-floating yellow waves-light waves-effect modal-trigger"><i class="material-icons">edit</i></a>
+                      <a href="#!" class="btn-floating red waves-light waves-effect"><i class="material-icons">delete</i></a>
+                    </td>
+                  </tr>
+
               </tbody>
             </table>
           </div>

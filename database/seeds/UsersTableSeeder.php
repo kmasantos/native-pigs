@@ -196,6 +196,26 @@ class UsersTableSeeder extends Seeder
 				/*********** Pig Seeder ***********/
 				/**********************************/
 
+				$individual1 = new Property;
+				$individual1->name = "Date Farrowed";
+				$individual1->fname = "date_farrowed";
+				$individual1->description = "Date when pigs were born";
+				$individual1->save();
+
+				$individual2 = new Property;
+				$individual2->name = "Registration ID";
+				$individual2->fname = "registration_id";
+				$individual2->description = "Registration ID of the pig";
+				$individual2->save();
+
+				$individual3 = new Property;
+				$individual3->name = "Sex";
+				$individual3->fname = "sex";
+				$individual3->description = "Sex of the pig";
+				$individual3->save();
+
+				$this->command->info('Pig individual properties seeded');
+
 				//Gross Morphology
 				$gross1 = new Property;
 				$gross1->name = "Hair Type 1";
@@ -305,25 +325,25 @@ class UsersTableSeeder extends Seeder
 				$this->command->info('Pig morphometric properties seeded');
 
 				//body weights
-				$individual1 = new Property;
-				$individual1->name = "Body Weight at 45 Days";
-				$individual1->fname = "body_weight_at_45_days";
-				$individual1->description = "Body weight of the pig at 45 days";
-				$individual1->save();
+				$weight1 = new Property;
+				$weight1->name = "Body Weight at 45 Days";
+				$weight1->fname = "body_weight_at_45_days";
+				$weight1->description = "Body weight of the pig at 45 days";
+				$weight1->save();
 
-				$individual2 = new Property;
-				$individual2->name = "Body Weight at 60 Days";
-				$individual2->fname = "body_weight_at_60_days";
-				$individual2->description = "Body weight of the pig at 60 days";
-				$individual2->save();
+				$weight2 = new Property;
+				$weight2->name = "Body Weight at 60 Days";
+				$weight2->fname = "body_weight_at_60_days";
+				$weight2->description = "Body weight of the pig at 60 days";
+				$weight2->save();
 
-				$individual3 = new Property;
-				$individual3->name = "Body Weight at 180 Days";
-				$individual3->fname = "body_weight_at_180_days";
-				$individual3->description = "Body weight of the pig at 180 days";
-				$individual3->save();
+				$weight3 = new Property;
+				$weight3->name = "Body Weight at 180 Days";
+				$weight3->fname = "body_weight_at_180_days";
+				$weight3->description = "Body weight of the pig at 180 days";
+				$weight3->save();
 
-				$this->command->info('Pig individual properties seeded');
+				$this->command->info('Pig body weight properties seeded');
 
 				$this->command->info('Properties value seeded');
 
@@ -363,13 +383,31 @@ class UsersTableSeeder extends Seeder
 				$animal->save();
 				$this->command->info('Animal seeded');
 
-				$animal = new Animal;
+				$animal2 = new Animal;
 				$sampleFarm->animaltypes()->attach($pig->id);
-				$animal->animaltype_id = $pig->id;
-				$animal->farm_id = $sampleFarm->id;
-				$animal->breed_id = $quezon->id;
-				$animal->status = "breeder";
-				$animal->save();
+				$animal2->animaltype_id = $pig->id;
+				$animal2->farm_id = $sampleFarm->id;
+				$animal2->breed_id = $quezon->id;
+				$animal2->status = "breeder";
+				$animal2->save();
+				$this->command->info('Animal seeded');
+
+				$animal3 = new Animal;
+				$sampleFarm->animaltypes()->attach($pig->id);
+				$animal3->animaltype_id = $pig->id;
+				$animal3->farm_id = $sampleFarm->id;
+				$animal3->breed_id = $quezon->id;
+				$animal3->status = "breeder";
+				$animal3->save();
+				$this->command->info('Animal seeded');
+
+				$animal4 = new Animal;
+				$sampleFarm->animaltypes()->attach($pig->id);
+				$animal4->animaltype_id = $pig->id;
+				$animal4->farm_id = $sampleFarm->id;
+				$animal4->breed_id = $quezon->id;
+				$animal4->status = "breeder";
+				$animal4->save();
 				$this->command->info('Animal seeded');
 
 				$animalproperty1 = new AnimalProperty;
@@ -416,6 +454,7 @@ class UsersTableSeeder extends Seeder
 				$animalproperty7->save();
 				$this->command->info('AnimalProperty seeded');
 
+
 				$animal->registryid = $animalproperty2->value ;
 				$animal->save();
 				$this->command->info('Registry ID added to animal');
@@ -423,6 +462,77 @@ class UsersTableSeeder extends Seeder
 				/**********************************/
 				/**** Swine Seeder ****/
 				/**********************************/
+				$animalproperty8 = new AnimalProperty;
+				$animalproperty8->animal_id = $animal2->id;
+				$animalproperty8->property_id = $individual1->id;
+				$date2 = new Carbon();
+				$animalproperty8->value = $date2->subMonths(2)->toDateString();
+				$animalproperty8->save();
 
+				$animalproperty9 = new AnimalProperty;
+				$animalproperty9->animal_id = $animal2->id;
+				$animalproperty9->property_id = $individual3->id;
+				$animalproperty9->value = "F";
+				$animalproperty9->save();
+
+				$animalproperty10 = new AnimalProperty;
+				$animalproperty10->animal_id = $animal2->id;
+				$animalproperty10->property_id = $individual2->id;
+				$animalproperty10->value = $sampleFarm->code.'-'.$now->year.$animalproperty9->value.'1000';
+				$animalproperty10->save();
+				$this->command->info('AnimalProperty seeded');
+
+				$animal2->registryid = $animalproperty10->value;
+				$animal2->save();
+				$this->command->info('Registry ID added to animal');
+
+				$animalproperty11 = new AnimalProperty;
+				$animalproperty11->animal_id = $animal3->id;
+				$animalproperty11->property_id = $individual1->id;
+				$date3 = new Carbon();
+				$animalproperty11->value = $date3->subMonths(2)->toDateString();
+				$animalproperty11->save();
+
+				$animalproperty12 = new AnimalProperty;
+				$animalproperty12->animal_id = $animal3->id;
+				$animalproperty12->property_id = $individual3->id;
+				$animalproperty12->value = "M";
+				$animalproperty12->save();
+
+				$animalproperty13 = new AnimalProperty;
+				$animalproperty13->animal_id = $animal3->id;
+				$animalproperty13->property_id = $individual2->id;
+				$animalproperty13->value = $sampleFarm->code.'-'.$now->year.$animalproperty12->value.'2000';
+				$animalproperty13->save();
+				$this->command->info('AnimalProperty seeded');
+
+				$animal3->registryid = $animalproperty13->value;
+				$animal3->save();
+				$this->command->info('Registry ID added to animal');
+
+				$animalproperty14 = new AnimalProperty;
+				$animalproperty14->animal_id = $animal4->id;
+				$animalproperty14->property_id = $individual1->id;
+				$date3 = new Carbon();
+				$animalproperty14->value = $date3->subMonths(2)->toDateString();
+				$animalproperty14->save();
+
+				$animalproperty15 = new AnimalProperty;
+				$animalproperty15->animal_id = $animal4->id;
+				$animalproperty15->property_id = $individual3->id;
+				$animalproperty15->value = "F";
+				$animalproperty15->save();
+
+				$animalproperty16 = new AnimalProperty;
+				$animalproperty16->animal_id = $animal4->id;
+				$animalproperty16->property_id = $individual2->id;
+				$animalproperty16->value = $sampleFarm->code.'-'.$now->year.$animalproperty12->value.'1001';
+				$animalproperty16->save();
+				$this->command->info('AnimalProperty seeded');
+
+				$animal4->registryid = $animalproperty16->value;
+				$animal4->save();
+				$this->command->info('Registry ID added to animal');
 		}
+	
 }

@@ -57,9 +57,12 @@
 						</div>
 						<div class="row">
 							<div class="col s10 offset-s1">
-								<div class="input-field">
+								<div class="input-field col s6">
 									<input id="registration_id" type="text" name="registration_id" class="validate" />
 									<label for="registration_id">Registration ID</label>
+								</div>
+								<div class="input-field col s6">
+									<input id="date_bred" type="text" placeholder="Date Died" name="date_bred" class="datepicker">
 								</div>
 							</div>
 						</div>
@@ -112,11 +115,14 @@
 						</div>
 						<div class="row">
 							<div class="col s10 offset-s1">
-								<div class="input-field col s6">
+								<div class="input-field col s4">
 									<input id="registration_id" type="text" name="registration_id" class="validate" />
 									<label for="registration_id">Registration ID</label>
 								</div>
-								<div class="input-field col s6">
+								<div class="input-field col s4">
+									<input id="date_bred" type="text" placeholder="Date Sold" name="date_bred" class="datepicker">
+								</div>
+								<div class="input-field col s4">
 									<input id="weight_sold" type="text" name="weight_sold" class="validate" />
 									<label for="weight_sold">Weight sold, kg</label>
 								</div>
