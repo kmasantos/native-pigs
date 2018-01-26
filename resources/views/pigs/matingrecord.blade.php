@@ -10,9 +10,9 @@
 		<div class="row">
 			<div class="col s12">
 				<div class="row">
-					<div class="input-field col s4">
-						<select id="month_mating">
-							<option value="" disabled selected>Choose month</option>
+					<div class="col s4">
+						<select name="month_mating" class="browser-default">
+							<option disabled selected>Choose month</option>
 							<option value="1">January</option>
 							<option value="2">February</option>
 							<option value="3">March</option>
@@ -26,7 +26,6 @@
 							<option value="11">November</option>
 							<option value="12">December</option>
 						</select>
-						<label for="month_mating">Month</label>
 					</div>
 				</div>
 				<div class="row">
@@ -45,10 +44,10 @@
 							<tbody>
 								<tr>
 									<td>
-										QUEBAIBP-20161F1000
+										QUEBAIBP-2016F1000
 									</td>
 									<td>
-										QUEBAIBP-20161M2000
+										QUEBAIBP-2016M2000
 									</td>
 									<td>
 										Month DD, YYYY
@@ -63,33 +62,23 @@
 										No
 									</td>
 								</tr>
-								<tr>
-									<td>
-										QUEBAIBP-20161F1001
-									</td>
-									<td>
-										QUEBAIBP-20161M2001
-									</td>
-									<td>
-										Month DD, YYYY
-									</td>
-									<td>
-										Month DD, YYYY
-									</td>
-									<td>
-										Month DD, YYYY
-									</td>
-									<td>
-										Yes
-									</td>
-                </tr>
                 {!! Form::open(['route' => 'farm.pig.get_mating_record', 'method' => 'post']) !!}
 								<tr>
-									<td class="input-field">
-										<input id="sow_id" type="text" placeholder="Sow Earnotch" name="sow_id" class="validate">
+									<td>
+										<select name="sow_id" class="browser-default">
+											<option disabled selected>Choose sow</option>
+											@foreach($sows as $sow)	
+												<option value="{{ $sow->registryid }}">{{ $sow->registryid }}</option>
+											@endforeach
+										</select>
 									</td>
-									<td class="input-field">
-										<input id="boar_id" type="text" placeholder="Boar Earnotch" name="boar_id" class="validate">
+									<td>
+										<select id="boar_id" name="boar_id" class="browser-default">
+											<option disabled selected>Choose boar</option>
+											@foreach($boars as $boar)
+												<option value="{{ $boar->registryid }}">{{ $boar->registryid }}</option>
+											@endforeach
+										</select>
 									</td>
 									<td class="input-field">
 										<input id="date_bred" type="text" placeholder="Pick date" name="date_bred" class="datepicker">

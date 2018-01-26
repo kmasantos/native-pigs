@@ -7,24 +7,25 @@
 @section('content')
   <h4 class="headline">Farm Profile</h4>
   <div class="container">
-    <div class="row">
-      <form class="col s12">
+    <div class="row"> 
+      {!! Form::open(['route' => 'farm.pig.get_farm_profile', 'method' => 'post']) !!}
+      <div class="col s12">
         <div class="row">
           <div class="input-field col s10 offset-s1">
             <i class="material-icons prefix">info</i>
-            <input id="farm_name" type="text" name="farm_name" class="validate">
+            <input id="farm_name" type="text" value="{{ $farm->name }}" name="farm_name" class="validate">
             <label for="farm_name">Farm name</label>
           </div>
         </div>
         <div class="row">
           <div class="input-field col s4 offset-s1">
             <i class="material-icons prefix">account_circle</i>
-            <input disabled id="farm_id" type="text" name="farm_id" class="validate">
+            <input disabled id="farm_id" type="text" name="farm_id" value="{{ $farm->code }}" class="validate">
             <label for="farm_id">Farm ID</label>
           </div>
           <div class="input-field col s6">
             <i class="material-icons prefix">list</i>
-            <input id="breed" type="text" name="breed" class="validate">
+            <input disabled id="breed" type="text" value="{{ $breed->breed }}" name="breed" class="validate">
             <label for="breed">Breed</label>
           </div>
         </div>
@@ -76,10 +77,13 @@
         <div class="row">
           <div class="col s6 offset-s4">
             <a href="#!" class="btn waves-effect waves-light red lighten-2"><i class="material-icons right">edit</i>Edit</a>
-            <a href="#!" class="btn waves-effect waves-light red lighten-2"><i class="material-icons right">save</i>Save</a>
+            <button class="btn waves-effect waves-light red lighten-2" type="submit">Save
+              <i class="material-icons right">save</i>
+            </button>
           </div>
         </div>
-      </form>
+      </div>
+      {!! Form::close() !!}
     </div>
   </div>
 @endsection

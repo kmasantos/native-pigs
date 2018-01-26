@@ -12,14 +12,14 @@
 				<div class="row">
 					<div class="col s12">
 						<ul class="tabs tabs-fixed-width red darken-4">
-							<li class="tab col s6"><a href="#tab1">Mortality</a></li>
-							<li class="tab col s6"><a href="#tab2">Sales</a></li>
+							<li class="tab col s6"><a href="#mortality_tab">Mortality</a></li>
+							<li class="tab col s6"><a href="#sales_tab">Sales</a></li>
 						</ul>
 					</div>
-					<div id="tab1" class="col s12">
+					<div id="mortality_tab" class="col s12">
 						<div class="row">
-							<div class="input-field col s6">
-								<select id="month_mortality">
+							<div class="col s6">
+								<select name="month_mortality" class="browser-default">
 									<option value="" disabled selected>Choose month</option>
 									<option value="January">January</option>
 									<option value="February">February</option>
@@ -34,7 +34,6 @@
 									<option value="November">November</option>
 									<option value="December">December</option>
 								</select>
-								<label for="month_mortality">Month</label>
 							</div>
 						</div>
 						<div class="row">
@@ -47,21 +46,28 @@
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
-										<td>QUEBAIBP-20161F1000</td>
-										<td>Month DD, YYYY</td>
-										<td>XX</td>
-									</tr>
+									@foreach($dead as $dead_pig)
+										<tr>
+											<td>{{ $dead_pig->registryid }}</td>
+											<td>Month DD, YYYY</td>
+											<td>XX</td>
+										</tr>
+									@endforeach
 								</tbody>
 							</table>
 						</div>
+						{!! Form::open(['route' => 'farm.pig.get_mortality_record', 'method' => 'post']) !!}
 						<div class="row">
 							<div class="col s10 offset-s1">
-								<div class="input-field col s6">
-									<input id="registration_id" type="text" name="registration_id" class="validate" />
-									<label for="registration_id">Registration ID</label>
+								<div class="col s6">
+									<select name="registrationid_dead" class="browser-default">
+										<option disabled selected>Choose pig</option>
+										@foreach($breeders as $breeder)	
+											<option value="{{ $breeder->registryid }}">{{ $breeder->registryid }}</option>
+										@endforeach
+									</select>
 								</div>
-								<div class="input-field col s6">
+								<div class="col s6">
 									<input id="date_died" type="text" placeholder="Date Died" name="date_died" class="datepicker">
 								</div>
 							</div>
@@ -71,12 +77,13 @@
 		            <i class="material-icons right">add</i>
 		          </button>
 						</div>
+						{!! Form::close() !!}
           </div>
-					<div id="tab2" class="col s12">
+					<div id="sales_tab" class="col s12">
 						<div class="row">
-							<div class="input-field col s6">
-								<select id="month_sales">
-									<option value="" disabled selected>Choose month</option>
+							<div class="col s6">
+								<select name="month_sales" class="browser-default">
+									<option disabled selected>Choose month</option>
 									<option value="January">January</option>
 									<option value="February">February</option>
 									<option value="March">March</option>
@@ -90,7 +97,6 @@
 									<option value="November">November</option>
 									<option value="December">December</option>
 								</select>
-								<label for="month_sales">Month</label>
 							</div>
 						</div>
 						<div class="row">
@@ -104,27 +110,33 @@
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
-										<td>QUEBAIBP-20161M2000</td>
-										<td>Month DD, YYYY</td>
-										<td>XX</td>
-										<td>X</td>
-									</tr>
+									@foreach($sold as $pig_sold)
+										<tr>
+											<td>{{ $pig_sold->registryid }}</td>
+											<td>Month DD, YYYY</td>
+											<td>XX</td>
+											<td>X</td>
+										</tr>
+									@endforeach
 								</tbody>
 							</table>
 						</div>
+						{!! Form::open(['route' => 'farm.pig.get_sales_record', 'method' => 'post']) !!}
 						<div class="row">
 							<div class="col s10 offset-s1">
-								<div class="input-field col s4">
-									<input id="registration_id" type="text" name="registration_id" class="validate" />
-									<label for="registration_id">Registration ID</label>
+								<div class="col s4">
+									<select name="registrationid_sold" class="browser-default">
+										<option disabled selected>Choose pig</option>
+										@foreach($breeders as $breeder)	
+											<option value="{{ $breeder->registryid }}">{{ $breeder->registryid }}</option>
+										@endforeach
+									</select>
 								</div>
-								<div class="input-field col s4">
+								<div class="col s4">
 									<input id="date_sold" type="text" placeholder="Date Sold" name="date_sold" class="datepicker">
 								</div>
-								<div class="input-field col s4">
-									<input id="weight_sold" type="text" name="weight_sold" class="validate" />
-									<label for="weight_sold">Weight sold, kg</label>
+								<div class="col s4">
+									<input id="weight_sold" type="text" placeholder="Weight sold, kg" name="weight_sold" class="validate" />
 								</div>
 							</div>
 						</div>
@@ -133,6 +145,7 @@
 		            <i class="material-icons right">add</i>
 		          </button>
 						</div>
+						{!! Form::close() !!}
           </div>
         </div>
       </div>

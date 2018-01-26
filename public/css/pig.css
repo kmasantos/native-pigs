@@ -41,7 +41,7 @@ main {
 
 .tabs .indicator {
   height: 5px;
-  background-color: #FFFFFF !important;
+  background-color: #E57373 !important;
 }
 
 [type="radio"]:not(:checked) + label:before,

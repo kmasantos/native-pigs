@@ -34,9 +34,9 @@
                 </tr>
               </thead>
               <tbody>
-                @foreach($pigs as $pig)
+                @foreach($sows as $sow)
                   <tr>
-                    <td><a class="modal-trigger" href="#modalsow">{{ $pig->registryid }}</a></td>
+                    <td><a class="modal-trigger" href="#modalsow">{{ $sow->registryid }}</a></td>
                     <td>
                       <a href="#modal2" class="btn-floating yellow waves-light waves-effect modal-trigger"><i class="material-icons">edit</i></a>
                       <a href="#!" class="btn-floating red waves-light waves-effect"><i class="material-icons">delete</i></a>
@@ -55,15 +55,15 @@
                 </tr>
               </thead>
               <tbody>
-
+                @foreach($boars as $boar)
                   <tr>
-                    <td><a class="modal-trigger" href="#modalboar"></a></td>
+                    <td><a class="modal-trigger" href="#modalboar"> {{ $boar->registryid }}</a></td>
                     <td>
                       <a href="#modal2" class="btn-floating yellow waves-light waves-effect modal-trigger"><i class="material-icons">edit</i></a>
                       <a href="#!" class="btn-floating red waves-light waves-effect"><i class="material-icons">delete</i></a>
                     </td>
                   </tr>
-
+                @endforeach
               </tbody>
             </table>
           </div>

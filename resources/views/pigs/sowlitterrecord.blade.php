@@ -7,17 +7,25 @@
 @section('content')
 	<h4 class="headline">Sow-Litter Record</h4>
 	<div class="container">
-    <form class="row">
+    <div class="row">
 			<div class="col s12">
 				<div class="row center">
-					<div class="col s12 card-panel red darken-4 white-text">
-						<div class="input-field col s3 push-s2">
-							Sow ID
-							<input placeholder="Search Sow" id="sowid" type="text" class="validate">
+					<div class="col s12">
+						<div class="col s3 push-s2">
+							<select name="sow_id" class="browser-default red darken-4 white-text">
+								<option disabled selected>Sow Used</option>
+								@foreach($sows as $sow)
+									<option id="{{ $sow->registryid }}" value="{{ $sow->registryid }}">{{ $sow->registryid }}</option>
+								@endforeach
+							</select>
 						</div>
-						<div class="input-field col s3 push-s4">
-							Boar ID
-							<input placeholder="Search Boar" id="boarid" type="text" class="validate">
+						<div class="col s3 push-s4">
+							<select name="boar_id" class="browser-default red darken-4 white-text">
+								<option disabled selected>Boar Used</option>
+								@foreach($boars as $boar)
+									<option id="{{ $boar->registryid }}" value="{{ $boar->registryid }}">{{ $boar->registryid }}</option>
+								@endforeach
+							</select>
 						</div>
 					</div>
 				</div>
@@ -64,6 +72,7 @@
 									</div>
 								</div>
 								<div class="row">
+									{!! Form::open(['route' => 'farm.pig.add_offspring', 'method' => 'post']) !!}
 									<div class="col s12">
 										<h5 class="red darken-4 white-text">Add offspring</h5>
 										<div class="input-field col s4">
@@ -86,8 +95,11 @@
 											<input id="weaning_weight" type="text" name="weaning_weight">
 											<label for="weaning_weight">Weaning Weight, kg</label>
 										</div>
-										<a href="#!" class="btn red lighten-2 waves-light waves-effect"><i class="material-icons right">add</i>Add</a>
+										<button class="btn waves-effect waves-light red lighten-2" type="submit">Add
+					            <i class="material-icons right">add</i>
+					          </button>
 									</div>
+									{!! Form::close() !!}
 								</div>
 							</div>
 							<div class="col s4">
@@ -127,6 +139,6 @@
 					</div>
 				</div>
 			</div>
-		</form>
+		</div>
 	</div>
 @endsection

@@ -123,56 +123,245 @@ class FarmController extends Controller
     }
 
     public function getAddSowLitterRecordPage(){
-      return view('pigs.sowlitterrecord');
+      $pigs = DB::table('animals')->where("animaltype_id", 3)->where("status", "breeder")->get();
+
+      $sows = [];
+      $boars = [];
+      foreach($pigs as $pig){
+        if(substr($pig->registryid, 13, 1) == 'F'){
+          array_push($sows, $pig);
+        }
+        if(substr($pig->registryid, 13, 1) == 'M'){
+          array_push($boars, $pig);
+        }
+      }
+
+      return view('pigs.sowlitterrecord', compact('pigs', 'sows', 'boars'));
     }
 
     public function getMatingRecordPage(){
-      return view('pigs.matingrecord');
+      $pigs = DB::table('animals')->where("animaltype_id", 3)->where("status", "breeder")->get();
+
+      $sows = [];
+      $boars = [];
+      foreach($pigs as $pig){
+        if(substr($pig->registryid, 13, 1) == 'F'){
+          array_push($sows, $pig);
+        }
+        if(substr($pig->registryid, 13, 1) == 'M'){
+          array_push($boars, $pig);
+        }
+      }
+
+      return view('pigs.matingrecord', compact('pigs', 'sows', 'boars'));
     }
 
     public function getMortalityAndSalesPage(){
-      return view('pigs.mortalityandsales');
+      $pigs = DB::table('animals')->where("animaltype_id", 3)->get();
+      $breeders = DB::table('animals')->where("animaltype_id", 3)->where("status", "breeder")->get();
+
+      $sold = [];
+      $dead = [];
+      foreach ($pigs as $pig){
+        if($pig->status == "sold"){
+          array_push($sold, $pig);
+        }
+        if($pig->status == "died"){
+          array_push($dead, $pig);
+        }
+      }
+
+      return view('pigs.mortalityandsales', compact('pigs', 'breeders', 'sold', 'dead'));
+    }
+
+
+    public function getFarmProfilePage(){
+      $farm = $this->user->getFarm();
+      $breed = $farm->getBreed();
+
+      return view('pigs.farmprofile', compact('farm', 'breed'));
     }
 
     public function getAnimalRecordPage(){
+      $pigs = DB::table('animals')->where("animaltype_id", 3)->where("status", "breeder")->get();
 
-      return view('pigs.animalrecords');
-    }
+      $sows = [];
+      $boars = [];
+      foreach($pigs as $pig){
+        if(substr($pig->registryid, 13, 1) == 'F'){
+          array_push($sows, $pig);
+        }
+        if(substr($pig->registryid, 13, 1) == 'M'){
+          array_push($boars, $pig);
+        }
+      }
 
-    public function getFarmProfilePage(){
-      return view('pigs.farmprofile');
-    }
-
-    public function getPigRecords(){
-      $pigs = DB::table('animals')->where("animaltype_id", 3)->get();
-
-      return view('pigs.animalrecords', compact('pigs'));
+      return view('pigs.animalrecords', compact('pigs', 'sows', 'boars'));
     }
 
     public function addMatingRecord(Request $request){
-      $now = new Carbon;
-      $sow = new Animal;
-      $farm = $this->user->getFarm();
-      $animaltype = $farm->getFarmType();
-      $breed = $farm->getBreed();
-      $sow->animaltype_id = $animaltype->id;
-      $sow->farm_id = $farm->id;
-      $sow->breed_id = $breed->id;
-      $sow->registryid = $farm->code."-".$now->year."F".$request->earnotchnumber;
-      $sow->save();
+      $sow = Animal::where("registryid", $request->sow_id)->first();
+      $boar = Animal::where("registryid", $request->boar_id)->first();
 
-      $now = new Carbon;
-      $boar = new Animal;
-      $farm = $this->user->getFarm();
-      $animaltype = $farm->getFarmType();
-      $breed = $farm->getBreed();
-      $boar->animaltype_id = $animaltype->id;
-      $boar->farm_id = $farm->id;
-      $boar->breed_id = $breed->id;
-      $boar->registryid = $farm->code."-".$now->year."M".$request->earnotchnumber;
-      $boar->save();
+      $pair = new Grouping;
+      $pair->registryid = $sow->registryid;
+      $pair->father_id = $boar->id;
+      $pair->mother_id = $sow->id;
+      $pair->save();
 
-      $date_bred = new GroupingProperty;
+      $date_bred = new AnimalProperty;
+      $date_bred->animal_id = $pair->id;
+      $date_bred->property_id = 48;
+      $date_bred->value = $request->date_bred;
+      $date_bred->save();
+
+      $edf = new AnimalProperty;
+      $edf->animal_id = $pair->id;
+      $edf->property_id = 49;
+      $edf->value = $request->expected_date_of_farrowing;
+      $edf->save();
+
+      $date_pregnant = new AnimalProperty;
+      $date_pregnant->animal_id = $pair->id;
+      $date_pregnant->property_id = 50;
+      $date_pregnant->value = $request->date_pregnant;
+      $date_pregnant->save();
+
+      if(isset($_POST['recycled'])){
+        $recycledValue = 1;
+      }
+      else{
+        $recycledValue = 0;
+      }
+
+      $recycled = new AnimalProperty;
+      $recycled->animal_id = $pair->id;
+      $recycled->property_id = 51;
+      $recycled->value = $recycledValue;
+      $recycled->save();
+
+      return Redirect::back()->with('message','Operation Successful!');
+
+    }
+
+    public function addOffspring(Request $request){
+      $now = new Carbon;
+      $offspring = new Animal;
+      $farm = $this->user->getFarm();
+      $breed = $farm->getBreed();
+      $offspring->animaltype_id = 3;
+      $offspring->farm_id = $farm->id;
+      $offspring->breed_id = $breed->id;
+      $offspring->status = "breeder";
+      $offspring->registryid = $farm->code."-".$now->year.$request->sex.$request->offspring_earnotch;
+      $offspring->save();
+
+      $sex = new AnimalProperty;
+      $sex->animal_id = $offspring->id;
+      $sex->property_id = 27;
+      $sex->value = $request->sex;
+      $sex->save();
+
+      if(is_null($request->litter_remarks)){
+        $remarksValue = "None";
+      }
+      else{
+        $remarksValue = $request->litter_remarks;
+      }
+
+      $remarks = new AnimalProperty;
+      $remarks->animal_id = $offspring->id;
+      $remarks->property_id = 52;
+      $remarks->value = $remarksValue;
+      $remarks->save();
+
+      $birthweight = new AnimalProperty;
+      $birthweight->animal_id = $offspring->id;
+      $birthweight->property_id = 53;
+      $birthweight->value = $request->birth_weight;
+      $birthweight->save();
+
+      $weaningweight = new AnimalProperty;
+      $weaningweight->animal_id = $offspring->id;
+      $weaningweight->property_id = 54;
+      $weaningweight->value = $request->weaning_weight;
+      $weaningweight->save();
+
+      return Redirect::back()->with('message','Operation Successful!');
+    }
+
+    public function addSowLitterRecord(Request $request){
+      $family = new Grouping;
+      $family->grouping_id = 2;
+      $family->save();
+
+      $date_bred = new AnimalProperty;
+      $date_bred->animal_id = $pair->id;
+      $date_bred->property_id = 48;
+      $date_bred->value = $request->date_bred;
+      $date_bred->save();
+    }
+
+    public function addMortalityRecord(Request $request){
+      dd($request);
+      $dead = Animal::where("registryid", $request->registrationid_dead)->first();
+
+      $dead->status = "died";
+      $dead->save();
+
+      if(is_null($request->date_died)){
+        $dateDiedValue = new Carbon();
+      }
+      else{
+        $dateDiedValue = $request->date_died;
+      }
+
+      $date_died = new AnimalProperty;
+      $date_died->animal_id = $dead->id;
+      $date_died->property_id = 55;
+      $date_died->value = $dateDiedValue;
+      $date_died->save();
+
+      return Redirect::back()->with('message', 'Operation Successful!');
+    }
+
+    public function addSalesRecord(Request $request){
+      $sold = Animal::where("registryid", $request->registrationid_sold)->first();
+
+      $sold->status = "sold";
+      $sold->save();
+
+      if(is_null($request->date_sold)){
+        $dateSoldValue = new Carbon();
+      }
+      else{
+        $dateSoldValue = $request->date_sold;
+      }
+
+      $date_sold = new AnimalProperty;
+      $date_sold->animal_id = $sold->id;
+      $date_sold->property_id = 56;
+      $date_sold->value = $dateSoldValue;
+      $date_sold->save();
+
+      $weight_sold = new AnimalProperty;
+      $weight_sold->animal_id = $sold->id;
+      $weight_sold->property_id = 57;
+      $weight_sold->value = $request->weight_sold;
+      $weight_sold->save();
+
+      return Redirect::back()->with('message','Operation Successful!');
+    }
+
+    public function addFarmProfile(Request $request){
+      $farm = $this->user->getFarm();
+      $breed = $farm->getBreed();
+
+      $farm->name = $request->farm_name;
+      $farm->address = $request->province;
+      $farm->save();
+
+      return Redirect::back()->with('message', 'Operation Successful!');
     }
 
     public function getRecords($request, $animal)

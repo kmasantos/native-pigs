@@ -32,10 +32,15 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('mating_record', ['as' => 'farm.pig.mating_record', 'uses' => 'FarmController@getMatingRecordPage']);
     Route::post('get_mating_record', ['as' => 'farm.pig.get_mating_record', 'uses' => 'FarmController@addMatingRecord']);
     Route::get('add_sowlitter_record', ['as' => 'farm.pig.add_sowlitter_record', 'uses' => 'FarmController@getAddSowLitterRecordPage']);
-    Route::get('animal_record', ['as' => 'farm.pig.animal_record', 'uses' => 'FarmController@getPigRecords']);
-    //Route::get('animal_record', ['as' => 'farm.pig.animal_record', 'uses' => 'FarmController@getAnimalRecordPage']);
+    Route::post('add_offspring', ['as' => 'farm.pig.add_offspring', 'uses' => 'FarmController@addOffspring']);
+    Route::post('get_sowlitter_record', ['as' => 'farm.pig.get_sowlitter_record', 'uses' => 'FarmController@getSowLitterRecord']);
+    // Route::get('animal_record', ['as' => 'farm.pig.animal_record', 'uses' => 'FarmController@getPigRecords']);
+    Route::get('animal_record', ['as' => 'farm.pig.animal_record', 'uses' => 'FarmController@getAnimalRecordPage']);
     Route::get('mortality_and_sales', ['as' => 'farm.pig.mortality_and_sales', 'uses' => 'FarmController@getMortalityAndSalesPage']);
+    Route::post('get_mortality_record', ['as' => 'farm.pig.get_mortality_record', 'uses' => 'FarmController@addMortalityRecord']);
+    Route::post('get_sales_record', ['as' => 'farm.pig.get_sales_record', 'uses' => 'FarmController@addSalesRecord']);
     Route::get('farm_profile', ['as' => 'farm.pig.farm_profile', 'uses' => 'FarmController@getFarmProfilePage']);
+    Route::post('get_farm_profile', ['as' => 'farm.pig.get_farm_profile', 'uses' => 'FarmController@addFarmProfile']);
     
     // Chicken and Duck Routes
     Route::get('test_page', ['as' => 'farm.test', 'uses' => 'FarmController@getTestPage']);
