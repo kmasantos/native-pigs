@@ -11,6 +11,7 @@ use App\Models\Property;
 use App\Models\Breed;
 use App\Models\Grouping;
 use App\Models\GroupingMember;
+use App\Models\GroupingProperty;
 
 
 class UsersTableSeeder extends Seeder
@@ -416,6 +417,34 @@ class UsersTableSeeder extends Seeder
 
 				$this->command->info('Pig mortality and sales properties seeded');
 
+				$dc1 = new Property;
+				$dc1->name = "Date Collected at 45 Days";
+				$dc1->fname = "date_collected_45_days";
+				$dc1->description = "Date when body weight at 45 days was collected";
+				$dc1->save();
+
+				$dc2 = new Property;
+				$dc2->name = "Date Collected at 60 Days";
+				$dc2->fname = "date_collected_60_days";
+				$dc2->description = "Date when body weight at 60 days was collected";
+				$dc2->save();
+
+				$dc3 = new Property;
+				$dc3->name = "Date Collected at 180 Days";
+				$dc3->fname = "date_collected_180_days";
+				$dc3->description = "Date when body weight at 180 days was collected";
+				$dc3->save();
+
+				$this->command->info('Pig body weight properties seeded');
+
+				$slr1 = new Property;
+				$slr1->name = "Date Weaned";
+				$slr1->fname = "date_weaned";
+				$slr1->description = "Date when pig was weaned";
+				$slr1->save();
+
+				$this->command->info('Pig sow-litter record properties seeded');
+
 				$this->command->info('Properties value seeded');
 
 				$duck = new AnimalType;
@@ -682,6 +711,60 @@ class UsersTableSeeder extends Seeder
 				$animal4->registryid = $animalproperty16->value;
 				$animal4->save();
 				$this->command->info('Registry ID added to animal');
+
+				$grouping = new Grouping;
+				$grouping->registryid = $animal2->registryid;
+				$grouping->mother_id = $animal2->id;
+				$grouping->father_id = $animal3->id;
+				$grouping->save();
+
+				$this->command->info('Animals added to group');
+
+				$date6 = new Carbon();
+
+				$groupprop = new GroupingProperty;
+				$groupprop->grouping_id = $grouping->id;
+				$groupprop->property_id = $mating1->id;
+				$groupprop->value = $date6->subMonths(1);
+				$groupprop->datecollected = new Carbon();
+				$groupprop->save();
+
+				$groupprop2 = new GroupingProperty;
+				$groupprop2->grouping_id = $grouping->id;
+				$groupprop2->property_id = $mating2->id;
+				$groupprop2->value = $date6->addDays(114);
+				$groupprop2->datecollected = new Carbon();
+				$groupprop2->save();
+
+				$groupprop3 = new GroupingProperty;
+				$groupprop3->grouping_id = $grouping->id;
+				$groupprop3->property_id = $mating3->id;
+				$groupprop3->value = $date6->addDays(10);
+				$groupprop3->datecollected = new Carbon();
+				$groupprop3->save();
+
+				$groupprop4 = new GroupingProperty;
+				$groupprop4->grouping_id = $grouping->id;
+				$groupprop4->property_id = $mating4->id;
+				$groupprop4->value = 0;
+				$groupprop4->datecollected = new Carbon();
+				$groupprop4->save();
+
+				$groupprop5 = new GroupingProperty;
+				$groupprop5->grouping_id = $grouping->id;
+				$groupprop5->property_id = $individual1->id;
+				$groupprop5->value = $date6;
+				$groupprop5->datecollected = new Carbon();
+				$groupprop5->save();
+
+				$groupprop6 = new GroupingProperty;
+				$groupprop6->grouping_id = $grouping->id;
+				$groupprop6->property_id = $slr1->id;
+				$groupprop6->value = $date6->addDays(124);
+				$groupprop6->datecollected = new Carbon();
+				$groupprop6->save();
+
+				$this->command->info('Pig grouping properties seeded');
 		}
 
 }
