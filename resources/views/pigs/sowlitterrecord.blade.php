@@ -7,6 +7,7 @@
 @section('content')
 	<h4 class="headline">Sow-Litter Record</h4>
 	<div class="container">
+		{!! Form::open(['route' => 'farm.pig.get_sowlitter_record', 'method' => 'post']) !!}
     <div class="row">
 			<div class="col s12">
 				<div class="row center">
@@ -46,35 +47,25 @@
 												</tr>
 											</thead>
 											<tbody>
-												<tr>
-													<td>3000</td>
-													<td>F</td>
-													<td>10</td>
-													<td>20</td>
-													<td>...</td>
-												</tr>
-												<tr>
-													<td>...</td>
-													<td>...</td>
-													<td>...</td>
-													<td>...</td>
-													<td>...</td>
-												</tr>
-												<tr>
-													<td>...</td>
-													<td>...</td>
-													<td>...</td>
-													<td>...</td>
-													<td>...</td>
-												</tr>
+												@if(!is_null($offsprings))
+													@foreach($offsprings as $offspring)
+														<tr>
+															<td>{{ $offspring->animal_id }}</td>
+															<td>{{ $iproperties[0]->value }}</td>
+															<td>{{ $iproperties[2]->value }}</td>
+															<td>{{ $iproperties[3]->value }}</td>
+															<td>{{ $iproperties[1]->value }}</td>
+														</tr>
+													@endforeach
+												@endif
 											</tbody>
 										</table>
 									</div>
 								</div>
 								<div class="row">
-									{!! Form::open(['route' => 'farm.pig.add_offspring', 'method' => 'post']) !!}
 									<div class="col s12">
 										<h5 class="red darken-4 white-text">Add offspring</h5>
+										<input type="hidden" name="sow_registryid" value="{{ $sow->registryid }}">
 										<div class="input-field col s4">
                       <input id="offspring_earnotch" type="text" name="offspring_earnotch" class="validate">
                       <label for="offspring_earnotch">Offspring Earnotch</label>
@@ -95,11 +86,7 @@
 											<input id="weaning_weight" type="text" name="weaning_weight">
 											<label for="weaning_weight">Weaning Weight, kg</label>
 										</div>
-										<button class="btn waves-effect waves-light red lighten-2" type="submit">Add
-					            <i class="material-icons right">add</i>
-					          </button>
 									</div>
-									{!! Form::close() !!}
 								</div>
 							</div>
 							<div class="col s4">
@@ -108,7 +95,7 @@
 										<li class="collection-header">Date Bred</li>
 										<li class="collection-item">
 											<div class="input-field">
-												<input id="date_bred" type="text" placeholder="Pick date" name="date_bred" class="datepicker">
+												<input disabled id="date_bred" type="text" placeholder="Pick date" name="date_bred" value={{ $gproperties[0]->value }}>
 											</div>
 										</li>
 									</ul>
@@ -140,5 +127,6 @@
 				</div>
 			</div>
 		</div>
+		{!! Form::close() !!}
 	</div>
 @endsection
