@@ -20,7 +20,7 @@
 						<div class="row">
 							<div class="col s6">
 								<select name="month_mortality" class="browser-default">
-									<option value="" disabled selected>Choose month</option>
+									<option disabled selected>Choose month</option>
 									<option value="January">January</option>
 									<option value="February">February</option>
 									<option value="March">March</option>
@@ -113,8 +113,8 @@
 									@foreach($sold as $pig_sold)
 										<tr>
 											<td>{{ $pig_sold->registryid }}</td>
-											<td>Month DD, YYYY</td>
-											<td>XX</td>
+											<td>{{ $salesproperty[3]->value }}</td>
+											<td>{{ $salesproperty[4]->value }}</td>
 											<td>X</td>
 										</tr>
 									@endforeach
