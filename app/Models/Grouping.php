@@ -21,6 +21,12 @@ class Grouping extends Model
 
     public function properties()
     {
-      return $this->hasMany('App\Models\Property');
+      return $this->hasMany('App\Models\GroupingProperty');
+    }
+
+    public function getGroupingProperties()
+    {
+      $properties = GroupingProperty::where('grouping_id', $this->id)->get();
+      return $properties;
     }
 }

@@ -19,6 +19,7 @@ class CreateGroupingPropertiesTable extends Migration
             $table->integer('property_id')->unsigned();
             $table->date('datecollected');
             $table->string('value');
+            $table->timestamps();
         });
     }
 
