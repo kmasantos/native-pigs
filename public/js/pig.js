@@ -25,3 +25,9 @@ $('.datepicker').pickadate({
   close: 'Ok',
   closeOnSelect: false // Close upon selecting a date,
 });
+
+function disableField(){
+  if(document.getElementById("recycled").checked){
+    document.getElementById("date_pregnant").disabled = true;
+  }
+}

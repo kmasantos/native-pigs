@@ -46,11 +46,6 @@
     <ul id="slide-out" class="side-nav fixed">
       <div id="logo_image_holder" class="center"><a href="{{ url('/') }}" class="brand-logo indent"><img src="{{asset('images/logo-default.png')}}" height="65"/></a></div>
       <li><a href="#!">Dashboard</a></li>
-        <li><a href="{{ route('farm.pig.add_sow_record')}}">Add Sow Record</a></li>
-      <li><a href="#!">Add Boar Record</a></li>
-      <li><a href="#!">View Animal Record</a></li>
-      <li><a href="#!">Sow Litter Record</a></li>
-      <li><a href="#!">Mortality and Sales</a></li>
       <li><a href="#!">Farm Profile</a></li>
     </ul>
     <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
