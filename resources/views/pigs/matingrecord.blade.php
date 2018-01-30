@@ -37,31 +37,37 @@
 									<th>Boar ID</th>
 									<th>Date Bred</th>
 									<th>Expected Date of Farrowing</th>
-									<th>Date Pregnant</th>
 									<th>Recycled</th>
+									<th>Date Pregnant</th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td>
-										QUEBAIBP-2016F1000
-									</td>
-									<td>
-										QUEBAIBP-2016M2000
-									</td>
-									<td>
-										Month DD, YYYY
-									</td>
-									<td>
-										Month DD, YYYY
-									</td>
-									<td>
-										Month DD, YYYY
-									</td>
-									<td>
-										No
-									</td>
-								</tr>
+								@foreach($family as $matingRecord)
+									<tr>
+										<td>
+											{{ $matingRecord->mother_id }}
+										</td>
+										<td>
+											{{ $matingRecord->father_id }}
+										</td>
+										<td>
+											{{ $matingRecord->properties[0]->value }}
+										</td>
+										<td>
+											{{ $matingRecord->properties[1]->value }}
+										</td>
+										<td>
+											@if($matingRecord->properties[3]->value == 0)
+												No
+											@else
+												Yes
+											@endif
+										</td>
+										<td>
+											{{ $matingRecord->properties[2]->value }}
+										</td>
+									</tr>
+								@endforeach
                 {!! Form::open(['route' => 'farm.pig.get_mating_record', 'method' => 'post']) !!}
 								<tr>
 									<td>
@@ -86,14 +92,14 @@
 									<td>
 										<input id="expected_date_of_farrowing" type="text" placeholder="Pick date" name="expected_date_of_farrowing" class="datepicker">
 									</td>
-									<td>
-										<input id="date_pregnant" type="text" placeholder="Pick date" name="date_pregnant" class="datepicker">
-									</td>
 									<td class="switch">
 										<label>
-											<input type="checkbox" name="recycled">
+											<input type="checkbox" name="recycled" onchange="disableField()">
 											<span class="lever"></span>
 										</label>
+									</td>
+									<td>
+										<input id="date_pregnant" type="text" placeholder="Pick date" name="date_pregnant" class="datepicker">
 									</td>
 								</tr>
               </tbody>
