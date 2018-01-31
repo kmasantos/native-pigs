@@ -40,7 +40,9 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('boar_record/{id}', ['as' => 'farm.pig.boar_record_page', 'uses' => 'FarmController@getBoarRecordPage']);
     Route::post('fetch_boar_record_id', ['as' => 'farm.pig.fetch_boar_record_id', 'uses' => 'FarmController@fetchBoarRecord']);
     Route::get('mortality_and_sales', ['as' => 'farm.pig.mortality_and_sales', 'uses' => 'FarmController@getMortalityAndSalesPage']);
+    // Route::get('mortality_record', ['as' => 'farm.pig.mortality_record', 'uses' => 'FarmController@getMortalityRecordPage']);
     Route::post('get_mortality_record', ['as' => 'farm.pig.get_mortality_record', 'uses' => 'FarmController@addMortalityRecord']);
+    // Route::get('sales_record', ['as' => 'farm.pig.sales_record', 'uses' => 'FarmController@getSalesRecordPage']);
     Route::post('get_sales_record', ['as' => 'farm.pig.get_sales_record', 'uses' => 'FarmController@addSalesRecord']);
     Route::get('farm_profile', ['as' => 'farm.pig.farm_profile', 'uses' => 'FarmController@getFarmProfilePage']);
     Route::post('get_farm_profile', ['as' => 'farm.pig.get_farm_profile', 'uses' => 'FarmController@addFarmProfile']);

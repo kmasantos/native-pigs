@@ -9,6 +9,7 @@
   <div class="container">
     <div class="row">
       <div class="col s12">
+        {{-- TRY THIS --}}
         <form class="row">
           <div class="col s12">
             <div class="input-field">
@@ -90,6 +91,7 @@
                     </div>
                   </div>
                 </div>
+                {{-- DISPLAY EVERYTHING --}}
                 <div class="row">
                   <div class="col s6">
                     <table>
@@ -215,6 +217,7 @@
                     </div>
                   </div>
                 </div>
+                {{-- DISPLAY EVERYTHING --}}
                 <div class="row">
                   <div class="col s6">
                     <table>

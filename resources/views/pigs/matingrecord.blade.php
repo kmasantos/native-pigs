@@ -44,11 +44,13 @@
 							<tbody>
 								@foreach($family as $matingRecord)
 									<tr>
+										{{-- REGISTRY ID NOT ANIMAL ID --}}
 										<td>
-											{{ $matingRecord->mother_id }}
+											{{ $matingRecord->getMother()->registryid }} 
 										</td>
+										{{-- REGISTRY ID NOT ANIMAL ID --}}
 										<td>
-											{{ $matingRecord->father_id }}
+											{{ $matingRecord->getFather()->registryid }}
 										</td>
 										<td>
 											{{ $matingRecord->properties[0]->value }}

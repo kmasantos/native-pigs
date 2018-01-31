@@ -753,7 +753,7 @@ class UsersTableSeeder extends Seeder
 				$groupprop5 = new GroupingProperty;
 				$groupprop5->grouping_id = $grouping->id;
 				$groupprop5->property_id = $individual1->id;
-				$groupprop5->value = $date6;
+				$groupprop5->value = new Carbon();
 				$groupprop5->datecollected = new Carbon();
 				$groupprop5->save();
 

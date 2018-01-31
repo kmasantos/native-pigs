@@ -47,17 +47,17 @@
 												</tr>
 											</thead>
 											<tbody>
-												@if(!is_null($offsprings))
-													@foreach($offsprings as $offspring)
-														<tr>
-															<td>{{ $offspring->animal_id }}</td>
-															<td>{{ $iproperties[0]->value }}</td>
-															<td>{{ $iproperties[2]->value }}</td>
-															<td>{{ $iproperties[3]->value }}</td>
-															<td>{{ $iproperties[1]->value }}</td>
-														</tr>
-													@endforeach
-												@endif
+												@foreach($offsprings as $offspring)
+													<tr>
+														{{-- REGISTRY ID NOT ANIMAL ID --}}
+														<td>{{ $offspring->animal_id }}</td>
+														{{-- FETCH THESE PROPERLY --}}
+														<td>{{ $iproperties[0]->value }}</td>
+														<td>{{ $iproperties[2]->value }}</td>
+														<td>{{ $iproperties[3]->value }}</td>
+														<td>{{ $iproperties[1]->value }}</td>
+													</tr>
+												@endforeach
 											</tbody>
 										</table>
 									</div>

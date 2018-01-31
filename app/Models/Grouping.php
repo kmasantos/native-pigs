@@ -29,4 +29,16 @@ class Grouping extends Model
       $properties = GroupingProperty::where('grouping_id', $this->id)->get();
       return $properties;
     }
+
+    public function getMother()
+    {
+      $mother = Animal::find($this->mother_id);
+      return $mother;
+    }
+
+    public function getFather()
+    {
+      $father = Animal::find($this->father_id);
+      return $father;
+    }
 }

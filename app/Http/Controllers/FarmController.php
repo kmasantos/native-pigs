@@ -146,18 +146,20 @@ class FarmController extends Controller
         $gproperties = $group->getGroupingProperties();
         $offsprings = GroupingMember::where("grouping_id", $group->id)->get();
       }
-      //dd($gproperties);
+      // dd($gproperties);
 
       foreach ($offsprings as $offspring) {
         $offspring = Animal::where("id", $offspring->animal_id)->first();
         $iproperties = $offspring->getAnimalProperties();
       }
 
+      // dd($offsprings);
+
       return view('pigs.sowlitterrecord', compact('pigs', 'sows', 'boars', 'family', 'gproperties', 'offsprings', 'iproperties'));
     }
 
     public function getMatingRecordPage(){
-      $pigs = DB::table('animals')->where("animaltype_id", 3)->where("status", "breeder")->get();
+      $pigs = Animal::where("animaltype_id", 3)->where("status", "breeder")->get();
       $family = Grouping::whereNotNull("mother_id")->get();
 
       $sows = [];
@@ -174,11 +176,11 @@ class FarmController extends Controller
       foreach ($family as $group) {
         $properties = $group->getGroupingProperties();
       }
-      //dd($properties);
 
-      return view('pigs.matingrecord', compact('pigs', 'sows', 'boars', 'family', 'properties'));
+      return view('pigs.matingrecord', compact('pigs', 'sows', 'boars', 'family', 'properties', 'mothers', 'fathers'));
     }
 
+    
     public function getMortalityAndSalesPage(){
       $pigs = Animal::where("animaltype_id", 3)->get();
       $breeders = Animal::where("animaltype_id", 3)->where("status", "breeder")->get();
@@ -195,17 +197,54 @@ class FarmController extends Controller
       }
 
       foreach ($sold as $sold_pig) {
-        $salesproperty = $sold_pig->getAnimalProperties();
+        $salesproperties = $sold_pig->getAnimalProperties();
       }
-      // dd($salesproperty);
+      // dd($salesproperties);
 
       foreach ($dead as $dead_pig) {
-        $mortalityproperty = $dead_pig->getAnimalProperties();
+        $mortalityproperties = $dead_pig->getAnimalProperties();
       }
 
-      return view('pigs.mortalityandsales', compact('pigs', 'breeders', 'sold', 'dead', 'salesproperty', 'mortalityproperty'));
+      return view('pigs.mortalityandsales', compact('pigs', 'breeders', 'sold', 'dead', 'salesproperties', 'mortalityproperties'));
+    }
+    
+    /*
+    public function getMortalityRecordPage(){
+      $pigs = Animal::where("animaltype_id", 3)->get();
+      $breeders = Animal::where("animaltype_id", 3)->where("status", "breeder")->get();
+
+      $dead = [];
+      foreach ($pigs as $pig) {
+        if($pig->status == "died"){
+          array_push($dead, $pig);
+        }
+      }
+
+      foreach ($dead as $dead_pig) {
+        $mortalityproperties = $dead_pig->getAnimalProperties();
+      }
+
+      return view('pigs.mortalityrecord', compact('pigs', 'breeders', 'dead', 'mortalityproperties'));
     }
 
+    public function getSalesRecordPage(){
+      $pigs = Animal::where("animaltype_id", 3)->get();
+      $breeders = Animal::where("animaltype_id", 3)->where("status", "breeder")->get();
+
+      $sold = [];
+      foreach ($pigs as $pig) {
+        if($pig->status == "sold"){
+          array_push($sold, $pig);
+        }
+      }
+
+      foreach ($sold as $sold_pig) {
+        $salesproperties = $sold_pig->getAnimalProperties();
+      }
+
+      return view('pigs.salesrecord', compact('pigs', 'breeders', 'sold', 'salesproperties'));
+    }
+    */
 
     public function getFarmProfilePage(){
       $farm = $this->user->getFarm();
@@ -738,7 +777,6 @@ class FarmController extends Controller
     }
 
     public function addMortalityRecord(Request $request){
-      dd($request);
       $dead = Animal::where("registryid", $request->registrationid_dead)->first();
 
       $dead->status = "died";

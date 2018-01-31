@@ -56,7 +56,8 @@
 								</tbody>
 							</table>
 						</div>
-						{!! Form::open(['route' => 'farm.pig.get_mortality_record', 'method' => 'post']) !!}
+						{!! Form::open(['route' => 'farm.pig.get_mortality_record', 'method' => 'POST']) !!}
+						{{-- FIX THIS --}}
 						<div class="row">
 							<div class="col s10 offset-s1">
 								<div class="col s6">
@@ -73,7 +74,7 @@
 							</div>
 						</div>
 						<div class="row center">
-							<button class="btn waves-effect waves-light red lighten-2" type="submit">Add
+							<button id="add_dead" class="btn waves-effect waves-light red lighten-2" type="submit">Add
 		            <i class="material-icons right">add</i>
 		          </button>
 						</div>
@@ -113,8 +114,10 @@
 									@foreach($sold as $pig_sold)
 										<tr>
 											<td>{{ $pig_sold->registryid }}</td>
-											<td>{{ $salesproperty[3]->value }}</td>
-											<td>{{ $salesproperty[4]->value }}</td>
+											{{-- FETCH THESE PROPERLY --}}
+											<td>{{ $salesproperties[3]->value }}</td>
+											<td>{{ $salesproperties[4]->value }}</td>
+											{{-- COMPUTE AGE --}}
 											<td>X</td>
 										</tr>
 									@endforeach
@@ -141,7 +144,7 @@
 							</div>
 						</div>
 						<div class="row center">
-              <button class="btn waves-effect waves-light red lighten-2" type="submit">Add
+              <button id="add_sold" class="btn waves-effect waves-light red lighten-2" type="submit">Add
 		            <i class="material-icons right">add</i>
 		          </button>
 						</div>
