@@ -7,12 +7,12 @@
 @section('content')
 	<h4 class="headline">Sales Record</h4>
 	<div class="container">
-		<form class="row">
+		<div class="row">
       <div class="col s12">
 				<div class="row">
 					<div class="col s12">
 						<div class="row">
-							<div class="col s6">
+							<div class="col s4">
 								<select name="month_sales" class="browser-default">
 									<option disabled selected>Choose month</option>
 									<option value="January">January</option>
@@ -44,10 +44,8 @@
 									@foreach($sold as $pig_sold)
 										<tr>
 											<td>{{ $pig_sold->registryid }}</td>
-											{{-- FETCH THESE PROPERLY --}}
-											<td>{{ $salesproperty[3]->value }}</td>
-											<td>{{ $salesproperty[4]->value }}</td>
-											{{-- COMPUTE AGE --}}
+											<td>{{ $pig_sold->getAnimalProperties()->where("property_id", 56)->first()->value }}</td>
+											<td>{{ $pig_sold->getAnimalProperties()->where("property_id", 57)->first()->value }}</td>
 											<td>X</td>
 										</tr>
 									@endforeach
@@ -82,6 +80,6 @@
           </div>
         </div>
       </div>
-		</form>
+		</div>
 	</div>
 @endsection

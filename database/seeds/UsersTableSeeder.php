@@ -738,15 +738,15 @@ class UsersTableSeeder extends Seeder
 
 				$groupprop3 = new GroupingProperty;
 				$groupprop3->grouping_id = $grouping->id;
-				$groupprop3->property_id = $mating3->id;
-				$groupprop3->value = $date6->addDays(10);
+				$groupprop3->property_id = $mating4->id;
+				$groupprop3->value = 0;
 				$groupprop3->datecollected = new Carbon();
 				$groupprop3->save();
 
 				$groupprop4 = new GroupingProperty;
 				$groupprop4->grouping_id = $grouping->id;
-				$groupprop4->property_id = $mating4->id;
-				$groupprop4->value = 0;
+				$groupprop4->property_id = $mating3->id;
+				$groupprop4->value = $date6->addDays(10);
 				$groupprop4->datecollected = new Carbon();
 				$groupprop4->save();
 

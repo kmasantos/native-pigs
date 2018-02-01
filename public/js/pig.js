@@ -29,5 +29,10 @@ $('.datepicker').pickadate({
 function disableField(){
   if(document.getElementById("recycled").checked){
     document.getElementById("date_pregnant").disabled = true;
+    document.getElementById("date_pregnant").placeholder = "Disabled";
+  }
+  else{
+    document.getElementById("date_pregnant").disabled = false;
+    document.getElementById("date_pregnant").placeholder = "Pick date";
   }
 }

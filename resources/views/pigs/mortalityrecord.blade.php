@@ -7,12 +7,12 @@
 @section('content')
 	<h4 class="headline">Mortality Record</h4>
 	<div class="container">
-		<form class="row">
+		<div class="row">
       <div class="col s12">
 				<div class="row">
 					<div class="col s12">
 						<div class="row">
-							<div class="col s6">
+							<div class="col s4">
 								<select name="month_mortality" class="browser-default">
 									<option disabled selected>Choose month</option>
 									<option value="January">January</option>
@@ -43,7 +43,7 @@
 									@foreach($dead as $dead_pig)
 										<tr>
 											<td>{{ $dead_pig->registryid }}</td>
-											<td>Month DD, YYYY</td>
+											<td>{{ $dead_pig->getAnimalProperties()->where("property_id", 55)->first()->value }}</td>
 											<td>XX</td>
 										</tr>
 									@endforeach
@@ -76,6 +76,6 @@
           </div>
 				</div>
 			</div>
-		</form>
+		</div>
 	</div>
 @endsection

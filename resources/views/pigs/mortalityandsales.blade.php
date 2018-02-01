@@ -7,7 +7,7 @@
 @section('content')
 	<h4 class="headline">Mortality and Sales</h4>
 	<div class="container">
-		<form class="row">
+		<div class="row">
       <div class="col s12">
 				<div class="row">
 					<div class="col s12">
@@ -46,20 +46,25 @@
 									</tr>
 								</thead>
 								<tbody>
-									@foreach($dead as $dead_pig)
+									@forelse($dead as $dead_pig)
 										<tr>
 											<td>{{ $dead_pig->registryid }}</td>
-											<td>Month DD, YYYY</td>
+											<td>{{ $dead_pig->getAnimalProperties()->where("property_id", 55)->first()->value }}</td>
 											<td>XX</td>
 										</tr>
-									@endforeach
+									@empty
+										<tr>
+											<td>No mortality data found</td>
+										</tr>
+									@endforelse
 								</tbody>
 							</table>
 						</div>
-						{!! Form::open(['route' => 'farm.pig.get_mortality_record', 'method' => 'POST']) !!}
+						{!! Form::open(['route' => 'farm.pig.get_mortality_record', 'method' => 'post']) !!}
 						{{-- FIX THIS --}}
 						<div class="row">
 							<div class="col s10 offset-s1">
+								{{ csrf_field() }}
 								<div class="col s6">
 									<select name="registrationid_dead" class="browser-default">
 										<option disabled selected>Choose pig</option>
@@ -78,7 +83,7 @@
 		            <i class="material-icons right">add</i>
 		          </button>
 						</div>
-						{!! Form::close() !!}
+						{!! Form::close() !!}	
           </div>
 					<div id="sales_tab" class="col s12">
 						<div class="row">
@@ -111,22 +116,25 @@
 									</tr>
 								</thead>
 								<tbody>
-									@foreach($sold as $pig_sold)
+									@forelse($sold as $pig_sold)
 										<tr>
 											<td>{{ $pig_sold->registryid }}</td>
-											{{-- FETCH THESE PROPERLY --}}
-											<td>{{ $salesproperties[3]->value }}</td>
-											<td>{{ $salesproperties[4]->value }}</td>
-											{{-- COMPUTE AGE --}}
+											<td>{{ $pig_sold->getAnimalProperties()->where("property_id", 56)->first()->value }}</td>
+											<td>{{ $pig_sold->getAnimalProperties()->where("property_id", 57)->first()->value }}</td>
 											<td>X</td>
 										</tr>
-									@endforeach
+									@empty
+										<tr>
+											<td>No sales record found</td>
+										</tr>
+									@endforelse
 								</tbody>
 							</table>
 						</div>
 						{!! Form::open(['route' => 'farm.pig.get_sales_record', 'method' => 'post']) !!}
 						<div class="row">
 							<div class="col s10 offset-s1">
+								{{ csrf_field() }}
 								<div class="col s4">
 									<select name="registrationid_sold" class="browser-default">
 										<option disabled selected>Choose pig</option>
@@ -152,6 +160,6 @@
           </div>
         </div>
       </div>
-		</form>
+		</div>
 	</div>
 @endsection

@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-  <h4 class="headline">Sow Record</h4>
+  <h4 class="headline"><a href="{{route('farm.pig.animal_record')}}"><img src="{{asset('images/back.png')}}" width="3%"></a> Sow Record</h4>
   <div class="container">
     <div class="row">
       {!! Form::open(['route' => 'farm.pig.fetch_sow_record_id', 'method' => 'post']) !!}
@@ -162,7 +162,7 @@
                   </div>
                   <div class="row">
                     <div class="col s5">
-                      Head Length
+                      Head Length, cm
                     </div>
                     <div class="col s7">
                       <input id="head_length" type="text" name="head_length" class="validate">
@@ -170,7 +170,7 @@
                   </div>
                   <div class="row">
                     <div class="col s5">
-                      Body Length
+                      Body Length, cm
                     </div>
                     <div class="col s7">
                       <input id="body_length" type="text" name="body_length" class="validate">
@@ -178,7 +178,7 @@
                   </div>
                   <div class="row">   
                     <div class="col s5">
-                      Pelvic Width
+                      Pelvic Width, cm
                     </div>
                     <div class="col s7">
                       <input id="pelvic_width" type="text" name="pelvic_width" class="validate">
@@ -186,7 +186,7 @@
                   </div>
                   <div class="row">
                     <div class="col s5">
-                      Heart Girth
+                      Heart Girth, cm
                     </div>
                     <div class="col s7">
                       <input id="heart_girth" type="text" name="heart_girth" class="validate">

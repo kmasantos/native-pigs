@@ -30,7 +30,7 @@
 				</div>
 				<div class="row">
 					<div class="col s12">
-						<table class="centered striped responsive-table">
+						<table class="centered striped">
 							<thead>
 								<tr class="red darken-4 white-text">
 									<th>Sow ID</th>
@@ -42,34 +42,36 @@
 								</tr>
 							</thead>
 							<tbody>
-								@foreach($family as $matingRecord)
+								@forelse($family as $matingRecord)
 									<tr>
-										{{-- REGISTRY ID NOT ANIMAL ID --}}
 										<td>
 											{{ $matingRecord->getMother()->registryid }} 
 										</td>
-										{{-- REGISTRY ID NOT ANIMAL ID --}}
 										<td>
 											{{ $matingRecord->getFather()->registryid }}
 										</td>
 										<td>
-											{{ $matingRecord->properties[0]->value }}
+											{{ $matingRecord->getGroupingProperties()->where("property_id", 48)->first()->value }}
 										</td>
 										<td>
-											{{ $matingRecord->properties[1]->value }}
+											{{ $matingRecord->getGroupingProperties()->where("property_id", 49)->first()->value }}
 										</td>
 										<td>
-											@if($matingRecord->properties[3]->value == 0)
+											@if($matingRecord->getGroupingProperties()->where("property_id", 51)->first()->value == 0)
 												No
 											@else
 												Yes
 											@endif
 										</td>
 										<td>
-											{{ $matingRecord->properties[2]->value }}
+											{{ $matingRecord->getGroupingProperties()->where("property_id", 50)->first()->value }}
 										</td>
 									</tr>
-								@endforeach
+								@empty
+									<tr>
+										<td>No mating record found</td>
+									</tr>
+								@endforelse
                 {!! Form::open(['route' => 'farm.pig.get_mating_record', 'method' => 'post']) !!}
 								<tr>
 									<td>
@@ -92,11 +94,11 @@
 										<input id="date_bred" type="text" placeholder="Pick date" name="date_bred" class="datepicker">
 									</td>
 									<td>
-										<input id="expected_date_of_farrowing" type="text" placeholder="Pick date" name="expected_date_of_farrowing" class="datepicker">
+										<input disabled id="expected_date_of_farrowing" type="text" placeholder="Computed" name="expected_date_of_farrowing" class="datepicker">
 									</td>
 									<td class="switch">
 										<label>
-											<input type="checkbox" name="recycled" onchange="disableField()">
+											<input type="checkbox" id="recycled" name="recycled" onchange="disableField()">
 											<span class="lever"></span>
 										</label>
 									</td>

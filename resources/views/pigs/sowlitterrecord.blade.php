@@ -47,17 +47,19 @@
 												</tr>
 											</thead>
 											<tbody>
-												@foreach($offsprings as $offspring)
+												@forelse($offsprings as $offspring)
 													<tr>
-														{{-- REGISTRY ID NOT ANIMAL ID --}}
-														<td>{{ $offspring->animal_id }}</td>
-														{{-- FETCH THESE PROPERLY --}}
-														<td>{{ $iproperties[0]->value }}</td>
-														<td>{{ $iproperties[2]->value }}</td>
-														<td>{{ $iproperties[3]->value }}</td>
-														<td>{{ $iproperties[1]->value }}</td>
+														<td>{{ $offspring->getChild()->registryid }}</td>
+														<td>{{ $offspring->getAnimalProperties()->where("property_id", 27)->first()->value }}</td>
+														<td>{{ $offspring->getAnimalProperties()->where("property_id", 53)->first()->value }}</td>
+														<td>{{ $offspring->getAnimalProperties()->where("property_id", 54)->first()->value }}</td>
+														<td>{{ $offspring->getAnimalProperties()->where("property_id", 52)->first()->value }}</td>
 													</tr>
-												@endforeach
+												@empty
+													<tr>
+														<td>No offspring data found</td>
+													</tr>
+												@endforelse
 											</tbody>
 										</table>
 									</div>
@@ -91,11 +93,11 @@
 							</div>
 							<div class="col s4">
 								<div class="card-panel red darken-4">
-									<ul class="collection with-header">
-										<li class="collection-header">Date Bred</li>
+									<ul class="collection">
 										<li class="collection-item">
 											<div class="input-field">
-												<input disabled id="date_bred" type="text" placeholder="Pick date" name="date_bred" value={{ $gproperties[0]->value }}>
+												<input disabled id="date_bred" type="text" name="date_bred" {{-- value="" --}}>
+												<label for="date_bred">Date Bred</label>
 											</div>
 										</li>
 									</ul>

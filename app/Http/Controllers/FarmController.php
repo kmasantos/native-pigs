@@ -146,16 +146,10 @@ class FarmController extends Controller
         $gproperties = $group->getGroupingProperties();
         $offsprings = GroupingMember::where("grouping_id", $group->id)->get();
       }
-      // dd($gproperties);
 
-      foreach ($offsprings as $offspring) {
-        $offspring = Animal::where("id", $offspring->animal_id)->first();
-        $iproperties = $offspring->getAnimalProperties();
-      }
+      // dd($iproperties);
 
-      // dd($offsprings);
-
-      return view('pigs.sowlitterrecord', compact('pigs', 'sows', 'boars', 'family', 'gproperties', 'offsprings', 'iproperties'));
+      return view('pigs.sowlitterrecord', compact('pigs', 'sows', 'boars', 'family', 'offsprings', 'gproperties'));
     }
 
     public function getMatingRecordPage(){
@@ -180,7 +174,6 @@ class FarmController extends Controller
       return view('pigs.matingrecord', compact('pigs', 'sows', 'boars', 'family', 'properties', 'mothers', 'fathers'));
     }
 
-    
     public function getMortalityAndSalesPage(){
       $pigs = Animal::where("animaltype_id", 3)->get();
       $breeders = Animal::where("animaltype_id", 3)->where("status", "breeder")->get();
@@ -196,16 +189,12 @@ class FarmController extends Controller
         }
       }
 
-      foreach ($sold as $sold_pig) {
-        $salesproperties = $sold_pig->getAnimalProperties();
+      foreach ($sold as $pig_sold) {
+        $properties = $pig_sold->getAnimalProperties();
       }
-      // dd($salesproperties);
+      
 
-      foreach ($dead as $dead_pig) {
-        $mortalityproperties = $dead_pig->getAnimalProperties();
-      }
-
-      return view('pigs.mortalityandsales', compact('pigs', 'breeders', 'sold', 'dead', 'salesproperties', 'mortalityproperties'));
+      return view('pigs.mortalityandsales', compact('pigs', 'breeders', 'sold', 'dead'));
     }
     
     /*
@@ -254,7 +243,7 @@ class FarmController extends Controller
     }
 
     public function getAnimalRecordPage(){
-      $pigs = DB::table('animals')->where("animaltype_id", 3)->where("status", "breeder")->get();
+      $pigs = Animal::where("animaltype_id", 3)->where("status", "breeder")->get();
 
       $sows = [];
       $boars = [];
@@ -266,8 +255,28 @@ class FarmController extends Controller
           array_push($boars, $pig);
         }
       }
-
       return view('pigs.animalrecords', compact('pigs', 'sows', 'boars'));
+    }
+
+    public function getViewSowPage($id){
+      $sow = Animal::find($id);
+      $properties = $sow->getAnimalProperties();
+      // dd($properties);
+
+      $now = Carbon::now();
+      $end_date = Carbon::parse($properties->where("property_id", 25)->first()->value);
+
+      //dd($now, $end_date);
+      $age = $now->diffInMonths($end_date);
+
+      return view('pigs.viewsow', compact('sow', 'properties', 'null', 'age'));
+    }
+
+    public function getViewBoarPage($id){
+      $boar = Animal::find($id);
+      $properties = $boar->getAnimalProperties();
+
+      return view('pigs.viewboar', compact('boar', 'properties'));
     }
 
     public function getSowRecordPage($id){
@@ -303,27 +312,22 @@ class FarmController extends Controller
       $date_bred->datecollected = new Carbon();
       $date_bred->save();
 
-      //$edfValue = $dateBredValue->addDays(114);
+      $edfValue = Carbon::parse($dateBredValue)->addDays(114);
 
       $edf = new GroupingProperty;
       $edf->grouping_id = $pair->id;
       $edf->property_id = 49;
-      $edf->value = $request->expected_date_of_farrowing;
+      $edf->value = $edfValue;
       $edf->datecollected = new Carbon();
       $edf->save();
 
-      $date_pregnant = new GroupingProperty;
-      $date_pregnant->grouping_id = $pair->id;
-      $date_pregnant->property_id = 50;
-      $date_pregnant->value = $request->date_pregnant;
-      $date_pregnant->datecollected = new Carbon();
-      $date_pregnant->save();
-
       if(isset($_POST['recycled'])){
         $recycledValue = 1;
+        $datePregnantValue = "Recycled";
       }
       else{
         $recycledValue = 0;
+        $datePregnantValue = $request->date_pregnant;
       }
 
       $recycled = new GroupingProperty;
@@ -332,6 +336,13 @@ class FarmController extends Controller
       $recycled->value = $recycledValue;
       $recycled->datecollected = new Carbon();
       $recycled->save();
+
+      $date_pregnant = new GroupingProperty;
+      $date_pregnant->grouping_id = $pair->id;
+      $date_pregnant->property_id = 50;
+      $date_pregnant->value = $datePregnantValue;
+      $date_pregnant->datecollected = new Carbon();
+      $date_pregnant->save();
 
       return Redirect::back()->with('message','Operation Successful!');
 
@@ -616,6 +627,11 @@ class FarmController extends Controller
       $bw180d->save();
       $dc180d->save();
 
+      $sow = Animal::find($sow_id);
+      $sow->phenotypic = 1;
+      $sow->morphometric = 1;
+      $sow->save();
+
       return Redirect::back()->with('message','Sow record successfully saved');
     }
 
@@ -772,6 +788,11 @@ class FarmController extends Controller
       $bw180d->save();
       $dc180d->save();
 
+      $boar = Animal::find($boar_id);
+      $boar->phenotypic = 1;
+      $boar->morphometric = 1;
+      $boar->save();
+
       return Redirect::back()->with('message','Boar record successfully saved');
 
     }
@@ -799,6 +820,7 @@ class FarmController extends Controller
     }
 
     public function addSalesRecord(Request $request){
+
       $sold = Animal::where("registryid", $request->registrationid_sold)->first();
 
       $sold->status = "sold";
