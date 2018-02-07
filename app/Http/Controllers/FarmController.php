@@ -42,7 +42,23 @@ class FarmController extends Controller
       $breed = Breed::find($farm->breedable_id);
       $animaltype = AnimalType::find($breed->animaltype_id);
       if($animaltype->species == "pig"){
-          return view('pigs.dashboard', compact('user', 'farm'));
+          $pigs = Animal::where("animaltype_id", 3)->where("status", "breeder")->get();
+
+          $sows = [];
+          $boars = [];
+          foreach($pigs as $pig){
+            if(substr($pig->registryid, -6, 1) == 'F'){
+              array_push($sows, $pig);
+            }
+            if(substr($pig->registryid, -6, 1) == 'M'){
+              array_push($boars, $pig);
+            }
+          }
+
+          $sowcount = count($sows);
+          $boarcount = count($boars);
+          
+          return view('pigs.dashboard', compact('user', 'farm', 'pigs', 'sows', 'boars', 'sowcount', 'boarcount'));
       }else{
           return view('poultry.dashboard', compact('user', 'farm'));
       }
@@ -134,17 +150,17 @@ class FarmController extends Controller
       $sows = [];
       $boars = [];
       foreach($pigs as $pig){
-        if(substr($pig->registryid, 13, 1) == 'F'){
+        if(substr($pig->registryid, -6, 1) == 'F'){
           array_push($sows, $pig);
         }
-        if(substr($pig->registryid, 13, 1) == 'M'){
+        if(substr($pig->registryid, -6, 1) == 'M'){
           array_push($boars, $pig);
         }
       }
 
       foreach ($family as $group) {
         $gproperties = $group->getGroupingProperties();
-        $offsprings = GroupingMember::where("grouping_id", $group->id)->get();
+        $offsprings = $group->getGroupingMembers();
       }
 
       // dd($iproperties);
@@ -159,10 +175,10 @@ class FarmController extends Controller
       $sows = [];
       $boars = [];
       foreach($pigs as $pig){
-        if(substr($pig->registryid, 13, 1) == 'F'){
+        if(substr($pig->registryid, -6, 1) == 'F'){
           array_push($sows, $pig);
         }
-        if(substr($pig->registryid, 13, 1) == 'M'){
+        if(substr($pig->registryid, -6, 1) == 'M'){
           array_push($boars, $pig);
         }
       }
@@ -188,52 +204,11 @@ class FarmController extends Controller
           array_push($dead, $pig);
         }
       }
-
-      foreach ($sold as $pig_sold) {
-        $properties = $pig_sold->getAnimalProperties();
-      }
       
+      $age = null;
 
-      return view('pigs.mortalityandsales', compact('pigs', 'breeders', 'sold', 'dead'));
+      return view('pigs.mortalityandsales', compact('pigs', 'breeders', 'sold', 'dead', 'age'));
     }
-    
-    /*
-    public function getMortalityRecordPage(){
-      $pigs = Animal::where("animaltype_id", 3)->get();
-      $breeders = Animal::where("animaltype_id", 3)->where("status", "breeder")->get();
-
-      $dead = [];
-      foreach ($pigs as $pig) {
-        if($pig->status == "died"){
-          array_push($dead, $pig);
-        }
-      }
-
-      foreach ($dead as $dead_pig) {
-        $mortalityproperties = $dead_pig->getAnimalProperties();
-      }
-
-      return view('pigs.mortalityrecord', compact('pigs', 'breeders', 'dead', 'mortalityproperties'));
-    }
-
-    public function getSalesRecordPage(){
-      $pigs = Animal::where("animaltype_id", 3)->get();
-      $breeders = Animal::where("animaltype_id", 3)->where("status", "breeder")->get();
-
-      $sold = [];
-      foreach ($pigs as $pig) {
-        if($pig->status == "sold"){
-          array_push($sold, $pig);
-        }
-      }
-
-      foreach ($sold as $sold_pig) {
-        $salesproperties = $sold_pig->getAnimalProperties();
-      }
-
-      return view('pigs.salesrecord', compact('pigs', 'breeders', 'sold', 'salesproperties'));
-    }
-    */
 
     public function getFarmProfilePage(){
       $farm = $this->user->getFarm();
@@ -248,14 +223,14 @@ class FarmController extends Controller
       $sows = [];
       $boars = [];
       foreach($pigs as $pig){
-        if(substr($pig->registryid, 13, 1) == 'F'){
+        if(substr($pig->registryid, -6, 1) == 'F'){
           array_push($sows, $pig);
         }
-        if(substr($pig->registryid, 13, 1) == 'M'){
+        if(substr($pig->registryid, -6, 1) == 'M'){
           array_push($boars, $pig);
         }
       }
-      return view('pigs.animalrecords', compact('pigs', 'sows', 'boars'));
+      return view('pigs.morphology', compact('pigs', 'sows', 'boars'));
     }
 
     public function getViewSowPage($id){
@@ -269,14 +244,20 @@ class FarmController extends Controller
       //dd($now, $end_date);
       $age = $now->diffInMonths($end_date);
 
-      return view('pigs.viewsow', compact('sow', 'properties', 'null', 'age'));
+      return view('pigs.viewsow', compact('sow', 'properties', 'age'));
     }
 
     public function getViewBoarPage($id){
       $boar = Animal::find($id);
       $properties = $boar->getAnimalProperties();
 
-      return view('pigs.viewboar', compact('boar', 'properties'));
+      $now = Carbon::now();
+      $end_date = Carbon::parse($properties->where("property_id", 25)->first()->value);
+
+      //dd($now, $end_date);
+      $age = $now->diffInMonths($end_date);
+
+      return view('pigs.viewboar', compact('boar', 'properties', 'age'));
     }
 
     public function getSowRecordPage($id){
@@ -323,11 +304,11 @@ class FarmController extends Controller
 
       if(isset($_POST['recycled'])){
         $recycledValue = 1;
-        $datePregnantValue = "Recycled";
+        $statusValue = "Recycled";
       }
       else{
         $recycledValue = 0;
-        $datePregnantValue = $request->date_pregnant;
+        $statusValue = "Pregnant";
       }
 
       $recycled = new GroupingProperty;
@@ -337,12 +318,12 @@ class FarmController extends Controller
       $recycled->datecollected = new Carbon();
       $recycled->save();
 
-      $date_pregnant = new GroupingProperty;
-      $date_pregnant->grouping_id = $pair->id;
-      $date_pregnant->property_id = 50;
-      $date_pregnant->value = $datePregnantValue;
-      $date_pregnant->datecollected = new Carbon();
-      $date_pregnant->save();
+      $status = new GroupingProperty;
+      $status->grouping_id = $pair->id;
+      $status->property_id = 50;
+      $status->value = $statusValue;
+      $status->datecollected = new Carbon();
+      $status->save();
 
       return Redirect::back()->with('message','Operation Successful!');
 
@@ -412,7 +393,7 @@ class FarmController extends Controller
       $offspring->farm_id = $farm->id;
       $offspring->breed_id = $breed->id;
       $offspring->status = "breeder";
-      $offspring->registryid = $farm->code."-".$now->year.$request->sex.$request->offspring_earnotch;
+      $offspring->registryid = $farm->code.$breed->breed."-".$now->year.$request->sex.$request->offspring_earnotch;
       $offspring->save();
 
       $sex = new AnimalProperty;
@@ -472,6 +453,7 @@ class FarmController extends Controller
       $sow_id = $request->animal_id;
 
       //GROSS MORPHOLOGY
+      $dcgross = new AnimalProperty;
       $hairtype1 = new AnimalProperty;
       $hairtype2 = new AnimalProperty;
       $coatcolor = new AnimalProperty;
@@ -480,39 +462,118 @@ class FarmController extends Controller
       $skintype = new AnimalProperty;
       $eartype = new AnimalProperty;
       $backline = new AnimalProperty;
+      $tailtype = new AnimalProperty;
       $othermarks = new AnimalProperty;
+
+      if(is_null($request->date_collected_gross)){
+        $dateCollectedGrossValue = new Carbon();
+      }
+      else{
+        $dateCollectedGrossValue = $request->date_collected_gross;
+      }
+
+      $dcgross->animal_id = $sow_id;
+      $dcgross->property_id = 67;
+      $dcgross->value = $dateCollectedGrossValue;
+
+      if(is_null($request->hair_type1)){
+        $hairTypeValue = "Not specified";
+      }
+      else{
+        $hairTypeValue = $request->hair_type1;
+      }
 
       $hairtype1->animal_id = $sow_id;
       $hairtype1->property_id = 28;
-      $hairtype1->value = $request->hair_type1;
+      $hairtype1->value = $hairTypeValue;
+
+      if(is_null($request->hair_type2)){
+        $hairLengthValue = "Not specified";
+      }
+      else{
+        $hairLengthValue = $request->hair_type2;
+      }
 
       $hairtype2->animal_id = $sow_id;
       $hairtype2->property_id = 29;
-      $hairtype2->value = $request->hair_type2;
+      $hairtype2->value = $hairLengthValue;
+
+      if(is_null($request->coat_color)){
+        $coatColorValue = "Not specified";
+      }
+      else{
+        $coatColorValue = $request->coat_color;
+      }
 
       $coatcolor->animal_id = $sow_id;
       $coatcolor->property_id = 30;
-      $coatcolor->value = $request->coat_color;
+      $coatcolor->value = $coatColorValue;
+
+      if(is_null($request->color_pattern)){
+        $colorPatternValue = "Not specified";
+      }
+      else{
+        $colorPatternValue = $request->color_pattern;
+      }
 
       $colorpattern->animal_id = $sow_id;
       $colorpattern->property_id = 31;
-      $colorpattern->value = $request->color_pattern;
+      $colorpattern->value = $colorPatternValue;
+
+      if(is_null($request->head_shape)){
+        $headShapeValue = "Not specified";
+      }
+      else{
+        $headShapeValue = $request->head_shape;
+      }
 
       $headshape->animal_id = $sow_id;
       $headshape->property_id = 32;
-      $headshape->value = $request->head_shape;
+      $headshape->value = $headShapeValue;
+
+      if(is_null($request->skin_type)){
+        $skinTypeValue = "Not specified";
+      }
+      else{
+        $skinTypeValue = $request->skin_type;
+      }
 
       $skintype->animal_id = $sow_id;
       $skintype->property_id = 33;
-      $skintype->value = $request->skin_type;
+      $skintype->value = $skinTypeValue;
+
+      if(is_null($request->ear_type)){
+        $earTypeValue = "Not specified";
+      }
+      else{
+        $earTypeValue = $request->ear_type;
+      }
 
       $eartype->animal_id = $sow_id;
       $eartype->property_id = 34;
-      $eartype->value = $request->ear_type;
+      $eartype->value = $earTypeValue;
+
+      if(is_null($request->tail_type)){
+        $tailTypeValue = "Not specified";
+      }
+      else{
+        $tailTypeValue = $request->tail_type;
+      }
+
+      $tailtype->animal_id = $sow_id;
+      $tailtype->property_id = 62;
+      $tailtype->value = $tailTypeValue;
+
+      if(is_null($request->backline)){
+        $backlineValue = "Not specified";
+      }
+      else{
+        $backlineValue = $request->backline;
+      }
 
       $backline->animal_id = $sow_id;
       $backline->property_id = 35;
-      $backline->value = $request->backline;
+      $backline->value = $backlineValue;
 
       if(is_null($request->other_marks)){
         $otherMarksValue = "None";
@@ -525,6 +586,7 @@ class FarmController extends Controller
       $othermarks->property_id = 36;
       $othermarks->value = $otherMarksValue;
 
+      $dcgross->save();
       $hairtype1->save();
       $hairtype2->save();
       $coatcolor->save();
@@ -532,59 +594,167 @@ class FarmController extends Controller
       $headshape->save();
       $skintype->save();
       $eartype->save();
+      $tailtype->save();
       $backline->save();
       $othermarks->save();
 
       //MORPHOMETRIC CHARACTERISTICS
-      $agefirstmating = new AnimalProperty;
-      $finalweight = new AnimalProperty;
-      $finalWeightValue = $request->final_weight_at_8_months;
+      // $agefirstmating = new AnimalProperty;
+      // $finalweight = new AnimalProperty;
+      $dcmorpho = new AnimalProperty;
+      // $finalWeightValue = $request->final_weight_at_8_months;
+      $earlength = new AnimalProperty;
       $headlength = new AnimalProperty;
       $bodylength = new AnimalProperty;
-      $bodyLengthValue = $request->body_length;
-      $pelvicwidth = new AnimalProperty;
+      $snoutlength = new AnimalProperty;
       $heartgirth = new AnimalProperty;
+      $pelvicwidth = new AnimalProperty;
+      $taillength = new AnimalProperty;
+      $heightatwithers = new AnimalProperty;
       $ponderalindex = new AnimalProperty;
       $normalteats = new AnimalProperty;
 
-      $agefirstmating->animal_id = $sow_id;
-      $agefirstmating->property_id = 37;
-      $agefirstmating->value =  $request->age_at_first_mating;
+      // $agefirstmating->animal_id = $boar_id;
+      // $agefirstmating->property_id = 37;
+      // $agefirstmating->value =  $request->age_at_first_mating;
 
-      $finalweight->animal_id = $sow_id;
-      $finalweight->property_id = 38;
-      $finalweight->value = $finalWeightValue;
+      // $finalweight->animal_id = $sow_id;
+      // $finalweight->property_id = 38;
+      // $finalweight->value = $finalWeightValue;
+
+      if(is_null($request->date_collected_morpho)){
+        $dateCollectedMorphoValue = new Carbon();
+      }
+      else{
+        $dateCollectedMorphoValue = $request->date_collected_morpho;
+      }
+
+      $dcmorpho->animal_id = $sow_id;
+      $dcmorpho->property_id = 68;
+      $dcmorpho->value = $dateCollectedMorphoValue;
+
+      if(is_null($request->ear_length)){
+        $earLengthValue = "";
+      }
+      else{
+        $earLengthValue = $request->ear_length;
+      }
+
+      $earlength->animal_id = $sow_id;
+      $earlength->property_id = 64;
+      $earlength->value = $earLengthValue;
+
+      if(is_null($request->head_length)){
+        $headLengthValue = "";
+      }
+      else{
+        $headLengthValue = $request->head_length;
+      }
 
       $headlength->animal_id = $sow_id;
       $headlength->property_id = 39;
-      $headlength->value = $request->head_length;
+      $headlength->value = $headLengthValue;
+
+      if(is_null($request->snout_length)){
+        $snoutLengthValue = "";
+      }
+      else{
+        $snoutLengthValue = $request->snout_length;
+      }
+
+      $snoutlength->animal_id = $sow_id;
+      $snoutlength->property_id = 63;
+      $snoutlength->value = $snoutLengthValue;
+
+      if(is_null($request->body_length)){
+        $bodyLengthValue = "";
+      }
+      else{
+        $bodyLengthValue = $request->body_length;
+      }
 
       $bodylength->animal_id = $sow_id;
       $bodylength->property_id = 40;
       $bodylength->value = $bodyLengthValue;
 
-      $pelvicwidth->animal_id = $sow_id;
-      $pelvicwidth->property_id = 41;
-      $pelvicwidth->value = $request->pelvic_width;
+      if(is_null($request->heart_girth)){
+        $heartGirthValue = "";
+      }
+      else{
+        $heartGirthValue = $request->heart_girth;
+      }
 
       $heartgirth->animal_id = $sow_id;
       $heartgirth->property_id = 42;
-      $heartgirth->value = $request->heart_girth;
+      $heartgirth->value = $heartGirthValue;
+
+      if(is_null($request->pelvic_width)){
+        $pelvicWidthValue = "";
+      }
+      else{
+        $pelvicWidthValue = $request->pelvic_width;
+      }
+
+      $pelvicwidth->animal_id = $sow_id;
+      $pelvicwidth->property_id = 41;
+      $pelvicwidth->value = $pelvicWidthValue;
+
+      if(is_null($request->tail_length)){
+        $tailLengthValue = "";
+      }
+      else{
+        $tailLengthValue = $request->tail_length;
+      }
+
+      $taillength->animal_id = $sow_id;
+      $taillength->property_id = 65;
+      $taillength->value = $tailLengthValue;
+
+      if(is_null($request->height_at_withers)){
+        $heightAtWithersValue = "";
+      }
+      else{
+        $heightAtWithersValue = $request->height_at_withers;
+      }
+
+      $heightatwithers->animal_id = $sow_id;
+      $heightatwithers->property_id = 66;
+      $heightatwithers->value = $heightAtWithersValue;
+
+
+      if(is_null($request->body_length) || is_null($request->body_weight_at_180_days)){
+        $ponderalIndexValue = "";
+      }
+      else{
+        $ponderalIndexValue = $request->body_weight_at_180_days/(($request->body_length/100)**3);
+      }
 
       $ponderalindex->animal_id = $sow_id;
       $ponderalindex->property_id = 43;
-      $ponderalindex->value = $finalWeightValue/(($bodyLengthValue/100)**3);
+      $ponderalindex->value = $ponderalIndexValue;
+
+      if(is_null($request->number_of_normal_teats)){
+        $normalTeatsValue = "";
+      }
+      else{
+        $normalTeatsValue = $request->number_of_normal_teats;
+      }
 
       $normalteats->animal_id = $sow_id;
       $normalteats->property_id = 44;
-      $normalteats->value = $request->number_of_normal_teats;
+      $normalteats->value = $normalTeatsValue;
 
-      $agefirstmating->save();
-      $finalweight->save();
+      // $agefirstmating->save();
+      // $finalweight->save();
+      $dcmorpho->save();
+      $earlength->save();
       $headlength->save();
+      $snoutlength->save();
       $bodylength->save();
       $pelvicwidth->save();
       $heartgirth->save();
+      $taillength->save();
+      $heightatwithers->save();
       $ponderalindex->save();
       $normalteats->save();
 
@@ -593,37 +763,105 @@ class FarmController extends Controller
       $dc45d = new AnimalProperty;
       $bw60d = new AnimalProperty;
       $dc60d = new AnimalProperty;
+      $bw90d = new AnimalProperty;
+      $dc90d = new AnimalProperty;
       $bw180d = new AnimalProperty;
       $dc180d = new AnimalProperty;
 
+      if(is_null($request->body_weight_at_45_days)){
+        $bw45dValue = "";
+      }
+      else{
+        $bw45dValue = $request->body_weight_at_45_days;
+      }
+
       $bw45d->animal_id = $sow_id;
       $bw45d->property_id = 45;
-      $bw45d->value = $request->body_weight_at_45_days;
+      $bw45d->value = $bw45dValue;
+
+      if(is_null($request->date_collected_45_days)){
+        $dc45dValue = new Carbon();
+      }
+      else{
+        $dc45dValue = $request->date_collected_45_days;
+      }
 
       $dc45d->animal_id = $sow_id;
       $dc45d->property_id = 58;
-      $dc45d->value = $request->date_collected_45_days;
+      $dc45d->value = $dc45dValue;
+
+      if(is_null($request->body_weight_at_60_days)){
+        $bw60dValue = "";
+      }
+      else{
+        $bw60dValue = $request->body_weight_at_60_days;
+      }
 
       $bw60d->animal_id = $sow_id;
       $bw60d->property_id = 46;
-      $bw60d->value = $request->body_weight_at_60_days;
+      $bw60d->value = $bw60dValue;
+
+      if(is_null($request->date_collected_60_days)){
+        $dc60dValue = new Carbon();
+      }
+      else{
+        $dc60dValue = $request->date_collected_60_days;
+      }
 
       $dc60d->animal_id = $sow_id;
       $dc60d->property_id = 59;
-      $dc60d->value = $request->date_collected_60_days;
+      $dc60d->value = $dc60dValue;
+
+      if(is_null($request->body_weight_at_90_days)){
+        $bw90dValue = "";
+      }
+      else{
+        $bw90dValue = $request->body_weight_at_90_days;
+      }
+
+      $bw90d->animal_id = $sow_id;
+      $bw90d->property_id = 69;
+      $bw90d->value = $bw90dValue;
+
+      if(is_null($request->date_collected_90_days)){
+        $dc90dValue = new Carbon();
+      }
+      else{
+        $dc90dValue = $request->date_collected_90_days;
+      }
+
+      $dc90d->animal_id = $sow_id;
+      $dc90d->property_id = 70;
+      $dc90d->value = $dc90dValue;
+
+      if(is_null($request->body_weight_at_180_days)){
+        $bw180dValue = "";
+      }
+      else{
+        $bw180dValue = $request->body_weight_at_180_days;
+      }
 
       $bw180d->animal_id = $sow_id;
       $bw180d->property_id = 47;
-      $bw180d->value = $request->body_weight_at_180_days;
+      $bw180d->value = $bw180dValue;
+
+      if(is_null($request->date_collected_180_days)){
+        $dc180dValue = new Carbon();
+      }
+      else{
+        $dc180dValue = $request->date_collected_180_days;
+      }
 
       $dc180d->animal_id = $sow_id;
       $dc180d->property_id = 60;
-      $dc180d->value = $request->date_collected_180_days;
+      $dc180d->value = $dc180dValue;
 
       $bw45d->save();
       $dc45d->save();
       $bw60d->save();
       $dc60d->save();
+      $bw90d->save();
+      $dc90d->save();
       $bw180d->save();
       $dc180d->save();
 
@@ -639,6 +877,7 @@ class FarmController extends Controller
       $boar_id = $request->animal_id;
 
       //GROSS MORPHOLOGY
+      $dcgross = new AnimalProperty;
       $hairtype1 = new AnimalProperty;
       $hairtype2 = new AnimalProperty;
       $coatcolor = new AnimalProperty;
@@ -646,40 +885,119 @@ class FarmController extends Controller
       $headshape = new AnimalProperty;
       $skintype = new AnimalProperty;
       $eartype = new AnimalProperty;
+      $tailtype = new AnimalProperty;
       $backline = new AnimalProperty;
       $othermarks = new AnimalProperty;
 
+      if(is_null($request->date_collected_gross)){
+        $dateCollectedGrossValue = new Carbon();
+      }
+      else{
+        $dateCollectedGrossValue = $request->date_collected_gross;
+      }
+
+      $dcgross->animal_id = $boar_id;
+      $dcgross->property_id = 67;
+      $dcgross->value = $dateCollectedGrossValue;
+
+      if(is_null($request->hair_type1)){
+        $hairTypeValue = "Not specified";
+      }
+      else{
+        $hairTypeValue = $request->hair_type1;
+      }
+
       $hairtype1->animal_id = $boar_id;
       $hairtype1->property_id = 28;
-      $hairtype1->value = $request->hair_type1;
+      $hairtype1->value = $hairTypeValue;
+
+      if(is_null($request->hair_type2)){
+        $hairLengthValue = "Not specified";
+      }
+      else{
+        $hairLengthValue = $request->hair_type2;
+      }
 
       $hairtype2->animal_id = $boar_id;
       $hairtype2->property_id = 29;
-      $hairtype2->value = $request->hair_type2;
+      $hairtype2->value = $hairLengthValue;
+
+      if(is_null($request->coat_color)){
+        $coatColorValue = "Not specified";
+      }
+      else{
+        $coatColorValue = $request->coat_color;
+      }
 
       $coatcolor->animal_id = $boar_id;
       $coatcolor->property_id = 30;
-      $coatcolor->value = $request->coat_color;
+      $coatcolor->value = $coatColorValue;
+
+      if(is_null($request->color_pattern)){
+        $colorPatternValue = "Not specified";
+      }
+      else{
+        $colorPatternValue = $request->color_pattern;
+      }
 
       $colorpattern->animal_id = $boar_id;
       $colorpattern->property_id = 31;
-      $colorpattern->value = $request->color_pattern;
+      $colorpattern->value = $colorPatternValue;
+
+      if(is_null($request->head_shape)){
+        $headShapeValue = "Not specified";
+      }
+      else{
+        $headShapeValue = $request->head_shape;
+      }
 
       $headshape->animal_id = $boar_id;
       $headshape->property_id = 32;
-      $headshape->value = $request->head_shape;
+      $headshape->value = $headShapeValue;
+
+      if(is_null($request->skin_type)){
+        $skinTypeValue = "Not specified";
+      }
+      else{
+        $skinTypeValue = $request->skin_type;
+      }
 
       $skintype->animal_id = $boar_id;
       $skintype->property_id = 33;
-      $skintype->value = $request->skin_type;
+      $skintype->value = $skinTypeValue;
+
+      if(is_null($request->ear_type)){
+        $earTypeValue = "Not specified";
+      }
+      else{
+        $earTypeValue = $request->ear_type;
+      }
 
       $eartype->animal_id = $boar_id;
       $eartype->property_id = 34;
-      $eartype->value = $request->ear_type;
+      $eartype->value = $earTypeValue;
+
+      if(is_null($request->tail_type)){
+        $tailTypeValue = "Not specified";
+      }
+      else{
+        $tailTypeValue = $request->tail_type;
+      }
+
+      $tailtype->animal_id = $boar_id;
+      $tailtype->property_id = 62;
+      $tailtype->value = $tailTypeValue;
+
+      if(is_null($request->backline)){
+        $backlineValue = "Not specified";
+      }
+      else{
+        $backlineValue = $request->backline;
+      }
 
       $backline->animal_id = $boar_id;
       $backline->property_id = 35;
-      $backline->value = $request->backline;
+      $backline->value = $backlineValue;
 
       if(is_null($request->other_marks)){
         $otherMarksValue = "None";
@@ -692,6 +1010,7 @@ class FarmController extends Controller
       $othermarks->property_id = 36;
       $othermarks->value = $otherMarksValue;
 
+      $dcgross->save();
       $hairtype1->save();
       $hairtype2->save();
       $coatcolor->save();
@@ -699,54 +1018,154 @@ class FarmController extends Controller
       $headshape->save();
       $skintype->save();
       $eartype->save();
+      $tailtype->save();
       $backline->save();
       $othermarks->save();
 
       //MORPHOMETRIC CHARACTERISTICS
-      $agefirstmating = new AnimalProperty;
-      $finalweight = new AnimalProperty;
-      $finalWeightValue = $request->final_weight_at_8_months;
+      // $agefirstmating = new AnimalProperty;
+      // $finalweight = new AnimalProperty;
+      $dcmorpho = new AnimalProperty;
+      $eartype = new AnimalProperty;
+      // $finalWeightValue = $request->final_weight_at_8_months;
       $headlength = new AnimalProperty;
+      $snoutlength = new AnimalProperty;
       $bodylength = new AnimalProperty;
-      $bodyLengthValue = $request->body_length;
-      $pelvicwidth = new AnimalProperty;
       $heartgirth = new AnimalProperty;
+      $pelvicwidth = new AnimalProperty;
+      $taillength = new AnimalProperty;
+      $heightatwithers = new AnimalProperty;
       $ponderalindex = new AnimalProperty;
 
-      $agefirstmating->animal_id = $boar_id;
-      $agefirstmating->property_id = 37;
-      $agefirstmating->value =  $request->age_at_first_mating;
+      // $agefirstmating->animal_id = $boar_id;
+      // $agefirstmating->property_id = 37;
+      // $agefirstmating->value =  $request->age_at_first_mating;
 
-      $finalweight->animal_id = $boar_id;
-      $finalweight->property_id = 38;
-      $finalweight->value = $finalWeightValue;
+      // $finalweight->animal_id = $boar_id;
+      // $finalweight->property_id = 38;
+      // $finalweight->value = $finalWeightValue;
+
+      if(is_null($request->date_collected_morpho)){
+        $dateCollectedMorphoValue = new Carbon();
+      }
+      else{
+        $dateCollectedMorphoValue = $request->date_collected_morpho;
+      }
+
+      $dcmorpho->animal_id = $boar_id;
+      $dcmorpho->property_id = 68;
+      $dcmorpho->value = $dateCollectedMorphoValue;
+
+      if(is_null($request->ear_length)){
+        $earLengthValue = "";
+      }
+      else{
+        $earLengthValue = $request->ear_length;
+      }
+
+      $earlength->animal_id = $boar_id;
+      $earlength->property_id = 64;
+      $earlength->value = $earLengthValue;
+
+      if(is_null($request->head_length)){
+        $headLengthValue = "";
+      }
+      else{
+        $headLengthValue = $request->head_length;
+      }
 
       $headlength->animal_id = $boar_id;
       $headlength->property_id = 39;
-      $headlength->value = $request->head_length;
+      $headlength->value = $headLengthValue;
+
+      if(is_null($request->snout_length)){
+        $snoutLengthValue = "";
+      }
+      else{
+        $snoutLengthValue = $request->snout_length;
+      }
+
+      $snoutlength->animal_id = $boar_id;
+      $snoutlength->property_id = 63;
+      $snoutlength->value = $snoutLengthValue;
+
+      if(is_null($request->body_length)){
+        $bodyLengthValue = "";
+      }
+      else{
+        $bodyLengthValue = $request->body_length;
+      }
 
       $bodylength->animal_id = $boar_id;
       $bodylength->property_id = 40;
       $bodylength->value = $bodyLengthValue;
 
-      $pelvicwidth->animal_id = $boar_id;
-      $pelvicwidth->property_id = 41;
-      $pelvicwidth->value = $request->pelvic_width;
+      if(is_null($request->heart_girth)){
+        $heartGirthValue = "";
+      }
+      else{
+        $heartGirthValue = $request->heart_girth;
+      }
 
       $heartgirth->animal_id = $boar_id;
       $heartgirth->property_id = 42;
-      $heartgirth->value = $request->heart_girth;
+      $heartgirth->value = $heartGirthValue;
+
+      if(is_null($request->pelvic_width)){
+        $pelvicWidthValue = "";
+      }
+      else{
+        $pelvicWidthValue = $request->pelvic_width;
+      }
+
+      $pelvicwidth->animal_id = $boar_id;
+      $pelvicwidth->property_id = 41;
+      $pelvicwidth->value = $pelvicWidthValue;
+
+      if(is_null($request->tail_length)){
+        $tailLengthValue = "";
+      }
+      else{
+        $tailLengthValue = $request->tail_length;
+      }
+
+      $taillength->animal_id = $boar_id;
+      $taillength->property_id = 65;
+      $taillength->value = $tailLengthValue;
+
+      if(is_null($request->height_at_withers)){
+        $heightAtWithersValue = "";
+      }
+      else{
+        $heightAtWithersValue = $request->height_at_withers;
+      }
+
+      $heightatwithers->animal_id = $boar_id;
+      $heightatwithers->property_id = 66;
+      $heightatwithers->value = $heightAtWithersValue;
+
+      if(is_null($request->body_weight_at_180_days) || is_null($request->body_length)){
+        $ponderalIndexValue = "";
+      }
+      else{
+        $ponderalIndexValue = $request->body_weight_at_180_days/(($$request->body_length/100)**3);
+      }
 
       $ponderalindex->animal_id = $boar_id;
       $ponderalindex->property_id = 43;
-      $ponderalindex->value = $finalWeightValue/(($bodyLengthValue/100)**3);
+      $ponderalindex->value = $ponderalIndexValue;
 
-      $agefirstmating->save();
-      $finalweight->save();
+      // $agefirstmating->save();
+      // $finalweight->save();
+      $dcmorpho->save();
+      $earlength->save();
       $headlength->save();
+      $snoutlength->save();
       $bodylength->save();
       $pelvicwidth->save();
       $heartgirth->save();
+      $taillength->save();
+      $heightatwithers->save();
       $ponderalindex->save();
 
       //BODY WEIGHTS
@@ -754,32 +1173,98 @@ class FarmController extends Controller
       $dc45d = new AnimalProperty;
       $bw60d = new AnimalProperty;
       $dc60d = new AnimalProperty;
+      $bw90d = new AnimalProperty;
+      $dc90d = new AnimalProperty;
       $bw180d = new AnimalProperty;
       $dc180d = new AnimalProperty;
+
+      if(is_null($request->body_weight_at_45_days)){
+        $bw45dValue = "";
+      }
+      else{
+        $bw45dValue = $request->body_weight_at_45_days;
+      }
 
       $bw45d->animal_id = $boar_id;
       $bw45d->property_id = 45;
       $bw45d->value = $request->body_weight_at_45_days;
 
+      if(is_null($request->date_collected_45_days)){
+        $dc45dValue = new Carbon();
+      }
+      else{
+        $dc45dValue = $request->date_collected_45_days;
+      }
+
       $dc45d->animal_id = $boar_id;
       $dc45d->property_id = 58;
       $dc45d->value = $request->date_collected_45_days;
 
+      if(is_null($request->body_weight_at_60_days)){
+        $bw60dValue = "";
+      }
+      else{
+        $bw60dValue = $request->body_weight_at_60_days;
+      }
+
       $bw60d->animal_id = $boar_id;
       $bw60d->property_id = 46;
-      $bw60d->value = $request->body_weight_at_60_days;
+      $bw60d->value = $bw60dValue;
+
+      if(is_null($request->date_collected_60_days)){
+        $dc60dValue = new Carbon();
+      }
+      else{
+        $dc60dValue = $request->date_collected_60_days;
+      }
 
       $dc60d->animal_id = $boar_id;
       $dc60d->property_id = 59;
-      $dc60d->value = $request->date_collected_60_days;
+      $dc60d->value = $dc60dValue;
+
+      if(is_null($request->body_weight_at_90_days)){
+        $bw90dValue = "";
+      }
+      else{
+        $bw90dValue = $request->body_weight_at_90_days;
+      }
+
+      $bw90d->animal_id = $boar_id;
+      $bw90d->property_id = 69;
+      $bw90d->value = $bw90dValue;
+
+      if(is_null($request->date_collected_90_days)){
+        $dc90dValue = new Carbon();
+      }
+      else{
+        $dc90dValue = $request->date_collected_90_days;
+      }
+
+      $dc90d->animal_id = $boar_id;
+      $dc90d->property_id = 70;
+      $dc90d->value = $dc90dValue;
+
+      if(is_null($request->body_weight_at_180_days)){
+        $bw180dValue = "";
+      }
+      else{
+        $bw180dValue = $request->body_weight_at_180_days;
+      }
 
       $bw180d->animal_id = $boar_id;
       $bw180d->property_id = 47;
-      $bw180d->value = $request->body_weight_at_180_days;
+      $bw180d->value = $bw180dValue;
+
+      if(is_null($request->date_collected_180_days)){
+        $dc180dValue = "";
+      }
+      else{
+        $dc180dValue = $request->date_collected_180_days;
+      }
 
       $dc180d->animal_id = $boar_id;
       $dc180d->property_id = 60;
-      $dc180d->value = $request->date_collected_180_days;
+      $dc180d->value = $dc180dValue;
 
       $bw45d->save();
       $dc45d->save();

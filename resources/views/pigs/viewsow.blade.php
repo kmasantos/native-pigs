@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-  <h4 class="headline"><a href="{{route('farm.pig.animal_record')}}"><img src="{{asset('images/back.png')}}" width="3%"></a> View Sow</h4>
+  <h4 class="headline"><a href="{{route('farm.pig.morphology')}}"><img src="{{asset('images/back.png')}}" width="3%"></a> View Sow</h4>
   <div class="container">
     <div class="row">
       <div class="col s12">
@@ -23,7 +23,7 @@
                 <p>Age</p>
               </div>
               <div class="col s5 push-s2 card-panel white black-text center">
-                <h5>{{ $properties->where("property_id", 38)->first()->value }} kg</h5>
+                <h5>{{ $properties->where("property_id", 47)->first()->value }} kg</h5>
                 <p>Body Weight</p>
               </div>
             </div>
@@ -77,27 +77,39 @@
               <tbody>
                 <tr>
                   <td>Age at First Mating</td>
-                  <td>{{ $properties->where("property_id", 37)->first()->value }} months</td>
+                  <td> months</td>
                 </tr>
-                <tr>
-                  <td>Final Weight at 8 Months</td>
-                  <td>{{ $properties->where("property_id", 38)->first()->value }} kg</td>
+                 <tr>
+                  <td>Ear Length</td>
+                  <td>{{ $properties->where("property_id", 64)->first()->value }} cm</td>
                 </tr>
                 <tr>
                   <td>Head Length</td>
                   <td>{{ $properties->where("property_id", 39)->first()->value }} cm</td>
                 </tr>
                 <tr>
+                  <td>Snout Length</td>
+                  <td>{{ $properties->where("property_id", 63)->first()->value }} cm</td>
+                </tr>
+                <tr>
                   <td>Body Length</td>
                   <td>{{ $properties->where("property_id", 40)->first()->value }} cm</td>
+                </tr>
+                <tr>
+                  <td>Heart Girth</td>
+                  <td>{{ $properties->where("property_id", 42)->first()->value }} cm</td>
                 </tr>
                 <tr>
                   <td>Pelvic Width</td>
                   <td>{{ $properties->where("property_id", 41)->first()->value }} cm</td>
                 </tr>
                 <tr>
-                  <td>Heart Girth</td>
-                  <td>{{ $properties->where("property_id", 42)->first()->value }} cm</td>
+                  <td>Tail Length</td>
+                  <td>{{ $properties->where("property_id", 65)->first()->value }} cm</td>
+                </tr>
+                <tr>
+                  <td>Height at Withers</td>
+                  <td>{{ $properties->where("property_id", 66)->first()->value }} cm</td>
                 </tr>
                 <tr>
                   <td>Ponderal Index</td>
@@ -122,6 +134,10 @@
                 <tr>
                   <td>Body Weight at 60 Days</td>
                   <td>{{ $properties->where("property_id", 46)->first()->value }} kg</td>
+                </tr>
+                <tr>
+                  <td>Body Weight at 90 Days</td>
+                  <td>{{ $properties->where("property_id", 69)->first()->value }} kg</td>
                 </tr>
                 <tr>
                   <td>Body Weight at 180 Days</td>

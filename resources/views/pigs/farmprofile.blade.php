@@ -37,7 +37,7 @@
           </div>
           <div class="input-field col s4">
             <i class="material-icons prefix">terrain</i>
-            <input id="province" type="text" name="province" class="validate">
+            <input id="province" type="text" name="province" value="{{ $farm->address }}" class="validate">
             <label for="province">Province</label>
           </div>
           <div class="input-field col s4">

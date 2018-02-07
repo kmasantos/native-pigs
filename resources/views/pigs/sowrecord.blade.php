@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-  <h4 class="headline"><a href="{{route('farm.pig.animal_record')}}"><img src="{{asset('images/back.png')}}" width="3%"></a> Sow Record</h4>
+  <h4 class="headline"><a href="{{route('farm.pig.morphology')}}"><img src="{{asset('images/back.png')}}" width="3%"></a> Sow Record</h4>
   <div class="container">
     <div class="row">
       {!! Form::open(['route' => 'farm.pig.fetch_sow_record_id', 'method' => 'post']) !!}
@@ -18,6 +18,14 @@
             <div class="collapsible-body">
               <ul class="collection">
                 <li class="collection-item">
+                  <div class="row">
+                    <div class="col s4">
+                      Date Collected
+                    </div>
+                    <div class="col s8">
+                      <input id="date_collected_gross" type="text" placeholder="Date Collected" name="date_collected_gross" class="datepicker">
+                    </div>
+                  </div>
                   <div class="row">
                     <div class="col s4">
                       Hair Type
@@ -97,7 +105,7 @@
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col s3">
+                    <div class="col s4">
                       Ear Type
                     </div>
                     <div class="col s3">
@@ -108,9 +116,22 @@
                       <input class="with-gap" name="ear_type" type="radio" id="ear_type_semilop" value="Semi-lop" />
                       <label for="ear_type_semilop">Semi-lop</label>
                     </div>
-                    <div class="col s3">
+                    <div class="col s2">
                       <input class="with-gap" name="ear_type" type="radio" id="ear_type_erect" value="Erect" />
                       <label for="ear_type_erect">Erect</label>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col s4">
+                      Tail Type
+                    </div>
+                    <div class="col s4">
+                      <input class="with-gap" name="tail_type" type="radio" id="tail_type_curly" value="Curly" />
+                      <label for="tail_type_curly">Curly</label>
+                    </div>
+                    <div class="col s4">
+                      <input class="with-gap" name="tail_type" type="radio" id="tail_type_straight" value="Straight" />
+                      <label for="tail_type_straight">Straight</label>
                     </div>
                   </div>
                   <div class="row">
@@ -146,18 +167,26 @@
                 <li class="collection-item">
                   <div class="row">
                     <div class="col s5">
-                      Age at First Mating, months
+                      Date Collected
                     </div>
                     <div class="col s7">
-                      <input id="age_at_first_mating" type="text" name="age_at_first_mating" class="validate">
+                      <input id="date_collected_morpho" type="text" placeholder="Date Collected" name="date_collected_morpho" class="datepicker">
                     </div>
                   </div>
                   <div class="row">
                     <div class="col s5">
-                      Final Weight at 8 Months, kg
+                      Age at First Mating, months
                     </div>
                     <div class="col s7">
-                      <input id="final_weight_at_8_months" type="text" name="final_weight_at_8_months" class="validate">
+                      <input disabled id="age_at_first_mating" type="text" name="age_at_first_mating" class="validate">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col s5">
+                      Ear Length, cm
+                    </div>
+                    <div class="col s7">
+                      <input id="ear_length" type="text" name="ear_length" class="validate">
                     </div>
                   </div>
                   <div class="row">
@@ -170,10 +199,26 @@
                   </div>
                   <div class="row">
                     <div class="col s5">
+                      Snout Length, cm
+                    </div>
+                    <div class="col s7">
+                      <input id="snout_length" type="text" name="snout_length" class="validate">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col s5">
                       Body Length, cm
                     </div>
                     <div class="col s7">
                       <input id="body_length" type="text" name="body_length" class="validate">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col s5">
+                      Heart Girth, cm
+                    </div>
+                    <div class="col s7">
+                      <input id="heart_girth" type="text" name="heart_girth" class="validate">
                     </div>
                   </div>
                   <div class="row">   
@@ -186,10 +231,18 @@
                   </div>
                   <div class="row">
                     <div class="col s5">
-                      Heart Girth, cm
+                      Tail Length, cm
                     </div>
                     <div class="col s7">
-                      <input id="heart_girth" type="text" name="heart_girth" class="validate">
+                      <input id="tail_length" type="text" name="tail_length" class="validate">
+                    </div>
+                  </div>
+                  <div class="row">   
+                    <div class="col s5">
+                      Height at Withers, cm
+                    </div>
+                    <div class="col s7">
+                      <input id="height_at_withers" type="text" name="height_at_withers" class="validate">
                     </div>
                   </div>
                   <!-- AUTOMATICALLY COMPUTED -->
@@ -207,7 +260,7 @@
                     </div>
                     <div class="col s7">
                       <p class="range-field">
-                        <input type="range" id="number_of_normal_teats" name="number_of_normal_teats" min="8" max="16" />
+                        <input type="range" id="number_of_normal_teats" name="number_of_normal_teats" min="6" max="18" />
                       </p>
                     </div>
                   </div>
@@ -229,7 +282,7 @@
                       <input id="body_weight_at_45_days" type="text" placeholder="Weight" name="body_weight_at_45_days" class="validate">
                     </div>
                     <div class="col s4">
-                      <input id="date_collected_45_days" type="text" placeholder="Date" name="date_collected_45_days" class="datepicker">
+                      <input id="date_collected_45_days" type="text" placeholder="Date Collected" name="date_collected_45_days" class="datepicker">
                     </div>
                   </div>
                   <div class="row">
@@ -240,7 +293,18 @@
                       <input id="body_weight_at_60_days" type="text" placeholder="Weight" name="body_weight_at_60_days" class="validate">
                     </div>
                     <div class="col s4">
-                      <input id="date_collected_60_days" type="text" placeholder="Date" name="date_collected_60_days" class="datepicker">
+                      <input id="date_collected_60_days" type="text" placeholder="Date Collected" name="date_collected_60_days" class="datepicker">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col s4">
+                      Body Weight at 90 Days
+                    </div>
+                    <div class="col s4">
+                      <input id="body_weight_at_90_days" type="text" placeholder="Weight" name="body_weight_at_90_days" class="validate">
+                    </div>
+                    <div class="col s4">
+                      <input id="date_collected_90_days" type="text" placeholder="Date Collected" name="date_collected_90_days" class="datepicker">
                     </div>
                   </div>
                   <div class="row">
@@ -251,7 +315,7 @@
                       <input id="body_weight_at_180_days" type="text" placeholder="Weight" name="body_weight_at_180_days" class="validate">
                     </div>
                     <div class="col s4">
-                      <input id="date_collected_180_days" type="text" placeholder="Date" name="date_collected_180_days" class="datepicker">
+                      <input id="date_collected_180_days" type="text" placeholder="Date Collected" name="date_collected_180_days" class="datepicker">
                     </div>
                   </div>
                 </li>

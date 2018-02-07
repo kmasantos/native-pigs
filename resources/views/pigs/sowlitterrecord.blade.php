@@ -68,23 +68,26 @@
 									<div class="col s12">
 										<h5 class="red darken-4 white-text">Add offspring</h5>
 										<input type="hidden" name="sow_registryid" value="{{ $sow->registryid }}">
-										<div class="input-field col s4">
+										<div class="col s4">
                       <input id="offspring_earnotch" type="text" name="offspring_earnotch" class="validate">
                       <label for="offspring_earnotch">Offspring Earnotch</label>
 										</div>
-										<div class="input-field col s4">
-											<input id="sex" type="text" name="sex" class="validate">
-											<label for="sex">Sex (M/F)</label>
+										<div class="col s4">
+											<select name="sex" class="browser-default">
+												<option disabled selected>Choose sex</option>
+												<option value="M">Male</option>
+												<option value="F">Female</option>
+											</select>
 										</div>
-										<div class="input-field col s4">
+										<div class="col s4">
 											<input id="litter_remarks" type="text" name="remarks" class="validate">
 											<label for="litter_remarks">Remarks</label>
 										</div>
-										<div class="input-field col s6">
+										<div class="col s6">
 											<input id="birth_weight" type="text" name="birth_weight">
 											<label for="birth_weight">Birth Weight, kg</label>
 										</div>
-										<div class="input-field col s6">
+										<div class="col s6">
 											<input id="weaning_weight" type="text" name="weaning_weight">
 											<label for="weaning_weight">Weaning Weight, kg</label>
 										</div>

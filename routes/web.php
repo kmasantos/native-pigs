@@ -34,7 +34,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('add_sowlitter_record', ['as' => 'farm.pig.add_sowlitter_record', 'uses' => 'FarmController@getAddSowLitterRecordPage']);
     //Route::post('add_offspring', ['as' => 'farm.pig.add_offspring', 'uses' => 'FarmController@addOffspring']);
     Route::post('get_sowlitter_record', ['as' => 'farm.pig.get_sowlitter_record', 'uses' => 'FarmController@addSowlitterRecord']);
-    Route::get('animal_record', ['as' => 'farm.pig.animal_record', 'uses' => 'FarmController@getAnimalRecordPage']);
+    Route::get('morphology', ['as' => 'farm.pig.morphology', 'uses' => 'FarmController@getAnimalRecordPage']);
     Route::get('view_sow/{id}', ['as' => 'farm.pig.view_sow', 'uses' => 'FarmController@getViewSowPage']);
     Route::get('sow_record/{id}', ['as' => 'farm.pig.sow_record_page', 'uses' => 'FarmController@getSowRecordPage']);
     Route::post('fetch_sow_record_id', ['as' => 'farm.pig.fetch_sow_record_id', 'uses' => 'FarmController@fetchSowRecord']);
@@ -42,9 +42,6 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('boar_record/{id}', ['as' => 'farm.pig.boar_record_page', 'uses' => 'FarmController@getBoarRecordPage']);
     Route::post('fetch_boar_record_id', ['as' => 'farm.pig.fetch_boar_record_id', 'uses' => 'FarmController@fetchBoarRecord']);
     Route::get('mortality_and_sales', ['as' => 'farm.pig.mortality_and_sales', 'uses' => 'FarmController@getMortalityAndSalesPage']);
-    // Route::get('mortality_record', ['as' => 'farm.pig.mortality_record', 'uses' => 'FarmController@getMortalityRecordPage']);
-    // Route::post('get_mortality_record', ['as' => 'farm.pig.get_mortality_record', 'uses' => 'FarmController@addMortalityRecord']);
-    // Route::get('sales_record', ['as' => 'farm.pig.sales_record', 'uses' => 'FarmController@getSalesRecordPage']);
     Route::post('get_mortality_record', ['as' => 'farm.pig.get_mortality_record', 'uses' => 'FarmController@addMortalityRecord']);
     Route::post('get_sales_record', ['as' => 'farm.pig.get_sales_record', 'uses' => 'FarmController@addSalesRecord']);
     Route::get('farm_profile', ['as' => 'farm.pig.farm_profile', 'uses' => 'FarmController@getFarmProfilePage']);

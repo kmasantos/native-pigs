@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\AnimalProperty;
+use Carbon\Carbon;
 
 class Animal extends Model
 {
@@ -97,6 +98,24 @@ class Animal extends Model
   {
     $properties = AnimalProperty::where('animal_id', $this->id)->get();
     return $properties;
+  }
+
+  public function getAge($id)
+  {
+    $animal = Animal::find($id);
+
+    if($animal->status == "sold"){
+      $date_start = Carbon::parse($animal->getAnimalProperties()->where("property_id", 56)->first()->value);
+    }
+    if($animal->status == "died"){
+      $date_start = Carbon::parse($animal->getAnimalProperties()->where("property_id", 55)->first()->value);
+    }
+
+    $date_end = Carbon::parse($animal->getAnimalProperties()->where("property_id", 25)->first()->value);
+
+    $age = $date_start->diffInMonths($date_end);
+
+    return $age;
   }
 
 }

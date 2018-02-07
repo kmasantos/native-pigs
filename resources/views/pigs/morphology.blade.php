@@ -1,11 +1,11 @@
 @extends('layouts.swinedefault')
 
 @section('title')
-  Animal Records
+  Morphology
 @endsection
 
 @section('content')
-  <h4 class="headline">Animal Records</h4>
+  <h4 class="headline">Morphology</h4>
   <div class="container">
     <div class="row">
       <div class="col s12">
@@ -22,8 +22,8 @@
         <div class="row">
           <div class="col s12">
             <ul class="tabs tabs-fixed-width red darken-4">
-              <li class="tab col s6"><a href="#sowrecords">Sow</a></li>
-              <li class="tab col s6"><a href="#boarrecords">Boar</a></li>
+              <li class="tab col s6"><a href="#sowrecords">Sows</a></li>
+              <li class="tab col s6"><a href="#boarrecords">Boars</a></li>
             </ul>
           </div>
           <div id="sowrecords" class="col s12">
@@ -42,9 +42,15 @@
                     @elseif($sow->phenotypic == 0 && $sow->morphometric == 0)
                       <td>{{ $sow->registryid }}</td>
                     @endif
-                    <td>
-                      <a href="{{ URL::route('farm.pig.sow_record_page', [$sow->id]) }}" class="btn-floating yellow waves-light waves-effect modal-trigger"><i class="material-icons">edit</i></a>
-                    </td>
+                    @if($sow->phenotypic == 0 && $sow->morphometric == 0)
+                      <td>
+                        <a href="{{ URL::route('farm.pig.sow_record_page', [$sow->id]) }}" class="btn-floating green waves-light waves-effect modal-trigger"><i class="material-icons">add</i></a>
+                      </td>
+                    @elseif($sow->phenotypic == 1 && $sow->morphometric == 1)
+                      <td>
+                        <a href="#!" class="btn-floating yellow waves-light waves-effect modal-trigger"><i class="material-icons">edit</i></a>
+                      </td>
+                    @endif
                   </tr>
                 @empty
                   <tr>
@@ -72,9 +78,15 @@
                     @elseif($boar->phenotypic == 0 && $boar->morphometric == 0)
                       <td>{{ $boar->registryid }}</td>
                     @endif
-                    <td>
-                      <a href="{{ URL::route('farm.pig.boar_record_page', [$boar->id]) }}" class="btn-floating yellow waves-light waves-effect modal-trigger"><i class="material-icons">edit</i></a>
-                    </td>
+                    @if($boar->phenotypic == 0 && $boar->morphometric == 0)
+                      <td>
+                        <a href="{{ URL::route('farm.pig.boar_record_page', [$boar->id]) }}" class="btn-floating green waves-light waves-effect modal-trigger"><i class="material-icons">add</i></a>
+                      </td>
+                    @elseif($boar->phenotypic == 1 && $boar->morphometric == 1)
+                      <td>
+                        <a href="#!" class="btn-floating yellow waves-light waves-effect modal-trigger"><i class="material-icons">edit</i></a>
+                      </td>
+                    @endif
                   </tr>
                 @empty
                   <tr>

@@ -41,4 +41,10 @@ class Grouping extends Model
       $father = Animal::find($this->father_id);
       return $father;
     }
+
+    public function getGroupingMembers()
+    {
+      $members = GroupingMember::where('grouping_id', $this->id)->get();
+      return $members;
+    }
 }

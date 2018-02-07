@@ -13,18 +13,18 @@
 					<div class="col s4">
 						<select name="month_mating" class="browser-default">
 							<option disabled selected>Choose month</option>
-							<option value="1">January</option>
-							<option value="2">February</option>
-							<option value="3">March</option>
-							<option value="4">April</option>
-							<option value="5">May</option>
-							<option value="6">June</option>
-							<option value="7">July</option>
-							<option value="8">August</option>
-							<option value="9">September</option>
-							<option value="10">October</option>
-							<option value="11">November</option>
-							<option value="12">December</option>
+							<option value="January">January</option>
+							<option value="February">February</option>
+							<option value="March">March</option>
+							<option value="April">April</option>
+							<option value="May">May</option>
+							<option value="June">June</option>
+							<option value="July">July</option>
+							<option value="August">August</option>
+							<option value="September">September</option>
+							<option value="October">October</option>
+							<option value="November">November</option>
+							<option value="December">December</option>
 						</select>
 					</div>
 				</div>
@@ -38,7 +38,7 @@
 									<th>Date Bred</th>
 									<th>Expected Date of Farrowing</th>
 									<th>Recycled</th>
-									<th>Date Pregnant</th>
+									<th>Status</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -94,7 +94,7 @@
 										<input id="date_bred" type="text" placeholder="Pick date" name="date_bred" class="datepicker">
 									</td>
 									<td>
-										<input disabled id="expected_date_of_farrowing" type="text" placeholder="Computed" name="expected_date_of_farrowing" class="datepicker">
+										{{-- <input disabled id="expected_date_of_farrowing" type="text" name="expected_date_of_farrowing" class="datepicker"> --}}
 									</td>
 									<td class="switch">
 										<label>
@@ -103,7 +103,7 @@
 										</label>
 									</td>
 									<td>
-										<input id="date_pregnant" type="text" placeholder="Pick date" name="date_pregnant" class="datepicker">
+										{{-- <input disabled id="mating_status" type="text" name="mating_status" class="datepicker"> --}}
 									</td>
 								</tr>
               </tbody>

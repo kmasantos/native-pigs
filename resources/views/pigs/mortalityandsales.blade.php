@@ -50,7 +50,7 @@
 										<tr>
 											<td>{{ $dead_pig->registryid }}</td>
 											<td>{{ $dead_pig->getAnimalProperties()->where("property_id", 55)->first()->value }}</td>
-											<td>XX</td>
+											<td>{{ $dead_pig->getAge($dead_pig->id) }}</td>
 										</tr>
 									@empty
 										<tr>
@@ -121,7 +121,7 @@
 											<td>{{ $pig_sold->registryid }}</td>
 											<td>{{ $pig_sold->getAnimalProperties()->where("property_id", 56)->first()->value }}</td>
 											<td>{{ $pig_sold->getAnimalProperties()->where("property_id", 57)->first()->value }}</td>
-											<td>X</td>
+											<td>{{ $pig_sold->getAge($pig_sold->id) }}</td>
 										</tr>
 									@empty
 										<tr>
