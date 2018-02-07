@@ -67,7 +67,7 @@
 						<div class="row">
 							<table class="centered striped">
 								<thead>
-									<tr>
+									<tr class="red darken-4 white-text">
 										<th>Registration ID</th>
 										<th>Date of Death</th>
 										<th>Cause of Death</th>
@@ -140,7 +140,7 @@
 						<div class="row">
 							<table class="centered striped">
 								<thead>
-									<tr>
+									<tr class="red darken-4 white-text">
 										<th>Registration ID</th>
 										<th>Date Sold</th>
 										<th>Weight, kg</th>
@@ -217,7 +217,7 @@
 						<div class="row">
 							<table class="centered striped">
 								<thead>
-									<tr>
+									<tr class="red darken-4 white-text">
 										<th>Registration ID</th>
 										<th>Date Removed</th>
 										<th>Reason</th>

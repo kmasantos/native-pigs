@@ -1,12 +1,12 @@
 @extends('layouts.swinedefault')
 
 @section('title')
-	Mating Record
+	Breeding Record
 @endsection
 
 @section('content')
 	<div class="container">
-		<h4>Mating Record</h4>
+		<h4>Breeding Record</h4>
 		<div class="divider"></div>
 		<div class="row" style="padding-top: 10px;">
 			<div class="col s12">
@@ -44,33 +44,33 @@
 								</tr>
 							</thead>
 							<tbody>
-								@forelse($family as $matingRecord)
+								@forelse($family as $breedingRecord)
 									<tr>
 										<td>
-											{{ $matingRecord->getMother()->registryid }} 
+											{{ $breedingRecord->getMother()->registryid }} 
 										</td>
 										<td>
-											{{ $matingRecord->getFather()->registryid }}
+											{{ $breedingRecord->getFather()->registryid }}
 										</td>
 										<td>
-											{{ $matingRecord->getGroupingProperties()->where("property_id", 48)->first()->value }}
+											{{ $breedingRecord->getGroupingProperties()->where("property_id", 48)->first()->value }}
 										</td>
 										<td>
-											{{ $matingRecord->getGroupingProperties()->where("property_id", 49)->first()->value }}
+											{{ $breedingRecord->getGroupingProperties()->where("property_id", 49)->first()->value }}
 										</td>
 										<td>
-											@if($matingRecord->getGroupingProperties()->where("property_id", 51)->first()->value == 0)
+											@if($breedingRecord->getGroupingProperties()->where("property_id", 51)->first()->value == 0)
 												No
 											@else
 												Yes
 											@endif
 										</td>
 										<td>
-											{{ $matingRecord->getGroupingProperties()->where("property_id", 50)->first()->value }}
+											{{ $breedingRecord->getGroupingProperties()->where("property_id", 50)->first()->value }}
 										</td>
 										<td>
-											@if($matingRecord->getGroupingProperties()->where("property_id", 51)->first()->value == 0)
-												<a href="{{ URL::route('farm.pig.sowlitter_record', [$matingRecord->id]) }}"><i class="material-icons">add_circle_outline</i></a>
+											@if($breedingRecord->getGroupingProperties()->where("property_id", 51)->first()->value == 0)
+												<a href="{{ URL::route('farm.pig.sowlitter_record', [$breedingRecord->id]) }}"><i class="material-icons">add_circle_outline</i></a>
 											@else
 												<i class="material-icons">refresh</i>
 											@endif
@@ -81,7 +81,7 @@
 										<td>No mating record found</td>
 									</tr>
 								@endforelse
-                {!! Form::open(['route' => 'farm.pig.get_mating_record', 'method' => 'post']) !!}
+                {!! Form::open(['route' => 'farm.pig.get_breeding_record', 'method' => 'post']) !!}
 								<tr>
 									<td>
 										<select name="sow_id" class="browser-default">

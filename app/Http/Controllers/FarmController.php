@@ -171,7 +171,7 @@ class FarmController extends Controller
       return view('pigs.sowlitterrecord', compact('family', 'offsprings', 'properties'));
     }
 
-    public function getMatingRecordPage(){
+    public function getBreedingRecordPage(){
       $pigs = Animal::where("animaltype_id", 3)->where("status", "active")->get();
       $family = Grouping::whereNotNull("mother_id")->get();
 
@@ -190,7 +190,7 @@ class FarmController extends Controller
         $properties = $group->getGroupingProperties();
       }
 
-      return view('pigs.matingrecord', compact('pigs', 'sows', 'boars', 'family', 'properties', 'mothers', 'fathers'));
+      return view('pigs.breedingrecord', compact('pigs', 'sows', 'boars', 'family', 'properties', 'mothers', 'fathers'));
     }
 
     public function getMortalityAndSalesPage(){
@@ -243,13 +243,15 @@ class FarmController extends Controller
     public function getViewSowPage($id){
       $sow = Animal::find($id);
       $properties = $sow->getAnimalProperties();
-      // dd($properties);
 
       $now = Carbon::now();
-      $end_date = Carbon::parse($properties->where("property_id", 25)->first()->value);
-
-      //dd($now, $end_date);
-      $age = $now->diffInMonths($end_date);
+      if(!is_null($properties->where("property_id", 25)->first())){
+        $end_date = Carbon::parse($properties->where("property_id", 25)->first()->value);
+        $age = $now->diffInMonths($end_date);
+      }
+      else{
+        $age = "";
+      }
 
       return view('pigs.viewsow', compact('sow', 'properties', 'age'));
     }
@@ -259,10 +261,13 @@ class FarmController extends Controller
       $properties = $boar->getAnimalProperties();
 
       $now = Carbon::now();
-      $end_date = Carbon::parse($properties->where("property_id", 25)->first()->value);
-
-      //dd($now, $end_date);
-      $age = $now->diffInMonths($end_date);
+      if(!is_null($properties->where("property_id", 25)->first())){
+        $end_date = Carbon::parse($properties->where("property_id", 25)->first()->value);
+        $age = $now->diffInMonths($end_date);
+      }
+      else{
+        $age = "";
+      }
 
       return view('pigs.viewboar', compact('boar', 'properties', 'age'));
     }
@@ -302,7 +307,7 @@ class FarmController extends Controller
       return view('pigs.boarrecord', compact('boar', 'properties'));
     }
 
-    public function addMatingRecord(Request $request){
+    public function addBreedingRecord(Request $request){
       $sow = Animal::where("registryid", $request->sow_id)->first();
       $boar = Animal::where("registryid", $request->boar_id)->first();
 
@@ -451,11 +456,13 @@ class FarmController extends Controller
       $birthweight->value = $request->birth_weight;
       $birthweight->save();
 
+      /*
       $weaningweight = new AnimalProperty;
       $weaningweight->animal_id = $offspring->id;
       $weaningweight->property_id = 54;
       $weaningweight->value = $request->weaning_weight;
       $weaningweight->save();
+      */
 
       $groupingmember = new GroupingMember;
       $groupingmember->grouping_id = $grouping->id;
@@ -469,12 +476,14 @@ class FarmController extends Controller
       $date_farrowed->datecollected = new Carbon();
       $date_farrowed->save();
 
+      /*
       $date_weaned = new GroupingProperty;
       $date_weaned->grouping_id = $grouping->id;
       $date_weaned->property_id = 61;
       $date_weaned->value = $request->date_weaned;
       $date_weaned->datecollected = new Carbon();
       $date_weaned->save();
+      */
 
       if(is_null($request->number_stillborn)){
         $noStillbornValue = 0;
