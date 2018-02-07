@@ -5,9 +5,10 @@
 @endsection
 
 @section('content')
-  <h4 class="headline">Farm Profile</h4>
   <div class="container">
-    <div class="row"> 
+    <h4>Farm Profile</h4>
+    <div class="divider"></div>
+    <div class="row" style="padding-top: 10px;"> 
       {!! Form::open(['route' => 'farm.pig.get_farm_profile', 'method' => 'post']) !!}
       <div class="col s12">
         <div class="row">

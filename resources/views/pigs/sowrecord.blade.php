@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-  <h4 class="headline"><a href="{{route('farm.pig.morphology')}}"><img src="{{asset('images/back.png')}}" width="3%"></a> Sow Record</h4>
+  <h4 class="headline"><a href="{{route('farm.pig.individual_records')}}"><img src="{{asset('images/back.png')}}" width="3%"></a> Sow Record</h4>
   <div class="container">
     <div class="row">
       {!! Form::open(['route' => 'farm.pig.fetch_sow_record_id', 'method' => 'post']) !!}

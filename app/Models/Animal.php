@@ -107,13 +107,21 @@ class Animal extends Model
     if($animal->status == "sold"){
       $date_start = Carbon::parse($animal->getAnimalProperties()->where("property_id", 56)->first()->value);
     }
-    if($animal->status == "died"){
+    if($animal->status == "dead"){
       $date_start = Carbon::parse($animal->getAnimalProperties()->where("property_id", 55)->first()->value);
+    }
+    if($animal->status == "removed"){
+     $date_start = Carbon::parse($animal->getAnimalProperties()->where("property_id", 72)->first()->value); 
     }
 
     $date_end = Carbon::parse($animal->getAnimalProperties()->where("property_id", 25)->first()->value);
 
-    $age = $date_start->diffInMonths($date_end);
+    if(!is_null($date_end)){
+      $age = $date_start->diffInMonths($date_end);
+    }
+    else{
+      $age = "";
+    }
 
     return $age;
   }

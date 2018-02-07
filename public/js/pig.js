@@ -26,13 +26,20 @@ $('.datepicker').pickadate({
   closeOnSelect: false // Close upon selecting a date,
 });
 
-function disableField(){
-  if(document.getElementById("recycled").checked){
-    document.getElementById("date_pregnant").disabled = true;
-    document.getElementById("date_pregnant").placeholder = "Disabled";
-  }
-  else{
-    document.getElementById("date_pregnant").disabled = false;
-    document.getElementById("date_pregnant").placeholder = "Pick date";
-  }
+document.getElementById("offspring_earnotch").disabled = true;
+document.getElementById("select_sex").disabled = true;
+document.getElementById("birth_weight").disabled = true;
+document.getElementById("number_stillborn").disabled = true;
+document.getElementById("number_mummified").disabled = true;
+document.getElementById("date_weaned").disabled = true;
+
+var farrowed = document.getElementById("date_farrowed");
+farrowed.onchange = function () {
+   if (this.value != "" || this.value.length > 0) {
+      document.getElementById("offspring_earnotch").disabled = false;
+      document.getElementById("select_sex").disabled = false;
+      document.getElementById("birth_weight").disabled = false;
+      document.getElementById("number_stillborn").disabled = false;
+      document.getElementById("number_mummified").disabled = false;
+   }
 }

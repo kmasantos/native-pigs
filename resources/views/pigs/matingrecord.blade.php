@@ -5,9 +5,10 @@
 @endsection
 
 @section('content')
-	<h4 class="headline">Mating Record</h4>
 	<div class="container">
-		<div class="row">
+		<h4>Mating Record</h4>
+		<div class="divider"></div>
+		<div class="row" style="padding-top: 10px;">
 			<div class="col s12">
 				<div class="row">
 					<div class="col s4">
@@ -39,6 +40,7 @@
 									<th>Expected Date of Farrowing</th>
 									<th>Recycled</th>
 									<th>Status</th>
+									<th>Sow-Litter Record</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -65,6 +67,13 @@
 										</td>
 										<td>
 											{{ $matingRecord->getGroupingProperties()->where("property_id", 50)->first()->value }}
+										</td>
+										<td>
+											@if($matingRecord->getGroupingProperties()->where("property_id", 51)->first()->value == 0)
+												<a href="{{ URL::route('farm.pig.sowlitter_record', [$matingRecord->id]) }}"><i class="material-icons">add_circle_outline</i></a>
+											@else
+												<i class="material-icons">refresh</i>
+											@endif
 										</td>
 									</tr>
 								@empty
@@ -104,6 +113,9 @@
 									</td>
 									<td>
 										{{-- <input disabled id="mating_status" type="text" name="mating_status" class="datepicker"> --}}
+									</td>
+									<td>
+										
 									</td>
 								</tr>
               </tbody>
