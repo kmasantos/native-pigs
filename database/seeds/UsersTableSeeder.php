@@ -529,6 +529,54 @@ class UsersTableSeeder extends Seeder
 				$slr3->description = "Number of mummified offsprings";
 				$slr3->save();
 
+				$slr4 = new Property;
+				$slr4->name = "Parity";
+				$slr4->fname = "parity";
+				$slr4->description = "Parity of the pig";
+				$slr4->save();
+
+				$slr5 = new Property;
+				$slr5->name = "Total Littersize Born";
+				$slr5->fname = "total_littersize_born";
+				$slr5->description = "Total littersize born of the pair";
+				$slr5->save();
+
+				$slr6 = new Property;
+				$slr6->name = "Number Weaned";
+				$slr6->fname = "number_weaned";
+				$slr6->description = "Number of weaned offsprings";
+				$slr6->save();
+
+				$slr7 = new Property;
+				$slr7->name = "Average Birth Weight";
+				$slr7->fname = "average_birth_weight";
+				$slr7->description = "Average birth weight of offsprings";
+				$slr7->save();
+
+				$slr8 = new Property;
+				$slr8->name = "Number of Males";
+				$slr8->fname = "number_of_males";
+				$slr8->description = "Number of male offsprings";
+				$slr8->save();
+
+				$slr9 = new Property;
+				$slr9->name = "Number of Females";
+				$slr9->fname = "number_of_females";
+				$slr9->description = "Number of female offsprings";
+				$slr9->save();
+
+				$slr10 = new Property;
+				$slr10->name = "Sex Ratio";
+				$slr10->fname = "sex_ratio";
+				$slr10->description = "Sex ratio of the offsprings";
+				$slr10->save();
+
+				$slr11 = new Property;
+				$slr11->name = "Average Weaning Weight";
+				$slr11->fname = "average_weaning_weight";
+				$slr11->description = "Average weaning weight of offsprings";
+				$slr11->save();
+
 				$this->command->info('Additional properties seeded');
 
 				$this->command->info('Properties value seeded');
@@ -1313,45 +1361,45 @@ class UsersTableSeeder extends Seeder
 
 				/***/
 
-				$grouping = new Grouping;
-				$grouping->registryid = $sow1->registryid;
-				$grouping->mother_id = $sow1->id;
-				$grouping->father_id = $boar1->id;
-				$grouping->save();
+				// $grouping = new Grouping;
+				// $grouping->registryid = $sow1->registryid;
+				// $grouping->mother_id = $sow1->id;
+				// $grouping->father_id = $boar1->id;
+				// $grouping->save();
 
-				$this->command->info('Animals added to group');
+				// $this->command->info('Animals added to group');
 
-				$date6 = new Carbon();
+				// $date6 = new Carbon();
 
-				$groupprop = new GroupingProperty;
-				$groupprop->grouping_id = $grouping->id;
-				$groupprop->property_id = $mating1->id;
-				$groupprop->value = $date6->subMonths(1);
-				$groupprop->datecollected = new Carbon();
-				$groupprop->save();
+				// $groupprop = new GroupingProperty;
+				// $groupprop->grouping_id = $grouping->id;
+				// $groupprop->property_id = $mating1->id;
+				// $groupprop->value = $date6->subMonths(1);
+				// $groupprop->datecollected = new Carbon();
+				// $groupprop->save();
 
-				$groupprop2 = new GroupingProperty;
-				$groupprop2->grouping_id = $grouping->id;
-				$groupprop2->property_id = $mating2->id;
-				$groupprop2->value = $date6->addDays(114);
-				$groupprop2->datecollected = new Carbon();
-				$groupprop2->save();
+				// $groupprop2 = new GroupingProperty;
+				// $groupprop2->grouping_id = $grouping->id;
+				// $groupprop2->property_id = $mating2->id;
+				// $groupprop2->value = $date6->addDays(114);
+				// $groupprop2->datecollected = new Carbon();
+				// $groupprop2->save();
 
-				$groupprop3 = new GroupingProperty;
-				$groupprop3->grouping_id = $grouping->id;
-				$groupprop3->property_id = $mating4->id;
-				$groupprop3->value = 0;
-				$groupprop3->datecollected = new Carbon();
-				$groupprop3->save();
+				// $groupprop3 = new GroupingProperty;
+				// $groupprop3->grouping_id = $grouping->id;
+				// $groupprop3->property_id = $mating4->id;
+				// $groupprop3->value = 0;
+				// $groupprop3->datecollected = new Carbon();
+				// $groupprop3->save();
 
-				$groupprop4 = new GroupingProperty;
-				$groupprop4->grouping_id = $grouping->id;
-				$groupprop4->property_id = $mating3->id;
-				$groupprop4->value = "Pregnant";
-				$groupprop4->datecollected = new Carbon();
-				$groupprop4->save();
+				// $groupprop4 = new GroupingProperty;
+				// $groupprop4->grouping_id = $grouping->id;
+				// $groupprop4->property_id = $mating3->id;
+				// $groupprop4->value = "Pregnant";
+				// $groupprop4->datecollected = new Carbon();
+				// $groupprop4->save();
 
-				$this->command->info('Pig grouping properties seeded');
+				// $this->command->info('Pig grouping properties seeded');
 		}
 
 }

@@ -14,7 +14,7 @@
 
 		{{-- Fixed Side Navigation --}}
 		<div class="navbar-fixed">
-			<nav class="red darken-4" role="navigation">
+			<nav class="green lighten-1" role="navigation">
 				<div class="nav-wrapper">
 					<a href="{{route('farm.index')}}" class="brand-logo"><img src="/images/logo-swine.png" height="60" / ></a>
 					<ul id="nav-mobile" class="right hide-on-med-and-down">
@@ -29,19 +29,19 @@
 		<ul id="slide-out" class="side-nav grey lighten-2 fixed">
 			<li>
 				<div class="user-view">
-					<div class="background red darken-4"></div>
+					<div class="background green lighten-1"></div>
 					<a href="#!"><img class="circle" src="/images/farmer.png"></a>
 					<a href="#!"><span class="white-text name">{{ Auth::user()->name }}</span></a>
 					<a href="#!"><span class="white-text email">{{ Auth::user()->email   }}</span></a>
 				</div>
 			</li>
 			<li><a href="{{route('farm.index')}}"><i class="material-icons">dashboard</i>Dashboard</a></li>
-			<li><div class="divider red lighten-2"></div></li>
+			<li><div class="divider green lighten-1"></div></li>
 			<li><a href="{{route('farm.pig.breeding_record')}}">Breeding Record</a></li>
 			{{-- <li><a href="{{route('farm.pig.add_sowlitter_record')}}">Sow-Litter Record</a></li> --}}
 			<li><a href="{{route('farm.pig.individual_records')}}">Individual Records</a></li>
 			<li><a href="{{route('farm.pig.mortality_and_sales')}}">Mortality and Sales</a></li>
-			<li><div class="divider red lighten-2"></div></li>
+			<li><div class="divider green lighten-1"></div></li>
 			<li><a href="{{route('farm.pig.farm_profile')}}"><i class="material-icons">settings</i>Farm Profile</a></li>
 		</ul>
 

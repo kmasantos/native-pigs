@@ -33,7 +33,7 @@
 					<div class="col s12">
 						<table class="centered striped">
 							<thead>
-								<tr class="red darken-4 white-text">
+								<tr class="green lighten-1">
 									<th>Sow ID</th>
 									<th>Boar ID</th>
 									<th>Date Bred</th>
@@ -52,33 +52,53 @@
 										<td>
 											{{ $breedingRecord->getFather()->registryid }}
 										</td>
-										<td>
-											{{ $breedingRecord->getGroupingProperties()->where("property_id", 48)->first()->value }}
-										</td>
-										<td>
-											{{ $breedingRecord->getGroupingProperties()->where("property_id", 49)->first()->value }}
-										</td>
-										<td>
-											@if($breedingRecord->getGroupingProperties()->where("property_id", 51)->first()->value == 0)
-												No
-											@else
-												Yes
-											@endif
-										</td>
-										<td>
-											{{ $breedingRecord->getGroupingProperties()->where("property_id", 50)->first()->value }}
-										</td>
-										<td>
-											@if($breedingRecord->getGroupingProperties()->where("property_id", 51)->first()->value == 0)
-												<a href="{{ URL::route('farm.pig.sowlitter_record', [$breedingRecord->id]) }}"><i class="material-icons">add_circle_outline</i></a>
-											@else
-												<i class="material-icons">refresh</i>
-											@endif
-										</td>
+										@if(is_null($breedingRecord->getGroupingProperties()->where("property_id", 48)->first()))
+											<td></td>
+										@else
+											<td>
+												{{ Carbon\Carbon::parse($breedingRecord->getGroupingProperties()->where("property_id", 48)->first()->value)->format('j F, Y') }}
+											</td>
+										@endif
+										@if(is_null($breedingRecord->getGroupingProperties()->where("property_id", 49)->first()))
+											<td></td>
+										@else
+											<td>
+												{{ Carbon\Carbon::parse($breedingRecord->getGroupingProperties()->where("property_id", 49)->first()->value)->format('j F, Y') }}
+											</td>
+										@endif
+										@if(is_null($breedingRecord->getGroupingProperties()->where("property_id", 51)->first()))
+											<td></td>
+										@else
+											<td>
+												@if($breedingRecord->getGroupingProperties()->where("property_id", 51)->first()->value == 0)
+													No
+												@else
+													Yes
+												@endif
+											</td>
+										@endif
+										@if(is_null($breedingRecord->getGroupingProperties()->where("property_id", 50)->first()))
+											<td></td>
+										@else
+											<td>
+												{{ $breedingRecord->getGroupingProperties()->where("property_id", 50)->first()->value }}
+											</td>
+										@endif
+										@if(is_null($breedingRecord->getGroupingProperties()->where("property_id", 51)->first()))
+											<td></td>
+										@else
+											<td>
+												@if($breedingRecord->getGroupingProperties()->where("property_id", 51)->first()->value == 0)
+													<a href="{{ URL::route('farm.pig.sowlitter_record', [$breedingRecord->id]) }}"><i class="material-icons">add_circle_outline</i></a>
+												@else
+													<i class="material-icons">refresh</i>
+												@endif
+											</td>
+										@endif
 									</tr>
 								@empty
 									<tr>
-										<td>No mating record found</td>
+										<td colspan="7">No mating record found</td>
 									</tr>
 								@endforelse
                 {!! Form::open(['route' => 'farm.pig.get_breeding_record', 'method' => 'post']) !!}
@@ -123,7 +143,7 @@
 					</div>
 				</div>
 				<div class="row center">
-					<button class="btn waves-effect waves-light red lighten-2" type="submit">Add
+					<button class="btn waves-effect waves-light green darken-3" type="submit">Add
             <i class="material-icons right">add</i>
           </button>
 				</div>

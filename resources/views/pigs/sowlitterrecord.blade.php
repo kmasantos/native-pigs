@@ -40,7 +40,7 @@
 									Date Bred
 								</div>
 								<div class="col s6">
-									{{ $family->getGroupingProperties()->where("property_id", 48)->first()->value }}
+									{{ Carbon\Carbon::parse($family->getGroupingProperties()->where("property_id", 48)->first()->value)->format('j F, Y') }}
 								</div>
 							</div>
 							<div class="row">
@@ -56,7 +56,7 @@
 										Date Farrowed
 									</div>
 									<div class="col s6">
-										{{ $family->getGroupingProperties()->where("property_id", 25)->first()->value }}
+										{{ Carbon\Carbon::parse($family->getGroupingProperties()->where("property_id", 25)->first()->value)->format('j F, Y') }}
 									</div>
 								@endif
 							</div>
@@ -74,7 +74,7 @@
 											Date Weaned
 										</div>
 										<div class="col s6">
-											{{ $family->getGroupingProperties()->where("property_id", 61)->first()->value }}
+											{{ Carbon\Carbon::parse($family->getGroupingProperties()->where("property_id", 61)->first()->value)->format('j F, Y') }}
 										</div>
 									@endif
 								@else
@@ -122,7 +122,7 @@
 						@endif
 					</div>
 					<div class="col s12">
-						<h5 class="red darken-4 white-text">Add offspring</h5>
+						<h5 class="green lighten-1">Add offspring</h5>
 						{{-- <input type="hidden" name="sow_registryid" value="{{ $sow->registryid }}"> --}}
 						@if(!is_null($family->getGroupingProperties()->where("property_id", 25)->first()))
 							<div class="col s4">
@@ -163,7 +163,7 @@
 					<div class="col s12">
 						<table class="centered striped">
 							<thead>
-								<tr class="red darken-4 white-text">
+								<tr class="green lighten-1">
 									<th>Offspring ID</th>
 									<th>Sex</th>
 									<th>Birth weight, kg</th>
@@ -183,12 +183,12 @@
 												<td>{{ $offspring->getAnimalProperties()->where("property_id", 54)->first()->value }}</td>
 											@endif
 										@else
-											<td><input id="weaning_weight" type="text" name="weaning_weight"></td>
+											<td><input disabled id="weaning_weight" type="text" name="weaning_weight"></td>
 										@endif
 									</tr>
 								@empty
 									<tr>
-										<td>No offspring data found</td>
+										<td colspan="4">No offspring data found</td>
 									</tr>
 								@endforelse
 							</tbody>
@@ -196,7 +196,7 @@
 					</div>
 				</div>
 				<div class="row center">
-					<button class="btn waves-effect waves-light red lighten-2" type="submit">Save
+					<button class="btn waves-effect waves-light green darken-3" type="submit">Save
             <i class="material-icons right">save</i>
           </button>
 				</div>

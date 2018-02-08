@@ -115,7 +115,7 @@
           @endif
         </div>
         <div class="row center">
-          <button class="btn waves-effect waves-light red lighten-2" type="submit">Save
+          <button class="btn waves-effect waves-light green darken-3" type="submit">Save
             <i class="material-icons right">save</i>
           </button>
         </div>

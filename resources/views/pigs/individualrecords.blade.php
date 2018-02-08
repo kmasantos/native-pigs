@@ -22,7 +22,7 @@
         </form>
         <div class="row">
           <div class="col s12">
-            <ul class="tabs tabs-fixed-width red darken-4">
+            <ul class="tabs tabs-fixed-width green lighten-1">
               <li class="tab col s6"><a href="#sowrecords">Sows</a></li>
               <li class="tab col s6"><a href="#boarrecords">Boars</a></li>
             </ul>
@@ -75,9 +75,7 @@
                   </tr>
                 @empty
                   <tr>
-                    <td>
-                      No sow data found
-                    </td>
+                    <td colspan="4">No sow data found</td>
                   </tr>
                 @endforelse
               </tbody>
@@ -131,7 +129,7 @@
                   </tr>
                 @empty
                   <tr>
-                    <td>No boar data found</td>
+                    <td colspan="4">No boar data found</td>
                   </tr>
                 @endforelse
               </tbody>

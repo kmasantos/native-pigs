@@ -24,6 +24,7 @@ $('.datepicker').pickadate({
   clear: 'Clear',
   close: 'Ok',
   closeOnSelect: false // Close upon selecting a date,
+  format: 'yyyy-mm-dd',
 });
 
 // document.getElementById("offspring_earnotch").disabled = true;

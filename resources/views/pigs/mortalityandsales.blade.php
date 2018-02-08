@@ -12,7 +12,7 @@
       <div class="col s12">
 				<div class="row">
 					<div class="col s12">
-						<ul class="tabs tabs-fixed-width red darken-4">
+						<ul class="tabs tabs-fixed-width green lighten-1">
 							<li class="tab col s4"><a href="#mortality_tab">Mortality</a></li>
 							<li class="tab col s4"><a href="#sales_tab">Sales</a></li>
 							<li class="tab col s4"><a href="#others_tab">Others</a></li>
@@ -59,7 +59,7 @@
 							</div>
 						</div>
 						<div class="row center">
-							<button id="add_dead" class="btn waves-effect waves-light red lighten-2" type="submit">Add
+							<button id="add_dead" class="btn waves-effect waves-light green darken-3" type="submit">Add
 		            <i class="material-icons right">add</i>
 		          </button>
 						</div>
@@ -67,7 +67,7 @@
 						<div class="row">
 							<table class="centered striped">
 								<thead>
-									<tr class="red darken-4 white-text">
+									<tr class="green lighten-1">
 										<th>Registration ID</th>
 										<th>Date of Death</th>
 										<th>Cause of Death</th>
@@ -78,13 +78,13 @@
 									@forelse($dead as $dead_pig)
 										<tr>
 											<td>{{ $dead_pig->registryid }}</td>
-											<td>{{ $dead_pig->getAnimalProperties()->where("property_id", 55)->first()->value }}</td>
+											<td>{{ Carbon\Carbon::parse($dead_pig->getAnimalProperties()->where("property_id", 55)->first()->value)->format('j F, Y') }}</td>
 											<td>{{ $dead_pig->getAnimalProperties()->where("property_id", 71)->first()->value }}</td>
 											<td>{{ $dead_pig->getAge($dead_pig->id) }}</td>
 										</tr>
 									@empty
 										<tr>
-											<td>No mortality data found</td>
+											<td colspan="4">No mortality data found</td>
 										</tr>
 									@endforelse
 								</tbody>
@@ -132,7 +132,7 @@
 							</div>
 						</div>
 						<div class="row center">
-              <button id="add_sold" class="btn waves-effect waves-light red lighten-2" type="submit">Add
+              <button id="add_sold" class="btn waves-effect waves-light green darken-3" type="submit">Add
 		            <i class="material-icons right">add</i>
 		          </button>
 						</div>
@@ -140,7 +140,7 @@
 						<div class="row">
 							<table class="centered striped">
 								<thead>
-									<tr class="red darken-4 white-text">
+									<tr class="green lighten-1">
 										<th>Registration ID</th>
 										<th>Date Sold</th>
 										<th>Weight, kg</th>
@@ -151,13 +151,13 @@
 									@forelse($sold as $pig_sold)
 										<tr>
 											<td>{{ $pig_sold->registryid }}</td>
-											<td>{{ $pig_sold->getAnimalProperties()->where("property_id", 56)->first()->value }}</td>
+											<td>{{ Carbon\Carbon::parse($pig_sold->getAnimalProperties()->where("property_id", 56)->first()->value)->format('j F, Y') }}</td>
 											<td>{{ $pig_sold->getAnimalProperties()->where("property_id", 57)->first()->value }}</td>
 											<td>{{ $pig_sold->getAge($pig_sold->id) }}</td>
 										</tr>
 									@empty
 										<tr>
-											<td>No sales record found</td>
+											<td colspan="4">No sales record found</td>
 										</tr>
 									@endforelse
 								</tbody>
@@ -209,7 +209,7 @@
 							</div>
 						</div>
 						<div class="row center">
-							<button id="add_dead" class="btn waves-effect waves-light red lighten-2" type="submit">Add
+							<button id="add_dead" class="btn waves-effect waves-light green darken-3" type="submit">Add
 		            <i class="material-icons right">add</i>
 		          </button>
 						</div>
@@ -217,7 +217,7 @@
 						<div class="row">
 							<table class="centered striped">
 								<thead>
-									<tr class="red darken-4 white-text">
+									<tr class="green lighten-1">
 										<th>Registration ID</th>
 										<th>Date Removed</th>
 										<th>Reason</th>
@@ -228,13 +228,13 @@
 									@forelse($removed as $removed_pig)
 										<tr>
 											<td>{{ $removed_pig->registryid }}</td>
-											<td>{{ $removed_pig->getAnimalProperties()->where("property_id", 72)->first()->value }}</td>
+											<td>{{ Carbon\Carbon::parse($removed_pig->getAnimalProperties()->where("property_id", 72)->first()->value)->format('j F, Y') }}</td>
 											<td>{{ $removed_pig->getAnimalProperties()->where("property_id", 73)->first()->value }}</td>
 											<td>{{ $removed_pig->getAge($removed_pig->id) }}</td>
 										</tr>
 									@empty
 										<tr>
-											<td>No removed pig data found</td>
+											<td colspan="4">No removed pig data found</td>
 										</tr>
 									@endforelse
 								</tbody>
