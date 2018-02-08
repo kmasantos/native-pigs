@@ -83,10 +83,10 @@
 
                 <div class="links">
                     <a href="{{ url('/') }}">Home</a>
-                    <a href="https://laracasts.com">News</a>
-                    <a href="https://laravel-news.com">Animals</a>
-                    <a href="https://forge.laravel.com">Farms</a>
-                    <a href="https://github.com/laravel/laravel">About</a>
+                    <a href="#!">News</a>
+                    <a href="#!">Animals</a>
+                    <a href="#!">Farms</a>
+                    <a href="#!">About</a>
                 </div>
             </div>
         </div>
