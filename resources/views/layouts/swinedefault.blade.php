@@ -37,9 +37,9 @@
 			</li>
 			<li><a href="{{route('farm.index')}}"><i class="material-icons">dashboard</i>Dashboard</a></li>
 			<li><div class="divider green lighten-1"></div></li>
+			<li><a href="{{route('farm.pig.individual_records')}}">Individual Records</a></li>
 			<li><a href="{{route('farm.pig.breeding_record')}}">Breeding Record</a></li>
 			{{-- <li><a href="{{route('farm.pig.add_sowlitter_record')}}">Sow-Litter Record</a></li> --}}
-			<li><a href="{{route('farm.pig.individual_records')}}">Individual Records</a></li>
 			<li><a href="{{route('farm.pig.mortality_and_sales')}}">Mortality and Sales</a></li>
 			<li><div class="divider green lighten-1"></div></li>
 			<li><a href="{{route('farm.pig.farm_profile')}}"><i class="material-icons">settings</i>Farm Profile</a></li>

@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-  <h4 class="headline"><a href="{{route('farm.pig.individual_records')}}"><img src="{{asset('images/back.png')}}" width="3%"></a> Individual Record - Gross Morphology</h4>
+  <h4 class="headline"><a href="{{route('farm.pig.individual_records')}}"><img src="{{asset('images/back.png')}}" width="3%"></a> Gross Morphology: {{ $animal->registryid }}</h4>
   <div class="container">
     <div class="row">
       {!! Form::open(['route' => 'farm.pig.fetch_gross_morphology', 'method' => 'post']) !!}

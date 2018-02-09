@@ -81,19 +81,31 @@
 											<td></td>
 										@else
 											<td>
-												{{ $breedingRecord->getGroupingProperties()->where("property_id", 50)->first()->value }}
+												@if($breedingRecord->members == 0)
+													{{ $breedingRecord->getGroupingProperties()->where("property_id", 50)->first()->value }}
+												@else
+													Farrowed
+												@endif
 											</td>
 										@endif
 										@if(is_null($breedingRecord->getGroupingProperties()->where("property_id", 51)->first()))
 											<td></td>
 										@else
-											<td>
-												@if($breedingRecord->getGroupingProperties()->where("property_id", 51)->first()->value == 0)
-													<a href="{{ URL::route('farm.pig.sowlitter_record', [$breedingRecord->id]) }}"><i class="material-icons">add_circle_outline</i></a>
+											@if($breedingRecord->getGroupingProperties()->where("property_id", 51)->first()->value == 0)
+												@if($breedingRecord->members == 0)
+													<td>
+														<a href="{{ URL::route('farm.pig.sowlitter_record', [$breedingRecord->id]) }}"><i class="material-icons">add_circle_outline</i></a>
+													</td>
 												@else
-													<i class="material-icons">refresh</i>
+													<td>
+														<a href="{{ URL::route('farm.pig.sowlitter_record', [$breedingRecord->id]) }}"><i class="material-icons">done</i></a>
+													</td>
 												@endif
-											</td>
+											@else
+												<td>
+													<i class="material-icons">refresh</i>
+												</td>
+											@endif
 										@endif
 									</tr>
 								@empty

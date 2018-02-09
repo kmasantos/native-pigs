@@ -30,6 +30,12 @@
 
 							</div>
 							<div class="row">
+
+							</div>
+							<div class="row">
+
+							</div>
+							<div class="row">
 								
 							</div>
 							<div class="row">
@@ -57,6 +63,7 @@
 									</div>
 									<div class="col s6">
 										{{ Carbon\Carbon::parse($family->getGroupingProperties()->where("property_id", 25)->first()->value)->format('j F, Y') }}
+										<input id="hidden_date" type="hidden" name="date_farrowed" value="{{ $family->getGroupingProperties()->where("property_id", 25)->first()->value }}">
 									</div>
 								@endif
 							</div>
@@ -75,6 +82,7 @@
 										</div>
 										<div class="col s6">
 											{{ Carbon\Carbon::parse($family->getGroupingProperties()->where("property_id", 61)->first()->value)->format('j F, Y') }}
+											<input type="hidden" name="date_weaned" value="{{ $family->getGroupingProperties()->where("property_id", 61)->first()->value }}">
 										</div>
 									@endif
 								@else
@@ -89,14 +97,85 @@
 						</div>
 						<div class="col s6">
 							{{-- COMPUTED VALUES --}}
-							<p>Parity: </p>
-							<p>Total Littersize Born: </p>
-							<p>Number weaned: </p>
-							<p>Average birth weight: </p>
-							<p>Number of males: </p>
-							<p>Number of females: </p>
-							<p>Sex Ratio (Male to Female): </p>
-							<p>Average weaning weight: </p>
+							<div class="row">
+
+							</div>
+							<div class="row">
+								<div class="col s8">
+									Parity
+								</div>
+								<div class="col s4">
+
+								</div>
+							</div>
+							<div class="row">
+								<div class="col s8">
+									Total Littersize Born
+								</div>
+								<div class="col s4">
+									@if($family->members == 1)
+										{{ count($family->getGroupingMembers()) }}
+									@endif
+								</div>
+							</div>
+							<div class="row">
+								<div class="col s8">
+									Number weaned
+								</div>
+								<div class="col s4">
+
+								</div>
+							</div>
+							<div class="row">
+								<div class="col s8">
+									Average birth weight
+								</div>
+								<div class="col s4">
+									@if($family->members == 1)
+										{{ round($aveBirthWeight, 4) }}
+									@endif
+								</div>
+							</div>
+							<div class="row">
+								<div class="col s8">
+									Number of males
+								</div>
+								<div class="col s4">
+									@if($family->members == 1)
+										{{ $countMales }}
+									@endif
+								</div>
+							</div>
+							<div class="row">
+								<div class="col s8">
+									Number of females
+								</div>
+								<div class="col s4">
+									@if($family->members == 1)
+										{{ $countFemales }}
+									@endif
+								</div>
+							</div>
+							<div class="row">
+								<div class="col s8">
+									Sex ratio (Male to Female)
+								</div>
+								<div class="col s4">
+									@if($family->members == 1)
+										{{ $countMales.':'.$countFemales }}
+									@else
+
+									@endif
+								</div>
+							</div>
+							<div class="row">
+								<div class="col s8">
+									Average weaning weight
+								</div>
+								<div class="col s4">
+
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -142,18 +221,18 @@
 							</div>
 						@else
 							<div class="col s4">
-	              <input disabled id="offspring_earnotch" type="text" name="offspring_earnotch" class="validate">
+	              <input id="offspring_earnotch" type="text" name="offspring_earnotch" class="validate">
 	              <label for="offspring_earnotch">Offspring Earnotch</label>
 							</div>
 							<div class="col s4">
-								<select disabled id="select_sex" name="sex" class="browser-default">
+								<select id="select_sex" name="sex" class="browser-default">
 									<option disabled selected>Choose sex</option>
 									<option value="M">Male</option>
 									<option value="F">Female</option>
 								</select>
 							</div>
 							<div class="col s4">
-								<input disabled id="birth_weight" type="text" name="birth_weight">
+								<input id="birth_weight" type="text" name="birth_weight">
 								<label for="birth_weight">Birth Weight, kg</label>
 							</div>
 						@endif

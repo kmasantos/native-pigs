@@ -138,7 +138,28 @@ class FarmController extends Controller
       $properties = $family->getGroupingProperties();
       $offsprings = $family->getGroupingMembers();
 
-      return view('pigs.sowlitterrecord', compact('family', 'offsprings', 'properties'));
+      $countMales = 0;
+      $countFemales = 0;
+      foreach ($offsprings as $offspring) {
+        if($offspring->getAnimalProperties()->where("property_id", 27)->first()->value == 'M'){
+          $countMales = $countMales + 1;
+        }
+        elseif($offspring->getAnimalProperties()->where("property_id", 27)->first()->value == 'F'){
+          $countFemales = $countFemales + 1;
+        }
+      }
+
+      $sum = 0;
+      $aveBirthWeight = 0;
+      if(count($offsprings) != 0){
+        foreach ($offsprings as $offspring) {
+          $sum = $sum + $offspring->getAnimalProperties()->where("property_id", 53)->first()->value;
+        }
+        $aveBirthWeight = $sum/count($offsprings);
+      }
+
+
+      return view('pigs.sowlitterrecord', compact('family', 'offsprings', 'properties', 'countMales', 'countFemales', 'aveBirthWeight'));
     }
 
     public function getBreedingRecordPage(){
@@ -156,11 +177,7 @@ class FarmController extends Controller
         }
       }
 
-      foreach ($family as $group) {
-        $properties = $group->getGroupingProperties();
-      }
-
-      return view('pigs.breedingrecord', compact('pigs', 'sows', 'boars', 'family', 'properties', 'mothers', 'fathers'));
+      return view('pigs.breedingrecord', compact('pigs', 'sows', 'boars', 'family'));
     }
 
     public function getMortalityAndSalesPage(){
@@ -207,7 +224,12 @@ class FarmController extends Controller
           array_push($boars, $pig);
         }
       }
+
       return view('pigs.individualrecords', compact('pigs', 'sows', 'boars'));
+    }
+
+    public function getAddPigPage(){
+      return view('pigs.addpig');
     }
 
     public function getViewSowPage($id){
@@ -223,7 +245,21 @@ class FarmController extends Controller
         $age = "";
       }
 
-      return view('pigs.viewsow', compact('sow', 'properties', 'age'));
+      if(is_null($properties->where("property_id", 40)->first()) || is_null($properties->where("property_id", 47)->first())){
+        $ponderalIndexValue = "";
+      }
+      else{
+        $ponderalIndexValue = $properties->where("property_id", 47)->first()->value/(($properties->where("property_id", 40)->first()->value/100)**3);
+      }
+
+      $ponderalindex = new AnimalProperty;
+
+      $ponderalindex->animal_id = $sow->id;
+      $ponderalindex->property_id = 43;
+      $ponderalindex->value = $ponderalIndexValue;
+      $ponderalindex->save();
+
+      return view('pigs.viewsow', compact('sow', 'properties', 'age', 'ponderalindex'));
     }
 
     public function getViewBoarPage($id){
@@ -239,7 +275,21 @@ class FarmController extends Controller
         $age = "";
       }
 
-      return view('pigs.viewboar', compact('boar', 'properties', 'age'));
+      if(is_null($properties->where("property_id", 40)->first()) || is_null($properties->where("property_id", 47)->first())){
+        $ponderalIndexValue = "";
+      }
+      else{
+        $ponderalIndexValue = $properties->where("property_id", 47)->first()->value/(($properties->where("property_id", 40)->first()->value/100)**3);
+      }
+
+      $ponderalindex = new AnimalProperty;
+
+      $ponderalindex->animal_id = $boar->id;
+      $ponderalindex->property_id = 43;
+      $ponderalindex->value = $ponderalIndexValue;
+      $ponderalindex->save();
+
+      return view('pigs.viewboar', compact('boar', 'properties', 'age', 'ponderalindex'));
     }
 
     public function getGrossMorphologyPage($id){
@@ -335,8 +385,9 @@ class FarmController extends Controller
   
     public function addSowLitterRecord(Request $request){
       $grouping = Grouping::find($request->grouping_id);
+      $members = $grouping->getGroupingMembers();
 
-      $birthday = new Carbon($request->date_farrowed);
+      $birthdayValue = new Carbon($request->date_farrowed);
       $offspring = new Animal;
       $farm = $this->user->getFarm();
       $breed = $farm->getBreed();
@@ -344,8 +395,14 @@ class FarmController extends Controller
       $offspring->farm_id = $farm->id;
       $offspring->breed_id = $breed->id;
       $offspring->status = "active";
-      $offspring->registryid = $farm->code.$breed->breed."-".$birthday->year.$request->sex.$request->offspring_earnotch;
+      $offspring->registryid = $farm->code.$breed->breed."-".$birthdayValue->year.$request->sex.$request->offspring_earnotch;
       $offspring->save();
+
+      $birthday = new AnimalProperty;
+      $birthday->animal_id = $offspring->id;
+      $birthday->property_id = 25;
+      $birthday->value = $request->date_farrowed;
+      $birthday->save();
 
       $sex = new AnimalProperty;
       $sex->animal_id = $offspring->id;
@@ -430,6 +487,133 @@ class FarmController extends Controller
       $no_mummified->value = $noMummifiedValue;
       $no_mummified->datecollected = new Carbon();
       $no_mummified->save();
+
+      // if(count($members) != 0){
+      //   $tsb = new AnimalProperty;
+      //   $tsb->animal_id = $offspring->id;
+      //   $tsb->property_id = 77;
+      //   $tsb->value = count($members);
+      //   $tsb->save();
+
+      //   $countMales = 0;
+      //   $countFemales = 0;
+      //   foreach ($members as $member) {
+      //     if($member->getAnimalProperties()->where("property_id", 27)->first()->value == 'M'){
+      //       $countMales = $countMales + 1;
+      //     }
+      //     elseif($member->getAnimalProperties()->where("property_id", 27)->first()->value == 'F'){
+      //       $countFemales = $countFemales + 1;
+      //     }
+      //   }
+
+      //   $numbermales = new AnimalProperty;
+      //   $numbermales->animal_id = $offspring->id;
+      //   $numbermales->property_id = 80;
+      //   $numbermales->value = $countMales;
+      //   $numbermales->save();
+
+      //   $numberfemales = new AnimalProperty;
+      //   $numberfemales->animal_id = $offspring->id;
+      //   $numberfemales->property_id = 81;
+      //   $numberfemales->value = $countFemales;
+      //   $numberfemales->save();
+
+      //   $sexratio = new AnimalProperty;
+      //   $sexratio->animal_id = $offspring->id;
+      //   $sexratio->property_id = 82;
+      //   $sexratio->value = $countMales.':'.$countFemales;
+      //   $sexratio->save();
+
+      //   $sum = 0;
+      //   $aveBirthWeight = 0;
+      //   if(count($members) != 0){
+      //     foreach ($members as $member) {
+      //       $sum = $sum + $offspring->getAnimalProperties()->where("property_id", 53)->first()->value;
+      //     }
+      //     $aveBirthWeight = $sum/count($members);
+      //   }
+      // }
+
+      $grouping->members = 1;
+      $grouping->save();
+
+      return Redirect::back()->with('message', 'Operation Successful!');
+    }
+
+    public function fetchNewPigRecord(Request $request){
+      $birthdayValue = new Carbon($request->date_farrowed);
+      $newpig = new Animal;
+      $farm = $this->user->getFarm();
+      $breed = $farm->getBreed();
+      $newpig->animaltype_id = 3;
+      $newpig->farm_id = $farm->id;
+      $newpig->breed_id = $breed->id;
+      $newpig->status = "active";
+      if(is_null($request->date_farrowed)){
+        $newpig->registryid = $farm->code.$breed->breed."-".$request->sex.$request->earnotch;
+      }
+      else{
+        $newpig->registryid = $farm->code.$breed->breed."-".$birthdayValue->year.$request->sex.$request->earnotch;
+      }
+      $newpig->save();
+
+      if(is_null($request->date_farrowed)){
+        $bdayValue = "Not specified";
+      }
+      else{
+        $bdayValue = $request->date_farrowed;
+      }
+
+      $birthday = new AnimalProperty;
+      $birthday->animal_id = $newpig->id;
+      $birthday->property_id = 25;
+      $birthday->value = $bdayValue;
+      $birthday->save();
+
+      $sex = new AnimalProperty;
+      $sex->animal_id = $newpig->id;
+      $sex->property_id = 27;
+      $sex->value = $request->sex;
+      $sex->save();
+
+      if(is_null($request->birth_weight)){
+        $birthWeightValue = "";
+      }
+      else{
+        $birthWeightValue = $request->birth_weight;
+      }
+
+      $birthweight = new AnimalProperty;
+      $birthweight->animal_id = $newpig->id;
+      $birthweight->property_id = 53;
+      $birthweight->value = $birthWeightValue;
+      $birthweight->save();
+
+      if(is_null($request->date_weaned)){
+        $dateWeanedValue = "Not specified";
+      }
+      else{
+        $dateWeanedValue = $request->date_weaned;
+      }
+
+      $date_weaned = new AnimalProperty;
+      $date_weaned->animal_id = $newpig->id;
+      $date_weaned->property_id = 61;
+      $date_weaned->value = $dateWeanedValue;
+      $date_weaned->save();
+
+      if(is_null($request->weaning_weight)){
+        $weaningWeightValue = "";
+      }
+      else{
+        $weaningWeightValue = $request->weaning_weight;
+      }
+
+      $weaningweight = new AnimalProperty;
+      $weaningweight->animal_id = $newpig->id;
+      $weaningweight->property_id = 54;
+      $weaningweight->value = $weaningWeightValue;
+      $weaningweight->save();
 
       return Redirect::back()->with('message', 'Operation Successful!');
     }
@@ -606,7 +790,7 @@ class FarmController extends Controller
       $pelvicwidth = new AnimalProperty;
       $taillength = new AnimalProperty;
       $heightatwithers = new AnimalProperty;
-      $ponderalindex = new AnimalProperty;
+      // $ponderalindex = new AnimalProperty;
       $normalteats = new AnimalProperty;
 
       // $agefirstmating->animal_id = $boar_id;
@@ -717,17 +901,6 @@ class FarmController extends Controller
       $heightatwithers->value = $heightAtWithersValue;
 
 
-      if(is_null($request->body_length) || is_null($request->body_weight_at_180_days)){
-        $ponderalIndexValue = "";
-      }
-      else{
-        $ponderalIndexValue = $request->body_weight_at_180_days/(($request->body_length/100)**3);
-      }
-
-      $ponderalindex->animal_id = $animalid;
-      $ponderalindex->property_id = 43;
-      $ponderalindex->value = $ponderalIndexValue;
-
       $animal = Animal::find($animalid);
 
       if($animal->getAnimalProperties()->where("property_id", 27)->first()->value == 'F'){
@@ -755,7 +928,7 @@ class FarmController extends Controller
       $heartgirth->save();
       $taillength->save();
       $heightatwithers->save();
-      $ponderalindex->save();
+      // $ponderalindex->save();
 
       $animal->morphometric = 1;
       $animal->save();

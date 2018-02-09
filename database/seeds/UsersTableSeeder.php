@@ -34,6 +34,60 @@ class UsersTableSeeder extends Seeder
 				$mscUser->name = "MSC";
 				$mscUser->email = "marindukepig@gmail.com";
 
+				$bai = new Farm;
+				$bai->name = "BAI-NSPRDC";
+				$bai->code = "QUEBAI";
+				$bai->address = "Quezon";
+
+				$baiUser = new User;
+				$baiUser->name = "BAI";
+				$baiUser->email = "baibppig@gmail.com";
+
+				$essu = new Farm;
+				$essu->name = "Eastern Samar State University";
+				$essu->code = "EASESSU";
+				$essu->address = "Eastern Samar";
+
+				$essuUser = new User;
+				$essuUser->name = "ESSU";
+				$essuUser->email = "siniranganpig@gmail.com";
+
+				$isu = new Farm;
+				$isu->name = "Isabela State University";
+				$isu->code = "ISAISU";
+				$isu->address = "Isabela";
+
+				$isuUser = new User;
+				$isuUser->name = "ISU";
+				$isuUser->email = "isabelaisupig@gmail.com";
+
+				$ksu = new Farm;
+				$ksu->name = "Kalinga State University";
+				$ksu->code = "KAKSU";
+				$ksu->address = "Kalinga";
+
+				$ksuUser = new User;
+				$ksuUser->name = "KSU";
+				$ksuUser->email = "yookahpig@gmail.com";
+
+				$bsu = new Farm;
+				$bsu->name = "Benguet State University";
+				$bsu->code = "BENBSU";
+				$bsu->address = "Benguet";
+
+				$bsuUser = new User;
+				$bsuUser->name = "BSU";
+				$bsuUser->email = "benguetpig@gmail.com";
+
+				$nvsu = new Farm;
+				$nvsu->name = "Nueva Vizcaya State University";
+				$nvsu->code = "NUVNVSU";
+				$nvsu->address = "Nueva Vizcaya";
+
+				$nvsuUser = new User;
+				$nvsuUser->name = "NVSU";
+				$nvsuUser->email = "nuevaviscayapig@gmail.com";
+
 				$group = new Grouping;
 
 				/**********************************/
@@ -597,6 +651,36 @@ class UsersTableSeeder extends Seeder
 				$marinduke->animaltype_id = $pig->id;
 				$marinduke->save();
 
+				$bp = new Breed;
+				$bp->breed = "BP";
+				$bp->animaltype_id = $pig->id;
+				$bp->save();
+
+				$sinirangan = new Breed;
+				$sinirangan->breed = "Sinirangan";
+				$sinirangan->animaltype_id = $pig->id;
+				$sinirangan->save();
+
+				$isabela = new Breed;
+				$isabela->breed = "Isabela";
+				$isabela->animaltype_id = $pig->id;
+				$isabela->save();
+
+				$yookah = new Breed;
+				$yookah->breed = "Yookah";
+				$yookah->animaltype_id = $pig->id;
+				$yookah->save();
+
+				$benguet = new Breed;
+				$benguet->breed = "Benguet";
+				$benguet->animaltype_id = $pig->id;
+				$benguet->save();
+
+				$nuevavizcaya = new Breed;
+				$nuevavizcaya->breed = "NuevaVizcaya";
+				$nuevavizcaya->animaltype_id = $pig->id;
+				$nuevavizcaya->save();
+
 				$bohol = new Breed;
 				$bohol->breed = "BOHOL";
 				$bohol->animaltype_id = $chicken->id;
@@ -607,6 +691,37 @@ class UsersTableSeeder extends Seeder
 				$msc->save();
 
 				$msc->users()->save($mscUser);
+
+				$bai->breedable_id = $bp->id;
+				$bai->save();
+
+				$bai->users()->save($baiUser);
+
+				$essu->breedable_id = $sinirangan->id;
+				$essu->save();
+
+				$essu->users()->save($essuUser);
+
+				$isu->breedable_id = $isabela->id;
+				$isu->save();
+
+				$isu->users()->save($isuUser);
+
+				$ksu->breedable_id = $yookah->id;
+				$ksu->save();
+
+				$ksu->users()->save($ksuUser);
+
+				$bsu->breedable_id = $benguet->id;
+				$bsu->save();
+
+				$bsu->users()->save($bsuUser);
+
+				$nvsu->breedable_id = $nuevavizcaya->id;
+				$nvsu->save();
+
+				$nvsu->users()->save($nvsuUser);
+
 				$this->command->info('User seeded');
 
 				$animal = new Animal;
@@ -758,12 +873,6 @@ class UsersTableSeeder extends Seeder
 				$sow1->save();
 				$this->command->info('Animal seeded');
 
-				// $birthday1 = new AnimalProperty;
-				// $birthday1->animal_id = $sow1->id;
-				// $birthday1->property_id = $individual1->id;
-				// $birthday1->value = new Carbon('2014-01-23');
-				// $birthday1->save();
-
 				$sex1 = new AnimalProperty;
 				$sex1->animal_id = $sow1->id;
 				$sex1->property_id = $individual3->id;
@@ -791,12 +900,6 @@ class UsersTableSeeder extends Seeder
 				$sow2->status = "active";
 				$sow2->save();
 				$this->command->info('Animal seeded');
-
-				// $birthday2 = new AnimalProperty;
-				// $birthday2->animal_id = $sow2->id;
-				// $birthday2->property_id = $individual1->id;
-				// $birthday2->value = new Carbon('2014-01-23');
-				// $birthday2->save();
 
 				$sex2 = new AnimalProperty;
 				$sex2->animal_id = $sow2->id;
@@ -826,12 +929,6 @@ class UsersTableSeeder extends Seeder
 				$sow3->save();
 				$this->command->info('Animal seeded');
 
-				// $birthday3 = new AnimalProperty;
-				// $birthday3->animal_id = $sow3->id;
-				// $birthday3->property_id = $individual1->id;
-				// $birthday3->value = new Carbon('2014-01-23');
-				// $birthday3->save();
-
 				$sex3 = new AnimalProperty;
 				$sex3->animal_id = $sow3->id;
 				$sex3->property_id = $individual3->id;
@@ -859,12 +956,6 @@ class UsersTableSeeder extends Seeder
 				$sow4->status = "active";
 				$sow4->save();
 				$this->command->info('Animal seeded');
-
-				// $birthday4 = new AnimalProperty;
-				// $birthday4->animal_id = $sow4->id;
-				// $birthday4->property_id = $individual1->id;
-				// $birthday4->value = new Carbon('2014-01-23');
-				// $birthday4->save();
 
 				$sex4 = new AnimalProperty;
 				$sex4->animal_id = $sow4->id;
@@ -894,12 +985,6 @@ class UsersTableSeeder extends Seeder
 				$sow5->save();
 				$this->command->info('Animal seeded');
 
-				// $birthday5 = new AnimalProperty;
-				// $birthday5->animal_id = $sow5->id;
-				// $birthday5->property_id = $individual1->id;
-				// $birthday5->value = new Carbon('2014-01-23');
-				// $birthday5->save();
-
 				$sex5 = new AnimalProperty;
 				$sex5->animal_id = $sow5->id;
 				$sex5->property_id = $individual3->id;
@@ -927,12 +1012,6 @@ class UsersTableSeeder extends Seeder
 				$sow6->status = "active";
 				$sow6->save();
 				$this->command->info('Animal seeded');
-
-				// $birthday6 = new AnimalProperty;
-				// $birthday6->animal_id = $sow6->id;
-				// $birthday6->property_id = $individual1->id;
-				// $birthday6->value = new Carbon('2014-01-23');
-				// $birthday6->save();
 
 				$sex6 = new AnimalProperty;
 				$sex6->animal_id = $sow6->id;
@@ -962,12 +1041,6 @@ class UsersTableSeeder extends Seeder
 				$sow7->save();
 				$this->command->info('Animal seeded');
 
-				// $birthday7 = new AnimalProperty;
-				// $birthday7->animal_id = $sow7->id;
-				// $birthday7->property_id = $individual1->id;
-				// $birthday7->value = new Carbon('2014-01-23');
-				// $birthday7->save();
-
 				$sex7 = new AnimalProperty;
 				$sex7->animal_id = $sow7->id;
 				$sex7->property_id = $individual3->id;
@@ -995,12 +1068,6 @@ class UsersTableSeeder extends Seeder
 				$sow8->status = "active";
 				$sow8->save();
 				$this->command->info('Animal seeded');
-
-				// $birthday8 = new AnimalProperty;
-				// $birthday8->animal_id = $sow8->id;
-				// $birthday8->property_id = $individual1->id;
-				// $birthday8->value = new Carbon('2014-01-23');
-				// $birthday8->save();
 
 				$sex8 = new AnimalProperty;
 				$sex8->animal_id = $sow8->id;
@@ -1030,12 +1097,6 @@ class UsersTableSeeder extends Seeder
 				$sow9->save();
 				$this->command->info('Animal seeded');
 
-				// $birthday9 = new AnimalProperty;
-				// $birthday9->animal_id = $sow9->id;
-				// $birthday9->property_id = $individual1->id;
-				// $birthday9->value = new Carbon('2014-01-23');
-				// $birthday9->save();
-
 				$sex9 = new AnimalProperty;
 				$sex9->animal_id = $sow9->id;
 				$sex9->property_id = $individual3->id;
@@ -1063,12 +1124,6 @@ class UsersTableSeeder extends Seeder
 				$sow10->status = "active";
 				$sow10->save();
 				$this->command->info('Animal seeded');
-
-				// $birthday10 = new AnimalProperty;
-				// $birthday10->animal_id = $sow10->id;
-				// $birthday10->property_id = $individual1->id;
-				// $birthday10->value = new Carbon('2014-01-23');
-				// $birthday10->save();
 
 				$sex10 = new AnimalProperty;
 				$sex10->animal_id = $sow10->id;
@@ -1098,12 +1153,6 @@ class UsersTableSeeder extends Seeder
 				$sow11->save();
 				$this->command->info('Animal seeded');
 
-				// $birthday11 = new AnimalProperty;
-				// $birthday11->animal_id = $sow11->id;
-				// $birthday11->property_id = $individual1->id;
-				// $birthday11->value = new Carbon('2014-01-23');
-				// $birthday11->save();
-
 				$sex11 = new AnimalProperty;
 				$sex11->animal_id = $sow11->id;
 				$sex11->property_id = $individual3->id;
@@ -1131,12 +1180,6 @@ class UsersTableSeeder extends Seeder
 				$sow12->status = "active";
 				$sow12->save();
 				$this->command->info('Animal seeded');
-
-				// $birthday12 = new AnimalProperty;
-				// $birthday12->animal_id = $sow12->id;
-				// $birthday12->property_id = $individual1->id;
-				// $birthday12->value = new Carbon('2014-01-23');
-				// $birthday12->save();
 
 				$sex12 = new AnimalProperty;
 				$sex12->animal_id = $sow12->id;
@@ -1166,12 +1209,6 @@ class UsersTableSeeder extends Seeder
 				$sow13->save();
 				$this->command->info('Animal seeded');
 
-				// $birthday13 = new AnimalProperty;
-				// $birthday13->animal_id = $sow13->id;
-				// $birthday13->property_id = $individual1->id;
-				// $birthday13->value = new Carbon('2014-01-23');
-				// $birthday13->save();
-
 				$sex13 = new AnimalProperty;
 				$sex13->animal_id = $sow13->id;
 				$sex13->property_id = $individual3->id;
@@ -1199,12 +1236,6 @@ class UsersTableSeeder extends Seeder
 				$boar1->status = "active";
 				$boar1->save();
 				$this->command->info('Animal seeded');
-
-				// $birthday14 = new AnimalProperty;
-				// $birthday14->animal_id = $boar1->id;
-				// $birthday14->property_id = $individual1->id;
-				// $birthday14->value = new Carbon('2014-01-23');
-				// $birthday14->save();
 
 				$sex14 = new AnimalProperty;
 				$sex14->animal_id = $boar1->id;
@@ -1234,12 +1265,6 @@ class UsersTableSeeder extends Seeder
 				$boar2->save();
 				$this->command->info('Animal seeded');
 
-				// $birthday15 = new AnimalProperty;
-				// $birthday15->animal_id = $boar2->id;
-				// $birthday15->property_id = $individual1->id;
-				// $birthday15->value = new Carbon('2014-01-23');
-				// $birthday15->save();
-
 				$sex15 = new AnimalProperty;
 				$sex15->animal_id = $boar2->id;
 				$sex15->property_id = $individual3->id;
@@ -1267,12 +1292,6 @@ class UsersTableSeeder extends Seeder
 				$boar3->status = "active";
 				$boar3->save();
 				$this->command->info('Animal seeded');
-
-				// $birthday16 = new AnimalProperty;
-				// $birthday16->animal_id = $boar3->id;
-				// $birthday16->property_id = $individual1->id;
-				// $birthday16->value = new Carbon('2014-01-23');
-				// $birthday16->save();
 
 				$sex16 = new AnimalProperty;
 				$sex16->animal_id = $boar3->id;
@@ -1302,12 +1321,6 @@ class UsersTableSeeder extends Seeder
 				$boar4->save();
 				$this->command->info('Animal seeded');
 
-				// $birthday17 = new AnimalProperty;
-				// $birthday17->animal_id = $boar4->id;
-				// $birthday17->property_id = $individual1->id;
-				// $birthday17->value = new Carbon('2014-01-23');
-				// $birthday17->save();
-
 				$sex17 = new AnimalProperty;
 				$sex17->animal_id = $boar4->id;
 				$sex17->property_id = $individual3->id;
@@ -1336,12 +1349,6 @@ class UsersTableSeeder extends Seeder
 				$boar5->save();
 				$this->command->info('Animal seeded');
 
-				// $birthday18 = new AnimalProperty;
-				// $birthday18->animal_id = $boar5->id;
-				// $birthday18->property_id = $individual1->id;
-				// $birthday18->value = new Carbon('2014-01-23');
-				// $birthday18->save();
-
 				$sex18 = new AnimalProperty;
 				$sex18->animal_id = $boar5->id;
 				$sex18->property_id = $individual3->id;
@@ -1361,45 +1368,6 @@ class UsersTableSeeder extends Seeder
 
 				/***/
 
-				// $grouping = new Grouping;
-				// $grouping->registryid = $sow1->registryid;
-				// $grouping->mother_id = $sow1->id;
-				// $grouping->father_id = $boar1->id;
-				// $grouping->save();
-
-				// $this->command->info('Animals added to group');
-
-				// $date6 = new Carbon();
-
-				// $groupprop = new GroupingProperty;
-				// $groupprop->grouping_id = $grouping->id;
-				// $groupprop->property_id = $mating1->id;
-				// $groupprop->value = $date6->subMonths(1);
-				// $groupprop->datecollected = new Carbon();
-				// $groupprop->save();
-
-				// $groupprop2 = new GroupingProperty;
-				// $groupprop2->grouping_id = $grouping->id;
-				// $groupprop2->property_id = $mating2->id;
-				// $groupprop2->value = $date6->addDays(114);
-				// $groupprop2->datecollected = new Carbon();
-				// $groupprop2->save();
-
-				// $groupprop3 = new GroupingProperty;
-				// $groupprop3->grouping_id = $grouping->id;
-				// $groupprop3->property_id = $mating4->id;
-				// $groupprop3->value = 0;
-				// $groupprop3->datecollected = new Carbon();
-				// $groupprop3->save();
-
-				// $groupprop4 = new GroupingProperty;
-				// $groupprop4->grouping_id = $grouping->id;
-				// $groupprop4->property_id = $mating3->id;
-				// $groupprop4->value = "Pregnant";
-				// $groupprop4->datecollected = new Carbon();
-				// $groupprop4->save();
-
-				// $this->command->info('Pig grouping properties seeded');
 		}
 
 }

@@ -21,8 +21,16 @@
               <div class="col s12 card-panel white black-text">
                 <div class="col s6">
                   {{-- <p>Age: {{ $age }} months</p> --}}
-                  <p>Birthday: </p>
-                  <p>Birth weight: </p>
+                  @if(is_null($properties->where("property_id", 25)->first()))
+                    <p>Birthday: Not specified</p>
+                  @else
+                    <p>Birthday: {{ Carbon\Carbon::parse($properties->where("property_id", 25)->first()->value)->format('j F, Y') }}</p>
+                  @endif
+                  @if(is_null($properties->where("property_id", 53)->first()))
+                    <p>Birth weight: Not specified</p>
+                  @else
+                    <p>Birth weight: {{ $properties->where("property_id", 53)->first()->value }} kg</p>
+                  @endif
                   <p>Littersize Born Alive: </p>
                 </div>
                 <div class="col s6">
@@ -37,6 +45,27 @@
         <div class="row">      
           <div class="col s12 card-panel white black-text center">
             <h5>Pedigree</h5>
+            <div class="row">
+              <div class="col s6">
+                <div class="row">
+                  
+                </div>
+                <div class="row">
+                  {{ $boar->registryid }}
+                </div>
+              </div>
+              <div class="col s6">
+                <div class="row">
+                  {{ $boar->getGrouping()->getMother()->registryid }}
+                </div>
+                <div class="row">
+
+                </div>
+                <div class="row"> 
+                  {{ $boar->getGrouping()->getFather()->registryid }}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div class="row">
@@ -128,7 +157,11 @@
                   </tr>
                   <tr>
                     <td>Ponderal Index</td>
-                    <td>{{ $properties->where("property_id", 43)->first()->value }} kg/m<sup>3</sup></td>
+                    @if($boar->weightrecord == 1)
+                      <td>{{ round($ponderalindex->value, 4) }} kg/m<sup>3</sup></td>
+                    @else
+                      <td> kg/m<sup>3</sup></td>
+                    @endif
                   </tr>
                 </tbody>
               </table>

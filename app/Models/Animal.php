@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\AnimalProperty;
+use App\Models\GroupingMember;
+use App\Models\Grouping;
 use Carbon\Carbon;
 
 class Animal extends Model
@@ -123,6 +125,13 @@ class Animal extends Model
     }
 
     return $age;
+  }
+
+  public function getGrouping(){
+    $member = GroupingMember::where('animal_id', $this->id)->first();
+    $group = Grouping::find($member->grouping_id);
+
+    return $group;
   }
 
 }
