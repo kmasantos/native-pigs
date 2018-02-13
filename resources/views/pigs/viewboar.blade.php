@@ -34,7 +34,7 @@
                   <p>Littersize Born Alive: </p>
                 </div>
                 <div class="col s6">
-                  <p>Sex ratio: </p>
+                  <p>Sex ratio (M:F): </p>
                   <p>Weaning weight: </p>
                   <p>Age at weaning: </p>
                 </div>
