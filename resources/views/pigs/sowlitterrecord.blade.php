@@ -82,7 +82,7 @@
 										</div>
 										<div class="col s6">
 											{{ Carbon\Carbon::parse($family->getGroupingProperties()->where("property_id", 61)->first()->value)->format('j F, Y') }}
-											<input type="hidden" name="date_weaned" value="{{ $family->getGroupingProperties()->where("property_id", 61)->first()->value }}">
+											<input id="hidden_weaned" type="hidden" name="date_weaned" value="{{ $family->getGroupingProperties()->where("property_id", 61)->first()->value }}">
 										</div>
 									@endif
 								@else
@@ -123,7 +123,9 @@
 									Number weaned
 								</div>
 								<div class="col s4">
-
+									@if($family->members == 1)
+										{{ $weaned }}
+									@endif
 								</div>
 							</div>
 							<div class="row">
@@ -163,8 +165,6 @@
 								<div class="col s4">
 									@if($family->members == 1)
 										{{ $countMales.':'.$countFemales }}
-									@else
-
 									@endif
 								</div>
 							</div>
@@ -173,7 +173,9 @@
 									Average weaning weight
 								</div>
 								<div class="col s4">
-
+									@if($family->members == 1)
+										{{ round($aveWeaningWeight, 4) }}
+									@endif
 								</div>
 							</div>
 						</div>
@@ -238,6 +240,12 @@
 						@endif
 					</div>
 				</div>
+				<div class="row center">
+					<button class="btn waves-effect waves-light green darken-3" type="submit">Add
+            <i class="material-icons right">add</i>
+          </button>
+				</div>
+				{!! Form::close() !!}
 				<div class="row">
 					<div class="col s12">
 						<table class="centered striped">
@@ -255,15 +263,44 @@
 										<td>{{ $offspring->getChild()->registryid }}</td>
 										<td>{{ $offspring->getAnimalProperties()->where("property_id", 27)->first()->value }}</td>
 										<td>{{ $offspring->getAnimalProperties()->where("property_id", 53)->first()->value }}</td>
-										@if(!is_null($family->getGroupingProperties()->where("property_id", 61)->first()))
+										{!! Form::open(['route' => 'farm.pig.get_weaning_weights', 'method' => 'post']) !!}
+										@if(is_null($family->getGroupingProperties()->where("property_id", 61)->first()))
 											@if(is_null($offspring->getAnimalProperties()->where("property_id", 54)->first()))
-												<td><input id="weaning_weight" type="text" name="weaning_weight"></td>
+												<td>
+													<div class="col s6">
+														<input type="hidden" name="offspring_id" value="{{ $offspring->getChild()->registryid }}">
+														{{-- <input type="hidden" name="date_weaned" value="{{ $family->getGroupingProperties()->where("property_id", 61)->first()->value }}"> --}}
+														<input id="weaning_weight" type="text" name="weaning_weight">
+													</div>
+													<div class="col s6">
+														<button class="btn-floating waves-effect waves-light green darken-3" type="submit">
+									            <i class="material-icons right">add</i>
+									          </button>
+													</div>
+												</td>
 											@else
 												<td>{{ $offspring->getAnimalProperties()->where("property_id", 54)->first()->value }}</td>
 											@endif
 										@else
-											<td><input disabled id="weaning_weight" type="text" name="weaning_weight"></td>
+											@if(is_null($offspring->getAnimalProperties()->where("property_id", 54)->first()))
+												<td>
+													<div class="col s6">
+														<input type="hidden" name="offspring_id" value="{{ $offspring->getChild()->registryid }}">
+														<input type="hidden" name="family_id" value="{{ $family->id }}">
+														{{-- <input type="hidden" name="date_weaned" value="{{ $family->getGroupingProperties()->where("property_id", 61)->first()->value }}"> --}}
+														<input id="weaning_weight" type="text" name="weaning_weight">
+													</div>
+													<div class="col s6">
+														<button class="btn-floating waves-effect waves-light green darken-3" type="submit">
+									            <i class="material-icons right">add</i>
+									          </button>
+													</div>
+												</td>
+											@else
+												<td>{{ $offspring->getAnimalProperties()->where("property_id", 54)->first()->value }}</td>
+											@endif
 										@endif
+										{!! Form::close() !!}
 									</tr>
 								@empty
 									<tr>
@@ -274,13 +311,7 @@
 						</table>
 					</div>
 				</div>
-				<div class="row center">
-					<button class="btn waves-effect waves-light green darken-3" type="submit">Save
-            <i class="material-icons right">save</i>
-          </button>
-				</div>
 			</div>
 		</div>
-		{!! Form::close() !!}
 	</div>
 @endsection

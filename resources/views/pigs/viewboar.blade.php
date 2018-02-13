@@ -35,8 +35,16 @@
                 </div>
                 <div class="col s6">
                   <p>Sex ratio (M:F): </p>
-                  <p>Weaning weight: </p>
-                  <p>Age at weaning: </p>
+                  @if(is_null($properties->where("property_id", 54)->first()))
+                    <p>Weaning weight: Not specified</p>
+                  @else
+                    <p>Weaning weight: {{ $properties->where("property_id", 54)->first()->value }} kg</p>
+                  @endif
+                  @if(is_null($properties->where("property_id", 54)->first()))
+                    <p>Age at weaning: </p>
+                  @else
+                    <p>Age at weaning: {{ $ageAtWeaning }} months</p>
+                  @endif
                 </div>
               </div> 
             </div>
@@ -51,18 +59,30 @@
                   
                 </div>
                 <div class="row">
-                  {{ $boar->registryid }}
+                  
+                </div>
+                <div class="row">
+                  {{-- <div class="col s10 offset-s1 green lighten-1"> --}}
+                    {{ $boar->registryid }}
+                  {{-- </div> --}}
                 </div>
               </div>
               <div class="col s6">
                 <div class="row">
-                  {{ $boar->getGrouping()->getMother()->registryid }}
+                  {{-- <div class="col s10 offset-s1 red lighten-4"> --}}
+                    {{ $boar->getGrouping()->getMother()->registryid }}
+                  {{-- </div> --}}
+                </div>
+                <div class="row">
+
                 </div>
                 <div class="row">
 
                 </div>
                 <div class="row"> 
-                  {{ $boar->getGrouping()->getFather()->registryid }}
+                  {{-- <div class="col s10 offset-s1 blue lighten-2"> --}}
+                    {{ $boar->getGrouping()->getFather()->registryid }}
+                  {{-- </div> --}}
                 </div>
               </div>
             </div>

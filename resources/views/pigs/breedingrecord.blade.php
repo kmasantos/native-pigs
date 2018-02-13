@@ -12,7 +12,7 @@
 			<div class="col s12">
 				<div class="row">
 					<div class="col s4">
-						<select name="month_mating" class="browser-default">
+						<select id="month_mating" name="month_mating" class="browser-default">
 							<option disabled selected>Choose month</option>
 							<option value="January">January</option>
 							<option value="February">February</option>
