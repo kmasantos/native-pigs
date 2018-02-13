@@ -117,8 +117,14 @@ class Animal extends Model
     }
 
     if(!is_null($animal->getAnimalProperties()->where("property_id", 25)->first())){
-      $date_end = Carbon::parse($animal->getAnimalProperties()->where("property_id", 25)->first()->value);
-      $age = $date_start->diffInMonths($date_end);
+      if($animal->getAnimalProperties()->where("property_id", 25)->first()->value == "" || $animal->getAnimalProperties()->where("property_id", 25)->first()->value == "Not specified"){
+        // dd($animal->getAnimalProperties()->where("property_id", 25)->first()->value);
+        $age = "";
+      }
+      else{
+        $date_end = Carbon::parse($animal->getAnimalProperties()->where("property_id", 25)->first()->value);
+        $age = $date_start->diffInMonths($date_end);
+      }
     }
     else{
       $age = "";
@@ -129,9 +135,12 @@ class Animal extends Model
 
   public function getGrouping(){
     $member = GroupingMember::where('animal_id', $this->id)->first();
-    $group = Grouping::find($member->grouping_id);
 
-    return $group;
+    if(!is_null($member)){
+      $group = Grouping::find($member->grouping_id);
+      return $group;
+    }
+
   }
 
 }

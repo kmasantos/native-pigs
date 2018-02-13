@@ -70,7 +70,11 @@
               <div class="col s6">
                 <div class="row">
                   {{-- <div class="col s10 offset-s1 red lighten-4"> --}}
-                    {{ $boar->getGrouping()->getMother()->registryid }}
+                    @if(!is_null($boar->getGrouping()))
+                      {{ $boar->getGrouping()->getMother()->registryid }}
+                    @else
+                      No data of mother found
+                    @endif
                   {{-- </div> --}}
                 </div>
                 <div class="row">
@@ -81,7 +85,11 @@
                 </div>
                 <div class="row"> 
                   {{-- <div class="col s10 offset-s1 blue lighten-2"> --}}
-                    {{ $boar->getGrouping()->getFather()->registryid }}
+                    @if(!is_null($boar->getGrouping()))
+                      {{ $boar->getGrouping()->getFather()->registryid }}
+                    @else
+                      No data of father found
+                    @endif
                   {{-- </div> --}}
                 </div>
               </div>

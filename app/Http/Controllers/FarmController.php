@@ -592,6 +592,8 @@ class FarmController extends Controller
     }
 
     public function fetchNewPigRecord(Request $request){
+      $pigs = Animal::where("animaltype_id", 3)->where("status", "active")->get();
+
       $birthdayValue = new Carbon($request->date_farrowed);
       $newpig = new Animal;
       $farm = $this->user->getFarm();
@@ -665,6 +667,75 @@ class FarmController extends Controller
       $weaningweight->property_id = 54;
       $weaningweight->value = $weaningWeightValue;
       $weaningweight->save();
+
+      $pigs = Animal::where("animaltype_id", 3)->where("farm_id", $farm->id)->get();
+
+      if(!is_null($request->mother) && !is_null($request->father)){
+        $grouping = new Grouping;
+
+        foreach ($pigs as $pig) {
+          if(substr($pig->registryid, -5, 5) == $request->mother){
+            $grouping->registryid = $pig->registryid;
+            $grouping->mother_id = $pig->id;
+          }
+          if(substr($pig->registryid, -5, 5) == $request->father){
+            $grouping->father_id = $pig->id;
+          }
+        }
+
+        $groupingmember = new GroupingMember;
+        $groupingmember->grouping_id = $grouping->id;
+        $groupingmember->animal_id = $newpig->id;
+        $groupingmember->save();
+
+        if(!is_null($request->date_farrowed)){
+          $farrowed = new GroupingProperty;
+          $farrowed->grouping_id = $grouping->id;
+          $farrowed->property_id = 25;
+          $farrowed->value = $request->date_farrowed;
+          $farrowed->datecollected = new Carbon();
+          $farrowed->save();
+
+          $dateFarrowedValue = new Carbon($request->date_farrowed);
+
+          $date_bred = new GroupingProperty;
+          $date_bred->grouping_id = $grouping->id;
+          $date_bred->property_id = 48;
+          $date_bred->value = $dateFarrowedValue->subDays(114);
+          $date_bred->datecollected = new Carbon();
+          $date_bred->save();
+
+          $edf = new GroupingProperty;
+          $edf->grouping_id = $grouping->id;
+          $edf->property_id = 49;
+          $edf->value = $request->date_farrowed;
+          $edf->datecollected = new Carbon();
+          $edf->save();
+
+          $recycled = new GroupingProperty;
+          $recycled->grouping_id = $grouping->id;
+          $recycled->property_id = 51;
+          $recycled->value = 0;
+          $recycled->datecollected = new Carbon();
+          $recycled->save();
+
+          $status = new GroupingProperty;
+          $status->grouping_id = $grouping->id;
+          $status->property_id = 50;
+          $status->value = "Farrowed";
+          $status->datecollected = new Carbon();
+          $status->save();
+
+          $date_weaned = new AnimalProperty;
+          $date_weaned->animal_id = $newpig->id;
+          $date_weaned->property_id = 61;
+          $date_weaned->value = $dateFarrowedValue->addDays(60);
+          $date_weaned->save();
+        }
+      }
+
+      $grouping->members = 1;
+      $grouping->save();
 
       return Redirect::back()->with('message', 'Operation Successful!');
     }
@@ -1123,10 +1194,17 @@ class FarmController extends Controller
       $date_died->value = $dateDiedValue;
       $date_died->save();
 
+      if(is_null($request->cause_death)){
+        $causeDeathValue = "";
+      }
+      else{
+        $causeDeathValue = $request->cause_death;
+      }
+
       $cause_death = new AnimalProperty;
       $cause_death->animal_id = $dead->id;
       $cause_death->property_id = 71;
-      $cause_death->value = $request->cause_death;
+      $cause_death->value = $causeDeathValue;
       $cause_death->save();
 
       return Redirect::back()->with('message', 'Operation Successful!');
@@ -1151,10 +1229,17 @@ class FarmController extends Controller
       $date_sold->value = $dateSoldValue;
       $date_sold->save();
 
+      if(is_null($request->weight_sold)){
+        $weightSoldValue = "";
+      }
+      else{
+        $weightSoldValue = $request->weight_sold;
+      }
+
       $weight_sold = new AnimalProperty;
       $weight_sold->animal_id = $sold->id;
       $weight_sold->property_id = 57;
-      $weight_sold->value = $request->weight_sold;
+      $weight_sold->value = $weightSoldValue;
       $weight_sold->save();
 
       return Redirect::back()->with('message','Operation Successful!');

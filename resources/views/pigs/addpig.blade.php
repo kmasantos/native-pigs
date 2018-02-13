@@ -26,7 +26,7 @@
       		</div>
       		<div class="col s4">
       			<input id="birthday" type="text" placeholder="Pick a date" name="date_farrowed" class="datepicker">
-      			<label for="birthday">Birthday</label>
+      			<label for="birthday">Date of Birth</label>
       		</div>
       	</div>
       	<div class="row">
@@ -43,6 +43,16 @@
       			<label for="weaning_weight">Weaning weight, kg</label>
   				</div>
       	</div>
+        <div class="row">
+          <div class="col s3 offset-s2">
+            <input id="mother" type="text" name="mother" class="validate">
+            <label for="mother">Mother's Earnotch</label>
+          </div>
+          <div class="col s3 push-s2">
+            <input id="father" type="text" name="father" class="validate">
+            <label for="father">Father's Earnotch</label>
+          </div>
+        </div>
       	<div class="row center">
       		<button class="btn waves-effect waves-light green darken-3" type="submit">Add
             <i class="material-icons right">add</i>

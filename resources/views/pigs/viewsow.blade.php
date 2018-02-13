@@ -36,7 +36,7 @@
                 <div class="col s6">
                   <p>Sex ratio (M:F): </p>
                   @if(is_null($properties->where("property_id", 54)->first()))
-                    <p>Weaning weight: Not specified</p>
+                    <p>Weaning weight: </p>
                   @else
                     <p>Weaning weight: {{ $properties->where("property_id", 54)->first()->value }} kg</p>
                   @endif
@@ -70,7 +70,11 @@
               <div class="col s6">
                 <div class="row">
                   {{-- <div class="col s10 offset-s1 red lighten-4"> --}}
-                    {{ $sow->getGrouping()->getMother()->registryid }}
+                    @if(!is_null($sow->getGrouping()))
+                      {{ $sow->getGrouping()->getMother()->registryid }}
+                    @else
+                      No data of mother found
+                    @endif
                   {{-- </div> --}}
                 </div>
                 <div class="row">
@@ -81,7 +85,11 @@
                 </div>
                 <div class="row"> 
                   {{-- <div class="col s10 offset-s1 blue lighten-2"> --}}
-                    {{ $sow->getGrouping()->getFather()->registryid }}
+                    @if(!is_null($sow->getGrouping()))
+                      {{ $sow->getGrouping()->getFather()->registryid }}
+                    @else
+                      No data of father found
+                    @endif
                   {{-- </div> --}}
                 </div>
               </div>
