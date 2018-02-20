@@ -22,14 +22,6 @@
           </div>
           <div class="row">
             <div class="col s5">
-              Age at First Mating, months
-            </div>
-            <div class="col s7">
-              <input disabled id="age_at_first_mating" type="text" name="age_at_first_mating" class="validate">
-            </div>
-          </div>
-          <div class="row">
-            <div class="col s5">
               Ear Length, cm
             </div>
             <div class="col s7">
@@ -92,27 +84,16 @@
               <input id="height_at_withers" type="text" name="height_at_withers" class="validate">
             </div>
           </div>
-          <!-- AUTOMATICALLY COMPUTED -->
           <div class="row">
             <div class="col s5">
-              Ponderal Index, kg/m<sup>3</sup>
+              Number of Normal Teats
             </div>
             <div class="col s7">
-              <input disabled id="ponderal_index" type="text" name="ponderal_index" class="validate">
+              <p class="range-field">
+                <input type="range" id="number_of_normal_teats" name="number_of_normal_teats" min="6" max="18" />
+              </p>
             </div>
           </div>
-          @if($animal->getAnimalProperties()->where("property_id", 27)->first()->value == 'F')
-            <div class="row">
-              <div class="col s5">
-                Number of Normal Teats
-              </div>
-              <div class="col s7">
-                <p class="range-field">
-                  <input type="range" id="number_of_normal_teats" name="number_of_normal_teats" min="6" max="18" />
-                </p>
-              </div>
-            </div>
-          @endif
         </div>
         <div class="row center">
           <button class="btn waves-effect waves-light green darken-3" type="submit">Save

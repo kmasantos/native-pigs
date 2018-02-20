@@ -191,6 +191,10 @@
                       <td> kg/m<sup>3</sup></td>
                     @endif
                   </tr>
+                  <tr>
+                    <td>Number of Normal Teats</td>
+                    <td>{{ $properties->where("property_id", 44)->first()->value }}</td>
+                  </tr>
                 </tbody>
               </table>
             </div>

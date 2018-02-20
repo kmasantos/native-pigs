@@ -269,7 +269,8 @@
 												<td>
 													<div class="col s6">
 														<input type="hidden" name="offspring_id" value="{{ $offspring->getChild()->registryid }}">
-														{{-- <input type="hidden" name="date_weaned" value="{{ $family->getGroupingProperties()->where("property_id", 61)->first()->value }}"> --}}
+														<input type="hidden" name="family_id" value="{{ $family->id }}">
+														<input type="hidden" name="date_weaned" value="{{ $family->getGroupingProperties()->where("property_id", 61)->first()->value }}">
 														<input id="weaning_weight" type="text" name="weaning_weight">
 													</div>
 													<div class="col s6">
