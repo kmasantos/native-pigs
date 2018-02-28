@@ -353,6 +353,13 @@ class FarmController extends Controller
       return view('pigs.grossmorphology', compact('animal', 'properties'));
     }
 
+    public function getEditGrossMorphologyPage($id){
+      $animal = Animal::find($id);
+      $properties = $animal->getAnimalProperties();
+
+      return view('pigs.editgrossmorphology', compact('animal', 'properties'));
+    }
+
     public function getMorphometricCharsPage($id){
       $animal = Animal::find($id);
       $properties = $animal->getAnimalProperties();
@@ -360,11 +367,25 @@ class FarmController extends Controller
       return view('pigs.morphometriccharacteristics', compact('animal', 'properties'));
     }
 
+    public function getEditMorphometricCharsPage($id){
+      $animal = Animal::find($id);
+      $properties = $animal->getAnimalProperties();
+
+      return view('pigs.editmorphometriccharacteristics', compact('animal', 'properties'));
+    }
+
     public function getWeightRecordsPage($id){
       $animal = Animal::find($id);
       $properties = $animal->getAnimalProperties();
 
       return view('pigs.weightrecords', compact('animal', 'properties'));
+    }
+
+    public function getEditWeightRecordsPage($id){
+      $animal = Animal::find($id);
+      $properties = $animal->getAnimalProperties();
+
+      return view('pigs.editweightrecords', compact('animal', 'properties'));
     }
 
     public function getSowRecordPage($id){
@@ -1184,6 +1205,276 @@ class FarmController extends Controller
       $animal = Animal::find($animalid);
       $animal->weightrecord = 1;
       $animal->save();
+
+      return Redirect::back()->with('message','Animal record successfully saved');
+    }
+
+    public function editGrossMorphology(Request $request){
+      $animal = Animal::find($request->animal_id);
+      $properties = $animal->getAnimalProperties();
+
+      $hairtype = $properties->where("property_id", 28)->first();
+      if(is_null($request->hair_type1)){
+        $hairTypeValue = "Not specified";
+      }
+      else{
+        $hairTypeValue = $request->hair_type1;
+      }
+      $hairtype->value = $hairTypeValue;
+
+      $hairlength = $properties->where("property_id", 29)->first();
+      if(is_null($request->hair_type2)){
+        $hairLengthValue = "Not specified";
+      }
+      else{
+        $hairLengthValue = $request->hair_type2;
+      }
+      $hairlength->value = $hairLengthValue;
+
+      $coatcolor = $properties->where("property_id", 30)->first();
+      if(is_null($request->coat_color)){
+        $coatColorValue = "Not specified";
+      }
+      else{
+        $coatColorValue = $request->coat_color;
+      }
+      $coatcolor->value = $coatColorValue;
+
+      $colorpattern = $properties->where("property_id", 31)->first();
+      if(is_null($request->color_pattern)){
+        $colorPatternValue = "Not specified";
+      }
+      else{
+        $colorPatternValue = $request->color_pattern;
+      }
+      $colorpattern->value = $colorPatternValue;
+
+      $headshape = $properties->where("property_id", 32)->first();
+      if(is_null($request->head_shape)){
+        $headShapeValue = "Not specified";
+      }
+      else{
+        $headShapeValue = $request->head_shape;
+      }
+      $headshape->value = $headShapeValue;
+
+      $skintype = $properties->where("property_id", 33)->first();
+      if(is_null($request->skin_type)){
+        $skinTypeValue = "Not specified";
+      }
+      else{
+        $skinTypeValue = $request->skin_type;
+      }
+      $skintype->value = $skinTypeValue;
+
+      $eartype = $properties->where("property_id", 34)->first();
+      if(is_null($request->ear_type)){
+        $earTypeValue = "Not specified";
+      }
+      else{
+        $earTypeValue = $request->ear_type;
+      }
+      $eartype->value = $earTypeValue;
+
+      $tailtype = $properties->where("property_id", 62)->first();
+      if(is_null($request->tail_type)){
+        $tailTypeValue = "Not specified";
+      }
+      else{
+        $tailTypeValue = $request->tail_type;
+      }
+      $tailtype->value = $tailTypeValue;
+
+      $backline = $properties->where("property_id", 35)->first();
+      if(is_null($request->backline)){
+        $backlineValue = "Not specified";
+      }
+      else{
+        $backlineValue = $request->backline;
+      }
+      $backline->value = $backlineValue;
+
+      $othermarks = $properties->where("property_id", 36)->first();
+      if(is_null($request->other_marks)){
+        $otherMarksValue = "Not specified";
+      }
+      else{
+        $otherMarksValue = $request->other_marks;
+      }
+      $othermarks->value = $otherMarksValue;
+
+      $hairtype->save();
+      $hairlength->save();
+      $coatcolor->save();
+      $colorpattern->save();
+      $headshape->save();
+      $skintype->save();
+      $eartype->save();
+      $tailtype->save();
+      $backline->save();
+      $othermarks->save();
+
+      return Redirect::back()->with('message','Animal record successfully saved');
+    }
+
+    public function editMorphometricCharacteristics(Request $request){
+      $animal = Animal::find($request->animal_id);
+      $properties = $animal->getAnimalProperties();
+
+      $earlength = $properties->where("property_id", 64)->first();
+      if(is_null($request->ear_length)){
+        $earLengthValue = "";
+      }
+      else{
+        $earLengthValue = $request->ear_length;
+      }
+      $earlength->value = $earLengthValue;
+
+      $headlength = $properties->where("property_id", 39)->first();
+      if(is_null($request->head_length)){
+        $headLengthValue = "";
+      }
+      else{
+        $headLengthValue = $request->head_length;
+      }
+      $headlength->value = $headLengthValue;
+
+      $snoutlength = $properties->where("property_id", 63)->first();
+      if(is_null($request->snout_length)){
+        $snoutLengthValue = "";
+      }
+      else{
+        $snoutLengthValue = $request->snout_length;
+      }
+      $snoutlength->value = $snoutLengthValue;
+
+      $bodylength = $properties->where("property_id", 40)->first();
+      if(is_null($request->body_length)){
+        $bodyLengthValue = "";
+      }
+      else{
+        $bodyLengthValue = $request->body_length;
+      }
+      $bodylength->value = $bodyLengthValue;
+
+      $heartgirth = $properties->where("property_id", 42)->first();
+      if(is_null($request->heart_girth)){
+        $heartGirthValue = "";
+      }
+      else{
+        $heartGirthValue = $request->heart_girth;
+      }
+      $heartgirth->value = $heartGirthValue;
+
+      $pelvicwidth = $properties->where("property_id", 41)->first();
+      if(is_null($request->pelvic_width)){
+        $pelvicWidthValue = "";
+      }
+      else{
+        $pelvicWidthValue = $request->pelvic_width;
+      }
+      $pelvicwidth->value = $pelvicWidthValue;
+
+      $taillength = $properties->where("property_id", 65)->first();
+      if(is_null($request->tail_length)){
+        $tailLengthValue = "";
+      }
+      else{
+        $tailLengthValue = $request->tail_length;
+      }
+      $taillength->value = $tailLengthValue;
+
+      $heightatwithers = $properties->where("property_id", 66)->first();
+      if(is_null($request->height_at_withers)){
+        $heightAtWithersValue = "";
+      }
+      else{
+        $heightAtWithersValue = $request->height_at_withers;
+      }
+      $heightatwithers->value =  $heightAtWithersValue;
+
+      $normalteats = $properties->where("property_id", 44)->first();
+      if(is_null($request->number_of_normal_teats)){
+        $normalTeatsValue = "";
+      }
+      else{
+        $normalTeatsValue = $request->number_of_normal_teats;
+      }
+      $normalteats->value = $normalTeatsValue;
+
+      $earlength->save();
+      $headlength->save();
+      $snoutlength->save();
+      $bodylength->save();
+      $heartgirth->save();
+      $pelvicwidth->save();
+      $taillength->save();
+      $heightatwithers->save();
+      $normalteats->save();
+
+      return Redirect::back()->with('message','Animal record successfully saved');
+    }
+
+    public function editWeightRecords(Request $request){
+      $animal = Animal::find($request->animal_id);
+      $properties = $animal->getAnimalProperties();
+
+      $bw45d = $properties->where("property_id", 45)->first();
+      if(is_null($request->body_weight_at_45_days)){
+        $bw45dValue = "";
+      }
+      else{
+        $bw45dValue = $request->body_weight_at_45_days;
+      }
+      $bw45d->value = $bw45dValue;
+
+      $bw60d = $properties->where("property_id", 46)->first();
+      if(is_null($request->body_weight_at_60_days)){
+        $bw60dValue = "";
+      }
+      else{
+        $bw60dValue = $request->body_weight_at_60_days;
+      }
+      $bw60d->value = $bw60dValue;
+
+      $bw90d = $properties->where("property_id", 69)->first();
+      if(is_null($request->body_weight_at_90_days)){
+        $bw90dValue = "";
+      }
+      else{
+        $bw90dValue = $request->body_weight_at_90_days;
+      }
+      $bw90d->value = $bw90dValue;
+
+      $bw180d = $properties->where("property_id", 47)->first();
+      if(is_null($request->body_weight_at_180_days)){
+        $bw180dValue = "";
+      }
+      else{
+        $bw180dValue = $request->body_weight_at_180_days;
+      }
+      $bw180d->value = $bw180dValue;
+
+      $dc45d = $properties->where("property_id", 58)->first();
+      $dc45d->value = $request->date_collected_45_days;
+
+      $dc60d = $properties->where("property_id", 59)->first();
+      $dc60d->value = $request->date_collected_60_days;
+
+      $dc90d = $properties->where("property_id", 70)->first();
+      $dc90d->value = $request->date_collected_90_days;
+
+      $dc180d = $properties->where("property_id", 60)->first();
+      $dc180d->value = $request->date_collected_180_days;
+
+      $bw45d->save();
+      $bw60d->save();
+      $bw90d->save();
+      $bw180d->save();
+      $dc45d->save();
+      $dc60d->save();
+      $dc90d->save();
+      $dc180d->save();
 
       return Redirect::back()->with('message','Animal record successfully saved');
     }

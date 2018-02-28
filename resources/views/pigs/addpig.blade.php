@@ -54,7 +54,7 @@
           </div>
         </div>
       	<div class="row center">
-      		<button class="btn waves-effect waves-light green darken-3" type="submit">Add
+      		<button class="btn waves-effect waves-light green darken-3" type="submit" onclick="Materialize.toast('Successfully added!', 4000)">Add
             <i class="material-icons right">add</i>
           </button>
       	</div>

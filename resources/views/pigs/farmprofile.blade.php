@@ -75,13 +75,10 @@
             </div>
           </div>
         </div>
-        <div class="row">
-          <div class="col s6 offset-s4">
-            <a href="#!" class="btn waves-effect waves-light green darken-3"><i class="material-icons right">edit</i>Edit</a>
-            <button class="btn waves-effect waves-light green darken-3" type="submit">Save
-              <i class="material-icons right">save</i>
-            </button>
-          </div>
+        <div class="row center">
+          <button class="btn waves-effect waves-light green darken-3" type="submit" onclick="Materialize.toast('Saved successfully!', 4000)">Save
+            <i class="material-icons right">save</i>
+          </button>
         </div>
       </div>
       {!! Form::close() !!}

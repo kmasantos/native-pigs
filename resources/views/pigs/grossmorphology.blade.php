@@ -150,7 +150,7 @@
             </div>
           </div>
           <div class="row center">
-            <button class="btn waves-effect waves-light green darken-3" type="submit">Save
+            <button class="btn waves-effect waves-light green darken-3" type="submit" onclick="Materialize.toast('Saved successfully!', 4000)">Save
               <i class="material-icons right">save</i>
             </button>
           </div>

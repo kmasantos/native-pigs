@@ -59,7 +59,7 @@
 							</div>
 						</div>
 						<div class="row center">
-							<button id="add_dead" class="btn waves-effect waves-light green darken-3" type="submit">Add
+							<button id="add_dead" class="btn waves-effect waves-light green darken-3" type="submit" onclick="Materialize.toast('Successfully addded!', 4000)">Add
 		            <i class="material-icons right">add</i>
 		          </button>
 						</div>
@@ -132,7 +132,7 @@
 							</div>
 						</div>
 						<div class="row center">
-              <button id="add_sold" class="btn waves-effect waves-light green darken-3" type="submit">Add
+              <button id="add_sold" class="btn waves-effect waves-light green darken-3" type="submit" onclick="Materialize.toast('Successfully addded!', 4000)">Add
 		            <i class="material-icons right">add</i>
 		          </button>
 						</div>
@@ -209,7 +209,7 @@
 							</div>
 						</div>
 						<div class="row center">
-							<button id="add_dead" class="btn waves-effect waves-light green darken-3" type="submit">Add
+							<button id="add_dead" class="btn waves-effect waves-light green darken-3" type="submit" onclick="Materialize.toast('Successfully addded!', 4000)">Add
 		            <i class="material-icons right">add</i>
 		          </button>
 						</div>

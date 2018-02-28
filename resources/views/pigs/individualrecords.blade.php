@@ -51,7 +51,7 @@
                       </td>
                     @elseif($sow->phenotypic == 1)
                       <td>
-                        <a href="#!"><i class="material-icons">edit</i></a>
+                        <a href="{{ URL::route('farm.pig.edit_gross_morphology_page', [$sow->id]) }}"><i class="material-icons">edit</i></a>
                       </td>
                     @endif
                     @if($sow->morphometric == 0)
@@ -60,7 +60,7 @@
                       </td>
                     @elseif($sow->morphometric == 1)
                       <td>
-                        <a href="#!"><i class="material-icons">edit</i></a>
+                        <a href="{{ URL::route('farm.pig.edit_pig_morphometric_characteristics_page', [$sow->id]) }}"><i class="material-icons">edit</i></a>
                       </td>
                     @endif
                     @if($sow->weightrecord == 0)
@@ -69,7 +69,7 @@
                       </td>
                     @elseif($sow->weightrecord == 1)
                       <td>
-                        <a href="#!"><i class="material-icons">edit</i></a>
+                        <a href="{{ URL::route('farm.pig.edit_weight_records_page', [$sow->id]) }}"><i class="material-icons">edit</i></a>
                       </td>
                     @endif
                   </tr>
@@ -105,7 +105,7 @@
                       </td>
                     @elseif($boar->phenotypic == 1)
                       <td>
-                        <a href="#!"><i class="material-icons">edit</i></a>
+                        <a href="{{ URL::route('farm.pig.edit_gross_morphology_page', [$boar->id]) }}"><i class="material-icons">edit</i></a>
                       </td>
                     @endif
                     @if($boar->morphometric == 0)
@@ -114,7 +114,7 @@
                       </td>
                     @elseif($boar->morphometric == 1)
                       <td>
-                        <a href="#!"><i class="material-icons">edit</i></a>
+                        <a href="{{ URL::route('farm.pig.edit_pig_morphometric_characteristics_page', [$boar->id]) }}"><i class="material-icons">edit</i></a>
                       </td>
                     @endif
                      @if($boar->weightrecord == 0)
@@ -123,7 +123,7 @@
                       </td>
                     @elseif($boar->weightrecord == 1)
                       <td>
-                        <a href="#!"><i class="material-icons">edit</i></a>
+                        <a href="{{ URL::route('farm.pig.edit_weight_records_page', [$boar->id]) }}"><i class="material-icons">edit</i></a>
                       </td>
                     @endif
                   </tr>

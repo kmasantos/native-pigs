@@ -131,6 +131,10 @@
                     <td>{{ $properties->where("property_id", 34)->first()->value }}</td>
                   </tr>
                   <tr>
+                    <td>Tail Type</td>
+                    <td>{{ $properties->where("property_id", 62)->first()->value }}</td>
+                  </tr>
+                  <tr>
                     <td>Backline</td>
                     <td>{{ $properties->where("property_id", 35)->first()->value }}</td>
                   </tr>
@@ -160,7 +164,7 @@
                     <td>{{ $properties->where("property_id", 39)->first()->value }} cm</td>
                   </tr>
                   <tr>
-                    <td>Head Length</td>
+                    <td>Snout Length</td>
                     <td>{{ $properties->where("property_id", 63)->first()->value }} cm</td>
                   </tr>
                   <tr>
