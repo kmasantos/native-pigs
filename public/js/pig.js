@@ -59,3 +59,31 @@ weaned.onchange = function () {
       document.getElementById("weaning_weight").disabled = false;
   }
 }
+
+function filterBreedingRecord() {
+  var x = document.getElementById("month_div_breeding");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  }
+}
+
+function filterMortality() {
+  var x = document.getElementById("month_div_mortality");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  }
+}
+
+function filterSales() {
+  var x = document.getElementById("month_div_sales");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  }
+}
+
+function filterRemoved() {
+  var x = document.getElementById("month_div_removed");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  }
+}

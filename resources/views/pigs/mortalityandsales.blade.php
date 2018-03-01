@@ -20,8 +20,16 @@
 					</div>
 					<div id="mortality_tab" class="col s12">
 						<div class="row">
-							<div class="col s6">
-								<select name="month_mortality" class="browser-default">
+							<div class="col s4">
+								<select id="year_mortality" name="year_mortality" class="browser-default" onclick="filterMortality()">
+									<option disabled selected>Choose year</option>
+									@foreach($years as $year)
+										<option value="{{ $year }}">{{ $year }}</option>
+									@endforeach
+								</select>
+							</div>
+							<div id="month_div_mortality" class="col s4" style="display:none;">
+								<select id="month_mortality" name="month_mortality" class="browser-default">
 									<option disabled selected>Choose month</option>
 									<option value="January">January</option>
 									<option value="February">February</option>
@@ -93,8 +101,16 @@
           </div>
 					<div id="sales_tab" class="col s12">
 						<div class="row">
-							<div class="col s6">
-								<select name="month_sales" class="browser-default">
+							<div class="col s4">
+								<select id="year_sales" name="year_sales" class="browser-default" onclick="filterSales()">
+									<option disabled selected>Choose year</option>
+									@foreach($years as $year)
+										<option value="{{ $year }}">{{ $year }}</option>
+									@endforeach
+								</select>
+							</div>
+							<div id="month_div_sales" class="col s4" style="display:none;">
+								<select id="month_sales" name="month_sales" class="browser-default">
 									<option disabled selected>Choose month</option>
 									<option value="January">January</option>
 									<option value="February">February</option>
@@ -166,8 +182,16 @@
           </div>
           <div id="others_tab" class="col s12">
 						<div class="row">
-							<div class="col s6">
-								<select name="month_others" class="browser-default">
+							<div class="col s4">
+								<select id="year_removed" name="year_removed" class="browser-default" onclick="filterRemoved()">
+									<option disabled selected>Choose year</option>
+									@foreach($years as $year)
+										<option value="{{ $year }}">{{ $year }}</option>
+									@endforeach
+								</select>
+							</div>
+							<div id="month_div_removed" class="col s4" style="display:none;">
+								<select id="month_removed" name="month_removed" class="browser-default">
 									<option disabled selected>Choose month</option>
 									<option value="January">January</option>
 									<option value="February">February</option>

@@ -98,8 +98,8 @@
         </div>
         <div class="row">
           @if($sow->phenotypic == 1)
-            <div class="col s6">
-              <h5>GROSS MORPHOLOGY</h5>
+            <div class="col s6 card-panel">
+              <h6>GROSS MORPHOLOGY</h6>
               <table>
                 <tbody>
                   <tr>
@@ -147,7 +147,7 @@
             </div>
           @endif
           @if($sow->morphometric == 1)
-            <div class="col s6">
+            <div class="col s6 card-panel">
               <h6>MORPHOMETRIC CHARACTERISTICS</h6>
               <table>
                 <tbody>
@@ -206,8 +206,8 @@
         </div>
         <div class="row center">
           @if($sow->weightrecord == 1)
-            <div class="col s6 push-s3">
-              <h5>WEIGHT RECORDS</h5>
+            <div class="col s6 push-s3 card-panel">
+              <h6>WEIGHT RECORDS</h6>
               <table>
                 <tbody>
                   <tr>

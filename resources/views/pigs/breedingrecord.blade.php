@@ -12,6 +12,14 @@
 			<div class="col s12">
 				<div class="row">
 					<div class="col s4">
+						<select id="year_mating" name="year_mating" class="browser-default" onclick="filterBreedingRecord()">
+							<option disabled selected>Choose year</option>
+							@foreach($years as $year)
+								<option value="{{ $year }}">{{ $year }}</option>
+							@endforeach
+						</select>
+					</div>
+					<div id="month_div_breeding" class="col s4" style="display:none;">
 						<select id="month_mating" name="month_mating" class="browser-default">
 							<option disabled selected>Choose month</option>
 							<option value="January">January</option>

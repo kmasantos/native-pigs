@@ -215,7 +215,9 @@ class FarmController extends Controller
         }
       }
 
-      return view('pigs.breedingrecord', compact('pigs', 'sows', 'boars', 'family'));
+      $years = ["2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025"];
+
+      return view('pigs.breedingrecord', compact('pigs', 'sows', 'boars', 'family', 'years'));
     }
 
     public function getMortalityAndSalesPage(){
@@ -238,8 +240,9 @@ class FarmController extends Controller
       }
       
       $age = null;
+      $years = ["2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025"];
 
-      return view('pigs.mortalityandsales', compact('pigs', 'breeders', 'sold', 'dead', 'removed', 'age'));
+      return view('pigs.mortalityandsales', compact('pigs', 'breeders', 'sold', 'dead', 'removed', 'age', 'years'));
     }
 
     public function getFarmProfilePage(){

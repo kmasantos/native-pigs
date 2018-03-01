@@ -15,7 +15,7 @@
       	<div class="row">
       		<div class="col s4">
       			<input id="earnotch" type="text" name="earnotch" class="validate" required>
-      			<label for="earnotch">Animal Earnotch</label>
+      			<label for="earnotch">Animal Earnotch *</label>
       		</div>
       		<div class="col s4">
       			<select id="select_sex" name="sex" class="browser-default" required>
@@ -23,6 +23,7 @@
 							<option value="M">Male</option>
 							<option value="F">Female</option>
 						</select>
+            <label for="select_sex">Sex *</label>
       		</div>
       		<div class="col s4">
       			<input id="birthday" type="text" placeholder="Pick a date" name="date_farrowed" class="datepicker">
@@ -53,7 +54,9 @@
             <label for="father">Father's Earnotch</label>
           </div>
         </div>
+        <div class="divider"></div>
       	<div class="row center">
+          <br><sup class="red-text">*required</sup><br>
       		<button class="btn waves-effect waves-light green darken-3" type="submit" onclick="Materialize.toast('Successfully added!', 4000)">Add
             <i class="material-icons right">add</i>
           </button>
