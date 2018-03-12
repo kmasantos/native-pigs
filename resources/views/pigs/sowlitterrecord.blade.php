@@ -101,11 +101,11 @@
 
 							</div>
 							<div class="row">
-								<div class="col s8">
+								<div class="col s6">
 									Parity
 								</div>
-								<div class="col s4">
-
+								<div class="col s5">
+									<input type="text" name="parity" class="validate">
 								</div>
 							</div>
 							<div class="row">

@@ -35,12 +35,48 @@
 					<a href="#!"><span class="white-text email">{{ Auth::user()->email   }}</span></a>
 				</div>
 			</li>
-			<li><a href="{{route('farm.index')}}"><i class="material-icons">dashboard</i>Dashboard</a></li>
+			<li class="no-padding">
+        <ul>
+          <li>
+            <a href="{{route('farm.index')}}" class="collapsible-header"><i class="material-icons">dashboard</i>Dashboard</a></a>
+          </li>
+        </ul>
+      </li>
 			<li><div class="divider green lighten-1"></div></li>
-			<li><a href="{{route('farm.pig.individual_records')}}">Individual Records</a></li>
-			<li><a href="{{route('farm.pig.breeding_record')}}">Breeding Record</a></li>
-			{{-- <li><a href="{{route('farm.pig.add_sowlitter_record')}}">Sow-Litter Record</a></li> --}}
-			<li><a href="{{route('farm.pig.mortality_and_sales')}}">Mortality and Sales</a></li>
+			<li class="no-padding">
+        <ul>
+          <li>
+            <a href="{{route('farm.pig.individual_records')}}" class="collapsible-header">Individual Records</a>
+          </li>
+        </ul>
+      </li>
+      <li class="no-padding">
+        <ul>
+          <li>
+            <a href="{{route('farm.pig.breeding_record')}}" class="collapsible-header">Breeding Record</a>
+          </li>
+        </ul>
+      </li>
+      <li class="no-padding">
+        <ul>
+          <li>
+            <a href="{{route('farm.pig.mortality_and_sales')}}" class="collapsible-header">Mortality and Sales</a>
+          </li>
+        </ul>
+      </li>
+			<li class="no-padding">
+        <ul class="collapsible collapsible-accordion">
+          <li>
+            <a class="collapsible-header">Reports</a>
+            <div class="collapsible-body">
+              <ul class="grey lighten-2">
+                <li><a href="{{route('farm.pig.gross_morphology_report')}}">Gross Morphology</a></li>
+                <li><a href="{{route('farm.pig.morpho_chars_report')}}">Morphometric Characteristics</a></li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </li>
 			<li><div class="divider green lighten-1"></div></li>
 			<li><a href="{{route('farm.pig.farm_profile')}}"><i class="material-icons">settings</i>Farm Profile</a></li>
 		</ul>
