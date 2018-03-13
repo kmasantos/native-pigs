@@ -73,7 +73,11 @@
                     @if(!is_null($boar->getGrouping()))
                       {{ $boar->getGrouping()->getMother()->registryid }}
                     @else
-                      No data of mother found
+                      @if(is_null($properties->where("property_id", 86)->first()))
+                        No data of mother found
+                      @else
+                        {{ $properties->where("property_id", 86)->first()->value }}}
+                      @endif
                     @endif
                   {{-- </div> --}}
                 </div>
@@ -88,7 +92,11 @@
                     @if(!is_null($boar->getGrouping()))
                       {{ $boar->getGrouping()->getFather()->registryid }}
                     @else
-                      No data of father found
+                      @if(is_null($properties->where("property_id", 87)->first()))
+                        No data of father found
+                      @else
+                        {{ $properties->where("property_id", 87)->first()->value }}}
+                      @endif
                     @endif
                   {{-- </div> --}}
                 </div>

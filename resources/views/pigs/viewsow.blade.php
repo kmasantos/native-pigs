@@ -71,9 +71,21 @@
                 <div class="row">
                   {{-- <div class="col s10 offset-s1 red lighten-4"> --}}
                     @if(!is_null($sow->getGrouping()))
-                      {{ $sow->getGrouping()->getMother()->registryid }}
+                      @if(!is_null($sow->getGrouping()->getMother()))
+                        {{ $sow->getGrouping()->getMother()->registryid }}
+                      @else
+                        @if(is_null($properties->where("property_id", 86)->first()))
+                          No data of mother found
+                        @else
+                          {{ $properties->where("property_id", 86)->first()->value }}
+                        @endif
+                      @endif
                     @else
-                      No data of mother found
+                      @if(is_null($properties->where("property_id", 86)->first()))
+                        No data of mother found
+                      @else
+                        {{ $properties->where("property_id", 86)->first()->value }}
+                      @endif
                     @endif
                   {{-- </div> --}}
                 </div>
@@ -86,9 +98,21 @@
                 <div class="row"> 
                   {{-- <div class="col s10 offset-s1 blue lighten-2"> --}}
                     @if(!is_null($sow->getGrouping()))
-                      {{ $sow->getGrouping()->getFather()->registryid }}
+                      @if(!is_null($sow->getGrouping()->getFather()))
+                        {{ $sow->getGrouping()->getFather()->registryid }}
+                      @else
+                        @if(is_null($properties->where("property_id", 87)->first()))
+                          No data of father found
+                        @else
+                          {{ $properties->where("property_id", 87)->first()->value }}
+                        @endif
+                      @endif
                     @else
-                      No data of father found
+                      @if(is_null($properties->where("property_id", 87)->first()))
+                        No data of father found
+                      @else
+                        {{ $properties->where("property_id", 87)->first()->value }}
+                      @endif
                     @endif
                   {{-- </div> --}}
                 </div>

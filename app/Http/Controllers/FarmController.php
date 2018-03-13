@@ -943,62 +943,88 @@ class FarmController extends Controller
             $grouping->registryid = $pig->registryid;
             $grouping->mother_id = $pig->id;
           }
+          else{
+            $fourowfourmother = 0;
+          }
           if(substr($pig->registryid, -5, 5) == $request->father){
             $grouping->father_id = $pig->id;
           }
+          else{
+            $fourowfourfather = 0;
+          }
         }
 
-        $grouping->members = 1;
-        $grouping->save();
+        if($fourowfourmother == 0){
+          $motheranimal = new AnimalProperty;
+          $motheranimal->animal_id = $newpig->id;
+          $motheranimal->property_id = 86;
+          $motheranimal->value = $farm->code.$breed->breed."-"."F".$request->mother;
+          $motheranimal->save();
+          $grouping->registryid = $motheranimal->value;
+          $grouping->mother_id = null;
+        }
+        if($fourowfourfather == 0){
+          $fatheranimal = new AnimalProperty;
+          $fatheranimal->animal_id = $newpig->id;
+          $fatheranimal->property_id = 87;
+          $fatheranimal->value = $farm->code.$breed->breed."-"."M".$request->father;
+          $fatheranimal->save();
+          $grouping->father_id = null;
+        }
 
-        $groupingmember = new GroupingMember;
-        $groupingmember->grouping_id = $grouping->id;
-        $groupingmember->animal_id = $newpig->id;
-        $groupingmember->save();
+        if(is_null($grouping->mother_id) || is_null($grouping->father_id)){
+          $grouping->members = 1;
+          $grouping->save();
 
-        if(!is_null($request->date_farrowed)){
-          $farrowed = new GroupingProperty;
-          $farrowed->grouping_id = $grouping->id;
-          $farrowed->property_id = 25;
-          $farrowed->value = $request->date_farrowed;
-          $farrowed->datecollected = new Carbon();
-          $farrowed->save();
+          $groupingmember = new GroupingMember;
+          $groupingmember->grouping_id = $grouping->id;
+          $groupingmember->animal_id = $newpig->id;
+          $groupingmember->save();
 
-          $dateFarrowedValue = new Carbon($request->date_farrowed);
+          if(!is_null($request->date_farrowed)){
+            $farrowed = new GroupingProperty;
+            $farrowed->grouping_id = $grouping->id;
+            $farrowed->property_id = 25;
+            $farrowed->value = $request->date_farrowed;
+            $farrowed->datecollected = new Carbon();
+            $farrowed->save();
 
-          $date_bred = new GroupingProperty;
-          $date_bred->grouping_id = $grouping->id;
-          $date_bred->property_id = 48;
-          $date_bred->value = $dateFarrowedValue->subDays(114);
-          $date_bred->datecollected = new Carbon();
-          $date_bred->save();
+            $dateFarrowedValue = new Carbon($request->date_farrowed);
 
-          $edf = new GroupingProperty;
-          $edf->grouping_id = $grouping->id;
-          $edf->property_id = 49;
-          $edf->value = $request->date_farrowed;
-          $edf->datecollected = new Carbon();
-          $edf->save();
+            $date_bred = new GroupingProperty;
+            $date_bred->grouping_id = $grouping->id;
+            $date_bred->property_id = 48;
+            $date_bred->value = $dateFarrowedValue->subDays(114);
+            $date_bred->datecollected = new Carbon();
+            $date_bred->save();
 
-          $recycled = new GroupingProperty;
-          $recycled->grouping_id = $grouping->id;
-          $recycled->property_id = 51;
-          $recycled->value = 0;
-          $recycled->datecollected = new Carbon();
-          $recycled->save();
+            $edf = new GroupingProperty;
+            $edf->grouping_id = $grouping->id;
+            $edf->property_id = 49;
+            $edf->value = $request->date_farrowed;
+            $edf->datecollected = new Carbon();
+            $edf->save();
 
-          $status = new GroupingProperty;
-          $status->grouping_id = $grouping->id;
-          $status->property_id = 50;
-          $status->value = "Farrowed";
-          $status->datecollected = new Carbon();
-          $status->save();
+            $recycled = new GroupingProperty;
+            $recycled->grouping_id = $grouping->id;
+            $recycled->property_id = 51;
+            $recycled->value = 0;
+            $recycled->datecollected = new Carbon();
+            $recycled->save();
 
-          $date_weaned = new AnimalProperty;
-          $date_weaned->animal_id = $newpig->id;
-          $date_weaned->property_id = 61;
-          $date_weaned->value = $dateFarrowedValue->addDays(60);
-          $date_weaned->save();
+            $status = new GroupingProperty;
+            $status->grouping_id = $grouping->id;
+            $status->property_id = 50;
+            $status->value = "Farrowed";
+            $status->datecollected = new Carbon();
+            $status->save();
+
+            $date_weaned = new AnimalProperty;
+            $date_weaned->animal_id = $newpig->id;
+            $date_weaned->property_id = 61;
+            $date_weaned->value = $dateFarrowedValue->addDays(60);
+            $date_weaned->save();
+          }
         }
       }
 
