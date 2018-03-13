@@ -11,6 +11,14 @@
 		<div class="row center" style="padding-top: 10px;">
   		<div class="col s12">
   			<p>Total number of pigs in the herd: {{ $pigcount }}</p>
+  			<div class="row">
+  				<div class="col s6">
+  					<p>Total number of sows: {{ count($sows) }}</p>
+  				</div>
+  				<div class="col s6">
+  					<p>Total number of boars: {{ count($boars) }}</p>
+  				</div>
+  			</div>
   		</div>
   	</div>
   	<div class="row">

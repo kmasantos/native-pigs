@@ -277,6 +277,18 @@ class FarmController extends Controller
 
       $filter = "All";
 
+      $sows = [];
+      $boars = [];
+
+      foreach ($pigs as $pig) {
+        if(substr($pig->registryid, -6, 1) == 'F'){
+          array_push($sows, $pig);
+        }
+        if(substr($pig->registryid, -6, 1) == 'M'){
+          array_push($boars, $pig);
+        }
+      }
+
       $curlyhairs = [];
       $straighthairs = [];
       $shorthairs = [];
@@ -385,6 +397,18 @@ class FarmController extends Controller
       $pigcount = count($pigs);
 
       $filter = "All";
+
+      $sows = [];
+      $boars = [];
+
+      foreach ($pigs as $pig) {
+        if(substr($pig->registryid, -6, 1) == 'F'){
+          array_push($sows, $pig);
+        }
+        if(substr($pig->registryid, -6, 1) == 'M'){
+          array_push($boars, $pig);
+        }
+      }
 
       $earlengths = [];
       $headlengths = [];
@@ -1784,6 +1808,15 @@ class FarmController extends Controller
       $sows = [];
       $boars = [];
 
+      foreach ($pigs as $pig) {
+        if(substr($pig->registryid, -6, 1) == 'F'){
+          array_push($sows, $pig);
+        }
+        if(substr($pig->registryid, -6, 1) == 'M'){
+          array_push($boars, $pig);
+        }
+      }
+
       if($filter == "Sow"){
         $curlyhairs = [];
         $straighthairs = [];
@@ -1804,11 +1837,6 @@ class FarmController extends Controller
         $straighttails = [];
         $swaybacks = [];
         $straightbacks = [];
-        foreach ($pigs as $pig) {
-          if(substr($pig->registryid, -6, 1) == 'F'){
-            array_push($sows, $pig);
-          }
-        }
         foreach ($sows as $sow) {
           $properties = $sow->getAnimalProperties();
           foreach ($properties as $property) {
@@ -1910,11 +1938,6 @@ class FarmController extends Controller
         $straighttails = [];
         $swaybacks = [];
         $straightbacks = [];
-        foreach ($pigs as $pig) {
-          if(substr($pig->registryid, -6, 1) == 'M'){
-            array_push($boars, $pig);
-          }
-        }
         foreach ($boars as $boar) {
           $properties = $boar->getAnimalProperties();
           foreach ($properties as $property) {
@@ -2111,6 +2134,15 @@ class FarmController extends Controller
       $sows = [];
       $boars = [];
 
+      foreach ($pigs as $pig) {
+        if(substr($pig->registryid, -6, 1) == 'F'){
+          array_push($sows, $pig);
+        }
+        if(substr($pig->registryid, -6, 1) == 'M'){
+          array_push($boars, $pig);
+        }
+      }
+
       if($filter == "Sow"){
         $earlengths = [];
         $headlengths = [];
@@ -2121,11 +2153,6 @@ class FarmController extends Controller
         $taillengths = [];
         $heightsatwithers = [];
         $normalteats = [];
-        foreach ($pigs as $pig) {
-          if(substr($pig->registryid, -6, 1) == 'F'){
-            array_push($sows, $pig);
-          }
-        }
         foreach ($sows as $sow) {
           $properties = $sow->getAnimalProperties();
           foreach ($properties as $property) {
@@ -2178,11 +2205,6 @@ class FarmController extends Controller
         $taillengths = [];
         $heightsatwithers = [];
         $normalteats = [];
-        foreach ($pigs as $pig) {
-          if(substr($pig->registryid, -6, 1) == 'M'){
-            array_push($boars, $pig);
-          }
-        }
         foreach ($boars as $boar) {
           $properties = $boar->getAnimalProperties();
           foreach ($properties as $property) {
