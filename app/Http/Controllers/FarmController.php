@@ -187,7 +187,7 @@ class FarmController extends Controller
         foreach ($offsprings as $offspring) {
           $propsbweight = $offspring->getAnimalProperties();
           foreach ($propsbweight as $propbweight) {
-            if($propbweight->property_id == 54){
+            if($propbweight->property_id == 53){
               $bweight = $propbweight->value;
               array_push($bweights, $bweight);
             }
@@ -908,7 +908,7 @@ class FarmController extends Controller
       $birthweight->save();
 
       if(is_null($request->date_weaned)){
-        $dateWeanedValue = "Not specified";
+        $dateWeanedValue = Carbon::parse($bdayValue)->addDays(60);
       }
       else{
         $dateWeanedValue = $request->date_weaned;
@@ -942,28 +942,25 @@ class FarmController extends Controller
           if(substr($pig->registryid, -5, 5) == $request->mother){
             $grouping->registryid = $pig->registryid;
             $grouping->mother_id = $pig->id;
-          }
-          else{
-            $fourowfourmother = 0;
+            $foundmother = 1;
           }
           if(substr($pig->registryid, -5, 5) == $request->father){
             $grouping->father_id = $pig->id;
-          }
-          else{
-            $fourowfourfather = 0;
+            $foundfather = 1;
           }
         }
 
-        if($fourowfourmother == 0){
+        if($foundmother != 1){
           $motheranimal = new AnimalProperty;
           $motheranimal->animal_id = $newpig->id;
           $motheranimal->property_id = 86;
           $motheranimal->value = $farm->code.$breed->breed."-"."F".$request->mother;
           $motheranimal->save();
+
           $grouping->registryid = $motheranimal->value;
           $grouping->mother_id = null;
         }
-        if($fourowfourfather == 0){
+        if($foundfather != 1){
           $fatheranimal = new AnimalProperty;
           $fatheranimal->animal_id = $newpig->id;
           $fatheranimal->property_id = 87;
@@ -972,7 +969,7 @@ class FarmController extends Controller
           $grouping->father_id = null;
         }
 
-        if(is_null($grouping->mother_id) || is_null($grouping->father_id)){
+        if($foundmother == 1 || $foundfather == 1){
           $grouping->members = 1;
           $grouping->save();
 
