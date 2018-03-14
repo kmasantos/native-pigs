@@ -32,6 +32,7 @@
                     <p>Birth weight: {{ $properties->where("property_id", 53)->first()->value }} kg</p>
                   @endif
                   <p>Littersize Born Alive: </p>
+                  <p>Age at First mating: months</p>
                 </div>
                 <div class="col s6">
                   <p>Sex ratio (M:F): </p>
@@ -176,52 +177,84 @@
               <table>
                 <tbody>
                   <tr>
-                    <td>Age at First Mating</td>
-                    <td> months</td>
-                  </tr>
-                   <tr>
                     <td>Ear Length</td>
-                    <td>{{ $properties->where("property_id", 64)->first()->value }} cm</td>
+                    @if($properties->where("property_id", 64)->first()->value == "")
+                      <td>Not specified</td>
+                    @else
+                      <td>{{ $properties->where("property_id", 64)->first()->value }} cm</td>
+                    @endif
                   </tr>
                   <tr>
                     <td>Head Length</td>
-                    <td>{{ $properties->where("property_id", 39)->first()->value }} cm</td>
+                    @if($properties->where("property_id", 39)->first()->value == "")
+                      <td>Not specified</td>
+                    @else
+                      <td>{{ $properties->where("property_id", 39)->first()->value }} cm</td>
+                    @endif
                   </tr>
                   <tr>
                     <td>Snout Length</td>
-                    <td>{{ $properties->where("property_id", 63)->first()->value }} cm</td>
+                    @if($properties->where("property_id", 63)->first()->value == "")
+                      <td>Not specified</td>
+                    @else
+                      <td>{{ $properties->where("property_id", 63)->first()->value }} cm</td>
+                    @endif
                   </tr>
                   <tr>
                     <td>Body Length</td>
-                    <td>{{ $properties->where("property_id", 40)->first()->value }} cm</td>
+                    @if($properties->where("property_id", 40)->first()->value == "")
+                      <td>Not specified</td>
+                    @else
+                      <td>{{ $properties->where("property_id", 40)->first()->value }} cm</td>
+                    @endif
                   </tr>
                   <tr>
                     <td>Heart Girth</td>
-                    <td>{{ $properties->where("property_id", 42)->first()->value }} cm</td>
+                    @if($properties->where("property_id", 42)->first()->value == "")
+                      <td>Not specified</td>
+                    @else
+                      <td>{{ $properties->where("property_id", 42)->first()->value }} cm</td>
+                    @endif
                   </tr>
                   <tr>
                     <td>Pelvic Width</td>
-                    <td>{{ $properties->where("property_id", 41)->first()->value }} cm</td>
+                    @if($properties->where("property_id", 41)->first()->value == "")
+                      <td>Not specified</td>
+                    @else
+                      <td>{{ $properties->where("property_id", 41)->first()->value }} cm</td>
+                    @endif
                   </tr>
                   <tr>
                     <td>Tail Length</td>
-                    <td>{{ $properties->where("property_id", 65)->first()->value }} cm</td>
+                    @if($properties->where("property_id", 65)->first()->value == "")
+                      <td>Not specified</td>
+                    @else
+                      <td>{{ $properties->where("property_id", 65)->first()->value }} cm</td>
+                    @endif
                   </tr>
                   <tr>
                     <td>Height at Withers</td>
-                    <td>{{ $properties->where("property_id", 66)->first()->value }} cm</td>
+                    @if($properties->where("property_id", 66)->first()->value == "")
+                      <td>Not specified</td>
+                    @else
+                      <td>{{ $properties->where("property_id", 66)->first()->value }} cm</td>
+                    @endif
                   </tr>
                   <tr>
                     <td>Ponderal Index</td>
                     @if($sow->weightrecord == 1)
                       <td>{{ round($ponderalindex->value, 4) }} kg/m<sup>3</sup></td>
                     @else
-                      <td> kg/m<sup>3</sup></td>
+                      <td>Data not available</td>
                     @endif
                   </tr>
                   <tr>
                     <td>Number of Normal Teats</td>
-                    <td>{{ $properties->where("property_id", 44)->first()->value }}</td>
+                    @if($properties->where("property_id", 44)->first()->value == "")
+                      <td>Not specified</td>
+                    @else
+                      <td>{{ $properties->where("property_id", 44)->first()->value }} cm</td>
+                    @endif
                   </tr>
                 </tbody>
               </table>
@@ -236,19 +269,35 @@
                 <tbody>
                   <tr>
                     <td>Body Weight at 45 Days</td>
-                    <td>{{ $properties->where("property_id", 45)->first()->value }} kg</td>
+                    @if($properties->where("property_id", 45)->first()->value == "")
+                      <td>Not specified</td>
+                    @else
+                      <td>{{ $properties->where("property_id", 45)->first()->value }} kg</td>
+                    @endif
                   </tr>
                   <tr>
                     <td>Body Weight at 60 Days</td>
-                    <td>{{ $properties->where("property_id", 46)->first()->value }} kg</td>
+                    @if($properties->where("property_id", 46)->first()->value == "")
+                      <td>Not specified</td>
+                    @else
+                      <td>{{ $properties->where("property_id", 46)->first()->value }} kg</td>
+                    @endif
                   </tr>
                   <tr>
                     <td>Body Weight at 90 Days</td>
-                    <td>{{ $properties->where("property_id", 69)->first()->value }} kg</td>
+                    @if($properties->where("property_id", 69)->first()->value == "")
+                      <td>Not specified</td>
+                    @else
+                      <td>{{ $properties->where("property_id", 69)->first()->value }} kg</td>
+                    @endif
                   </tr>
                   <tr>
                     <td>Body Weight at 180 Days</td>
-                    <td>{{ $properties->where("property_id", 47)->first()->value }} kg</td>
+                    @if($properties->where("property_id", 47)->first()->value == "")
+                      <td>Not specified</td>
+                    @else
+                      <td>{{ $properties->where("property_id", 47)->first()->value }} kg</td>
+                    @endif
                   </tr>
                 </tbody>
               </table>
