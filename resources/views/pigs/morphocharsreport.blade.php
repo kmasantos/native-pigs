@@ -49,9 +49,9 @@
   		</thead>
   		<tbody>
   			<tr>
-  				<td>Ear Length</td>
-  				<td>{{ min($earlengths) }} cm</td>
-  				<td>{{ max($earlengths) }} cm</td>
+  				<td>Ear Length, cm</td>
+  				<td>{{ min($earlengths) }}</td>
+  				<td>{{ max($earlengths) }}</td>
   				@if($filter == "Sow")
   					<td></td>
   				@elseif($filter == "Boar")
@@ -62,9 +62,9 @@
   				<td></td>
   			</tr>
   			<tr>
-  				<td>Head Length</td>
-  				<td>{{ min($headlengths) }} cm</td>
-  				<td>{{ max($headlengths) }} cm</td>
+  				<td>Head Length, cm</td>
+  				<td>{{ min($headlengths) }}</td>
+  				<td>{{ max($headlengths) }}</td>
   				@if($filter == "Sow")
   					<td></td>
   				@elseif($filter == "Boar")
@@ -75,9 +75,9 @@
   				<td></td>
   			</tr>
   			<tr>
-  				<td>Snout Length</td>
-  				<td>{{ min($snoutlengths) }} cm</td>
-  				<td>{{ max($snoutlengths) }} cm</td>
+  				<td>Snout Length, cm</td>
+  				<td>{{ min($snoutlengths) }}</td>
+  				<td>{{ max($snoutlengths) }}</td>
   				@if($filter == "Sow")
   					<td></td>
   				@elseif($filter == "Boar")
@@ -88,9 +88,9 @@
   				<td></td>
   			</tr>
   			<tr>
-  				<td>Body Length</td>
-  				<td>{{ min($bodylengths) }} cm</td>
-  				<td>{{ max($bodylengths) }} cm</td>
+  				<td>Body Length, cm</td>
+  				<td>{{ min($bodylengths) }}</td>
+  				<td>{{ max($bodylengths) }}</td>
   				@if($filter == "Sow")
   					<td></td>
   				@elseif($filter == "Boar")
@@ -101,9 +101,9 @@
   				<td></td>
   			</tr>
   			<tr>
-  				<td>Heart Girth</td>
-  				<td>{{ min($heartgirths) }} cm</td>
-  				<td>{{ max($heartgirths) }} cm</td>
+  				<td>Heart Girth, cm</td>
+  				<td>{{ min($heartgirths) }}</td>
+  				<td>{{ max($heartgirths) }}</td>
   				@if($filter == "Sow")
   					<td></td>
   				@elseif($filter == "Boar")
@@ -114,9 +114,9 @@
   				<td></td>
   			</tr>
   			<tr>
-  				<td>Pelvic Width</td>
-  				<td>{{ min($pelvicwidths) }} cm</td>
-  				<td>{{ max($pelvicwidths) }} cm</td>
+  				<td>Pelvic Width, cm</td>
+  				<td>{{ min($pelvicwidths) }}</td>
+  				<td>{{ max($pelvicwidths) }}</td>
   				@if($filter == "Sow")
   					<td></td>
   				@elseif($filter == "Boar")
@@ -127,9 +127,9 @@
   				<td></td>
   			</tr>
   			<tr>
-  				<td>Tail Length</td>
-  				<td>{{ min($taillengths) }} cm</td>
-  				<td>{{ max($taillengths) }} cm</td>
+  				<td>Tail Length, cm</td>
+  				<td>{{ min($taillengths) }}</td>
+  				<td>{{ max($taillengths) }}</td>
   				@if($filter == "Sow")
   					<td></td>
   				@elseif($filter == "Boar")
@@ -140,9 +140,9 @@
   				<td></td>
   			</tr>
   			<tr>
-  				<td>Height at Withers</td>
-  				<td>{{ min($heightsatwithers) }} cm</td>
-  				<td>{{ max($heightsatwithers) }} cm</td>
+  				<td>Height at Withers, cm</td>
+  				<td>{{ min($heightsatwithers) }}</td>
+  				<td>{{ max($heightsatwithers) }}</td>
   				@if($filter == "Sow")
   					<td></td>
   				@elseif($filter == "Boar")

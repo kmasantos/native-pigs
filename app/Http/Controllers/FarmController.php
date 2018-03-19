@@ -1339,6 +1339,7 @@ class FarmController extends Controller
 
     public function fetchWeightRecords(Request $request){
       $animalid = $request->animal_id;
+      $animal = Animal::find($animalid);
 
       //BODY WEIGHTS
       $bw45d = new AnimalProperty;
