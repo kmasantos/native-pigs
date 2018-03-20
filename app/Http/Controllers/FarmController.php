@@ -273,7 +273,6 @@ class FarmController extends Controller
 
     public function getGrossMorphologyReportPage(){
       $pigs = Animal::where("animaltype_id", 3)->where("status", "active")->get();
-      $pigcount = count($pigs);
 
       $filter = "All";
 
@@ -389,12 +388,339 @@ class FarmController extends Controller
         }
       }  
 
-      return view('pigs.grossmorphoreport', compact('pigs', 'pigcount', 'filter', 'sows', 'boars', 'curlyhairs', 'straighthairs', 'shorthairs', 'longhairs', 'blackcoats', 'nonblackcoats', 'plains', 'socks', 'concaves', 'straightheads', 'smooths', 'wrinkleds', 'droopingears', 'semilops', 'erectears', 'curlytails', 'straighttails', 'swaybacks', 'straightbacks'));
+      return view('pigs.grossmorphoreport', compact('pigs', 'filter', 'sows', 'boars', 'curlyhairs', 'straighthairs', 'shorthairs', 'longhairs', 'blackcoats', 'nonblackcoats', 'plains', 'socks', 'concaves', 'straightheads', 'smooths', 'wrinkleds', 'droopingears', 'semilops', 'erectears', 'curlytails', 'straighttails', 'swaybacks', 'straightbacks'));
+    }
+
+    public function filterGrossMorphologyReport(Request $request){
+      $pigs = Animal::where("animaltype_id", 3)->where("status", "active")->get();
+
+      $filter = $request->filter_keywords;
+
+      $sows = [];
+      $boars = [];
+
+      $sowwithdata = 0;
+      $boarwithdata = 0;
+
+      foreach ($pigs as $pig) {
+        if(substr($pig->registryid, -6, 1) == 'F'){
+          array_push($sows, $pig);
+        }
+        if(substr($pig->registryid, -6, 1) == 'M'){
+          array_push($boars, $pig);
+        }
+      }
+
+      if($filter == "Sow"){
+        $curlyhairs = [];
+        $straighthairs = [];
+        $shorthairs = [];
+        $longhairs = [];
+        $blackcoats = [];
+        $nonblackcoats = [];
+        $plains = [];
+        $socks = [];
+        $concaves = [];
+        $straightheads = [];
+        $smooths = [];
+        $wrinkleds = [];
+        $droopingears = [];
+        $semilops = [];
+        $erectears = [];
+        $curlytails = [];
+        $straighttails = [];
+        $swaybacks = [];
+        $straightbacks = [];
+        foreach ($sows as $sow) {
+          $properties = $sow->getAnimalProperties();
+          foreach ($properties as $property) {
+            if($property->property_id == 28){ //hairtype
+              if($property->value == "Curly"){
+                array_push($curlyhairs, $property);
+              }
+              elseif($property->value == "Straight"){
+                array_push($straighthairs, $property);
+              }
+            }
+            if($property->property_id == 29){ //hairlength
+              if($property->value == "Short"){
+                array_push($shorthairs, $property);
+              }
+              elseif($property->value == "Long"){
+                array_push($longhairs, $property);
+              }
+            }
+            if($property->property_id == 30){ //coatcolor
+              if($property->value == "Black"){
+                array_push($blackcoats, $property);
+              }
+              elseif($property->value == "Others"){
+                array_push($nonblackcoats, $property);
+              }
+            }
+            if($property->property_id == 31){ //colorpattern
+              if($property->value == "Plain"){
+                array_push($plains, $property);
+              }
+              elseif($property->value == "Socks"){
+                array_push($socks, $property);
+              }
+            }
+            if($property->property_id == 32){ //headshape
+              if($property->value == "Concave"){
+                array_push($concaves, $property);
+              }
+              elseif($property->value == "Straight"){
+                array_push($straightheads, $property);
+              }
+            }
+            if($property->property_id == 33){ //skintype
+              if($property->value == "Smooth"){
+                array_push($smooths, $property);
+              }
+              elseif($property->value == "Wrinkled"){
+                array_push($wrinkleds, $property);
+              }
+            }
+            if($property->property_id == 34){ //eartype
+              if($property->value == "Drooping"){
+                array_push($droopingears, $property);
+              }
+              elseif($property->value == "Semi-lop"){
+                array_push($semilops, $property);
+              }
+              elseif($property->value == "Erect"){
+                array_push($erectears, $property);
+              }
+            }
+            if($property->property_id == 62){ //tailtype
+              if($property->value == "Curly"){
+                array_push($curlytails, $property);
+              }
+              elseif($property->value == "Straight"){
+                array_push($straighttails, $property);
+              }
+            }
+            if($property->property_id == 35){ //backline
+              if($property->value == "Swayback"){
+                array_push($swaybacks, $property);
+              }
+              elseif($property->value == "Straight"){
+                array_push($straightbacks, $property);
+              }
+            }
+          }
+        }
+      }
+      elseif($filter == "Boar"){
+        $curlyhairs = [];
+        $straighthairs = [];
+        $shorthairs = [];
+        $longhairs = [];
+        $blackcoats = [];
+        $nonblackcoats = [];
+        $plains = [];
+        $socks = [];
+        $concaves = [];
+        $straightheads = [];
+        $smooths = [];
+        $wrinkleds = [];
+        $droopingears = [];
+        $semilops = [];
+        $erectears = [];
+        $curlytails = [];
+        $straighttails = [];
+        $swaybacks = [];
+        $straightbacks = [];
+        foreach ($boars as $boar) {
+          $properties = $boar->getAnimalProperties();
+          foreach ($properties as $property) {
+            if($property->property_id == 28){ //hairtype
+              if($property->value == "Curly"){
+                array_push($curlyhairs, $property);
+              }
+              elseif($property->value == "Straight"){
+                array_push($straighthairs, $property);
+              }
+            }
+            if($property->property_id == 29){ //hairlength
+              if($property->value == "Short"){
+                array_push($shorthairs, $property);
+              }
+              elseif($property->value == "Long"){
+                array_push($longhairs, $property);
+              }
+            }
+            if($property->property_id == 30){ //coatcolor
+              if($property->value == "Black"){
+                array_push($blackcoats, $property);
+              }
+              elseif($property->value == "Others"){
+                array_push($nonblackcoats, $property);
+              }
+            }
+            if($property->property_id == 31){ //colorpattern
+              if($property->value == "Plain"){
+                array_push($plains, $property);
+              }
+              elseif($property->value == "Socks"){
+                array_push($socks, $property);
+              }
+            }
+            if($property->property_id == 32){ //headshape
+              if($property->value == "Concave"){
+                array_push($concaves, $property);
+              }
+              elseif($property->value == "Straight"){
+                array_push($straightheads, $property);
+              }
+            }
+            if($property->property_id == 33){ //skintype
+              if($property->value == "Smooth"){
+                array_push($smooths, $property);
+              }
+              elseif($property->value == "Wrinkled"){
+                array_push($wrinkleds, $property);
+              }
+            }
+            if($property->property_id == 34){ //eartype
+              if($property->value == "Drooping"){
+                array_push($droopingears, $property);
+              }
+              elseif($property->value == "Semi-lop"){
+                array_push($semilops, $property);
+              }
+              elseif($property->value == "Erect"){
+                array_push($erectears, $property);
+              }
+            }
+            if($property->property_id == 62){ //tailtype
+              if($property->value == "Curly"){
+                array_push($curlytails, $property);
+              }
+              elseif($property->value == "Straight"){
+                array_push($straighttails, $property);
+              }
+            }
+            if($property->property_id == 35){ //backline
+              if($property->value == "Swayback"){
+                array_push($swaybacks, $property);
+              }
+              elseif($property->value == "Straight"){
+                array_push($straightbacks, $property);
+              }
+            }
+          }
+        }
+      }
+      elseif($filter == "All"){
+        $curlyhairs = [];
+        $straighthairs = [];
+        $shorthairs = [];
+        $longhairs = [];
+        $blackcoats = [];
+        $nonblackcoats = [];
+        $plains = [];
+        $socks = [];
+        $concaves = [];
+        $straightheads = [];
+        $smooths = [];
+        $wrinkleds = [];
+        $droopingears = [];
+        $semilops = [];
+        $erectears = [];
+        $curlytails = [];
+        $straighttails = [];
+        $swaybacks = [];
+        $straightbacks = [];
+        foreach ($pigs as $pig) {
+          $properties = $pig->getAnimalProperties();
+          foreach ($properties as $property) {
+            if($property->property_id == 28){
+              if($property->value == "Curly"){
+                array_push($curlyhairs, $property);
+              }
+              elseif($property->value == "Straight"){
+                array_push($straighthairs, $property);
+              }
+            }
+            if($property->property_id == 29){ //hairlength
+              if($property->value == "Short"){
+                array_push($shorthairs, $property);
+              }
+              elseif($property->value == "Long"){
+                array_push($longhairs, $property);
+              }
+            }
+            if($property->property_id == 30){ //coatcolor
+              if($property->value == "Black"){
+                array_push($blackcoats, $property);
+              }
+              elseif($property->value == "Others"){
+                array_push($nonblackcoats, $property);
+              }
+            }
+            if($property->property_id == 31){ //colorpattern
+              if($property->value == "Plain"){
+                array_push($plains, $property);
+              }
+              elseif($property->value == "Socks"){
+                array_push($socks, $property);
+              }
+            }
+            if($property->property_id == 32){ //headshape
+              if($property->value == "Concave"){
+                array_push($concaves, $property);
+              }
+              elseif($property->value == "Straight"){
+                array_push($straightheads, $property);
+              }
+            }
+            if($property->property_id == 33){ //skintype
+              if($property->value == "Smooth"){
+                array_push($smooths, $property);
+              }
+              elseif($property->value == "Wrinkled"){
+                array_push($wrinkleds, $property);
+              }
+            }
+            if($property->property_id == 34){ //eartype
+              if($property->value == "Drooping"){
+                array_push($droopingears, $property);
+              }
+              elseif($property->value == "Semi-lop"){
+                array_push($semilops, $property);
+              }
+              elseif($property->value == "Erect"){
+                array_push($erectears, $property);
+              }
+            }
+            if($property->property_id == 62){ //tailtype
+              if($property->value == "Curly"){
+                array_push($curlytails, $property);
+              }
+              elseif($property->value == "Straight"){
+                array_push($straighttails, $property);
+              }
+            }
+            if($property->property_id == 35){ //backline
+              if($property->value == "Swayback"){
+                array_push($swaybacks, $property);
+              }
+              elseif($property->value == "Straight"){
+                array_push($straightbacks, $property);
+              }
+            }
+          }
+        }
+      }
+
+      // return Redirect::back()->with('message','Operation Successful!');
+      return view('pigs.grossmorphoreport', compact('pigs', 'filter', 'sows', 'boars', 'curlyhairs', 'straighthairs', 'shorthairs', 'longhairs', 'blackcoats', 'nonblackcoats', 'plains', 'socks', 'concaves', 'straightheads', 'smooths', 'wrinkleds', 'droopingears', 'semilops', 'erectears', 'curlytails', 'straighttails', 'swaybacks', 'straightbacks'));
     }
 
     public function getMorphometricCharacteristicsReportPage(){
       $pigs = Animal::where("animaltype_id", 3)->where("status", "active")->get();
-      $pigcount = count($pigs);
 
       $filter = "All";
 
@@ -416,6 +742,7 @@ class FarmController extends Controller
       $bodylengths = [];
       $heartgirths = [];
       $pelvicwidths = [];
+      $ponderalindices = [];
       $taillengths = [];
       $heightsatwithers = [];
       $normalteats = [];
@@ -423,45 +750,321 @@ class FarmController extends Controller
         $properties = $pig->getAnimalProperties();
         foreach ($properties as $property) {
           if($property->property_id == 64){ //earlength
-            $earlength = $property->value;
-            array_push($earlengths, $earlength);
+          	if($property->value != ""){
+	            $earlength = $property->value;
+	            array_push($earlengths, $earlength);
+	          }
           }
           if($property->property_id == 39){ //headlength
-            $headlength = $property->value;
-            array_push($headlengths, $headlength);
+          	if($property->value != ""){
+	            $headlength = $property->value;
+	            array_push($headlengths, $headlength);
+	          }
           }
           if($property->property_id == 63){ //snoutlength
-            $snoutlength = $property->value;
-            array_push($snoutlengths, $snoutlength);
+          	if($property->value != ""){
+	            $snoutlength = $property->value;
+	            array_push($snoutlengths, $snoutlength);
+	          }
           }
           if($property->property_id == 40){ //bodylength
-            $bodylength = $property->value;
-            array_push($bodylengths, $bodylength);
+          	if($property->value != ""){
+	            $bodylength = $property->value;
+	            array_push($bodylengths, $bodylength);
+	          }
           }
           if($property->property_id == 42){ //heartgirth
-            $heartgirth = $property->value;
-            array_push($heartgirths, $heartgirth);
+          	if($property->value != ""){
+	            $heartgirth = $property->value;
+	            array_push($heartgirths, $heartgirth);
+	          }
           }
           if($property->property_id == 41){ //pelvicwidth
-            $pelvicwidth = $property->value;
-            array_push($pelvicwidths, $pelvicwidth);
+          	if($property->value != ""){
+	            $pelvicwidth = $property->value;
+	            array_push($pelvicwidths, $pelvicwidth);
+	          }
+          }
+          if($property->property_id == 43){ //ponderalindex
+            if($property->value != ""){
+              $ponderalindex = $property->value;
+              array_push($ponderalindices, $ponderalindex);
+            }
           }
           if($property->property_id == 65){ //taillength
-            $taillength = $property->value;
-            array_push($taillengths, $taillength);
+          	if($property->value != ""){
+	            $taillength = $property->value;
+	            array_push($taillengths, $taillength);
+	          }
           }
           if($property->property_id == 66){ //heightatwithers
-            $heightatwithers = $property->value;
-            array_push($heightsatwithers, $heightatwithers);
+            if($property->value != ""){
+              $heightatwithers = $property->value;
+              array_push($heightsatwithers, $heightatwithers);
+            }
           }
           if($property->property_id == 44){ //numberofnormalteats
-            $numberofnormalteats = $property->value;
-            array_push($normalteats, $numberofnormalteats);
+            if($property->value != ""){
+              $numberofnormalteats = $property->value;
+              array_push($normalteats, $numberofnormalteats);
+            }
           }
         }
       }
 
-      return view('pigs.morphocharsreport', compact('pigs', 'pigcount', 'filter', 'sows', 'boars', 'earlengths', 'headlengths', 'snoutlengths', 'bodylengths', 'heartgirths', 'pelvicwidths', 'taillengths', 'heightsatwithers', 'normalteats'));
+      return view('pigs.morphocharsreport', compact('pigs', 'filter', 'sows', 'boars', 'earlengths', 'headlengths', 'snoutlengths', 'bodylengths', 'heartgirths', 'pelvicwidths', 'ponderalindices', 'taillengths', 'heightsatwithers', 'normalteats'));
+    }
+
+    public function filterMorphometricCharacteristicsReport(Request $request){
+      $pigs = Animal::where("animaltype_id", 3)->where("status", "active")->get();
+
+      $filter = $request->filter_keywords2;
+
+      $sows = [];
+      $boars = [];
+
+      foreach ($pigs as $pig) {
+        if(substr($pig->registryid, -6, 1) == 'F'){
+          array_push($sows, $pig);
+        }
+        if(substr($pig->registryid, -6, 1) == 'M'){
+          array_push($boars, $pig);
+        }
+      }
+
+      if($filter == "Sow"){
+        $earlengths = [];
+        $headlengths = [];
+        $snoutlengths = [];
+        $bodylengths = [];
+        $heartgirths = [];
+        $pelvicwidths = [];
+        $ponderalindices = [];
+        $taillengths = [];
+        $heightsatwithers = [];
+        $normalteats = [];
+        foreach ($sows as $sow) {
+          $properties = $sow->getAnimalProperties();
+          foreach ($properties as $property) {
+            if($property->property_id == 64){ //earlength
+              if($property->value != ""){
+                $earlength = $property->value;
+                array_push($earlengths, $earlength);
+              }
+            }
+            if($property->property_id == 39){ //headlength
+              if($property->value != ""){
+                $headlength = $property->value;
+                array_push($headlengths, $headlength);
+              }
+            }
+            if($property->property_id == 63){ //snoutlength
+              if($property->value != ""){
+                $snoutlength = $property->value;
+                array_push($snoutlengths, $snoutlength);
+              }
+            }
+            if($property->property_id == 40){ //bodylength
+              if($property->value != ""){
+                $bodylength = $property->value;
+                array_push($bodylengths, $bodylength);
+              }
+            }
+            if($property->property_id == 42){ //heartgirth
+              if($property->value != ""){
+                $heartgirth = $property->value;
+                array_push($heartgirths, $heartgirth);
+              }
+            }
+            if($property->property_id == 41){ //pelvicwidth
+              if($property->value != ""){
+                $pelvicwidth = $property->value;
+                array_push($pelvicwidths, $pelvicwidth);
+              }
+            }
+            if($property->property_id == 43){ //ponderalindex
+              if($property->value != ""){
+                $ponderalindex = $property->value;
+                array_push($ponderalindices, $ponderalindex);
+              }
+            }
+            if($property->property_id == 65){ //taillength
+              if($property->value != ""){
+                $taillength = $property->value;
+                array_push($taillengths, $taillength);
+              }
+            }
+            if($property->property_id == 66){ //heightatwithers
+              if($property->value != ""){
+                $heightatwithers = $property->value;
+                array_push($heightsatwithers, $heightatwithers);
+              }
+            }
+            if($property->property_id == 44){ //numberofnormalteats
+              if($property->value != ""){
+                $numberofnormalteats = $property->value;
+                array_push($normalteats, $numberofnormalteats);
+              }
+            }
+          }
+        }
+      }
+      elseif($filter == "Boar"){
+        $earlengths = [];
+        $headlengths = [];
+        $snoutlengths = [];
+        $bodylengths = [];
+        $heartgirths = [];
+        $pelvicwidths = [];
+        $ponderalindices = [];
+        $taillengths = [];
+        $heightsatwithers = [];
+        $normalteats = [];
+        foreach ($boars as $boar) {
+          $properties = $boar->getAnimalProperties();
+          foreach ($properties as $property) {
+            if($property->property_id == 64){ //earlength
+              if($property->value != ""){
+                $earlength = $property->value;
+                array_push($earlengths, $earlength);
+              }
+            }
+            if($property->property_id == 39){ //headlength
+              if($property->value != ""){
+                $headlength = $property->value;
+                array_push($headlengths, $headlength);
+              }
+            }
+            if($property->property_id == 63){ //snoutlength
+              if($property->value != ""){
+                $snoutlength = $property->value;
+                array_push($snoutlengths, $snoutlength);
+              }
+            }
+            if($property->property_id == 40){ //bodylength
+              if($property->value != ""){
+                $bodylength = $property->value;
+                array_push($bodylengths, $bodylength);
+              }
+            }
+            if($property->property_id == 42){ //heartgirth
+              if($property->value != ""){
+                $heartgirth = $property->value;
+                array_push($heartgirths, $heartgirth);
+              }
+            }
+            if($property->property_id == 41){ //pelvicwidth
+              if($property->value != ""){
+                $pelvicwidth = $property->value;
+                array_push($pelvicwidths, $pelvicwidth);
+              }
+            }
+            if($property->property_id == 43){ //ponderalindex
+              if($property->value != ""){
+                $ponderalindex = $property->value;
+                array_push($ponderalindices, $ponderalindex);
+              }
+            }
+            if($property->property_id == 65){ //taillength
+              if($property->value != ""){
+                $taillength = $property->value;
+                array_push($taillengths, $taillength);
+              }
+            }
+            if($property->property_id == 66){ //heightatwithers
+              if($property->value != ""){
+                $heightatwithers = $property->value;
+                array_push($heightsatwithers, $heightatwithers);
+              }
+            }
+            if($property->property_id == 44){ //numberofnormalteats
+              if($property->value != ""){
+                $numberofnormalteats = $property->value;
+                array_push($normalteats, $numberofnormalteats);
+              }
+            }
+          }
+        }
+      }
+      elseif($filter == "All"){
+        $earlengths = [];
+        $headlengths = [];
+        $snoutlengths = [];
+        $bodylengths = [];
+        $heartgirths = [];
+        $pelvicwidths = [];
+        $ponderalindices = [];
+        $taillengths = [];
+        $heightsatwithers = [];
+        $normalteats = [];
+        foreach ($pigs as $pig) {
+          $properties = $pig->getAnimalProperties();
+          foreach ($properties as $property) {
+            if($property->property_id == 64){ //earlength
+              if($property->value != ""){
+                $earlength = $property->value;
+                array_push($earlengths, $earlength);
+              }
+            }
+            if($property->property_id == 39){ //headlength
+              if($property->value != ""){
+                $headlength = $property->value;
+                array_push($headlengths, $headlength);
+              }
+            }
+            if($property->property_id == 63){ //snoutlength
+              if($property->value != ""){
+                $snoutlength = $property->value;
+                array_push($snoutlengths, $snoutlength);
+              }
+            }
+            if($property->property_id == 40){ //bodylength
+              if($property->value != ""){
+                $bodylength = $property->value;
+                array_push($bodylengths, $bodylength);
+              }
+            }
+            if($property->property_id == 42){ //heartgirth
+              if($property->value != ""){
+                $heartgirth = $property->value;
+                array_push($heartgirths, $heartgirth);
+              }
+            }
+            if($property->property_id == 41){ //pelvicwidth
+              if($property->value != ""){
+                $pelvicwidth = $property->value;
+                array_push($pelvicwidths, $pelvicwidth);
+              }
+            }
+            if($property->property_id == 43){ //ponderalindex
+              if($property->value != ""){
+                $ponderalindex = $property->value;
+                array_push($ponderalindices, $ponderalindex);
+              }
+            }
+            if($property->property_id == 65){ //taillength
+              if($property->value != ""){
+                $taillength = $property->value;
+                array_push($taillengths, $taillength);
+              }
+            }
+            if($property->property_id == 66){ //heightatwithers
+              if($property->value != ""){
+                $heightatwithers = $property->value;
+                array_push($heightsatwithers, $heightatwithers);
+              }
+            }
+            if($property->property_id == 44){ //numberofnormalteats
+              if($property->value != ""){
+                $numberofnormalteats = $property->value;
+                array_push($normalteats, $numberofnormalteats);
+              }
+            }
+          }
+        }
+      }
+
+      return view('pigs.morphocharsreport', compact('pigs', 'filter', 'sows', 'boars', 'earlengths', 'headlengths', 'snoutlengths', 'bodylengths', 'heartgirths', 'pelvicwidths', 'ponderalindices', 'taillengths', 'heightsatwithers', 'normalteats'));
     }
 
     public function getFarmProfilePage(){
@@ -1821,510 +2424,6 @@ class FarmController extends Controller
       $reason_removed->save();
 
       return Redirect::back()->with('message','Operation Successful!');
-    }
-
-    public function filterGrossMorphologyReport(Request $request){
-      $pigs = Animal::where("animaltype_id", 3)->where("status", "active")->get();
-      $pigcount = count($pigs);
-
-      $filter = $request->filter_keywords;
-
-      $sows = [];
-      $boars = [];
-
-      foreach ($pigs as $pig) {
-        if(substr($pig->registryid, -6, 1) == 'F'){
-          array_push($sows, $pig);
-        }
-        if(substr($pig->registryid, -6, 1) == 'M'){
-          array_push($boars, $pig);
-        }
-      }
-
-      if($filter == "Sow"){
-        $curlyhairs = [];
-        $straighthairs = [];
-        $shorthairs = [];
-        $longhairs = [];
-        $blackcoats = [];
-        $nonblackcoats = [];
-        $plains = [];
-        $socks = [];
-        $concaves = [];
-        $straightheads = [];
-        $smooths = [];
-        $wrinkleds = [];
-        $droopingears = [];
-        $semilops = [];
-        $erectears = [];
-        $curlytails = [];
-        $straighttails = [];
-        $swaybacks = [];
-        $straightbacks = [];
-        foreach ($sows as $sow) {
-          $properties = $sow->getAnimalProperties();
-          foreach ($properties as $property) {
-            if($property->property_id == 28){ //hairtype
-              if($property->value == "Curly"){
-                array_push($curlyhairs, $property);
-              }
-              elseif($property->value == "Straight"){
-                array_push($straighthairs, $property);
-              }
-            }
-            if($property->property_id == 29){ //hairlength
-              if($property->value == "Short"){
-                array_push($shorthairs, $property);
-              }
-              elseif($property->value == "Long"){
-                array_push($longhairs, $property);
-              }
-            }
-            if($property->property_id == 30){ //coatcolor
-              if($property->value == "Black"){
-                array_push($blackcoats, $property);
-              }
-              elseif($property->value == "Others"){
-                array_push($nonblackcoats, $property);
-              }
-            }
-            if($property->property_id == 31){ //colorpattern
-              if($property->value == "Plain"){
-                array_push($plains, $property);
-              }
-              elseif($property->value == "Socks"){
-                array_push($socks, $property);
-              }
-            }
-            if($property->property_id == 32){ //headshape
-              if($property->value == "Concave"){
-                array_push($concaves, $property);
-              }
-              elseif($property->value == "Straight"){
-                array_push($straightheads, $property);
-              }
-            }
-            if($property->property_id == 33){ //skintype
-              if($property->value == "Smooth"){
-                array_push($smooths, $property);
-              }
-              elseif($property->value == "Wrinkled"){
-                array_push($wrinkleds, $property);
-              }
-            }
-            if($property->property_id == 34){ //eartype
-              if($property->value == "Drooping"){
-                array_push($droopingears, $property);
-              }
-              elseif($property->value == "Semi-lop"){
-                array_push($semilops, $property);
-              }
-              elseif($property->value == "Erect"){
-                array_push($erectears, $property);
-              }
-            }
-            if($property->property_id == 62){ //tailtype
-              if($property->value == "Curly"){
-                array_push($curlytails, $property);
-              }
-              elseif($property->value == "Straight"){
-                array_push($straighttails, $property);
-              }
-            }
-            if($property->property_id == 35){ //backline
-              if($property->value == "Swayback"){
-                array_push($swaybacks, $property);
-              }
-              elseif($property->value == "Straight"){
-                array_push($straightbacks, $property);
-              }
-            }
-          }
-        }
-      }
-      elseif($filter == "Boar"){
-        $curlyhairs = [];
-        $straighthairs = [];
-        $shorthairs = [];
-        $longhairs = [];
-        $blackcoats = [];
-        $nonblackcoats = [];
-        $plains = [];
-        $socks = [];
-        $concaves = [];
-        $straightheads = [];
-        $smooths = [];
-        $wrinkleds = [];
-        $droopingears = [];
-        $semilops = [];
-        $erectears = [];
-        $curlytails = [];
-        $straighttails = [];
-        $swaybacks = [];
-        $straightbacks = [];
-        foreach ($boars as $boar) {
-          $properties = $boar->getAnimalProperties();
-          foreach ($properties as $property) {
-            if($property->property_id == 28){ //hairtype
-              if($property->value == "Curly"){
-                array_push($curlyhairs, $property);
-              }
-              elseif($property->value == "Straight"){
-                array_push($straighthairs, $property);
-              }
-            }
-            if($property->property_id == 29){ //hairlength
-              if($property->value == "Short"){
-                array_push($shorthairs, $property);
-              }
-              elseif($property->value == "Long"){
-                array_push($longhairs, $property);
-              }
-            }
-            if($property->property_id == 30){ //coatcolor
-              if($property->value == "Black"){
-                array_push($blackcoats, $property);
-              }
-              elseif($property->value == "Others"){
-                array_push($nonblackcoats, $property);
-              }
-            }
-            if($property->property_id == 31){ //colorpattern
-              if($property->value == "Plain"){
-                array_push($plains, $property);
-              }
-              elseif($property->value == "Socks"){
-                array_push($socks, $property);
-              }
-            }
-            if($property->property_id == 32){ //headshape
-              if($property->value == "Concave"){
-                array_push($concaves, $property);
-              }
-              elseif($property->value == "Straight"){
-                array_push($straightheads, $property);
-              }
-            }
-            if($property->property_id == 33){ //skintype
-              if($property->value == "Smooth"){
-                array_push($smooths, $property);
-              }
-              elseif($property->value == "Wrinkled"){
-                array_push($wrinkleds, $property);
-              }
-            }
-            if($property->property_id == 34){ //eartype
-              if($property->value == "Drooping"){
-                array_push($droopingears, $property);
-              }
-              elseif($property->value == "Semi-lop"){
-                array_push($semilops, $property);
-              }
-              elseif($property->value == "Erect"){
-                array_push($erectears, $property);
-              }
-            }
-            if($property->property_id == 62){ //tailtype
-              if($property->value == "Curly"){
-                array_push($curlytails, $property);
-              }
-              elseif($property->value == "Straight"){
-                array_push($straighttails, $property);
-              }
-            }
-            if($property->property_id == 35){ //backline
-              if($property->value == "Swayback"){
-                array_push($swaybacks, $property);
-              }
-              elseif($property->value == "Straight"){
-                array_push($straightbacks, $property);
-              }
-            }
-          }
-        }
-      }
-      elseif($filter == "All"){
-        $curlyhairs = [];
-        $straighthairs = [];
-        $shorthairs = [];
-        $longhairs = [];
-        $blackcoats = [];
-        $nonblackcoats = [];
-        $plains = [];
-        $socks = [];
-        $concaves = [];
-        $straightheads = [];
-        $smooths = [];
-        $wrinkleds = [];
-        $droopingears = [];
-        $semilops = [];
-        $erectears = [];
-        $curlytails = [];
-        $straighttails = [];
-        $swaybacks = [];
-        $straightbacks = [];
-        foreach ($pigs as $pig) {
-          $properties = $pig->getAnimalProperties();
-          foreach ($properties as $property) {
-            if($property->property_id == 28){
-              if($property->value == "Curly"){
-                array_push($curlyhairs, $property);
-              }
-              elseif($property->value == "Straight"){
-                array_push($straighthairs, $property);
-              }
-            }
-            if($property->property_id == 29){ //hairlength
-              if($property->value == "Short"){
-                array_push($shorthairs, $property);
-              }
-              elseif($property->value == "Long"){
-                array_push($longhairs, $property);
-              }
-            }
-            if($property->property_id == 30){ //coatcolor
-              if($property->value == "Black"){
-                array_push($blackcoats, $property);
-              }
-              elseif($property->value == "Others"){
-                array_push($nonblackcoats, $property);
-              }
-            }
-            if($property->property_id == 31){ //colorpattern
-              if($property->value == "Plain"){
-                array_push($plains, $property);
-              }
-              elseif($property->value == "Socks"){
-                array_push($socks, $property);
-              }
-            }
-            if($property->property_id == 32){ //headshape
-              if($property->value == "Concave"){
-                array_push($concaves, $property);
-              }
-              elseif($property->value == "Straight"){
-                array_push($straightheads, $property);
-              }
-            }
-            if($property->property_id == 33){ //skintype
-              if($property->value == "Smooth"){
-                array_push($smooths, $property);
-              }
-              elseif($property->value == "Wrinkled"){
-                array_push($wrinkleds, $property);
-              }
-            }
-            if($property->property_id == 34){ //eartype
-              if($property->value == "Drooping"){
-                array_push($droopingears, $property);
-              }
-              elseif($property->value == "Semi-lop"){
-                array_push($semilops, $property);
-              }
-              elseif($property->value == "Erect"){
-                array_push($erectears, $property);
-              }
-            }
-            if($property->property_id == 62){ //tailtype
-              if($property->value == "Curly"){
-                array_push($curlytails, $property);
-              }
-              elseif($property->value == "Straight"){
-                array_push($straighttails, $property);
-              }
-            }
-            if($property->property_id == 35){ //backline
-              if($property->value == "Swayback"){
-                array_push($swaybacks, $property);
-              }
-              elseif($property->value == "Straight"){
-                array_push($straightbacks, $property);
-              }
-            }
-          }
-        }
-      }
-
-      // return Redirect::back()->with('message','Operation Successful!');
-      return view('pigs.grossmorphoreport', compact('pigs', 'pigcount', 'filter', 'sows', 'boars', 'curlyhairs', 'straighthairs', 'shorthairs', 'longhairs', 'blackcoats', 'nonblackcoats', 'plains', 'socks', 'concaves', 'straightheads', 'smooths', 'wrinkleds', 'droopingears', 'semilops', 'erectears', 'curlytails', 'straighttails', 'swaybacks', 'straightbacks'));
-    }
-
-    public function filterMorphometricCharacteristicsReport(Request $request){
-      $pigs = Animal::where("animaltype_id", 3)->where("status", "active")->get();
-      $pigcount = count($pigs);
-
-      $filter = $request->filter_keywords2;
-
-      $sows = [];
-      $boars = [];
-
-      foreach ($pigs as $pig) {
-        if(substr($pig->registryid, -6, 1) == 'F'){
-          array_push($sows, $pig);
-        }
-        if(substr($pig->registryid, -6, 1) == 'M'){
-          array_push($boars, $pig);
-        }
-      }
-
-      if($filter == "Sow"){
-        $earlengths = [];
-        $headlengths = [];
-        $snoutlengths = [];
-        $bodylengths = [];
-        $heartgirths = [];
-        $pelvicwidths = [];
-        $taillengths = [];
-        $heightsatwithers = [];
-        $normalteats = [];
-        foreach ($sows as $sow) {
-          $properties = $sow->getAnimalProperties();
-          foreach ($properties as $property) {
-            if($property->property_id == 64){ //earlength
-              $earlength = $property->value;
-              array_push($earlengths, $earlength);
-            }
-            if($property->property_id == 39){ //headlength
-              $headlength = $property->value;
-              array_push($headlengths, $headlength);
-            }
-            if($property->property_id == 63){ //snoutlength
-              $snoutlength = $property->value;
-              array_push($snoutlengths, $snoutlength);
-            }
-            if($property->property_id == 40){ //bodylength
-              $bodylength = $property->value;
-              array_push($bodylengths, $bodylength);
-            }
-            if($property->property_id == 42){ //heartgirth
-              $heartgirth = $property->value;
-              array_push($heartgirths, $heartgirth);
-            }
-            if($property->property_id == 41){ //pelvicwidth
-              $pelvicwidth = $property->value;
-              array_push($pelvicwidths, $pelvicwidth);
-            }
-            if($property->property_id == 65){ //taillength
-              $taillength = $property->value;
-              array_push($taillengths, $taillength);
-            }
-            if($property->property_id == 66){ //heightatwithers
-              $heightatwithers = $property->value;
-              array_push($heightsatwithers, $heightatwithers);
-            }
-            if($property->property_id == 44){ //numberofnormalteats
-              $numberofnormalteats = $property->value;
-              array_push($normalteats, $numberofnormalteats);
-            }
-          }
-        }
-      }
-      elseif($filter == "Boar"){
-        $earlengths = [];
-        $headlengths = [];
-        $snoutlengths = [];
-        $bodylengths = [];
-        $heartgirths = [];
-        $pelvicwidths = [];
-        $taillengths = [];
-        $heightsatwithers = [];
-        $normalteats = [];
-        foreach ($boars as $boar) {
-          $properties = $boar->getAnimalProperties();
-          foreach ($properties as $property) {
-            if($property->property_id == 64){ //earlength
-              $earlength = $property->value;
-              array_push($earlengths, $earlength);
-            }
-            if($property->property_id == 39){ //headlength
-              $headlength = $property->value;
-              array_push($headlengths, $headlength);
-            }
-            if($property->property_id == 63){ //snoutlength
-              $snoutlength = $property->value;
-              array_push($snoutlengths, $snoutlength);
-            }
-            if($property->property_id == 40){ //bodylength
-              $bodylength = $property->value;
-              array_push($bodylengths, $bodylength);
-            }
-            if($property->property_id == 42){ //heartgirth
-              $heartgirth = $property->value;
-              array_push($heartgirths, $heartgirth);
-            }
-            if($property->property_id == 41){ //pelvicwidth
-              $pelvicwidth = $property->value;
-              array_push($pelvicwidths, $pelvicwidth);
-            }
-            if($property->property_id == 65){ //taillength
-              $taillength = $property->value;
-              array_push($taillengths, $taillength);
-            }
-            if($property->property_id == 66){ //heightatwithers
-              $heightatwithers = $property->value;
-              array_push($heightsatwithers, $heightatwithers);
-            }
-            if($property->property_id == 44){ //numberofnormalteats
-              $numberofnormalteats = $property->value;
-              array_push($normalteats, $numberofnormalteats);
-            }
-          }
-        }
-      }
-      elseif($filter == "All"){
-        $earlengths = [];
-        $headlengths = [];
-        $snoutlengths = [];
-        $bodylengths = [];
-        $heartgirths = [];
-        $pelvicwidths = [];
-        $taillengths = [];
-        $heightsatwithers = [];
-        $normalteats = [];
-        foreach ($pigs as $pig) {
-          $properties = $pig->getAnimalProperties();
-          foreach ($properties as $property) {
-            if($property->property_id == 64){ //earlength
-              $earlength = $property->value;
-              array_push($earlengths, $earlength);
-            }
-            if($property->property_id == 39){ //headlength
-              $headlength = $property->value;
-              array_push($headlengths, $headlength);
-            }
-            if($property->property_id == 63){ //snoutlength
-              $snoutlength = $property->value;
-              array_push($snoutlengths, $snoutlength);
-            }
-            if($property->property_id == 40){ //bodylength
-              $bodylength = $property->value;
-              array_push($bodylengths, $bodylength);
-            }
-            if($property->property_id == 42){ //heartgirth
-              $heartgirth = $property->value;
-              array_push($heartgirths, $heartgirth);
-            }
-            if($property->property_id == 41){ //pelvicwidth
-              $pelvicwidth = $property->value;
-              array_push($pelvicwidths, $pelvicwidth);
-            }
-            if($property->property_id == 65){ //taillength
-              $taillength = $property->value;
-              array_push($taillengths, $taillength);
-            }
-            if($property->property_id == 66){ //heightatwithers
-              $heightatwithers = $property->value;
-              array_push($heightsatwithers, $heightatwithers);
-            }
-            if($property->property_id == 44){ //numberofnormalteats
-              $numberofnormalteats = $property->value;
-              array_push($normalteats, $numberofnormalteats);
-            }
-          }
-        }
-      }
-
-      return view('pigs.morphocharsreport', compact('pigs', 'pigcount', 'filter', 'sows', 'boars', 'earlengths', 'headlengths', 'snoutlengths', 'bodylengths', 'heartgirths', 'pelvicwidths', 'taillengths', 'heightsatwithers', 'normalteats'));
     }
 
     public function addFarmProfile(Request $request){
