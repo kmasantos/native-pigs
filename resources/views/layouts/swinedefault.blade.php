@@ -46,36 +46,36 @@
 			<li class="no-padding">
         <ul>
           <li>
-            <a href="{{route('farm.pig.individual_records')}}" class="collapsible-header">Individual Records</a>
+            <a href="{{route('farm.pig.individual_records')}}" class="collapsible-header"><i class="material-icons">info</i>Individual Records</a>
           </li>
         </ul>
       </li>
       <li class="no-padding">
         <ul>
           <li>
-            <a href="{{route('farm.pig.breeding_record')}}" class="collapsible-header">Breeding Record</a>
+            <a href="{{route('farm.pig.breeding_record')}}" class="collapsible-header"><i class="material-icons">assignment</i>Breeding Record</a>
           </li>
         </ul>
       </li>
       <li class="no-padding">
         <ul>
           <li>
-            <a href="{{route('farm.pig.mortality_and_sales')}}" class="collapsible-header">Mortality and Sales</a>
+            <a href="{{route('farm.pig.mortality_and_sales')}}" class="collapsible-header"><i class="material-icons">remove_circle</i>Mortality and Sales</a>
           </li>
         </ul>
       </li>
 			<li class="no-padding">
         <ul class="collapsible collapsible-accordion">
           <li>
-            <a class="collapsible-header">Reports</a>
+            <a class="collapsible-header"><i class="material-icons">insert_chart</i>Reports</a>
             <div class="collapsible-body">
               <ul class="grey lighten-2">
                 <li><a href="{{route('farm.pig.gross_morphology_report')}}">Gross Morphology</a></li>
                 <li><a href="{{route('farm.pig.morpho_chars_report')}}">Morphometric Characteristics</a></li>
-                <li><a href="#!">Production (Breeders)</a></li>
+                <li><a href="#!">Breeder Production</a></li>
                 <li><a href="#!">Production Performance</a></li>
-               	<li><a href="#!">Inventory (Breeders)</a></li>
-               	<li><a href="#!">Inventory (Growers)</a></li>
+               	<li><a href="#!">Breeder Inventory</a></li>
+               	<li><a href="#!">Grower Inventory</a></li>
                	<li><a href="#!">Mortality &amp; Sales</a></li>
               </ul>
             </div>
@@ -83,7 +83,13 @@
         </ul>
       </li>
 			<li><div class="divider green lighten-1"></div></li>
-			<li><a href="{{route('farm.pig.farm_profile')}}"><i class="material-icons">settings</i>Farm Profile</a></li>
+			<li class="no-padding">
+        <ul>
+          <li>
+            <a href="{{route('farm.pig.farm_profile')}}" class="collapsible-header"><i class="material-icons">settings</i>Farm Profile</a>
+          </li>
+        </ul>
+      </li>
 		</ul>
 
 		{{-- Extra components --}}

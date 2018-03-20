@@ -240,7 +240,39 @@
 	    </div>
 	    <!-- PIE CHARTS -->
 	    <div id="chartview" class="col s12">
-
+	    	<div class="row center">
+	    		<div class="col s4">
+	    			<p>Hair Type</p>
+	    		</div>
+	    		<div class="col s4">
+	    			<p>Hair Length</p>
+	    		</div>
+	    		<div class="col s4">
+	    			<p>Coat Color</p>
+	    		</div>
+	    	</div>
+	    	<div class="row center">
+	    		<div class="col s4">
+	    			<p>Color Pattern</p>
+	    		</div>
+	    		<div class="col s4">
+	    			<p>Head Shape</p>
+	    		</div>
+	    		<div class="col s4">
+	    			<p>Skin Type</p>
+	    		</div>
+	    	</div>
+	    	<div class="row center">
+	    		<div class="col s4">
+	    			<p>Ear Type</p>
+	    		</div>
+	    		<div class="col s4">
+	    			<p>Tail Type</p>
+	    		</div>
+	    		<div class="col s4">
+	    			<p>Backline</p>
+	    		</div>
+	    	</div>
 	    </div>
 	  </div>
   </div>
