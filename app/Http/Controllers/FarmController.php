@@ -390,7 +390,17 @@ class FarmController extends Controller
         }
       }  
 
-      return view('pigs.grossmorphoreport', compact('pigs', 'filter', 'sows', 'boars', 'curlyhairs', 'straighthairs', 'shorthairs', 'longhairs', 'blackcoats', 'nonblackcoats', 'plains', 'socks', 'concaves', 'straightheads', 'smooths', 'wrinkleds', 'droopingears', 'semilops', 'erectears', 'curlytails', 'straighttails', 'swaybacks', 'straightbacks'));
+      $nohairtypes = (count($pigs)-(count($curlyhairs)+count($straighthairs)));
+      $nohairlengths = (count($pigs)-(count($shorthairs)+count($longhairs)));
+      $nocoats = (count($pigs)-(count($blackcoats)+count($nonblackcoats)));
+      $nopatterns = (count($pigs)-(count($plains)+count($socks)));
+      $noheadshapes = (count($pigs)-(count($concaves)+count($straightheads)));
+      $noskintypes = (count($pigs)-(count($smooths)+count($wrinkleds)));
+      $noeartypes = (count($pigs)-(count($droopingears)+count($semilops)+count($erectears)));
+      $notailtypes = (count($pigs)-(count($curlytails)+count($straighttails)));
+      $nobacklines = (count($pigs)-(count($swaybacks)+count($straightbacks)));
+
+      return view('pigs.grossmorphoreport', compact('pigs', 'filter', 'sows', 'boars', 'curlyhairs', 'straighthairs', 'shorthairs', 'longhairs', 'blackcoats', 'nonblackcoats', 'plains', 'socks', 'concaves', 'straightheads', 'smooths', 'wrinkleds', 'droopingears', 'semilops', 'erectears', 'curlytails', 'straighttails', 'swaybacks', 'straightbacks', 'nohairtypes', 'nohairlengths', 'nocoats', 'nopatterns', 'noheadshapes', 'noskintypes', 'noeartypes', 'notailtypes', 'nobacklines'));
     }
 
     public function filterGrossMorphologyReport(Request $request){
@@ -513,6 +523,16 @@ class FarmController extends Controller
             }
           }
         }
+
+        $nohairtypes = (count($sows)-(count($curlyhairs)+count($straighthairs)));
+        $nohairlengths = (count($sows)-(count($shorthairs)+count($longhairs)));
+	      $nocoats = (count($sows)-(count($blackcoats)+count($nonblackcoats)));
+	      $nopatterns = (count($sows)-(count($plains)+count($socks)));
+	      $noheadshapes = (count($sows)-(count($concaves)+count($straightheads)));
+	      $noskintypes = (count($sows)-(count($smooths)+count($wrinkleds)));
+	      $noeartypes = (count($sows)-(count($droopingears)+count($semilops)+count($erectears)));
+	      $notailtypes = (count($sows)-(count($curlytails)+count($straighttails)));
+	      $nobacklines = (count($sows)-(count($swaybacks)+count($straightbacks)));
       }
       elseif($filter == "Boar"){
         $curlyhairs = [];
@@ -614,6 +634,16 @@ class FarmController extends Controller
             }
           }
         }
+
+        $nohairtypes = (count($boars)-(count($curlyhairs)+count($straighthairs)));
+        $nohairlengths = (count($boars)-(count($shorthairs)+count($longhairs)));
+	      $nocoats = (count($boars)-(count($blackcoats)+count($nonblackcoats)));
+	      $nopatterns = (count($boars)-(count($plains)+count($socks)));
+	      $noheadshapes = (count($boars)-(count($concaves)+count($straightheads)));
+	      $noskintypes = (count($boars)-(count($smooths)+count($wrinkleds)));
+	      $noeartypes = (count($boars)-(count($droopingears)+count($semilops)+count($erectears)));
+	      $notailtypes = (count($boars)-(count($curlytails)+count($straighttails)));
+	      $nobacklines = (count($boars)-(count($swaybacks)+count($straightbacks)));
       }
       elseif($filter == "All"){
         $curlyhairs = [];
@@ -715,10 +745,20 @@ class FarmController extends Controller
             }
           }
         }
+
+        $nohairtypes = (count($pigs)-(count($curlyhairs)+count($straighthairs)));
+        $nohairlengths = (count($pigs)-(count($shorthairs)+count($longhairs)));
+	      $nocoats = (count($pigs)-(count($blackcoats)+count($nonblackcoats)));
+	      $nopatterns = (count($pigs)-(count($plains)+count($socks)));
+	      $noheadshapes = (count($pigs)-(count($concaves)+count($straightheads)));
+	      $noskintypes = (count($pigs)-(count($smooths)+count($wrinkleds)));
+	      $noeartypes = (count($pigs)-(count($droopingears)+count($semilops)+count($erectears)));
+	      $notailtypes = (count($pigs)-(count($curlytails)+count($straighttails)));
+	      $nobacklines = (count($pigs)-(count($swaybacks)+count($straightbacks)));
       }
 
       // return Redirect::back()->with('message','Operation Successful!');
-      return view('pigs.grossmorphoreport', compact('pigs', 'filter', 'sows', 'boars', 'curlyhairs', 'straighthairs', 'shorthairs', 'longhairs', 'blackcoats', 'nonblackcoats', 'plains', 'socks', 'concaves', 'straightheads', 'smooths', 'wrinkleds', 'droopingears', 'semilops', 'erectears', 'curlytails', 'straighttails', 'swaybacks', 'straightbacks'));
+      return view('pigs.grossmorphoreport', compact('pigs', 'filter', 'sows', 'boars', 'curlyhairs', 'straighthairs', 'shorthairs', 'longhairs', 'blackcoats', 'nonblackcoats', 'plains', 'socks', 'concaves', 'straightheads', 'smooths', 'wrinkleds', 'droopingears', 'semilops', 'erectears', 'curlytails', 'straighttails', 'swaybacks', 'straightbacks', 'nohairtypes', 'nohairlengths', 'nocoats', 'nopatterns', 'noheadshapes', 'noskintypes', 'noeartypes', 'notailtypes', 'nobacklines'));
     }
 
     public function getMorphometricCharacteristicsReportPage(){

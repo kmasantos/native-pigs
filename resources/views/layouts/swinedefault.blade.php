@@ -106,6 +106,7 @@
 		<script type="text/javascript" src="/thirdparty/materialize/js/materialize.min.js"></script>
 		<script type="text/javascript" src="/js/global.js"></script>
 		<script type="text/javascript" src="{{asset('js/pig.js')}}"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
 		{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-alpha.1/js/materialize.min.js"></script> --}}
 
 		@yield('scripts')
