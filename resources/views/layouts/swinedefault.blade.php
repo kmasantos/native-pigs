@@ -72,11 +72,11 @@
               <ul class="grey lighten-2">
                 <li><a href="{{route('farm.pig.gross_morphology_report')}}">Gross Morphology</a></li>
                 <li><a href="{{route('farm.pig.morpho_chars_report')}}">Morphometric Characteristics</a></li>
-                <li><a href="#!">Breeder Production</a></li>
-                <li><a href="#!">Production Performance</a></li>
-               	<li><a href="#!">Breeder Inventory</a></li>
-               	<li><a href="#!">Grower Inventory</a></li>
-               	<li><a href="#!">Mortality &amp; Sales</a></li>
+                <li><a href="{{route('farm.pig.breeder_production_report')}}">Breeder Production</a></li>
+                <li><a href="{{route('farm.pig.production_performance_report')}}">Production Performance</a></li>
+               	<li><a href="{{route('farm.pig.breeder_inventory_report')}}">Breeder Inventory</a></li>
+               	<li><a href="{{route('farm.pig.grower_inventory_report')}}">Grower Inventory</a></li>
+               	<li><a href="{{route('farm.pig.mortality_and_sales_report')}}">Mortality &amp; Sales</a></li>
               </ul>
             </div>
           </li>

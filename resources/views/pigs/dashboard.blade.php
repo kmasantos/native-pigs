@@ -56,7 +56,11 @@
                   <h6>Sales Rate: {{ round($salesRate, 2) }}%</h6>
                 </div>
                 <div class="col s6">
-                  <h3>{{ $averageWeight }}</h3>
+                  @if($weights == [])
+                    <h5>No data<br>available</h5>
+                  @else
+                    <h3>{{ $averageWeight }}</h3>
+                  @endif
                   <h6>Average weight, kg</h6>
                 </div>
               </div>

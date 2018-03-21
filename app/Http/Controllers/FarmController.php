@@ -72,8 +72,10 @@ class FarmController extends Controller
               $properties = $sold_pig->getAnimalProperties();
               foreach ($properties as $property) {
                 if($property->property_id == 54){
-                  $weight = $property->value;
-                  array_push($weights, $weight);
+                	if($property->value != ""){
+	                  $weight = $property->value;
+	                  array_push($weights, $weight);
+	                }
                 }
               }
             }
@@ -84,7 +86,7 @@ class FarmController extends Controller
           $mortalityRate = (count($dead)/count($pigs))*100;
           $salesRate = (count($sold)/count($pigs))*100;
           
-          return view('pigs.dashboard', compact('user', 'farm', 'pigs', 'sows', 'boars', 'sowcount', 'boarcount', 'deadcount', 'soldcount', 'averageWeight', 'mortalityRate', 'salesRate'));
+          return view('pigs.dashboard', compact('user', 'farm', 'pigs', 'sows', 'boars', 'sowcount', 'boarcount', 'deadcount', 'soldcount', 'weights', 'averageWeight', 'mortalityRate', 'salesRate'));
       }else{
           return view('poultry.dashboard', compact('user', 'farm'));
       }
@@ -1067,6 +1069,62 @@ class FarmController extends Controller
       return view('pigs.morphocharsreport', compact('pigs', 'filter', 'sows', 'boars', 'earlengths', 'headlengths', 'snoutlengths', 'bodylengths', 'heartgirths', 'pelvicwidths', 'ponderalindices', 'taillengths', 'heightsatwithers', 'normalteats'));
     }
 
+    public function getBreederProductionReportPage(){
+    	$pigs = Animal::where("animaltype_id", 3)->where("status", "active")->get();
+
+    	$weights45d = [];
+    	$weights60d = [];
+    	$weights90d = [];
+    	$weights180d = [];
+    	foreach ($pigs as $pig) {
+    		$properties = $pig->getAnimalProperties();
+    		foreach ($properties as $property) {
+    			if($property->property_id == 45){	//45d
+    				if($property->value != ""){
+    					$weight45d = $property->value;
+    					array_push($weights45d, $weight45d);
+    				}
+    			}
+    			if($property->property_id == 46){	//60d
+    				if($property->value != ""){
+    					$weight60d = $property->value;
+    					array_push($weights60d, $weight60d);
+    				}
+    			}
+    			if($property->property_id == 69){	//90d
+    				if($property->value != ""){
+    					$weight90d = $property->value;
+    					array_push($weights90d, $weight90d);
+    				}
+    			}
+    			if($property->property_id == 47){	//180d
+    				if($property->value != ""){
+    					$weight180d = $property->value;
+    					array_push($weights180d, $weight180d);
+    				}
+    			}
+    		}
+    	}
+
+    	return view('pigs.breederproduction', compact('pigs', 'weights45d', 'weights60d', 'weights90d', 'weights180d'));
+    }
+
+    public function getProductionPerformancePage(){
+    	return view('pigs.productionperformance');
+    }
+
+    public function getBreederInventoryPage(){
+    	return view('pigs.breederinventory');
+    }
+
+    public function getGrowerInventoryPage(){
+    	return view('pigs.growerinventory');
+    }
+
+    public function getMortalityAndSalesReportPage(){
+    	return view('pigs.mortalityandsalesreport');
+    }
+
     public function getFarmProfilePage(){
       $farm = $this->user->getFarm();
       $breed = $farm->getBreed();
@@ -1944,6 +2002,8 @@ class FarmController extends Controller
       $animalid = $request->animal_id;
       $animal = Animal::find($animalid);
 
+      $bday = $animal->getAnimalProperties()->where("property_id", 25)->first();
+
       //BODY WEIGHTS
       $bw45d = new AnimalProperty;
       $dc45d = new AnimalProperty;
@@ -1966,7 +2026,12 @@ class FarmController extends Controller
       $bw45d->value = $bw45dValue;
 
       if(is_null($request->date_collected_45_days)){
-        $dc45dValue = new Carbon();
+        if(!is_null($bday)){
+        	$dc45dValue = Carbon::parse($bday->value)->addDays(45)->toDateString();
+        }
+        else{
+        	$dc45dValue = "";
+        }
       }
       else{
         $dc45dValue = $request->date_collected_45_days;
@@ -1988,7 +2053,12 @@ class FarmController extends Controller
       $bw60d->value = $bw60dValue;
 
       if(is_null($request->date_collected_60_days)){
-        $dc60dValue = new Carbon();
+        if(!is_null($bday)){
+        	$dc60dValue = Carbon::parse($bday->value)->addDays(60)->toDateString();
+        }
+        else{
+        	$dc60dValue = "";
+        }
       }
       else{
         $dc60dValue = $request->date_collected_60_days;
@@ -2010,7 +2080,12 @@ class FarmController extends Controller
       $bw90d->value = $bw90dValue;
 
       if(is_null($request->date_collected_90_days)){
-        $dc90dValue = new Carbon();
+        if(!is_null($bday)){
+        	$dc90dValue = Carbon::parse($bday->value)->addDays(90)->toDateString();
+        }
+        else{
+        	$dc90dValue = "";
+        }
       }
       else{
         $dc90dValue = $request->date_collected_90_days;
@@ -2032,7 +2107,12 @@ class FarmController extends Controller
       $bw180d->value = $bw180dValue;
 
       if(is_null($request->date_collected_180_days)){
-        $dc180dValue = new Carbon();
+        if(!is_null($bday)){
+        	$dc180dValue = Carbon::parse($bday->value)->addDays(180)->toDateString();
+        }
+        else{
+        	$dc180dValue = "";
+        }
       }
       else{
         $dc180dValue = $request->date_collected_180_days;
@@ -2304,17 +2384,67 @@ class FarmController extends Controller
       }
       $bw180d->value = $bw180dValue;
 
+      $bday = $properties->where("property_id", 25)->first();
+      
+      if(is_null($request->date_collected_45_days)){
+      	if(!is_null($bday)){
+      		$dc45dValue = Carbon::parse($bday->value)->addDays(45)->toDateString();
+      	}
+      	else{
+      		$dc45dValue = "";
+      	}
+      }
+      else{
+      	$dc45dValue = $request->date_collected_45_days;
+      }
+
       $dc45d = $properties->where("property_id", 58)->first();
-      $dc45d->value = $request->date_collected_45_days;
+      $dc45d->value = $dc45dValue;
+
+      if(is_null($request->date_collected_60_days)){
+      	if(!is_null($bday)){
+      		$dc60dValue = Carbon::parse($bday->value)->addDays(60)->toDateString();
+      	}
+      	else{
+      		$dc60dValue = "";
+      	}
+      }
+      else{
+      	$dc60dValue = $request->date_collected_60_days;
+      }
 
       $dc60d = $properties->where("property_id", 59)->first();
-      $dc60d->value = $request->date_collected_60_days;
+      $dc60d->value = $dc60dValue;
+
+      if(is_null($request->date_collected_90_days)){
+      	if(!is_null($bday)){
+      		$dc90dValue = Carbon::parse($bday->value)->addDays(90)->toDateString();
+      	}
+      	else{
+      		$dc90dValue = "";
+      	}
+      }
+      else{
+      	$dc90dValue = $request->date_collected_90_days;
+      }
 
       $dc90d = $properties->where("property_id", 70)->first();
-      $dc90d->value = $request->date_collected_90_days;
+      $dc90d->value = $dc90dValue;
+
+      if(is_null($request->date_collected_180_days)){
+      	if(!is_null($bday)){
+      		$dc180dValue = Carbon::parse($bday->value)->addDays(180)->toDateString();
+      	}
+      	else{
+      		$dc180dValue = "";
+      	}
+      }
+      else{
+      	$dc180dValue = $request->date_collected_180_days;
+      }
 
       $dc180d = $properties->where("property_id", 60)->first();
-      $dc180d->value = $request->date_collected_180_days;
+      $dc180d->value = $dc180dValue;
 
       $bw45d->save();
       $bw60d->save();
