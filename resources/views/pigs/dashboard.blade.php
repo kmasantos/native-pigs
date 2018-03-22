@@ -17,7 +17,7 @@
       <div class="row center">
         <div class="col s12 m10 l6">
           <div class="card">
-            <div class="card-content grey">
+            <div class="card-content grey lighten-1">
               <h5>Number of Sows</h5>
               <h3>{{ $sowcount }}</h3>
             </div>
@@ -25,17 +25,15 @@
         </div>
         <div class="col s12 m10 l6">
           <div class="card">
-            <div class="card-content grey">
+            <div class="card-content grey lighten-1">
               <h5>Number of Boars</h5>
               <h3>{{ $boarcount }}</h3>
             </div>
           </div>
         </div>
-      </div>
-      <div class="row center">
         <div class="col s12 m10 l4">
           <div class="card">
-            <div class="card-content grey">
+            <div class="card-content grey lighten-1">
               <h5>Mortality</h5>
               <div class="row">
                 <div class="col s12">
@@ -48,7 +46,7 @@
         </div>
         <div class="col s12 m10 l8">
           <div class="card">
-            <div class="card-content grey">
+            <div class="card-content grey lighten-1">
               <h5>Sales</h5>
               <div class="row">
                 <div class="col s6">

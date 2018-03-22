@@ -35,7 +35,7 @@
   	  {!! Form::close() !!}
   	</div>
 
-  	<table>
+  	<table class="centered">
   		<thead>
   			<tr>
     			<th>Property</th>
@@ -54,7 +54,7 @@
     				<td>{{ min($earlengths) }}</td>
     				<td>{{ max($earlengths) }}</td>
     				<td>{{ round((array_sum($earlengths)/count($earlengths)), 4) }}</td>
-    				<td></td>
+    				<td>{{ round($earlengths_sd, 4) }}</td>
           @endif
   			</tr>
   			<tr>
@@ -65,7 +65,7 @@
     				<td>{{ min($headlengths) }}</td>
     				<td>{{ max($headlengths) }}</td>
   					<td>{{ round((array_sum($headlengths)/count($headlengths)), 4) }}</td>
-    				<td></td>
+    				<td>{{ round($headlengths_sd, 4) }}</td>
           @endif
   			</tr>
   			<tr>
@@ -76,7 +76,7 @@
     				<td>{{ min($snoutlengths) }}</td>
     				<td>{{ max($snoutlengths) }}</td>
     				<td>{{ round((array_sum($snoutlengths)/count($snoutlengths)), 4) }}</td>
-    				<td></td>
+    				<td>{{ round($snoutlengths_sd, 4) }}</td>
           @endif
   			</tr>
   			<tr>
@@ -87,7 +87,7 @@
     				<td>{{ min($bodylengths) }}</td>
     				<td>{{ max($bodylengths) }}</td>
     				<td>{{ round((array_sum($bodylengths)/count($bodylengths)), 4) }}</td>
-    				<td></td>
+    				<td>{{ round($bodylengths_sd, 4) }}</td>
           @endif
   			</tr>
   			<tr>
@@ -98,7 +98,7 @@
     				<td>{{ min($heartgirths) }}</td>
     				<td>{{ max($heartgirths) }}</td>
     				<td>{{ round((array_sum($heartgirths)/count($heartgirths)), 4) }}</td>
-    				<td></td>
+    				<td>{{ round($heartgirths_sd, 4) }}</td>
           @endif
   			</tr>
   			<tr>
@@ -109,7 +109,7 @@
     				<td>{{ min($pelvicwidths) }}</td>
     				<td>{{ max($pelvicwidths) }}</td>
     				<td>{{ round((array_sum($pelvicwidths)/count($pelvicwidths)), 4) }}</td>
-    				<td></td>
+    				<td>{{ round($pelvicwidths_sd, 4) }}</td>
           @endif
   			</tr>
         <tr>
@@ -120,7 +120,7 @@
             <td>{{ round(min($ponderalindices), 2) }}</td>
             <td>{{ round(max($ponderalindices), 2) }}</td>
             <td>{{ round((array_sum($ponderalindices)/count($ponderalindices)), 4) }}</td>
-            <td></td>
+            <td>{{ round($ponderalindices_sd, 4) }}</td>
           @endif
         </tr>
   			<tr>
@@ -131,7 +131,7 @@
     				<td>{{ min($taillengths) }}</td>
     				<td>{{ max($taillengths) }}</td>
     				<td>{{ round((array_sum($taillengths)/count($taillengths)), 4) }}</td>
-    				<td></td>
+    				<td>{{ round($taillengths_sd, 4) }}</td>
           @endif
   			</tr>
   			<tr>
@@ -142,7 +142,7 @@
     				<td>{{ min($heightsatwithers) }}</td>
     				<td>{{ max($heightsatwithers) }}</td>
     				<td>{{ round((array_sum($heightsatwithers)/count($heightsatwithers)), 4) }}</td>
-    				<td></td>
+    				<td>{{ round($heightsatwithers_sd, 4) }}</td>
           @endif
   			</tr>
   			<tr>
@@ -153,7 +153,7 @@
     				<td>{{ min($normalteats) }}</td>
     				<td>{{ max($normalteats) }}</td>
     				<td>{{ round((array_sum($normalteats)/count($normalteats)), 4) }}</td>
-    				<td></td>
+    				<td>{{ round($normalteats_sd, 4) }}</td>
           @endif
   			</tr>
   		</tbody>

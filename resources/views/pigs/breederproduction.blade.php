@@ -31,47 +31,47 @@
 	    		</thead>
 	    		<tbody>
 	    			<tr>
-	    				<td>45 days</td>
+	    				<td>45 days, kg</td>
 	    				@if($weights45d == [])
 		            <td colspan="4" class="center">No data available</td>
 		          @else
 		    				<td>{{ min($weights45d) }}</td>
 		    				<td>{{ max($weights45d) }}</td>
-		    				<td>{{ round((array_sum($weights45d)/count($weights45d)), 2) }}</td>
-		    				<td></td>
+		    				<td>{{ round((array_sum($weights45d)/count($weights45d)), 4) }}</td>
+		    				<td>{{ round($weights45d_sd, 4) }}</td>
 							@endif		    				
 	    			</tr>
 	    			<tr>
-	    				<td>60 days</td>
+	    				<td>60 days, kg</td>
 	    				@if($weights60d == [])
 		            <td colspan="4" class="center">No data available</td>
 		          @else
 		    				<td>{{ min($weights60d) }}</td>
 		    				<td>{{ max($weights60d) }}</td>
-		    				<td>{{ round((array_sum($weights60d)/count($weights60d)), 2) }}</td>
-		    				<td></td>
-							@endif	
+		    				<td>{{ round((array_sum($weights60d)/count($weights60d)), 4) }}</td>
+		    				<td>{{ round($weights60d_sd, 4) }}</td>
+							@endif
 	    			</tr>
 	    			<tr>
-	    				<td>90 days</td>
+	    				<td>90 days, kg</td>
 	    				@if($weights90d == [])
 		            <td colspan="4" class="center">No data available</td>
 		          @else
 		    				<td>{{ min($weights90d) }}</td>
 		    				<td>{{ max($weights90d) }}</td>
-		    				<td>{{ round((array_sum($weights90d)/count($weights90d)), 2) }}</td>
-		    				<td></td>
+		    				<td>{{ round((array_sum($weights90d)/count($weights90d)), 4) }}</td>
+		    				<td>{{ round($weights90d_sd, 4) }}</td>
 							@endif	
 	    			</tr>
 	    			<tr>
-	    				<td>180 days</td>
+	    				<td>180 days, kg</td>
 	    				@if($weights180d == [])
 		            <td colspan="4" class="center">No data available</td>
 		          @else
 		    				<td>{{ min($weights180d) }}</td>
 		    				<td>{{ max($weights180d) }}</td>
-		    				<td>{{ round((array_sum($weights180d)/count($weights180d)), 2) }}</td>
-		    				<td></td>
+		    				<td>{{ round((array_sum($weights180d)/count($weights180d)), 4) }}</td>
+		    				<td>{{ round($weights180d_sd, 4) }}</td>
 							@endif	
 	    			</tr>
 	    		</tbody>
@@ -91,21 +91,21 @@
 	    		</thead>
 	    		<tbody>
 	    			<tr>
-	    				<td>Sows</td>
+	    				<td>Sows, months</td>
 	    				<td></td>
 	    				<td></td>
 	    				<td></td>
 	    				<td></td>
 	    			</tr>
 	    			<tr>
-	    				<td>Boars</td>
+	    				<td>Boars, months</td>
 	    				<td></td>
 	    				<td></td>
 	    				<td></td>
 	    				<td></td>
 	    			</tr>
 	    			<tr>
-	    				<td>Herd</td>
+	    				<td>Herd, months</td>
 	    				<td></td>
 	    				<td></td>
 	    				<td></td>
@@ -128,21 +128,21 @@
 	    		</thead>
 	    		<tbody>
 	    			<tr>
-	    				<td>Sows</td>
+	    				<td>Sows, months</td>
 	    				<td></td>
 	    				<td></td>
 	    				<td></td>
 	    				<td></td>
 	    			</tr>
 	    			<tr>
-	    				<td>Boars</td>
+	    				<td>Boars, months</td>
 	    				<td></td>
 	    				<td></td>
 	    				<td></td>
 	    				<td></td>
 	    			</tr>
 	    			<tr>
-	    				<td>Herd</td>
+	    				<td>Herd, months</td>
 	    				<td></td>
 	    				<td></td>
 	    				<td></td>

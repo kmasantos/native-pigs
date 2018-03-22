@@ -761,6 +761,16 @@ class FarmController extends Controller
       return view('pigs.grossmorphoreport', compact('pigs', 'filter', 'sows', 'boars', 'curlyhairs', 'straighthairs', 'shorthairs', 'longhairs', 'blackcoats', 'nonblackcoats', 'plains', 'socks', 'concaves', 'straightheads', 'smooths', 'wrinkleds', 'droopingears', 'semilops', 'erectears', 'curlytails', 'straighttails', 'swaybacks', 'straightbacks', 'nohairtypes', 'nohairlengths', 'nocoats', 'nopatterns', 'noheadshapes', 'noskintypes', 'noeartypes', 'notailtypes', 'nobacklines'));
     }
 
+    static function standardDeviation($arr, $samp = false){
+	    $ave = array_sum($arr) / count($arr);
+	    $variance = 0.0;
+	    foreach ($arr as $i) {
+	      $variance += pow($i - $ave, 2);
+	    }
+	    $variance /= ( $samp ? count($arr) - 1 : count($arr) );
+	    return (float) sqrt($variance);
+		}
+
     public function getMorphometricCharacteristicsReportPage(){
       $pigs = Animal::where("animaltype_id", 3)->where("status", "active")->get();
 
@@ -854,7 +864,38 @@ class FarmController extends Controller
         }
       }
 
-      return view('pigs.morphocharsreport', compact('pigs', 'filter', 'sows', 'boars', 'earlengths', 'headlengths', 'snoutlengths', 'bodylengths', 'heartgirths', 'pelvicwidths', 'ponderalindices', 'taillengths', 'heightsatwithers', 'normalteats'));
+      if($earlengths != []){
+      	$earlengths_sd = static::standardDeviation($earlengths, false);
+      }
+      if($headlengths != []){
+      	$headlengths_sd = static::standardDeviation($headlengths, false);
+      }
+      if($snoutlengths != []){
+      	$snoutlengths_sd = static::standardDeviation($snoutlengths, false);
+      }
+      if($bodylengths != []){
+      	$bodylengths_sd = static::standardDeviation($bodylengths, false);
+      }
+      if($heartgirths != []){
+      	$heartgirths_sd = static::standardDeviation($heartgirths, false);
+      }
+      if($pelvicwidths != []){
+      	$pelvicwidths_sd = static::standardDeviation($pelvicwidths, false);
+      }
+      if($ponderalindices != []){
+      	$ponderalindices_sd = static::standardDeviation($ponderalindices, false);
+      }
+      if($taillengths != []){
+      	$taillengths_sd = static::standardDeviation($taillengths, false);
+      }
+      if($heightsatwithers != []){
+      	$heightsatwithers_sd = static::standardDeviation($heightsatwithers, false);
+      }
+      if($normalteats != []){
+      	$normalteats_sd = static::standardDeviation($normalteats, false);
+      }
+
+      return view('pigs.morphocharsreport', compact('pigs', 'filter', 'sows', 'boars', 'earlengths', 'headlengths', 'snoutlengths', 'bodylengths', 'heartgirths', 'pelvicwidths', 'ponderalindices', 'taillengths', 'heightsatwithers', 'normalteats', 'earlengths_sd', 'headlengths_sd', 'snoutlengths_sd', 'bodylengths_sd', 'heartgirths_sd', 'pelvicwidths_sd', 'ponderalindices_sd', 'taillengths_sd', 'heightsatwithers_sd', 'normalteats_sd'));
     }
 
     public function filterMorphometricCharacteristicsReport(Request $request){
@@ -950,6 +991,37 @@ class FarmController extends Controller
             }
           }
         }
+
+        if($earlengths != []){
+	      	$earlengths_sd = static::standardDeviation($earlengths, false);
+	      }
+	      if($headlengths != []){
+	      	$headlengths_sd = static::standardDeviation($headlengths, false);
+	      }
+	      if($snoutlengths != []){
+	      	$snoutlengths_sd = static::standardDeviation($snoutlengths, false);
+	      }
+	      if($bodylengths != []){
+	      	$bodylengths_sd = static::standardDeviation($bodylengths, false);
+	      }
+	      if($heartgirths != []){
+	      	$heartgirths_sd = static::standardDeviation($heartgirths, false);
+	      }
+	      if($pelvicwidths != []){
+	      	$pelvicwidths_sd = static::standardDeviation($pelvicwidths, false);
+	      }
+	      if($ponderalindices != []){
+	      	$ponderalindices_sd = static::standardDeviation($ponderalindices, false);
+	      }
+	      if($taillengths != []){
+	      	$taillengths_sd = static::standardDeviation($taillengths, false);
+	      }
+	      if($heightsatwithers != []){
+	      	$heightsatwithers_sd = static::standardDeviation($heightsatwithers, false);
+	      }
+	      if($normalteats != []){
+	      	$normalteats_sd = static::standardDeviation($normalteats, false);
+	      }
       }
       elseif($filter == "Boar"){
         $earlengths = [];
@@ -1027,6 +1099,37 @@ class FarmController extends Controller
             }
           }
         }
+
+        if($earlengths != []){
+	      	$earlengths_sd = static::standardDeviation($earlengths, false);
+	      }
+	      if($headlengths != []){
+	      	$headlengths_sd = static::standardDeviation($headlengths, false);
+	      }
+	      if($snoutlengths != []){
+	      	$snoutlengths_sd = static::standardDeviation($snoutlengths, false);
+	      }
+	      if($bodylengths != []){
+	      	$bodylengths_sd = static::standardDeviation($bodylengths, false);
+	      }
+	      if($heartgirths != []){
+	      	$heartgirths_sd = static::standardDeviation($heartgirths, false);
+	      }
+	      if($pelvicwidths != []){
+	      	$pelvicwidths_sd = static::standardDeviation($pelvicwidths, false);
+	      }
+	      if($ponderalindices != []){
+	      	$ponderalindices_sd = static::standardDeviation($ponderalindices, false);
+	      }
+	      if($taillengths != []){
+	      	$taillengths_sd = static::standardDeviation($taillengths, false);
+	      }
+	      if($heightsatwithers != []){
+	      	$heightsatwithers_sd = static::standardDeviation($heightsatwithers, false);
+	      }
+	      if($normalteats != []){
+	      	$normalteats_sd = static::standardDeviation($normalteats, false);
+	      }
       }
       elseif($filter == "All"){
         $earlengths = [];
@@ -1104,9 +1207,40 @@ class FarmController extends Controller
             }
           }
         }
+
+        if($earlengths != []){
+	      	$earlengths_sd = static::standardDeviation($earlengths, false);
+	      }
+	      if($headlengths != []){
+	      	$headlengths_sd = static::standardDeviation($headlengths, false);
+	      }
+	      if($snoutlengths != []){
+	      	$snoutlengths_sd = static::standardDeviation($snoutlengths, false);
+	      }
+	      if($bodylengths != []){
+	      	$bodylengths_sd = static::standardDeviation($bodylengths, false);
+	      }
+	      if($heartgirths != []){
+	      	$heartgirths_sd = static::standardDeviation($heartgirths, false);
+	      }
+	      if($pelvicwidths != []){
+	      	$pelvicwidths_sd = static::standardDeviation($pelvicwidths, false);
+	      }
+	      if($ponderalindices != []){
+	      	$ponderalindices_sd = static::standardDeviation($ponderalindices, false);
+	      }
+	      if($taillengths != []){
+	      	$taillengths_sd = static::standardDeviation($taillengths, false);
+	      }
+	      if($heightsatwithers != []){
+	      	$heightsatwithers_sd = static::standardDeviation($heightsatwithers, false);
+	      }
+	      if($normalteats != []){
+	      	$normalteats_sd = static::standardDeviation($normalteats, false);
+	      }
       }
 
-      return view('pigs.morphocharsreport', compact('pigs', 'filter', 'sows', 'boars', 'earlengths', 'headlengths', 'snoutlengths', 'bodylengths', 'heartgirths', 'pelvicwidths', 'ponderalindices', 'taillengths', 'heightsatwithers', 'normalteats'));
+      return view('pigs.morphocharsreport', compact('pigs', 'filter', 'sows', 'boars', 'earlengths', 'headlengths', 'snoutlengths', 'bodylengths', 'heartgirths', 'pelvicwidths', 'ponderalindices', 'taillengths', 'heightsatwithers', 'normalteats', 'earlengths_sd', 'headlengths_sd', 'snoutlengths_sd', 'bodylengths_sd', 'heartgirths_sd', 'pelvicwidths_sd', 'ponderalindices_sd', 'taillengths_sd', 'heightsatwithers_sd', 'normalteats_sd'));
     }
 
     public function getBreederProductionReportPage(){
@@ -1146,7 +1280,12 @@ class FarmController extends Controller
     		}
     	}
 
-    	return view('pigs.breederproduction', compact('pigs', 'weights45d', 'weights60d', 'weights90d', 'weights180d'));
+			$weights45d_sd = static::standardDeviation($weights45d, false);
+    	$weights60d_sd = static::standardDeviation($weights60d, false);
+    	$weights90d_sd = static::standardDeviation($weights90d, false);
+    	$weights180d_sd = static::standardDeviation($weights180d, false);    	
+
+    	return view('pigs.breederproduction', compact('pigs', 'weights45d', 'weights60d', 'weights90d', 'weights180d', 'weights45d_sd', 'weights60d_sd', 'weights90d_sd', 'weights180d_sd'));
     }
 
     public function getProductionPerformancePage(){
@@ -1154,7 +1293,20 @@ class FarmController extends Controller
     }
 
     public function getBreederInventoryPage(){
-    	return view('pigs.breederinventory');
+    	$pigs = Animal::where("animaltype_id", 3)->where("status", "active")->get();
+
+    	$sows = [];
+    	$boars = [];
+    	foreach($pigs as $pig){
+        if(substr($pig->registryid, -6, 1) == 'F'){
+          array_push($sows, $pig);
+        }
+        if(substr($pig->registryid, -6, 1) == 'M'){
+          array_push($boars, $pig);
+        }
+      }
+
+    	return view('pigs.breederinventory', compact('pigs', 'sows', 'boars'));
     }
 
     public function getGrowerInventoryPage(){
