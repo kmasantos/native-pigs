@@ -9,6 +9,7 @@
 		<h4>Grower Inventory Report</h4>
 		<div class="divider"></div>
 		<div class="row center" style="padding-top: 10px;">
+			
 		</div>
 	</div>
 @endsection

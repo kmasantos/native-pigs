@@ -1314,7 +1314,11 @@ class FarmController extends Controller
     }
 
     public function getMortalityAndSalesReportPage(){
-    	return view('pigs.mortalityandsalesreport');
+    	$dead = Animal::where("animaltype_id", 3)->where("status", "dead")->get();
+    	$sold = Animal::where("animaltype_id", 3)->where("status", "sold")->get();
+    	$removed = Animal::where("animaltype_id", 3)->where("status", "removed")->get();
+
+    	return view('pigs.mortalityandsalesreport', compact('dead', 'sold', 'removed'));
     }
 
     public function getFarmProfilePage(){
