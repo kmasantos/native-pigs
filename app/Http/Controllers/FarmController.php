@@ -1318,7 +1318,62 @@ class FarmController extends Controller
     	$sold = Animal::where("animaltype_id", 3)->where("status", "sold")->get();
     	$removed = Animal::where("animaltype_id", 3)->where("status", "removed")->get();
 
-    	return view('pigs.mortalityandsalesreport', compact('dead', 'sold', 'removed'));
+    	$ages_dead = [];
+    	$ages_sold = [];
+    	$weights_sold = [];
+
+    	foreach ($dead as $dead_pig) {
+    		$properties = $dead_pig->getAnimalProperties();
+    		foreach ($properties as $property) {
+    			if($property->property_id == 25){
+    				if($property->value != "Not specified"){
+    					$bday_dead = $property->value;
+    					$deadpropperties = $dead_pig->getAnimalProperties();
+    					foreach ($deadpropperties as $deadproperty) {
+    						if($deadproperty->property_id == 55){
+    							$date_died = $deadproperty->value;
+    						}
+    					}
+    					$age_dead = Carbon::parse($date_died)->diffInMonths(Carbon::parse($bday_dead));
+    					array_push($ages_dead, $age_dead);
+    				}
+    			}
+    		}
+    	}
+
+    	foreach ($sold as $sold_pig) {
+    		$properties = $sold_pig->getAnimalProperties();
+    		foreach ($properties as $property) {
+    			if($property->property_id == 25){
+    				if($property->value != "Not specified"){
+    					$bday_sold = $property->value;
+    					$soldpropperties = $sold_pig->getAnimalProperties();
+    					foreach ($soldpropperties as $soldproperty) {
+    						if($soldproperty->property_id == 56){
+    							$date_sold = $soldproperty->value;
+    						}
+    					}
+    					$age_sold = Carbon::parse($date_sold)->diffInMonths(Carbon::parse($bday_sold));
+    					array_push($ages_sold, $age_sold);
+    				}
+    			}
+    		}
+    	}
+
+    	foreach ($sold as $sold_pig) {
+    		$properties = $sold_pig->getAnimalProperties();
+    		foreach ($properties as $property) {
+    			if($property->property_id == 57){
+    				if($property->value != ""){
+    					$weight_sold = $property->value;
+    					array_push($weights_sold, $weight_sold);
+    				}
+    			}
+    		}
+    	}
+	  	
+
+    	return view('pigs.mortalityandsalesreport', compact('dead', 'sold', 'removed', 'ages_dead', 'ages_sold', 'weights_sold'));
     }
 
     public function getFarmProfilePage(){

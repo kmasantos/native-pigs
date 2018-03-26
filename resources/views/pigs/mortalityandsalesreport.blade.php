@@ -33,31 +33,42 @@
           </div>
         </div>
       </div>
-      <div class="col s12 m10 l6">
+      <div class="col s12 m10 l8">
         <div class="card">
           <div class="card-content grey lighten-1">
             <h5>Average Age, months</h5>
            	<div class="row">
 	            <div class="col s6">
-	            	<h3>#</h3>
+	            	@if($ages_dead == [])
+	            		<h4>No data available</h4>
+	            	@else
+	            		<h3>{{ round(array_sum($ages_dead)/count($ages_dead), 2) }}</h3>
+	            	@endif
 	            	<p>Died</p>
 	            </div>
 	            <div class="col s6">
-	            	<h3>#</h3>
+	            	@if($ages_sold == [])
+	            		<h4>No data available</h4>
+	            	@else
+	            		<h3>{{ round(array_sum($ages_sold)/count($ages_sold), 2) }}</h3>
+	            	@endif
 	            	<p>Sold</p>
 	            </div>
 	          </div>
           </div>
         </div>
       </div>
-      <div class="col s12 m10 l6">
+      <div class="col s12 m10 l4">
         <div class="card">
           <div class="card-content grey lighten-1">
-            <h5>Average Weight</h5>
+            <h5>Average Weight Sold, kg</h5>
             <div class="row">
             	<div class="col s12">
-		            <h3>#</h3>
-		            <p>kg</p>
+            		@if($weights_sold == [])
+            			<h4>No data available</h4>
+            		@else
+		            	<h3>{{ round(array_sum($weights_sold)/count($weights_sold), 2) }}</h3>
+		            @endif
 		          </div>
 	          </div>
           </div>
