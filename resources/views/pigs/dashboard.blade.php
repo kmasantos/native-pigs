@@ -17,27 +17,27 @@
       <div class="row center">
         <div class="col s12 m10 l6">
           <div class="card">
-            <div class="card-content grey lighten-1">
+            <div class="card-content grey lighten-2">
               <h5>Number of Sows</h5>
-              <h3>{{ $sowcount }}</h3>
+              <h3>{{ count($sows) }}</h3>
             </div>
           </div>
         </div>
         <div class="col s12 m10 l6">
           <div class="card">
-            <div class="card-content grey lighten-1">
+            <div class="card-content grey lighten-2">
               <h5>Number of Boars</h5>
-              <h3>{{ $boarcount }}</h3>
+              <h3>{{ count($boars) }}</h3>
             </div>
           </div>
         </div>
         <div class="col s12 m10 l4">
           <div class="card">
-            <div class="card-content grey lighten-1">
+            <div class="card-content grey lighten-2">
               <h5>Mortality</h5>
               <div class="row">
                 <div class="col s12">
-                  <h3>{{ $deadcount }}</h3>
+                  <h3>{{ count($dead) }}</h3>
                   <h6>Mortality Rate: {{ round($mortalityRate, 2) }}%</h6>
                 </div>
               </div>
@@ -46,18 +46,18 @@
         </div>
         <div class="col s12 m10 l8">
           <div class="card">
-            <div class="card-content grey lighten-1">
+            <div class="card-content grey lighten-2">
               <h5>Sales</h5>
               <div class="row">
                 <div class="col s6">
-                  <h3>{{ $soldcount }}</h3>
+                  <h3>{{ count($sold) }}</h3>
                   <h6>Sales Rate: {{ round($salesRate, 2) }}%</h6>
                 </div>
                 <div class="col s6">
                   @if($weights == [])
                     <h5>No data<br>available</h5>
                   @else
-                    <h3>{{ $averageWeight }}</h3>
+                    <h3>{{ round(array_sum($weights)/count($weights), 2) }}</h3>
                   @endif
                   <h6>Average weight, kg</h6>
                 </div>

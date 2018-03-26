@@ -25,7 +25,7 @@
 	    		<thead>
 	    			<tr>
 	    				<th>Weighing Age</th>
-	    				<th>Pigs Weighed</th>
+	    				<th class="grey lighten-2">Pigs Weighed</th>
 	    				<th>Minimum</th>
 	    				<th>Maximum</th>
 	    				<th>Average</th>
@@ -38,7 +38,7 @@
 	    				@if($weights45d == [])
 		            <td colspan="5" class="center">No data available</td>
 		          @else
-		          	<td>{{ count($weights45d) }}</td>
+		          	<td class="grey lighten-2">{{ count($weights45d) }}</td>
 		    				<td>{{ min($weights45d) }}</td>
 		    				<td>{{ max($weights45d) }}</td>
 		    				<td>{{ round((array_sum($weights45d)/count($weights45d)), 4) }}</td>
@@ -50,7 +50,7 @@
 	    				@if($weights60d == [])
 		            <td colspan="5" class="center">No data available</td>
 		          @else
-		          	<td>{{ count($weights60d) }}</td>
+		          	<td class="grey lighten-2">{{ count($weights60d) }}</td>
 		    				<td>{{ min($weights60d) }}</td>
 		    				<td>{{ max($weights60d) }}</td>
 		    				<td>{{ round((array_sum($weights60d)/count($weights60d)), 4) }}</td>
@@ -62,7 +62,7 @@
 	    				@if($weights90d == [])
 		            <td colspan="5" class="center">No data available</td>
 		          @else
-		          	<td>{{ count($weights90d) }}</td>
+		          	<td class="grey lighten-2">{{ count($weights90d) }}</td>
 		    				<td>{{ min($weights90d) }}</td>
 		    				<td>{{ max($weights90d) }}</td>
 		    				<td>{{ round((array_sum($weights90d)/count($weights90d)), 4) }}</td>
@@ -74,7 +74,7 @@
 	    				@if($weights180d == [])
 		            <td colspan="5" class="center">No data available</td>
 		          @else
-		          	<td>{{ count($weights180d) }}</td>
+		          	<td class="grey lighten-2">{{ count($weights180d) }}</td>
 		    				<td>{{ min($weights180d) }}</td>
 		    				<td>{{ max($weights180d) }}</td>
 		    				<td>{{ round((array_sum($weights180d)/count($weights180d)), 4) }}</td>

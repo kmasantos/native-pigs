@@ -11,7 +11,7 @@
 		<div class="row center" style="padding-top: 10px;">
 			<div class="col s12 m10 l4">
         <div class="card">
-          <div class="card-content grey lighten-1">
+          <div class="card-content grey lighten-2">
             <h5>Mortality</h5>
             <h3>{{ count($dead) }}</h3>
           </div>
@@ -19,7 +19,7 @@
       </div>
       <div class="col s12 m10 l4">
         <div class="card">
-          <div class="card-content grey lighten-1">
+          <div class="card-content grey lighten-2">
             <h5>Sold</h5>
             <h3>{{ count($sold) }}</h3>
           </div>
@@ -27,7 +27,7 @@
       </div>
       <div class="col s12 m10 l4">
         <div class="card">
-          <div class="card-content grey lighten-1">
+          <div class="card-content grey lighten-2">
             <h5>Culled/Donated</h5>
             <h3>{{ count($removed) }}</h3>
           </div>
@@ -35,7 +35,7 @@
       </div>
       <div class="col s12 m10 l8">
         <div class="card">
-          <div class="card-content grey lighten-1">
+          <div class="card-content grey lighten-2">
             <h5>Average Age, months</h5>
            	<div class="row">
 	            <div class="col s6">
@@ -60,7 +60,7 @@
       </div>
       <div class="col s12 m10 l4">
         <div class="card">
-          <div class="card-content grey lighten-1">
+          <div class="card-content grey lighten-2">
             <h5>Average Weight Sold, kg</h5>
             <div class="row">
             	<div class="col s12">

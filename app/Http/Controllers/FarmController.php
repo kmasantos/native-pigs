@@ -55,38 +55,30 @@ class FarmController extends Controller
             }
           }
 
-          $sowcount = count($sows);
-          $boarcount = count($boars);
-
           $dead = Animal::where("animaltype_id", 3)->where("status", "dead")->get();
-          $deadcount = count($dead);
 
           $sold = Animal::where("animaltype_id", 3)->where("status", "sold")->get();
-          $soldcount = count($sold);
 
           $sum = 0;
           $averageWeight = 0;
           $weights = [];
-          if(count($sold) != 0){
-            foreach ($sold as $sold_pig) {
-              $properties = $sold_pig->getAnimalProperties();
-              foreach ($properties as $property) {
-                if($property->property_id == 54){
-                	if($property->value != ""){
-	                  $weight = $property->value;
-	                  array_push($weights, $weight);
-	                }
+   
+          foreach ($sold as $sold_pig) {
+            $properties = $sold_pig->getAnimalProperties();
+            foreach ($properties as $property) {
+              if($property->property_id == 57){
+              	if($property->value != ""){
+                  $weight = $property->value;
+                  array_push($weights, $weight);
                 }
               }
             }
-            $sum = array_sum($weights);
-            $averageWeight = $sum/count($sold);
           }
 
           $mortalityRate = (count($dead)/count($pigs))*100;
           $salesRate = (count($sold)/count($pigs))*100;
           
-          return view('pigs.dashboard', compact('user', 'farm', 'pigs', 'sows', 'boars', 'sowcount', 'boarcount', 'deadcount', 'soldcount', 'weights', 'averageWeight', 'mortalityRate', 'salesRate'));
+          return view('pigs.dashboard', compact('user', 'farm', 'pigs', 'sows', 'boars', 'dead', 'sold', 'weights', 'mortalityRate', 'salesRate'));
       }else{
           return view('poultry.dashboard', compact('user', 'farm'));
       }
