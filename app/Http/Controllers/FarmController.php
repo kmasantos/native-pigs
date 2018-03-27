@@ -1299,9 +1299,42 @@ class FarmController extends Controller
       }
 
       $groups = Grouping::whereNotNull("mother_id")->get();
-      $frequency = 0;
+
+      foreach ($boars as $boar) {
+        $frequencies = [];
+        $frequency = 0;
+        $freqproperty = $boar->getAnimalProperties()->where("property_id", 88)->first();
+
+        foreach ($groups as $group) {
+          if($boar->registryid == $group->getFather()->registryid){
+            $frequency = $frequency+1;
+            array_push($frequencies, $frequency);
+          }
+          $frequency = 0;
+        }
+
+        if(is_null($boar->getAnimalProperties()->where("property_id", 88)->first())){
+          $freqprop = new AnimalProperty;
+          $freqprop->animal_id = $boar->id;
+          $freqprop->property_id = 88;
+          $freqprop->value = array_sum($frequencies);
+          $freqprop->save();
+        }
+        else{
+          $freqproperty->value = array_sum($frequencies);
+          $freqproperty->save();
+        }
+      }
 
     	return view('pigs.breederinventory', compact('pigs', 'sows', 'boars', 'groups', 'frequency'));
+    }
+
+    public function getBoarUsagePage($id){
+      $boar = Animal::find($id);
+
+      $groups = Grouping::whereNotNull("mother_id")->where("father_id", $boar->id)->get();
+
+      return view('pigs.boarusage', compact('boar', 'groups'));
     }
 
     public function getGrowerInventoryPage(){

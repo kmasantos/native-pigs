@@ -6,7 +6,7 @@
 
 @section('content')
 	<div class="container">
-		<h3>Breeder Inventory Report</h3>
+		<h4>Breeder Inventory Report</h4>
 		<div class="divider"></div>
 		<div class="row center" style="padding-top: 10px;">
 			<div class="col s12">
@@ -66,18 +66,20 @@
       		<thead>
       			<tr>
       				<th>Registration ID</th>
-      				<th>Usage</th>
+      				<th class="center">Usage</th>
+      				<th class="center">View Records</th>
       			</tr>
       		</thead>
       		<tbody>
       			@foreach($boars as $boar)
       			<tr>
       				<td>{{ $boar->registryid }}</td>
-      				@foreach($groups as $group)
-      					@if($boar->registryid == $group->getFather()->registryid)
-      						<td>{{ $frequency+1 }}</td>
-      					@endif
-      				@endforeach
+      				<td class="center">{{ $boar->getAnimalProperties()->where("property_id", 88)->first()->value }}</td>
+      				@if($boar->getAnimalProperties()->where("property_id", 88)->first()->value == 0)
+      					<td class="center"><i class="material-icons">visibility_off</i></td>
+      				@else
+      					<td class="center"><a href="{{ URL::route('farm.pig.boar_usage', [$boar->id]) }}"><i class="material-icons">visibility</i></a></td>
+      				@endif
       			</tr>
       			@endforeach
       		</tbody>
