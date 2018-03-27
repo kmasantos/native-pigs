@@ -1298,7 +1298,10 @@ class FarmController extends Controller
         }
       }
 
-    	return view('pigs.breederinventory', compact('pigs', 'sows', 'boars'));
+      $groups = Grouping::whereNotNull("mother_id")->get();
+      $frequency = 0;
+
+    	return view('pigs.breederinventory', compact('pigs', 'sows', 'boars', 'groups', 'frequency'));
     }
 
     public function getGrowerInventoryPage(){

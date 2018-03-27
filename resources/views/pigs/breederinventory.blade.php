@@ -73,7 +73,11 @@
       			@foreach($boars as $boar)
       			<tr>
       				<td>{{ $boar->registryid }}</td>
-      				<td>#</td>
+      				@foreach($groups as $group)
+      					@if($boar->registryid == $group->getFather()->registryid)
+      						<td>{{ $frequency+1 }}</td>
+      					@endif
+      				@endforeach
       			</tr>
       			@endforeach
       		</tbody>
