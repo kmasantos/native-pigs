@@ -29,7 +29,7 @@
       		<div class="col s12 m10 l6">
       			<div class="card">
       				<div class="card-content grey lighten-1">
-      					<h3>#</h3>
+      					<h3>{{ count($pregnantsows) }}</h3>
       					<p>Number of Pregnant</p>
       				</div>
       			</div>

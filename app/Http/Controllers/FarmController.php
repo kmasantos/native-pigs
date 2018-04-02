@@ -1300,6 +1300,7 @@ class FarmController extends Controller
 
       $groups = Grouping::whereNotNull("mother_id")->get();
 
+      // boar usage
       foreach ($boars as $boar) {
         $frequencies = [];
         $frequency = 0;
@@ -1326,7 +1327,21 @@ class FarmController extends Controller
         }
       }
 
-    	return view('pigs.breederinventory', compact('pigs', 'sows', 'boars', 'groups', 'frequency'));
+      // sows
+      $pregnantsows = [];
+      foreach ($groups as $group) {
+        $gproperties = $group->getGroupingProperties();
+        foreach ($gproperties as $gproperty) {
+          if($gproperty->property_id == 50){
+            if($gproperty->value == "Pregnant"){
+              $pregnant = $group->getMother()->registryid;
+              array_push($pregnantsows, $pregnant);
+            }
+          }
+        }
+      }
+
+    	return view('pigs.breederinventory', compact('pigs', 'sows', 'boars', 'groups', 'frequency', 'pregnantsows'));
     }
 
     public function getBoarUsagePage($id){
@@ -1762,6 +1777,10 @@ class FarmController extends Controller
       //     $aveBirthWeight = $sum/count($members);
       //   }
       // }
+
+      $status = GroupingProperty::where("property_id", 50)->where("grouping_id", $grouping->id)->first();
+      $status->value = "Farrowed";
+      $status->save();
 
       $grouping->members = 1;
       $grouping->save();
