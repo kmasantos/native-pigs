@@ -20,41 +20,41 @@
       	<div class="row">
       		<div class="col s12 m10 l6">
       			<div class="card">
-      				<div class="card-content grey lighten-1">
-      					<h3>#</h3>
-      					<p>Number Bred</p>
+      				<div class="card-content grey lighten-2">
+      					<h3>{{ count($bredpigs) }}</h3>
+      					<p>Bred</p>
       				</div>
       			</div>
       		</div>
       		<div class="col s12 m10 l6">
       			<div class="card">
-      				<div class="card-content grey lighten-1">
+      				<div class="card-content grey lighten-2">
       					<h3>{{ count($pregnantsows) }}</h3>
-      					<p>Number of Pregnant</p>
+      					<p>Pregnant</p>
       				</div>
       			</div>
       		</div>
       		<div class="col s12 m10 l4">
       			<div class="card">
-      				<div class="card-content grey lighten-1">
-      					<h3>#</h3>
-      					<p>Number of Lactating</p>
+      				<div class="card-content grey lighten-2">
+      					<h3>{{ $lactating }}</h3>
+      					<p>Lactating</p>
       				</div>
       			</div>
       		</div>
       		<div class="col s12 m10 l4">
       			<div class="card">
-      				<div class="card-content grey lighten-1">
-      					<h3>#</h3>
-      					<p>Number of Gilts</p>
+      				<div class="card-content grey lighten-2">
+      					<h3>{{ count($gilts) }}</h3>
+      					<p>Gilts</p>
       				</div>
       			</div>
       		</div>
       		<div class="col s12 m10 l4">
       			<div class="card">
-      				<div class="card-content grey lighten-1">
-      					<h3>#</h3>
-      					<p>Number of Dry</p>
+      				<div class="card-content grey lighten-2">
+      					<h3>{{ $drysows }}</h3>
+      					<p>Dry</p>
       				</div>
       			</div>
       		</div>
