@@ -160,7 +160,15 @@
 	    </div>
 	    <!-- AGE OF BREEDING HERD -->
 	    <div id="breedingherdview" class="col s12">
-	    	
+	    	<div class="col s6 push-s3">
+    			<div class="card">
+    				<div class="card-content grey lighten-1">
+    					<h3>{{ round(array_sum($breederages)/count($breederages) ,2) }}*</h3>
+    					<h5>Average age, months</h5><br><br>
+    					*pigs with available age: {{ count($breederages) }} out of {{ count($pigs) }}
+    				</div>
+    			</div>
+    		</div>
 	    </div>
 		</div>
 	</div>

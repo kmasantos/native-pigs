@@ -1275,9 +1275,24 @@ class FarmController extends Controller
 			$weights45d_sd = static::standardDeviation($weights45d, false);
     	$weights60d_sd = static::standardDeviation($weights60d, false);
     	$weights90d_sd = static::standardDeviation($weights90d, false);
-    	$weights180d_sd = static::standardDeviation($weights180d, false);    	
+    	$weights180d_sd = static::standardDeviation($weights180d, false);  
 
-    	return view('pigs.breederproduction', compact('pigs', 'weights45d', 'weights60d', 'weights90d', 'weights180d', 'weights45d_sd', 'weights60d_sd', 'weights90d_sd', 'weights180d_sd'));
+      $breederages = [];
+      foreach ($pigs as $pig) {
+        $genproperties = $pig->getAnimalProperties();
+        foreach ($genproperties as $genproperty) {
+          if($genproperty->property_id == 25){
+            if(!is_null($genproperty->value) && $genproperty->value != "Not specified"){
+              $bday_pig = $genproperty->value;
+              $now = new Carbon();
+              $breederage = $now->diffInMonths(Carbon::parse($bday_pig));
+              array_push($breederages, $breederage);
+            }
+          }
+        }
+      }
+
+    	return view('pigs.breederproduction', compact('pigs', 'weights45d', 'weights60d', 'weights90d', 'weights180d', 'weights45d_sd', 'weights60d_sd', 'weights90d_sd', 'weights180d_sd', 'breederages'));
     }
 
     public function getProductionPerformancePage(){
