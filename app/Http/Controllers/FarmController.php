@@ -1358,21 +1358,30 @@ class FarmController extends Controller
 
 
       $breederages = [];
+      $breeders = [];
       foreach ($pigs as $pig) {
         $genproperties = $pig->getAnimalProperties();
         foreach ($genproperties as $genproperty) {
-          if($genproperty->property_id == 25){
-            if(!is_null($genproperty->value) && $genproperty->value != "Not specified"){
-              $bday_pig = $genproperty->value;
-              $now = new Carbon();
-              $breederage = $now->diffInMonths(Carbon::parse($bday_pig));
-              array_push($breederages, $breederage);
+          if($genproperty->property_id == 88){
+            if($genproperty->value > 0){
+              array_push($breeders, $pig);
+              $bredpigproperties = $pig->getAnimalProperties();
+              foreach ($bredpigproperties as $bredpigproperty) {
+                if($bredpigproperty->property_id == 25){
+                  if(!is_null($bredpigproperty->value) && $bredpigproperty->value != "Not specified"){
+                    $bday_pig = $bredpigproperty->value;
+                    $now = new Carbon();
+                    $breederage = $now->diffInMonths(Carbon::parse($bday_pig));
+                    array_push($breederages, $breederage);
+                  }
+                }
+              }
             }
           }
         }
       }
 
-    	return view('pigs.breederproduction', compact('pigs', 'weights45d', 'weights60d', 'weights90d', 'weights180d', 'weights45d_sd', 'weights60d_sd', 'weights90d_sd', 'weights180d_sd', 'ages_weanedsow', 'ages_weanedsow_sd', 'ages_weanedboar', 'ages_weanedboar_sd', 'ages_weanedpig', 'ages_weanedpig_sd', 'breederages'));
+    	return view('pigs.breederproduction', compact('pigs', 'weights45d', 'weights60d', 'weights90d', 'weights180d', 'weights45d_sd', 'weights60d_sd', 'weights90d_sd', 'weights180d_sd', 'ages_weanedsow', 'ages_weanedsow_sd', 'ages_weanedboar', 'ages_weanedboar_sd', 'ages_weanedpig', 'ages_weanedpig_sd', 'breederages', 'breeders'));
     }
 
     public function getProductionPerformancePage(){

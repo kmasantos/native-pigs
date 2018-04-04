@@ -169,7 +169,7 @@
     				<div class="card-content grey lighten-1">
     					<h3>{{ round(array_sum($breederages)/count($breederages) ,2) }}*</h3>
     					<h5>Average age, months</h5><br><br>
-    					*pigs with available age: {{ count($breederages) }} out of {{ count($pigs) }}
+    					*breeders with available age: {{ count($breederages) }} out of {{ count($breeders) }}<br>
     				</div>
     			</div>
     		</div>
