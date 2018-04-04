@@ -19,9 +19,37 @@
 	    </div>
 	    <!-- PER SOW -->
 	    <div id="persowview" class="col s12">
+	    	{{-- 1. FARROWING INDEX
+	    	2. PARITY (LATEST)
+	    	3. NUMBER MALE BORN
+	    	4. NUMBER FEMALE BORN
+	    	5. LITTER BIRTH WEIGHT
+	    	6. AVERAGE BIRTH WEIGHT
+	    	7. NUMBER STILL BORN
+	    	8. NUMBER MUMMIFIED
+	    	9. LITTER WEIGHT OF WEANING
+	    	10. AVERAGE WEANING WEIGHT
+	    	11. ADJUSTED WEANING WEIGHT AT 45 DAYS
+	    	12. NUMBER WEANED
+	    	13. AGE WEANED
+	    	14. PRE-WEANING MORTALITY (NUMBER BORN - NUMBER WEANED) --}}
 	    </div>
 	    <!-- PER BOAR -->
 	    <div id="perboarview" class="col s12">
+	    	{{-- 1. FARROWING INDEX
+	    	2. PARITY (LATEST)
+	    	3. NUMBER MALE BORN
+	    	4. NUMBER FEMALE BORN
+	    	5. LITTER BIRTH WEIGHT
+	    	6. AVERAGE BIRTH WEIGHT
+	    	7. NUMBER STILL BORN
+	    	8. NUMBER MUMMIFIED
+	    	9. LITTER WEIGHT OF WEANING
+	    	10. AVERAGE WEANING WEIGHT
+	    	11. ADJUSTED WEANING WEIGHT AT 45 DAYS
+	    	12. NUMBER WEANED
+	    	13. AGE WEANED
+	    	14. PRE-WEANING MORTALITY (NUMBER BORN - NUMBER WEANED) --}}
 	    </div>
 	    <!-- PER PARITY -->
 	    <div id="perparityview" class="col s12">

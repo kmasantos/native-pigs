@@ -1515,59 +1515,9 @@ class FarmController extends Controller
         }
       }
 
-      $gilts = [];
-      $ages_gilt = [];
-      foreach ($sows as $sow) {
-        $sowproperties = $sow->getAnimalProperties();
-        foreach ($sowproperties as $sowproperty) {
-          if($sowproperty->property_id == 88){
-            if($sowproperty->value == 0){
-              $gilt = $sow->registryid;
-              array_push($gilts, $gilt);
-              $giltproperties = $sow->getAnimalProperties();
-              foreach ($giltproperties as $giltproperty) {
-                if($giltproperty->property_id == 25){
-                  if(!is_null($giltproperty->value) && $giltproperty->value != "Not specified"){
-                    $bday_gilt = $giltproperty->value;
-                    $now = new Carbon();
-                    $age_gilt = $now->diffInMonths(Carbon::parse($bday_gilt));
-                    array_push($ages_gilt, $age_gilt);
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
+      // AGES 0 TO 6 MONTHS LANG ANG ANDITO, PAG WALANG DATA, EDI WALA
 
-      $jrboars = [];
-      $ages_jrboar = [];
-      foreach ($boars as $boar) {
-        $boarproperties = $boar->getAnimalProperties();
-        foreach ($boarproperties as $boarproperty) {
-          if($boarproperty->property_id == 88){
-            if($boarproperty->value == 0){
-              $jrboar = $boar->registryid;
-              array_push($jrboars, $jrboar);
-              $jrboarproperties = $boar->getAnimalProperties();
-              foreach ($jrboarproperties as $jrboarproperty) {
-                if($jrboarproperty->property_id == 25){
-                  if(!is_null($jrboarproperty->value) && $jrboarproperty->value != "Not specified"){
-                    $bday_jrboar = $jrboarproperty->value;
-                    $now = new Carbon();
-                    $age_jrboar = $now->diffInMonths(Carbon::parse($bday_jrboar));
-                    array_push($ages_jrboar, $age_jrboar);
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-
-      // dd($ages_gilt, $ages_jrboar);
-
-    	return view('pigs.growerinventory', compact('pigs', 'sows', 'boars', 'gilts', 'jrboars', 'ages_gilt', 'ages_jrboar'));
+    	return view('pigs.growerinventory', compact('pigs', 'sows', 'boars'));
     }
 
     public function getMortalityAndSalesReportPage(){
