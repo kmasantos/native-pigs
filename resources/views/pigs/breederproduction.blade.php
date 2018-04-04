@@ -90,6 +90,7 @@
 	    		<thead>
 	    			<tr>
 	    				<th></th>
+	    				<th class="grey lighten-2">Pigs available</th>
 	    				<th>Minimum</th>
 	    				<th>Maximum</th>
 	    				<th>Average</th>
@@ -99,24 +100,27 @@
 	    		<tbody>
 	    			<tr>
 	    				<td>Sows, months</td>
-	    				<td></td>
-	    				<td></td>
-	    				<td></td>
-	    				<td></td>
+	    				<td class="grey lighten-2">{{ count($ages_weanedsow) }}</td>
+	    				<td>{{ min($ages_weanedsow) }}</td>
+	    				<td>{{ max($ages_weanedsow) }}</td>
+	    				<td>{{ round(array_sum($ages_weanedsow)/count($ages_weanedsow), 4) }}</td>
+	    				<td>{{ round($ages_weanedsow_sd, 4) }}</td>
 	    			</tr>
 	    			<tr>
 	    				<td>Boars, months</td>
-	    				<td></td>
-	    				<td></td>
-	    				<td></td>
-	    				<td></td>
+	    				<td class="grey lighten-2">{{ count($ages_weanedboar) }}</td>
+	    				<td>{{ min($ages_weanedboar) }}</td>
+	    				<td>{{ max($ages_weanedboar) }}</td>
+	    				<td>{{ round(array_sum($ages_weanedboar)/count($ages_weanedboar), 4) }}</td>
+	    				<td>{{ round($ages_weanedboar_sd, 4) }}</td>
 	    			</tr>
 	    			<tr>
 	    				<td>Herd, months</td>
-	    				<td></td>
-	    				<td></td>
-	    				<td></td>
-	    				<td></td>
+	    				<td class="grey lighten-2">{{ count($ages_weanedpig) }}</td>
+	    				<td>{{ min($ages_weanedpig) }}</td>
+	    				<td>{{ max($ages_weanedpig) }}</td>
+	    				<td>{{ round(array_sum($ages_weanedpig)/count($ages_weanedpig), 4) }}</td>
+	    				<td>{{ round($ages_weanedpig_sd, 4) }}</td>
 	    			</tr>
 	    		</tbody>
 	    	</table>
