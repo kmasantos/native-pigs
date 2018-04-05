@@ -1271,10 +1271,18 @@ class FarmController extends Controller
     			}
     		}
     	}
-			$weights45d_sd = static::standardDeviation($weights45d, false);
-    	$weights60d_sd = static::standardDeviation($weights60d, false);
-    	$weights90d_sd = static::standardDeviation($weights90d, false);
-    	$weights180d_sd = static::standardDeviation($weights180d, false); 
+			if($weight45d != []){
+        $weights45d_sd = static::standardDeviation($weights45d, false);
+      }
+      if($weights60d != []){
+        $weights60d_sd = static::standardDeviation($weights60d, false);
+      }
+    	if($weights90d != []){
+        $weights90d_sd = static::standardDeviation($weights90d, false);
+      }
+      if($weights180d != []){
+        $weights180d_sd = static::standardDeviation($weights180d, false); 
+      }
 
       $sows = [];
       $boars = [];
@@ -1308,7 +1316,9 @@ class FarmController extends Controller
           }
         }
       }
-      $ages_weanedsow_sd = static::standardDeviation($ages_weanedsow, false);
+      if($ages_weanedsow != []){
+        $ages_weanedsow_sd = static::standardDeviation($ages_weanedsow, false);
+      }
 
       $ages_weanedboar = [];
       foreach ($boars as $boar) {
@@ -1331,7 +1341,9 @@ class FarmController extends Controller
           }
         }
       }
-      $ages_weanedboar_sd = static::standardDeviation($ages_weanedboar, false);
+      if($ages_weanedboar != []){
+        $ages_weanedboar_sd = static::standardDeviation($ages_weanedboar, false);
+      }
 
       $ages_weanedpig = [];
       foreach ($pigs as $pig) {
@@ -1354,8 +1366,9 @@ class FarmController extends Controller
           }
         }
       }
-      $ages_weanedpig_sd = static::standardDeviation($ages_weanedpig, false);
-
+      if($ages_weanedpig != []){
+        $ages_weanedpig_sd = static::standardDeviation($ages_weanedpig, false);
+      }
 
       $breederages = [];
       $breeders = [];
@@ -1614,6 +1627,7 @@ class FarmController extends Controller
     public function getViewSowPage($id){
       $sow = Animal::find($id);
       $properties = $sow->getAnimalProperties();
+      $ponderalprop = $properties->where("property_id", 43)->first();
 
       $now = Carbon::now();
       if(!is_null($properties->where("property_id", 25)->first())){
@@ -1631,11 +1645,17 @@ class FarmController extends Controller
         $ponderalIndexValue = $properties->where("property_id", 47)->first()->value/(($properties->where("property_id", 40)->first()->value/100)**3);
       }
 
-      $ponderalindex = new AnimalProperty;
-      $ponderalindex->animal_id = $sow->id;
-      $ponderalindex->property_id = 43;
-      $ponderalindex->value = $ponderalIndexValue;
-      $ponderalindex->save();
+      if(is_null($properties->where("property_id", 43)->first())){
+        $ponderalindex = new AnimalProperty;
+        $ponderalindex->animal_id = $sow->id;
+        $ponderalindex->property_id = 43;
+        $ponderalindex->value = $ponderalIndexValue;
+        $ponderalindex->save();
+      }
+      else{
+        $ponderalprop->value = $ponderalIndexValue;
+        $ponderalprop->save();
+      }
 
       if(!is_null($properties->where("property_id", 25)->first()) && !is_null($properties->where("property_id", 61)->first())){
         $start_weaned = Carbon::parse($properties->where("property_id", 25)->first()->value);
@@ -1652,6 +1672,7 @@ class FarmController extends Controller
     public function getViewBoarPage($id){
       $boar = Animal::find($id);
       $properties = $boar->getAnimalProperties();
+      $ponderalprop = $properties->where("property_id", 43)->first();
 
       $now = Carbon::now();
       if(!is_null($properties->where("property_id", 25)->first())){
@@ -1669,11 +1690,17 @@ class FarmController extends Controller
         $ponderalIndexValue = $properties->where("property_id", 47)->first()->value/(($properties->where("property_id", 40)->first()->value/100)**3);
       }
 
-      $ponderalindex = new AnimalProperty;
-      $ponderalindex->animal_id = $boar->id;
-      $ponderalindex->property_id = 43;
-      $ponderalindex->value = $ponderalIndexValue;
-      $ponderalindex->save();
+      if(is_null($properties->where("property_id", 43)->first())){
+        $ponderalindex = new AnimalProperty;
+        $ponderalindex->animal_id = $boar->id;
+        $ponderalindex->property_id = 43;
+        $ponderalindex->value = $ponderalIndexValue;
+        $ponderalindex->save();
+      }
+      else{
+        $ponderalprop->value = $ponderalIndexValue;
+        $ponderalprop->save();
+      }
 
       if(!is_null($properties->where("property_id", 25)->first()) && !is_null($properties->where("property_id", 61)->first())){
         $start_weaned = Carbon::parse($properties->where("property_id", 25)->first()->value);

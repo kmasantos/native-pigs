@@ -227,7 +227,7 @@
                   <tr>
                     <td>Ponderal Index</td>
                     @if($boar->weightrecord == 1)
-                      <td>{{ round($ponderalindex->value, 4) }} kg/m<sup>3</sup></td>
+                      <td>{{ round($properties->where("property_id", 66)->first()->value, 4) }} kg/m<sup>3</sup></td>
                     @else
                       <td>Data not available</td>
                     @endif
