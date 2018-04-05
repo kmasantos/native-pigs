@@ -12,7 +12,7 @@
 			<div class="col s12 m10 l4">
         <div class="card">
           <div class="card-content grey lighten-2">
-            <h5>Mortality</h5>
+            <h5>Dead Pigs</h5>
             <h3>{{ count($dead) }}</h3>
           </div>
         </div>
@@ -20,7 +20,7 @@
       <div class="col s12 m10 l4">
         <div class="card">
           <div class="card-content grey lighten-2">
-            <h5>Sold</h5>
+            <h5>Sold Pigs</h5>
             <h3>{{ count($sold) }}</h3>
           </div>
         </div>
@@ -28,8 +28,8 @@
       <div class="col s12 m10 l4">
         <div class="card">
           <div class="card-content grey lighten-2">
-            <h5>Culled/Donated</h5>
-            <h3>{{ count($removed) }}</h3>
+            <h5>Culled/Donated Pigs</h5>
+            <h4>{{ count($removed) }}</h4>
           </div>
         </div>
       </div>

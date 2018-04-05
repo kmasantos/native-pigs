@@ -24,14 +24,14 @@
   		<div class="col s4 offset-s1">
   			<p>Generate Reports by:</p>
   		</div>
-    		<div class="col s5">
-					<select id="filter_keywords" name="filter_keywords" class="browser-default" onchange="document.getElementById('report_filter').submit();">
-						<option disabled selected>{{ $filter }}</option>
-						<option value="Sow">Sow</option>
-						<option value="Boar">Boar</option>
-						<option value="All">All pigs</option>
-					</select>
-				</div>
+  		<div class="col s5">
+				<select id="filter_keywords" name="filter_keywords" class="browser-default" onchange="document.getElementById('report_filter').submit();">
+					<option disabled selected>{{ $filter }}</option>
+					<option value="Sow">Sow</option>
+					<option value="Boar">Boar</option>
+					<option value="All">All pigs</option>
+				</select>
+			</div>
     	{!! Form::close() !!}
   	</div>
 
