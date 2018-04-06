@@ -1485,25 +1485,49 @@ class FarmController extends Controller
       }
 
       $gilts = [];
-      $bredpigs = [];
+      $bredsows = [];
       foreach ($sows as $sow) {
         $iproperties = $sow->getAnimalProperties();
         foreach ($iproperties as $iproperty) {
           if($iproperty->property_id == 88){
             if($iproperty->value == 0){
-              array_push($gilts, $iproperty);
+              array_push($gilts, $sow);
             }
             elseif($iproperty->value > 0){
-              array_push($bredpigs, $iproperty);
+              array_push($bredsows, $sow);
             }
           }
         }
       }
 
-      $lactating = count($bredpigs) - count($pregnantsows);
+      $lactating = count($bredsows) - count($pregnantsows);
       $drysows = count($sows) - (count($pregnantsows) + $lactating);
 
-    	return view('pigs.breederinventory', compact('pigs', 'sows', 'boars', 'groups', 'frequency', 'pregnantsows', 'lactating', 'drysows', 'gilts', 'bredpigs'));
+      $jrboars = [];
+      $bredboars = [];
+      foreach ($boars as $boar) {
+        $iproperties = $boar->getAnimalProperties();
+        foreach ($iproperties as $iproperty) {
+          if($iproperty->property_id == 88){
+            if($iproperty->value == 0){
+              array_push($jrboars, $boar);
+            }
+            elseif($iproperty->value > 0){
+              array_push($bredboars, $boar);
+            }
+          }
+        }
+      }
+
+    	return view('pigs.breederinventory', compact('pigs', 'sows', 'boars', 'groups', 'frequency', 'pregnantsows', 'lactating', 'drysows', 'gilts', 'bredsows', 'jrboars', 'bredboars'));
+    }
+
+    public function getSowUsagePage($id){
+      $sow = Animal::find($id);
+
+      $groups = Grouping::whereNotNull("mother_id")->where("mother_id", $sow->id)->get();
+
+      return view('pigs.sowusage', compact('sow', 'groups'));
     }
 
     public function getBoarUsagePage($id){

@@ -9,6 +9,31 @@
 		<h4>Gross Morphology Report</h4>
 		<div class="divider"></div>
 		<div class="row center" style="padding-top: 10px;">
+			{!! Form::open(['route' => 'farm.pig.filter_gross_morphology_report', 'method' => 'post', 'id' => 'report_filter']) !!}
+  		<div class="col s12">
+  			@if($filter == "All")
+  				<p class="center">Total number of pigs in the herd: {{ count($pigs) }}</p>
+  			@elseif($filter == "Sow")
+  				<p class="center">Total number of sows in the herd: {{ count($sows) }}</p>
+  			@elseif($filter == "Boar")
+  				<p class="center">Total number of boars in the herd: {{ count($boars) }}</p>
+  			@endif
+  		</div>
+	  	<div class="row">
+	  		<div class="col s4 offset-s1">
+	  			<p>Generate Reports by:</p>
+	  		</div>
+	  		<div class="col s5">
+					<select id="filter_keywords" name="filter_keywords" class="browser-default" onchange="document.getElementById('report_filter').submit();">
+						<option disabled selected>{{ $filter }}</option>
+						<option value="Sow">Sow</option>
+						<option value="Boar">Boar</option>
+						<option value="All">All pigs</option>
+					</select>
+				</div>
+	    	{!! Form::close() !!}
+	  	</div>
+
 			<div class="row">
 		    <div class="col s12">
 		      <ul class="tabs tabs-fixed-width green lighten-1">
@@ -18,30 +43,6 @@
 		    </div>
 		    <!-- HERD VIEW -->
 		    <div id="herdview" class="col s12">
-	    		{!! Form::open(['route' => 'farm.pig.filter_gross_morphology_report', 'method' => 'post', 'id' => 'report_filter']) !!}
-		  		<div class="col s12">
-		  			@if($filter == "All")
-		  				<p class="center">Total number of pigs in the herd: {{ count($pigs) }}</p>
-		  			@elseif($filter == "Sow")
-		  				<p class="center">Total number of sows in the herd: {{ count($sows) }}</p>
-		  			@elseif($filter == "Boar")
-		  				<p class="center">Total number of boars in the herd: {{ count($boars) }}</p>
-		  			@endif
-		  		</div>
-			  	<div class="row">
-			  		<div class="col s4 offset-s1">
-			  			<p>Generate Reports by:</p>
-			  		</div>
-			  		<div class="col s5">
-							<select id="filter_keywords" name="filter_keywords" class="browser-default" onchange="document.getElementById('report_filter').submit();">
-								<option disabled selected>{{ $filter }}</option>
-								<option value="Sow">Sow</option>
-								<option value="Boar">Boar</option>
-								<option value="All">All pigs</option>
-							</select>
-						</div>
-			    	{!! Form::close() !!}
-			  	</div>
 
 			  	<div class="row">
 				    <div class="col s12">
@@ -417,7 +418,207 @@
 			  </div>
 		    <!-- YEAR OF BIRTH VIEW -->
 		    <div id="yearofbirthview" class="col s12">
-
+		    	<div class="row center">
+		    		<div class="col s6">
+		    			<p class="green-text text-lighten-1">Hair Type</p>
+		    			<table class="centered">
+		    				<thead>
+		    					<tr>
+		    						<th>Year</th>
+		    						<th>Curly</th>
+		    						<th>Straight</th>
+		    						<th>No record</th>
+		    					</tr>
+		    				</thead>
+		    				<tbody>
+		    					<tr>
+		    						<td></td>
+		    						<td></td>
+		    						<td></td>
+		    						<td></td>
+		    					</tr>
+		    				</tbody>
+		    			</table>
+		    		</div>
+		    		<div class="col s6">
+		    			<p class="green-text text-lighten-1">Hair Length</p>
+		    			<table class="centered">
+		    				<thead>
+		    					<tr>
+		    						<th>Year</th>
+		    						<th>Short</th>
+		    						<th>Long</th>
+		    						<th>No record</th>
+		    					</tr>
+		    				</thead>
+		    				<tbody>
+		    					<tr>
+		    						<td></td>
+		    						<td></td>
+		    						<td></td>
+		    						<td></td>
+		    					</tr>
+		    				</tbody>
+		    			</table>
+		    		</div>
+		    	</div>
+		    	<div class="row center">
+		    		<div class="col s6">
+		    			<p class="green-text text-lighten-1">Coat Color</p>
+		    			<table class="centered">
+		    				<thead>
+		    					<tr>
+		    						<th>year</th>
+		    						<th>Black</th>
+		    						<th>Others</th>
+		    						<th>No record</th>
+		    					</tr>
+		    				</thead>
+		    				<tbody>
+		    					<tr>
+		    						<td></td>
+		    						<td></td>
+		    						<td></td>
+		    						<td></td>
+		    					</tr>
+		    				</tbody>
+		    			</table>
+		    		</div>
+		    		<div class="col s6">
+		    			<p class="green-text text-lighten-1">Color Pattern</p>
+		    			<table class="centered">
+		    				<thead>
+		    					<tr>
+		    						<th>Year</th>
+		    						<th>Plain</th>
+		    						<th>Socks</th>
+		    						<th>No record</th>
+		    					</tr>
+		    				</thead>
+		    				<tbody>
+		    					<tr>
+		    						<td></td>
+		    						<td></td>
+		    						<td></td>
+		    						<td></td>
+		    					</tr>
+		    				</tbody>
+		    			</table>
+		    		</div>
+		    	</div>
+		    	<div class="row center">
+		    		<div class="col s6">
+		    			<p class="green-text text-lighten-1">Head Shape</p>
+		    			<table class="centered">
+		    				<thead>
+		    					<tr>
+		    						<th>Year</th>
+		    						<th>Concave</th>
+		    						<th>Straight</th>
+		    						<th>No record</th>
+		    					</tr>
+		    				</thead>
+		    				<tbody>
+		    					<tr>
+		    						<td></td>
+		    						<td></td>
+		    						<td></td>
+		    						<td></td>
+		    					</tr>
+		    				</tbody>
+		    			</table>
+		    		</div>
+		    		<div class="col s6">
+		    			<p class="green-text text-lighten-1">Skin Type</p>
+		    			<table class="centered">
+		    				<thead>
+		    					<tr>
+		    						<th>Year</th>
+		    						<th>Smooth</th>
+		    						<th>Wrinkled</th>
+		    						<th>No record</th>
+		    					</tr>
+		    				</thead>
+		    				<tbody>
+		    					<tr>
+		    						<td></td>
+		    						<td></td>
+		    						<td></td>
+		    						<td></td>
+		    					</tr>
+		    				</tbody>
+		    			</table>
+		    		</div>
+		    	</div>
+		    	<div class="row center">
+		    		<div class="col s6">
+		    			<p class="green-text text-lighten-1">Ear Type</p>
+		    			<table class="centered">
+		    				<thead>
+		    					<tr>
+		    						<th>Year</th>
+		    						<th>Drooping</th>
+		    						<th>Semi-lop</th>
+		    						<th>Erect</th>
+		    						<th>No record</th>
+		    					</tr>
+		    				</thead>
+		    				<tbody>
+		    					<tr>
+		    						<td></td>
+		    						<td></td>
+		    						<td></td>
+		    						<td></td>
+		    						<td></td>
+		    					</tr>
+		    				</tbody>
+		    			</table>
+		    		</div>
+		    		<div class="col s6">
+		    			<p class="green-text text-lighten-1">Tail Type</p>
+		    			<table class="centered">
+		    				<thead>
+		    					<tr>
+		    						<th>Year</th>
+		    						<th>Curly</th>
+		    						<th>Straight</th>
+		    						<th>No record</th>
+		    					</tr>
+		    				</thead>
+		    				<tbody>
+		    					<tr>
+		    						<td></td>
+		    						<td></td>
+		    						<td></td>
+		    						<td></td>
+		    					</tr>
+		    				</tbody>
+		    			</table>
+		    		</div>
+		    	</div>
+		    	<div class="row center">
+		    		<div class="col s6 offset-s3">
+		    			<p class="green-text text-lighten-1">Backline</p>
+		    			<table class="centered">
+		    				<thead>
+		    					<tr>
+		    						<th>Year</th>
+		    						<th>Swayback</th>
+		    						<th>Straight</th>
+		    						<th>No record</th>
+		    					</tr>
+		    				</thead>
+		    				<tbody>
+		    					<tr>
+		    						<td></td>
+		    						<td></td>
+		    						<td></td>
+		    						<td></td>
+		    					</tr>
+		    				</tbody>
+		    			</table>
+		    		</div>
+		    	</div>
 		    </div>
 		  </div>
 	  </div>
