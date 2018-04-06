@@ -21,11 +21,12 @@
 	    </div>
 	    <!-- WEIGHTS -->
 	    <div id="weightsview" class="col s12">
+	    	<h5 class="center green-text text-lighten-1">Herd</h5>
 	    	<table class="centered">
 	    		<thead>
 	    			<tr>
 	    				<th>Weighing Age</th>
-	    				<th class="grey lighten-2">Pigs Weighed</th>
+	    				<th>Number of Pigs Weighed</th>
 	    				<th>Minimum</th>
 	    				<th>Maximum</th>
 	    				<th>Average</th>
@@ -38,7 +39,7 @@
 	    				@if($weights45d == [])
 		            <td colspan="5" class="center">No data available</td>
 		          @else
-		          	<td class="grey lighten-2">{{ count($weights45d) }}</td>
+		          	<td>{{ count($weights45d) }}</td>
 		    				<td>{{ min($weights45d) }}</td>
 		    				<td>{{ max($weights45d) }}</td>
 		    				<td>{{ round((array_sum($weights45d)/count($weights45d)), 4) }}</td>
@@ -50,7 +51,7 @@
 	    				@if($weights60d == [])
 		            <td colspan="5" class="center">No data available</td>
 		          @else
-		          	<td class="grey lighten-2">{{ count($weights60d) }}</td>
+		          	<td>{{ count($weights60d) }}</td>
 		    				<td>{{ min($weights60d) }}</td>
 		    				<td>{{ max($weights60d) }}</td>
 		    				<td>{{ round((array_sum($weights60d)/count($weights60d)), 4) }}</td>
@@ -62,7 +63,7 @@
 	    				@if($weights90d == [])
 		            <td colspan="5" class="center">No data available</td>
 		          @else
-		          	<td class="grey lighten-2">{{ count($weights90d) }}</td>
+		          	<td>{{ count($weights90d) }}</td>
 		    				<td>{{ min($weights90d) }}</td>
 		    				<td>{{ max($weights90d) }}</td>
 		    				<td>{{ round((array_sum($weights90d)/count($weights90d)), 4) }}</td>
@@ -74,7 +75,7 @@
 	    				@if($weights180d == [])
 		            <td colspan="5" class="center">No data available</td>
 		          @else
-		          	<td class="grey lighten-2">{{ count($weights180d) }}</td>
+		          	<td>{{ count($weights180d) }}</td>
 		    				<td>{{ min($weights180d) }}</td>
 		    				<td>{{ max($weights180d) }}</td>
 		    				<td>{{ round((array_sum($weights180d)/count($weights180d)), 4) }}</td>
@@ -83,14 +84,115 @@
 	    			</tr>
 	    		</tbody>
 	    	</table>
-	    </div>
+	    	<h5 class="center green-text text-lighten-1">Year of Birth</h5>
+	    	<div class="row center">
+	    		<p>Body weight at 45 days, kg</p>
+	    		<table class="centered">
+	    			<thead>
+	    				<tr>
+	    					<th>Year</th>
+	    					<th>Number of Pigs Weighed</th>
+	    					<th>Minimum</th>
+	    					<th>Maximum</th>
+	    					<th>Average</th>
+	    					<th>Standard Deviation</th>
+	    				</tr>
+	    			</thead>
+	    			<tbody>
+	    				<tr>
+	    					<td></td>
+	    					<td></td>
+	    					<td></td>
+	    					<td></td>
+	    					<td></td>
+	    					<td></td>
+	    				</tr>
+	    			</tbody>
+	    		</table>
+	    	</div>
+		    <div class="row center">
+	    		<p>Body weight at 60 days, kg</p>
+	    		<table class="centered">
+	    			<thead>
+	    				<tr>
+	    					<th>Year</th>
+	    					<th>Number of Pigs Weighed</th>
+	    					<th>Minimum</th>
+	    					<th>Maximum</th>
+	    					<th>Average</th>
+	    					<th>Standard Deviation</th>
+	    				</tr>
+	    			</thead>
+	    			<tbody>
+	    				<tr>
+	    					<td></td>
+	    					<td></td>
+	    					<td></td>
+	    					<td></td>
+	    					<td></td>
+	    					<td></td>
+	    				</tr>
+	    			</tbody>
+	    		</table>
+	    	</div>
+	    	<div class="row center">
+	    		<p>Body weight at 90 days, kg</p>
+	    		<table class="centered">
+	    			<thead>
+	    				<tr>
+	    					<th>Year</th>
+	    					<th>Number of Pigs Weighed</th>
+	    					<th>Minimum</th>
+	    					<th>Maximum</th>
+	    					<th>Average</th>
+	    					<th>Standard Deviation</th>
+	    				</tr>
+	    			</thead>
+	    			<tbody>
+	    				<tr>
+	    					<td></td>
+	    					<td></td>
+	    					<td></td>
+	    					<td></td>
+	    					<td></td>
+	    					<td></td>
+	    				</tr>
+	    			</tbody>
+	    		</table>
+	    	</div>
+		    <div class="row center">
+	    		<p>Body weight at 180 days, kg</p>
+	    		<table class="centered">
+	    			<thead>
+	    				<tr>
+	    					<th>Year</th>
+	    					<th>Number of Pigs Weighed</th>
+	    					<th>Minimum</th>
+	    					<th>Maximum</th>
+	    					<th>Average</th>
+	    					<th>Standard Deviation</th>
+	    				</tr>
+	    			</thead>
+	    			<tbody>
+	    				<tr>
+	    					<td></td>
+	    					<td></td>
+	    					<td></td>
+	    					<td></td>
+	    					<td></td>
+	    					<td></td>
+	    				</tr>
+	    			</tbody>
+	    		</table>
+	    	</div>
+    	</div>
 	    <!-- AGE AT WEANING -->
 	    <div id="weaningageview" class="col s12">
 	    	<table class="centered">
 	    		<thead>
 	    			<tr>
 	    				<th></th>
-	    				<th class="grey lighten-2">Pigs Weaned</th>
+	    				<th>Number of Pigs Weaned</th>
 	    				<th>Minimum</th>
 	    				<th>Maximum</th>
 	    				<th>Average</th>
@@ -103,7 +205,7 @@
 	    				@if($ages_weanedsow == [])
 		            <td colspan="5" class="center">No data available</td>
 		          @else
-		    				<td class="grey lighten-2">{{ count($ages_weanedsow) }}</td>
+		    				<td>{{ count($ages_weanedsow) }}</td>
 		    				<td>{{ min($ages_weanedsow) }}</td>
 		    				<td>{{ max($ages_weanedsow) }}</td>
 		    				<td>{{ round(array_sum($ages_weanedsow)/count($ages_weanedsow), 4) }}</td>
@@ -115,7 +217,7 @@
 	    				@if($ages_weanedboar == [])
 		            <td colspan="5" class="center">No data available</td>
 		          @else
-		    				<td class="grey lighten-2">{{ count($ages_weanedboar) }}</td>
+		    				<td>{{ count($ages_weanedboar) }}</td>
 		    				<td>{{ min($ages_weanedboar) }}</td>
 		    				<td>{{ max($ages_weanedboar) }}</td>
 		    				<td>{{ round(array_sum($ages_weanedboar)/count($ages_weanedboar), 4) }}</td>
@@ -127,7 +229,7 @@
 	    				@if($ages_weanedpig == [])
 		            <td colspan="5" class="center">No data available</td>
 		          @else
-		    				<td class="grey lighten-2">{{ count($ages_weanedpig) }}</td>
+		    				<td>{{ count($ages_weanedpig) }}</td>
 		    				<td>{{ min($ages_weanedpig) }}</td>
 		    				<td>{{ max($ages_weanedpig) }}</td>
 		    				<td>{{ round(array_sum($ages_weanedpig)/count($ages_weanedpig), 4) }}</td>
@@ -143,7 +245,7 @@
 	    		<thead>
 	    			<tr>
 	    				<th></th>
-	    				<th class="grey lighten-2">Pigs Bred</th>
+	    				<th>Number of Pigs Bred</th>
 	    				<th>Minimum</th>
 	    				<th>Maximum</th>
 	    				<th>Average</th>
@@ -153,7 +255,7 @@
 	    		<tbody>
 	    			<tr>
 	    				<td>Sows, months</td>
-	    				<th class="grey lighten-2"></td>
+	    				<td></td>
 	    				<td></td>
 	    				<td></td>
 	    				<td></td>
@@ -161,7 +263,7 @@
 	    			</tr>
 	    			<tr>
 	    				<td>Boars, months</td>
-	    				<th class="grey lighten-2"></td>
+	    				<td></td>
 	    				<td></td>
 	    				<td></td>
 	    				<td></td>
@@ -169,7 +271,7 @@
 	    			</tr>
 	    			<tr>
 	    				<td>Herd, months</td>
-	    				<th class="grey lighten-2"></td>
+	    				<td></td>
 	    				<td></td>
 	    				<td></td>
 	    				<td></td>
@@ -180,15 +282,40 @@
 	    </div>
 	    <!-- AGE OF BREEDING HERD -->
 	    <div id="breedingherdview" class="col s12">
-	    	<div class="col s6 push-s3">
-    			<div class="card">
-    				<div class="card-content grey lighten-2">
-    					<h3>{{ round(array_sum($breederages)/count($breederages) ,2) }}*</h3>
-    					<h5>Average age, months</h5><br><br>
-    					*breeders with available age: {{ count($breederages) }} out of {{ count($breeders) }}<br>
-    				</div>
-    			</div>
-    		</div>
+	    	<div class="row">
+		    	<div class="col s6 push-s3">
+	    			<div class="card">
+	    				<div class="card-content grey lighten-2">
+	    					<h5>All Breeders</h5>
+	    					<h3>{{ round(array_sum($breederages)/count($breederages) ,2) }}*</h3>
+	    					<h5>Average age, months</h5><br><br>
+	    					*breeders with available age: {{ count($breederages) }} out of {{ count($breeders) }}<br>
+	    				</div>
+	    			</div>
+	    		</div>
+	    	</div>
+	    	<div class="row">
+	    		<div class="col s6">
+	    			<div class="card">
+	    				<div class="card-content grey lighten-2">
+	    					<h5>Sow Breeders</h5>
+	    					<h3>{{-- {{ round(array_sum($breederages)/count($breederages) ,2) }} --}}*</h3>
+	    					<h5>Average age, months</h5><br><br>
+	    					*breeders with available age: {{-- {{ count($breederages) }} --}} out of {{-- {{ count($breeders) }} --}}<br>
+	    				</div>
+	    			</div>
+	    		</div>
+	    		<div class="col s6">
+	    			<div class="card">
+	    				<div class="card-content grey lighten-2">
+	    					<h5>Boar Breeders</h5>
+	    					<h3>{{-- {{ round(array_sum($breederages)/count($breederages) ,2) }} --}}*</h3>
+	    					<h5>Average age, months</h5><br><br>
+	    					*breeders with available age: {{-- {{ count($breederages) }} --}} out of {{-- {{ count($breeders) }} --}}<br>
+	    				</div>
+	    			</div>
+	    		</div>
+	    	</div>
 	    </div>
 		</div>
 	</div>
