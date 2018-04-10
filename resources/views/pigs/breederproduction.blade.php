@@ -102,11 +102,15 @@
 	    				@foreach($years as $year)
 	    				<tr>
 	    					<td>{{ $year }}</td>
-	    					<td></td>
-	    					<td></td>
-	    					<td></td>
-	    					<td></td>
-	    					<td></td>
+	    					<td>{{ count(App\Http\Controllers\HelperController::getWeightsPerYearOfBirth($year, 45)) }}</td>
+	    					@if(App\Http\Controllers\HelperController::getWeightsPerYearOfBirth($year, 45) == [])
+		    					<td colspan="4">No data available</td>
+		    				@else
+		    					<td>{{ min(App\Http\Controllers\HelperController::getWeightsPerYearOfBirth($year, 45)) }}</td>
+		    					<td>{{ max(App\Http\Controllers\HelperController::getWeightsPerYearOfBirth($year, 45)) }}</td>
+		    					<td>{{ round(array_sum(App\Http\Controllers\HelperController::getWeightsPerYearOfBirth($year, 45))/count(App\Http\Controllers\HelperController::getWeightsPerYearOfBirth($year, 45)), 2) }}</td>
+		    					<td></td>
+		    				@endif
 	    				</tr>
 	    				@endforeach
 	    			</tbody>
@@ -126,14 +130,20 @@
 	    				</tr>
 	    			</thead>
 	    			<tbody>
+	    				@foreach($years as $year)
 	    				<tr>
-	    					<td></td>
-	    					<td></td>
-	    					<td></td>
-	    					<td></td>
-	    					<td></td>
-	    					<td></td>
+	    					<td>{{ $year }}</td>
+	    					<td>{{ count(App\Http\Controllers\HelperController::getWeightsPerYearOfBirth($year, 46)) }}</td>
+	    					@if(App\Http\Controllers\HelperController::getWeightsPerYearOfBirth($year, 46) == [])
+		    					<td colspan="4">No data available</td>
+		    				@else
+		    					<td>{{ min(App\Http\Controllers\HelperController::getWeightsPerYearOfBirth($year, 46)) }}</td>
+		    					<td>{{ max(App\Http\Controllers\HelperController::getWeightsPerYearOfBirth($year, 46)) }}</td>
+		    					<td>{{ round(array_sum(App\Http\Controllers\HelperController::getWeightsPerYearOfBirth($year, 46))/count(App\Http\Controllers\HelperController::getWeightsPerYearOfBirth($year, 46)), 2) }}</td>
+		    					<td></td>
+		    				@endif
 	    				</tr>
+	    				@endforeach
 	    			</tbody>
 	    		</table>
 	    	</div>
@@ -151,14 +161,20 @@
 	    				</tr>
 	    			</thead>
 	    			<tbody>
+	    				@foreach($years as $year)
 	    				<tr>
-	    					<td></td>
-	    					<td></td>
-	    					<td></td>
-	    					<td></td>
-	    					<td></td>
-	    					<td></td>
+	    					<td>{{ $year }}</td>
+	    					<td>{{ count(App\Http\Controllers\HelperController::getWeightsPerYearOfBirth($year, 69)) }}</td>
+	    					@if(App\Http\Controllers\HelperController::getWeightsPerYearOfBirth($year, 69) == [])
+		    					<td colspan="4">No data available</td>
+		    				@else
+		    					<td>{{ min(App\Http\Controllers\HelperController::getWeightsPerYearOfBirth($year, 69)) }}</td>
+		    					<td>{{ max(App\Http\Controllers\HelperController::getWeightsPerYearOfBirth($year, 69)) }}</td>
+		    					<td>{{ round(array_sum(App\Http\Controllers\HelperController::getWeightsPerYearOfBirth($year, 69))/count(App\Http\Controllers\HelperController::getWeightsPerYearOfBirth($year, 69)), 2) }}</td>
+		    					<td></td>
+		    				@endif
 	    				</tr>
+	    				@endforeach
 	    			</tbody>
 	    		</table>
 	    	</div>
@@ -176,14 +192,20 @@
 	    				</tr>
 	    			</thead>
 	    			<tbody>
+	    				@foreach($years as $year)
 	    				<tr>
-	    					<td></td>
-	    					<td></td>
-	    					<td></td>
-	    					<td></td>
-	    					<td></td>
-	    					<td></td>
+	    					<td>{{ $year }}</td>
+	    					<td>{{ count(App\Http\Controllers\HelperController::getWeightsPerYearOfBirth($year, 47)) }}</td>
+	    					@if(App\Http\Controllers\HelperController::getWeightsPerYearOfBirth($year, 47) == [])
+		    					<td colspan="4">No data available</td>
+		    				@else
+		    					<td>{{ min(App\Http\Controllers\HelperController::getWeightsPerYearOfBirth($year, 47)) }}</td>
+		    					<td>{{ max(App\Http\Controllers\HelperController::getWeightsPerYearOfBirth($year, 47)) }}</td>
+		    					<td>{{ round(array_sum(App\Http\Controllers\HelperController::getWeightsPerYearOfBirth($year, 47))/count(App\Http\Controllers\HelperController::getWeightsPerYearOfBirth($year, 47)), 2) }}</td>
+		    					<td></td>
+		    				@endif
 	    				</tr>
+	    				@endforeach
 	    			</tbody>
 	    		</table>
 	    	</div>

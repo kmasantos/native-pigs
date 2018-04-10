@@ -1,11 +1,25 @@
-if ( ! function_exists('standardDeviation')){
-	function standardDeviation($arr, $samp = false){
-    $ave = array_sum($arr) / count($arr);
-    $variance = 0.0;
-    foreach ($arr as $i) {
-      $variance += pow($i - $ave, 2);
+static function getWeightsPerYearOfBirth($year, $property_id){
+	$pigs = Animal::where("animaltype_id", 3)->where("status", "active")->get();
+
+	$bornonyear = [];
+	foreach ($pigs as $pig) {
+		if(substr($pig->registryid, -10, 4) == $year){
+      array_push($bornonyear, $pig);
     }
-    $variance /= ( $samp ? count($arr) - 1 : count($arr) );
-    return (float) sqrt($variance);
 	}
+
+	$weights = [];
+	foreach ($bornonyear as $bornpig) {
+		$properties = $bornpig->getAnimalProperties();
+		foreach ($properties as $property) {
+			if($property->property_id == $property_id){
+				if($property->value != ""){
+					$weight = $property->value;
+					array_push($weights, $weight);
+				}
+			}
+		}
+	}
+
+	return $weights;
 }

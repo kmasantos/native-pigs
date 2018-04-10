@@ -80,11 +80,11 @@ class Animal extends Model
   }
 
   public function setAnimalType($animaltype_id){
-      $this->animaltype = $animaltype_id;
+    $this->animaltype = $animaltype_id;
   }
 
   public function setBreed($breed_id){
-      $this->breed_id = $breed_id;
+    $this->breed_id = $breed_id;
   }
 
   public function setFarm($farm_id){
