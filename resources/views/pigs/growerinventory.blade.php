@@ -21,11 +21,11 @@
 		var growerinventorychart = new Chart(ctx1, {
 			"type":"bar",
 			"data": {
-				"labels":["0","1","2","3","4","5","6"],
+				"labels":["0","1","2","3","4","5","6", ">6"],
 				"datasets":[
 					{
 						"label":"Sows",
-						"data":[2,3,4,5,1,3,6],
+						"data":[2,3,4,5,1,3,6,1],
 						"fill":false,
 						"backgroundColor": "rgba(255, 99, 132, 0.2)",
 						"borderColor": "rgb(255, 99, 132)",
@@ -33,7 +33,7 @@
 					},
 					{
 						"label": "Boars",
-						"data":[2,1,1,4,3,0,1],
+						"data":[2,1,1,4,3,0,1,4],
 						"fill":false,
 						"backgroundColor": "rgba(75, 192, 192, 0.2)",
 						"borderColor": "rgb(75, 192, 192)",
