@@ -299,9 +299,9 @@
 	    			<div class="card">
 	    				<div class="card-content grey lighten-2">
 	    					<h5>Sow Breeders</h5>
-	    					<h3>{{-- {{ round(array_sum($breederages)/count($breederages) ,2) }} --}}*</h3>
+	    					<h3>{{ round(array_sum($breedersowages)/count($breedersowages) ,2) }}*</h3>
 	    					<h5>Average age, months</h5><br><br>
-	    					*breeders with available age: {{-- {{ count($breederages) }} --}} out of {{-- {{ count($breeders) }} --}}<br>
+	    					*breeders with available age: {{ count($breedersowages) }} out of {{ count($breedersows) }}<br>
 	    				</div>
 	    			</div>
 	    		</div>
@@ -309,9 +309,9 @@
 	    			<div class="card">
 	    				<div class="card-content grey lighten-2">
 	    					<h5>Boar Breeders</h5>
-	    					<h3>{{-- {{ round(array_sum($breederages)/count($breederages) ,2) }} --}}*</h3>
+	    					<h3>{{ round(array_sum($breederboarages)/count($breederboarages) ,2) }}*</h3>
 	    					<h5>Average age, months</h5><br><br>
-	    					*breeders with available age: {{-- {{ count($breederages) }} --}} out of {{-- {{ count($breeders) }} --}}<br>
+	    					*breeders with available age: {{ count($breederboarages) }} out of {{ count($breederboars) }}<br>
 	    				</div>
 	    			</div>
 	    		</div>
