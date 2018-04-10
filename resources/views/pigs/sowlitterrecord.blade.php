@@ -101,11 +101,15 @@
 
 							</div>
 							<div class="row">
-								<div class="col s6">
+								<div class="col s8">
 									Parity
 								</div>
-								<div class="col s5">
-									<input type="text" name="parity" class="validate">
+								<div class="col s4">
+									@if(is_null($family->getGroupingProperties()->where("property_id", 76)->first()))
+										No data available
+									@else
+										{{ $family->getGroupingProperties()->where("property_id", 76)->first()->value }}
+									@endif
 								</div>
 							</div>
 							<div class="row">
