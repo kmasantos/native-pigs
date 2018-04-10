@@ -153,6 +153,76 @@ class FarmController extends Controller
 
     /***** FUNCTIONS FOR PIG *****/
 
+    static function addParity($id){
+      $grouping = Grouping::find($id);
+      $mother = $grouping->getMother();
+
+      $parityprop = $mother->getAnimalProperties()->where("property_id", 76)->first();
+      $paritypropgroup = $grouping->getGroupingProperties()->where("property_id", 76)->first();
+      $status = $grouping->getGroupingProperties()->where("property_id", 50)->first();
+      $families = Grouping::where("mother_id", $mother->id)->get();
+
+			$dates_bred = [];
+			foreach ($families as $family) {
+				$familyproperties = $family->getGroupingProperties();
+				foreach ($familyproperties as $familyproperty) {
+					if($familyproperty->property_id == 48){
+						$date_bred = $familyproperty->value;
+						array_push($dates_bred, $date_bred);
+					}
+      	}
+    	}
+    	
+    	if(is_null($parityprop)){
+    		$parity = new AnimalProperty;
+    		$parity->animal_id = $mother->id;
+    		$parity->property_id = 76;
+    		$parity->value = count($dates_bred);
+    		$parity->save();
+    	}
+    	else{
+    		$parityprop->value = count($dates_bred);
+    		$parityprop->save();
+    	}
+
+    	$sorted_dates = array_sort($dates_bred);
+    	$count = 0;
+    	foreach ($sorted_dates as $sorted_date) {
+    		$count = $count + 1;
+    		if($sorted_date == $grouping->getGroupingProperties()->where("property_id", 48)->first()->value){
+    			if($status->value == "Farrowed" || $status->value == "Pregnant"){
+    				if(is_null($paritypropgroup)){
+		    			$paritygroup = new GroupingProperty;
+		    			$paritygroup->grouping_id = $grouping->id;
+				      $paritygroup->property_id = 76;
+				      $paritygroup->value = $count;
+				      $paritygroup->datecollected = new Carbon();
+				      $paritygroup->save();
+	    			}
+	    			else{
+	  					$paritypropgroup->value = $count;
+	  					$paritypropgroup->save();
+	    			}
+    			}
+    			elseif($status->value == "Recycled"){
+    				$count = $count - 1;
+    				if(is_null($paritypropgroup)){
+		    			$paritygroup = new GroupingProperty;
+		    			$paritygroup->grouping_id = $grouping->id;
+				      $paritygroup->property_id = 76;
+				      $paritygroup->value = $count;
+				      $paritygroup->datecollected = new Carbon();
+				      $paritygroup->save();
+	    			}
+	    			else{
+	  					$paritypropgroup->value = $count;
+	  					$paritypropgroup->save();
+	    			}
+    			}
+    		}
+    	}
+    }
+
     public function getAddSowLitterRecordPage($id){
       $family = Grouping::find($id);
       $properties = $family->getGroupingProperties();
@@ -216,6 +286,7 @@ class FarmController extends Controller
       }
 
       // dd($offsprings);
+      static::addParity($id);
 
       return view('pigs.sowlitterrecord', compact('family', 'offsprings', 'properties', 'countMales', 'countFemales', 'aveBirthWeight', 'weaned', 'aveWeaningWeight'));
     }
@@ -1370,6 +1441,8 @@ class FarmController extends Controller
         $ages_weanedpig_sd = static::standardDeviation($ages_weanedpig, false);
       }
 
+      $groups = Grouping::whereNotNull("mother_id")->get();
+
       $breederages = [];
       $breeders = [];
       foreach ($pigs as $pig) {
@@ -1394,7 +1467,55 @@ class FarmController extends Controller
         }
       }
 
-    	return view('pigs.breederproduction', compact('pigs', 'weights45d', 'weights60d', 'weights90d', 'weights180d', 'weights45d_sd', 'weights60d_sd', 'weights90d_sd', 'weights180d_sd', 'ages_weanedsow', 'ages_weanedsow_sd', 'ages_weanedboar', 'ages_weanedboar_sd', 'ages_weanedpig', 'ages_weanedpig_sd', 'breederages', 'breeders'));
+      $breedersowages = [];
+      $breedersows = [];
+      foreach ($sows as $sow) {
+      	$sowproperties = $sow->getAnimalProperties();
+      	foreach ($sowproperties as $sowproperty) {
+      		if($sowproperty->property_id == 88){
+      			if($sowproperty->value > 0){
+      				array_push($breedersows, $sow);
+      				$bredsowproperties = $sow->getAnimalProperties();
+      				foreach ($bredsowproperties as $bredsowproperty) {
+      					if($bredsowproperty->property_id == 25){
+      						if(!is_null($bredsowproperty->value) && $bredsowproperty->value != "Not specified"){
+      							$bday_sow = $bredsowproperty->value;
+      							$now = new Carbon();
+      							$breedersowage = $now->diffInMonths(Carbon::parse($bday_sow));
+      							array_push($breedersowages, $breedersowage);
+      						}
+      					}
+      				}
+      			}
+      		}
+      	}
+      }
+
+      $breederboarages = [];
+      $breederboars = [];
+      foreach ($boars as $boar) {
+      	$boarproperties = $boar->getAnimalProperties();
+      	foreach ($boarproperties as $boarproperty) {
+      		if($boarproperty->property_id == 88){
+      			if($boarproperty->value > 0){
+      				array_push($breederboars, $boar);
+      				$bredboarproperties = $boar->getAnimalProperties();
+      				foreach ($bredboarproperties as $bredboarproperty) {
+      					if($bredboarproperty->property_id == 25){
+      						if(!is_null($bredboarproperty->value) && $bredboarproperty->value != "Not specified"){
+      							$bday_boar = $bredboarproperty->value;
+      							$now = new Carbon();
+      							$breederboarage = $now->diffInMonths(Carbon::parse($bday_boar));
+      							array_push($breederboarages, $breederboarage);
+      						}
+      					}
+      				}
+      			}
+      		}
+      	}
+      }
+
+    	return view('pigs.breederproduction', compact('pigs', 'weights45d', 'weights60d', 'weights90d', 'weights180d', 'weights45d_sd', 'weights60d_sd', 'weights90d_sd', 'weights180d_sd', 'ages_weanedsow', 'ages_weanedsow_sd', 'ages_weanedboar', 'ages_weanedboar_sd', 'ages_weanedpig', 'ages_weanedpig_sd', 'breederages', 'breeders', 'breedersowages', 'breedersows', 'breederboarages', 'breederboars'));
     }
 
     public function getProductionPerformancePage(){
@@ -1417,7 +1538,7 @@ class FarmController extends Controller
 
       $groups = Grouping::whereNotNull("mother_id")->get();
 
-      // boar usage
+      // boars
       foreach ($boars as $boar) {
         $frequencies = [];
         $frequency = 0;
@@ -1441,6 +1562,22 @@ class FarmController extends Controller
         else{
           $freqproperty->value = array_sum($frequencies);
           $freqproperty->save();
+        }
+      }
+
+      $jrboars = [];
+      $bredboars = [];
+      foreach ($boars as $boar) {
+        $iproperties = $boar->getAnimalProperties();
+        foreach ($iproperties as $iproperty) {
+          if($iproperty->property_id == 88){
+            if($iproperty->value == 0){
+              array_push($jrboars, $boar);
+            }
+            elseif($iproperty->value > 0){
+              array_push($bredboars, $boar);
+            }
+          }
         }
       }
 
@@ -1502,22 +1639,6 @@ class FarmController extends Controller
 
       $lactating = count($bredsows) - count($pregnantsows);
       $drysows = count($sows) - (count($pregnantsows) + $lactating);
-
-      $jrboars = [];
-      $bredboars = [];
-      foreach ($boars as $boar) {
-        $iproperties = $boar->getAnimalProperties();
-        foreach ($iproperties as $iproperty) {
-          if($iproperty->property_id == 88){
-            if($iproperty->value == 0){
-              array_push($jrboars, $boar);
-            }
-            elseif($iproperty->value > 0){
-              array_push($bredboars, $boar);
-            }
-          }
-        }
-      }
 
     	return view('pigs.breederinventory', compact('pigs', 'sows', 'boars', 'groups', 'frequency', 'pregnantsows', 'lactating', 'drysows', 'gilts', 'bredsows', 'jrboars', 'bredboars'));
     }
