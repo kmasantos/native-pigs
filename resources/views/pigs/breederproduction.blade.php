@@ -99,14 +99,16 @@
 	    				</tr>
 	    			</thead>
 	    			<tbody>
+	    				@foreach($years as $year)
 	    				<tr>
-	    					<td></td>
+	    					<td>{{ $year }}</td>
 	    					<td></td>
 	    					<td></td>
 	    					<td></td>
 	    					<td></td>
 	    					<td></td>
 	    				</tr>
+	    				@endforeach
 	    			</tbody>
 	    		</table>
 	    	</div>
@@ -245,7 +247,7 @@
 	    		<thead>
 	    			<tr>
 	    				<th></th>
-	    				<th>Number of Pigs Bred</th>
+	    				<th>Number of Pigs Bred with Ages</th>
 	    				<th>Minimum</th>
 	    				<th>Maximum</th>
 	    				<th>Average</th>
@@ -255,27 +257,27 @@
 	    		<tbody>
 	    			<tr>
 	    				<td>Sows, months</td>
-	    				<td></td>
-	    				<td></td>
-	    				<td></td>
-	    				<td></td>
-	    				<td></td>
+	    				<td>{{ count($firstbredsowsages) }} out of {{ count($firstbredsows) }} bred sows</td>
+	    				<td>{{ min($firstbredsowsages) }}</td>
+	    				<td>{{ max($firstbredsowsages) }}</td>
+	    				<td>{{ round(array_sum($firstbredsowsages)/count($firstbredsowsages), 2) }}</td>
+	    				<td>{{ round($firstbredsowsages_sd, 2) }}</td>
 	    			</tr>
 	    			<tr>
 	    				<td>Boars, months</td>
-	    				<td></td>
-	    				<td></td>
-	    				<td></td>
-	    				<td></td>
-	    				<td></td>
+	    				<td>{{ count($firstbredboarsages) }} out of {{ count($firstbredboars)+count($uniqueboars) }} bred boars</td>
+	    				<td>{{ min($firstbredboarsages) }}</td>
+	    				<td>{{ max($firstbredboarsages) }}</td>
+	    				<td>{{ round(array_sum($firstbredboarsages)/count($firstbredboarsages), 2) }}</td>
+	    				<td>{{ round($firstbredboarsages_sd, 2) }}</td>
 	    			</tr>
 	    			<tr>
 	    				<td>Herd, months</td>
-	    				<td></td>
-	    				<td></td>
-	    				<td></td>
-	    				<td></td>
-	    				<td></td>
+	    				<td>{{ count($firstbredages) }} out of {{ count($firstbredsows)+count($firstbredboars)+count($uniqueboars) }} bred pigs</td>
+	    				<td>{{ min($firstbredages) }}</td>
+	    				<td>{{ max($firstbredages) }}</td>
+	    				<td>{{ round(array_sum($firstbredages)/count($firstbredages), 2) }}</td>
+	    				<td>{{ round($firstbredages_sd, 2) }}</td>
 	    			</tr>
 	    		</tbody>
 	    	</table>
