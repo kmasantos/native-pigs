@@ -1307,31 +1307,31 @@ class FarmController extends Controller
       return view('pigs.morphocharsreport', compact('pigs', 'filter', 'sows', 'boars', 'earlengths', 'headlengths', 'snoutlengths', 'bodylengths', 'heartgirths', 'pelvicwidths', 'ponderalindices', 'taillengths', 'heightsatwithers', 'normalteats', 'earlengths_sd', 'headlengths_sd', 'snoutlengths_sd', 'bodylengths_sd', 'heartgirths_sd', 'pelvicwidths_sd', 'ponderalindices_sd', 'taillengths_sd', 'heightsatwithers_sd', 'normalteats_sd'));
     }
 
-    // public static function getWeightsPerYearOfBirth($year, $property_id){
-    // 	$pigs = Animal::where("animaltype_id", 3)->where("status", "active")->get();
+    public static function getWeightsPerYearOfBirth($year, $property_id){
+    	$pigs = Animal::where("animaltype_id", 3)->where("status", "active")->get();
 
-    // 	$bornonyear = [];
-    // 	foreach ($pigs as $pig) {
-    // 		if(substr($pig->registryid, -10, 4) == $year){
-    //       array_push($bornonyear, $pig);
-    //     }
-    // 	}
+    	$bornonyear = [];
+    	foreach ($pigs as $pig) {
+    		if(substr($pig->registryid, -10, 4) == $year){
+          array_push($bornonyear, $pig);
+        }
+    	}
 
-    // 	$weights = [];
-    // 	foreach ($bornonyear as $bornpig) {
-    // 		$properties = $bornpig->getAnimalProperties();
-    // 		foreach ($properties as $property) {
-    // 			if($property->property_id == $property_id){
-    // 				if($property->value != ""){
-    // 					$weight = $property->value;
-    // 					array_push($weights, $weight);
-    // 				}
-    // 			}
-    // 		}
-    // 	}
+    	$weights = [];
+    	foreach ($bornonyear as $bornpig) {
+    		$properties = $bornpig->getAnimalProperties();
+    		foreach ($properties as $property) {
+    			if($property->property_id == $property_id){
+    				if($property->value != ""){
+    					$weight = $property->value;
+    					array_push($weights, $weight);
+    				}
+    			}
+    		}
+    	}
 
-    // 	return $weights;
-    // }
+    	return $weights;
+    }
 
     public function getBreederProductionReportPage(){
     	$pigs = Animal::where("animaltype_id", 3)->where("status", "active")->get();
