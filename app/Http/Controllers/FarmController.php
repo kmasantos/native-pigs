@@ -337,6 +337,139 @@ class FarmController extends Controller
       return view('pigs.mortalityandsales', compact('pigs', 'breeders', 'sold', 'dead', 'removed', 'age', 'years'));
     }
 
+    public static function getNumPigsBornOnYear($year, $filter){
+    	$pigs = Animal::where("animaltype_id", 3)->where("status", "active")->get();
+
+    	$pigsbornonyear = [];
+    	foreach ($pigs as $pig) {
+    		if(substr($pig->registryid, -10, 4) == $year){
+          array_push($pigsbornonyear, $pig);
+        }
+    	}
+
+    	$sows = [];
+      $boars = [];
+
+      foreach ($pigs as $pig) {
+        if(substr($pig->registryid, -6, 1) == 'F'){
+          array_push($sows, $pig);
+        }
+        if(substr($pig->registryid, -6, 1) == 'M'){
+          array_push($boars, $pig);
+        }
+      }
+
+      $sowsbornonyear = [];
+      $boarsbornonyear = [];
+
+      foreach ($sows as $sow) {
+      	if(substr($sow->registryid, -10, 4) == $year){
+      		array_push($sowsbornonyear, $sow);
+      	}
+      }
+
+      foreach ($boars as $boar) {
+      	if(substr($boar->registryid, -10, 4) == $year){
+      		array_push($boarsbornonyear, $boar);
+      	}
+      }
+
+      if($filter == "All"){
+      	return $pigsbornonyear;
+      }
+      elseif($filter == "Sow"){
+      	return $sowsbornonyear;
+      }
+      elseif($filter == "Boar"){
+      	return $boarsbornonyear;
+      }
+    }
+
+    public static function getGrossMorphologyPerYearOfBirth($year, $property_id, $filter, $value){
+    	$pigs = Animal::where("animaltype_id", 3)->where("status", "active")->get();
+
+    	$pigsbornonyear = [];
+    	foreach ($pigs as $pig) {
+    		if(substr($pig->registryid, -10, 4) == $year){
+          array_push($pigsbornonyear, $pig);
+        }
+    	}
+
+    	$sows = [];
+      $boars = [];
+
+      foreach ($pigs as $pig) {
+        if(substr($pig->registryid, -6, 1) == 'F'){
+          array_push($sows, $pig);
+        }
+        if(substr($pig->registryid, -6, 1) == 'M'){
+          array_push($boars, $pig);
+        }
+      }
+
+      $sowsbornonyear = [];
+      $boarsbornonyear = [];
+
+      foreach ($sows as $sow) {
+      	if(substr($sow->registryid, -10, 4) == $year){
+      		array_push($sowsbornonyear, $sow);
+      	}
+      }
+
+      foreach ($boars as $boar) {
+      	if(substr($boar->registryid, -10, 4) == $year){
+      		array_push($boarsbornonyear, $boar);
+      	}
+      }
+
+    	if($filter == "All"){
+    		$grossmorpho = [];
+	    	foreach ($pigsbornonyear as $bornpig) {
+	    		$properties = $bornpig->getAnimalProperties();
+	    		foreach ($properties as $property) {
+	    			if($property->property_id == $property_id){
+	    				if($property->value == $value){
+	    					$gmorpho = $property->value;
+	    					array_push($grossmorpho, $property);
+	    				}
+	    			}
+	    		}
+	    	}
+
+    		return $grossmorpho;
+    	}
+    	elseif($filter == "Sow"){
+    		$grossmorpho = [];
+	    	foreach ($sowsbornonyear as $bornsow) {
+	    		$properties = $bornsow->getAnimalProperties();
+	    		foreach ($properties as $property) {
+	    			if($property->property_id == $property_id){
+	    				if($property->value == $value){
+	    					array_push($grossmorpho, $property);
+	    				}
+	    			}
+	    		}
+	    	}
+
+    		return $grossmorpho;
+    	}
+    	elseif($filter == "Boar"){
+    		$grossmorpho = [];
+	    	foreach ($boarsbornonyear as $bornboar) {
+	    		$properties = $bornboar->getAnimalProperties();
+	    		foreach ($properties as $property) {
+	    			if($property->property_id == $property_id){
+	    				if($property->value == $value){
+	    					array_push($grossmorpho, $property);
+	    				}
+	    			}
+	    		}
+	    	}
+
+    		return $grossmorpho;
+    	}
+    }
+
     public function getGrossMorphologyReportPage(){
       $pigs = Animal::where("animaltype_id", 3)->where("status", "active")->get();
 
@@ -352,6 +485,21 @@ class FarmController extends Controller
         if(substr($pig->registryid, -6, 1) == 'M'){
           array_push($boars, $pig);
         }
+      }
+
+      $years = [];
+      $tempyears = [];
+      foreach ($pigs as $pig) {
+      	$pigproperties = $pig->getAnimalProperties();
+      	foreach ($pigproperties as $pigproperty) {
+      		if($pigproperty->property_id == 25){
+      			if(!is_null($pigproperty->value) && $pigproperty->value != "Not specified"){
+      				$year = Carbon::parse($pigproperty->value)->year;
+      				array_push($tempyears, $year);
+      				$years = array_sort(array_unique($tempyears));
+      			}
+      		}
+      	}
       }
 
       $curlyhairs = [];
@@ -464,7 +612,7 @@ class FarmController extends Controller
       $notailtypes = (count($pigs)-(count($curlytails)+count($straighttails)));
       $nobacklines = (count($pigs)-(count($swaybacks)+count($straightbacks)));
 
-      return view('pigs.grossmorphoreport', compact('pigs', 'filter', 'sows', 'boars', 'curlyhairs', 'straighthairs', 'shorthairs', 'longhairs', 'blackcoats', 'nonblackcoats', 'plains', 'socks', 'concaves', 'straightheads', 'smooths', 'wrinkleds', 'droopingears', 'semilops', 'erectears', 'curlytails', 'straighttails', 'swaybacks', 'straightbacks', 'nohairtypes', 'nohairlengths', 'nocoats', 'nopatterns', 'noheadshapes', 'noskintypes', 'noeartypes', 'notailtypes', 'nobacklines'));
+      return view('pigs.grossmorphoreport', compact('pigs', 'filter', 'sows', 'boars', 'curlyhairs', 'straighthairs', 'shorthairs', 'longhairs', 'blackcoats', 'nonblackcoats', 'plains', 'socks', 'concaves', 'straightheads', 'smooths', 'wrinkleds', 'droopingears', 'semilops', 'erectears', 'curlytails', 'straighttails', 'swaybacks', 'straightbacks', 'nohairtypes', 'nohairlengths', 'nocoats', 'nopatterns', 'noheadshapes', 'noskintypes', 'noeartypes', 'notailtypes', 'nobacklines', 'years'));
     }
 
     public function filterGrossMorphologyReport(Request $request){
@@ -485,6 +633,21 @@ class FarmController extends Controller
         if(substr($pig->registryid, -6, 1) == 'M'){
           array_push($boars, $pig);
         }
+      }
+
+      $years = [];
+      $tempyears = [];
+      foreach ($pigs as $pig) {
+      	$pigproperties = $pig->getAnimalProperties();
+      	foreach ($pigproperties as $pigproperty) {
+      		if($pigproperty->property_id == 25){
+      			if(!is_null($pigproperty->value) && $pigproperty->value != "Not specified"){
+      				$year = Carbon::parse($pigproperty->value)->year;
+      				array_push($tempyears, $year);
+      				$years = array_sort(array_unique($tempyears));
+      			}
+      		}
+      	}
       }
 
       if($filter == "Sow"){
@@ -822,7 +985,7 @@ class FarmController extends Controller
       }
 
       // return Redirect::back()->with('message','Operation Successful!');
-      return view('pigs.grossmorphoreport', compact('pigs', 'filter', 'sows', 'boars', 'curlyhairs', 'straighthairs', 'shorthairs', 'longhairs', 'blackcoats', 'nonblackcoats', 'plains', 'socks', 'concaves', 'straightheads', 'smooths', 'wrinkleds', 'droopingears', 'semilops', 'erectears', 'curlytails', 'straighttails', 'swaybacks', 'straightbacks', 'nohairtypes', 'nohairlengths', 'nocoats', 'nopatterns', 'noheadshapes', 'noskintypes', 'noeartypes', 'notailtypes', 'nobacklines'));
+      return view('pigs.grossmorphoreport', compact('pigs', 'filter', 'sows', 'boars', 'curlyhairs', 'straighthairs', 'shorthairs', 'longhairs', 'blackcoats', 'nonblackcoats', 'plains', 'socks', 'concaves', 'straightheads', 'smooths', 'wrinkleds', 'droopingears', 'semilops', 'erectears', 'curlytails', 'straighttails', 'swaybacks', 'straightbacks', 'nohairtypes', 'nohairlengths', 'nocoats', 'nopatterns', 'noheadshapes', 'noskintypes', 'noeartypes', 'notailtypes', 'nobacklines', 'years'));
     }
 
     static function standardDeviation($arr, $samp = false){
@@ -834,6 +997,93 @@ class FarmController extends Controller
 	    $variance /= ( $samp ? count($arr) - 1 : count($arr) );
 	    return (float) sqrt($variance);
 		}
+
+		public static function getMorphometricCharacteristicsPerYearOfBirth($year, $property_id, $filter){
+    	$pigs = Animal::where("animaltype_id", 3)->where("status", "active")->get();
+
+    	$pigsbornonyear = [];
+    	foreach ($pigs as $pig) {
+    		if(substr($pig->registryid, -10, 4) == $year){
+          array_push($pigsbornonyear, $pig);
+        }
+    	}
+
+    	$sows = [];
+      $boars = [];
+
+      foreach ($pigs as $pig) {
+        if(substr($pig->registryid, -6, 1) == 'F'){
+          array_push($sows, $pig);
+        }
+        if(substr($pig->registryid, -6, 1) == 'M'){
+          array_push($boars, $pig);
+        }
+      }
+
+      $sowsbornonyear = [];
+      $boarsbornonyear = [];
+
+      foreach ($sows as $sow) {
+      	if(substr($sow->registryid, -10, 4) == $year){
+      		array_push($sowsbornonyear, $sow);
+      	}
+      }
+
+      foreach ($boars as $boar) {
+      	if(substr($boar->registryid, -10, 4) == $year){
+      		array_push($boarsbornonyear, $boar);
+      	}
+      }
+
+    	if($filter == "All"){
+    		$morphochars = [];
+	    	foreach ($pigsbornonyear as $bornpig) {
+	    		$properties = $bornpig->getAnimalProperties();
+	    		foreach ($properties as $property) {
+	    			if($property->property_id == $property_id){
+	    				if($property->value != ""){
+	    					$morphochar = $property->value;
+	    					array_push($morphochars, $morphochar);
+	    				}
+	    			}
+	    		}
+	    	}
+
+    		return $morphochars;
+    	}
+    	elseif($filter == "Sow"){
+    		$morphochars = [];
+	    	foreach ($sowsbornonyear as $bornsow) {
+	    		$properties = $bornsow->getAnimalProperties();
+	    		foreach ($properties as $property) {
+	    			if($property->property_id == $property_id){
+	    				if($property->value != ""){
+	    					$morphochar = $property->value;
+	    					array_push($morphochars, $morphochar);
+	    				}
+	    			}
+	    		}
+	    	}
+
+    		return $morphochars;
+    	}
+    	elseif($filter == "Boar"){
+    		$morphochars = [];
+	    	foreach ($boarsbornonyear as $bornboar) {
+	    		$properties = $bornboar->getAnimalProperties();
+	    		foreach ($properties as $property) {
+	    			if($property->property_id == $property_id){
+	    				if($property->value != ""){
+	    					$morphochar = $property->value;
+	    					array_push($morphochars, $morphochar);
+	    				}
+	    			}
+	    		}
+	    	}
+
+    		return $morphochars;
+    	}
+    }
 
     public function getMorphometricCharacteristicsReportPage(){
       $pigs = Animal::where("animaltype_id", 3)->where("status", "active")->get();
@@ -850,6 +1100,21 @@ class FarmController extends Controller
         if(substr($pig->registryid, -6, 1) == 'M'){
           array_push($boars, $pig);
         }
+      }
+
+      $years = [];
+      $tempyears = [];
+      foreach ($pigs as $pig) {
+      	$pigproperties = $pig->getAnimalProperties();
+      	foreach ($pigproperties as $pigproperty) {
+      		if($pigproperty->property_id == 25){
+      			if(!is_null($pigproperty->value) && $pigproperty->value != "Not specified"){
+      				$year = Carbon::parse($pigproperty->value)->year;
+      				array_push($tempyears, $year);
+      				$years = array_sort(array_unique($tempyears));
+      			}
+      		}
+      	}
       }
 
       $earlengths = [];
@@ -959,7 +1224,7 @@ class FarmController extends Controller
       	$normalteats_sd = static::standardDeviation($normalteats, false);
       }
 
-      return view('pigs.morphocharsreport', compact('pigs', 'filter', 'sows', 'boars', 'earlengths', 'headlengths', 'snoutlengths', 'bodylengths', 'heartgirths', 'pelvicwidths', 'ponderalindices', 'taillengths', 'heightsatwithers', 'normalteats', 'earlengths_sd', 'headlengths_sd', 'snoutlengths_sd', 'bodylengths_sd', 'heartgirths_sd', 'pelvicwidths_sd', 'ponderalindices_sd', 'taillengths_sd', 'heightsatwithers_sd', 'normalteats_sd'));
+      return view('pigs.morphocharsreport', compact('pigs', 'filter', 'sows', 'boars', 'earlengths', 'headlengths', 'snoutlengths', 'bodylengths', 'heartgirths', 'pelvicwidths', 'ponderalindices', 'taillengths', 'heightsatwithers', 'normalteats', 'earlengths_sd', 'headlengths_sd', 'snoutlengths_sd', 'bodylengths_sd', 'heartgirths_sd', 'pelvicwidths_sd', 'ponderalindices_sd', 'taillengths_sd', 'heightsatwithers_sd', 'normalteats_sd', 'years'));
     }
 
     public function filterMorphometricCharacteristicsReport(Request $request){
@@ -977,6 +1242,21 @@ class FarmController extends Controller
         if(substr($pig->registryid, -6, 1) == 'M'){
           array_push($boars, $pig);
         }
+      }
+
+      $years = [];
+      $tempyears = [];
+      foreach ($pigs as $pig) {
+      	$pigproperties = $pig->getAnimalProperties();
+      	foreach ($pigproperties as $pigproperty) {
+      		if($pigproperty->property_id == 25){
+      			if(!is_null($pigproperty->value) && $pigproperty->value != "Not specified"){
+      				$year = Carbon::parse($pigproperty->value)->year;
+      				array_push($tempyears, $year);
+      				$years = array_sort(array_unique($tempyears));
+      			}
+      		}
+      	}
       }
 
       if($filter == "Sow"){
@@ -1304,7 +1584,7 @@ class FarmController extends Controller
 	      }
       }
 
-      return view('pigs.morphocharsreport', compact('pigs', 'filter', 'sows', 'boars', 'earlengths', 'headlengths', 'snoutlengths', 'bodylengths', 'heartgirths', 'pelvicwidths', 'ponderalindices', 'taillengths', 'heightsatwithers', 'normalteats', 'earlengths_sd', 'headlengths_sd', 'snoutlengths_sd', 'bodylengths_sd', 'heartgirths_sd', 'pelvicwidths_sd', 'ponderalindices_sd', 'taillengths_sd', 'heightsatwithers_sd', 'normalteats_sd'));
+      return view('pigs.morphocharsreport', compact('pigs', 'filter', 'sows', 'boars', 'earlengths', 'headlengths', 'snoutlengths', 'bodylengths', 'heartgirths', 'pelvicwidths', 'ponderalindices', 'taillengths', 'heightsatwithers', 'normalteats', 'earlengths_sd', 'headlengths_sd', 'snoutlengths_sd', 'bodylengths_sd', 'heartgirths_sd', 'pelvicwidths_sd', 'ponderalindices_sd', 'taillengths_sd', 'heightsatwithers_sd', 'normalteats_sd', 'years'));
     }
 
     public static function getWeightsPerYearOfBirth($year, $property_id){
