@@ -2430,9 +2430,13 @@ class FarmController extends Controller
         }
       }
 
+      $months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+      $index = 0;
+
       // AGES 0 TO 6 MONTHS LANG ANG ANDITO, PAG WALANG DATA, EDI WALA
 
-    	return view('pigs.growerinventory', compact('pigs', 'sows', 'boars'));
+    	return view('pigs.growerinventory', compact('pigs', 'sows', 'boars', 'months', 'index'));
     }
 
     public function getMortalityAndSalesReportPage(){
