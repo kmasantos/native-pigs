@@ -9,17 +9,29 @@
 		<h4>Grower Inventory Report</h4>
 		<div class="divider"></div>
 		<div class="row center" style="padding-top: 10px;">
-			@foreach($months as $month)
-				<div class="col s12 m10 l6">
-	        <div class="card">
-	          <div class="card-content grey lighten-2">
-	          	<h5>{{ $month }}</h5>
-	            <canvas id="{{ $index++ }}"></canvas>
-							<p>Age, months</p>
-	          </div>
-	        </div>
-	      </div>
-	    @endforeach
+			<div class="row center">
+				<div id="year_grower_inventory" class="col s4 offset-s4">
+					<select id="year_grower_inventory" name="year_grower_inventory" class="browser-default">
+						<option disabled selected>Choose year</option>
+						@foreach($years as $year)
+							<option value="{{ $year }}">{{ $year }}</option>
+						@endforeach
+					</select>
+				</div>
+			</div>
+			<div class="row">
+				@foreach($months as $month)
+					<div class="col s12 m10 l6">
+		        <div class="card">
+		          <div class="card-content grey lighten-2">
+		          	<h5>{{ $month }}</h5>
+		            <canvas id="{{ $index++ }}"></canvas>
+								<p>Age, months</p>
+		          </div>
+		        </div>
+		      </div>
+		    @endforeach
+		  </div>
 		</div>
 	</div>
 @endsection

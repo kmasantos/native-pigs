@@ -269,7 +269,7 @@
 	    		<thead>
 	    			<tr>
 	    				<th></th>
-	    				<th>Number of Pigs Bred with Ages</th>
+	    				<th>Number of Bred Pigs with Age Data</th>
 	    				<th>Minimum</th>
 	    				<th>Maximum</th>
 	    				<th>Average</th>
@@ -310,10 +310,10 @@
 		    	<div class="col s6 push-s3">
 	    			<div class="card">
 	    				<div class="card-content grey lighten-2">
-	    					<h5>All Breeders</h5>
+	    					<h5>Breeders</h5>
 	    					<h3>{{ round(array_sum($breederages)/count($breederages) ,2) }}*</h3>
 	    					<h5>Average age, months</h5><br><br>
-	    					*breeders with available age: {{ count($breederages) }} out of {{ count($breeders) }}<br>
+	    					*breeders with age data: {{ count($breederages) }} out of {{ count($breeders) }}<br>
 	    				</div>
 	    			</div>
 	    		</div>
@@ -325,7 +325,7 @@
 	    					<h5>Sow Breeders</h5>
 	    					<h3>{{ round(array_sum($breedersowages)/count($breedersowages) ,2) }}*</h3>
 	    					<h5>Average age, months</h5><br><br>
-	    					*breeders with available age: {{ count($breedersowages) }} out of {{ count($breedersows) }}<br>
+	    					*breeders with age data: {{ count($breedersowages) }} out of {{ count($breedersows) }}<br>
 	    				</div>
 	    			</div>
 	    		</div>
@@ -335,7 +335,7 @@
 	    					<h5>Boar Breeders</h5>
 	    					<h3>{{ round(array_sum($breederboarages)/count($breederboarages) ,2) }}*</h3>
 	    					<h5>Average age, months</h5><br><br>
-	    					*breeders with available age: {{ count($breederboarages) }} out of {{ count($breederboars) }}<br>
+	    					*breeders with age data: {{ count($breederboarages) }} out of {{ count($breederboars) }}<br>
 	    				</div>
 	    			</div>
 	    		</div>

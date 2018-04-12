@@ -2434,9 +2434,24 @@ class FarmController extends Controller
 
       $index = 0;
 
+      $years = [];
+      $tempyears = [];
+      foreach ($pigs as $pig) {
+        $pigproperties = $pig->getAnimalProperties();
+        foreach ($pigproperties as $pigproperty) {
+          if($pigproperty->property_id == 25){
+            if(!is_null($pigproperty->value) && $pigproperty->value != "Not specified"){
+              $year = Carbon::parse($pigproperty->value)->year;
+              array_push($tempyears, $year);
+              $years = array_sort(array_unique($tempyears));
+            }
+          }
+        }
+      }
+
       // AGES 0 TO 6 MONTHS LANG ANG ANDITO, PAG WALANG DATA, EDI WALA
 
-    	return view('pigs.growerinventory', compact('pigs', 'sows', 'boars', 'months', 'index'));
+    	return view('pigs.growerinventory', compact('pigs', 'sows', 'boars', 'months', 'index', 'years'));
     }
 
     public function getMortalityAndSalesReportPage(){
