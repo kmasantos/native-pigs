@@ -1989,7 +1989,64 @@ class FarmController extends Controller
         }
       }
 
-    	return view('pigs.productionperformance', compact('pigs', 'sows', 'boars'));
+      $sowbreeders = [];
+      $boarbreeders = [];
+      foreach ($sows as $sow) {
+        $sowproperties = $sow->getAnimalProperties();
+        foreach ($sowproperties as $sowproperty) {
+          if($sowproperty->property_id == 88){
+            if($sowproperty->value > 0){
+              array_push($sowbreeders, $sow);
+            }
+          }
+        }
+      }
+
+      foreach ($boars as $boar) {
+        $boarproperties = $boar->getAnimalProperties();
+        foreach ($boarproperties as $boarproperty) {
+          if($boarproperty->property_id == 88){
+            if($boarproperty->value > 0){
+              array_push($boarbreeders, $boar);
+            }
+          }
+        }
+      }
+
+      $groups = Grouping::whereNotNull("mother_id")->get();
+
+      $parity = [];
+      $tempparity = [];
+      foreach ($groups as $group) {
+        $groupproperties = $group->getGroupingProperties();
+        foreach ($groupproperties as $groupproperty) {
+          if($groupproperty->property_id == 76){
+            if($groupproperty->value > 0){
+              $parityvalue = $groupproperty->value;
+              array_push($tempparity, $parityvalue);
+              $parity = array_sort(array_unique($tempparity));
+            }
+          }
+        }
+      }
+
+    	return view('pigs.productionperformance', compact('pigs', 'sows', 'boars', 'sowbreeders', 'boarbreeders', 'parity'));
+    }
+
+    public function getSowProductionPerformancePage($id){
+      $sow = Animal::find($id);
+
+      $properties = $sow->getAnimalProperties();
+
+      return view('pigs.sowproductionperformance', compact('sow', 'properties'));
+    }
+
+    public function getBoarProductionPerformancePage($id){
+      $boar = Animal::find($id);
+
+      $properties = $boar->getAnimalProperties();
+
+      return view('pigs.boarproductionperformance', compact('boar', 'properties'));
     }
 
     public function getBreederInventoryPage(){

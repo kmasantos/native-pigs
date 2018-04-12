@@ -20,122 +20,38 @@
 	    <!-- PER SOW -->
 	    <div id="persowview" class="col s12">	    	
 	    	<table>
+	    		<thead>
+	    			<tr>
+	    				<th>Registration ID</th>
+	    				<th class="center">View Production Performance</th>
+	    			</tr>
+	    		</thead>
 	    		<tbody>
-	    			<tr>
-	    				<td>Farrowing Index</td>
-	    				<td></td>
-	    			</tr>
-	    			<tr>
-	    				<td>Latest Parity</td>
-	    				<td></td>
-	    			</tr>
-	    			<tr>
-	    				<td>Number Male Born</td>
-	    				<td></td>
-	    			</tr>
-	    			<tr>
-	    				<td>Number Female Born</td>
-	    				<td></td>
-	    			</tr>
-	    			<tr>
-	    				<td>Litter Birth Weight</td>
-	    				<td></td>
-	    			</tr>
-	    			<tr>
-	    				<td>Average Birth Weight</td>
-	    				<td></td>
-	    			</tr>
-	    			<tr>
-	    				<td>Number Stillborn</td>
-	    				<td></td>
-	    			</tr>
-	    			<tr>
-	    				<td>Number Mummified</td>
-	    				<td></td>
-	    			</tr>
-	    			<tr>
-	    				<td>Litter Weaning Weight</td>
-	    				<td></td>
-	    			</tr>
-	    			<tr>
-	    				<td>Average Weaning Weight</td>
-	    				<td></td>
-	    			</tr>
-	    			<tr>
-	    				<td>Adjusted Weaning Weight at 45 Days</td>
-	    				<td></td>
-	    			</tr>
-	    			<tr>
-	    				<td>Number Weaned</td>
-	    				<td></td>
-	    			</tr>
-	    			<tr>
-	    				<td>Age Weaned</td>
-	    				<td></td>
-	    			</tr>
-	    			<tr>
-	    				<td>Pre-weaning Mortality</td>
-	    				<td></td>
-	    			</tr>
+	    			@foreach($sowbreeders as $sowbreeder)
+		    			<tr>
+		    				<td>{{ $sowbreeder->registryid }}</td>
+		    				<td class="center"><a href="{{ URL::route('farm.pig.sow_production_performance', [$sowbreeder->id]) }}"><i class="material-icons">visibility</i></a></td>
+		    			</tr>
+		    		@endforeach
 	    		</tbody>
 	    	</table>
 	    </div>
 	    <!-- PER BOAR -->
 	    <div id="perboarview" class="col s12">
 	    	<table>
+	    		<thead>
+	    			<tr>
+	    				<th>Registration ID</th>
+	    				<th class="center">View Production Performance</th>
+	    			</tr>
+	    		</thead>
 	    		<tbody>
-	    			<tr>
-	    				<td>Farrowing Index</td>
-	    				<td></td>
-	    			</tr>
-	    			<tr>
-	    				<td>Number Male Born</td>
-	    				<td></td>
-	    			</tr>
-	    			<tr>
-	    				<td>Number Female Born</td>
-	    				<td></td>
-	    			</tr>
-	    			<tr>
-	    				<td>Litter Birth Weight</td>
-	    				<td></td>
-	    			</tr>
-	    			<tr>
-	    				<td>Average Birth Weight</td>
-	    				<td></td>
-	    			</tr>
-	    			<tr>
-	    				<td>Number Stillborn</td>
-	    				<td></td>
-	    			</tr>
-	    			<tr>
-	    				<td>Number Mummified</td>
-	    				<td></td>
-	    			</tr>
-	    			<tr>
-	    				<td>Litter Weaning Weight</td>
-	    				<td></td>
-	    			</tr>
-	    			<tr>
-	    				<td>Average Weaning Weight</td>
-	    				<td></td>
-	    			</tr>
-	    			<tr>
-	    				<td>Adjusted Weaning Weight at 45 Days</td>
-	    				<td></td>
-	    			</tr>
-	    			<tr>
-	    				<td>Number Weaned</td>
-	    				<td></td>
-	    			</tr>
-	    			<tr>
-	    				<td>Age Weaned</td>
-	    				<td></td>
-	    			</tr>
-	    			<tr>
-	    				<td>Pre-weaning Mortality</td>
-	    				<td></td>
-	    			</tr>
+	    			@foreach($boarbreeders as $boarbreeder)
+		    			<tr>
+		    				<td>{{ $boarbreeder->registryid }}</td>
+		    				<td class="center"><a href="{{ URL::route('farm.pig.boar_production_performance', [$boarbreeder->id]) }}"><i class="material-icons">visibility</i></a></td>
+		    			</tr>
+		    		@endforeach
 	    		</tbody>
 	    	</table>
 	    </div>
@@ -149,16 +65,9 @@
 	    		{{-- {!! Form::open(['route' => 'farm.pig.filter_production_performance_per_parity', 'method' => 'post', 'id' => 'report_filter']) !!} --}}
 						<select id="filter_parity" name="filter_parity" class="browser-default" {{-- onchange="document.getElementById('report_filter').submit();" --}}>
 							<option disabled selected>Parity</option>
-							<option value="1">First</option>
-							<option value="2">Second</option>
-							<option value="3">Third</option>
-							<option value="4">Fourth</option>
-							<option value="5">Fifth</option>
-							<option value="6">Sixth</option>
-							<option value="7">Seventh</option>
-							<option value="8">Eighth</option>
-							<option value="9">Ninth</option>
-							<option value="10">Tenth</option>
+							@foreach($parity as $parity)
+								<option value="{{ $parity }}">{{ $parity }}</option>
+							@endforeach
 						</select>
 					</div>
 	    	{{-- {!! Form::close() !!} --}}
