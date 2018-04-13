@@ -63,8 +63,8 @@
                   <td>{{ count($earlengths) }}</td>
           				<td>{{ min($earlengths) }}</td>
           				<td>{{ max($earlengths) }}</td>
-          				<td>{{ round((array_sum($earlengths)/count($earlengths)), 4) }}</td>
-          				<td>{{ round($earlengths_sd, 4) }}</td>
+          				<td>{{ round((array_sum($earlengths)/count($earlengths)), 2) }}</td>
+          				<td>{{ round($earlengths_sd, 2) }}</td>
                 @endif
         			</tr>
         			<tr>
@@ -75,8 +75,8 @@
                   <td>{{ count($headlengths) }}</td>
           				<td>{{ min($headlengths) }}</td>
           				<td>{{ max($headlengths) }}</td>
-        					<td>{{ round((array_sum($headlengths)/count($headlengths)), 4) }}</td>
-          				<td>{{ round($headlengths_sd, 4) }}</td>
+        					<td>{{ round((array_sum($headlengths)/count($headlengths)), 2) }}</td>
+          				<td>{{ round($headlengths_sd, 2) }}</td>
                 @endif
         			</tr>
         			<tr>
@@ -87,8 +87,8 @@
                   <td>{{ count($snoutlengths) }}</td>
           				<td>{{ min($snoutlengths) }}</td>
           				<td>{{ max($snoutlengths) }}</td>
-          				<td>{{ round((array_sum($snoutlengths)/count($snoutlengths)), 4) }}</td>
-          				<td>{{ round($snoutlengths_sd, 4) }}</td>
+          				<td>{{ round((array_sum($snoutlengths)/count($snoutlengths)), 2) }}</td>
+          				<td>{{ round($snoutlengths_sd, 2) }}</td>
                 @endif
         			</tr>
         			<tr>
@@ -99,8 +99,8 @@
                   <td>{{ count($bodylengths) }}</td>
           				<td>{{ min($bodylengths) }}</td>
           				<td>{{ max($bodylengths) }}</td>
-          				<td>{{ round((array_sum($bodylengths)/count($bodylengths)), 4) }}</td>
-          				<td>{{ round($bodylengths_sd, 4) }}</td>
+          				<td>{{ round((array_sum($bodylengths)/count($bodylengths)), 2) }}</td>
+          				<td>{{ round($bodylengths_sd, 2) }}</td>
                 @endif
         			</tr>
         			<tr>
@@ -111,8 +111,8 @@
                   <td>{{ count($heartgirths) }}</td>
           				<td>{{ min($heartgirths) }}</td>
           				<td>{{ max($heartgirths) }}</td>
-          				<td>{{ round((array_sum($heartgirths)/count($heartgirths)), 4) }}</td>
-          				<td>{{ round($heartgirths_sd, 4) }}</td>
+          				<td>{{ round((array_sum($heartgirths)/count($heartgirths)), 2) }}</td>
+          				<td>{{ round($heartgirths_sd, 2) }}</td>
                 @endif
         			</tr>
         			<tr>
@@ -123,8 +123,8 @@
                   <td>{{ count($pelvicwidths) }}</td>
           				<td>{{ min($pelvicwidths) }}</td>
           				<td>{{ max($pelvicwidths) }}</td>
-          				<td>{{ round((array_sum($pelvicwidths)/count($pelvicwidths)), 4) }}</td>
-          				<td>{{ round($pelvicwidths_sd, 4) }}</td>
+          				<td>{{ round((array_sum($pelvicwidths)/count($pelvicwidths)), 2) }}</td>
+          				<td>{{ round($pelvicwidths_sd, 2) }}</td>
                 @endif
         			</tr>
               <tr>
@@ -135,8 +135,8 @@
                   <td>{{ count($ponderalindices) }}</td>
                   <td>{{ round(min($ponderalindices), 2) }}</td>
                   <td>{{ round(max($ponderalindices), 2) }}</td>
-                  <td>{{ round((array_sum($ponderalindices)/count($ponderalindices)), 4) }}</td>
-                  <td>{{ round($ponderalindices_sd, 4) }}</td>
+                  <td>{{ round((array_sum($ponderalindices)/count($ponderalindices)), 2) }}</td>
+                  <td>{{ round($ponderalindices_sd, 2) }}</td>
                 @endif
               </tr>
         			<tr>
@@ -147,8 +147,8 @@
                   <td>{{ count($taillengths) }}</td>
           				<td>{{ min($taillengths) }}</td>
           				<td>{{ max($taillengths) }}</td>
-          				<td>{{ round((array_sum($taillengths)/count($taillengths)), 4) }}</td>
-          				<td>{{ round($taillengths_sd, 4) }}</td>
+          				<td>{{ round((array_sum($taillengths)/count($taillengths)), 2) }}</td>
+          				<td>{{ round($taillengths_sd, 2) }}</td>
                 @endif
         			</tr>
         			<tr>
@@ -159,8 +159,8 @@
                   <td>{{ count($heightsatwithers) }}</td>
           				<td>{{ min($heightsatwithers) }}</td>
           				<td>{{ max($heightsatwithers) }}</td>
-          				<td>{{ round((array_sum($heightsatwithers)/count($heightsatwithers)), 4) }}</td>
-          				<td>{{ round($heightsatwithers_sd, 4) }}</td>
+          				<td>{{ round((array_sum($heightsatwithers)/count($heightsatwithers)), 2) }}</td>
+          				<td>{{ round($heightsatwithers_sd, 2) }}</td>
                 @endif
         			</tr>
         			<tr>
@@ -171,8 +171,8 @@
                   <td>{{ count($normalteats) }}</td>
           				<td>{{ min($normalteats) }}</td>
           				<td>{{ max($normalteats) }}</td>
-          				<td>{{ round((array_sum($normalteats)/count($normalteats)), 4) }}</td>
-          				<td>{{ round($normalteats_sd, 4) }}</td>
+          				<td>{{ round((array_sum($normalteats)/count($normalteats)), 2) }}</td>
+          				<td>{{ round($normalteats_sd, 2) }}</td>
                 @endif
         			</tr>
         		</tbody>
@@ -204,8 +204,8 @@
                   @else
                     <td>{{ min(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 64, $filter)) }}</td>
                     <td>{{ max(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 64, $filter)) }}</td>
-                    <td>{{ round(array_sum(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 64, $filter))/count(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 64, $filter)), 4) }}</td>
-                    <td>{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 64, $filter), false), 4) }}</td>
+                    <td>{{ round(array_sum(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 64, $filter))/count(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 64, $filter)), 2) }}</td>
+                    <td>{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 64, $filter), false), 2) }}</td>
                   @endif
                 </tr>
               @endforeach
@@ -235,8 +235,8 @@
                   @else
                     <td>{{ min(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 39, $filter)) }}</td>
                     <td>{{ max(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 39, $filter)) }}</td>
-                    <td>{{ round(array_sum(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 39, $filter))/count(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 39, $filter)), 4) }}</td>
-                    <td>{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 39, $filter), false), 4) }}</td>
+                    <td>{{ round(array_sum(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 39, $filter))/count(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 39, $filter)), 2) }}</td>
+                    <td>{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 39, $filter), false), 2) }}</td>
                   @endif
                 </tr>
               @endforeach
@@ -266,8 +266,8 @@
                   @else
                     <td>{{ min(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 63, $filter)) }}</td>
                     <td>{{ max(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 63, $filter)) }}</td>
-                    <td>{{ round(array_sum(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 63, $filter))/count(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 63, $filter)), 4) }}</td>
-                    <td>{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 63, $filter), false), 4) }}</td>
+                    <td>{{ round(array_sum(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 63, $filter))/count(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 63, $filter)), 2) }}</td>
+                    <td>{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 63, $filter), false), 2) }}</td>
                   @endif
                 </tr>
               @endforeach
@@ -297,8 +297,8 @@
                   @else
                     <td>{{ min(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 40, $filter)) }}</td>
                     <td>{{ max(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 40, $filter)) }}</td>
-                    <td>{{ round(array_sum(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 40, $filter))/count(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 40, $filter)), 4) }}</td>
-                    <td>{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 40, $filter), false), 4) }}</td>
+                    <td>{{ round(array_sum(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 40, $filter))/count(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 40, $filter)), 2) }}</td>
+                    <td>{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 40, $filter), false), 2) }}</td>
                   @endif
                 </tr>
               @endforeach
@@ -328,8 +328,8 @@
                   @else
                     <td>{{ min(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 42, $filter)) }}</td>
                     <td>{{ max(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 42, $filter)) }}</td>
-                    <td>{{ round(array_sum(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 42, $filter))/count(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 42, $filter)), 4) }}</td>
-                    <td>{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 42, $filter), false), 4) }}</td>
+                    <td>{{ round(array_sum(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 42, $filter))/count(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 42, $filter)), 2) }}</td>
+                    <td>{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 42, $filter), false), 2) }}</td>
                   @endif
                 </tr>
               @endforeach
@@ -359,8 +359,8 @@
                   @else
                     <td>{{ min(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 41, $filter)) }}</td>
                     <td>{{ max(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 41, $filter)) }}</td>
-                    <td>{{ round(array_sum(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 41, $filter))/count(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 41, $filter)), 4) }}</td>
-                    <td>{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 41, $filter), false), 4) }}</td>
+                    <td>{{ round(array_sum(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 41, $filter))/count(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 41, $filter)), 2) }}</td>
+                    <td>{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 41, $filter), false), 2) }}</td>
                   @endif
                 </tr>
               @endforeach
@@ -390,8 +390,8 @@
                   @else
                     <td>{{ round(min(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 43, $filter)), 4) }}</td>
                     <td>{{ round(max(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 43, $filter)), 4) }}</td>
-                    <td>{{ round(array_sum(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 43, $filter))/count(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 43, $filter)), 4) }}</td>
-                    <td>{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 43, $filter), false), 4) }}</td>
+                    <td>{{ round(array_sum(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 43, $filter))/count(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 43, $filter)), 2) }}</td>
+                    <td>{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 43, $filter), false), 2) }}</td>
                   @endif
                 </tr>
               @endforeach
@@ -421,8 +421,8 @@
                   @else
                     <td>{{ min(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 65, $filter)) }}</td>
                     <td>{{ max(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 65, $filter)) }}</td>
-                    <td>{{ round(array_sum(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 65, $filter))/count(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 65, $filter)), 4) }}</td>
-                    <td>{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 65, $filter), false), 4) }}</td>
+                    <td>{{ round(array_sum(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 65, $filter))/count(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 65, $filter)), 2) }}</td>
+                    <td>{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 65, $filter), false), 2) }}</td>
                   @endif
                 </tr>
               @endforeach
@@ -452,8 +452,8 @@
                   @else
                     <td>{{ min(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 66, $filter)) }}</td>
                     <td>{{ max(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 66, $filter)) }}</td>
-                    <td>{{ round(array_sum(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 66, $filter))/count(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 66, $filter)), 4) }}</td>
-                    <td>{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 66, $filter), false), 4) }}</td>
+                    <td>{{ round(array_sum(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 66, $filter))/count(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 66, $filter)), 2) }}</td>
+                    <td>{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 66, $filter), false), 2) }}</td>
                   @endif
                 </tr>
               @endforeach
@@ -483,8 +483,8 @@
                   @else
                     <td>{{ min(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 44, $filter)) }}</td>
                     <td>{{ max(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 44, $filter)) }}</td>
-                    <td>{{ round(array_sum(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 44, $filter))/count(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 44, $filter)), 4) }}</td>
-                    <td>{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 44, $filter), false), 4) }}</td>
+                    <td>{{ round(array_sum(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 44, $filter))/count(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 44, $filter)), 2) }}</td>
+                    <td>{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 44, $filter), false), 2) }}</td>
                   @endif
                 </tr>
               @endforeach

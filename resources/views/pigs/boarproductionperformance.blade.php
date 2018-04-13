@@ -18,12 +18,12 @@
 				</thead>
 	  		<tbody>
     			<tr>
-    				<td>Farrowing Index</td>
-    				<td class="center"></td>
-    			</tr>
-    			<tr>
 	  				<td>Usage</td>
 	  				<td class="center">{{ $properties->where("property_id", 88)->first()->value }}</td>
+	  			</tr>
+	  			<tr>
+	  				<td>Litter-size Born Alive</td>
+	  				<td class="center"></td>
 	  			</tr>
     			<tr>
 	  				<td>Number Male Born</td>

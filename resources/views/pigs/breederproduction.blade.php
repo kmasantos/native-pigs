@@ -42,8 +42,8 @@
 		          	<td>{{ count($weights45d) }}</td>
 		    				<td>{{ min($weights45d) }}</td>
 		    				<td>{{ max($weights45d) }}</td>
-		    				<td>{{ round((array_sum($weights45d)/count($weights45d)), 4) }}</td>
-		    				<td>{{ round($weights45d_sd, 4) }}</td>
+		    				<td>{{ round((array_sum($weights45d)/count($weights45d)), 2) }}</td>
+		    				<td>{{ round($weights45d_sd, 2) }}</td>
 							@endif		    				
 	    			</tr>
 	    			<tr>
@@ -54,8 +54,8 @@
 		          	<td>{{ count($weights60d) }}</td>
 		    				<td>{{ min($weights60d) }}</td>
 		    				<td>{{ max($weights60d) }}</td>
-		    				<td>{{ round((array_sum($weights60d)/count($weights60d)), 4) }}</td>
-		    				<td>{{ round($weights60d_sd, 4) }}</td>
+		    				<td>{{ round((array_sum($weights60d)/count($weights60d)), 2) }}</td>
+		    				<td>{{ round($weights60d_sd, 2) }}</td>
 							@endif
 	    			</tr>
 	    			<tr>
@@ -66,8 +66,8 @@
 		          	<td>{{ count($weights90d) }}</td>
 		    				<td>{{ min($weights90d) }}</td>
 		    				<td>{{ max($weights90d) }}</td>
-		    				<td>{{ round((array_sum($weights90d)/count($weights90d)), 4) }}</td>
-		    				<td>{{ round($weights90d_sd, 4) }}</td>
+		    				<td>{{ round((array_sum($weights90d)/count($weights90d)), 2) }}</td>
+		    				<td>{{ round($weights90d_sd, 2) }}</td>
 							@endif	
 	    			</tr>
 	    			<tr>
@@ -78,8 +78,8 @@
 		          	<td>{{ count($weights180d) }}</td>
 		    				<td>{{ min($weights180d) }}</td>
 		    				<td>{{ max($weights180d) }}</td>
-		    				<td>{{ round((array_sum($weights180d)/count($weights180d)), 4) }}</td>
-		    				<td>{{ round($weights180d_sd, 4) }}</td>
+		    				<td>{{ round((array_sum($weights180d)/count($weights180d)), 2) }}</td>
+		    				<td>{{ round($weights180d_sd, 2) }}</td>
 							@endif	
 	    			</tr>
 	    		</tbody>
@@ -108,8 +108,8 @@
 		    				@else
 		    					<td>{{ min(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 45)) }}</td>
 		    					<td>{{ max(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 45)) }}</td>
-		    					<td>{{ round(array_sum(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 45))/count(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 45)), 4) }}</td>
-		    					<td>{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 45), false), 4) }}</td>
+		    					<td>{{ round(array_sum(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 45))/count(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 45)), 2) }}</td>
+		    					<td>{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 45), false), 2) }}</td>
 		    				@endif
 	    				</tr>
 	    				@endforeach
@@ -139,8 +139,8 @@
 		    				@else
 		    					<td>{{ min(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 46)) }}</td>
 		    					<td>{{ max(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 46)) }}</td>
-		    					<td>{{ round(array_sum(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 46))/count(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 46)), 4) }}</td>
-		    					<td>{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 46), false), 4) }}</td>
+		    					<td>{{ round(array_sum(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 46))/count(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 46)), 2) }}</td>
+		    					<td>{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 46), false), 2) }}</td>
 		    				@endif
 	    				</tr>
 	    				@endforeach
@@ -170,8 +170,8 @@
 		    				@else
 		    					<td>{{ min(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 69)) }}</td>
 		    					<td>{{ max(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 69)) }}</td>
-		    					<td>{{ round(array_sum(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 69))/count(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 69)), 4) }}</td>
-		    					<td>{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 69), false), 4) }}</td>
+		    					<td>{{ round(array_sum(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 69))/count(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 69)), 2) }}</td>
+		    					<td>{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 69), false), 2) }}</td>
 		    				@endif
 	    				</tr>
 	    				@endforeach
@@ -201,8 +201,8 @@
 		    				@else
 		    					<td>{{ min(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 47)) }}</td>
 		    					<td>{{ max(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 47)) }}</td>
-		    					<td>{{ round(array_sum(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 47))/count(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 47)), 4) }}</td>
-		    					<td>{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 47), false), 4) }}</td>
+		    					<td>{{ round(array_sum(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 47))/count(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 47)), 2) }}</td>
+		    					<td>{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 47), false), 2) }}</td>
 		    				@endif
 	    				</tr>
 	    				@endforeach
@@ -225,39 +225,43 @@
 	    		</thead>
 	    		<tbody>
 	    			<tr>
-	    				<td>Sows, months</td>
+	    				<td colspan="2"> </td>
+	    				<td colspan="4" class="center">in days</td>
+	    			</tr>
+	    			<tr>
+	    				<td>Sows</td>
 	    				@if($ages_weanedsow == [])
 		            <td colspan="5" class="center">No data available</td>
 		          @else
 		    				<td>{{ count($ages_weanedsow) }}</td>
 		    				<td>{{ min($ages_weanedsow) }}</td>
 		    				<td>{{ max($ages_weanedsow) }}</td>
-		    				<td>{{ round(array_sum($ages_weanedsow)/count($ages_weanedsow), 4) }}</td>
-		    				<td>{{ round($ages_weanedsow_sd, 4) }}</td>
+		    				<td>{{ round(array_sum($ages_weanedsow)/count($ages_weanedsow), 2) }}</td>
+		    				<td>{{ round($ages_weanedsow_sd, 2) }}</td>
 		    			@endif
 	    			</tr>
 	    			<tr>
-	    				<td>Boars, months</td>
+	    				<td>Boars</td>
 	    				@if($ages_weanedboar == [])
 		            <td colspan="5" class="center">No data available</td>
 		          @else
 		    				<td>{{ count($ages_weanedboar) }}</td>
 		    				<td>{{ min($ages_weanedboar) }}</td>
 		    				<td>{{ max($ages_weanedboar) }}</td>
-		    				<td>{{ round(array_sum($ages_weanedboar)/count($ages_weanedboar), 4) }}</td>
-		    				<td>{{ round($ages_weanedboar_sd, 4) }}</td>
+		    				<td>{{ round(array_sum($ages_weanedboar)/count($ages_weanedboar), 2) }}</td>
+		    				<td>{{ round($ages_weanedboar_sd, 2) }}</td>
 		    			@endif
 	    			</tr>
 	    			<tr>
-	    				<td>Herd, months</td>
+	    				<td>Herd</td>
 	    				@if($ages_weanedpig == [])
 		            <td colspan="5" class="center">No data available</td>
 		          @else
 		    				<td>{{ count($ages_weanedpig) }}</td>
 		    				<td>{{ min($ages_weanedpig) }}</td>
 		    				<td>{{ max($ages_weanedpig) }}</td>
-		    				<td>{{ round(array_sum($ages_weanedpig)/count($ages_weanedpig), 4) }}</td>
-		    				<td>{{ round($ages_weanedpig_sd, 4) }}</td>
+		    				<td>{{ round(array_sum($ages_weanedpig)/count($ages_weanedpig), 2) }}</td>
+		    				<td>{{ round($ages_weanedpig_sd, 2) }}</td>
 		    			@endif
 	    			</tr>
 	    		</tbody>
@@ -278,28 +282,44 @@
 	    		</thead>
 	    		<tbody>
 	    			<tr>
-	    				<td>Sows, months</td>
-	    				<td>{{ count($firstbredsowsages) }} out of {{ count($firstbredsows) }} bred sows</td>
-	    				<td>{{ min($firstbredsowsages) }}</td>
-	    				<td>{{ max($firstbredsowsages) }}</td>
-	    				<td>{{ round(array_sum($firstbredsowsages)/count($firstbredsowsages), 2) }}</td>
-	    				<td>{{ round($firstbredsowsages_sd, 2) }}</td>
+	    				<td colspan="2"> </td>
+	    				<td colspan="4" class="center">in months</td>
 	    			</tr>
 	    			<tr>
-	    				<td>Boars, months</td>
-	    				<td>{{ count($firstbredboarsages) }} out of {{ count($firstbredboars)+count($uniqueboars) }} bred boars</td>
-	    				<td>{{ min($firstbredboarsages) }}</td>
-	    				<td>{{ max($firstbredboarsages) }}</td>
-	    				<td>{{ round(array_sum($firstbredboarsages)/count($firstbredboarsages), 2) }}</td>
-	    				<td>{{ round($firstbredboarsages_sd, 2) }}</td>
+	    				<td>Sows</td>
+	    				@if($firstbredsowsages == [])
+	    					<td colspan="5" class="center">No data available</td>
+	    				@else
+		    				<td>{{ count($firstbredsowsages) }} out of {{ count($firstbredsows) }}</td>
+		    				<td>{{ min($firstbredsowsages) }}</td>
+		    				<td>{{ max($firstbredsowsages) }}</td>
+		    				<td>{{ round(array_sum($firstbredsowsages)/count($firstbredsowsages), 2) }}</td>
+		    				<td>{{ round($firstbredsowsages_sd, 2) }}</td>
+		    			@endif
 	    			</tr>
 	    			<tr>
-	    				<td>Herd, months</td>
-	    				<td>{{ count($firstbredages) }} out of {{ count($firstbredsows)+count($firstbredboars)+count($uniqueboars) }} bred pigs</td>
-	    				<td>{{ min($firstbredages) }}</td>
-	    				<td>{{ max($firstbredages) }}</td>
-	    				<td>{{ round(array_sum($firstbredages)/count($firstbredages), 2) }}</td>
-	    				<td>{{ round($firstbredages_sd, 2) }}</td>
+	    				<td>Boars</td>
+	    				@if($firstbredboarsages == [])
+	    					<td colspan="5" class="center">No data available</td>
+	    				@else
+		    				<td>{{ count($firstbredboarsages) }} out of {{ count($firstbredboars)+count($uniqueboars) }}</td>
+		    				<td>{{ min($firstbredboarsages) }}</td>
+		    				<td>{{ max($firstbredboarsages) }}</td>
+		    				<td>{{ round(array_sum($firstbredboarsages)/count($firstbredboarsages), 2) }}</td>
+		    				<td>{{ round($firstbredboarsages_sd, 2) }}</td>
+		    			@endif
+	    			</tr>
+	    			<tr>
+	    				<td>Herd</td>
+	    				@if($firstbredages == [])
+	    					<td colspan="5" class="center">No data available</td>
+	    				@else
+		    				<td>{{ count($firstbredages) }} out of {{ count($firstbredsows)+count($firstbredboars)+count($uniqueboars) }}</td>
+		    				<td>{{ min($firstbredages) }}</td>
+		    				<td>{{ max($firstbredages) }}</td>
+		    				<td>{{ round(array_sum($firstbredages)/count($firstbredages), 2) }}</td>
+		    				<td>{{ round($firstbredages_sd, 2) }}</td>
+		    			@endif
 	    			</tr>
 	    		</tbody>
 	    	</table>

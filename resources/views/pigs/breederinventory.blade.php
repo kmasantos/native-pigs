@@ -11,14 +11,15 @@
 		<div class="row center" style="padding-top: 10px;">
 			<div class="col s12">
         <ul class="tabs tabs-fixed-width green lighten-1">
-          <li class="tab col s6"><a href="#sowinventory">Sow Inventory</a></li>
-          <li class="tab col s6"><a href="#boarinventory">Boar Inventory</a></li>
+          <li class="tab"><a href="#sowinventory">Sow Inventory</a></li>
+          <li class="tab"><a href="#sowusage">Number of Times Bred</a></li>
+          <li class="tab"><a href="#boarinventory">Boar Inventory</a></li>
+          <li class="tab"><a href="#boarusage">Boar Service</a></li>
         </ul>
       </div>
       <!-- SOW INVENTORY -->
       <div id="sowinventory" class="col s12">
       	<div class="row">
-      		<h5 class="green-text text-lighten-1">Inventory</h5>
       		<div class="col s12 m10 l6">
       			<div class="card">
       				<div class="card-content grey lighten-2">
@@ -60,13 +61,15 @@
       			</div>
       		</div>
       	</div>
+      </div>
+      <!-- SOW USAGE -->
+      <div id="sowusage" class="col s12">
       	<div class="row">
-      		<h5 class="green-text text-lighten-1">Usage</h5>
 	      	<table>
 	      		<thead>
 	      			<tr>
 	      				<th>Registration ID</th>
-	      				<th class="center">Usage</th>
+	      				<th class="center">Number of Times Bred</th>
 	      				<th class="center">View Records</th>
 	      			</tr>
 	      		</thead>
@@ -89,7 +92,6 @@
       <!-- BOAR INVENTORY -->
       <div id="boarinventory" class="col s12">
       	<div class="row">
-      		<h5 class="green-text text-lighten-1">Inventory</h5>
       		<div class="col s12 m10 l6">
       			<div class="card">
       				<div class="card-content grey lighten-2">
@@ -107,13 +109,14 @@
       			</div>
       		</div>
       	</div>
+      </div>
+      <div id="boarusage" class="col s12">
       	<div class="row">
-      		<h5 class="green-text text-lighten-1">Usage</h5>
 	      	<table>
 	      		<thead>
 	      			<tr>
 	      				<th>Registration ID</th>
-	      				<th class="center">Usage</th>
+	      				<th class="center">Service</th>
 	      				<th class="center">View Records</th>
 	      			</tr>
 	      		</thead>

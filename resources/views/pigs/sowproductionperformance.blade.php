@@ -26,6 +26,10 @@
 	  				<td class="center">{{ $properties->where("property_id", 76)->first()->value }}</td>
 	  			</tr>
 	  			<tr>
+	  				<td>Litter-size Born Alive</td>
+	  				<td class="center"></td>
+	  			</tr>
+	  			<tr>
 	  				<td>Number Male Born</td>
 	  				@if($totalmales == [])
 	  					<td class="center">No data available</td>
@@ -112,6 +116,10 @@
 	  				@else
 	  					<td class="center">{{ round(array_sum($totalagesweaned)/count($totalagesweaned), 4) }}</td>
 	  				@endif
+	  			</tr>
+	  			<tr>
+	  				<td>Number Weaned Per Year</td>
+	  				<td class="center"></td>
 	  			</tr>
 	  			<tr>
 	  				<td>Pre-weaning Mortality</td>

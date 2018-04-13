@@ -15,6 +15,7 @@
 	        <li class="tab"><a href="#perboarview">Per boar</a></li>
 	        <li class="tab"><a href="#perparityview">Per parity</a></li>
 	        <li class="tab"><a href="#permonthview">Per month</a></li>
+	        <li class="tab"><a href="#perbreedview">Per breed</a></li>
 	      </ul>
 	    </div>
 	    <!-- PER SOW -->
@@ -74,6 +75,10 @@
 	    	</div>
 	    	<table>
 	    		<tbody>
+	    			<tr>
+	    				<td>Litter-size Born Alive</td>
+	    				<td></td>
+	    			</tr>
 	    			<tr>
 	    				<td>Number Male Born</td>
 	    				<td></td>
@@ -192,6 +197,9 @@
 	    			</tr>
 	    		</tbody>
 	    	</table>
+	    </div>
+	    <!-- PER BREED -->
+	    <div id="perbreedview" class="col s12">
 	    </div>
 		</div>
 	</div>

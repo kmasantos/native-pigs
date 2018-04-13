@@ -113,4 +113,4 @@ Route::group(['middleware' => ['web']], function () {
 // Socialite Routes
 Route::get('login/google', 'Auth\LoginController@redirectToProvider');
 Route::get('login/google/callback', 'Auth\LoginController@handleProviderCallback');
-Route::get('logout', 'Auth\LoginController@logout');
+Route::get('farm/logout', 'Auth\LoginController@logout');

@@ -1706,7 +1706,7 @@ class FarmController extends Controller
                   }
                 }
               }
-              $age_weanedsow = Carbon::parse($date_weanedsow)->diffInMonths(Carbon::parse($bday_sow));
+              $age_weanedsow = Carbon::parse($date_weanedsow)->diffInDays(Carbon::parse($bday_sow));
               array_push($ages_weanedsow, $age_weanedsow);
             }
           }
@@ -1731,7 +1731,7 @@ class FarmController extends Controller
                   }
                 }
               }
-              $age_weanedboar = Carbon::parse($date_weanedboar)->diffInMonths(Carbon::parse($bday_boar));
+              $age_weanedboar = Carbon::parse($date_weanedboar)->diffInDays(Carbon::parse($bday_boar));
               array_push($ages_weanedboar, $age_weanedboar);
             }
           }
@@ -1756,7 +1756,7 @@ class FarmController extends Controller
                   }
                 }
               }
-              $age_weanedpig = Carbon::parse($date_weanedpig)->diffInMonths(Carbon::parse($bday_pig));
+              $age_weanedpig = Carbon::parse($date_weanedpig)->diffInDays(Carbon::parse($bday_pig));
               array_push($ages_weanedpig, $age_weanedpig);
             }
           }
