@@ -2524,6 +2524,23 @@ class FarmController extends Controller
       return view('pigs.farmprofile', compact('farm', 'breed'));
     }
 
+    public function getAddBreedersPage(){
+      $pigs = Animal::where("animaltype_id", 3)->where("status", "active")->get();
+
+      $sows = [];
+      $boars = [];
+      foreach($pigs as $pig){
+        if(substr($pig->registryid, -6, 1) == 'F'){
+          array_push($sows, $pig);
+        }
+        if(substr($pig->registryid, -6, 1) == 'M'){
+          array_push($boars, $pig);
+        }
+      }
+
+      return view('pigs.addbreeders', compact('pigs', 'sows', 'boars'));
+    }
+
     public function getAnimalRecordPage(){
       $pigs = Animal::where("animaltype_id", 3)->where("status", "active")->get();
 

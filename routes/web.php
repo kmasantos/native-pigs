@@ -35,6 +35,7 @@ Route::group(['middleware' => ['web']], function () {
     //Route::post('add_offspring', ['as' => 'farm.pig.add_offspring', 'uses' => 'FarmController@addOffspring']);
     Route::post('get_sowlitter_record', ['as' => 'farm.pig.get_sowlitter_record', 'uses' => 'FarmController@addSowlitterRecord']);
     Route::post('get_weaning_weights', ['as' => 'farm.pig.get_weaning_weights', 'uses' => 'FarmController@addWeaningWeights']);
+    Route::get('add_breeders', ['as' => 'farm.pig.add_breeders', 'uses' => 'FarmController@getAddBreedersPage']);
     Route::get('individual_records', ['as' => 'farm.pig.individual_records', 'uses' => 'FarmController@getAnimalRecordPage']);
     Route::get('add_pig', ['as' => 'farm.pig.add_pig', 'uses' => 'FarmController@getAddPigPage']);
     Route::post('fetch_new_pig', ['as' => 'farm.pig.fetch_new_pig', 'uses' => 'FarmController@fetchNewPigRecord']);

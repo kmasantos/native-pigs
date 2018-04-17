@@ -45,7 +45,7 @@
 				"labels":["0","1","2","3","4","5","6", ">6"],
 				"datasets":[
 					{
-						"label":"Sows",
+						"label":"Female",
 						"data":[2,3,4,5,1,3,6,1],
 						"fill":false,
 						"backgroundColor": "rgba(255, 99, 132, 0.2)",
@@ -53,7 +53,7 @@
 						"borderWidth":1
 					},
 					{
-						"label": "Boars",
+						"label": "Male",
 						"data":[2,1,1,4,3,0,1,4],
 						"fill":false,
 						"backgroundColor": "rgba(75, 192, 192, 0.2)",
@@ -79,7 +79,7 @@
 				"labels":["0","1","2","3","4","5","6", ">6"],
 				"datasets":[
 					{
-						"label":"Sows",
+						"label":"Female",
 						"data":[2,3,4,5,1,3,6,1],
 						"fill":false,
 						"backgroundColor": "rgba(255, 99, 132, 0.2)",
@@ -87,7 +87,7 @@
 						"borderWidth":1
 					},
 					{
-						"label": "Boars",
+						"label": "Male",
 						"data":[2,1,1,4,3,0,1,4],
 						"fill":false,
 						"backgroundColor": "rgba(75, 192, 192, 0.2)",
@@ -113,7 +113,7 @@
 				"labels":["0","1","2","3","4","5","6", ">6"],
 				"datasets":[
 					{
-						"label":"Sows",
+						"label":"Female",
 						"data":[2,3,4,5,1,3,6,1],
 						"fill":false,
 						"backgroundColor": "rgba(255, 99, 132, 0.2)",
@@ -121,7 +121,7 @@
 						"borderWidth":1
 					},
 					{
-						"label": "Boars",
+						"label": "Male",
 						"data":[2,1,1,4,3,0,1,4],
 						"fill":false,
 						"backgroundColor": "rgba(75, 192, 192, 0.2)",
@@ -147,7 +147,7 @@
 				"labels":["0","1","2","3","4","5","6", ">6"],
 				"datasets":[
 					{
-						"label":"Sows",
+						"label":"Female",
 						"data":[2,3,4,5,1,3,6,1],
 						"fill":false,
 						"backgroundColor": "rgba(255, 99, 132, 0.2)",
@@ -155,7 +155,7 @@
 						"borderWidth":1
 					},
 					{
-						"label": "Boars",
+						"label": "Male",
 						"data":[2,1,1,4,3,0,1,4],
 						"fill":false,
 						"backgroundColor": "rgba(75, 192, 192, 0.2)",
@@ -181,7 +181,7 @@
 				"labels":["0","1","2","3","4","5","6", ">6"],
 				"datasets":[
 					{
-						"label":"Sows",
+						"label":"Female",
 						"data":[2,3,4,5,1,3,6,1],
 						"fill":false,
 						"backgroundColor": "rgba(255, 99, 132, 0.2)",
@@ -189,7 +189,7 @@
 						"borderWidth":1
 					},
 					{
-						"label": "Boars",
+						"label": "Male",
 						"data":[2,1,1,4,3,0,1,4],
 						"fill":false,
 						"backgroundColor": "rgba(75, 192, 192, 0.2)",
@@ -215,7 +215,7 @@
 				"labels":["0","1","2","3","4","5","6", ">6"],
 				"datasets":[
 					{
-						"label":"Sows",
+						"label":"Female",
 						"data":[2,3,4,5,1,3,6,1],
 						"fill":false,
 						"backgroundColor": "rgba(255, 99, 132, 0.2)",
@@ -223,7 +223,7 @@
 						"borderWidth":1
 					},
 					{
-						"label": "Boars",
+						"label": "Male",
 						"data":[2,1,1,4,3,0,1,4],
 						"fill":false,
 						"backgroundColor": "rgba(75, 192, 192, 0.2)",
@@ -249,7 +249,7 @@
 				"labels":["0","1","2","3","4","5","6", ">6"],
 				"datasets":[
 					{
-						"label":"Sows",
+						"label":"Female",
 						"data":[2,3,4,5,1,3,6,1],
 						"fill":false,
 						"backgroundColor": "rgba(255, 99, 132, 0.2)",
@@ -257,7 +257,7 @@
 						"borderWidth":1
 					},
 					{
-						"label": "Boars",
+						"label": "Male",
 						"data":[2,1,1,4,3,0,1,4],
 						"fill":false,
 						"backgroundColor": "rgba(75, 192, 192, 0.2)",
@@ -283,7 +283,7 @@
 				"labels":["0","1","2","3","4","5","6", ">6"],
 				"datasets":[
 					{
-						"label":"Sows",
+						"label":"Female",
 						"data":[2,3,4,5,1,3,6,1],
 						"fill":false,
 						"backgroundColor": "rgba(255, 99, 132, 0.2)",
@@ -291,7 +291,7 @@
 						"borderWidth":1
 					},
 					{
-						"label": "Boars",
+						"label": "Male",
 						"data":[2,1,1,4,3,0,1,4],
 						"fill":false,
 						"backgroundColor": "rgba(75, 192, 192, 0.2)",
@@ -317,7 +317,7 @@
 				"labels":["0","1","2","3","4","5","6", ">6"],
 				"datasets":[
 					{
-						"label":"Sows",
+						"label":"Female",
 						"data":[2,3,4,5,1,3,6,1],
 						"fill":false,
 						"backgroundColor": "rgba(255, 99, 132, 0.2)",
@@ -325,7 +325,7 @@
 						"borderWidth":1
 					},
 					{
-						"label": "Boars",
+						"label": "Male",
 						"data":[2,1,1,4,3,0,1,4],
 						"fill":false,
 						"backgroundColor": "rgba(75, 192, 192, 0.2)",
@@ -351,7 +351,7 @@
 				"labels":["0","1","2","3","4","5","6", ">6"],
 				"datasets":[
 					{
-						"label":"Sows",
+						"label":"Female",
 						"data":[2,3,4,5,1,3,6,1],
 						"fill":false,
 						"backgroundColor": "rgba(255, 99, 132, 0.2)",
@@ -359,7 +359,7 @@
 						"borderWidth":1
 					},
 					{
-						"label": "Boars",
+						"label": "Male",
 						"data":[2,1,1,4,3,0,1,4],
 						"fill":false,
 						"backgroundColor": "rgba(75, 192, 192, 0.2)",
@@ -385,7 +385,7 @@
 				"labels":["0","1","2","3","4","5","6", ">6"],
 				"datasets":[
 					{
-						"label":"Sows",
+						"label":"Female",
 						"data":[2,3,4,5,1,3,6,1],
 						"fill":false,
 						"backgroundColor": "rgba(255, 99, 132, 0.2)",
@@ -393,7 +393,7 @@
 						"borderWidth":1
 					},
 					{
-						"label": "Boars",
+						"label": "Male",
 						"data":[2,1,1,4,3,0,1,4],
 						"fill":false,
 						"backgroundColor": "rgba(75, 192, 192, 0.2)",
@@ -419,7 +419,7 @@
 				"labels":["0","1","2","3","4","5","6", ">6"],
 				"datasets":[
 					{
-						"label":"Sows",
+						"label":"Female",
 						"data":[2,3,4,5,1,3,6,1],
 						"fill":false,
 						"backgroundColor": "rgba(255, 99, 132, 0.2)",
@@ -427,7 +427,7 @@
 						"borderWidth":1
 					},
 					{
-						"label": "Boars",
+						"label": "Male",
 						"data":[2,1,1,4,3,0,1,4],
 						"fill":false,
 						"backgroundColor": "rgba(75, 192, 192, 0.2)",

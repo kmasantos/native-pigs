@@ -6695,7 +6695,7 @@ form p:last-child {
   width: 18px;
   height: 18px;
   z-index: 0;
-  border: 2px solid #009688;
+  border: 2px solid #66bb6a;
   border-radius: 1px;
   margin-top: 2px;
   -webkit-transition: .2s;
@@ -6730,8 +6730,8 @@ form p:last-child {
   height: 22px;
   border-top: 2px solid transparent;
   border-left: 2px solid transparent;
-  border-right: 2px solid #009688;
-  border-bottom: 2px solid #009688;
+  border-right: 2px solid #66bb6a;
+  border-bottom: 2px solid #66bb6a;
   -webkit-transform: rotate(40deg);
           transform: rotate(40deg);
   -webkit-backface-visibility: hidden;
@@ -6753,7 +6753,7 @@ form p:last-child {
   height: 22px;
   border-top: none;
   border-left: none;
-  border-right: 2px solid #009688;
+  border-right: 2px solid #66bb6a;
   border-bottom: none;
   -webkit-transform: rotate(90deg);
           transform: rotate(90deg);
@@ -6799,7 +6799,7 @@ form p:last-child {
   height: 20px;
   width: 20px;
   background-color: transparent;
-  border: 2px solid #009688;
+  border: 2px solid #66bb6a;
   top: 0px;
   z-index: 0;
 }
@@ -6823,21 +6823,21 @@ form p:last-child {
   top: 0;
   width: 20px;
   height: 20px;
-  border: 2px solid #009688;
-  background-color: #009688;
+  border: 2px solid #66bb6a;
+  background-color: #66bb6a;
   z-index: 0;
 }
 
 [type="checkbox"].filled-in.tabbed:focus + label:after {
   border-radius: 2px;
-  border-color: #009688;
+  border-color: #66bb6a;
   background-color: rgba(0, 0, 0, 0.1);
 }
 
 [type="checkbox"].filled-in.tabbed:checked:focus + label:after {
   border-radius: 2px;
-  background-color: #009688;
-  border-color: #009688;
+  background-color: #66bb6a;
+  border-color: #66bb6a;
 }
 
 [type="checkbox"].filled-in:disabled:not(:checked) + label:before {
@@ -6847,7 +6847,7 @@ form p:last-child {
 
 [type="checkbox"].filled-in:disabled:not(:checked) + label:after {
   border-color: transparent;
-  background-color: #009688;
+  background-color: #66bb6a;
 }
 
 [type="checkbox"].filled-in:disabled:checked + label:before {
@@ -6855,8 +6855,8 @@ form p:last-child {
 }
 
 [type="checkbox"].filled-in:disabled:checked + label:after {
-  background-color: #009688;
-  border-color: #009688;
+  background-color: #66bb6a;
+  border-color: #66bb6a;
 }
 
 /* Switch
