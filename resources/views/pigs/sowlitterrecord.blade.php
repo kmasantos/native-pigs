@@ -102,13 +102,13 @@
 							</div>
 							<div class="row">
 								<div class="col s8">
-									Parity
+									<p>Parity</p>
 								</div>
 								<div class="col s4">
-									@if(is_null($family->getGroupingProperties()->where("property_id", 76)->first()))
-										No data available
+									@if(is_null($family->getGroupingProperties()->where("property_id", 25)->first()))
+										<input id="parity" type="text" name="parity"> 
 									@else
-										{{ $family->getGroupingProperties()->where("property_id", 76)->first()->value }}
+										<input id="parity" type="text" name="parity" value="{{ $family->getGroupingProperties()->where("property_id", 76)->first()->value }}">
 									@endif
 								</div>
 							</div>

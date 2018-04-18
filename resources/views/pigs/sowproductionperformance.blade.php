@@ -27,7 +27,11 @@
 	  			</tr>
 	  			<tr>
 	  				<td>Litter-size Born Alive</td>
-	  				<td class="center"></td>
+	  				@if($lsba == [])
+	  					<td class="center">No data available</td>
+	  				@else
+	  					<td class="center">{{ ceil(array_sum($lsba)/count($lsba)) }}</td>
+	  				@endif
 	  			</tr>
 	  			<tr>
 	  				<td>Number Male Born</td>

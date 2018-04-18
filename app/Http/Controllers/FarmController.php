@@ -287,7 +287,7 @@ class FarmController extends Controller
       }
 
       // dd($offsprings);
-      static::addParity($id);
+      // static::addParity($id);
 
       return view('pigs.sowlitterrecord', compact('family', 'offsprings', 'properties', 'countMales', 'countFemales', 'aveBirthWeight', 'weaned', 'aveWeaningWeight'));
     }
@@ -2068,6 +2068,7 @@ class FarmController extends Controller
       $totalagesweaned = [];
       $totalweaned = [];
       $preweaningmortality = [];
+      $lsba = [];
       foreach ($parity as $par) {
         foreach ($groups as $group) {
           $offsprings = [];
@@ -2129,6 +2130,7 @@ class FarmController extends Controller
                 }
                 array_push($totalmales, count($males));
                 array_push($totalfemales, count($females));
+                array_push($lsba, (count($males)+count($females)));
                 if(count($litterweaningweights) != 0){
                   array_push($preweaningmortality, ((count($males)+count($females))-((count($males)+count($females))-count($litterweaningweights))));
                 }
@@ -2153,7 +2155,7 @@ class FarmController extends Controller
         }
       }
 
-      return view('pigs.sowproductionperformance', compact('sow', 'properties', 'stillborn', 'mummified', 'totalmales', 'totalfemales', 'totallitterbirthweights', 'avelitterbirthweights', 'totallitterweaningweights', 'avelitterweaningweights', 'totalagesweaned', 'aveadjweaningweights', 'totalweaned', 'preweaningmortality'));
+      return view('pigs.sowproductionperformance', compact('sow', 'properties', 'stillborn', 'mummified', 'totalmales', 'totalfemales', 'totallitterbirthweights', 'avelitterbirthweights', 'totallitterweaningweights', 'avelitterweaningweights', 'totalagesweaned', 'aveadjweaningweights', 'totalweaned', 'preweaningmortality', 'lsba'));
     }
 
     public function getBoarProductionPerformancePage($id){
@@ -2191,6 +2193,7 @@ class FarmController extends Controller
       $totalagesweaned = [];
       $totalweaned = [];
       $preweaningmortality = [];
+      $lsba = [];
       foreach ($parity as $par) {
         foreach ($groups as $group) {
           $offsprings = [];
@@ -2252,6 +2255,7 @@ class FarmController extends Controller
                 }
                 array_push($totalmales, count($males));
                 array_push($totalfemales, count($females));
+                array_push($lsba, (count($males)+count($females)));
                 if(count($litterweaningweights) != 0){
                   array_push($preweaningmortality, ((count($males)+count($females))-((count($males)+count($females))-count($litterweaningweights))));
                 }
@@ -2276,7 +2280,7 @@ class FarmController extends Controller
         }
       }
 
-      return view('pigs.boarproductionperformance', compact('boar', 'properties', 'stillborn', 'mummified', 'totalmales', 'totalfemales', 'totallitterbirthweights', 'avelitterbirthweights', 'totallitterweaningweights', 'avelitterweaningweights', 'totalagesweaned', 'aveadjweaningweights', 'totalweaned', 'preweaningmortality'));
+      return view('pigs.boarproductionperformance', compact('boar', 'properties', 'stillborn', 'mummified', 'totalmales', 'totalfemales', 'totallitterbirthweights', 'avelitterbirthweights', 'totallitterweaningweights', 'avelitterweaningweights', 'totalagesweaned', 'aveadjweaningweights', 'totalweaned', 'preweaningmortality', 'lsba'));
     }
 
     public function getBreederInventoryPage(){
@@ -2394,6 +2398,7 @@ class FarmController extends Controller
         }
       }
 
+      // TO DO: LACTATING: WITH DATE FARROWED BUT WITHOUT DATE WEANED; DRY: WITH DATE WEANED OR RECYCLED
       $lactating = count($bredsows) - count($pregnantsows);
       $drysows = count($sows) - (count($pregnantsows) + $lactating);
 
