@@ -106,9 +106,17 @@
 								</div>
 								<div class="col s4">
 									@if(is_null($family->getGroupingProperties()->where("property_id", 25)->first()))
-										<input id="parity" type="text" name="parity"> 
+										@if(is_null($family->getGroupingProperties()->where("property_id", 76)->first()))
+											<input id="parity" type="text" name="parity"> 
+										@else
+											<input id="parity" type="text" name="parity" value="{{ $family->getGroupingProperties()->where("property_id", 76)->first()->value }}">
+										@endif
 									@else
-										<input id="parity" type="text" name="parity" value="{{ $family->getGroupingProperties()->where("property_id", 76)->first()->value }}">
+										@if(is_null($family->getGroupingProperties()->where("property_id", 76)->first()))
+											<input id="parity" type="text" name="parity"> 
+										@else
+											<input id="parity" type="text" name="parity" value="{{ $family->getGroupingProperties()->where("property_id", 76)->first()->value }}">
+										@endif
 									@endif
 								</div>
 							</div>
@@ -187,23 +195,57 @@
 				</div>
 				<div class="row center">
 					<div class="col s6">
-						@if(is_null($family->getGroupingProperties()->where("property_id", 74)->first()))
-							Number Stillborn
-							<div class="input-field inline">
-								<input id="number_stillborn" type="text" name="number_stillborn">
-							</div>
+						@if(is_null($family->getGroupingProperties()->where("property_id", 25)->first()))
+							@if(is_null($family->getGroupingProperties()->where("property_id", 74)->first()))
+								Number Stillborn:
+								<div class="input-field inline">
+									<input id="number_stillborn" type="text" name="number_stillborn">
+								</div>
+							@else
+								Number Stillborn:
+								<div class="input-field inline">
+									<input id="number_stillborn" type="text" name="number_stillborn" value="{{ $family->getGroupingProperties()->where("property_id", 74)->first()->value }}">
+								</div>
+							@endif
 						@else
-							<p class="center">Number Stillborn: {{ $family->getGroupingProperties()->where("property_id", 74)->first()->value }}</p>
+							@if(is_null($family->getGroupingProperties()->where("property_id", 74)->first()))
+								Number Stillborn:
+								<div class="input-field inline">
+									<input id="number_stillborn" type="text" name="number_stillborn">
+								</div>
+							@else
+								Number Stillborn:
+								<div class="input-field inline">
+									<input id="number_stillborn" type="text" name="number_stillborn" value="{{ $family->getGroupingProperties()->where("property_id", 74)->first()->value }}">
+								</div>
+							@endif
 						@endif
 					</div>
 					<div class="col s6">
-						@if(is_null($family->getGroupingProperties()->where("property_id", 75)->first()))
-							Number Mummified
-							<div class="input-field inline">
-								<input id="number_mummified" type="text" name="number_mummified">
-							</div>
+						@if(is_null($family->getGroupingProperties()->where("property_id", 25)->first()))
+							@if(is_null($family->getGroupingProperties()->where("property_id", 75)->first()))
+								Number Mummified:
+								<div class="input-field inline">
+									<input id="number_mummified" type="text" name="number_mummified">
+								</div>
+							@else
+								Number Mummified:
+								<div class="input-field inline">
+									<input id="number_mummified" type="text" name="number_mummified" value="{{ $family->getGroupingProperties()->where("property_id", 75)->first()->value }}">
+								</div>
+							@endif
 						@else
-							<p class="center">Number Mummified: {{ $family->getGroupingProperties()->where("property_id", 75)->first()->value }}</p>
+							@if(is_null($family->getGroupingProperties()->where("property_id", 75)->first()))
+								Number Mummified:
+								<div class="input-field inline">
+									<input id="number_mummified" type="text" name="number_mummified">
+								</div>
+							@else
+								Number Mummified:
+								<div class="input-field inline">
+									<input id="number_mummified" type="text" name="number_mummified" value="{{ $family->getGroupingProperties()->where("property_id", 75)->first()->value }}">
+								</div>
+							@endif
 						@endif
 					</div>
 					<div class="col s12">
