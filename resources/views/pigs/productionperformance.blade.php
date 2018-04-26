@@ -148,6 +148,10 @@
 	    	<table>
 	    		<tbody>
 	    			<tr>
+	    				<td>Litter-size Born Alive</td>
+	    				<td></td>
+	    			</tr>
+	    			<tr>
 	    				<td>Number Male Born</td>
 	    				<td></td>
 	    			</tr>
@@ -200,6 +204,62 @@
 	    </div>
 	    <!-- PER BREED -->
 	    <div id="perbreedview" class="col s12">
+	    	<table>
+	    		<tbody>
+	    			<tr>
+	    				<td>Litter-size Born Alive</td>
+	    				<td></td>
+	    			</tr>
+	    			<tr>
+	    				<td>Number Male Born</td>
+	    				<td></td>
+	    			</tr>
+	    			<tr>
+	    				<td>Number Female Born</td>
+	    				<td></td>
+	    			</tr>
+	    			<tr>
+	    				<td>Litter Birth Weight</td>
+	    				<td></td>
+	    			</tr>
+	    			<tr>
+	    				<td>Average Birth Weight</td>
+	    				<td></td>
+	    			</tr>
+	    			<tr>
+	    				<td>Number Stillborn</td>
+	    				<td></td>
+	    			</tr>
+	    			<tr>
+	    				<td>Number Mummified</td>
+	    				<td></td>
+	    			</tr>
+	    			<tr>
+	    				<td>Litter Weaning Weight</td>
+	    				<td></td>
+	    			</tr>
+	    			<tr>
+	    				<td>Average Weaning Weight</td>
+	    				<td></td>
+	    			</tr>
+	    			<tr>
+	    				<td>Adjusted Weaning Weight at 45 Days</td>
+	    				<td></td>
+	    			</tr>
+	    			<tr>
+	    				<td>Number Weaned</td>
+	    				<td></td>
+	    			</tr>
+	    			<tr>
+	    				<td>Age Weaned</td>
+	    				<td></td>
+	    			</tr>
+	    			<tr>
+	    				<td>Pre-weaning Mortality</td>
+	    				<td></td>
+	    			</tr>
+	    		</tbody>
+	    	</table>
 	    </div>
 		</div>
 	</div>
