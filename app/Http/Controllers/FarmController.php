@@ -178,6 +178,9 @@ class FarmController extends Controller
                 }
               }
             }
+            if($familyproperty->value == "Pregnant" || $familyproperty->value == "Recycled"){
+              array_push($parities, 0);
+            }
           }
         }
       }
@@ -261,7 +264,7 @@ class FarmController extends Controller
       }
 
       // dd($offsprings);
-      // static::addParity($id);
+      static::addParity($id);
 
       return view('pigs.sowlitterrecord', compact('family', 'offsprings', 'properties', 'countMales', 'countFemales', 'aveBirthWeight', 'weaned', 'aveWeaningWeight'));
     }
@@ -1968,7 +1971,7 @@ class FarmController extends Controller
       foreach ($sows as $sow) {
         $sowproperties = $sow->getAnimalProperties();
         foreach ($sowproperties as $sowproperty) {
-          if($sowproperty->property_id == 88){
+          if($sowproperty->property_id == 76){
             if($sowproperty->value > 0){
               array_push($sowbreeders, $sow);
             }
