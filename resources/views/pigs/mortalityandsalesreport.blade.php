@@ -9,19 +9,24 @@
 		<h4>Mortality &amp; Sales Report</h4>
 		<div class="divider"></div>
 		<div class="row center" style="padding-top: 10px;">
-			<div class="col s12 m10 l4">
+			<div class="col s12 m10 l8">
         <div class="card">
           <div class="card-content grey lighten-2">
             <h5>Dead Pigs</h5>
-            <h3>{{ count($dead) }}</h3>
-          </div>
-        </div>
-      </div>
-      <div class="col s12 m10 l4">
-        <div class="card">
-          <div class="card-content grey lighten-2">
-            <h5>Sold Pigs</h5>
-            <h3>{{ count($sold) }}</h3>
+            <div class="row">
+              <div class="col s6">
+                <h2>{{ count($dead) }}</h2>
+              </div>
+              <div class="col s6">
+                @if($ages_dead == [])
+                  <h4>No data available</h4>
+                  <p>Average age, months</p>
+                @else
+                  <h4>{{ round(array_sum($ages_dead)/count($ages_dead), 2) }}</h4>
+                  <p>Average Age, months</p>
+                @endif
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -29,48 +34,102 @@
         <div class="card">
           <div class="card-content grey lighten-2">
             <h5>Culled/Donated Pigs</h5>
-            <h4>{{ count($removed) }}</h4>
-          </div>
-        </div>
-      </div>
-      <div class="col s12 m10 l8">
-        <div class="card">
-          <div class="card-content grey lighten-2">
-            <h5>Average Age, months</h5>
-           	<div class="row">
-	            <div class="col s6">
-	            	@if($ages_dead == [])
-	            		<h4>No data available</h4>
-	            	@else
-	            		<h3>{{ round(array_sum($ages_dead)/count($ages_dead), 2) }}</h3>
-	            	@endif
-	            	<p>Died</p>
-	            </div>
-	            <div class="col s6">
-	            	@if($ages_sold == [])
-	            		<h4>No data available</h4>
-	            	@else
-	            		<h3>{{ round(array_sum($ages_sold)/count($ages_sold), 2) }}</h3>
-	            	@endif
-	            	<p>Sold</p>
-	            </div>
-	          </div>
-          </div>
-        </div>
-      </div>
-      <div class="col s12 m10 l4">
-        <div class="card">
-          <div class="card-content grey lighten-2">
-            <h5>Average Weight Sold, kg</h5>
             <div class="row">
-            	<div class="col s12">
-            		@if($weights_sold == [])
-            			<h4>No data available</h4>
-            		@else
-		            	<h3>{{ round(array_sum($weights_sold)/count($weights_sold), 2) }}</h3>
-		            @endif
-		          </div>
+              <h2>{{ count($removed) }}</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col s12 m10 l12">
+        <div class="card">
+          <div class="card-content grey lighten-2">
+            <h5>Sold Pigs</h5>
+           	<div class="row">
+	            <div class="col s4">
+                <h3>{{ count($sold) }}</h3>
+	            	<p>Breeders</p>
+	            </div>
+	            <div class="col s4">
+	            	<h3>#</h3>
+	            	<p>Growers</p>
+	            </div>
+              <div class="col s4">
+                <h3>#</h3>
+                <p>Replacement</p>
+              </div>
 	          </div>
+          </div>
+        </div>
+      </div>
+      <div class="col s12 m10 l12">
+        <div class="card">
+          <div class="card-content grey lighten-2">
+            <h5>Average Age when Sold, months</h5>
+            <div class="row">
+              <div class="col s4">
+                @if($ages_sold == [])
+                  <h5>No data available</h5>
+                  <p>Breeders</p>
+                @else
+                  <h4>{{ round(array_sum($ages_sold)/count($ages_sold), 2) }}</h4>
+                  <p>Breeders</p>
+                @endif
+              </div>
+              <div class="col s4">
+                @if($ages_sold == [])
+                  <h5>No data available</h5>
+                  <p>Growers</p>
+                @else
+                  <h4>#</h4>
+                  <p>Growers</p>
+                @endif
+              </div>
+              <div class="col s4">
+                @if($ages_sold == [])
+                  <h5>No data available</h5>
+                  <p>Replacement</p>
+                @else
+                  <h4>#</h4>
+                  <p>Replacement</p>
+                @endif
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col s12 m10 l12">
+        <div class="card">
+          <div class="card-content grey lighten-2">
+            <h5>Average Weight when Sold, kg</h5>
+            <div class="row">
+              <div class="col s4">
+                @if($weights_sold == [])
+                  <h5>No data available</h5>
+                  <p>Breeders</p>
+                @else
+                  <h4>{{ round(array_sum($weights_sold)/count($weights_sold), 2) }}</h4>
+                  <p>Breeders</p>
+                @endif
+              </div>
+              <div class="col s4">
+                @if($weights_sold == [])
+                  <h5>No data available</h5>
+                  <p>Growers</p>
+                @else
+                  <h4>#</h4>
+                  <p>Growers</p>
+                @endif
+              </div>
+              <div class="col s4">
+                @if($weights_sold == [])
+                  <h5>No data available</h5>
+                  <p>Replacement</p>
+                @else
+                  <h4>#</h4>
+                  <p>Replacement</p>
+                @endif
+              </div>
+            </div>
           </div>
         </div>
       </div>

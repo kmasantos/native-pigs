@@ -154,7 +154,19 @@ class FarmController extends Controller
 
     /***** FUNCTIONS FOR PIG *****/
 
-    static function addParity($id){
+    public function getPedigreePage(){
+      return view('pigs.pedigree');
+    }
+
+    public function fetchParityAjax($familyidvalue, $parityvalue){
+      $grouping = Grouping::find($familyidvalue);
+      $paritypropgroup = $grouping->getGroupingProperties()->where("property_id", 76)->first();
+
+      $paritypropgroup->value = $parityvalue;
+      $paritypropgroup->save();
+    }
+
+    static function addParityMother($id){
       $grouping = Grouping::find($id);
       $mother = $grouping->getMother();
 
@@ -163,6 +175,7 @@ class FarmController extends Controller
       $status = $grouping->getGroupingProperties()->where("property_id", 50)->first();
       $families = Grouping::where("mother_id", $mother->id)->get();
 
+      //mother's parity property value == latest parity
       $parities = [];
 			foreach ($families as $family) {
         $familyproperties = $family->getGroupingProperties();
@@ -198,8 +211,6 @@ class FarmController extends Controller
         $parityprop->save();
       }
 
-      // AUTO ADD
-    	
     }
 
     public function getAddSowLitterRecordPage($id){
@@ -265,7 +276,7 @@ class FarmController extends Controller
       }
 
       // dd($offsprings);
-      static::addParity($id);
+      static::addParityMother($id);
 
       return view('pigs.sowlitterrecord', compact('family', 'offsprings', 'properties', 'countMales', 'countFemales', 'aveBirthWeight', 'weaned', 'aveWeaningWeight'));
     }
@@ -2133,7 +2144,47 @@ class FarmController extends Controller
         }
       }
 
-      return view('pigs.sowproductionperformance', compact('sow', 'properties', 'stillborn', 'mummified', 'totalmales', 'totalfemales', 'totallitterbirthweights', 'avelitterbirthweights', 'totallitterweaningweights', 'avelitterweaningweights', 'totalagesweaned', 'aveadjweaningweights', 'totalweaned', 'preweaningmortality', 'lsba'));
+			if($stillborn !=[]){
+				$stillborn_sd = static::standardDeviation($stillborn, false);
+			}
+			if($mummified != []){
+				$mummified_sd = static::standardDeviation($mummified, false);
+			}
+			if($totalmales != []){
+				$totalmales_sd = static::standardDeviation($totalmales, false);
+			}
+			if($totalfemales != []){
+				$totalfemales_sd = static::standardDeviation($totalfemales, false);
+			}
+			if($totallitterbirthweights != []){
+				$totallitterbirthweights_sd = static::standardDeviation($totallitterbirthweights, false);
+			}
+			if($avelitterbirthweights != []){
+				$avelitterbirthweights_sd = static::standardDeviation($avelitterbirthweights, false);
+			}
+			if($totallitterweaningweights != []){
+				$totallitterweaningweights_sd = static::standardDeviation($totallitterweaningweights, false);
+			}
+			if($avelitterweaningweights != []){
+				$avelitterweaningweights_sd = static::standardDeviation($avelitterweaningweights, false);
+			}
+			if($aveadjweaningweights != []){
+				$aveadjweaningweights_sd = static::standardDeviation($aveadjweaningweights, false);
+			}
+			if($totalagesweaned != []){
+				$totalagesweaned_sd = static::standardDeviation($totalagesweaned, false);
+			}
+			if($totalweaned != []){
+				$totalweaned_sd = static::standardDeviation($totalweaned, false);
+			}
+			if($preweaningmortality != []){
+				$preweaningmortality_sd = static::standardDeviation($preweaningmortality, false);
+			}
+			if($lsba != []){
+				$lsba_sd = static::standardDeviation($lsba, false);
+			}
+
+      return view('pigs.sowproductionperformance', compact('sow', 'properties', 'stillborn', 'mummified', 'totalmales', 'totalfemales', 'totallitterbirthweights', 'avelitterbirthweights', 'totallitterweaningweights', 'avelitterweaningweights', 'totalagesweaned', 'aveadjweaningweights', 'totalweaned', 'preweaningmortality', 'lsba', 'stillborn_sd', 'mummified_sd', 'totalmales_sd', 'totalfemales_sd', 'totallitterbirthweights_sd', 'avelitterbirthweights_sd', 'totallitterweaningweights_sd', 'avelitterweaningweights_sd', 'aveadjweaningweights_sd', 'totalagesweaned_sd', 'totalweaned_sd', 'preweaningmortality_sd', 'lsba_sd'));
     }
 
     public function getBoarProductionPerformancePage($id){
@@ -2258,7 +2309,47 @@ class FarmController extends Controller
         }
       }
 
-      return view('pigs.boarproductionperformance', compact('boar', 'properties', 'stillborn', 'mummified', 'totalmales', 'totalfemales', 'totallitterbirthweights', 'avelitterbirthweights', 'totallitterweaningweights', 'avelitterweaningweights', 'totalagesweaned', 'aveadjweaningweights', 'totalweaned', 'preweaningmortality', 'lsba'));
+      if($stillborn !=[]){
+				$stillborn_sd = static::standardDeviation($stillborn, false);
+			}
+			if($mummified != []){
+				$mummified_sd = static::standardDeviation($mummified, false);
+			}
+			if($totalmales != []){
+				$totalmales_sd = static::standardDeviation($totalmales, false);
+			}
+			if($totalfemales != []){
+				$totalfemales_sd = static::standardDeviation($totalfemales, false);
+			}
+			if($totallitterbirthweights != []){
+				$totallitterbirthweights_sd = static::standardDeviation($totallitterbirthweights, false);
+			}
+			if($avelitterbirthweights != []){
+				$avelitterbirthweights_sd = static::standardDeviation($avelitterbirthweights, false);
+			}
+			if($totallitterweaningweights != []){
+				$totallitterweaningweights_sd = static::standardDeviation($totallitterweaningweights, false);
+			}
+			if($avelitterweaningweights != []){
+				$avelitterweaningweights_sd = static::standardDeviation($avelitterweaningweights, false);
+			}
+			if($aveadjweaningweights != []){
+				$aveadjweaningweights_sd = static::standardDeviation($aveadjweaningweights, false);
+			}
+			if($totalagesweaned != []){
+				$totalagesweaned_sd = static::standardDeviation($totalagesweaned, false);
+			}
+			if($totalweaned != []){
+				$totalweaned_sd = static::standardDeviation($totalweaned, false);
+			}
+			if($preweaningmortality != []){
+				$preweaningmortality_sd = static::standardDeviation($preweaningmortality, false);
+			}
+			if($lsba != []){
+				$lsba_sd = static::standardDeviation($lsba, false);
+			}
+
+      return view('pigs.boarproductionperformance', compact('boar', 'properties', 'stillborn', 'mummified', 'totalmales', 'totalfemales', 'totallitterbirthweights', 'avelitterbirthweights', 'totallitterweaningweights', 'avelitterweaningweights', 'totalagesweaned', 'aveadjweaningweights', 'totalweaned', 'preweaningmortality', 'lsba', 'stillborn_sd', 'mummified_sd', 'totalmales_sd', 'totalfemales_sd', 'totallitterbirthweights_sd', 'avelitterbirthweights_sd', 'totallitterweaningweights_sd', 'avelitterweaningweights_sd', 'aveadjweaningweights_sd', 'totalagesweaned_sd', 'totalweaned_sd', 'preweaningmortality_sd', 'lsba_sd'));
     }
 
     public function getBreederInventoryPage(){
@@ -2691,6 +2782,13 @@ class FarmController extends Controller
       return view('pigs.boarrecord', compact('boar', 'properties'));
     }
 
+    public function fetchBreedersAjax($breederid){
+      $pig = Animal::find($breederid);
+
+      $pig->status = "breeder";
+      $pig->save();
+    }
+    
     public function addBreedingRecord(Request $request){
       $sow = Animal::where("registryid", $request->sow_id)->first();
       $boar = Animal::where("registryid", $request->boar_id)->first();
@@ -2853,19 +2951,52 @@ class FarmController extends Controller
         $mummifiedprop->save();
       }
 
+      // $parityValue = substr($request->parity, -2, 2);
+      $datefarrowedprop = $grouping->getGroupingProperties()->where("property_id", 25)->first();
       $parityprop = $grouping->getGroupingProperties()->where("property_id", 76)->first();
-      if(is_null($parityprop)){
-        $parity = new GroupingProperty;
-        $parity->grouping_id = $grouping->id;
-        $parity->property_id = 76;
-        $parity->value = $request->parity;
-        $parity->datecollected = new Carbon();
-        $parity->save();
+      if(is_null($datefarrowedprop)){ // NEW RECORD
+        if(isset(($_POST['date_farrowed']))){
+          if(is_null($parityprop)){
+            $paritymotherprop = $grouping->getMother()->getAnimalProperties()->where("property_id", 76)->first();
+            if(is_null($paritymotherprop)){ // FIRST PARITY
+              $parityValue = 1;
+            }
+            else{ // LATEST PARITY
+              $parityValue = $paritymotherprop->value++;
+            }
+            $parity = new GroupingProperty;
+            $parity->grouping_id = $grouping->id;
+            $parity->property_id = 76;
+            $parity->value = $parityValue;
+            $parity->datecollected = new Carbon();
+            $parity->save();
+          }
+        }
       }
-      else{
-        $parityprop->value = $$request->parity;
-        $parityprop->save();
+      else{ // EXISTING RECORD
+        if(is_null($parityprop)){
+          $paritymotherprop = $grouping->getMother()->getAnimalProperties()->where("property_id", 76)->first();
+          if(is_null($paritymotherprop)){ // FIRST PARITY
+            $parityValue = 1;
+          }
+          else{ // LATEST PARITY
+            $parityValue = $paritymotherprop->value++;
+          }
+          $parity = new GroupingProperty;
+          $parity->grouping_id = $grouping->id;
+          $parity->property_id = 76;
+          $parity->value = $parityValue;
+          $parity->datecollected = new Carbon();
+          $parity->save();
+        }
+        else{
+          $parityprop->value = $request->parity;
+          $parityprop->save();
+        }
       }
+
+      static::addParityMother($grouping->id);
+
 
       $status = GroupingProperty::where("property_id", 50)->where("grouping_id", $grouping->id)->first();
       $status->value = "Farrowed";

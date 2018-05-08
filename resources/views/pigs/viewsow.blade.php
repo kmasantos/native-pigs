@@ -70,33 +70,6 @@
               </div>
               <div class="col s6">
                 <div class="row">
-                  {{-- <div class="col s10 offset-s1 red lighten-4"> --}}
-                    @if(!is_null($sow->getGrouping()))
-                      @if(!is_null($sow->getGrouping()->getMother()))
-                        {{ $sow->getGrouping()->getMother()->registryid }}
-                      @else
-                        @if(is_null($properties->where("property_id", 86)->first()))
-                          No data of mother found
-                        @else
-                          {{ $properties->where("property_id", 86)->first()->value }}
-                        @endif
-                      @endif
-                    @else
-                      @if(is_null($properties->where("property_id", 86)->first()))
-                        No data of mother found
-                      @else
-                        {{ $properties->where("property_id", 86)->first()->value }}
-                      @endif
-                    @endif
-                  {{-- </div> --}}
-                </div>
-                <div class="row">
-
-                </div>
-                <div class="row">
-
-                </div>
-                <div class="row"> 
                   {{-- <div class="col s10 offset-s1 blue lighten-2"> --}}
                     @if(!is_null($sow->getGrouping()))
                       @if(!is_null($sow->getGrouping()->getFather()))
@@ -113,6 +86,33 @@
                         No data of father found
                       @else
                         {{ $properties->where("property_id", 87)->first()->value }}
+                      @endif
+                    @endif
+                  {{-- </div> --}}
+                </div>
+                <div class="row">
+
+                </div>
+                <div class="row">
+
+                </div>
+                <div class="row"> 
+                  {{-- <div class="col s10 offset-s1 red lighten-4"> --}}
+                    @if(!is_null($sow->getGrouping()))
+                      @if(!is_null($sow->getGrouping()->getMother()))
+                        {{ $sow->getGrouping()->getMother()->registryid }}
+                      @else
+                        @if(is_null($properties->where("property_id", 86)->first()))
+                          No data of mother found
+                        @else
+                          {{ $properties->where("property_id", 86)->first()->value }}
+                        @endif
+                      @endif
+                    @else
+                      @if(is_null($properties->where("property_id", 86)->first()))
+                        No data of mother found
+                      @else
+                        {{ $properties->where("property_id", 86)->first()->value }}
                       @endif
                     @endif
                   {{-- </div> --}}

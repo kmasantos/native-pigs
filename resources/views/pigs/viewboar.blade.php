@@ -70,14 +70,22 @@
               </div>
               <div class="col s6">
                 <div class="row">
-                  {{-- <div class="col s10 offset-s1 red lighten-4"> --}}
+                  {{-- <div class="col s10 offset-s1 blue lighten-2"> --}}
                     @if(!is_null($boar->getGrouping()))
-                      {{ $boar->getGrouping()->getMother()->registryid }}
-                    @else
-                      @if(is_null($properties->where("property_id", 86)->first()))
-                        No data of mother found
+                      @if(!is_null($boar->getGrouping()->getFather()))
+                        {{ $boar->getGrouping()->getFather()->registryid }}
                       @else
-                        {{ $properties->where("property_id", 86)->first()->value }}}
+                        @if(is_null($properties->where("property_id", 87)->first()))
+                          No data of father found
+                        @else
+                          {{ $properties->where("property_id", 87)->first()->value }}}
+                        @endif
+                      @endif
+                    @else
+                      @if(is_null($properties->where("property_id", 87)->first()))
+                        No data of father found
+                      @else
+                        {{ $properties->where("property_id", 87)->first()->value }}
                       @endif
                     @endif
                   {{-- </div> --}}
@@ -89,14 +97,22 @@
 
                 </div>
                 <div class="row"> 
-                  {{-- <div class="col s10 offset-s1 blue lighten-2"> --}}
+                  {{-- <div class="col s10 offset-s1 red lighten-4"> --}}
                     @if(!is_null($boar->getGrouping()))
-                      {{ $boar->getGrouping()->getFather()->registryid }}
-                    @else
-                      @if(is_null($properties->where("property_id", 87)->first()))
-                        No data of father found
+                      @if(!is_null($boar->getGrouping()->getMother()))
+                        {{ $boar->getGrouping()->getMother()->registryid }}
                       @else
-                        {{ $properties->where("property_id", 87)->first()->value }}}
+                        @if(is_null($properties->where("property_id", 86)->first()))
+                          No data of mother found
+                        @else
+                          {{ $properties->where("property_id", 86)->first()->value }}}
+                        @endif
+                      @endif
+                    @else
+                      @if(is_null($properties->where("property_id", 86)->first()))
+                        No data of mother found
+                      @else
+                        {{ $properties->where("property_id", 86)->first()->value }}
                       @endif
                     @endif
                   {{-- </div> --}}

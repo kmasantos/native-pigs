@@ -107,15 +107,15 @@
 								<div class="col s4">
 									@if(is_null($family->getGroupingProperties()->where("property_id", 25)->first()))
 										@if(is_null($family->getGroupingProperties()->where("property_id", 76)->first()))
-											<input id="parity" type="text" name="parity"> 
+											<input id="paritytext" type="text" name="parity"> 
 										@else
-											<input id="parity" type="text" name="parity" value="{{ $family->getGroupingProperties()->where("property_id", 76)->first()->value }}">
+											<input id="paritytext" type="text" name="parity" value="{{ $family->getGroupingProperties()->where("property_id", 76)->first()->value }}">
 										@endif
 									@else
 										@if(is_null($family->getGroupingProperties()->where("property_id", 76)->first()))
-											<input id="parity" type="text" name="parity"> 
+											<input id="paritytext" type="text" name="parity"> 
 										@else
-											<input id="parity" type="text" name="parity" value="{{ $family->getGroupingProperties()->where("property_id", 76)->first()->value }}">
+											<input id="paritytext" type="text" name="parity" value="{{ $family->getGroupingProperties()->where("property_id", 76)->first()->value }}">
 										@endif
 									@endif
 								</div>
@@ -287,7 +287,7 @@
 					</div>
 				</div>
 				<div class="row center">
-					<button class="btn waves-effect waves-light green darken-3" type="submit" onclick="Materialize.toast('Successfully addded!', 4000)">Add
+					<button class="btn waves-effect waves-light green darken-3" type="submit" onclick="Materialize.toast('Successfully added!', 4000)">Add
             <i class="material-icons right">add</i>
           </button>
 				</div>
@@ -361,4 +361,29 @@
 			</div>
 		</div>
 	</div>
+@endsection
+
+@section('scripts')
+		<script>
+		$(document).ready(function(){
+		  $("#paritytext").change(function (event) {
+		    event.preventDefault();
+		    var familyidvalue = $('input[name=grouping_id]').val();
+		    var parityvalue = $('input[name=parity]').val();
+		    $.ajax({
+		    	headers: {
+          	'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+		      url: '../fetch_parity/'+familyidvalue+'/'+parityvalue,
+		      type: 'POST',
+		      cache: false,
+		      data: {familyidvalue, parityvalue},
+		      success: function(data)
+		      {
+		        Materialize.toast('Parity successfully added!', 4000);
+		      }
+		    });
+		  });
+		});
+	</script>
 @endsection

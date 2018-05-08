@@ -14,117 +14,145 @@
 					<tr>
 						<th>Property (Averages)</th>
 						<th class="center">Value</th>
+						<th class="center">Standard Deviation</th>
 					</tr>
 				</thead>
 	  		<tbody>
     			<tr>
 	  				<td>Usage</td>
 	  				<td class="center">{{ $properties->where("property_id", 88)->first()->value }}</td>
+	  				<td class="center">N/A</td>
 	  			</tr>
 	  			<tr>
 	  				<td>Litter-size Born Alive</td>
 	  				@if($lsba == [])
 	  					<td class="center">No data available</td>
+	  					<td class="center">No data available</td>
 	  				@else
-	  					<td class="center">{{ ceil(array_sum($lsba)/count($lsba)) }}</td>
+	  					<td class="center">{{ round(array_sum($lsba)/count($lsba), 2) }}</td>
+	  					<td class="center">{{ round($lsba_sd, 2) }}</td>
 	  				@endif
 	  			</tr>
-    			<tr>
+	  			<tr>
 	  				<td>Number Male Born</td>
 	  				@if($totalmales == [])
 	  					<td class="center">No data available</td>
+	  					<td class="center">No data available</td>
 	  				@else
-	  					<td class="center">{{ ceil(array_sum($totalmales)/count($totalmales)) }}</td>
+	  					<td class="center">{{ round(array_sum($totalmales)/count($totalmales), 2) }}</td>
+	  					<td class="center">{{ round($totalmales_sd, 2) }}</td>
 	  				@endif
 	  			</tr>
 	  			<tr>
 	  				<td>Number Female Born</td>
 	  				@if($totalfemales == [])
 	  					<td class="center">No data available</td>
+	  					<td class="center">No data available</td>
 	  				@else
-	  					<td class="center">{{ ceil(array_sum($totalfemales)/count($totalfemales)) }}</td>
+	  					<td class="center">{{ round(array_sum($totalfemales)/count($totalfemales), 2) }}</td>
+	  					<td class="center">{{ round($totalfemales_sd, 2) }}</td>
 	  				@endif
 	  			</tr>
 	  			<tr>
 	  				<td>Number Stillborn</td>
 	  				@if($stillborn == [])
 	  					<td class="center">No data available</td>
+	  					<td class="center">No data available</td>
 	  				@else
 	  					<td class="center">{{ round(array_sum($stillborn)/count($stillborn), 2) }}</td>
+	  					<td class="center">{{ round($stillborn_sd, 2) }}</td>
 	  				@endif
 	  			</tr>
 	  			<tr>
 	  				<td>Number Mummified</td>
 	  				@if($mummified == [])
 	  					<td class="center">No data available</td>
+	  					<td class="center">No data available</td>
 	  				@else
 	  					<td class="center">{{ round(array_sum($mummified)/count($stillborn), 2) }}</td>
+	  					<td class="center">{{ round($mummified_sd, 2) }}</td>
 	  				@endif
 	  			</tr>
 	  			<tr>
 	  				<td>Litter Birth Weight, kg</td>
 	  				@if($totallitterbirthweights == [])
 	  					<td class="center">No data available</td>
+	  					<td class="center">No data available</td>
 	  				@else
-	  					<td class="center">{{ round(array_sum($totallitterbirthweights)/count($totallitterbirthweights), 4) }}</td>
+	  					<td class="center">{{ round(array_sum($totallitterbirthweights)/count($totallitterbirthweights), 2) }}</td>
+	  					<td class="center">{{ round($totallitterbirthweights_sd, 2) }}</td>
 	  				@endif
 	  			</tr>
 	  			<tr>
 	  				<td>Average Birth Weight, kg</td>
 	  				@if($avelitterbirthweights == [])
 	  					<td class="center">No data available</td>
+	  					<td class="center">No data available</td>
 	  				@else
-	  					<td class="center">{{ round(array_sum($avelitterbirthweights)/count($avelitterbirthweights), 4) }}</td>
+	  					<td class="center">{{ round(array_sum($avelitterbirthweights)/count($avelitterbirthweights), 2) }}</td>
+	  					<td class="center">{{ round($avelitterbirthweights_sd, 2) }}</td>
 	  				@endif
 	  			</tr>
 	  			<tr>
 	  				<td>Litter Weaning Weight, kg</td>
 	  				@if($totallitterweaningweights == [])
 	  					<td class="center">No data available</td>
+	  					<td class="center">No data available</td>
 	  				@else
 	  					<td class="center">{{ round(array_sum($totallitterweaningweights)/count($totallitterweaningweights), 4) }}</td>
+	  					<td class="center">{{ round($totallitterweaningweights_sd, 2) }}</td>
 	  				@endif
 	  			</tr>
 	  			<tr>
 	  				<td>Average Weaning Weight, kg</td>
 	  				@if($avelitterweaningweights == [])
 	  					<td class="center">No data available</td>
+	  					<td class="center">No data available</td>
 	  				@else
-	  					<td class="center">{{ round(array_sum($avelitterweaningweights)/count($avelitterweaningweights), 4) }}</td>
+	  					<td class="center">{{ round(array_sum($avelitterweaningweights)/count($avelitterweaningweights), 2) }}</td>
+	  					<td class="center">{{ round($avelitterweaningweights_sd, 2) }}</td>
 	  				@endif
 	  			</tr>
-    			<tr>
+	  			<tr>
 	  				<td>Adjusted Weaning Weight at 45 Days, kg</td>
 	  				@if($aveadjweaningweights == [])
 	  					<td class="center">No data available</td>
+	  					<td class="center">No data available</td>
 	  				@else
-	  					<td class="center">{{ round(array_sum($aveadjweaningweights)/count($aveadjweaningweights), 4) }}</td>
+	  					<td class="center">{{ round(array_sum($aveadjweaningweights)/count($aveadjweaningweights), 2) }}</td>
+	  					<td class="center">{{ round($aveadjweaningweights_sd, 2) }}</td>
 	  				@endif
 	  			</tr>
 	  			<tr>
 	  				<td>Number Weaned</td>
 	  				@if($totalweaned == [])
 	  					<td class="center">No data available</td>
+	  					<td class="center">No data available</td>
 	  				@else
-	  					<td class="center">{{ round(array_sum($totalweaned)/count($totalweaned), 4) }}</td>
+	  					<td class="center">{{ round(array_sum($totalweaned)/count($totalweaned), 2) }}</td>
+	  					<td class="center">{{ round($totalweaned_sd, 2) }}</td>
 	  				@endif
 	  			</tr>
 	  			<tr>
 	  				<td>Age Weaned, months</td>
 	  				@if($totalagesweaned == [])
 	  					<td class="center">No data available</td>
+	  					<td class="center">No data available</td>
 	  				@else
-	  					<td class="center">{{ round(array_sum($totalagesweaned)/count($totalagesweaned), 4) }}</td>
+	  					<td class="center">{{ round(array_sum($totalagesweaned)/count($totalagesweaned), 2) }}</td>
+	  					<td class="center">{{ round($totalagesweaned_sd, 2) }}</td>
 	  				@endif
 	  			</tr>
     			<tr>
-    				<td>Pre-weaning Mortality</td>
-    				@if($preweaningmortality == [])
+	  				<td>Pre-weaning Mortality</td>
+	  				@if($preweaningmortality == [])
+	  					<td class="center">No data available</td>
 	  					<td class="center">No data available</td>
 	  				@else
-	  					<td class="center">{{ round(array_sum($preweaningmortality)/count($preweaningmortality), 4) }}</td>
+	  					<td class="center">{{ round(array_sum($preweaningmortality)/count($preweaningmortality), 2) }}</td>
+	  					<td class="center">{{ round($preweaningmortality_sd, 2) }}</td>
 	  				@endif
-    			</tr>
+	  			</tr>
     		</tbody>
 	  	</table>
 	  </div>

@@ -25,14 +25,15 @@
 					</thead>
 					<tbody>
 						@foreach($sows as $sow)
-							<tr>
+							<tr id="{{ $sow->id }}">
 								<td>{{ $sow->registryid }}</td>
 								<td class="center">
 									<p>
 							      <label>
-							        <input type="checkbox" class="filled-in" />
+							        <input id="add_sow_breeder" type="checkbox" class="filled-in" />
 							        <span></span>
 							      </label>
+							      <input type="hidden" name="sow_id" value="{{ $sow->id }}">
 							    </p>
 								</td>
 							</tr>
@@ -50,14 +51,15 @@
 					</thead>
 					<tbody>
 						@foreach($boars as $boar)
-							<tr>
+							<tr id="{{ $boar->id }}">
 								<td>{{ $boar->registryid }}</td>
 								<td class="center">
 									<p>
 							      <label>
-							        <input type="checkbox" class="filled-in" />
+							        <input id="add_boar_breeder" type="checkbox" class="filled-in" />
 							        <span></span>
 							      </label>
+							      <input type="hidden" name="boar_id" value="{{ $boar->id }}">
 							    </p>
 								</td>
 							</tr>
@@ -67,4 +69,53 @@
 			</div>
 		</div>
 	</div>
+@endsection
+
+@section('scripts')
+	<script>
+		$(document).ready(function(){
+		  $("#add_sow_breeder").change(function () {
+		    if($(this).is(":checked")){
+					event.preventDefault();
+					var breederid = $('input[name=sow_id]').val();
+					console.log(breederid);
+					$.ajax({
+						headers: {
+							'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+						},
+						url: '../farm/fetch_breeders/'+breederid,
+						type: 'POST',
+						cache: false,
+						data: {breederid},
+						success: function(data)
+						{
+							Materialize.toast('Sow breeder added!', 4000);
+							$("#"+breederid).remove();
+						}
+					});
+			  }
+		  });
+		  $("#add_boar_breeder").change(function () {
+		    if($(this).is(":checked")){
+					event.preventDefault();
+					var breederid = $('input[name=boar_id]').val();
+					console.log(breederid);
+					$.ajax({
+						headers: {
+							'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+						},
+						url: '../farm/fetch_breeders/'+breederid,
+						type: 'POST',
+						cache: false,
+						data: {breederid},
+						success: function(data)
+						{
+							Materialize.toast('Boar breeder added!', 4000);
+							$("#"+breederid).remove();
+						}
+					});
+			  }
+		  });
+		});
+	</script>
 @endsection
