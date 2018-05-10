@@ -48,10 +48,10 @@ class FarmController extends Controller
           $sows = [];
           $boars = [];
           foreach($pigs as $pig){
-            if(substr($pig->registryid, -6, 1) == 'F'){
+            if(substr($pig->registryid, -7, 1) == 'F'){
               array_push($sows, $pig);
             }
-            if(substr($pig->registryid, -6, 1) == 'M'){
+            if(substr($pig->registryid, -7, 1) == 'M'){
               array_push($boars, $pig);
             }
           }
@@ -200,14 +200,28 @@ class FarmController extends Controller
       $sorted_parities = array_sort($parities);
 
       if(is_null($parityprop)){
-        $parity = new AnimalProperty;
-        $parity->animal_id = $mother->id;
-        $parity->property_id = 76;
-        $parity->value = array_last($sorted_parities);
-        $parity->save();
+      	if($sorted_parities != []){
+      		$parity = new AnimalProperty;
+	        $parity->animal_id = $mother->id;
+	        $parity->property_id = 76;
+	        $parity->value = array_last($sorted_parities);
+	        $parity->save();
+      	}
+      	else{
+      		$parity = new AnimalProperty;
+	        $parity->animal_id = $mother->id;
+	        $parity->property_id = 76;
+	        $parity->value = 1;
+	        $parity->save();
+      	}
       }
       else{
-        $parityprop->value = array_last($sorted_parities);
+        if($sorted_parities != []){
+        	$parityprop->value = array_last($sorted_parities);
+        }
+        else{
+        	$parityprop->value = 1;
+        }
         $parityprop->save();
       }
 
@@ -288,10 +302,10 @@ class FarmController extends Controller
       $sows = [];
       $boars = [];
       foreach($pigs as $pig){
-        if(substr($pig->registryid, -6, 1) == 'F'){
+        if(substr($pig->registryid, -7, 1) == 'F'){
           array_push($sows, $pig);
         }
-        if(substr($pig->registryid, -6, 1) == 'M'){
+        if(substr($pig->registryid, -7, 1) == 'M'){
           array_push($boars, $pig);
         }
       }
@@ -331,7 +345,7 @@ class FarmController extends Controller
 
     	$pigsbornonyear = [];
     	foreach ($pigs as $pig) {
-    		if(substr($pig->registryid, -10, 4) == $year){
+    		if(substr($pig->registryid, -11, 4) == $year){
           array_push($pigsbornonyear, $pig);
         }
     	}
@@ -340,10 +354,10 @@ class FarmController extends Controller
       $boars = [];
 
       foreach ($pigs as $pig) {
-        if(substr($pig->registryid, -6, 1) == 'F'){
+        if(substr($pig->registryid, -7, 1) == 'F'){
           array_push($sows, $pig);
         }
-        if(substr($pig->registryid, -6, 1) == 'M'){
+        if(substr($pig->registryid, -7, 1) == 'M'){
           array_push($boars, $pig);
         }
       }
@@ -352,13 +366,13 @@ class FarmController extends Controller
       $boarsbornonyear = [];
 
       foreach ($sows as $sow) {
-      	if(substr($sow->registryid, -10, 4) == $year){
+      	if(substr($sow->registryid, -11, 4) == $year){
       		array_push($sowsbornonyear, $sow);
       	}
       }
 
       foreach ($boars as $boar) {
-      	if(substr($boar->registryid, -10, 4) == $year){
+      	if(substr($boar->registryid, -11, 4) == $year){
       		array_push($boarsbornonyear, $boar);
       	}
       }
@@ -379,7 +393,7 @@ class FarmController extends Controller
 
     	$pigsbornonyear = [];
     	foreach ($pigs as $pig) {
-    		if(substr($pig->registryid, -10, 4) == $year){
+    		if(substr($pig->registryid, -11, 4) == $year){
           array_push($pigsbornonyear, $pig);
         }
     	}
@@ -388,10 +402,10 @@ class FarmController extends Controller
       $boars = [];
 
       foreach ($pigs as $pig) {
-        if(substr($pig->registryid, -6, 1) == 'F'){
+        if(substr($pig->registryid, -7, 1) == 'F'){
           array_push($sows, $pig);
         }
-        if(substr($pig->registryid, -6, 1) == 'M'){
+        if(substr($pig->registryid, -7, 1) == 'M'){
           array_push($boars, $pig);
         }
       }
@@ -400,13 +414,13 @@ class FarmController extends Controller
       $boarsbornonyear = [];
 
       foreach ($sows as $sow) {
-      	if(substr($sow->registryid, -10, 4) == $year){
+      	if(substr($sow->registryid, -11, 4) == $year){
       		array_push($sowsbornonyear, $sow);
       	}
       }
 
       foreach ($boars as $boar) {
-      	if(substr($boar->registryid, -10, 4) == $year){
+      	if(substr($boar->registryid, -11, 4) == $year){
       		array_push($boarsbornonyear, $boar);
       	}
       }
@@ -468,10 +482,10 @@ class FarmController extends Controller
       $boars = [];
 
       foreach ($pigs as $pig) {
-        if(substr($pig->registryid, -6, 1) == 'F'){
+        if(substr($pig->registryid, -7, 1) == 'F'){
           array_push($sows, $pig);
         }
-        if(substr($pig->registryid, -6, 1) == 'M'){
+        if(substr($pig->registryid, -7, 1) == 'M'){
           array_push($boars, $pig);
         }
       }
@@ -616,10 +630,10 @@ class FarmController extends Controller
       $boarwithdata = 0;
 
       foreach ($pigs as $pig) {
-        if(substr($pig->registryid, -6, 1) == 'F'){
+        if(substr($pig->registryid, -7, 1) == 'F'){
           array_push($sows, $pig);
         }
-        if(substr($pig->registryid, -6, 1) == 'M'){
+        if(substr($pig->registryid, -7, 1) == 'M'){
           array_push($boars, $pig);
         }
       }
@@ -992,7 +1006,7 @@ class FarmController extends Controller
 
     	$pigsbornonyear = [];
     	foreach ($pigs as $pig) {
-    		if(substr($pig->registryid, -10, 4) == $year){
+    		if(substr($pig->registryid, -11, 4) == $year){
           array_push($pigsbornonyear, $pig);
         }
     	}
@@ -1001,10 +1015,10 @@ class FarmController extends Controller
       $boars = [];
 
       foreach ($pigs as $pig) {
-        if(substr($pig->registryid, -6, 1) == 'F'){
+        if(substr($pig->registryid, -7, 1) == 'F'){
           array_push($sows, $pig);
         }
-        if(substr($pig->registryid, -6, 1) == 'M'){
+        if(substr($pig->registryid, -7, 1) == 'M'){
           array_push($boars, $pig);
         }
       }
@@ -1013,13 +1027,13 @@ class FarmController extends Controller
       $boarsbornonyear = [];
 
       foreach ($sows as $sow) {
-      	if(substr($sow->registryid, -10, 4) == $year){
+      	if(substr($sow->registryid, -11, 4) == $year){
       		array_push($sowsbornonyear, $sow);
       	}
       }
 
       foreach ($boars as $boar) {
-      	if(substr($boar->registryid, -10, 4) == $year){
+      	if(substr($boar->registryid, -11, 4) == $year){
       		array_push($boarsbornonyear, $boar);
       	}
       }
@@ -1083,10 +1097,10 @@ class FarmController extends Controller
       $boars = [];
 
       foreach ($pigs as $pig) {
-        if(substr($pig->registryid, -6, 1) == 'F'){
+        if(substr($pig->registryid, -7, 1) == 'F'){
           array_push($sows, $pig);
         }
-        if(substr($pig->registryid, -6, 1) == 'M'){
+        if(substr($pig->registryid, -7, 1) == 'M'){
           array_push($boars, $pig);
         }
       }
@@ -1225,10 +1239,10 @@ class FarmController extends Controller
       $boars = [];
 
       foreach ($pigs as $pig) {
-        if(substr($pig->registryid, -6, 1) == 'F'){
+        if(substr($pig->registryid, -7, 1) == 'F'){
           array_push($sows, $pig);
         }
-        if(substr($pig->registryid, -6, 1) == 'M'){
+        if(substr($pig->registryid, -7, 1) == 'M'){
           array_push($boars, $pig);
         }
       }
@@ -1581,7 +1595,7 @@ class FarmController extends Controller
 
     	$bornonyear = [];
     	foreach ($pigs as $pig) {
-    		if(substr($pig->registryid, -10, 4) == $year){
+    		if(substr($pig->registryid, -11, 4) == $year){
           array_push($bornonyear, $pig);
         }
     	}
@@ -1672,10 +1686,10 @@ class FarmController extends Controller
       $sows = [];
       $boars = [];
       foreach($pigs as $pig){
-        if(substr($pig->registryid, -6, 1) == 'F'){
+        if(substr($pig->registryid, -7, 1) == 'F'){
           array_push($sows, $pig);
         }
-        if(substr($pig->registryid, -6, 1) == 'M'){
+        if(substr($pig->registryid, -7, 1) == 'M'){
           array_push($boars, $pig);
         }
       }
@@ -1970,10 +1984,10 @@ class FarmController extends Controller
     	$sows = [];
     	$boars = [];
     	foreach($pigs as $pig){
-        if(substr($pig->registryid, -6, 1) == 'F'){
+        if(substr($pig->registryid, -7, 1) == 'F'){
           array_push($sows, $pig);
         }
-        if(substr($pig->registryid, -6, 1) == 'M'){
+        if(substr($pig->registryid, -7, 1) == 'M'){
           array_push($boars, $pig);
         }
       }
@@ -2358,10 +2372,10 @@ class FarmController extends Controller
     	$sows = [];
     	$boars = [];
     	foreach($pigs as $pig){
-        if(substr($pig->registryid, -6, 1) == 'F'){
+        if(substr($pig->registryid, -7, 1) == 'F'){
           array_push($sows, $pig);
         }
-        if(substr($pig->registryid, -6, 1) == 'M'){
+        if(substr($pig->registryid, -7, 1) == 'M'){
           array_push($boars, $pig);
         }
       }
@@ -2496,10 +2510,10 @@ class FarmController extends Controller
       $sows = [];
       $boars = [];
       foreach($pigs as $pig){
-        if(substr($pig->registryid, -6, 1) == 'F'){
+        if(substr($pig->registryid, -7, 1) == 'F'){
           array_push($sows, $pig);
         }
-        if(substr($pig->registryid, -6, 1) == 'M'){
+        if(substr($pig->registryid, -7, 1) == 'M'){
           array_push($boars, $pig);
         }
       }
@@ -2604,10 +2618,10 @@ class FarmController extends Controller
       $sows = [];
       $boars = [];
       foreach($pigs as $pig){
-        if(substr($pig->registryid, -6, 1) == 'F'){
+        if(substr($pig->registryid, -7, 1) == 'F'){
           array_push($sows, $pig);
         }
-        if(substr($pig->registryid, -6, 1) == 'M'){
+        if(substr($pig->registryid, -7, 1) == 'M'){
           array_push($boars, $pig);
         }
       }
@@ -2621,10 +2635,10 @@ class FarmController extends Controller
       $sows = [];
       $boars = [];
       foreach($pigs as $pig){
-        if(substr($pig->registryid, -6, 1) == 'F'){
+        if(substr($pig->registryid, -7, 1) == 'F'){
           array_push($sows, $pig);
         }
-        if(substr($pig->registryid, -6, 1) == 'M'){
+        if(substr($pig->registryid, -7, 1) == 'M'){
           array_push($boars, $pig);
         }
       }
@@ -2959,7 +2973,12 @@ class FarmController extends Controller
           if(is_null($parityprop)){
             $paritymotherprop = $grouping->getMother()->getAnimalProperties()->where("property_id", 76)->first();
             if(is_null($paritymotherprop)){ // FIRST PARITY
-              $parityValue = 1;
+              if(is_null($request->parity)){
+              	$parityValue = 1;
+              }
+              else{
+              	$parityValue = $request->parity;
+              }
             }
             else{ // LATEST PARITY
               $parityValue = $paritymotherprop->value++;
@@ -2977,7 +2996,12 @@ class FarmController extends Controller
         if(is_null($parityprop)){
           $paritymotherprop = $grouping->getMother()->getAnimalProperties()->where("property_id", 76)->first();
           if(is_null($paritymotherprop)){ // FIRST PARITY
-            $parityValue = 1;
+            if(is_null($request->parity)){
+            	$parityValue = 1;
+            }
+            else{
+            	$parityValue = $request->parity;
+            }
           }
           else{ // LATEST PARITY
             $parityValue = $paritymotherprop->value++;
@@ -3079,7 +3103,12 @@ class FarmController extends Controller
       $birthweight->save();
 
       if(is_null($request->date_weaned)){
-        $dateWeanedValue = Carbon::parse($bdayValue)->addDays(60);
+        if(!is_null($request->date_farrowed)){
+        	$dateWeanedValue = Carbon::parse($bdayValue)->addDays(60);
+        }
+        else{
+        	$dateWeanedValue = "Not specified";
+        }
       }
       else{
         $dateWeanedValue = $request->date_weaned;
@@ -3110,12 +3139,12 @@ class FarmController extends Controller
         $grouping = new Grouping;
 
         foreach ($pigs as $pig) {
-          if(substr($pig->registryid, -5, 5) == $request->mother){
+          if(substr($pig->registryid, -6, 6) == $request->mother){
             $grouping->registryid = $pig->registryid;
             $grouping->mother_id = $pig->id;
             $foundmother = 1;
           }
-          if(substr($pig->registryid, -5, 5) == $request->father){
+          if(substr($pig->registryid, -6, 6) == $request->father){
             $grouping->father_id = $pig->id;
             $foundfather = 1;
           }

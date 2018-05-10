@@ -42,6 +42,15 @@
 								
 							</div>
 							<div class="row">
+								
+							</div>
+							<div class="row">
+								
+							</div>
+							<div class="row">
+								
+							</div>
+							<div class="row">
 								<div class="col s6">
 									Date Bred
 								</div>
@@ -123,6 +132,18 @@
 							<div class="row">
 								<div class="col s8">
 									Total Littersize Born
+								</div>
+								<div class="col s4">
+									@if($family->members == 1 && !is_null($family->getGroupingProperties()->where("property_id", 74)->first()) && !is_null($family->getGroupingProperties()->where("property_id", 75)->first()))
+										{{ count($family->getGroupingMembers()) + $family->getGroupingProperties()->where("property_id", 74)->first()->value + $family->getGroupingProperties()->where("property_id", 75)->first()->value }}
+									@elseif($family->members == 0 && !is_null($family->getGroupingProperties()->where("property_id", 74)->first()) && !is_null($family->getGroupingProperties()->where("property_id", 75)->first()))
+										{{ $family->getGroupingProperties()->where("property_id", 74)->first()->value + $family->getGroupingProperties()->where("property_id", 75)->first()->value }}
+									@endif
+								</div>
+							</div>
+							<div class="row">
+								<div class="col s8">
+									Total Littersize Born Alive
 								</div>
 								<div class="col s4">
 									@if($family->members == 1)
