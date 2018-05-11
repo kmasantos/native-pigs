@@ -134,9 +134,11 @@
 									Total Littersize Born
 								</div>
 								<div class="col s4">
-									@if($family->members == 1 && !is_null($family->getGroupingProperties()->where("property_id", 74)->first()) && !is_null($family->getGroupingProperties()->where("property_id", 75)->first()))
+									@if($family->members == 1 && !is_null($family->getGroupingProperties()->where("property_id", 74)->first()) || !is_null($family->getGroupingProperties()->where("property_id", 75)->first()))
 										{{ count($family->getGroupingMembers()) + $family->getGroupingProperties()->where("property_id", 74)->first()->value + $family->getGroupingProperties()->where("property_id", 75)->first()->value }}
-									@elseif($family->members == 0 && !is_null($family->getGroupingProperties()->where("property_id", 74)->first()) && !is_null($family->getGroupingProperties()->where("property_id", 75)->first()))
+									@elseif($family->members == 1 && (is_null($family->getGroupingProperties()->where("property_id", 74)->first()) && is_null($family->getGroupingProperties()->where("property_id", 75)->first())))
+										{{ count($family->getGroupingMembers()) }}
+									@elseif($family->members == 0 && (!is_null($family->getGroupingProperties()->where("property_id", 74)->first()) || !is_null($family->getGroupingProperties()->where("property_id", 75)->first())))
 										{{ $family->getGroupingProperties()->where("property_id", 74)->first()->value + $family->getGroupingProperties()->where("property_id", 75)->first()->value }}
 									@endif
 								</div>
@@ -341,7 +343,7 @@
 														<input id="weaning_weight" type="text" name="weaning_weight">
 													</div>
 													<div class="col s6">
-														<button class="btn-floating waves-effect waves-light green darken-3" type="submit">
+														<button class="btn-floating waves-effect waves-light green darken-3" type="submit" onclick="Materialize.toast('Weaning weight added!', 4000)">
 									            <i class="material-icons right">add</i>
 									          </button>
 													</div>
@@ -359,7 +361,7 @@
 														<input id="weaning_weight" type="text" name="weaning_weight">
 													</div>
 													<div class="col s6">
-														<button class="btn-floating waves-effect waves-light green darken-3" type="submit">
+														<button class="btn-floating waves-effect waves-light green darken-3" type="submit" onclick="Materialize.toast('Weaning weight added!', 4000)">
 									            <i class="material-icons right">add</i>
 									          </button>
 													</div>

@@ -11,7 +11,9 @@
 		<div class="row center" style="padding-top: 10px;">
 			<p>View Sow-Litter Records:</p>
 			@foreach($groups as $group)
-				<div class="col s6 offset-s3 card-panel"><h5><a href="{{ URL::route('farm.pig.sowlitter_record', [$group->id]) }}">{{ $group->getMother()->registryid }}</a></h5></div>
+			 	@if($group->getGroupingProperties()->where("property_id", 50)->first()->value != "Recycled")
+					<div class="col s6 offset-s3 card-panel"><h5><a href="{{ URL::route('farm.pig.sowlitter_record', [$group->id]) }}">{{ $group->getMother()->registryid }}</a></h5></div>
+				@endif
 			@endforeach
 		</div>
 	</div>
