@@ -126,17 +126,31 @@
 									<td>
 										<select name="sow_id" class="browser-default">
 											<option disabled selected>Choose sow</option>
-											@foreach($sows as $sow)	
-												<option value="{{ $sow->registryid }}">{{ $sow->registryid }}</option>
-											@endforeach
+											<optgroup label="Breeders">
+												@foreach($sows as $sow)	
+													<option value="{{ $sow->registryid }}">{{ $sow->registryid }}</option>
+												@endforeach
+											</optgroup>
+											<optgroup label="Growers">
+												@foreach($femalegrowers as $femalegrower)
+													<option value="{{ $femalegrower->registryid }}">{{ $femalegrower->registryid }}</option>
+												@endforeach
+											</optgroup>
 										</select>
 									</td>
 									<td>
 										<select id="boar_id" name="boar_id" class="browser-default">
 											<option disabled selected>Choose boar</option>
-											@foreach($boars as $boar)
-												<option value="{{ $boar->registryid }}">{{ $boar->registryid }}</option>
-											@endforeach
+											<optgroup label="Breeders">
+												@foreach($boars as $boar)
+													<option value="{{ $boar->registryid }}">{{ $boar->registryid }}</option>
+												@endforeach
+											</optgroup>
+											<optgroup label="Growers">
+												@foreach($malegrowers as $malegrower)
+													<option value="{{ $malegrower->registryid }}">{{ $malegrower->registryid }}</option>
+												@endforeach
+											</optgroup>
 										</select>
 									</td>
 									<td class="input-field">

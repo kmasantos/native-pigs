@@ -53,9 +53,16 @@
 								<div class="col s4">
 									<select name="registrationid_dead" class="browser-default">
 										<option disabled selected>Choose pig</option>
-										@foreach($breeders as $breeder)	
-											<option value="{{ $breeder->registryid }}">{{ $breeder->registryid }}</option>
-										@endforeach
+										<optgroup label="Breeders">
+											@foreach($breeders as $breeder)
+												<option value="{{ $breeder->registryid }}">{{ $breeder->registryid }}</option>
+											@endforeach
+										</optgroup>
+										<optgroup label="Growers">
+											@foreach($growers as $grower)	
+												<option value="{{ $grower->registryid }}">{{ $grower->registryid }}</option>
+											@endforeach
+										</optgroup>
 									</select>
 								</div>
 								<div class="col s4">
@@ -134,9 +141,16 @@
 								<div class="col s4">
 									<select name="registrationid_sold" class="browser-default">
 										<option disabled selected>Choose pig</option>
-										@foreach($breeders as $breeder)	
-											<option value="{{ $breeder->registryid }}">{{ $breeder->registryid }}</option>
-										@endforeach
+										<optgroup label="Breeders">
+											@foreach($breeders as $breeder)
+												<option value="{{ $breeder->registryid }}">{{ $breeder->registryid }}</option>
+											@endforeach
+										</optgroup>
+										<optgroup label="Growers">
+											@foreach($growers as $grower)	
+												<option value="{{ $grower->registryid }}">{{ $grower->registryid }}</option>
+											@endforeach
+										</optgroup>
 									</select>
 								</div>
 								<div class="col s4">
@@ -215,9 +229,16 @@
 								<div class="col s4">
 									<select name="registrationid_removed" class="browser-default">
 										<option disabled selected>Choose pig</option>
-										@foreach($breeders as $breeder)	
-											<option value="{{ $breeder->registryid }}">{{ $breeder->registryid }}</option>
-										@endforeach
+										<optgroup label="Breeders">
+											@foreach($breeders as $breeder)
+												<option value="{{ $breeder->registryid }}">{{ $breeder->registryid }}</option>
+											@endforeach
+										</optgroup>
+										<optgroup label="Growers">
+											@foreach($growers as $grower)	
+												<option value="{{ $grower->registryid }}">{{ $grower->registryid }}</option>
+											@endforeach
+										</optgroup>
 									</select>
 								</div>
 								<div class="col s4">

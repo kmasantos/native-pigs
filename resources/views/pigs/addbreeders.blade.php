@@ -25,15 +25,14 @@
 					</thead>
 					<tbody>
 						@foreach($sows as $sow)
-							<tr id="{{ $sow->id }}">
+							<tr id="{{ $sow->registryid }}">
 								<td>{{ $sow->registryid }}</td>
 								<td class="center">
 									<p>
 							      <label>
-							        <input id="add_sow_breeder" type="checkbox" class="filled-in" />
+							        <input type="checkbox" class="filled-in add_sow_breeder" value="{{ $sow->registryid }}" />
 							        <span></span>
 							      </label>
-							      <input type="hidden" name="sow_id" value="{{ $sow->id }}">
 							    </p>
 								</td>
 							</tr>
@@ -51,15 +50,14 @@
 					</thead>
 					<tbody>
 						@foreach($boars as $boar)
-							<tr id="{{ $boar->id }}">
+							<tr id="{{ $boar->registryid }}">
 								<td>{{ $boar->registryid }}</td>
 								<td class="center">
 									<p>
 							      <label>
-							        <input id="add_boar_breeder" type="checkbox" class="filled-in" />
+							        <input type="checkbox" class="filled-in add_boar_breeder" value="{{ $boar->registryid }}" />
 							        <span></span>
 							      </label>
-							      <input type="hidden" name="boar_id" value="{{ $boar->id }}">
 							    </p>
 								</td>
 							</tr>
@@ -74,11 +72,10 @@
 @section('scripts')
 	<script>
 		$(document).ready(function(){
-		  $("#add_sow_breeder").change(function () {
+		  $(".add_sow_breeder").change(function () {
 		    if($(this).is(":checked")){
 					event.preventDefault();
-					var breederid = $('input[name=sow_id]').val();
-					console.log(breederid);
+					var breederid = $(this).val();
 					$.ajax({
 						headers: {
 							'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -89,17 +86,16 @@
 						data: {breederid},
 						success: function(data)
 						{
-							Materialize.toast('Sow breeder added!', 4000);
+							Materialize.toast(breederid+' added as breeder!', 4000);
 							$("#"+breederid).remove();
 						}
 					});
 			  }
 		  });
-		  $("#add_boar_breeder").change(function () {
+		  $(".add_boar_breeder").change(function () {
 		    if($(this).is(":checked")){
 					event.preventDefault();
-					var breederid = $('input[name=boar_id]').val();
-					console.log(breederid);
+					var breederid = $(this).val();
 					$.ajax({
 						headers: {
 							'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -110,7 +106,7 @@
 						data: {breederid},
 						success: function(data)
 						{
-							Materialize.toast('Boar breeder added!', 4000);
+							Materialize.toast(breederid+' added as breeder!', 4000);
 							$("#"+breederid).remove();
 						}
 					});

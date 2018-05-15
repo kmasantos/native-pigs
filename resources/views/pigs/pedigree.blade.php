@@ -16,7 +16,7 @@
 
 @section('scripts')
 	<script type="text/javascript" src="{{asset('js/pedigree-visualizer-2.0/d3/d3.js')}}"></script>
-	<script type="text/javascript" src="{{asset('js/pedigree-visualizer-2.0/visualizer.js')}}"></script>
+	<script type="text/javascript" src="{{asset('js/pedigree-visualizer-2.0/pediview.js')}}"></script>
 
 	<script>
 		let json = {"registrationnumber":"MARMSCMarinduke-2017F0113-8", "qualitative_info":{"farm_name":"MSC","breed":"Marinduke", "sex":"Female","birthyear":"2017", "date_registered": "2017-03-31"}, "quantitative_info": {"weight_at_data_collection": 21, "age_at_data_collection": 6, "birth_weight":0.78, "total_when_born_male": 0, "total_when_born_female": 3, "littersize_born_alive": 3, "parity": 2},"parents": [

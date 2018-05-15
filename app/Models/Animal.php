@@ -106,10 +106,10 @@ class Animal extends Model
   {
     $animal = Animal::find($id);
 
-    if($animal->status == "sold"){
+    if($animal->status == "sold grower" || $animal->status == "sold breeder"){
       $date_start = Carbon::parse($animal->getAnimalProperties()->where("property_id", 56)->first()->value);
     }
-    if($animal->status == "dead"){
+    if($animal->status == "dead grower" || $animal->status == "dead breeder"){
       $date_start = Carbon::parse($animal->getAnimalProperties()->where("property_id", 55)->first()->value);
     }
     if($animal->status == "removed"){

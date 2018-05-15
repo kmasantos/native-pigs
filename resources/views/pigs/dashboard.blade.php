@@ -15,23 +15,57 @@
       <h4>Dashboard</h4>
       <div class="divider"></div>
       <div class="row center">
-        <div class="col s12 m10 l6">
+        <div class="col s12 m10 l12">
           <div class="card">
             <div class="card-content grey lighten-2">
-              <h5>Number of Sows</h5>
-              <h3>{{ count($sows) }}</h3>
+              <h5>Number of Female Pigs</h5>
+              <div class="row">
+                <div class="col s6">
+                  @if($femalebreeders != [])
+                    <h2>{{ count($femalebreeders) }}</h2>
+                  @else
+                    <h4>No female breeders available</h4>
+                  @endif
+                  <p>Breeders</p>
+                </div>
+                <div class="col s6">
+                  @if($femalegrowers != [])
+                    <h2>{{ count($femalegrowers) }}</h2>
+                  @else
+                    <h4>No female growers available</h4>
+                  @endif
+                  <p>Growers</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-        <div class="col s12 m10 l6">
+        <div class="col s12 m10 l12">
           <div class="card">
             <div class="card-content grey lighten-2">
-              <h5>Number of Boars</h5>
-              <h3>{{ count($boars) }}</h3>
+              <h5>Number of Male Pigs</h5>
+              <div class="row">
+                <div class="col s6">
+                  @if($malebreeders != [])
+                    <h2>{{ count($malebreeders) }}</h2>
+                  @else
+                    <h4>No male breeders available</h4>
+                  @endif
+                  <p>Breeders</p>
+                </div>
+                <div class="col s6">
+                  @if($malegrowers != [])
+                    <h2>{{ count($malegrowers) }}</h2>
+                  @else
+                    <h4>No male growers available</h4>
+                  @endif
+                  <p>Growers</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-        <div class="col s12 m10 l4">
+        {{-- <div class="col s12 m10 l4">
           <div class="card">
             <div class="card-content grey lighten-2">
               <h5>Mortality</h5>
@@ -64,7 +98,7 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> --}}
       </div>
     </div>
   </div>
