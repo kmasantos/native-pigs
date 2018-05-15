@@ -2568,7 +2568,8 @@ class FarmController extends Controller
     }
 
     public function getMortalityAndSalesReportPage(){
-    	$dead = Animal::where("animaltype_id", 3)->where("status", "dead")->get();
+    	$dead_growers = Animal::where("animaltype_id", 3)->where("status", "dead grower")->get();
+    	$dead_breeders = Animal::where("animaltype_id", 3)->where("status", "dead breeder")->get();
     	$sold_growers = Animal::where("animaltype_id", 3)->where("status", "sold grower")->get();
     	$sold_breeders = Animal::where("animaltype_id", 3)->where("status", "sold breeder")->get();
     	$removed = Animal::where("animaltype_id", 3)->where("status", "removed")->get();
@@ -2579,20 +2580,39 @@ class FarmController extends Controller
     	$weights_sold_grower = [];
     	$weights_sold_breeder = [];
 
-    	foreach ($dead as $dead_pig) {
-    		$properties = $dead_pig->getAnimalProperties();
+    	foreach ($dead_growers as $dead_grower) {
+    		$properties = $dead_grower->getAnimalProperties();
     		foreach ($properties as $property) {
     			if($property->property_id == 25){
     				if($property->value != "Not specified"){
-    					$bday_dead = $property->value;
-    					$deadpropperties = $dead_pig->getAnimalProperties();
-    					foreach ($deadpropperties as $deadproperty) {
-    						if($deadproperty->property_id == 55){
-    							$date_died = $deadproperty->value;
+    					$bday_dead_grower = $property->value;
+    					$deadgrowerpropperties = $dead_grower->getAnimalProperties();
+    					foreach ($deadgrowerpropperties as $deadgrowerpropperty) {
+    						if($deadgrowerpropperty->property_id == 55){
+    							$date_died_grower = $deadgrowerpropperty->value;
     						}
     					}
-    					$age_dead = Carbon::parse($date_died)->diffInMonths(Carbon::parse($bday_dead));
-    					array_push($ages_dead, $age_dead);
+    					$age_dead_grower = Carbon::parse($date_died_grower)->diffInMonths(Carbon::parse($bday_dead_grower));
+    					array_push($ages_dead, $age_dead_grower);
+    				}
+    			}
+    		}
+    	}
+
+    	foreach ($dead_breeders as $dead_breeder) {
+    		$deadproperties = $dead_breeder->getAnimalProperties();
+    		foreach ($deadproperties as $deadproperty) {
+    			if($deadproperty->property_id == 25){
+    				if($deadproperty->value != "Not specified"){
+    					$bday_dead_breeder = $deadproperty->value;
+    					$deadbreederpropperties = $dead_breeder->getAnimalProperties();
+    					foreach ($deadbreederpropperties as $deadbreederpropperty) {
+    						if($deadbreederpropperty->property_id == 55){
+    							$date_died_breeder = $deadbreederpropperty->value;
+    						}
+    					}
+    					$age_dead_breeder = Carbon::parse($date_died_breeder)->diffInMonths(Carbon::parse($bday_dead_breeder));
+    					array_push($ages_dead, $age_dead_breeder);
     				}
     			}
     		}
@@ -2600,10 +2620,10 @@ class FarmController extends Controller
 
     	foreach ($sold_growers as $sold_grower) {
     		$growerproperties = $sold_grower->getAnimalProperties();
-    		foreach ($properties as $property) {
-    			if($property->property_id == 25){
-    				if($property->value != "Not specified"){
-    					$bday_sold_grower = $property->value;
+    		foreach ($growerproperties as $growerproperty) {
+    			if($growerproperty->property_id == 25){
+    				if($growerproperty->value != "Not specified"){
+    					$bday_sold_grower = $growerproperty->value;
     					$soldgrowerpropperties = $sold_grower->getAnimalProperties();
     					foreach ($soldgrowerpropperties as $soldgrowerpropperty) {
     						if($soldgrowerpropperty->property_id == 56){
@@ -2619,10 +2639,10 @@ class FarmController extends Controller
 
     	foreach ($sold_breeders as $sold_breeder) {
     		$breederproperties = $sold_breeder->getAnimalProperties();
-    		foreach ($properties as $property) {
-    			if($property->property_id == 25){
-    				if($property->value != "Not specified"){
-    					$bday_sold_breeder = $property->value;
+    		foreach ($breederproperties as $breederproperty) {
+    			if($breederproperty->property_id == 25){
+    				if($breederproperty->value != "Not specified"){
+    					$bday_sold_breeder = $breederproperty->value;
     					$soldbreederpropperties = $sold_breeder->getAnimalProperties();
     					foreach ($soldbreederpropperties as $soldbreederpropperty) {
     						if($soldbreederpropperty->property_id == 56){
@@ -2661,7 +2681,7 @@ class FarmController extends Controller
     	}
 	  	
 
-    	return view('pigs.mortalityandsalesreport', compact('dead', 'sold_breeders', 'sold_growers', 'removed', 'ages_dead', 'ages_sold_breeder', 'ages_sold_grower', 'weights_sold_breeder', 'weights_sold_grower'));
+    	return view('pigs.mortalityandsalesreport', compact('dead_breeders', 'dead_growers', 'sold_breeders', 'sold_growers', 'removed', 'ages_dead', 'ages_sold_breeder', 'ages_sold_grower', 'weights_sold_breeder', 'weights_sold_grower'));
     }
 
     public function getFarmProfilePage(){
