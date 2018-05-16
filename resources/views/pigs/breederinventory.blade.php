@@ -39,7 +39,7 @@
       		<div class="col s12 m10 l4">
       			<div class="card">
       				<div class="card-content grey lighten-2">
-      					<h3>{{ $lactating }}</h3>
+      					<h3>{{ count($lactating) }}</h3>
       					<p>Lactating</p>
       				</div>
       			</div>
@@ -55,7 +55,7 @@
       		<div class="col s12 m10 l4">
       			<div class="card">
       				<div class="card-content grey lighten-2">
-      					<h3>{{ $drysows }}</h3>
+      					<h3>{{ count($drysows) }}</h3>
       					<p>Dry</p>
       				</div>
       			</div>
