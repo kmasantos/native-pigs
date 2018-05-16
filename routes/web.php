@@ -23,18 +23,12 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/',['as' => 'farm.index', 'uses' => 'FarmController@index']);
 
     // Swine Routes
-   
-    // Route::get('add_sow_record', ['as' => 'farm.pig.add_sow_record', 'uses' => 'FarmController@getAddSowRecordPage']);
-    // Route::post('submit_sow_record', ['as' => 'farm.pig.submit_sow_record', 'uses' => 'FarmController@addSowRecord']);
-    // Route::get('add_sow_record', ['as' => 'farm.pig.add_sow_record', 'uses' => 'FarmController@getAddSowRecordPage']);
-    // Route::get('add_boar_record', ['as' => 'farm.pig.add_boar_record', 'uses' => 'FarmController@getAddBoarRecordPage']);
-    // Route::post('submit_boar_record', ['as' => 'farm.pig.submit_boar_record', 'uses' => 'FarmController@addBoarRecord']);
+
     Route::get('pedigree', ['as' => 'farm.pig.pedigree', 'uses' => 'FarmController@getPedigreePage']);
     Route::get('breeding_record', ['as' => 'farm.pig.breeding_record', 'uses' => 'FarmController@getBreedingRecordPage']);
     Route::post('get_breeding_record', ['as' => 'farm.pig.get_breeding_record', 'uses' => 'FarmController@addBreedingRecord']);
     Route::get('sowlitter_record/{id}', ['as' => 'farm.pig.sowlitter_record', 'uses' => 'FarmController@getAddSowLitterRecordPage']);
     Route::post('fetch_parity/{id}/{parity}', ['as' => 'farm.pig.fetch_parity', 'uses' => 'FarmController@fetchParityAjax']);
-    //Route::post('add_offspring', ['as' => 'farm.pig.add_offspring', 'uses' => 'FarmController@addOffspring']);
     Route::post('get_sowlitter_record', ['as' => 'farm.pig.get_sowlitter_record', 'uses' => 'FarmController@addSowlitterRecord']);
     Route::post('get_weaning_weights', ['as' => 'farm.pig.get_weaning_weights', 'uses' => 'FarmController@addWeaningWeights']);
     Route::get('add_breeders', ['as' => 'farm.pig.add_breeders', 'uses' => 'FarmController@getAddBreedersPage']);
@@ -64,7 +58,6 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('morpho_chars_report', ['as' => 'farm.pig.morpho_chars_report', 'uses' => 'FarmController@getMorphometricCharacteristicsReportPage']);
     Route::post('filter_gross_morphology_report', ['as' => 'farm.pig.filter_gross_morphology_report', 'uses' => 'FarmController@filterGrossMorphologyReport']);
     Route::post('filter_morpho_chars_report', ['as' => 'farm.pig.filter_morpho_chars_report', 'uses' => 'FarmController@filterMorphometricCharacteristicsReport']);
-    // Route::resource('helper', 'HelperController');
     Route::resource('farm', 'FarmController');
     Route::get('breeder_production_report', ['as' => 'farm.pig.breeder_production_report', 'uses' => 'FarmController@getBreederProductionReportPage']);
     Route::get('production_performance_report', ['as' => 'farm.pig.production_performance_report', 'uses' => 'FarmController@getProductionPerformancePage']);
