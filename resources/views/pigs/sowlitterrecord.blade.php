@@ -160,7 +160,9 @@
 								</div>
 								<div class="col s4">
 									@if($family->members == 1)
-										{{ $weaned }}
+										@if(!is_null($family->getGroupingProperties()->where("property_id", 78)->first()))
+											{{ $family->getGroupingProperties()->where("property_id", 78)->first()->value }}
+										@endif
 									@endif
 								</div>
 							</div>

@@ -12,14 +12,14 @@
 			<table>
 				<thead>
 					<tr>
-						<th>Property (Averages)</th>
+						<th>Property (Averages per Service)</th>
 						<th class="center">Value</th>
 						<th class="center">Standard Deviation</th>
 					</tr>
 				</thead>
 	  		<tbody>
     			<tr>
-	  				<td>Usage</td>
+	  				<td>Service</td>
 	  				<td class="center">{{ $properties->where("property_id", 88)->first()->value }}</td>
 	  				<td class="center">N/A</td>
 	  			</tr>

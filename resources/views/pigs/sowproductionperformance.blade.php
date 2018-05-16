@@ -12,21 +12,26 @@
 			<table>
 				<thead>
 					<tr>
-						<th>Property (Averages)</th>
+						<th>Property (Averages per Parity)</th>
 						<th class="center">Value</th>
 						<th class="center">Standard Deviation</th>
 					</tr>
 				</thead>
 	  		<tbody>
 	  			<tr>
-	  				<td>Farrowing Index</td>
-	  				<td class="center"></td>
-	  				<td class="center"></td>
-	  			</tr>
-	  			<tr>
 	  				<td>Latest Parity</td>
 	  				<td class="center">{{ $properties->where("property_id", 76)->first()->value }}</td>
 	  				<td class="center">N/A</td>
+	  			</tr>
+	  			<tr>
+	  				<td>Farrowing Index</td>
+	  				@if($farrowingsperyear == [])
+	  					<td class="center">No data available</td>
+	  					<td class="center">No data available</td>
+	  				@else
+	  					<td class="center">{{ round(array_sum($farrowingsperyear)/count($farrowingsperyear), 2) }}</td>
+	  					<td class="center">{{ round($farrowingsperyear_sd, 2) }}</td>
+	  				@endif
 	  			</tr>
 	  			<tr>
 	  				<td>Litter-size Born Alive</td>
@@ -149,11 +154,6 @@
 	  				@endif
 	  			</tr>
 	  			<tr>
-	  				<td>Number Weaned Per Year</td>
-	  				<td class="center"></td>
-	  				<td class="center"></td>
-	  			</tr>
-	  			<tr>
 	  				<td>Pre-weaning Mortality</td>
 	  				@if($preweaningmortality == [])
 	  					<td class="center">No data available</td>
@@ -161,6 +161,16 @@
 	  				@else
 	  					<td class="center">{{ round(array_sum($preweaningmortality)/count($preweaningmortality), 2) }}</td>
 	  					<td class="center">{{ round($preweaningmortality_sd, 2) }}</td>
+	  				@endif
+	  			</tr>
+	  			<tr>
+	  				<td>Number Weaned Per Year</td>
+	  				@if($numberweanedperyear == [])
+	  					<td class="center">No data available</td>
+	  					<td class="center">No data available</td>
+	  				@else
+	  					<td class="center">{{ round(array_sum($numberweanedperyear)/count($numberweanedperyear), 2) }}</td>
+	  					<td class="center">{{ round($numberweanedperyear_sd, 2) }}</td>
 	  				@endif
 	  			</tr>
 	  		</tbody>
