@@ -52,6 +52,57 @@
 								</tr>
 							</thead>
 							<tbody>
+								{!! Form::open(['route' => 'farm.pig.get_breeding_record', 'method' => 'post']) !!}
+								<tr>
+									<td>
+										<select name="sow_id" class="browser-default">
+											<option disabled selected>Choose sow</option>
+											<optgroup label="Breeders">
+												@foreach($sows as $sow)	
+													<option value="{{ $sow->registryid }}">{{ $sow->registryid }}</option>
+												@endforeach
+											</optgroup>
+											<optgroup label="Growers">
+												@foreach($femalegrowers as $femalegrower)
+													<option value="{{ $femalegrower->registryid }}">{{ $femalegrower->registryid }}</option>
+												@endforeach
+											</optgroup>
+										</select>
+									</td>
+									<td>
+										<select id="boar_id" name="boar_id" class="browser-default">
+											<option disabled selected>Choose boar</option>
+											<optgroup label="Breeders">
+												@foreach($boars as $boar)
+													<option value="{{ $boar->registryid }}">{{ $boar->registryid }}</option>
+												@endforeach
+											</optgroup>
+											<optgroup label="Growers">
+												@foreach($malegrowers as $malegrower)
+													<option value="{{ $malegrower->registryid }}">{{ $malegrower->registryid }}</option>
+												@endforeach
+											</optgroup>
+										</select>
+									</td>
+									<td class="input-field">
+										<input id="date_bred" type="text" placeholder="Pick date" name="date_bred" class="datepicker">
+									</td>
+									<td>
+										{{-- <input disabled id="expected_date_of_farrowing" type="text" name="expected_date_of_farrowing" class="datepicker"> --}}
+									</td>
+									<td class="switch">
+										<label>
+											<input type="checkbox" id="recycled" name="recycled" onchange="disableField()">
+											<span class="lever"></span>
+										</label>
+									</td>
+									<td colspan="2" class="center">
+										<button class="btn-floating waves-effect waves-light green darken-3" type="submit" onclick="Materialize.toast('Successfully added!', 4000)">
+											<i class="material-icons right">add</i>
+					          </button>
+									</td>
+								</tr>
+								{!! Form::close() !!}
 								@forelse($family as $breedingRecord)
 									<tr>
 										<td>
@@ -121,67 +172,15 @@
 										<td colspan="7">No mating record found</td>
 									</tr>
 								@endforelse
-                {!! Form::open(['route' => 'farm.pig.get_breeding_record', 'method' => 'post']) !!}
-								<tr>
-									<td>
-										<select name="sow_id" class="browser-default">
-											<option disabled selected>Choose sow</option>
-											<optgroup label="Breeders">
-												@foreach($sows as $sow)	
-													<option value="{{ $sow->registryid }}">{{ $sow->registryid }}</option>
-												@endforeach
-											</optgroup>
-											<optgroup label="Growers">
-												@foreach($femalegrowers as $femalegrower)
-													<option value="{{ $femalegrower->registryid }}">{{ $femalegrower->registryid }}</option>
-												@endforeach
-											</optgroup>
-										</select>
-									</td>
-									<td>
-										<select id="boar_id" name="boar_id" class="browser-default">
-											<option disabled selected>Choose boar</option>
-											<optgroup label="Breeders">
-												@foreach($boars as $boar)
-													<option value="{{ $boar->registryid }}">{{ $boar->registryid }}</option>
-												@endforeach
-											</optgroup>
-											<optgroup label="Growers">
-												@foreach($malegrowers as $malegrower)
-													<option value="{{ $malegrower->registryid }}">{{ $malegrower->registryid }}</option>
-												@endforeach
-											</optgroup>
-										</select>
-									</td>
-									<td class="input-field">
-										<input id="date_bred" type="text" placeholder="Pick date" name="date_bred" class="datepicker">
-									</td>
-									<td>
-										{{-- <input disabled id="expected_date_of_farrowing" type="text" name="expected_date_of_farrowing" class="datepicker"> --}}
-									</td>
-									<td class="switch">
-										<label>
-											<input type="checkbox" id="recycled" name="recycled" onchange="disableField()">
-											<span class="lever"></span>
-										</label>
-									</td>
-									<td>
-										{{-- <input disabled id="mating_status" type="text" name="mating_status" class="datepicker"> --}}
-									</td>
-									<td>
-										
-									</td>
-								</tr>
               </tbody>
 						</table>
 					</div>
 				</div>
-				<div class="row center">
+				{{-- <div class="row center">
 					<button class="btn waves-effect waves-light green darken-3" type="submit" onclick="Materialize.toast('Successfully added!', 4000)">Add
             <i class="material-icons right">add</i>
           </button>
-				</div>
-				{!! Form::close() !!}
+				</div> --}}
 			</div>
 		</div>
   </div>

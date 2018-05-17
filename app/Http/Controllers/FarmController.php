@@ -1659,7 +1659,7 @@ class FarmController extends Controller
     	return $weights;
     }
 
-    public function getBreederProductionReportPage(){
+    public function getBreederProductionReportPage(){ // function to display Breeder Production Report page
     	$pigs = Animal::where("animaltype_id", 3)->where("status", "breeder")->get();
 
     	// weights
@@ -1853,7 +1853,7 @@ class FarmController extends Controller
       foreach ($firstbredsows as $firstbredsow) {
       	foreach ($duplicates as $duplicate) {
       		$duplicate_keys = array_keys($duplicate); // gets the key of the duplicate
-      		foreach ($duplicate_keys as $duplicate_key) {
+      		foreach ($duplicate_keys as $duplicate_key) { // since $duplicates is an array of arrays
       			$animal = $duplicate[$duplicate_key];
       			if($firstbredsow->id == $animal->id){ // if duplicate is found
       				$groupings = Grouping::where("mother_id", $animal->id)->get();
@@ -2078,7 +2078,403 @@ class FarmController extends Controller
     	return view('pigs.breederproduction', compact('pigs', 'sows', 'boars', 'weights45d', 'weights60d', 'weights90d', 'weights180d', 'weights45d_sd', 'weights60d_sd', 'weights90d_sd', 'weights180d_sd', 'ages_weanedsow', 'ages_weanedsow_sd', 'ages_weanedboar', 'ages_weanedboar_sd', 'ages_weanedpig', 'ages_weanedpig_sd', 'breederages', 'breeders', 'breedersowages', 'breedersows', 'breederboarages', 'breederboars', 'firstbreds', 'firstbredsows', 'firstbredsowsages', 'firstbredsowsages_sd', 'duplicates', 'firstbredboars', 'uniqueboars', 'firstbredboarsages', 'firstbredboarsages_sd', 'firstbredages', 'firstbredages_sd', 'years'));
     }
 
-    public function getProductionPerformancePage(){ // function to display Production Performace page
+    public static function filterProductionPerformancePerParityAjax($filter){ // function to filter production performance per parity onclick
+      $groups = Grouping::whereNotNull("mother_id")->get();
+
+      $groupswiththisparity = [];
+      foreach ($groups as $group) {
+        $groupproperties = $group->getGroupingProperties();
+        foreach ($groupproperties as $groupproperty) {
+          if($groupproperty->property_id == 76){ //parity
+            if($groupproperty->value == $filter){
+              array_push($groupswiththisparity, $group);
+            }
+          }
+        }
+      }
+
+      $lsba = [];
+      $totalmales = [];
+      $totalfemales = [];
+      $stillborn = [];
+      $mummified = [];
+      $totallitterbirthweights = [];
+      $avelitterbirthweights = [];
+      $totallitterweaningweights = [];
+      $avelitterweaningweights = [];
+      $aveadjweaningweights = [];
+      $totalweaned = [];
+      $totalagesweaned = [];
+      $preweaningmortality = [];
+      foreach ($groupswiththisparity as $groupwiththisparity) {
+        $thisproperties = $groupwiththisparity->getGroupingProperties();
+        foreach ($thisproperties as $thisproperty) {
+          if($thisproperty->property_id == 74){ // stillborn
+            array_push($stillborn, $thisproperty->value);
+          }
+          if($thisproperty->property_id == 75){ // mummified
+            array_push($mummified, $thisproperty->value);
+          }
+        }
+        $males = [];
+        $females = [];
+        $litterbirthweights = [];
+        $litterweaningweights = [];
+        $agesweaned = [];
+        $adjweaningweightsat45d = [];
+        $thisoffsprings = $groupwiththisparity->getGroupingMembers();
+        foreach ($thisoffsprings as $thisoffspring) {
+          $thisoffspringproperties = $thisoffspring->getAnimalProperties();
+          foreach ($thisoffspringproperties as $thisoffspringproperty) {
+            if($thisoffspringproperty->property_id == 27){ // sex
+              if($thisoffspringproperty->value == 'M'){
+                array_push($males, $thisoffspring);
+              }
+              elseif($thisoffspringproperty->value == 'F'){
+                array_push($females, $thisoffspring);
+              }
+            }
+            if($thisoffspringproperty->property_id == 53){ // birth weight
+              if(!is_null($thisoffspringproperty->value) && $thisoffspringproperty->value != ""){
+                array_push($litterbirthweights, $thisoffspringproperty->value);
+              }
+            }
+            if($thisoffspringproperty->property_id == 54){ // weaning weight
+              if(!is_null($thisoffspringproperty->value) && $thisoffspringproperty->value != ""){
+                array_push($litterweaningweights, $thisoffspringproperty->value);
+              }
+            }
+            if($thisoffspringproperty->property_id == 61){ // date weaned
+              if(!is_null($thisoffspringproperty->value) && $thisoffspringproperty->value != "Not specified"){
+                // computes age weaned in months
+                $date_weaned = $thisoffspringproperty->value;
+                $thisweanedoffspringproperties = $thisoffspring->getAnimalProperties();
+                foreach ($thisweanedoffspringproperties as $thisweanedoffspringproperty) {
+                  if($thisweanedoffspringproperty->property_id == 25){ // date farrowed
+                    if(!is_null($thisweanedoffspringproperty->value) && $thisweanedoffspringproperty->value != "Not specified"){
+                      $bday_thisoffspring = $thisweanedoffspringproperty->value;
+                      $thisageweaned = Carbon::parse($date_weaned)->diffInMonths(Carbon::parse($bday_thisoffspring));
+                      array_push($agesweaned, $thisageweaned);
+                    }
+                  }
+                  // computes adjused weaning weight at 45 days
+                  if($thisweanedoffspringproperty->property_id == 54){ // weaning weight
+                    if(!is_null($thisweanedoffspringproperty->value) && $thisweanedoffspringproperty->value != ""){
+                      // computes age weaned in days first
+                      $weaningweight = $thisweanedoffspringproperty->value;
+                      $weanedoffspringproperties = $thisoffspring->getAnimalProperties();
+                      foreach ($weanedoffspringproperties as $weanedoffspringproperty) {
+                        if($weanedoffspringproperty->property_id == 25){ // date farrowed
+                          if(!is_null($weanedoffspringproperty->value) && $weanedoffspringproperty->value != "Not specified"){
+                            $bday_offspring = $weanedoffspringproperty->value;
+                            $ageweaned = Carbon::parse($date_weaned)->diffInDays(Carbon::parse($bday_offspring));
+                            $adjweaningweightat45d = ($weaningweight*45)/$ageweaned;
+                            array_push($adjweaningweightsat45d, $adjweaningweightat45d);
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+        // adding all data to respective arrays
+        array_push($totalmales, count($males));
+        array_push($totalfemales, count($females));
+        array_push($lsba, (count($males)+count($females)));
+        if(count($litterweaningweights) != 0){
+          array_push($preweaningmortality, (count($males)+count($females))-count($litterweaningweights));
+        }
+        if($litterbirthweights != []){
+          array_push($totallitterbirthweights, array_sum($litterbirthweights));
+          array_push($avelitterbirthweights, (array_sum($litterbirthweights)/count($litterbirthweights)));
+        }
+        if($litterweaningweights != []){
+          array_push($totallitterweaningweights, array_sum($litterweaningweights));
+          array_push($avelitterweaningweights, (array_sum($litterweaningweights)/count($litterweaningweights)));
+          array_push($totalweaned, count($litterweaningweights));
+        }
+        if($adjweaningweightsat45d != []){
+          array_push($aveadjweaningweights, (array_sum($adjweaningweightsat45d)/count($adjweaningweightsat45d)));
+        }
+        if($agesweaned != []){
+          array_push($totalagesweaned, array_sum($agesweaned));
+        }
+      }
+
+      // standard deviation function calls
+      if($stillborn !=[]){
+        $stillborn_sd = static::standardDeviation($stillborn, false);
+      }
+      if($mummified != []){
+        $mummified_sd = static::standardDeviation($mummified, false);
+      }
+      if($totalmales != []){
+        $totalmales_sd = static::standardDeviation($totalmales, false);
+      }
+      if($totalfemales != []){
+        $totalfemales_sd = static::standardDeviation($totalfemales, false);
+      }
+      if($totallitterbirthweights != []){
+        $totallitterbirthweights_sd = static::standardDeviation($totallitterbirthweights, false);
+      }
+      if($avelitterbirthweights != []){
+        $avelitterbirthweights_sd = static::standardDeviation($avelitterbirthweights, false);
+      }
+      if($totallitterweaningweights != []){
+        $totallitterweaningweights_sd = static::standardDeviation($totallitterweaningweights, false);
+      }
+      if($avelitterweaningweights != []){
+        $avelitterweaningweights_sd = static::standardDeviation($avelitterweaningweights, false);
+      }
+      if($aveadjweaningweights != []){
+        $aveadjweaningweights_sd = static::standardDeviation($aveadjweaningweights, false);
+      }
+      if($totalagesweaned != []){
+        $totalagesweaned_sd = static::standardDeviation($totalagesweaned, false);
+      }
+      if($totalweaned != []){
+        $totalweaned_sd = static::standardDeviation($totalweaned, false);
+      }
+      if($preweaningmortality != []){
+        $preweaningmortality_sd = static::standardDeviation($preweaningmortality, false);
+      }
+      if($lsba != []){
+        $lsba_sd = static::standardDeviation($lsba, false);
+      }
+
+      return compact('stillborn', 'mummified', 'totalmales', 'totalfemales', 'lsba', 'totallitterbirthweights', 'avelitterbirthweights', 'totallitterweaningweights', 'avelitterweaningweights', 'aveadjweaningweights', 'totalagesweaned', 'totalweaned', 'preweaningmortality', 'stillborn_sd', 'mummified_sd', 'totalmales_sd', 'totalfemales_sd', 'lsba_sd', 'totallitterbirthweights_sd', 'avelitterbirthweights_sd', 'totallitterweaningweights_sd', 'avelitterweaningweights_sd', 'aveadjweaningweights_sd', 'totalagesweaned_sd', 'totalweaned_sd', 'preweaningmortality_sd', 'filter');
+    }
+
+    /*public function fetchProdPerformanceParity(Request $request){
+      $pigs = Animal::where("animaltype_id", 3)->where("status", "breeder")->get();
+
+      // sorts pigs by sex
+      $sows = [];
+      $boars = [];
+      foreach($pigs as $pig){
+        if(substr($pig->registryid, -7, 1) == 'F'){
+          array_push($sows, $pig);
+        }
+        if(substr($pig->registryid, -7, 1) == 'M'){
+          array_push($boars, $pig);
+        }
+      }
+
+      // sow breeders are sows with parity of at least 1
+      $sowbreeders = [];
+      $boarbreeders = [];
+      foreach ($sows as $sow) {
+        $sowproperties = $sow->getAnimalProperties();
+        foreach ($sowproperties as $sowproperty) {
+          if($sowproperty->property_id == 76){ // parity
+            if($sowproperty->value > 0){
+              array_push($sowbreeders, $sow);
+            }
+          }
+        }
+      }
+      // boar breeders are boars used at least once
+      foreach ($boars as $boar) {
+        $boarproperties = $boar->getAnimalProperties();
+        foreach ($boarproperties as $boarproperty) {
+          if($boarproperty->property_id == 88){ // frequency
+            if($boarproperty->value > 0){
+              array_push($boarbreeders, $boar);
+            }
+          }
+        }
+      }
+
+      $groups = Grouping::whereNotNull("mother_id")->get();
+
+      // gets unique parity
+      $parity = [];
+      $tempparity = [];
+      foreach ($groups as $group) {
+        $groupproperties = $group->getGroupingProperties();
+        foreach ($groupproperties as $groupproperty) {
+          if($groupproperty->property_id == 76){
+            if($groupproperty->value > 0){
+              $parityvalue = $groupproperty->value;
+              array_push($tempparity, $parityvalue);
+              $parity = array_sort(array_unique($tempparity));
+            }
+          }
+        }
+      }
+
+      $filter = $request->filter_parity;
+
+      $groupswiththisparity = [];
+      foreach ($groups as $group) {
+        $groupproperties = $group->getGroupingProperties();
+        foreach ($groupproperties as $groupproperty) {
+          if($groupproperty->property_id == 76){ //parity
+            if($groupproperty->value == $filter){
+              array_push($groupswiththisparity, $group);
+            }
+          }
+        }
+      }
+
+      $lsba = [];
+      $totalmales = [];
+      $totalfemales = [];
+      $stillborn = [];
+      $mummified = [];
+      $totallitterbirthweights = [];
+      $avelitterbirthweights = [];
+      $totallitterweaningweights = [];
+      $avelitterweaningweights = [];
+      $aveadjweaningweights = [];
+      $totalweaned = [];
+      $totalagesweaned = [];
+      $preweaningmortality = [];
+      foreach ($groupswiththisparity as $groupwiththisparity) {
+        $thisproperties = $groupwiththisparity->getGroupingProperties();
+        foreach ($thisproperties as $thisproperty) {
+          if($thisproperty->property_id == 74){ // stillborn
+            array_push($stillborn, $thisproperty->value);
+          }
+          if($thisproperty->property_id == 75){ // mummified
+            array_push($mummified, $thisproperty->value);
+          }
+          $males = [];
+          $females = [];
+          $litterbirthweights = [];
+          $litterweaningweights = [];
+          $agesweaned = [];
+          $adjweaningweightsat45d = [];
+          $thisoffsprings = $groupwiththisparity->getGroupingMembers();
+          foreach ($thisoffsprings as $thisoffspring) {
+            $thisoffspringproperties = $thisoffspring->getAnimalProperties();
+            foreach ($thisoffspringproperties as $thisoffspringproperty) {
+              if($thisoffspringproperty->property_id == 27){ // sex
+                if($thisoffspringproperty->value == 'M'){
+                  array_push($males, $thisoffspring);
+                }
+                elseif($thisoffspringproperty->value == 'F'){
+                  array_push($females, $thisoffspring);
+                }
+              }
+              if($thisoffspringproperty->property_id == 53){ // birth weight
+                if(!is_null($thisoffspringproperty->value) && $thisoffspringproperty->value != ""){
+                  array_push($litterbirthweights, $thisoffspringproperty->value);
+                }
+              }
+              if($thisoffspringproperty->property_id == 54){ // weaning weight
+                if(!is_null($thisoffspringproperty->value) && $thisoffspringproperty->value != ""){
+                  array_push($litterweaningweights, $thisoffspringproperty->value);
+                }
+              }
+              if($thisoffspringproperty->property_id == 61){ // date weaned
+                if(!is_null($thisoffspringproperty->value) && $thisoffspringproperty->value != "Not specified"){
+                  // computes age weaned in months
+                  $date_weaned = $thisoffspringproperty->value;
+                  $thisweanedoffspringproperties = $thisoffspring->getAnimalProperties();
+                  foreach ($thisweanedoffspringproperties as $thisweanedoffspringproperty) {
+                    if($thisweanedoffspringproperty->property_id == 25){ // date farrowed
+                      if(!is_null($thisweanedoffspringproperty->value) && $thisweanedoffspringproperty->value != "Not specified"){
+                        $bday_thisoffspring = $thisweanedoffspringproperty->value;
+                        $thisageweaned = Carbon::parse($date_weaned)->diffInMonths(Carbon::parse($bday_thisoffspring));
+                        array_push($agesweaned, $thisageweaned);
+                      }
+                    }
+                    // computes adjused weaning weight at 45 days
+                    if($thisweanedoffspringproperty->property_id == 54){ // weaning weight
+                      if(!is_null($thisweanedoffspringproperty->value) && $thisweanedoffspringproperty->value != ""){
+                        // computes age weaned in days first
+                        $weaningweight = $thisweanedoffspringproperty->value;
+                        $weanedoffspringproperties = $thisoffspring->getAnimalProperties();
+                        foreach ($weanedoffspringproperties as $weanedoffspringproperty) {
+                          if($weanedoffspringproperty->property_id == 25){ // date farrowed
+                            if(!is_null($weanedoffspringproperty->value) && $weanedoffspringproperty->value != "Not specified"){
+                              $bday_offspring = $weanedoffspringproperty->value;
+                              $ageweaned = Carbon::parse($date_weaned)->diffInDays(Carbon::parse($bday_offspring));
+                              $adjweaningweightat45d = ($weaningweight*45)/$ageweaned;
+                              array_push($adjweaningweightsat45d, $adjweaningweightat45d);
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+          // adding all data to respective arrays
+          array_push($totalmales, count($males));
+          array_push($totalfemales, count($females));
+          array_push($lsba, (count($males)+count($females)));
+          if(count($litterweaningweights) != 0){
+            array_push($preweaningmortality, (count($males)+count($females))-count($litterweaningweights));
+          }
+          if($litterbirthweights != []){
+            array_push($totallitterbirthweights, array_sum($litterbirthweights));
+            array_push($avelitterbirthweights, (array_sum($litterbirthweights)/count($litterbirthweights)));
+          }
+          if($litterweaningweights != []){
+            array_push($totallitterweaningweights, array_sum($litterweaningweights));
+            array_push($avelitterweaningweights, (array_sum($litterweaningweights)/count($litterweaningweights)));
+            array_push($totalweaned, count($litterweaningweights));
+          }
+          if($adjweaningweightsat45d != []){
+            array_push($aveadjweaningweights, (array_sum($adjweaningweightsat45d)/count($adjweaningweightsat45d)));
+          }
+          if($agesweaned != []){
+            array_push($totalagesweaned, array_sum($agesweaned));
+          }
+        }
+      }
+      // standard deviation function calls
+      if($stillborn !=[]){
+        $stillborn_sd = static::standardDeviation($stillborn, false);
+      }
+      if($mummified != []){
+        $mummified_sd = static::standardDeviation($mummified, false);
+      }
+      if($totalmales != []){
+        $totalmales_sd = static::standardDeviation($totalmales, false);
+      }
+      if($totalfemales != []){
+        $totalfemales_sd = static::standardDeviation($totalfemales, false);
+      }
+      if($totallitterbirthweights != []){
+        $totallitterbirthweights_sd = static::standardDeviation($totallitterbirthweights, false);
+      }
+      if($avelitterbirthweights != []){
+        $avelitterbirthweights_sd = static::standardDeviation($avelitterbirthweights, false);
+      }
+      if($totallitterweaningweights != []){
+        $totallitterweaningweights_sd = static::standardDeviation($totallitterweaningweights, false);
+      }
+      if($avelitterweaningweights != []){
+        $avelitterweaningweights_sd = static::standardDeviation($avelitterweaningweights, false);
+      }
+      if($aveadjweaningweights != []){
+        $aveadjweaningweights_sd = static::standardDeviation($aveadjweaningweights, false);
+      }
+      if($totalagesweaned != []){
+        $totalagesweaned_sd = static::standardDeviation($totalagesweaned, false);
+      }
+      if($totalweaned != []){
+        $totalweaned_sd = static::standardDeviation($totalweaned, false);
+      }
+      if($preweaningmortality != []){
+        $preweaningmortality_sd = static::standardDeviation($preweaningmortality, false);
+      }
+      if($lsba != []){
+        $lsba_sd = static::standardDeviation($lsba, false);
+      }
+
+      return view('pigs.productionperformance', compact('pigs', 'sows', 'boars', 'sowbreeders', 'boarbreeders', 'parity', 'filter', 'lsba', 'totalmales', 'totalfemales', 'stillborn', 'mummified', 'totallitterbirthweights', 'avelitterbirthweights', 'totallitterweaningweights', 'avelitterweaningweights', 'aveadjweaningweights', 'totalweaned', 'totalagesweaned', 'preweaningmortality', 'stillborn_sd', 'mummified_sd', 'totalmales_sd', 'totalfemales_sd', 'lsba_sd', 'totallitterbirthweights_sd', 'avelitterbirthweights_sd', 'totallitterweaningweights_sd', 'avelitterweaningweights_sd', 'aveadjweaningweights_sd', 'totalagesweaned_sd', 'totalweaned_sd', 'preweaningmortality_sd'));
+    }*/
+
+    public function getProductionPerformancePage(Request $request){ // function to display Production Performace page
     	$pigs = Animal::where("animaltype_id", 3)->where("status", "breeder")->get();
 
     	// sorts pigs by sex
@@ -2121,6 +2517,7 @@ class FarmController extends Controller
       //gets all groups
       $groups = Grouping::whereNotNull("mother_id")->get();
 
+      /*** PER PARITY ***/
       // gets unique parity
       $parity = [];
       $tempparity = [];
@@ -2137,7 +2534,173 @@ class FarmController extends Controller
         }
       }
 
-    	return view('pigs.productionperformance', compact('pigs', 'sows', 'boars', 'sowbreeders', 'boarbreeders', 'parity'));
+      // default filter
+      $filter = 1;
+
+      $groupswiththisparity = [];
+      foreach ($groups as $group) {
+        $groupproperties = $group->getGroupingProperties();
+        foreach ($groupproperties as $groupproperty) {
+          if($groupproperty->property_id == 76){ //parity
+            if($groupproperty->value == $filter){
+              array_push($groupswiththisparity, $group);
+            }
+          }
+        }
+      }
+
+      $lsba = [];
+      $totalmales = [];
+      $totalfemales = [];
+      $stillborn = [];
+      $mummified = [];
+      $totallitterbirthweights = [];
+      $avelitterbirthweights = [];
+      $totallitterweaningweights = [];
+      $avelitterweaningweights = [];
+      $aveadjweaningweights = [];
+      $totalweaned = [];
+      $totalagesweaned = [];
+      $preweaningmortality = [];
+      foreach ($groupswiththisparity as $groupwiththisparity) {
+        $thisproperties = $groupwiththisparity->getGroupingProperties();
+        foreach ($thisproperties as $thisproperty) {
+          if($thisproperty->property_id == 74){ // stillborn
+            array_push($stillborn, $thisproperty->value);
+          }
+          if($thisproperty->property_id == 75){ // mummified
+            array_push($mummified, $thisproperty->value);
+          }
+          $males = [];
+          $females = [];
+          $litterbirthweights = [];
+          $litterweaningweights = [];
+          $agesweaned = [];
+          $adjweaningweightsat45d = [];
+          $thisoffsprings = $groupwiththisparity->getGroupingMembers();
+          foreach ($thisoffsprings as $thisoffspring) {
+            $thisoffspringproperties = $thisoffspring->getAnimalProperties();
+            foreach ($thisoffspringproperties as $thisoffspringproperty) {
+              if($thisoffspringproperty->property_id == 27){ // sex
+                if($thisoffspringproperty->value == 'M'){
+                  array_push($males, $thisoffspring);
+                }
+                elseif($thisoffspringproperty->value == 'F'){
+                  array_push($females, $thisoffspring);
+                }
+              }
+              if($thisoffspringproperty->property_id == 53){ // birth weight
+                if(!is_null($thisoffspringproperty->value) && $thisoffspringproperty->value != ""){
+                  array_push($litterbirthweights, $thisoffspringproperty->value);
+                }
+              }
+              if($thisoffspringproperty->property_id == 54){ // weaning weight
+                if(!is_null($thisoffspringproperty->value) && $thisoffspringproperty->value != ""){
+                  array_push($litterweaningweights, $thisoffspringproperty->value);
+                }
+              }
+              if($thisoffspringproperty->property_id == 61){ // date weaned
+                if(!is_null($thisoffspringproperty->value) && $thisoffspringproperty->value != "Not specified"){
+                  // computes age weaned in months
+                  $date_weaned = $thisoffspringproperty->value;
+                  $thisweanedoffspringproperties = $thisoffspring->getAnimalProperties();
+                  foreach ($thisweanedoffspringproperties as $thisweanedoffspringproperty) {
+                    if($thisweanedoffspringproperty->property_id == 25){ // date farrowed
+                      if(!is_null($thisweanedoffspringproperty->value) && $thisweanedoffspringproperty->value != "Not specified"){
+                        $bday_thisoffspring = $thisweanedoffspringproperty->value;
+                        $thisageweaned = Carbon::parse($date_weaned)->diffInMonths(Carbon::parse($bday_thisoffspring));
+                        array_push($agesweaned, $thisageweaned);
+                      }
+                    }
+                    // computes adjused weaning weight at 45 days
+                    if($thisweanedoffspringproperty->property_id == 54){ // weaning weight
+                      if(!is_null($thisweanedoffspringproperty->value) && $thisweanedoffspringproperty->value != ""){
+                        // computes age weaned in days first
+                        $weaningweight = $thisweanedoffspringproperty->value;
+                        $weanedoffspringproperties = $thisoffspring->getAnimalProperties();
+                        foreach ($weanedoffspringproperties as $weanedoffspringproperty) {
+                          if($weanedoffspringproperty->property_id == 25){ // date farrowed
+                            if(!is_null($weanedoffspringproperty->value) && $weanedoffspringproperty->value != "Not specified"){
+                              $bday_offspring = $weanedoffspringproperty->value;
+                              $ageweaned = Carbon::parse($date_weaned)->diffInDays(Carbon::parse($bday_offspring));
+                              $adjweaningweightat45d = ($weaningweight*45)/$ageweaned;
+                              array_push($adjweaningweightsat45d, $adjweaningweightat45d);
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+          // adding all data to respective arrays
+          array_push($totalmales, count($males));
+          array_push($totalfemales, count($females));
+          array_push($lsba, (count($males)+count($females)));
+          if(count($litterweaningweights) != 0){
+            array_push($preweaningmortality, (count($males)+count($females))-count($litterweaningweights));
+          }
+          if($litterbirthweights != []){
+            array_push($totallitterbirthweights, array_sum($litterbirthweights));
+            array_push($avelitterbirthweights, (array_sum($litterbirthweights)/count($litterbirthweights)));
+          }
+          if($litterweaningweights != []){
+            array_push($totallitterweaningweights, array_sum($litterweaningweights));
+            array_push($avelitterweaningweights, (array_sum($litterweaningweights)/count($litterweaningweights)));
+            array_push($totalweaned, count($litterweaningweights));
+          }
+          if($adjweaningweightsat45d != []){
+            array_push($aveadjweaningweights, (array_sum($adjweaningweightsat45d)/count($adjweaningweightsat45d)));
+          }
+          if($agesweaned != []){
+            array_push($totalagesweaned, array_sum($agesweaned));
+          }
+        }
+      }
+      // standard deviation function calls
+      if($stillborn !=[]){
+        $stillborn_sd = static::standardDeviation($stillborn, false);
+      }
+      if($mummified != []){
+        $mummified_sd = static::standardDeviation($mummified, false);
+      }
+      if($totalmales != []){
+        $totalmales_sd = static::standardDeviation($totalmales, false);
+      }
+      if($totalfemales != []){
+        $totalfemales_sd = static::standardDeviation($totalfemales, false);
+      }
+      if($totallitterbirthweights != []){
+        $totallitterbirthweights_sd = static::standardDeviation($totallitterbirthweights, false);
+      }
+      if($avelitterbirthweights != []){
+        $avelitterbirthweights_sd = static::standardDeviation($avelitterbirthweights, false);
+      }
+      if($totallitterweaningweights != []){
+        $totallitterweaningweights_sd = static::standardDeviation($totallitterweaningweights, false);
+      }
+      if($avelitterweaningweights != []){
+        $avelitterweaningweights_sd = static::standardDeviation($avelitterweaningweights, false);
+      }
+      if($aveadjweaningweights != []){
+        $aveadjweaningweights_sd = static::standardDeviation($aveadjweaningweights, false);
+      }
+      if($totalagesweaned != []){
+        $totalagesweaned_sd = static::standardDeviation($totalagesweaned, false);
+      }
+      if($totalweaned != []){
+        $totalweaned_sd = static::standardDeviation($totalweaned, false);
+      }
+      if($preweaningmortality != []){
+        $preweaningmortality_sd = static::standardDeviation($preweaningmortality, false);
+      }
+      if($lsba != []){
+        $lsba_sd = static::standardDeviation($lsba, false);
+      }
+
+    	return view('pigs.productionperformance', compact('pigs', 'sows', 'boars', 'sowbreeders', 'boarbreeders', 'parity', 'filter', 'lsba', 'totalmales', 'totalfemales', 'stillborn', 'mummified', 'totallitterbirthweights', 'avelitterbirthweights', 'totallitterweaningweights', 'avelitterweaningweights', 'aveadjweaningweights', 'totalweaned', 'totalagesweaned', 'preweaningmortality', 'stillborn_sd', 'mummified_sd', 'totalmales_sd', 'totalfemales_sd', 'lsba_sd', 'totallitterbirthweights_sd', 'avelitterbirthweights_sd', 'totallitterweaningweights_sd', 'avelitterweaningweights_sd', 'aveadjweaningweights_sd', 'totalagesweaned_sd', 'totalweaned_sd', 'preweaningmortality_sd'));
     }
 
     public function getSowProductionPerformancePage($id){ // function to display Sow Production Performance page
