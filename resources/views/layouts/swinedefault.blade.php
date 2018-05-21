@@ -47,14 +47,14 @@
 			<li class="no-padding">
         <ul>
           <li>
-            <a href="{{route('farm.pig.add_breeders')}}" class="collapsible-header"><i class="material-icons">add_box</i>Add as Breeders</a>
+            <a href="{{route('farm.pig.grower_records')}}" class="collapsible-header"><i class="material-icons">add_box</i>Grower Records</a>
           </li>
         </ul>
       </li>
 			<li class="no-padding">
         <ul>
           <li>
-            <a href="{{route('farm.pig.individual_records')}}" class="collapsible-header"><i class="material-icons">info</i>Individual Records</a>
+            <a href="{{route('farm.pig.breeder_records')}}" class="collapsible-header"><i class="material-icons">info</i>Breeder Records</a>
           </li>
         </ul>
       </li>

@@ -31,6 +31,14 @@
       		<div class="col s12 m10 l6">
       			<div class="card">
       				<div class="card-content grey lighten-2">
+      					<h3>{{ count($gilts) }}</h3>
+      					<p>Gilts</p>
+      				</div>
+      			</div>
+      		</div>
+      		<div class="col s12 m10 l4">
+      			<div class="card">
+      				<div class="card-content grey lighten-2">
       					<h3>{{ count($pregnantsows) }}</h3>
       					<p>Pregnant</p>
       				</div>
@@ -41,14 +49,6 @@
       				<div class="card-content grey lighten-2">
       					<h3>{{ count($lactating) }}</h3>
       					<p>Lactating</p>
-      				</div>
-      			</div>
-      		</div>
-      		<div class="col s12 m10 l4">
-      			<div class="card">
-      				<div class="card-content grey lighten-2">
-      					<h3>{{ count($gilts) }}</h3>
-      					<p>Gilts</p>
       				</div>
       			</div>
       		</div>

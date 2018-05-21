@@ -1,12 +1,12 @@
 @extends('layouts.swinedefault')
 
 @section('title')
-  Individual Records
+  Breeder Records
 @endsection
 
 @section('content')
   <div class="container">
-    <h4>Individual Records</h4>
+    <h4>Breeder Records</h4>
     <div class="divider"></div>
     <div class="row" style="padding-top: 10px;">
       <div class="col s12">
@@ -117,7 +117,7 @@
                         <a href="{{ URL::route('farm.pig.edit_pig_morphometric_characteristics_page', [$boar->id]) }}"><i class="material-icons">edit</i></a>
                       </td>
                     @endif
-                     @if($boar->weightrecord == 0)
+                    @if($boar->weightrecord == 0)
                       <td>
                         <a href="{{ URL::route('farm.pig.weight_records_page', [$boar->id]) }}"><i class="material-icons">add_circle_outline</i></a>
                       </td>

@@ -31,9 +31,9 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('fetch_parity/{id}/{parity}', ['as' => 'farm.pig.fetch_parity', 'uses' => 'FarmController@fetchParityAjax']);
     Route::post('get_sowlitter_record', ['as' => 'farm.pig.get_sowlitter_record', 'uses' => 'FarmController@addSowlitterRecord']);
     Route::post('get_weaning_weights', ['as' => 'farm.pig.get_weaning_weights', 'uses' => 'FarmController@addWeaningWeights']);
-    Route::get('add_breeders', ['as' => 'farm.pig.add_breeders', 'uses' => 'FarmController@getAddBreedersPage']);
+    Route::get('grower_records', ['as' => 'farm.pig.grower_records', 'uses' => 'FarmController@getGrowerRecordsPage']);
     Route::post('fetch_breeders/{id}', ['as' => 'farm.pig.fetch_breeders', 'uses' => 'FarmController@fetchBreedersAjax']);
-    Route::get('individual_records', ['as' => 'farm.pig.individual_records', 'uses' => 'FarmController@getAnimalRecordPage']);
+    Route::get('breeder_records', ['as' => 'farm.pig.breeder_records', 'uses' => 'FarmController@getBreederRecordsPage']);
     Route::get('add_pig', ['as' => 'farm.pig.add_pig', 'uses' => 'FarmController@getAddPigPage']);
     Route::post('fetch_new_pig', ['as' => 'farm.pig.fetch_new_pig', 'uses' => 'FarmController@fetchNewPigRecord']);
     Route::get('view_sow/{id}', ['as' => 'farm.pig.view_sow', 'uses' => 'FarmController@getViewSowPage']);

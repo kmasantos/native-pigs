@@ -3496,7 +3496,7 @@ class FarmController extends Controller
       return view('pigs.farmprofile', compact('farm', 'breed'));
     }
 
-    public function getAddBreedersPage(){ // function to display Add as Breeders page
+    public function getGrowerRecordsPage(){ // function to display Grower Records page
       $pigs = Animal::where("animaltype_id", 3)->where("status", "active")->get();
 
       // sorts pigs by sex
@@ -3511,10 +3511,10 @@ class FarmController extends Controller
         }
       }
 
-      return view('pigs.addbreeders', compact('pigs', 'sows', 'boars'));
+      return view('pigs.growerrecords', compact('pigs', 'sows', 'boars'));
     }
 
-    public function getAnimalRecordPage(){ // function to display Individual Record page
+    public function getBreederRecordsPage(){ // function to display Breeder Records page
       $pigs = Animal::where("animaltype_id", 3)->where("status", "breeder")->get();
 
       // sorts pigs by sex
@@ -3529,7 +3529,7 @@ class FarmController extends Controller
         }
       }
 
-      return view('pigs.individualrecords', compact('pigs', 'sows', 'boars'));
+      return view('pigs.breederrecords', compact('pigs', 'sows', 'boars'));
     }
 
     public function getAddPigPage(){ // function to display Add Pig page
