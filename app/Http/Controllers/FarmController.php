@@ -337,6 +337,7 @@ class FarmController extends Controller
       	static::addParityMother($group->id);
       }
 
+
       // TO FOLLOW: this will be used for filtering results
       $years = ["2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025"];
 
@@ -1661,6 +1662,7 @@ class FarmController extends Controller
 
     public function getBreederProductionReportPage(){ // function to display Breeder Production Report page
     	$pigs = Animal::where("animaltype_id", 3)->where("status", "breeder")->get();
+      $growers = Animal::where("animaltype_id", 3)->where("status", "active")->get();
 
     	// weights
     	$weights45d = [];
@@ -1696,6 +1698,35 @@ class FarmController extends Controller
     			}
     		}
     	}
+      foreach ($growers as $grower) {
+        $growerproperties = $grower->getAnimalProperties();
+        foreach ($growerproperties as $growerproperty) {
+          if($growerproperty->property_id == 45){ //45d
+            if($growerproperty->value != ""){
+              $weight45d = $growerproperty->value;
+              array_push($weights45d, $weight45d);
+            }
+          }
+          if($growerproperty->property_id == 46){ //60d
+            if($growerproperty->value != ""){
+              $weight60d = $growerproperty->value;
+              array_push($weights60d, $weight60d);
+            }
+          }
+          if($growerproperty->property_id == 69){ //90d
+            if($growerproperty->value != ""){
+              $weight90d = $growerproperty->value;
+              array_push($weights90d, $weight90d);
+            }
+          }
+          if($growerproperty->property_id == 47){ //180d
+            if($growerproperty->value != ""){
+              $weight180d = $growerproperty->value;
+              array_push($weights180d, $weight180d);
+            }
+          }
+        }
+      }
 			if($weight45d != []){
         $weights45d_sd = static::standardDeviation($weights45d, false);
       }
@@ -1719,10 +1750,22 @@ class FarmController extends Controller
       			if(!is_null($pigproperty->value) && $pigproperty->value != "Not specified"){
       				$year = Carbon::parse($pigproperty->value)->year;
       				array_push($tempyears, $year);
-      				$years = array_sort(array_unique($tempyears));
+      				$years = array_reverse(array_sort(array_unique($tempyears)));
       			}
       		}
       	}
+      }
+      foreach ($growers as $grower) {
+        $growerproperties = $grower->getAnimalProperties();
+        foreach ($growerproperties as $growerproperty) {
+          if($growerproperty->property_id == 25){
+            if(!is_null($growerproperty->value) && $growerproperty->value != "Not specified"){
+              $year = Carbon::parse($growerproperty->value)->year;
+              array_push($tempyears, $year);
+              $years = array_reverse(array_sort(array_unique($tempyears)));
+            }
+          }
+        }
       }
 
  			// age at weaning

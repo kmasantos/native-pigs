@@ -39,7 +39,7 @@
 			<li class="no-padding">
         <ul>
           <li>
-            <a href="{{route('farm.index')}}" class="collapsible-header"><i class="material-icons">dashboard</i>Dashboard</a></a>
+            <a href="{{route('farm.index')}}" class="collapsible-header"><i class="material-icons">dashboard</i>Dashboard</a>
           </li>
         </ul>
       </li>
@@ -47,14 +47,14 @@
 			<li class="no-padding">
         <ul>
           <li>
-            <a href="{{route('farm.pig.grower_records')}}" class="collapsible-header"><i class="material-icons">add_box</i>Grower Records</a>
+            <a href="{{route('farm.pig.grower_records')}}" class="collapsible-header"><i class="material-icons">create_new_folder</i>Grower Records</a>
           </li>
         </ul>
       </li>
 			<li class="no-padding">
         <ul>
           <li>
-            <a href="{{route('farm.pig.breeder_records')}}" class="collapsible-header"><i class="material-icons">info</i>Breeder Records</a>
+            <a href="{{route('farm.pig.breeder_records')}}" class="collapsible-header"><i class="material-icons">folder_special</i>Breeder Records</a>
           </li>
         </ul>
       </li>
@@ -68,7 +68,7 @@
       <li class="no-padding">
         <ul>
           <li>
-            <a href="{{route('farm.pig.mortality_and_sales')}}" class="collapsible-header"><i class="material-icons">remove_circle</i>Mortality and Sales</a>
+            <a href="{{route('farm.pig.mortality_and_sales')}}" class="collapsible-header"><i class="material-icons">remove_from_queue</i>Mortality and Sales</a>
           </li>
         </ul>
       </li>
@@ -94,9 +94,16 @@
 			<li class="no-padding">
         <ul>
           <li>
-            <a href="{{route('farm.pig.farm_profile')}}" class="collapsible-header"><i class="material-icons">settings</i>Farm Profile</a>
+            <a href="{{route('farm.pig.farm_profile')}}" class="collapsible-header"><i class="material-icons">contact_mail</i>Farm Profile</a>
           </li>
         </ul>
+      </li>
+      <li class="no-padding">
+      	<ul>
+      		<li>
+      			<a href="logout" id="logoutbutton" onclick="window.location='https://accounts.google.com/Logout?&continue=http://www.google.com/';" class="collapsible-header"><i class="material-icons">exit_to_app</i>Logout</a>
+      		</li>
+      	</ul>
       </li>
 		</ul>
 

@@ -105,12 +105,52 @@
 								{!! Form::close() !!}
 								@forelse($family as $breedingRecord)
 									<tr>
-										<td>
-											{{ $breedingRecord->getMother()->registryid }} 
-										</td>
-										<td>
-											{{ $breedingRecord->getFather()->registryid }}
-										</td>
+										@if($breedingRecord->getMother()->status == "active" || $breedingRecord->getMother()->status == "breeder")
+											<td>
+												<strong>{{ $breedingRecord->getMother()->registryid }}</strong> <p><sup>(Active)</sup></p>
+											</td>
+										@elseif($breedingRecord->getMother()->status == "dead grower" || $breedingRecord->getMother()->status == "dead breeder")
+											<td>
+												<strong>{{ $breedingRecord->getMother()->registryid }}</strong> <p><sup>(Died {{ Carbon\Carbon::parse($breedingRecord->getMother()->getAnimalProperties()->where("property_id", 55)->first()->value)->format('F j, Y') }})</sup></p>
+											</td>
+										@elseif($breedingRecord->getMother()->status == "sold grower" || $breedingRecord->getMother()->status == "sold breeder")
+											<td>
+												<strong>{{ $breedingRecord->getMother()->registryid }}</strong> <p><sup>(Sold {{ Carbon\Carbon::parse($breedingRecord->getMother()->getAnimalProperties()->where("property_id", 56)->first()->value)->format('F j, Y') }})</sup></p>
+											</td>
+										@elseif($breedingRecord->getMother()->status == "removed")
+											@if($breedingRecord->getMother()->getAnimalProperties()->where("property_id", 73)->first()->value == "Culled")
+												<td>
+													<strong>{{ $breedingRecord->getMother()->registryid }}</strong> <p><sup>(Culled {{ Carbon\Carbon::parse($breedingRecord->getMother()->getAnimalProperties()->where("property_id", 72)->first()->value)->format('F j, Y') }})</sup></p>
+												</td>
+											@elseif($breedingRecord->getMother()->getAnimalProperties()->where("property_id", 73)->first()->value == "Donated")
+												<td>
+													<strong>{{ $breedingRecord->getMother()->registryid }}</strong> <p><sup>(Donated {{ Carbon\Carbon::parse($breedingRecord->getMother()->getAnimalProperties()->where("property_id", 72)->first()->value)->format('F j, Y') }})</sup></p>
+												</td>
+											@endif
+										@endif
+										@if($breedingRecord->getFather()->status == "active" || $breedingRecord->getFather()->status == "breeder")
+											<td>
+												<strong>{{ $breedingRecord->getFather()->registryid }}</strong> <p><sup>(Active)</sup></p>
+											</td>
+										@elseif($breedingRecord->getFather()->status == "dead grower" || $breedingRecord->getFather()->status == "dead breeder")
+											<td>
+												<strong>{{ $breedingRecord->getFather()->registryid }}</strong> <p><sup>(Died {{ Carbon\Carbon::parse($breedingRecord->getFather()->getAnimalProperties()->where("property_id", 55)->first()->value)->format('F j, Y') }})</sup></p>
+											</td>
+										@elseif($breedingRecord->getFather()->status == "sold grower" || $breedingRecord->getFather()->status == "sold breeder")
+											<td>
+												<strong>{{ $breedingRecord->getFather()->registryid }}</strong> <p><sup>(Sold {{ Carbon\Carbon::parse($breedingRecord->getFather()->getAnimalProperties()->where("property_id", 56)->first()->value)->format('F j, Y') }})</sup></p>
+											</td>
+										@elseif($breedingRecord->getFather()->status == "removed")
+											@if($breedingRecord->getFather()->getAnimalProperties()->where("property_id", 73)->first()->value == "Culled")
+												<td>
+													<strong>{{ $breedingRecord->getFather()->registryid }}</strong> <p><sup>(Culled {{ Carbon\Carbon::parse($breedingRecord->getFather()->getAnimalProperties()->where("property_id", 72)->first()->value)->format('F j, Y') }})</sup></p>
+												</td>
+											@elseif($breedingRecord->getFather()->getAnimalProperties()->where("property_id", 73)->first()->value == "Donated")
+												<td>
+													<strong>{{ $breedingRecord->getFather()->registryid }}</strong> <p><sup>(Donated {{ Carbon\Carbon::parse($breedingRecord->getFather()->getAnimalProperties()->where("property_id", 72)->first()->value)->format('F j, Y') }})</sup></p>
+												</td>
+											@endif
+										@endif
 										@if(is_null($breedingRecord->getGroupingProperties()->where("property_id", 48)->first()))
 											<td></td>
 										@else
