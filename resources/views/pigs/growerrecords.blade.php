@@ -11,11 +11,11 @@
 		<div class="row" style="padding-top: 10px;">
 			<div class="col s12">
         <ul class="tabs tabs-fixed-width green lighten-1">
-          <li class="tab col s6"><a href="#addsowbreedersview">Sows</a></li>
-          <li class="tab col s6"><a href="#addboarbreedersview">Boars</a></li>
+          <li class="tab col s6"><a href="#femalegrowersview">Female Growers</a></li>
+          <li class="tab col s6"><a href="#malegrowersview">Male Growers</a></li>
         </ul>
       </div>
-      <div id="addsowbreedersview" class="col s12">
+      <div id="femalegrowersview" class="col s12">
 				<table class="centered">
 					<thead>
 						<tr>
@@ -27,7 +27,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						@foreach($sows as $sow)
+						@forelse($sows as $sow)
 							<tr id="{{ $sow->registryid }}">
 								<td>{{ $sow->registryid }}</td>
 								@if(!is_null($sow->getAnimalProperties()->where("property_id", 53)->first()))
@@ -58,11 +58,15 @@
 							    </p>
 								</td>
 							</tr>
-						@endforeach
+						@empty
+              <tr>
+                <td colspan="5">No female grower data found</td>
+              </tr>
+            @endforelse
 					</tbody>
 				</table>
 			</div>
-			<div id="addboarbreedersview" class="col s12">
+			<div id="malegrowersview" class="col s12">
 				<table class="centered">
 					<thead>
 						<tr>
@@ -74,7 +78,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						@foreach($boars as $boar)
+						@forelse($boars as $boar)
 							<tr id="{{ $boar->registryid }}">
 								<td>{{ $boar->registryid }}</td>
 								@if(!is_null($boar->getAnimalProperties()->where("property_id", 53)->first()))
@@ -105,7 +109,11 @@
 							    </p>
 								</td>
 							</tr>
-						@endforeach
+						@empty
+              <tr>
+                <td colspan="5">No male grower data found</td>
+              </tr>
+            @endforelse
 					</tbody>
 				</table>
 			</div>

@@ -99,20 +99,24 @@
 	    				</tr>
 	    			</thead>
 	    			<tbody>
-	    				@foreach($years as $year)
-	    				<tr>
-	    					<td>{{ $year }}</td>
-	    					<td>{{ count(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 45)) }}</td>
-	    					@if(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 45) == [])
-		    					<td colspan="4">No data available</td>
-		    				@else
-		    					<td>{{ min(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 45)) }}</td>
-		    					<td>{{ max(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 45)) }}</td>
-		    					<td>{{ round(array_sum(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 45))/count(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 45)), 2) }}</td>
-		    					<td>{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 45), false), 2) }}</td>
-		    				@endif
-	    				</tr>
-	    				@endforeach
+	    				@forelse($years as $year)
+		    				<tr>
+		    					<td>{{ $year }}</td>
+		    					<td>{{ count(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 45)) }}</td>
+		    					@if(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 45) == [])
+			    					<td colspan="4">No data available</td>
+			    				@else
+			    					<td>{{ min(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 45)) }}</td>
+			    					<td>{{ max(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 45)) }}</td>
+			    					<td>{{ round(array_sum(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 45))/count(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 45)), 2) }}</td>
+			    					<td>{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 45), false), 2) }}</td>
+			    				@endif
+		    				</tr>
+		    			@empty
+		    				<tr>
+		    					<td colspan="6">No data available</td>
+		    				</tr>
+	    				@endforelse
 	    			</tbody>
 	    		</table>
 	    	</div>
@@ -130,20 +134,24 @@
 	    				</tr>
 	    			</thead>
 	    			<tbody>
-	    				@foreach($years as $year)
-	    				<tr>
-	    					<td>{{ $year }}</td>
-	    					<td>{{ count(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 46)) }}</td>
-	    					@if(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 46) == [])
-		    					<td colspan="4">No data available</td>
-		    				@else
-		    					<td>{{ min(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 46)) }}</td>
-		    					<td>{{ max(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 46)) }}</td>
-		    					<td>{{ round(array_sum(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 46))/count(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 46)), 2) }}</td>
-		    					<td>{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 46), false), 2) }}</td>
-		    				@endif
-	    				</tr>
-	    				@endforeach
+	    				@forelse($years as $year)
+		    				<tr>
+		    					<td>{{ $year }}</td>
+		    					<td>{{ count(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 46)) }}</td>
+		    					@if(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 46) == [])
+			    					<td colspan="4">No data available</td>
+			    				@else
+			    					<td>{{ min(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 46)) }}</td>
+			    					<td>{{ max(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 46)) }}</td>
+			    					<td>{{ round(array_sum(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 46))/count(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 46)), 2) }}</td>
+			    					<td>{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 46), false), 2) }}</td>
+			    				@endif
+		    				</tr>
+	    				@empty
+		    				<tr>
+		    					<td colspan="6">No data available</td>
+		    				</tr>
+	    				@endforelse
 	    			</tbody>
 	    		</table>
 	    	</div>
@@ -161,20 +169,24 @@
 	    				</tr>
 	    			</thead>
 	    			<tbody>
-	    				@foreach($years as $year)
-	    				<tr>
-	    					<td>{{ $year }}</td>
-	    					<td>{{ count(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 69)) }}</td>
-	    					@if(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 69) == [])
-		    					<td colspan="4">No data available</td>
-		    				@else
-		    					<td>{{ min(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 69)) }}</td>
-		    					<td>{{ max(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 69)) }}</td>
-		    					<td>{{ round(array_sum(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 69))/count(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 69)), 2) }}</td>
-		    					<td>{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 69), false), 2) }}</td>
-		    				@endif
-	    				</tr>
-	    				@endforeach
+	    				@forelse($years as $year)
+		    				<tr>
+		    					<td>{{ $year }}</td>
+		    					<td>{{ count(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 69)) }}</td>
+		    					@if(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 69) == [])
+			    					<td colspan="4">No data available</td>
+			    				@else
+			    					<td>{{ min(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 69)) }}</td>
+			    					<td>{{ max(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 69)) }}</td>
+			    					<td>{{ round(array_sum(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 69))/count(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 69)), 2) }}</td>
+			    					<td>{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 69), false), 2) }}</td>
+			    				@endif
+		    				</tr>
+	    				@empty
+		    				<tr>
+		    					<td colspan="6">No data available</td>
+		    				</tr>
+	    				@endforelse
 	    			</tbody>
 	    		</table>
 	    	</div>
@@ -192,20 +204,24 @@
 	    				</tr>
 	    			</thead>
 	    			<tbody>
-	    				@foreach($years as $year)
-	    				<tr>
-	    					<td>{{ $year }}</td>
-	    					<td>{{ count(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 47)) }}</td>
-	    					@if(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 47) == [])
-		    					<td colspan="4">No data available</td>
-		    				@else
-		    					<td>{{ min(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 47)) }}</td>
-		    					<td>{{ max(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 47)) }}</td>
-		    					<td>{{ round(array_sum(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 47))/count(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 47)), 2) }}</td>
-		    					<td>{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 47), false), 2) }}</td>
-		    				@endif
-	    				</tr>
-	    				@endforeach
+	    				@forelse($years as $year)
+		    				<tr>
+		    					<td>{{ $year }}</td>
+		    					<td>{{ count(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 47)) }}</td>
+		    					@if(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 47) == [])
+			    					<td colspan="4">No data available</td>
+			    				@else
+			    					<td>{{ min(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 47)) }}</td>
+			    					<td>{{ max(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 47)) }}</td>
+			    					<td>{{ round(array_sum(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 47))/count(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 47)), 2) }}</td>
+			    					<td>{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 47), false), 2) }}</td>
+			    				@endif
+		    				</tr>
+	    				@empty
+		    				<tr>
+		    					<td colspan="6">No data available</td>
+		    				</tr>
+	    				@endforelse
 	    			</tbody>
 	    		</table>
 	    	</div>
@@ -331,9 +347,13 @@
 	    			<div class="card">
 	    				<div class="card-content grey lighten-2">
 	    					<h5>Breeders</h5>
-	    					<h3>{{ round(array_sum($breederages)/count($breederages) ,2) }}*</h3>
-	    					<h5>Average age, months</h5><br><br>
-	    					*breeders with age data: {{ count($breederages) }} out of {{ count($breeders) }}<br>
+	    					@if($breederages != [] && $breeders != [])
+		    					<h3>{{ round(array_sum($breederages)/count($breederages) ,2) }}*</h3>
+		    					<h5>Average age, months</h5><br><br>
+		    					*breeders with age data: {{ count($breederages) }} out of {{ count($breeders) }}<br>
+		    				@else
+		    					<h3>No data available</h3>
+		    				@endif
 	    				</div>
 	    			</div>
 	    		</div>
@@ -343,9 +363,13 @@
 	    			<div class="card">
 	    				<div class="card-content grey lighten-2">
 	    					<h5>Sow Breeders</h5>
-	    					<h3>{{ round(array_sum($breedersowages)/count($breedersowages) ,2) }}*</h3>
-	    					<h5>Average age, months</h5><br><br>
-	    					*breeders with age data: {{ count($breedersowages) }} out of {{ count($breedersows) }}<br>
+	    					@if($breedersowages != [] && $breedersows != [])
+		    					<h3>{{ round(array_sum($breedersowages)/count($breedersowages) ,2) }}*</h3>
+		    					<h5>Average age, months</h5><br><br>
+		    					*breeders with age data: {{ count($breedersowages) }} out of {{ count($breedersows) }}<br>
+		    				@else
+		    					<h3>No data available</h3>
+		    				@endif
 	    				</div>
 	    			</div>
 	    		</div>
@@ -353,9 +377,13 @@
 	    			<div class="card">
 	    				<div class="card-content grey lighten-2">
 	    					<h5>Boar Breeders</h5>
-	    					<h3>{{ round(array_sum($breederboarages)/count($breederboarages) ,2) }}*</h3>
-	    					<h5>Average age, months</h5><br><br>
-	    					*breeders with age data: {{ count($breederboarages) }} out of {{ count($breederboars) }}<br>
+	    					@if($breederboarages != [] && $breederboars != [])
+		    					<h3>{{ round(array_sum($breederboarages)/count($breederboarages) ,2) }}*</h3>
+		    					<h5>Average age, months</h5><br><br>
+		    					*breeders with age data: {{ count($breederboarages) }} out of {{ count($breederboars) }}<br>
+		    				@else
+		    					<h3>No data available</h3>
+		    				@endif
 	    				</div>
 	    			</div>
 	    		</div>

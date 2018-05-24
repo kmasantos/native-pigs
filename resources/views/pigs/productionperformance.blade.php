@@ -28,12 +28,16 @@
 	    			</tr>
 	    		</thead>
 	    		<tbody>
-	    			@foreach($sowbreeders as $sowbreeder)
+	    			@forelse($sowbreeders as $sowbreeder)
 		    			<tr>
 		    				<td>{{ $sowbreeder->registryid }}</td>
 		    				<td class="center"><a href="{{ URL::route('farm.pig.sow_production_performance', [$sowbreeder->id]) }}"><i class="material-icons">visibility</i></a></td>
 		    			</tr>
-		    		@endforeach
+		    		@empty
+	    				<tr>
+	    					<td colspan="2" class="center">No sow data available</td>
+	    				</tr>
+    				@endforelse
 	    		</tbody>
 	    	</table>
 	    </div>
@@ -47,12 +51,16 @@
 	    			</tr>
 	    		</thead>
 	    		<tbody>
-	    			@foreach($boarbreeders as $boarbreeder)
+	    			@forelse($boarbreeders as $boarbreeder)
 		    			<tr>
 		    				<td>{{ $boarbreeder->registryid }}</td>
 		    				<td class="center"><a href="{{ URL::route('farm.pig.boar_production_performance', [$boarbreeder->id]) }}"><i class="material-icons">visibility</i></a></td>
 		    			</tr>
-		    		@endforeach
+		    		@empty
+	    				<tr>
+	    					<td colspan="2" class="center">No boar data available</td>
+	    				</tr>
+    				@endforelse
 	    		</tbody>
 	    	</table>
 	    </div>

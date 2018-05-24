@@ -195,7 +195,7 @@
               </tr>
             </thead>
             <tbody>
-              @foreach($years as $year)
+              @forelse($years as $year)
                 <tr>
                   <td>{{ $year }}</td>
                   <td>{{ count(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 64, $filter)) }}</td>
@@ -208,7 +208,11 @@
                     <td>{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 64, $filter), false), 2) }}</td>
                   @endif
                 </tr>
-              @endforeach
+              @empty
+                <tr>
+                  <td colspan="6">No data available</td>
+                </tr>
+              @endforelse
             </tbody>
           </table>
         </div>
@@ -226,7 +230,7 @@
               </tr>
             </thead>
             <tbody>
-              @foreach($years as $year)
+              @forelse($years as $year)
                 <tr>
                   <td>{{ $year }}</td>
                   <td>{{ count(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 39, $filter)) }}</td>
@@ -239,7 +243,11 @@
                     <td>{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 39, $filter), false), 2) }}</td>
                   @endif
                 </tr>
-              @endforeach
+               @empty
+                <tr>
+                  <td colspan="6">No data available</td>
+                </tr>
+              @endforelse
             </tbody>
           </table>
         </div>
@@ -257,7 +265,7 @@
               </tr>
             </thead>
             <tbody>
-              @foreach($years as $year)
+              @forelse($years as $year)
                 <tr>
                   <td>{{ $year }}</td>
                   <td>{{ count(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 63, $filter)) }}</td>
@@ -270,7 +278,11 @@
                     <td>{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 63, $filter), false), 2) }}</td>
                   @endif
                 </tr>
-              @endforeach
+               @empty
+                <tr>
+                  <td colspan="6">No data available</td>
+                </tr>
+              @endforelse
             </tbody>
           </table>
         </div>
@@ -288,7 +300,7 @@
               </tr>
             </thead>
             <tbody>
-              @foreach($years as $year)
+              @forelse($years as $year)
                 <tr>
                   <td>{{ $year }}</td>
                   <td>{{ count(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 40, $filter)) }}</td>
@@ -301,7 +313,11 @@
                     <td>{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 40, $filter), false), 2) }}</td>
                   @endif
                 </tr>
-              @endforeach
+               @empty
+                <tr>
+                  <td colspan="6">No data available</td>
+                </tr>
+              @endforelse
             </tbody>
           </table>
         </div>
@@ -319,7 +335,7 @@
               </tr>
             </thead>
             <tbody>
-              @foreach($years as $year)
+              @forelse($years as $year)
                 <tr>
                   <td>{{ $year }}</td>
                   <td>{{ count(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 42, $filter)) }}</td>
@@ -332,7 +348,11 @@
                     <td>{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 42, $filter), false), 2) }}</td>
                   @endif
                 </tr>
-              @endforeach
+              @empty
+                <tr>
+                  <td colspan="6">No data available</td>
+                </tr>
+              @endforelse
             </tbody>
           </table>
         </div>
@@ -350,7 +370,7 @@
               </tr>
             </thead>
             <tbody>
-              @foreach($years as $year)
+              @forelse($years as $year)
                 <tr>
                   <td>{{ $year }}</td>
                   <td>{{ count(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 41, $filter)) }}</td>
@@ -363,7 +383,11 @@
                     <td>{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 41, $filter), false), 2) }}</td>
                   @endif
                 </tr>
-              @endforeach
+               @empty
+                <tr>
+                  <td colspan="6">No data available</td>
+                </tr>
+              @endforelse
             </tbody>
           </table>
         </div>
@@ -381,7 +405,7 @@
               </tr>
             </thead>
             <tbody>
-              @foreach($years as $year)
+              @forelse($years as $year)
                 <tr>
                   <td>{{ $year }}</td>
                   <td>{{ count(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 43, $filter)) }}</td>
@@ -394,7 +418,11 @@
                     <td>{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 43, $filter), false), 2) }}</td>
                   @endif
                 </tr>
-              @endforeach
+               @empty
+                <tr>
+                  <td colspan="6">No data available</td>
+                </tr>
+              @endforelse
             </tbody>
           </table>
         </div>
@@ -412,7 +440,7 @@
               </tr>
             </thead>
             <tbody>
-              @foreach($years as $year)
+              @forelse($years as $year)
                 <tr>
                   <td>{{ $year }}</td>
                   <td>{{ count(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 65, $filter)) }}</td>
@@ -425,7 +453,11 @@
                     <td>{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 65, $filter), false), 2) }}</td>
                   @endif
                 </tr>
-              @endforeach
+               @empty
+                <tr>
+                  <td colspan="6">No data available</td>
+                </tr>
+              @endforelse
             </tbody>
           </table>
         </div>
@@ -443,7 +475,7 @@
               </tr>
             </thead>
             <tbody>
-              @foreach($years as $year)
+              @forelse($years as $year)
                 <tr>
                   <td>{{ $year }}</td>
                   <td>{{ count(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 66, $filter)) }}</td>
@@ -456,7 +488,11 @@
                     <td>{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 66, $filter), false), 2) }}</td>
                   @endif
                 </tr>
-              @endforeach
+               @empty
+                <tr>
+                  <td colspan="6">No data available</td>
+                </tr>
+              @endforelse
             </tbody>
           </table>
         </div>
@@ -474,7 +510,7 @@
               </tr>
             </thead>
             <tbody>
-              @foreach($years as $year)
+              @forelse($years as $year)
                 <tr>
                   <td>{{ $year }}</td>
                   <td>{{ count(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 44, $filter)) }}</td>
@@ -487,7 +523,11 @@
                     <td>{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getMorphometricCharacteristicsPerYearOfBirth($year, 44, $filter), false), 2) }}</td>
                   @endif
                 </tr>
-              @endforeach
+               @empty
+                <tr>
+                  <td colspan="6">No data available</td>
+                </tr>
+              @endforelse
             </tbody>
           </table>
         </div>
