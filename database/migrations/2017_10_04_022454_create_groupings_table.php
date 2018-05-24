@@ -18,6 +18,7 @@ class CreateGroupingsTable extends Migration
             $table->string('registryid');
             $table->integer('mother_id')->unsigned()->nullable();
             $table->integer('father_id')->unsigned()->nullable();
+            $table->integer('breed_id')->unsigned();
             $table->boolean('members')->default(false);
         });
     }
