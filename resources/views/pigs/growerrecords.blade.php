@@ -6,7 +6,7 @@
 
 @section('content')
 	<div class="container">
-		<h4>Grower Records</h4>
+		<h4>Grower Records <a href="#!" class="tooltipped" data-position="right" data-tooltip="All pigs except breeders"><i class="material-icons">info_outline</i></a></h4>
 		<div class="divider"></div>
 		<div class="row" style="padding-top: 10px;">
 			<div class="col s12">
@@ -42,11 +42,11 @@
 								@endif
 								@if($sow->weightrecord == 0)
                   <td>
-                    <a href="{{ URL::route('farm.pig.weight_records_page', [$sow->id]) }}"><i class="material-icons">add_circle_outline</i></a>
+                    <a href="{{ URL::route('farm.pig.weight_records_page', [$sow->id]) }}" class="tooltipped" data-position="top" data-tooltip="Add"><i class="material-icons">add_circle_outline</i></a>
                   </td>
                 @elseif($sow->weightrecord == 1)
                   <td>
-                    <a href="{{ URL::route('farm.pig.edit_weight_records_page', [$sow->id]) }}"><i class="material-icons">edit</i></a>
+                    <a href="{{ URL::route('farm.pig.edit_weight_records_page', [$sow->id]) }}" class="tooltipped" data-position="top" data-tooltip="Edit"><i class="material-icons">edit</i></a>
                   </td>
                 @endif
 								<td>
@@ -93,11 +93,11 @@
 								@endif
 								@if($boar->weightrecord == 0)
                   <td>
-                    <a href="{{ URL::route('farm.pig.weight_records_page', [$boar->id]) }}"><i class="material-icons">add_circle_outline</i></a>
+                    <a href="{{ URL::route('farm.pig.weight_records_page', [$boar->id]) }}" class="tooltipped" data-position="top" data-tooltip="Add"><i class="material-icons">add_circle_outline</i></a>
                   </td>
                 @elseif($boar->weightrecord == 1)
                   <td>
-                    <a href="{{ URL::route('farm.pig.edit_weight_records_page', [$boar->id]) }}"><i class="material-icons">edit</i></a>
+                    <a href="{{ URL::route('farm.pig.edit_weight_records_page', [$boar->id]) }}" class="tooltipped" data-position="top" data-tooltip="Edit"><i class="material-icons">edit</i></a>
                   </td>
                 @endif
 								<td>
@@ -117,6 +117,11 @@
 					</tbody>
 				</table>
 			</div>
+			<div class="fixed-action-btn">
+        <a href="{{route('farm.pig.add_pig')}}" class="btn-floating btn-large green darken-3 tooltipped" data-position="top" data-tooltip="Add new pig">
+          <i class="large material-icons">add</i>
+        </a>
+      </div>
 		</div>
 	</div>
 @endsection

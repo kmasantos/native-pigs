@@ -12,7 +12,7 @@
 			<div class="row center">
 				<div id="year_grower_inventory" class="col s4 offset-s4">
 					<select id="year_grower_inventory" name="year_grower_inventory" class="browser-default">
-						<option disabled selected>Choose year</option>
+						<option disabled selected>Year ({{ $filter }})</option>
 						@foreach($years as $year)
 							<option value="{{ $year }}">{{ $year }}</option>
 						@endforeach
@@ -80,7 +80,7 @@
 				"datasets":[
 					{
 						"label":"Female",
-						"data":[2,3,4,5,1,3,6,1],
+						"data":[0,2,1,4,5,2,3,10],
 						"fill":false,
 						"backgroundColor": "rgba(255, 99, 132, 0.2)",
 						"borderColor": "rgb(255, 99, 132)",
@@ -88,7 +88,7 @@
 					},
 					{
 						"label": "Male",
-						"data":[2,1,1,4,3,0,1,4],
+						"data":[2,4,1,5,1,5,3,9],
 						"fill":false,
 						"backgroundColor": "rgba(75, 192, 192, 0.2)",
 						"borderColor": "rgb(75, 192, 192)",
@@ -114,7 +114,7 @@
 				"datasets":[
 					{
 						"label":"Female",
-						"data":[2,3,4,5,1,3,6,1],
+						"data":[1,3,0,5,2,3,5,9],
 						"fill":false,
 						"backgroundColor": "rgba(255, 99, 132, 0.2)",
 						"borderColor": "rgb(255, 99, 132)",
@@ -122,7 +122,7 @@
 					},
 					{
 						"label": "Male",
-						"data":[2,1,1,4,3,0,1,4],
+						"data":[0,1,4,3,6,2,0,10],
 						"fill":false,
 						"backgroundColor": "rgba(75, 192, 192, 0.2)",
 						"borderColor": "rgb(75, 192, 192)",
@@ -148,7 +148,7 @@
 				"datasets":[
 					{
 						"label":"Female",
-						"data":[2,3,4,5,1,3,6,1],
+						"data":[1,1,0,3,5,2,7,9],
 						"fill":false,
 						"backgroundColor": "rgba(255, 99, 132, 0.2)",
 						"borderColor": "rgb(255, 99, 132)",
@@ -156,7 +156,7 @@
 					},
 					{
 						"label": "Male",
-						"data":[2,1,1,4,3,0,1,4],
+						"data":[4,7,1,3,5,1,8],
 						"fill":false,
 						"backgroundColor": "rgba(75, 192, 192, 0.2)",
 						"borderColor": "rgb(75, 192, 192)",
@@ -182,7 +182,7 @@
 				"datasets":[
 					{
 						"label":"Female",
-						"data":[2,3,4,5,1,3,6,1],
+						"data":[2,6,2,2,3,1,7,1],
 						"fill":false,
 						"backgroundColor": "rgba(255, 99, 132, 0.2)",
 						"borderColor": "rgb(255, 99, 132)",
@@ -190,7 +190,7 @@
 					},
 					{
 						"label": "Male",
-						"data":[2,1,1,4,3,0,1,4],
+						"data":[1,2,1,1,5,6,2,7],
 						"fill":false,
 						"backgroundColor": "rgba(75, 192, 192, 0.2)",
 						"borderColor": "rgb(75, 192, 192)",
@@ -216,7 +216,7 @@
 				"datasets":[
 					{
 						"label":"Female",
-						"data":[2,3,4,5,1,3,6,1],
+						"data":[2,3,4,5,1,3,6,9],
 						"fill":false,
 						"backgroundColor": "rgba(255, 99, 132, 0.2)",
 						"borderColor": "rgb(255, 99, 132)",
@@ -224,7 +224,7 @@
 					},
 					{
 						"label": "Male",
-						"data":[2,1,1,4,3,0,1,4],
+						"data":[2,1,1,4,2,0,1,4],
 						"fill":false,
 						"backgroundColor": "rgba(75, 192, 192, 0.2)",
 						"borderColor": "rgb(75, 192, 192)",
@@ -250,7 +250,7 @@
 				"datasets":[
 					{
 						"label":"Female",
-						"data":[2,3,4,5,1,3,6,1],
+						"data":[1,4,4,3,3,5,5,6],
 						"fill":false,
 						"backgroundColor": "rgba(255, 99, 132, 0.2)",
 						"borderColor": "rgb(255, 99, 132)",
@@ -258,7 +258,7 @@
 					},
 					{
 						"label": "Male",
-						"data":[2,1,1,4,3,0,1,4],
+						"data":[4,2,6,3,4,3,1,3],
 						"fill":false,
 						"backgroundColor": "rgba(75, 192, 192, 0.2)",
 						"borderColor": "rgb(75, 192, 192)",
@@ -284,7 +284,7 @@
 				"datasets":[
 					{
 						"label":"Female",
-						"data":[2,3,4,5,1,3,6,1],
+						"data":[1,2,5,5,2,6,2,8],
 						"fill":false,
 						"backgroundColor": "rgba(255, 99, 132, 0.2)",
 						"borderColor": "rgb(255, 99, 132)",
@@ -292,7 +292,7 @@
 					},
 					{
 						"label": "Male",
-						"data":[2,1,1,4,3,0,1,4],
+						"data":[3,2,8,9,2,3,1,9],
 						"fill":false,
 						"backgroundColor": "rgba(75, 192, 192, 0.2)",
 						"borderColor": "rgb(75, 192, 192)",
@@ -318,15 +318,14 @@
 				"datasets":[
 					{
 						"label":"Female",
-						"data":[2,3,4,5,1,3,6,1],
-						"fill":false,
+						"data":[1,4,6,7,1,4,2,7],
 						"backgroundColor": "rgba(255, 99, 132, 0.2)",
 						"borderColor": "rgb(255, 99, 132)",
 						"borderWidth":1
 					},
 					{
 						"label": "Male",
-						"data":[2,1,1,4,3,0,1,4],
+						"data":[5,2,9,0,3,8,5,5],
 						"fill":false,
 						"backgroundColor": "rgba(75, 192, 192, 0.2)",
 						"borderColor": "rgb(75, 192, 192)",
@@ -352,7 +351,7 @@
 				"datasets":[
 					{
 						"label":"Female",
-						"data":[2,3,4,5,1,3,6,1],
+						"data":[2,1,4,3,8,4,4,3],
 						"fill":false,
 						"backgroundColor": "rgba(255, 99, 132, 0.2)",
 						"borderColor": "rgb(255, 99, 132)",
@@ -386,7 +385,7 @@
 				"datasets":[
 					{
 						"label":"Female",
-						"data":[2,3,4,5,1,3,6,1],
+						"data":[1,2,1,2,1,0,8,6],
 						"fill":false,
 						"backgroundColor": "rgba(255, 99, 132, 0.2)",
 						"borderColor": "rgb(255, 99, 132)",
@@ -394,7 +393,7 @@
 					},
 					{
 						"label": "Male",
-						"data":[2,1,1,4,3,0,1,4],
+						"data":[1,2,5,2,3,6,6,8],
 						"fill":false,
 						"backgroundColor": "rgba(75, 192, 192, 0.2)",
 						"borderColor": "rgb(75, 192, 192)",
@@ -420,7 +419,7 @@
 				"datasets":[
 					{
 						"label":"Female",
-						"data":[2,3,4,5,1,3,6,1],
+						"data":[6,3,4,6,4,2,7,7],
 						"fill":false,
 						"backgroundColor": "rgba(255, 99, 132, 0.2)",
 						"borderColor": "rgb(255, 99, 132)",
@@ -428,7 +427,7 @@
 					},
 					{
 						"label": "Male",
-						"data":[2,1,1,4,3,0,1,4],
+						"data":[0,3,5,3,2,5,8,7],
 						"fill":false,
 						"backgroundColor": "rgba(75, 192, 192, 0.2)",
 						"borderColor": "rgb(75, 192, 192)",

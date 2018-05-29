@@ -17,7 +17,7 @@
 		<div class="navbar-fixed">
 			<nav class="green lighten-1" role="navigation">
 				<div class="nav-wrapper">
-					<a href="{{route('farm.index')}}" class="brand-logo"><img src="/images/logo-swine.png" height="60" / ></a>
+					<a href="{{route('farm.index')}}" class="brand-logo"><img src="/images/logo-swine.png" height="65" / ></a>
 					<ul id="nav-mobile" class="right hide-on-med-and-down">
 						<li><a href="{{route('farm.index')}}">Home</a></li>
 						<li><a href="{{route('farm.index')}}">{{ Auth::user()->name }}</a></li>
@@ -47,13 +47,6 @@
 			<li class="no-padding">
         <ul>
           <li>
-            <a href="{{route('farm.pig.grower_records')}}" class="collapsible-header"><i class="material-icons">create_new_folder</i>Grower Records</a>
-          </li>
-        </ul>
-      </li>
-			<li class="no-padding">
-        <ul>
-          <li>
             <a href="{{route('farm.pig.breeder_records')}}" class="collapsible-header"><i class="material-icons">folder_special</i>Breeder Records</a>
           </li>
         </ul>
@@ -62,6 +55,13 @@
         <ul>
           <li>
             <a href="{{route('farm.pig.breeding_record')}}" class="collapsible-header"><i class="material-icons">assignment</i>Breeding Record</a>
+          </li>
+        </ul>
+      </li>
+      <li class="no-padding">
+        <ul>
+          <li>
+            <a href="{{route('farm.pig.grower_records')}}" class="collapsible-header"><i class="material-icons">create_new_folder</i>Grower Records</a>
           </li>
         </ul>
       </li>

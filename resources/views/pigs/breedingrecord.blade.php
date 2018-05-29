@@ -57,31 +57,17 @@
 									<td>
 										<select name="sow_id" class="browser-default">
 											<option disabled selected>Choose sow</option>
-											<optgroup label="Breeders">
 												@foreach($sows as $sow)	
 													<option value="{{ $sow->registryid }}">{{ $sow->registryid }}</option>
 												@endforeach
-											</optgroup>
-											<optgroup label="Growers">
-												@foreach($femalegrowers as $femalegrower)
-													<option value="{{ $femalegrower->registryid }}">{{ $femalegrower->registryid }}</option>
-												@endforeach
-											</optgroup>
 										</select>
 									</td>
 									<td>
 										<select id="boar_id" name="boar_id" class="browser-default">
 											<option disabled selected>Choose boar</option>
-											<optgroup label="Breeders">
 												@foreach($boars as $boar)
 													<option value="{{ $boar->registryid }}">{{ $boar->registryid }}</option>
 												@endforeach
-											</optgroup>
-											<optgroup label="Growers">
-												@foreach($malegrowers as $malegrower)
-													<option value="{{ $malegrower->registryid }}">{{ $malegrower->registryid }}</option>
-												@endforeach
-											</optgroup>
 										</select>
 									</td>
 									<td class="input-field">
@@ -97,7 +83,7 @@
 										</label>
 									</td>
 									<td colspan="2" class="center">
-										<button class="btn-floating waves-effect waves-light green darken-3" type="submit" onclick="Materialize.toast('Successfully added!', 4000)">
+										<button class="btn-floating waves-effect waves-light green darken-3 tooltipped" data-position="top" data-tooltip="Add breeding record" type="submit" onclick="Materialize.toast('Successfully added!', 4000)">
 											<i class="material-icons right">add</i>
 					          </button>
 									</td>

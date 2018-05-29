@@ -17,53 +17,24 @@
       @yield('initScripts')
   <title>@yield('title')</title>
 </head>
-<body @yield('page-id')>
-  <div id="default_top_nav" class="navbar-fixed">
-      <nav class="blue-grey">
-        <div class="nav-wrapper container">
-
-          <a href="{{ url('/') }}" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
-          <ul id="nav-mobile" class="right hide-on-med-and-down">
-            @if (Auth::check())
-              @if(Auth::user()->userable_type == 'App\Models\Farm')
-          <li><a href="{{url('/home')}}">{{ Auth::user()->name }}</a> </li>
-                  <li><a href="{{ url('/home') }}">Home</a></li>
-                <li><a href="{{ url('logout') }}">Logout</a></li>
-        @elseif(Auth::user()->userable_type == 'App\Models\Administrator')
-          <li><a href="{{url('/home')}}">{{ Auth::user()->name }}</a> </li>
-                  <li><a href="{{ url('/home') }}">Home</a></li>
-                <li><a href="{{ url('logout') }}">Logout</a></li>
-              @endif
-          @else
-                <li><a href="{{ url('/login') }}">Login</a></li>
-                {{-- <li><a href="{{ url('/register') }}">Register</a></li> --}}
-            @endif
-          </ul>
-        </div>
-      </nav>
-    </div>
-
-    <ul id="slide-out" class="side-nav fixed">
-      <div id="logo_image_holder" class="center"><a href="{{ url('/') }}" class="brand-logo indent"><img src="{{asset('images/logo-default.png')}}" height="65"/></a></div>
-      <li><a href="#!">Dashboard</a></li>
-      <li><a href="#!">Farm Profile</a></li>
-    </ul>
-    <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
+<body @yield('page-id') style="display: flex; min-height: 100vh; flex-direction: column;">
+ <div class="navbar-fixed">
+    <nav class="blue-grey">
+      <div class="nav-wrapper" style="padding-left: 10px;">
+        <a href="{{url('/')}}" class="brand-logo"><img src="/images/logo-default.png" height="65" / ></a>
+      </div>
+    </nav>
+  </div>
   @yield('navigation')
 
-  <main>
-    <div class="container">
-      <div class="col">
-        <div class="row">
-          @yield('content')
-        </div>
-      </div>
-    </div>
-  </main>
+  <div style="flex: 1 0 auto;">
+    @yield('content')
+  </div>
+
 
 
   <footer class="page-footer blue-grey">
-    <div class="container">
+    <div>
       <div class="row">
         <div class="col l6 s12">
           <h5 class="white-text">Footer Content</h5>
@@ -81,7 +52,7 @@
       </div>
     </div>
     <div class="footer-copyright">
-      <div class="container">
+      <div>
         © 2017 Copyright Text
         <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
       </div>

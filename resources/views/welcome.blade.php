@@ -78,7 +78,7 @@
 
             <div class="content">
               <div class="col s12 m12 l12" >
-                <img id="login_logo" src="{{asset('images/logo-default.png')}}" alt="Native Animals" width="60%">
+                <img id="login_logo" src="{{asset('images/logo-default.png')}}" alt="Native Animals" width="80%">
               </div>
 
                 <div class="links">

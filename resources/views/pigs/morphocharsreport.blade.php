@@ -9,15 +9,18 @@
 		<h4>Morphometric Characteristics Report</h4>
 		<div class="divider"></div>
 		<div class="row center" style="padding-top: 10px;">
+      <div class="row">
       {!! Form::open(['route' => 'farm.pig.filter_morpho_chars_report', 'method' => 'post', 'id' => 'report_filter2']) !!}
-      <div class="col s12">
-        @if($filter == "All")
-          <p class="center">Total number of pigs in the herd: {{ count($pigs) }}</p>
-        @elseif($filter == "Sow")
-          <p class="center">Total number of sows in the herd: {{ count($sows) }}</p>
-        @elseif($filter == "Boar")
-          <p class="center">Total number of boars in the herd: {{ count($boars) }}</p>
-        @endif
+        <div class="col s12">
+          @if($filter == "All")
+            <p class="center">Total number of breeders in the herd: {{ count($pigs) }}</p>
+          @elseif($filter == "Sow")
+            <p class="center">Total number of sows in the herd: {{ count($sows) }}</p>
+          @elseif($filter == "Boar")
+            <p class="center">Total number of boars in the herd: {{ count($boars) }}</p>
+          @endif
+          <p class="center">Average age during date collection: {{ round(array_sum($ages_collected)/count($ages_collected), 2) }} months</p>
+        </div>
       </div>
       <div class="row">
         <div class="col s4 offset-s1">

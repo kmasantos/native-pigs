@@ -7,11 +7,20 @@
 
 @section('content')
   <div class="container">
-    <h4><a href="{{route('farm.pig.individual_records')}}"><img src="{{asset('images/back.png')}}" width="4.5%"></a> Add Pig</h4>
+    <h4><a href="{{$_SERVER['HTTP_REFERER']}}"><img src="{{asset('images/back.png')}}" width="4.5%"></a> Add Pig</h4>
     <div class="divider"></div>
     <div class="row" style="padding-top: 10px;">
     	{!! Form::open(['route' => 'farm.pig.fetch_new_pig', 'method' => 'post']) !!}
       <div class="col s12">
+        <div class="row">
+          <div class="col s6 push-s4">
+            Add as
+            <input class="with-gap"name="status_setter" type="radio" id="as_breeder" value="breeder" />
+            <label for="as_breeder">Breeder</label>
+            <input class="with-gap" name="status_setter" type="radio" id="as_grower" value="active" />
+            <label for="as_grower">Grower</label>
+          </div>
+        </div>
       	<div class="row">
       		<div class="col s4">
       			<input id="earnotch" type="text" name="earnotch" class="validate" required>
@@ -26,8 +35,8 @@
             <label for="select_sex">Sex *</label>
       		</div>
       		<div class="col s4">
-      			<input id="birthday" type="text" placeholder="Pick a date" name="date_farrowed" class="datepicker">
-      			<label for="birthday">Date of Birth</label>
+      			<input id="birthday" type="text" placeholder="Pick a date" name="date_farrowed" class="datepicker" required>
+      			<label for="birthday">Date of Birth *</label>
       		</div>
       	</div>
       	<div class="row">

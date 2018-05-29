@@ -10,7 +10,7 @@
 		<div class="divider"></div>
 		<div class="row center" style="padding-top: 10px;">
 	    <div class="col s12">
-	    	<p class="center">Total number of pigs in the herd: {{ count($pigs) }}</p>
+	    	<p class="center">Total number of pigs in the herd: {{ count($breeders) }}</p>
 
 	      <ul class="tabs tabs-fixed-width green lighten-1">
 	        <li class="tab"><a href="#weightsview">Weights</a></li>
@@ -270,14 +270,14 @@
 	    			</tr>
 	    			<tr>
 	    				<td>Herd</td>
-	    				@if($ages_weanedpig == [])
+	    				@if($ages_weanedbreeder == [])
 		            <td colspan="5" class="center">No data available</td>
 		          @else
-		    				<td>{{ count($ages_weanedpig) }} out of {{ count($sows)+count($boars) }}</td>
-		    				<td>{{ min($ages_weanedpig) }}</td>
-		    				<td>{{ max($ages_weanedpig) }}</td>
-		    				<td>{{ round(array_sum($ages_weanedpig)/count($ages_weanedpig), 2) }}</td>
-		    				<td>{{ round($ages_weanedpig_sd, 2) }}</td>
+		    				<td>{{ count($ages_weanedbreeder) }} out of {{ count($sows)+count($boars) }}</td>
+		    				<td>{{ min($ages_weanedbreeder) }}</td>
+		    				<td>{{ max($ages_weanedbreeder) }}</td>
+		    				<td>{{ round(array_sum($ages_weanedbreeder)/count($ages_weanedbreeder), 2) }}</td>
+		    				<td>{{ round($ages_weanedbreeder_sd, 2) }}</td>
 		    			@endif
 	    			</tr>
 	    		</tbody>
@@ -350,7 +350,7 @@
 	    					@if($breederages != [] && $breeders != [])
 		    					<h3>{{ round(array_sum($breederages)/count($breederages) ,2) }}*</h3>
 		    					<h5>Average age, months</h5><br><br>
-		    					*breeders with age data: {{ count($breederages) }} out of {{ count($breeders) }}<br>
+		    					*breeders with age data: {{ count($breederages) }} out of {{ count($herdbreeders) }}<br>
 		    				@else
 		    					<h3>No data available</h3>
 		    				@endif
