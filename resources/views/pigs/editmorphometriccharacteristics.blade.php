@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-  <h5 class="headline"><a href="{{route('farm.pig.individual_records')}}"><img src="{{asset('images/back.png')}}" width="3%"></a> Edit Morphometric Characteristics: {{ $animal->registryid }}</h5>
+  <h5 class="headline"><a href="{{route('farm.pig.breeder_records')}}"><img src="{{asset('images/back.png')}}" width="3%"></a> Edit Morphometric Characteristics: {{ $animal->registryid }}</h5>
   <div class="container">
     <div class="row">
       {!! Form::open(['route' => 'farm.pig.update_morphometric_characteristics', 'method' => 'post']) !!}
