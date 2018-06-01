@@ -47,6 +47,17 @@
           </div>
           <div class="row">
             <div class="col s4">
+              Body Weight at 150 Days
+            </div>
+            <div class="col s4">
+              <input id="body_weight_at_150_days" type="text" placeholder="Weight" name="body_weight_at_150_days" class="validate">
+            </div>
+            <div class="col s4">
+              <input id="date_collected_150_days" type="text" placeholder="Date Collected" name="date_collected_150_days" class="datepicker">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col s4">
               Body Weight at 180 Days
             </div>
             <div class="col s4">
