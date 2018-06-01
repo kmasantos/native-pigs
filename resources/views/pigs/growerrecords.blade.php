@@ -117,11 +117,6 @@
 					</tbody>
 				</table>
 			</div>
-			<div class="fixed-action-btn">
-        <a href="{{route('farm.pig.add_pig')}}" class="btn-floating btn-large green darken-3 tooltipped" data-position="top" data-tooltip="Add new pig">
-          <i class="large material-icons">add</i>
-        </a>
-      </div>
 		</div>
 	</div>
 @endsection
