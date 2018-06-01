@@ -56,6 +56,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('get_removed_animal_record', ['as' => 'farm.pig.get_removed_animal_record', 'uses' => 'FarmController@addRemovedAnimalRecord']);
     Route::get('gross_morphology_report', ['as' => 'farm.pig.gross_morphology_report', 'uses' => 'FarmController@getGrossMorphologyReportPage']);
     Route::get('morpho_chars_report', ['as' => 'farm.pig.morpho_chars_report', 'uses' => 'FarmController@getMorphometricCharacteristicsReportPage']);
+    Route::get('growth_performance_report', ['as' => 'farm.pig.growth_performance_report', 'uses' => 'FarmController@getGrowthPerformanceReportPage']);
     Route::post('filter_gross_morphology_report', ['as' => 'farm.pig.filter_gross_morphology_report', 'uses' => 'FarmController@filterGrossMorphologyReport']);
     Route::post('filter_morpho_chars_report', ['as' => 'farm.pig.filter_morpho_chars_report', 'uses' => 'FarmController@filterMorphometricCharacteristicsReport']);
     Route::resource('farm', 'FarmController');

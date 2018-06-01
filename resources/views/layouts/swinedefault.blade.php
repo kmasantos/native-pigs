@@ -44,6 +44,13 @@
         </ul>
       </li>
 			<li><div class="divider green lighten-1"></div></li>
+      <li class="no-padding">
+        <ul>
+          <li>
+            <a href="{{route('farm.pig.add_pig')}}" class="collapsible-header"><i class="material-icons">add_box</i>Add New Pig</a>
+          </li>
+        </ul>
+      </li>
 			<li class="no-padding">
         <ul>
           <li>
@@ -80,6 +87,7 @@
               <ul class="grey lighten-2">
                 <li><a href="{{route('farm.pig.gross_morphology_report')}}">Gross Morphology</a></li>
                 <li><a href="{{route('farm.pig.morpho_chars_report')}}">Morphometric Characteristics</a></li>
+                <li><a href="{{route('farm.pig.growth_performance_report')}}">Growth Performance</a></li>
                 <li><a href="{{route('farm.pig.breeder_production_report')}}">Breeder Production</a></li>
                 <li><a href="{{route('farm.pig.production_performance_report')}}">Production Performance</a></li>
                	<li><a href="{{route('farm.pig.breeder_inventory_report')}}">Breeder Inventory</a></li>
