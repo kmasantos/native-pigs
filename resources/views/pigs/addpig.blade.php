@@ -7,7 +7,7 @@
 
 @section('content')
   <div class="container">
-    <h4><a href="{{$_SERVER['HTTP_REFERER']}}"><img src="{{asset('images/back.png')}}" width="4.5%"></a> Add Pig</h4>
+    <h4>Add Pig</h4>
     <div class="divider"></div>
     <div class="row" style="padding-top: 10px;">
     	{!! Form::open(['route' => 'farm.pig.fetch_new_pig', 'method' => 'post']) !!}
