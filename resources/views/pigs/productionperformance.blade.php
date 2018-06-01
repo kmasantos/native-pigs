@@ -94,7 +94,7 @@
 			    	<table>
 			    		<thead>
 			    			<tr>
-			    				<th>Property (Averages)</th>
+			    				<th>Parameters (Averages)</th>
 			    				<th class="center">Value</th>
 			    				<th class="center">Standard Deviation</th>
 			    			</tr>
@@ -237,7 +237,7 @@
 			  <div id="chartview" class="col s12">
 			    <div class="row">
 			    	<div class="col s12">
-			    		<h5>Graphs per Property</h5>
+			    		<h5>Graphs per Parameter</h5>
 			    		<div class="row">
 			    			<div class="col s6 offset-s3">
 			    				<p>Litter-size Born Alive</p>
@@ -270,7 +270,7 @@
 					    		<canvas id="bweightcanvas"></canvas>
 			    			</div>
 			    			<div class="col s6">
-			    				<p>Average Litter Birth Weight, kg</p>
+			    				<p>Average Birth Weight, kg</p>
 					    		<canvas id="avebweightcanvas"></canvas>
 			    			</div>
 			    		</div>
@@ -280,7 +280,7 @@
 					    		<canvas id="wweightcanvas"></canvas>
 			    			</div>
 			    			<div class="col s6">
-			    				<p>Average Litter Weaning Weight, kg</p>
+			    				<p>Average Weaning Weight, kg</p>
 					    		<canvas id="avewweightcanvas"></canvas>
 			    			</div>
 			    		</div>
@@ -328,7 +328,7 @@
 	    	<table>
 	    		<thead>
 	    			<tr>
-	    				<th>Property (Averages)</th>
+	    				<th>Parameters (Averages)</th>
 	    				<th class="center">Value</th>
 	    				<th class="center">Standard Deviation</th>
 	    			</tr>
@@ -483,12 +483,12 @@
 							@endforeach
 						</select>
 	    		{{-- {!! Form::close() !!} --}}
-	    		</div>
-		  	</div>
+	    		</div
+>		  	</div>
 	    	<table>
 	    		<thead>
 	    			<tr>
-	    				<th>Property (Averages)</th>
+	    				<th>Parameters (Averages)</th>
 	    				<th class="center">Value</th>
 	    				<th class="center">Standard Deviation</th>
 	    			</tr>
@@ -887,7 +887,7 @@
 	    data: {
         labels: [@foreach($parity as $parity_number) "Parity "+"{{ $parity_number }}", @endforeach],
         datasets: [{
-          label: 'Average Litter Birth Weight',
+          label: 'Average Birth Weight',
           data: [0.82,0.77,0.83,0.73,0.6,0.72],
           borderColor: [
             'rgba(255, 99, 132, 0.8)',
@@ -963,7 +963,7 @@
 	    data: {
         labels: [@foreach($parity as $parity_number) "Parity "+"{{ $parity_number }}", @endforeach],
         datasets: [{
-          label: 'Average Litter Weaning Weight',
+          label: 'Average Weaning Weight',
           data: [5.04,5.4,5.19,5.25,8.15,4.14],
           borderColor: [
             'rgba(255, 99, 132, 0.8)',

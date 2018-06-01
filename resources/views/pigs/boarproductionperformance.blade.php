@@ -12,7 +12,7 @@
 			<table>
 				<thead>
 					<tr>
-						<th>Property (Averages per Service)</th>
+						<th>Parameters (Averages per Service)</th>
 						<th class="center">Value</th>
 						<th class="center">Standard Deviation</th>
 					</tr>
@@ -29,7 +29,7 @@
 	  					<td class="center">No data available</td>
 	  					<td class="center">No data available</td>
 	  				@else
-	  					<td class="center">{{ round(array_sum($lsba)/count($lsba), 2) }}</td>
+	  					<td class="center">{{ round(array_sum($lsba)/$properties->where("property_id", 88)->first()->value, 2) }}</td>
 	  					<td class="center">{{ round($lsba_sd, 2) }}</td>
 	  				@endif
 	  			</tr>
@@ -39,7 +39,7 @@
 	  					<td class="center">No data available</td>
 	  					<td class="center">No data available</td>
 	  				@else
-	  					<td class="center">{{ round(array_sum($totalmales)/count($totalmales), 2) }}</td>
+	  					<td class="center">{{ round(array_sum($totalmales)/$properties->where("property_id", 88)->first()->value, 2) }}</td>
 	  					<td class="center">{{ round($totalmales_sd, 2) }}</td>
 	  				@endif
 	  			</tr>
@@ -49,7 +49,7 @@
 	  					<td class="center">No data available</td>
 	  					<td class="center">No data available</td>
 	  				@else
-	  					<td class="center">{{ round(array_sum($totalfemales)/count($totalfemales), 2) }}</td>
+	  					<td class="center">{{ round(array_sum($totalfemales)/$properties->where("property_id", 88)->first()->value, 2) }}</td>
 	  					<td class="center">{{ round($totalfemales_sd, 2) }}</td>
 	  				@endif
 	  			</tr>
@@ -59,7 +59,7 @@
 	  					<td class="center">No data available</td>
 	  					<td class="center">No data available</td>
 	  				@else
-	  					<td class="center">{{ round(array_sum($stillborn)/count($stillborn), 2) }}</td>
+	  					<td class="center">{{ round(array_sum($stillborn)/$properties->where("property_id", 88)->first()->value, 2) }}</td>
 	  					<td class="center">{{ round($stillborn_sd, 2) }}</td>
 	  				@endif
 	  			</tr>
@@ -69,7 +69,7 @@
 	  					<td class="center">No data available</td>
 	  					<td class="center">No data available</td>
 	  				@else
-	  					<td class="center">{{ round(array_sum($mummified)/count($stillborn), 2) }}</td>
+	  					<td class="center">{{ round(array_sum($mummified)/$properties->where("property_id", 88)->first()->value, 2) }}</td>
 	  					<td class="center">{{ round($mummified_sd, 2) }}</td>
 	  				@endif
 	  			</tr>
@@ -79,7 +79,7 @@
 	  					<td class="center">No data available</td>
 	  					<td class="center">No data available</td>
 	  				@else
-	  					<td class="center">{{ round(array_sum($totallitterbirthweights)/count($totallitterbirthweights), 2) }}</td>
+	  					<td class="center">{{ round(array_sum($totallitterbirthweights)/$properties->where("property_id", 88)->first()->value, 2) }}</td>
 	  					<td class="center">{{ round($totallitterbirthweights_sd, 2) }}</td>
 	  				@endif
 	  			</tr>
@@ -89,7 +89,7 @@
 	  					<td class="center">No data available</td>
 	  					<td class="center">No data available</td>
 	  				@else
-	  					<td class="center">{{ round(array_sum($avelitterbirthweights)/count($avelitterbirthweights), 2) }}</td>
+	  					<td class="center">{{ round(array_sum($avelitterbirthweights)/$properties->where("property_id", 88)->first()->value, 2) }}</td>
 	  					<td class="center">{{ round($avelitterbirthweights_sd, 2) }}</td>
 	  				@endif
 	  			</tr>
@@ -99,7 +99,7 @@
 	  					<td class="center">No data available</td>
 	  					<td class="center">No data available</td>
 	  				@else
-	  					<td class="center">{{ round(array_sum($totallitterweaningweights)/count($totallitterweaningweights), 4) }}</td>
+	  					<td class="center">{{ round(array_sum($totallitterweaningweights)/$properties->where("property_id", 88)->first()->value, 4) }}</td>
 	  					<td class="center">{{ round($totallitterweaningweights_sd, 2) }}</td>
 	  				@endif
 	  			</tr>
@@ -109,7 +109,7 @@
 	  					<td class="center">No data available</td>
 	  					<td class="center">No data available</td>
 	  				@else
-	  					<td class="center">{{ round(array_sum($avelitterweaningweights)/count($avelitterweaningweights), 2) }}</td>
+	  					<td class="center">{{ round(array_sum($avelitterweaningweights)/$properties->where("property_id", 88)->first()->value, 2) }}</td>
 	  					<td class="center">{{ round($avelitterweaningweights_sd, 2) }}</td>
 	  				@endif
 	  			</tr>
@@ -119,7 +119,7 @@
 	  					<td class="center">No data available</td>
 	  					<td class="center">No data available</td>
 	  				@else
-	  					<td class="center">{{ round(array_sum($aveadjweaningweights)/count($aveadjweaningweights), 2) }}</td>
+	  					<td class="center">{{ round(array_sum($aveadjweaningweights)/$properties->where("property_id", 88)->first()->value, 2) }}</td>
 	  					<td class="center">{{ round($aveadjweaningweights_sd, 2) }}</td>
 	  				@endif
 	  			</tr>
@@ -129,7 +129,7 @@
 	  					<td class="center">No data available</td>
 	  					<td class="center">No data available</td>
 	  				@else
-	  					<td class="center">{{ round(array_sum($totalweaned)/count($totalweaned), 2) }}</td>
+	  					<td class="center">{{ round(array_sum($totalweaned)/$properties->where("property_id", 88)->first()->value, 2) }}</td>
 	  					<td class="center">{{ round($totalweaned_sd, 2) }}</td>
 	  				@endif
 	  			</tr>
@@ -139,7 +139,7 @@
 	  					<td class="center">No data available</td>
 	  					<td class="center">No data available</td>
 	  				@else
-	  					<td class="center">{{ round(array_sum($totalagesweaned)/count($totalagesweaned), 2) }}</td>
+	  					<td class="center">{{ round(array_sum($totalagesweaned)/$properties->where("property_id", 88)->first()->value, 2) }}</td>
 	  					<td class="center">{{ round($totalagesweaned_sd, 2) }}</td>
 	  				@endif
 	  			</tr>
@@ -149,7 +149,7 @@
 	  					<td class="center">No data available</td>
 	  					<td class="center">No data available</td>
 	  				@else
-	  					<td class="center">{{ round(array_sum($preweaningmortality)/count($preweaningmortality), 2) }}</td>
+	  					<td class="center">{{ round(array_sum($preweaningmortality)/$properties->where("property_id", 88)->first()->value, 2) }}</td>
 	  					<td class="center">{{ round($preweaningmortality_sd, 2) }}</td>
 	  				@endif
 	  			</tr>

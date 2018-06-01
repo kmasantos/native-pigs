@@ -12,7 +12,7 @@
 			<table>
 				<thead>
 					<tr>
-						<th>Property (Averages per Parity)</th>
+						<th>Parameters (Averages per Parity)</th>
 						<th class="center">Value</th>
 						<th class="center">Standard Deviation</th>
 					</tr>
@@ -39,7 +39,7 @@
 	  					<td class="center">No data available</td>
 	  					<td class="center">No data available</td>
 	  				@else
-	  					<td class="center">{{ round(array_sum($lsba)/count($lsba), 2) }}</td>
+	  					<td class="center">{{ round(array_sum($lsba)/count($parity), 2) }}</td>
 	  					<td class="center">{{ round($lsba_sd, 2) }}</td>
 	  				@endif
 	  			</tr>
@@ -49,7 +49,7 @@
 	  					<td class="center">No data available</td>
 	  					<td class="center">No data available</td>
 	  				@else
-	  					<td class="center">{{ round(array_sum($totalmales)/count($totalmales), 2) }}</td>
+	  					<td class="center">{{ round(array_sum($totalmales)/count($parity), 2) }}</td>
 	  					<td class="center">{{ round($totalmales_sd, 2) }}</td>
 	  				@endif
 	  			</tr>
@@ -59,7 +59,7 @@
 	  					<td class="center">No data available</td>
 	  					<td class="center">No data available</td>
 	  				@else
-	  					<td class="center">{{ round(array_sum($totalfemales)/count($totalfemales), 2) }}</td>
+	  					<td class="center">{{ round(array_sum($totalfemales)/count($parity), 2) }}</td>
 	  					<td class="center">{{ round($totalfemales_sd, 2) }}</td>
 	  				@endif
 	  			</tr>
@@ -69,7 +69,7 @@
 	  					<td class="center">No data available</td>
 	  					<td class="center">No data available</td>
 	  				@else
-	  					<td class="center">{{ round(array_sum($stillborn)/count($stillborn), 2) }}</td>
+	  					<td class="center">{{ round(array_sum($stillborn)/count($parity), 2) }}</td>
 	  					<td class="center">{{ round($stillborn_sd, 2) }}</td>
 	  				@endif
 	  			</tr>
@@ -79,7 +79,7 @@
 	  					<td class="center">No data available</td>
 	  					<td class="center">No data available</td>
 	  				@else
-	  					<td class="center">{{ round(array_sum($mummified)/count($stillborn), 2) }}</td>
+	  					<td class="center">{{ round(array_sum($mummified)/count($parity), 2) }}</td>
 	  					<td class="center">{{ round($mummified_sd, 2) }}</td>
 	  				@endif
 	  			</tr>
@@ -89,7 +89,7 @@
 	  					<td class="center">No data available</td>
 	  					<td class="center">No data available</td>
 	  				@else
-	  					<td class="center">{{ round(array_sum($totallitterbirthweights)/count($totallitterbirthweights), 2) }}</td>
+	  					<td class="center">{{ round(array_sum($totallitterbirthweights)/count($parity), 2) }}</td>
 	  					<td class="center">{{ round($totallitterbirthweights_sd, 2) }}</td>
 	  				@endif
 	  			</tr>
@@ -99,7 +99,7 @@
 	  					<td class="center">No data available</td>
 	  					<td class="center">No data available</td>
 	  				@else
-	  					<td class="center">{{ round(array_sum($avelitterbirthweights)/count($avelitterbirthweights), 2) }}</td>
+	  					<td class="center">{{ round(array_sum($avelitterbirthweights)/count($parity), 2) }}</td>
 	  					<td class="center">{{ round($avelitterbirthweights_sd, 2) }}</td>
 	  				@endif
 	  			</tr>
@@ -109,7 +109,7 @@
 	  					<td class="center">No data available</td>
 	  					<td class="center">No data available</td>
 	  				@else
-	  					<td class="center">{{ round(array_sum($totallitterweaningweights)/count($totallitterweaningweights), 4) }}</td>
+	  					<td class="center">{{ round(array_sum($totallitterweaningweights)/count($parity), 4) }}</td>
 	  					<td class="center">{{ round($totallitterweaningweights_sd, 2) }}</td>
 	  				@endif
 	  			</tr>
@@ -119,7 +119,7 @@
 	  					<td class="center">No data available</td>
 	  					<td class="center">No data available</td>
 	  				@else
-	  					<td class="center">{{ round(array_sum($avelitterweaningweights)/count($avelitterweaningweights), 2) }}</td>
+	  					<td class="center">{{ round(array_sum($avelitterweaningweights)/count($parity), 2) }}</td>
 	  					<td class="center">{{ round($avelitterweaningweights_sd, 2) }}</td>
 	  				@endif
 	  			</tr>
@@ -129,7 +129,7 @@
 	  					<td class="center">No data available</td>
 	  					<td class="center">No data available</td>
 	  				@else
-	  					<td class="center">{{ round(array_sum($aveadjweaningweights)/count($aveadjweaningweights), 2) }}</td>
+	  					<td class="center">{{ round(array_sum($aveadjweaningweights)/count($parity), 2) }}</td>
 	  					<td class="center">{{ round($aveadjweaningweights_sd, 2) }}</td>
 	  				@endif
 	  			</tr>
@@ -139,7 +139,7 @@
 	  					<td class="center">No data available</td>
 	  					<td class="center">No data available</td>
 	  				@else
-	  					<td class="center">{{ round(array_sum($totalweaned)/count($totalweaned), 2) }}</td>
+	  					<td class="center">{{ round(array_sum($totalweaned)/count($parity), 2) }}</td>
 	  					<td class="center">{{ round($totalweaned_sd, 2) }}</td>
 	  				@endif
 	  			</tr>
@@ -149,7 +149,7 @@
 	  					<td class="center">No data available</td>
 	  					<td class="center">No data available</td>
 	  				@else
-	  					<td class="center">{{ round(array_sum($totalagesweaned)/count($totalagesweaned), 2) }}</td>
+	  					<td class="center">{{ round(array_sum($totalagesweaned)/count($parity), 2) }}</td>
 	  					<td class="center">{{ round($totalagesweaned_sd, 2) }}</td>
 	  				@endif
 	  			</tr>
@@ -159,7 +159,7 @@
 	  					<td class="center">No data available</td>
 	  					<td class="center">No data available</td>
 	  				@else
-	  					<td class="center">{{ round(array_sum($preweaningmortality)/count($preweaningmortality), 2) }}</td>
+	  					<td class="center">{{ round(array_sum($preweaningmortality)/count($parity), 2) }}</td>
 	  					<td class="center">{{ round($preweaningmortality_sd, 2) }}</td>
 	  				@endif
 	  			</tr>
