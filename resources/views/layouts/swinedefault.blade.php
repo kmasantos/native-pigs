@@ -32,8 +32,8 @@
 				<div class="user-view">
 					<div class="background green lighten-1"></div>
 					<a href="#!"><img class="circle" src="/images/farmer.png"></a>
-					<a href="#!"><span class="white-text name">{{ Auth::user()->name }}</span></a>
-					<a href="#!"><span class="white-text email">{{ Auth::user()->email   }}</span></a>
+					<a href="#!"><span class="black-text name">{{ Auth::user()->name }}</span></a>
+					<a href="#!"><span class="black-text email">{{ Auth::user()->email   }}</span></a>
 				</div>
 			</li>
 			<li class="no-padding">

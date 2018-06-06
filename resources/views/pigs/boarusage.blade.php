@@ -35,7 +35,7 @@
 				@endforeach
 			</div>
 			<div class="col s6">
-				<p>Recycled:</p>
+				<p>Return to Heat:</p>
 				@foreach($groups as $group)
 					@if($group->getGroupingProperties()->where("property_id", 50)->first()->value == "Recycled")
 						<div class="card-panel">

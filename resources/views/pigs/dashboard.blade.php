@@ -15,6 +15,7 @@
       <h4>Dashboard</h4>
       <div class="divider"></div>
       <div class="row center">
+        <h5><h5>Inventory as of {{ Carbon\Carbon::parse($now)->format('F j, Y') }}</h5></h5>
         <div class="col s12 m10 l12">
           <div class="card">
             <div class="card-content grey lighten-2">

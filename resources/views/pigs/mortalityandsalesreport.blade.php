@@ -39,8 +39,8 @@
       <div class="col s12 m10 l4">
         <div class="card">
           <div class="card-content grey lighten-2">
-            <h5>Culled/Donated Pigs</h5>
-              <h2>{{ count($currentremoved) }}</h2>
+            <h5>Donated Pigs</h5>
+              <h1>{{ count($currentremoved) }}</h1>
               <p>Total</p>
           </div>
         </div>

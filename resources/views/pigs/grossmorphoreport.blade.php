@@ -12,7 +12,7 @@
 			{!! Form::open(['route' => 'farm.pig.filter_gross_morphology_report', 'method' => 'post', 'id' => 'report_filter']) !!}
   		<div class="col s12">
   			@if($filter == "All")
-  				<p class="center">Total number of breeders in the herd: {{ count($pigs) }}</p>
+  				<p class="center">Total number of pigs in the herd: {{ count($pigs) }}</p>
   			@elseif($filter == "Sow")
   				<p class="center">Total number of sows in the herd: {{ count($sows) }}</p>
   			@elseif($filter == "Boar")

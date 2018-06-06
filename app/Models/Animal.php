@@ -123,7 +123,7 @@ class Animal extends Model
       }
       else{
         $date_end = Carbon::parse($animal->getAnimalProperties()->where("property_id", 25)->first()->value);
-        $age = $date_start->diffInMonths($date_end);
+        $age = $date_start->diffInDays($date_end);
       }
     }
     else{

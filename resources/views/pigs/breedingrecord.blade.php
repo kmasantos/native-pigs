@@ -39,14 +39,13 @@
 				</div>
 				<div class="row">
 					<div class="col s12">
-						<table class="centered striped">
+						<table class="centered responsive-table striped">
 							<thead>
 								<tr class="green lighten-1">
 									<th>Sow ID</th>
 									<th>Boar ID</th>
 									<th>Date Bred</th>
 									<th>Expected Date of Farrowing</th>
-									<th>Recycled</th>
 									<th>Status</th>
 									<th>Sow-Litter Record</th>
 								</tr>
@@ -54,7 +53,8 @@
 							<tbody>
 								{!! Form::open(['route' => 'farm.pig.get_breeding_record', 'method' => 'post']) !!}
 								<tr>
-									<td>
+									{{-- sow used --}}
+									<td> 
 										<select name="sow_id" class="browser-default">
 											<option disabled selected>Choose sow</option>
 												@foreach($sows as $sow)	
@@ -62,6 +62,7 @@
 												@endforeach
 										</select>
 									</td>
+									{{-- boar used --}}
 									<td>
 										<select id="boar_id" name="boar_id" class="browser-default">
 											<option disabled selected>Choose boar</option>
@@ -70,27 +71,21 @@
 												@endforeach
 										</select>
 									</td>
+									{{-- date bred --}}
 									<td class="input-field">
 										<input id="date_bred" type="text" placeholder="Pick date" name="date_bred" class="datepicker">
 									</td>
-									<td>
-										{{-- <input disabled id="expected_date_of_farrowing" type="text" name="expected_date_of_farrowing" class="datepicker"> --}}
-									</td>
-									<td class="switch">
-										<label>
-											<input type="checkbox" id="recycled" name="recycled" onchange="disableField()">
-											<span class="lever"></span>
-										</label>
-									</td>
-									<td colspan="2" class="center">
-										<button class="btn-floating waves-effect waves-light green darken-3 tooltipped" data-position="top" data-tooltip="Add breeding record" type="submit" onclick="Materialize.toast('Successfully added!', 4000)">
-											<i class="material-icons right">add</i>
+									{{-- submit button --}}
+									<td colspan="3" class="center">
+										<button class="btn waves-effect waves-light green darken-3 tooltipped" data-position="top" data-tooltip="Add breeding record" type="submit" onclick="Materialize.toast('Successfully added!', 4000)">
+											Add <i class="material-icons right">add</i>
 					          </button>
 									</td>
 								</tr>
 								{!! Form::close() !!}
 								@forelse($family as $breedingRecord)
 									<tr>
+										{{-- sow used with status --}}
 										@if($breedingRecord->getMother()->status == "active" || $breedingRecord->getMother()->status == "breeder")
 											<td>
 												<strong>{{ $breedingRecord->getMother()->registryid }}</strong> <p><sup>(Active)</sup></p>
@@ -103,17 +98,14 @@
 											<td>
 												<strong>{{ $breedingRecord->getMother()->registryid }}</strong> <p><sup>(Sold {{ Carbon\Carbon::parse($breedingRecord->getMother()->getAnimalProperties()->where("property_id", 56)->first()->value)->format('F j, Y') }})</sup></p>
 											</td>
-										@elseif($breedingRecord->getMother()->status == "removed")
-											@if($breedingRecord->getMother()->getAnimalProperties()->where("property_id", 73)->first()->value == "Culled")
-												<td>
-													<strong>{{ $breedingRecord->getMother()->registryid }}</strong> <p><sup>(Culled {{ Carbon\Carbon::parse($breedingRecord->getMother()->getAnimalProperties()->where("property_id", 72)->first()->value)->format('F j, Y') }})</sup></p>
-												</td>
-											@elseif($breedingRecord->getMother()->getAnimalProperties()->where("property_id", 73)->first()->value == "Donated")
+										@elseif($breedingRecord->getMother()->status == "removed grower" || $breedingRecord->getMother()->status == "removed breeder")
+											@if($breedingRecord->getMother()->getAnimalProperties()->where("property_id", 73)->first()->value == "Donated")
 												<td>
 													<strong>{{ $breedingRecord->getMother()->registryid }}</strong> <p><sup>(Donated {{ Carbon\Carbon::parse($breedingRecord->getMother()->getAnimalProperties()->where("property_id", 72)->first()->value)->format('F j, Y') }})</sup></p>
 												</td>
 											@endif
 										@endif
+										{{-- boar used with status --}}
 										@if($breedingRecord->getFather()->status == "active" || $breedingRecord->getFather()->status == "breeder")
 											<td>
 												<strong>{{ $breedingRecord->getFather()->registryid }}</strong> <p><sup>(Active)</sup></p>
@@ -126,17 +118,14 @@
 											<td>
 												<strong>{{ $breedingRecord->getFather()->registryid }}</strong> <p><sup>(Sold {{ Carbon\Carbon::parse($breedingRecord->getFather()->getAnimalProperties()->where("property_id", 56)->first()->value)->format('F j, Y') }})</sup></p>
 											</td>
-										@elseif($breedingRecord->getFather()->status == "removed")
-											@if($breedingRecord->getFather()->getAnimalProperties()->where("property_id", 73)->first()->value == "Culled")
-												<td>
-													<strong>{{ $breedingRecord->getFather()->registryid }}</strong> <p><sup>(Culled {{ Carbon\Carbon::parse($breedingRecord->getFather()->getAnimalProperties()->where("property_id", 72)->first()->value)->format('F j, Y') }})</sup></p>
-												</td>
-											@elseif($breedingRecord->getFather()->getAnimalProperties()->where("property_id", 73)->first()->value == "Donated")
+										@elseif($breedingRecord->getFather()->status == "removed grower" || $breedingRecord->getFather()->status == "removed breeder")
+											@if($breedingRecord->getFather()->getAnimalProperties()->where("property_id", 73)->first()->value == "Donated")
 												<td>
 													<strong>{{ $breedingRecord->getFather()->registryid }}</strong> <p><sup>(Donated {{ Carbon\Carbon::parse($breedingRecord->getFather()->getAnimalProperties()->where("property_id", 72)->first()->value)->format('F j, Y') }})</sup></p>
 												</td>
 											@endif
 										@endif
+										{{-- date bred --}}
 										@if(is_null($breedingRecord->getGroupingProperties()->where("property_id", 48)->first()))
 											<td></td>
 										@else
@@ -151,62 +140,88 @@
 												{{ Carbon\Carbon::parse($breedingRecord->getGroupingProperties()->where("property_id", 49)->first()->value)->format('j F, Y') }}
 											</td>
 										@endif
-										@if(is_null($breedingRecord->getGroupingProperties()->where("property_id", 51)->first()))
-											<td></td>
-										@else
-											<td>
-												@if($breedingRecord->getGroupingProperties()->where("property_id", 51)->first()->value == 0)
-													No
-												@else
-													Yes
-												@endif
-											</td>
-										@endif
+										{{-- status --}}
 										@if(is_null($breedingRecord->getGroupingProperties()->where("property_id", 50)->first()))
 											<td></td>
 										@else
-											<td>
-												@if($breedingRecord->members == 0)
-													{{ $breedingRecord->getGroupingProperties()->where("property_id", 50)->first()->value }}
-												@else
-													Farrowed
-												@endif
-											</td>
+											{{-- bred --}}
+											@if($breedingRecord->getGroupingProperties()->where("property_id", 50)->first()->value == "Bred")
+												{!! Form::open(['route' => 'farm.pig.change_status_bred', 'method' => 'post', 'id' => 'bred_change']) !!}
+												<td width="120">
+													<input type="hidden" name="group_id" value="{{ $breedingRecord->id }}">
+													<select id="status_bred" name="mating_status" class="browser-default" onchange="document.getElementById('bred_change').submit();">
+														<option disabled selected>{{ $breedingRecord->getGroupingProperties()->where("property_id", 50)->first()->value }}</option>
+														<option value="Pregnant">Pregnant</option>
+														<option value="Recycled">Recycled</option>
+													</select>
+												</td>
+												{!! Form::close() !!}
+											{{-- pregnant --}}
+											@elseif($breedingRecord->getGroupingProperties()->where("property_id", 50)->first()->value == "Pregnant")
+												{!! Form::open(['route' => 'farm.pig.change_status_pregnant', 'method' => 'post', 'id' => 'pregnant_change']) !!}
+												<td width="120">
+													<input type="hidden" name="group_id" value="{{ $breedingRecord->id }}">
+													<select id="status_pregnant" name="mating_status" class="browser-default" onchange="document.getElementById('pregnant_change').submit();">
+														<option disabled selected>{{ $breedingRecord->getGroupingProperties()->where("property_id", 50)->first()->value }}</option>
+														<option value="Farrowed">Farrowed</option>
+														<option value="Aborted">Aborted</option>
+													</select>
+												</td>
+												{!! Form::close() !!}
+											{{-- recycled/aborted/farrowed --}}
+											@elseif($breedingRecord->getGroupingProperties()->where("property_id", 50)->first()->value == "Recycled" || $breedingRecord->getGroupingProperties()->where("property_id", 50)->first()->value == "Farrowed" || $breedingRecord->getGroupingProperties()->where("property_id", 50)->first()->value == "Aborted")
+												<td>{{ $breedingRecord->getGroupingProperties()->where("property_id", 50)->first()->value }}</td>
+											@endif
 										@endif
-										@if(is_null($breedingRecord->getGroupingProperties()->where("property_id", 51)->first()))
+										{{-- icons --}}
+										@if(is_null($breedingRecord->getGroupingProperties()->where("property_id", 50)->first()))
 											<td></td>
 										@else
-											@if($breedingRecord->getGroupingProperties()->where("property_id", 51)->first()->value == 0)
-												@if($breedingRecord->members == 0)
-													<td>
-														<a href="{{ URL::route('farm.pig.sowlitter_record', [$breedingRecord->id]) }}"><i class="material-icons">add_circle_outline</i></a>
-													</td>
-												@else
-													<td>
-														<a href="{{ URL::route('farm.pig.sowlitter_record', [$breedingRecord->id]) }}"><i class="material-icons">done</i></a>
-													</td>
-												@endif
-											@else
+											{{-- bred --}}
+											@if($breedingRecord->getGroupingProperties()->where("property_id", 50)->first()->value == "Bred")
+												<td>
+													<i class="material-icons">favorite_border</i>
+												</td>
+											{{-- pregnant --}}
+											@elseif($breedingRecord->getGroupingProperties()->where("property_id", 50)->first()->value == "Pregnant")
+												<td>
+													<a href="{{ URL::route('farm.pig.sowlitter_record', [$breedingRecord->id]) }}"><i class="material-icons">add_circle_outline</i></a>
+												</td>
+											{{-- farrowed --}}
+											@elseif($breedingRecord->getGroupingProperties()->where("property_id", 50)->first()->value == "Farrowed")
+												<td>
+													<a href="{{ URL::route('farm.pig.sowlitter_record', [$breedingRecord->id]) }}"><i class="material-icons">done</i></a>
+												</td>
+											{{-- recycled --}}
+											@elseif($breedingRecord->getGroupingProperties()->where("property_id", 50)->first()->value == "Recycled")
 												<td>
 													<i class="material-icons">refresh</i>
 												</td>
+											{{-- aborted --}}
+											@elseif($breedingRecord->getGroupingProperties()->where("property_id", 50)->first()->value == "Aborted")
+												@if(is_null($breedingRecord->getGroupingProperties()->where("property_id", 89)->first()))
+													{!! Form::open(['route' => 'farm.pig.change_status_bred', 'method' => 'post']) !!}
+													<td class="input-field" width="120">
+														<input id="date_aborted" type="text" placeholder="Date Aborted" name="date_aborted" class="datepicker">
+													</td>
+													{!! Form::close() !!}
+												@else
+													<td width="120">
+														Date Aborted: {{ Carbon\Carbon::parse($breedingRecord->getGroupingProperties()->where("property_id", 89)->first()->value)->format('j F, Y') }}
+													</td>
+												@endif
 											@endif
 										@endif
 									</tr>
 								@empty
 									<tr>
-										<td colspan="7">No mating record found</td>
+										<td colspan="6">No mating record found</td>
 									</tr>
 								@endforelse
               </tbody>
 						</table>
 					</div>
 				</div>
-				{{-- <div class="row center">
-					<button class="btn waves-effect waves-light green darken-3" type="submit" onclick="Materialize.toast('Successfully added!', 4000)">Add
-            <i class="material-icons right">add</i>
-          </button>
-				</div> --}}
 			</div>
 		</div>
   </div>

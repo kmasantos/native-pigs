@@ -20,31 +20,42 @@
             <div style="margin-top:10px;">
               <div class="col s12 card-panel white black-text">
                 <div class="col s6">
-                  {{-- <p>Age: {{ $age }} months</p> --}}
                   @if(is_null($properties->where("property_id", 25)->first()))
-                    <p>Birthday: Not specified</p>
+                    <p><strong>Birthday:</strong> No data available</p>
                   @else
-                    <p>Birthday: {{ Carbon\Carbon::parse($properties->where("property_id", 25)->first()->value)->format('j F, Y') }}</p>
+                    <p><strong>Birthday:</strong> {{ Carbon\Carbon::parse($properties->where("property_id", 25)->first()->value)->format('j F, Y') }}</p>
                   @endif
                   @if(is_null($properties->where("property_id", 53)->first()))
-                    <p>Birth weight: Not specified</p>
+                    <p><strong>Birth weight:</strong> No data available</p>
                   @else
-                    <p>Birth weight: {{ $properties->where("property_id", 53)->first()->value }} kg</p>
+                    <p><strong>Birth weight:</strong> {{ $properties->where("property_id", 53)->first()->value }} kg</p>
                   @endif
-                  <p>Littersize Born Alive: </p>
-                  <p>Age at First mating: months</p>
+                  @if(is_null($sow->getGrouping()))
+                    <p><strong>Litter-size Born Alive:</strong> No data available</p>
+                  @else
+                    <p><strong>Littersize Born Alive:</strong> {{ count($sow->getGrouping()->getGroupingMembers()) }}</p>
+                  @endif
+                  @if($ageAtFirstMating != "")
+                    <p><strong>Age at First Mating:</strong> {{ $ageAtFirstMating }} months</p>
+                  @else
+                    <p><strong>Age at First Mating:</strong> No data available</p>
+                  @endif
                 </div>
                 <div class="col s6">
-                  <p>Sex ratio (M:F): </p>
-                  @if(is_null($properties->where("property_id", 54)->first()))
-                    <p>Weaning weight: </p>
+                  @if(is_null($sow->getGrouping()))
+                    <p><strong>Sex ratio (M:F):</strong> No data available</p>
                   @else
-                    <p>Weaning weight: {{ $properties->where("property_id", 54)->first()->value }} kg</p>
+                    <p><strong>Sex ratio (M:F):</strong> {{ count($males) }}:{{ count($females) }}
                   @endif
                   @if(is_null($properties->where("property_id", 54)->first()))
-                    <p>Age at weaning: </p>
+                    <p><strong>Weaning weight:</strong> No data available</p>
                   @else
-                    <p>Age at weaning: {{ $ageAtWeaning }} months</p>
+                    <p><strong>Weaning weight:</strong> {{ $properties->where("property_id", 54)->first()->value }} kg</p>
+                  @endif
+                  @if(is_null($properties->where("property_id", 54)->first()))
+                    <p><strong>Age at weaning:</strong> No data available</p>
+                  @else
+                    <p><strong>Age at weaning:</strong> {{ $ageAtWeaning }} months</p>
                   @endif
                 </div>
               </div>        
@@ -253,7 +264,7 @@
                     @if($properties->where("property_id", 44)->first()->value == "")
                       <td>Not specified</td>
                     @else
-                      <td>{{ $properties->where("property_id", 44)->first()->value }} cm</td>
+                      <td>{{ $properties->where("property_id", 44)->first()->value }}</td>
                     @endif
                   </tr>
                 </tbody>
@@ -269,7 +280,7 @@
                 <tbody>
                   <tr>
                     <td>Body Weight at 45 Days</td>
-                    @if($properties->where("property_id", 45)->first()->value == "")
+                    @if($properties->where("property_id", 45)->first()->value == "" || is_null($properties->where("property_id", 45)->first()))
                       <td>Not specified</td>
                     @else
                       <td>{{ $properties->where("property_id", 45)->first()->value }} kg</td>
@@ -277,7 +288,7 @@
                   </tr>
                   <tr>
                     <td>Body Weight at 60 Days</td>
-                    @if($properties->where("property_id", 46)->first()->value == "")
+                    @if($properties->where("property_id", 46)->first()->value == "" || is_null($properties->where("property_id", 46)->first()))
                       <td>Not specified</td>
                     @else
                       <td>{{ $properties->where("property_id", 46)->first()->value }} kg</td>
@@ -285,15 +296,23 @@
                   </tr>
                   <tr>
                     <td>Body Weight at 90 Days</td>
-                    @if($properties->where("property_id", 69)->first()->value == "")
+                    @if($properties->where("property_id", 69)->first()->value == "" || is_null($properties->where("property_id", 69)->first()))
                       <td>Not specified</td>
                     @else
                       <td>{{ $properties->where("property_id", 69)->first()->value }} kg</td>
                     @endif
                   </tr>
                   <tr>
+                    <td>Body Weight at 150 Days</td>
+                    @if(is_null($properties->where("property_id", 90)->first()) || $properties->where("property_id", 90)->first()->value == "")
+                      <td>Not specified</td>
+                    @else
+                      <td>{{ $properties->where("property_id", 90)->first()->value }} kg</td>
+                    @endif
+                  </tr>
+                  <tr>
                     <td>Body Weight at 180 Days</td>
-                    @if($properties->where("property_id", 47)->first()->value == "")
+                    @if($properties->where("property_id", 47)->first()->value == "" || is_null($properties->where("property_id", 47)->first()))
                       <td>Not specified</td>
                     @else
                       <td>{{ $properties->where("property_id", 47)->first()->value }} kg</td>
