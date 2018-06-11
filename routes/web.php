@@ -74,6 +74,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('sow_usage/{id}', ['as' => 'farm.pig.sow_usage', 'uses' => 'FarmController@getSowUsagePage']);
     Route::get('boar_usage/{id}', ['as' => 'farm.pig.boar_usage', 'uses' => 'FarmController@getBoarUsagePage']);
     Route::get('grower_inventory_report', ['as' => 'farm.pig.grower_inventory_report', 'uses' => 'FarmController@getGrowerInventoryPage']);
+    Route::post('filter_grower_inventory', ['as' => 'farm.pig.filter_grower_inventory', 'uses' => 'FarmController@filterGrowerInventory']);
     Route::get('mortality_and_sales_report', ['as' => 'farm.pig.mortality_and_sales_report', 'uses' => 'FarmController@getMortalityAndSalesReportPage']);
     Route::get('farm_profile', ['as' => 'farm.pig.farm_profile', 'uses' => 'FarmController@getFarmProfilePage']);
     Route::post('get_farm_profile', ['as' => 'farm.pig.get_farm_profile', 'uses' => 'FarmController@addFarmProfile']);

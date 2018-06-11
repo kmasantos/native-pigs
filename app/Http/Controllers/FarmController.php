@@ -3652,22 +3652,269 @@ class FarmController extends Controller
 				}
 			}
 
-			// AGES 0 TO 6 MONTHS LANG ANG ANDITO, PAG WALANG DATA, EDI WALA
+			// default filter is the current year
 			$now = Carbon::now();
+			$current_year = $now->year;
+			$range = range($current_year-10, $current_year+10);
+			$years = array_combine($range, $range);
+
 			$filter = $now->year;
 
-			foreach ($pigs as $pig) {
-				$pigproperties = $pig->getAnimalProperties();
-				foreach ($pigproperties as $pigproperty) {
-					if($pigproperty->property_id == 25){ // date farrowed
-						if(Carbon::parse($pigproperty->value)->year == $filter){
-						 //
+			// gets all the last day of each month
+			$dates = [];
+			foreach ($months as $month) {
+				$date = new Carbon('last day of '.$month.' '.$filter);
+				array_push($dates, $date);
+			}
+
+			// gets count of female growers per age per month
+			$monthlysows = [];
+			foreach ($dates as $date) {
+				$sows0 = [];
+				$sows1 = [];
+				$sows2 = [];
+				$sows3 = [];
+				$sows4 = [];
+				$sows5 = [];
+				$sows6 = [];
+				$sowsg6 = [];
+				foreach ($sows as $sow) {
+					$sowproperties = $sow->getAnimalProperties();
+					foreach ($sowproperties as $sowproperty) {
+						if($sowproperty->property_id == 25){
+							if(!is_null($sowproperty->value) && $sowproperty->value != "Not specified" && $date->gt(Carbon::parse($sowproperty->value))){
+								$bday = $sowproperty->value;
+								$age = Carbon::parse($date)->diffInMonths(Carbon::parse($bday));
+
+								if($age == 0){
+									array_push($sows0, $sow);
+								}
+								elseif($age == 1){
+									array_push($sows1, $sow);
+								}
+								elseif($age == 2){
+									array_push($sows2, $sow);	
+								}
+								elseif($age == 3){
+									array_push($sows3, $sow);
+								}
+								elseif($age == 4){
+									array_push($sows4, $sow);
+								}
+								elseif($age == 5){
+									array_push($sows5, $sow);
+								}
+								elseif($age == 6){
+									array_push($sows6, $sow);
+								}
+								elseif($age > 6){
+									array_push($sowsg6, $sow);
+								}
+							}
 						}
 					}
 				}
+				array_push($monthlysows, [count($sows0), count($sows1), count($sows2), count($sows3), count($sows4), count($sows5), count($sows6), count($sowsg6)]);
+			}
+			$monthlysows = array_values($monthlysows);
+
+			// gets count of male growers per age per month
+			$monthlyboars = [];
+			foreach ($dates as $date) {
+				$boars0 = [];
+				$boars1 = [];
+				$boars2 = [];
+				$boars3 = [];
+				$boars4 = [];
+				$boars5 = [];
+				$boars6 = [];
+				$boarsg6 = [];
+				foreach ($boars as $boar) {
+					$boarproperties = $boar->getAnimalProperties();
+					foreach ($boarproperties as $boarproperty) {
+						if($boarproperty->property_id == 25){
+							if(!is_null($boarproperty->value) && $boarproperty->value != "Not specified" && $date->gt(Carbon::parse($boarproperty->value))){
+								$bday = $boarproperty->value;
+								$age = Carbon::parse($date)->diffInMonths(Carbon::parse($bday));
+
+								if($age == 0){
+									array_push($boars0, $boar);
+								}
+								elseif($age == 1){
+									array_push($boars1, $boar);
+								}
+								elseif($age == 2){
+									array_push($boars2, $boar);	
+								}
+								elseif($age == 3){
+									array_push($boars3, $boar);
+								}
+								elseif($age == 4){
+									array_push($boars4, $boar);
+								}
+								elseif($age == 5){
+									array_push($boars5, $boar);
+								}
+								elseif($age == 6){
+									array_push($boars6, $boar);
+								}
+								elseif($age > 6){
+									array_push($boarsg6, $boar);
+								}
+							}
+						}
+					}
+				}
+				array_push($monthlyboars, [count($boars0), count($boars1), count($boars2), count($boars3), count($boars4), count($boars5), count($boars6), count($boarsg6)]);
+			}
+			$monthlyboars = array_values($monthlyboars);
+
+			return view('pigs.growerinventory', compact('pigs', 'sows', 'boars', 'months', 'index', 'years', 'filter', 'monthlysows', 'monthlyboars', 'now'));
+		}
+
+		public function filterGrowerInventory(Request $request){
+			$farm = $this->user->getFarm();
+			$breed = $farm->getBreed();
+			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "active")->get();
+
+			// sorts pigs by sex
+			$sows = [];
+			$boars = [];
+			foreach($pigs as $pig){
+				if(substr($pig->registryid, -7, 1) == 'F'){
+					array_push($sows, $pig);
+				}
+				if(substr($pig->registryid, -7, 1) == 'M'){
+					array_push($boars, $pig);
+				}
 			}
 
-			return view('pigs.growerinventory', compact('pigs', 'sows', 'boars', 'months', 'index', 'years', 'filter'));
+			$months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+			$index = 0;
+
+			$now = Carbon::now();
+
+			$current_year = $now->year;
+			$range = range($current_year-10, $current_year+10);
+			$years = array_combine($range, $range);
+
+			$filter = $request->year_grower_inventory;
+
+			// gets all the last day of each month
+			$dates = [];
+			foreach ($months as $month) {
+				$date = new Carbon('last day of '.$month.' '.$filter);
+				array_push($dates, $date);
+			}
+
+			// gets count of female growers per age per month
+			$monthlysows = [];
+			foreach ($dates as $date) {
+				$sows0 = [];
+				$sows1 = [];
+				$sows2 = [];
+				$sows3 = [];
+				$sows4 = [];
+				$sows5 = [];
+				$sows6 = [];
+				$sowsg6 = [];
+				foreach ($sows as $sow) {
+					$sowproperties = $sow->getAnimalProperties();
+					foreach ($sowproperties as $sowproperty) {
+						if($sowproperty->property_id == 25){
+							if(!is_null($sowproperty->value) && $sowproperty->value != "Not specified" && $date->gt(Carbon::parse($sowproperty->value))){
+								$bday = $sowproperty->value;
+								$age = Carbon::parse($date)->diffInMonths(Carbon::parse($bday));
+
+								if($age == 0){
+									array_push($sows0, $sow);
+								}
+								elseif($age == 1){
+									array_push($sows1, $sow);
+								}
+								elseif($age == 2){
+									array_push($sows2, $sow);	
+								}
+								elseif($age == 3){
+									array_push($sows3, $sow);
+								}
+								elseif($age == 4){
+									array_push($sows4, $sow);
+								}
+								elseif($age == 5){
+									array_push($sows5, $sow);
+								}
+								elseif($age == 6){
+									array_push($sows6, $sow);
+								}
+								elseif($age > 6){
+									array_push($sowsg6, $sow);
+								}
+							}
+						}
+					}
+				}
+				array_push($monthlysows, [count($sows0), count($sows1), count($sows2), count($sows3), count($sows4), count($sows5), count($sows6), count($sowsg6)]);
+				// array_push($monthlysows, [$sows0, $sows1, $sows2, $sows3, $sows4, $sows5, $sows6, $sowsg6]);
+			}
+			$monthlysows = array_values($monthlysows);
+
+			// gets count of male growers per age per month
+			$monthlyboars = [];
+			foreach ($dates as $date) {
+				$boars0 = [];
+				$boars1 = [];
+				$boars2 = [];
+				$boars3 = [];
+				$boars4 = [];
+				$boars5 = [];
+				$boars6 = [];
+				$boarsg6 = [];
+				foreach ($boars as $boar) {
+					$boarproperties = $boar->getAnimalProperties();
+					foreach ($boarproperties as $boarproperty) {
+						if($boarproperty->property_id == 25){
+							if(!is_null($boarproperty->value) && $boarproperty->value != "Not specified" && $date->gt(Carbon::parse($boarproperty->value))){
+								$bday = $boarproperty->value;
+								$age = Carbon::parse($date)->diffInMonths(Carbon::parse($bday));
+
+								if($age == 0){
+									array_push($boars0, $boar);
+								}
+								elseif($age == 1){
+									array_push($boars1, $boar);
+								}
+								elseif($age == 2){
+									array_push($boars2, $boar);	
+								}
+								elseif($age == 3){
+									array_push($boars3, $boar);
+								}
+								elseif($age == 4){
+									array_push($boars4, $boar);
+								}
+								elseif($age == 5){
+									array_push($boars5, $boar);
+								}
+								elseif($age == 6){
+									array_push($boars6, $boar);
+								}
+								elseif($age > 6){
+									array_push($boarsg6, $boar);
+								}
+							}
+						}
+					}
+				}
+				array_push($monthlyboars, [count($boars0), count($boars1), count($boars2), count($boars3), count($boars4), count($boars5), count($boars6), count($boarsg6)]);
+				// array_push($monthlyboars, [$boars0, $boars1, $boars2, $boars3, $boars4, $boars5, $boars6, $boarsg6]);
+			}
+			$monthlyboars = array_values($monthlyboars);
+
+			// dd($monthlysows, $monthlyboars);
+
+			return view('pigs.growerinventory', compact('pigs', 'sows', 'boars', 'months', 'index', 'years', 'filter', 'monthlysows', 'monthlyboars', 'now'));
 		}
 
 		public function getMortalityAndSalesReportPage(){ // function to display Mortality and Sales Report page
