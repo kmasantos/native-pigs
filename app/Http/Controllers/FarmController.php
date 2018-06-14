@@ -375,7 +375,13 @@ class FarmController extends Controller
 		}
 
 		public static function getNumPigsBornOnYear($year, $filter){ // function to get number of pigs born on specific year
-			$pigs = Animal::where("animaltype_id", 3)->where("status", "breeder")->orWhere("status", "dead breeder")->orWhere("status", "sold breeder")->get();
+			$farm = Auth::User()->getFarm();
+			$breed = $farm->getBreed();
+			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where(function ($query) {
+										$query->where("status", "breeder")
+													->orWhere("status", "sold breeder")
+													->orWhere("status", "dead breeder");
+													})->get();
 
 			// gets pigs born on the specified year
 			$pigsbornonyear = [];
@@ -424,7 +430,13 @@ class FarmController extends Controller
 		}
 
 		public static function getGrossMorphologyPerYearOfBirth($year, $property_id, $filter, $value){ // function to get summarized gross morphology report per year of birth
-			$pigs = Animal::where("animaltype_id", 3)->where("status", "breeder")->orWhere("status", "dead breeder")->orWhere("status", "sold breeder")->get();
+			$farm = Auth::User()->getFarm();
+			$breed = $farm->getBreed();
+			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where(function ($query) {
+										$query->where("status", "breeder")
+													->orWhere("status", "sold breeder")
+													->orWhere("status", "dead breeder");
+													})->get();
 
 			// gets pigs born on the specified year
 			$pigsbornonyear = [];
@@ -511,7 +523,21 @@ class FarmController extends Controller
 		public function getGrossMorphologyReportPage(){ // function to display Gross Morphology Report page
 			$farm = $this->user->getFarm();
 			$breed = $farm->getBreed();
-			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "breeder")->orWhere("status", "dead breeder")->orWhere("status", "sold breeder")->get();
+			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where(function ($query) {
+										$query->where("status", "breeder")
+													->orWhere("status", "sold breeder")
+													->orWhere("status", "dead breeder");
+													})->get();
+
+			$alive = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "breeder")->get();
+			$sold = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "sold breeder")->get();
+			$dead = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "dead breeder")->get();
+			$sowsalive = [];
+			$soldsows = [];
+			$deadsows = [];
+			$boarsalive = [];
+			$soldboars = [];
+			$deadboars = [];
 
 			// default filter
 			$filter = "All";
@@ -655,13 +681,21 @@ class FarmController extends Controller
 			$notailtypes = (count($pigs)-(count($curlytails)+count($straighttails)));
 			$nobacklines = (count($pigs)-(count($swaybacks)+count($straightbacks)));
 
-			return view('pigs.grossmorphoreport', compact('pigs', 'filter', 'sows', 'boars', 'curlyhairs', 'straighthairs', 'shorthairs', 'longhairs', 'blackcoats', 'nonblackcoats', 'plains', 'socks', 'concaves', 'straightheads', 'smooths', 'wrinkleds', 'droopingears', 'semilops', 'erectears', 'curlytails', 'straighttails', 'swaybacks', 'straightbacks', 'nohairtypes', 'nohairlengths', 'nocoats', 'nopatterns', 'noheadshapes', 'noskintypes', 'noeartypes', 'notailtypes', 'nobacklines', 'years'));
+			return view('pigs.grossmorphoreport', compact('pigs', 'filter', 'sows', 'boars', 'curlyhairs', 'straighthairs', 'shorthairs', 'longhairs', 'blackcoats', 'nonblackcoats', 'plains', 'socks', 'concaves', 'straightheads', 'smooths', 'wrinkleds', 'droopingears', 'semilops', 'erectears', 'curlytails', 'straighttails', 'swaybacks', 'straightbacks', 'nohairtypes', 'nohairlengths', 'nocoats', 'nopatterns', 'noheadshapes', 'noskintypes', 'noeartypes', 'notailtypes', 'nobacklines', 'years', 'alive', 'sold', 'dead', 'sowsalive', 'soldsows', 'deadsows', 'boarsalive', 'soldboars', 'deadboars'));
 		}
 
 		public function filterGrossMorphologyReport(Request $request){ // function to filter Gross Morphology Report onclick
 			$farm = $this->user->getFarm();
 			$breed = $farm->getBreed();
-			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "breeder")->orWhere("status", "dead breeder")->orWhere("status", "sold breeder")->get();
+			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where(function ($query) {
+										$query->where("status", "breeder")
+													->orWhere("status", "sold breeder")
+													->orWhere("status", "dead breeder");
+													})->get();
+
+			$alive = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "breeder")->get();
+			$sold = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "sold breeder")->get();
+			$dead = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "dead breeder")->get();
 
 			$filter = $request->filter_keywords;
 
@@ -696,27 +730,40 @@ class FarmController extends Controller
 				}
 			}
 
+			$curlyhairs = [];
+			$straighthairs = [];
+			$shorthairs = [];
+			$longhairs = [];
+			$blackcoats = [];
+			$nonblackcoats = [];
+			$plains = [];
+			$socks = [];
+			$concaves = [];
+			$straightheads = [];
+			$smooths = [];
+			$wrinkleds = [];
+			$droopingears = [];
+			$semilops = [];
+			$erectears = [];
+			$curlytails = [];
+			$straighttails = [];
+			$swaybacks = [];
+			$straightbacks = [];
+
 			if($filter == "Sow"){ // data displayed are for all sows
-				$curlyhairs = [];
-				$straighthairs = [];
-				$shorthairs = [];
-				$longhairs = [];
-				$blackcoats = [];
-				$nonblackcoats = [];
-				$plains = [];
-				$socks = [];
-				$concaves = [];
-				$straightheads = [];
-				$smooths = [];
-				$wrinkleds = [];
-				$droopingears = [];
-				$semilops = [];
-				$erectears = [];
-				$curlytails = [];
-				$straighttails = [];
-				$swaybacks = [];
-				$straightbacks = [];
+				$sowsalive = [];
+				$soldsows = [];
+				$deadsows = [];
 				foreach ($sows as $sow) {
+					if($sow->status == "breeder"){
+						array_push($sowsalive, $sow);
+					}
+					elseif($sow->status == "sold breeder"){
+						array_push($soldsows, $sow);
+					}
+					elseif($sow->status == "dead breeder"){
+						array_push($deadsows, $sow);
+					}
 					$properties = $sow->getAnimalProperties();
 					foreach ($properties as $property) {
 						if($property->property_id == 28){ //hairtype
@@ -809,26 +856,19 @@ class FarmController extends Controller
 				$nobacklines = (count($sows)-(count($swaybacks)+count($straightbacks)));
 			}
 			elseif($filter == "Boar"){ // data displayed are for all boars
-				$curlyhairs = [];
-				$straighthairs = [];
-				$shorthairs = [];
-				$longhairs = [];
-				$blackcoats = [];
-				$nonblackcoats = [];
-				$plains = [];
-				$socks = [];
-				$concaves = [];
-				$straightheads = [];
-				$smooths = [];
-				$wrinkleds = [];
-				$droopingears = [];
-				$semilops = [];
-				$erectears = [];
-				$curlytails = [];
-				$straighttails = [];
-				$swaybacks = [];
-				$straightbacks = [];
+				$boarsalive = [];
+				$soldboars = [];
+				$deadboars = [];
 				foreach ($boars as $boar) {
+					if($boar->status == "breeder"){
+						array_push($boarsalive, $boar);
+					}
+					elseif($boar->status == "sold breeder"){
+						array_push($soldboars, $boar);
+					}
+					elseif($boar->status == "dead breeder"){
+						array_push($deadboars, $boar);
+					}
 					$properties = $boar->getAnimalProperties();
 					foreach ($properties as $property) {
 						if($property->property_id == 28){ //hairtype
@@ -921,25 +961,6 @@ class FarmController extends Controller
 				$nobacklines = (count($boars)-(count($swaybacks)+count($straightbacks)));
 			}
 			elseif($filter == "All"){ // data displayed are for all pigs in the herd
-				$curlyhairs = [];
-				$straighthairs = [];
-				$shorthairs = [];
-				$longhairs = [];
-				$blackcoats = [];
-				$nonblackcoats = [];
-				$plains = [];
-				$socks = [];
-				$concaves = [];
-				$straightheads = [];
-				$smooths = [];
-				$wrinkleds = [];
-				$droopingears = [];
-				$semilops = [];
-				$erectears = [];
-				$curlytails = [];
-				$straighttails = [];
-				$swaybacks = [];
-				$straightbacks = [];
 				foreach ($pigs as $pig) {
 					$properties = $pig->getAnimalProperties();
 					foreach ($properties as $property) {
@@ -1034,7 +1055,7 @@ class FarmController extends Controller
 			}
 
 			// return Redirect::back()->with('message','Operation Successful!');
-			return view('pigs.grossmorphoreport', compact('pigs', 'filter', 'sows', 'boars', 'curlyhairs', 'straighthairs', 'shorthairs', 'longhairs', 'blackcoats', 'nonblackcoats', 'plains', 'socks', 'concaves', 'straightheads', 'smooths', 'wrinkleds', 'droopingears', 'semilops', 'erectears', 'curlytails', 'straighttails', 'swaybacks', 'straightbacks', 'nohairtypes', 'nohairlengths', 'nocoats', 'nopatterns', 'noheadshapes', 'noskintypes', 'noeartypes', 'notailtypes', 'nobacklines', 'years'));
+			return view('pigs.grossmorphoreport', compact('pigs', 'filter', 'sows', 'boars', 'curlyhairs', 'straighthairs', 'shorthairs', 'longhairs', 'blackcoats', 'nonblackcoats', 'plains', 'socks', 'concaves', 'straightheads', 'smooths', 'wrinkleds', 'droopingears', 'semilops', 'erectears', 'curlytails', 'straighttails', 'swaybacks', 'straightbacks', 'nohairtypes', 'nohairlengths', 'nocoats', 'nopatterns', 'noheadshapes', 'noskintypes', 'noeartypes', 'notailtypes', 'nobacklines', 'years', 'alive', 'sold', 'dead', 'sowsalive', 'soldsows', 'deadsows', 'boarsalive', 'soldboars', 'deadboars'));
 		}
 
 		static function standardDeviation($arr, $samp = false){ // function to compute standard deviation
@@ -1048,7 +1069,13 @@ class FarmController extends Controller
 		}
 
 		public static function getMorphometricCharacteristicsPerYearOfBirth($year, $property_id, $filter){ // function to display Morphometric Characteristics Report per year of birth
-			$pigs = Animal::where("animaltype_id", 3)->where("status", "breeder")->orWhere("status", "dead breeder")->orWhere("status", "sold breeder")->get();
+			$farm = Auth::User()->getFarm();
+			$breed = $farm->getBreed();
+			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where(function ($query) {
+										$query->where("status", "breeder")
+													->orWhere("status", "sold breeder")
+													->orWhere("status", "dead breeder");
+													})->get();
 
 			// gets pigs born on specified year
 			$pigsbornonyear = [];
@@ -1137,7 +1164,21 @@ class FarmController extends Controller
 		public function getMorphometricCharacteristicsReportPage(){ // function to display Morphometric Characteristics Report page
 			$farm = $this->user->getFarm();
 			$breed = $farm->getBreed();
-			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "breeder")->orWhere("status", "dead breeder")->orWhere("status", "sold breeder")->get();
+			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where(function ($query) {
+										$query->where("status", "breeder")
+													->orWhere("status", "sold breeder")
+													->orWhere("status", "dead breeder");
+													})->get();
+
+			$alive = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "breeder")->get();
+			$sold = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "sold breeder")->get();
+			$dead = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "dead breeder")->get();
+			$sowsalive = [];
+			$soldsows = [];
+			$deadsows = [];
+			$boarsalive = [];
+			$soldboars = [];
+			$deadboars = [];
 
 			// default filter
 			$filter = "All";
@@ -1286,13 +1327,17 @@ class FarmController extends Controller
 				$normalteats_sd = static::standardDeviation($normalteats, false);
 			}
 
-			return view('pigs.morphocharsreport', compact('pigs', 'filter', 'sows', 'boars', 'earlengths', 'headlengths', 'snoutlengths', 'bodylengths', 'heartgirths', 'pelvicwidths', 'ponderalindices', 'taillengths', 'heightsatwithers', 'normalteats', 'earlengths_sd', 'headlengths_sd', 'snoutlengths_sd', 'bodylengths_sd', 'heartgirths_sd', 'pelvicwidths_sd', 'ponderalindices_sd', 'taillengths_sd', 'heightsatwithers_sd', 'normalteats_sd', 'years', 'ages_collected'));
+			return view('pigs.morphocharsreport', compact('pigs', 'filter', 'sows', 'boars', 'earlengths', 'headlengths', 'snoutlengths', 'bodylengths', 'heartgirths', 'pelvicwidths', 'ponderalindices', 'taillengths', 'heightsatwithers', 'normalteats', 'earlengths_sd', 'headlengths_sd', 'snoutlengths_sd', 'bodylengths_sd', 'heartgirths_sd', 'pelvicwidths_sd', 'ponderalindices_sd', 'taillengths_sd', 'heightsatwithers_sd', 'normalteats_sd', 'years', 'ages_collected', 'alive', 'sold', 'dead', 'sowsalive', 'soldsows', 'deadsows', 'boarsalive', 'soldboars', 'deadboars'));
 		}
 
 		public function filterMorphometricCharacteristicsReport(Request $request){ // function to filter Morphometric Characteristics Report
 			$farm = $this->user->getFarm();
 			$breed = $farm->getBreed();
 			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "breeder")->orWhere("status", "dead breeder")->orWhere("status", "sold breeder")->get();
+
+			$alive = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "breeder")->get();
+			$sold = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "sold breeder")->get();
+			$dead = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "dead breeder")->get();
 
 			$filter = $request->filter_keywords2;
 
@@ -1324,19 +1369,32 @@ class FarmController extends Controller
 				}
 			}
 
+
+			$earlengths = [];
+			$headlengths = [];
+			$snoutlengths = [];
+			$bodylengths = [];
+			$heartgirths = [];
+			$pelvicwidths = [];
+			$ponderalindices = [];
+			$taillengths = [];
+			$heightsatwithers = [];
+			$normalteats = [];
+			$ages_collected = [];
 			if($filter == "Sow"){ // data displayed are for all sows
-				$earlengths = [];
-				$headlengths = [];
-				$snoutlengths = [];
-				$bodylengths = [];
-				$heartgirths = [];
-				$pelvicwidths = [];
-				$ponderalindices = [];
-				$taillengths = [];
-				$heightsatwithers = [];
-				$normalteats = [];
-				$ages_collected = [];
+				$sowsalive = [];
+				$soldsows = [];
+				$deadsows = [];
 				foreach ($sows as $sow) {
+					if($sow->status == "breeder"){
+						array_push($sowsalive, $sow);
+					}
+					elseif($sow->status == "sold breeder"){
+						array_push($soldsows, $sow);
+					}
+					elseif($sow->status == "dead breeder"){
+						array_push($deadsows, $sow);
+					}
 					$properties = $sow->getAnimalProperties();
 					foreach ($properties as $property) {
 						if($property->property_id == 68){ // date collected
@@ -1442,18 +1500,19 @@ class FarmController extends Controller
 				}
 			}
 			elseif($filter == "Boar"){ // data displayed are for all boars
-				$earlengths = [];
-				$headlengths = [];
-				$snoutlengths = [];
-				$bodylengths = [];
-				$heartgirths = [];
-				$pelvicwidths = [];
-				$ponderalindices = [];
-				$taillengths = [];
-				$heightsatwithers = [];
-				$normalteats = [];
-				$ages_collected = [];
+				$boarsalive = [];
+				$soldboars = [];
+				$deadboars = [];
 				foreach ($boars as $boar) {
+					if($boar->status == "breeder"){
+						array_push($boarsalive, $boar);
+					}
+					elseif($boar->status == "sold breeder"){
+						array_push($soldboars, $boar);
+					}
+					elseif($boar->status == "dead breeder"){
+						array_push($deadboars, $boar);
+					}
 					$properties = $boar->getAnimalProperties();
 					foreach ($properties as $property) {
 						if($property->property_id == 68){ // date collected
@@ -1559,17 +1618,6 @@ class FarmController extends Controller
 				}
 			}
 			elseif($filter == "All"){ // data displayed are for all pigs in the herd
-				$earlengths = [];
-				$headlengths = [];
-				$snoutlengths = [];
-				$bodylengths = [];
-				$heartgirths = [];
-				$pelvicwidths = [];
-				$ponderalindices = [];
-				$taillengths = [];
-				$heightsatwithers = [];
-				$normalteats = [];
-				$ages_collected = [];
 				foreach ($pigs as $pig) {
 					$properties = $pig->getAnimalProperties();
 					foreach ($properties as $property) {
@@ -1676,11 +1724,14 @@ class FarmController extends Controller
 				}
 			}
 
-			return view('pigs.morphocharsreport', compact('pigs', 'filter', 'sows', 'boars', 'earlengths', 'headlengths', 'snoutlengths', 'bodylengths', 'heartgirths', 'pelvicwidths', 'ponderalindices', 'taillengths', 'heightsatwithers', 'normalteats', 'earlengths_sd', 'headlengths_sd', 'snoutlengths_sd', 'bodylengths_sd', 'heartgirths_sd', 'pelvicwidths_sd', 'ponderalindices_sd', 'taillengths_sd', 'heightsatwithers_sd', 'normalteats_sd', 'years', 'ages_collected'));
+			return view('pigs.morphocharsreport', compact('pigs', 'filter', 'sows', 'boars', 'earlengths', 'headlengths', 'snoutlengths', 'bodylengths', 'heartgirths', 'pelvicwidths', 'ponderalindices', 'taillengths', 'heightsatwithers', 'normalteats', 'earlengths_sd', 'headlengths_sd', 'snoutlengths_sd', 'bodylengths_sd', 'heartgirths_sd', 'pelvicwidths_sd', 'ponderalindices_sd', 'taillengths_sd', 'heightsatwithers_sd', 'normalteats_sd', 'years', 'ages_collected', 'alive', 'sold', 'dead', 'sowsalive', 'soldsows', 'deadsows', 'boarsalive', 'soldboars', 'deadboars'));
 		}
 
 		public static function getWeightsPerYearOfBirth($year, $property_id){ // function to get weights per year of birth
-			$pigs = Animal::where("animaltype_id", 3)->get();
+			$farm = Auth::User()->getFarm();
+			$breed = $farm->getBreed();
+			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->get();
+			// $pigs = Animal::where("animaltype_id", 3)->get();
 
 			// gets pigs born on specified year
 			$bornonyear = [];
