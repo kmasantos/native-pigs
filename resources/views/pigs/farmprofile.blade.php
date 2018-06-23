@@ -62,7 +62,7 @@
         <div class="row">
           <div class="input-field col s6 offset-s1">
             <i class="material-icons prefix">email</i>
-            <input id="email_address" type="email" name="email_address" class="validate">
+            <input disabled id="email_address" type="email" name="email_address" value="{{ $user->email }}" class="validate">
             <label for="email_address">Email address</label>
           </div>
           <div class="file-field input-field col s4">

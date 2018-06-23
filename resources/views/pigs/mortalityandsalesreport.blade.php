@@ -105,5 +105,62 @@
         </div>
       </div>
 		</div>
+    <div class="row center">
+      <h5>Summary</h5>
+      <div class="col s12">
+        <ul class="collapsible popout">
+          @foreach($years as $year)
+            <li>
+              <div class="collapsible-header grey lighten-2">{{ $year }}</div>
+              <div class="collapsible-body">
+                <table class="centered">
+                  <thead>
+                    <tr>
+                      <th class="grey lighten-2" rowspan="2">Month</th>
+                      <th colspan="2">Mortality</th>
+                      <th colspan="3" class="grey lighten-2">Sales</th>
+                      <th>Donated</th>
+                    </tr>
+                    <tr>
+                      <th>Number of Pigs Died</th>
+                      <th>Average Age, months</th>
+                      <th class="grey lighten-2">Number of Pigs Sold</th>
+                      <th class="grey lighten-2">Average Age, months</th>
+                      <th class="grey lighten-2">Average Weight, kg</th>
+                      <th>Number of Pigs Donated</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @foreach($months as $month)
+                      <tr>
+                        <td class="grey lighten-2">{{ $month }}</td>
+                        <td>{{ count(App\Http\Controllers\FarmController::getMonthlyMortality($year, $month)) }}</td>
+                        @if(App\Http\Controllers\FarmController::getMonthlyAverageAge($year, $month, 55) == [])
+                          <td>No data available</td>
+                        @else
+                          <td>{{ round(array_sum(App\Http\Controllers\FarmController::getMonthlyAverageAge($year, $month, 55))/count(App\Http\Controllers\FarmController::getMonthlyAverageAge($year, $month, 55)), 2) }}</td>
+                        @endif
+                        <td class="grey lighten-2">{{ count(App\Http\Controllers\FarmController::getMonthlySales($year, $month)) }}</td>
+                        @if(App\Http\Controllers\FarmController::getMonthlyAverageAge($year, $month, 56) == [])
+                          <td class="grey lighten-2">No data available</td>
+                        @else
+                          <td class="grey lighten-2">{{ round(array_sum(App\Http\Controllers\FarmController::getMonthlyAverageAge($year, $month, 56))/count(App\Http\Controllers\FarmController::getMonthlyAverageAge($year, $month, 56)), 2) }}</td>
+                        @endif
+                        @if(App\Http\Controllers\FarmController::getMonthlyAverageWeightSold($year, $month) == [])
+                          <td class="grey lighten-2">No data available</td>
+                        @else
+                          <td class="grey lighten-2">{{ round(array_sum(App\Http\Controllers\FarmController::getMonthlyAverageWeightSold($year, $month))/count(App\Http\Controllers\FarmController::getMonthlyAverageWeightSold($year, $month)), 2) }}</td>
+                        @endif
+                        <td>{{ count(App\Http\Controllers\FarmController::getMonthlyRemoved($year, $month)) }}</td>
+                      </tr>
+                    @endforeach
+                  </tbody>
+                </table>
+              </div>
+            </li>
+          @endforeach
+        </ul>
+      </div>
+    </div>
 	</div>
 @endsection

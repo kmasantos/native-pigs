@@ -9,6 +9,7 @@
 		<h4>Growth Performance Report</h4>
 		<div class="divider"></div>
 		<div class="row center" style="padding-top: 10px;">
+			<h5 class="center">Inventory as of {{ $now->format('F j, Y') }}</h5>
 			<div class="col s12">
 				<ul class="tabs tabs-fixed-width green lighten-1">
 	        <li class="tab"><a href="#perherdview">Herd</a></li>

@@ -176,5 +176,32 @@
 	  		</tbody>
 	  	</table>
 	  </div>
+	  <div class="row center">
+	  	<div class="col s12">
+				<h5>Records per Parity</h5>
+				@foreach($sorted_parities as $parity)
+						<div class="card-panel">
+							<table class="centered">
+								<thead>
+									<tr>
+										<th>Parity</th>
+										<th>Boar Used</th>
+										<th>Date Bred</th>
+										<th>View</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>{{ $parity }}</td>
+										<td>{{ App\Http\Controllers\FarmController::getGroupingPerParity($sow->id, $parity, "Boar Used") }}</td>
+										<td>{{ App\Http\Controllers\FarmController::getGroupingPerParity($sow->id, $parity, "Date Bred") }}</td>
+										<td><a href="{{ URL::route('farm.pig.sow_production_performance_per_parity', [App\Http\Controllers\FarmController::getGroupingPerParity($sow->id, $parity, "Group ID")]) }}"><i class="material-icons">visibility</i></a></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+				@endforeach
+			</div>
+	  </div>
 	</div>
 @endsection

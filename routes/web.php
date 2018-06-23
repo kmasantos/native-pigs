@@ -27,8 +27,8 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('pedigree', ['as' => 'farm.pig.pedigree', 'uses' => 'FarmController@getPedigreePage']);
     Route::get('breeding_record', ['as' => 'farm.pig.breeding_record', 'uses' => 'FarmController@getBreedingRecordPage']);
     Route::post('get_breeding_record', ['as' => 'farm.pig.get_breeding_record', 'uses' => 'FarmController@addBreedingRecord']);
-    Route::post('change_status_bred', ['as' => 'farm.pig.change_status_bred', 'uses' => 'FarmController@changeStatusFromBred']);
-    Route::post('change_status_pregnant', ['as' => 'farm.pig.change_status_pregnant', 'uses' => 'FarmController@changeStatusFromPregnant']);
+    Route::post('change_status_bred/{id}', ['as' => 'farm.pig.change_status_bred', 'uses' => 'FarmController@changeStatusFromBred']);
+    Route::post('change_status_pregnant/{id}', ['as' => 'farm.pig.change_status_pregnant', 'uses' => 'FarmController@changeStatusFromPregnant']);
     Route::post('add_date_aborted', ['as' => 'farm.pig.add_date_aborted', 'uses' => 'FarmController@addDateAborted']);
     Route::get('sowlitter_record/{id}', ['as' => 'farm.pig.sowlitter_record', 'uses' => 'FarmController@getAddSowLitterRecordPage']);
     Route::post('fetch_parity/{id}/{parity}', ['as' => 'farm.pig.fetch_parity', 'uses' => 'FarmController@fetchParityAjax']);
@@ -69,7 +69,9 @@ Route::group(['middleware' => ['web']], function () {
     // Route::post('production_performance_per_parity/{parity}', ['as' => 'farm.pig.production_performance_per_parity', 'uses' => 'FarmController@filterProductionPerformancePerParityAjax']);
     Route::post('prod_performance_month', ['as' => 'farm.pig.prod_performance_month', 'uses' => 'FarmController@fetchProdPerformanceMonth']);
     Route::get('sow_production_performance/{id}', ['as' => 'farm.pig.sow_production_performance', 'uses' => 'FarmController@getSowProductionPerformancePage']);
+    Route::get('sow_production_performance_per_parity/{id}', ['as' => 'farm.pig.sow_production_performance_per_parity', 'uses' => 'FarmController@getSowProductionPerformancePerParityPage']);
     Route::get('boar_production_performance/{id}', ['as' => 'farm.pig.boar_production_performance', 'uses' => 'FarmController@getBoarProductionPerformancePage']);
+    Route::get('boar_production_performance_per_service/{id}', ['as' => 'farm.pig.boar_production_performance_per_service', 'uses' => 'FarmController@getBoarProductionPerformancePerServicePage']);
     Route::get('breeder_inventory_report', ['as' => 'farm.pig.breeder_inventory_report', 'uses' => 'FarmController@getBreederInventoryPage']);
     Route::get('sow_usage/{id}', ['as' => 'farm.pig.sow_usage', 'uses' => 'FarmController@getSowUsagePage']);
     Route::get('boar_usage/{id}', ['as' => 'farm.pig.boar_usage', 'uses' => 'FarmController@getBoarUsagePage']);

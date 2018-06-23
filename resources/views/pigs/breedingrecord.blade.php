@@ -146,9 +146,8 @@
 										@else
 											{{-- bred --}}
 											@if($breedingRecord->getGroupingProperties()->where("property_id", 50)->first()->value == "Bred")
-												{!! Form::open(['route' => 'farm.pig.change_status_bred', 'method' => 'post', 'id' => 'bred_change']) !!}
+												{!! Form::open(['route' => ['farm.pig.change_status_bred', $breedingRecord->id], 'method' => 'post', 'id' => 'bred_change']) !!}
 												<td width="120">
-													<input type="hidden" name="group_id" value="{{ $breedingRecord->id }}">
 													<select id="status_bred" name="mating_status" class="browser-default" onchange="document.getElementById('bred_change').submit();">
 														<option disabled selected>{{ $breedingRecord->getGroupingProperties()->where("property_id", 50)->first()->value }}</option>
 														<option value="Pregnant">Pregnant</option>
@@ -158,9 +157,8 @@
 												{!! Form::close() !!}
 											{{-- pregnant --}}
 											@elseif($breedingRecord->getGroupingProperties()->where("property_id", 50)->first()->value == "Pregnant")
-												{!! Form::open(['route' => 'farm.pig.change_status_pregnant', 'method' => 'post', 'id' => 'pregnant_change']) !!}
+												{!! Form::open(['route' => ['farm.pig.change_status_pregnant', $breedingRecord->id], 'method' => 'post', 'id' => 'pregnant_change']) !!}
 												<td width="120">
-													<input type="hidden" name="group_id" value="{{ $breedingRecord->id }}">
 													<select id="status_pregnant" name="mating_status" class="browser-default" onchange="document.getElementById('pregnant_change').submit();">
 														<option disabled selected>{{ $breedingRecord->getGroupingProperties()->where("property_id", 50)->first()->value }}</option>
 														<option value="Farrowed">Farrowed</option>

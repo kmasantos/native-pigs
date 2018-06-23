@@ -29,7 +29,7 @@
 	  					<td class="center">No data available</td>
 	  					<td class="center">No data available</td>
 	  				@else
-	  					<td class="center">{{ round(array_sum($lsba)/$properties->where("property_id", 88)->first()->value, 2) }}</td>
+	  					<td class="center">{{ round(array_sum($lsba)/count($services), 2) }}</td>
 	  					<td class="center">{{ round($lsba_sd, 2) }}</td>
 	  				@endif
 	  			</tr>
@@ -39,7 +39,7 @@
 	  					<td class="center">No data available</td>
 	  					<td class="center">No data available</td>
 	  				@else
-	  					<td class="center">{{ round(array_sum($totalmales)/$properties->where("property_id", 88)->first()->value, 2) }}</td>
+	  					<td class="center">{{ round(array_sum($totalmales)/count($services), 2) }}</td>
 	  					<td class="center">{{ round($totalmales_sd, 2) }}</td>
 	  				@endif
 	  			</tr>
@@ -49,7 +49,7 @@
 	  					<td class="center">No data available</td>
 	  					<td class="center">No data available</td>
 	  				@else
-	  					<td class="center">{{ round(array_sum($totalfemales)/$properties->where("property_id", 88)->first()->value, 2) }}</td>
+	  					<td class="center">{{ round(array_sum($totalfemales)/count($services), 2) }}</td>
 	  					<td class="center">{{ round($totalfemales_sd, 2) }}</td>
 	  				@endif
 	  			</tr>
@@ -59,7 +59,7 @@
 	  					<td class="center">No data available</td>
 	  					<td class="center">No data available</td>
 	  				@else
-	  					<td class="center">{{ round(array_sum($stillborn)/$properties->where("property_id", 88)->first()->value, 2) }}</td>
+	  					<td class="center">{{ round(array_sum($stillborn)/count($services), 2) }}</td>
 	  					<td class="center">{{ round($stillborn_sd, 2) }}</td>
 	  				@endif
 	  			</tr>
@@ -69,7 +69,7 @@
 	  					<td class="center">No data available</td>
 	  					<td class="center">No data available</td>
 	  				@else
-	  					<td class="center">{{ round(array_sum($mummified)/$properties->where("property_id", 88)->first()->value, 2) }}</td>
+	  					<td class="center">{{ round(array_sum($mummified)/count($services), 2) }}</td>
 	  					<td class="center">{{ round($mummified_sd, 2) }}</td>
 	  				@endif
 	  			</tr>
@@ -79,7 +79,7 @@
 	  					<td class="center">No data available</td>
 	  					<td class="center">No data available</td>
 	  				@else
-	  					<td class="center">{{ round(array_sum($totallitterbirthweights)/$properties->where("property_id", 88)->first()->value, 2) }}</td>
+	  					<td class="center">{{ round(array_sum($totallitterbirthweights)/count($services), 2) }}</td>
 	  					<td class="center">{{ round($totallitterbirthweights_sd, 2) }}</td>
 	  				@endif
 	  			</tr>
@@ -89,7 +89,7 @@
 	  					<td class="center">No data available</td>
 	  					<td class="center">No data available</td>
 	  				@else
-	  					<td class="center">{{ round(array_sum($avelitterbirthweights)/$properties->where("property_id", 88)->first()->value, 2) }}</td>
+	  					<td class="center">{{ round(array_sum($avelitterbirthweights)/count($services), 2) }}</td>
 	  					<td class="center">{{ round($avelitterbirthweights_sd, 2) }}</td>
 	  				@endif
 	  			</tr>
@@ -99,7 +99,7 @@
 	  					<td class="center">No data available</td>
 	  					<td class="center">No data available</td>
 	  				@else
-	  					<td class="center">{{ round(array_sum($totallitterweaningweights)/$properties->where("property_id", 88)->first()->value, 4) }}</td>
+	  					<td class="center">{{ round(array_sum($totallitterweaningweights)/count($services), 4) }}</td>
 	  					<td class="center">{{ round($totallitterweaningweights_sd, 2) }}</td>
 	  				@endif
 	  			</tr>
@@ -109,7 +109,7 @@
 	  					<td class="center">No data available</td>
 	  					<td class="center">No data available</td>
 	  				@else
-	  					<td class="center">{{ round(array_sum($avelitterweaningweights)/$properties->where("property_id", 88)->first()->value, 2) }}</td>
+	  					<td class="center">{{ round(array_sum($avelitterweaningweights)/count($services), 2) }}</td>
 	  					<td class="center">{{ round($avelitterweaningweights_sd, 2) }}</td>
 	  				@endif
 	  			</tr>
@@ -119,7 +119,7 @@
 	  					<td class="center">No data available</td>
 	  					<td class="center">No data available</td>
 	  				@else
-	  					<td class="center">{{ round(array_sum($aveadjweaningweights)/$properties->where("property_id", 88)->first()->value, 2) }}</td>
+	  					<td class="center">{{ round(array_sum($aveadjweaningweights)/count($services), 2) }}</td>
 	  					<td class="center">{{ round($aveadjweaningweights_sd, 2) }}</td>
 	  				@endif
 	  			</tr>
@@ -129,7 +129,7 @@
 	  					<td class="center">No data available</td>
 	  					<td class="center">No data available</td>
 	  				@else
-	  					<td class="center">{{ round(array_sum($totalweaned)/$properties->where("property_id", 88)->first()->value, 2) }}</td>
+	  					<td class="center">{{ round(array_sum($totalweaned)/count($services), 2) }}</td>
 	  					<td class="center">{{ round($totalweaned_sd, 2) }}</td>
 	  				@endif
 	  			</tr>
@@ -139,7 +139,7 @@
 	  					<td class="center">No data available</td>
 	  					<td class="center">No data available</td>
 	  				@else
-	  					<td class="center">{{ round(array_sum($totalagesweaned)/$properties->where("property_id", 88)->first()->value, 2) }}</td>
+	  					<td class="center">{{ round(array_sum($totalagesweaned)/count($services), 2) }}</td>
 	  					<td class="center">{{ round($totalagesweaned_sd, 2) }}</td>
 	  				@endif
 	  			</tr>
@@ -149,12 +149,39 @@
 	  					<td class="center">No data available</td>
 	  					<td class="center">No data available</td>
 	  				@else
-	  					<td class="center">{{ round(array_sum($preweaningmortality)/$properties->where("property_id", 88)->first()->value, 2) }}</td>
+	  					<td class="center">{{ round(array_sum($preweaningmortality)/count($services), 2) }}</td>
 	  					<td class="center">{{ round($preweaningmortality_sd, 2) }}</td>
 	  				@endif
 	  			</tr>
     		</tbody>
 	  	</table>
+	  </div>
+	  <div class="row center">
+	  	<div class="col s12">
+				<h5>Records per Service</h5>
+				@foreach($services as $service)
+						<div class="card-panel">
+							<table class="centered">
+								<thead>
+									<tr>
+										<th>Service</th>
+										<th>Sow Used</th>
+										<th>Date Bred</th>
+										<th>View</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>{{ $count++ }}</td>
+										<td>{{ App\Http\Controllers\FarmController::getGroupingPerService($boar->id, $service, "Sow Used") }}</td>
+										<td>{{ Carbon\Carbon::parse($service)->format('F j, Y') }}</td>
+										<td><a href="{{ URL::route('farm.pig.boar_production_performance_per_service', [App\Http\Controllers\FarmController::getGroupingPerService($boar->id, $service, "Group ID")]) }}"><i class="material-icons">visibility</i></a></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+				@endforeach
+			</div>
 	  </div>
 	</div>
 @endsection
