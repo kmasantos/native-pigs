@@ -23,6 +23,7 @@
 							<th>Birth weight, kg</th>
 							<th>Weaning weight, kg</th>
 							<th>Weight Record</th>
+							<th>ADG</th>
 							<th>Add as Candidate Breeder</th>
 							<th>Add as Breeder</th>
 						</tr>
@@ -50,6 +51,7 @@
                     <a href="{{ URL::route('farm.pig.edit_weight_records_page', [$sow->id]) }}" class="tooltipped" data-position="top" data-tooltip="Edit"><i class="material-icons">edit</i></a>
                   </td>
                 @endif
+                <td><a href="{{ URL::route('farm.pig.view_adg', [$sow->id]) }}" class="tooltipped" data-position="top" data-tooltip="View ADG"><i class="material-icons">insert_chart_outlined</i></a></td>
                 @if(is_null($sow->getAnimalProperties()->where("property_id", 50)->first()))
 	                <td>
 	                	<div class="switch">
@@ -105,6 +107,7 @@
 							<th>Birth weight, kg</th>
 							<th>Weaning weight, kg</th>
 							<th>Weight Record</th>
+							<th>ADG</th>
 							<th>Add as Candidate Breeder</th>
 							<th>Add as Breeder</th>
 						</tr>
@@ -132,14 +135,37 @@
                     <a href="{{ URL::route('farm.pig.edit_weight_records_page', [$boar->id]) }}" class="tooltipped" data-position="top" data-tooltip="Edit"><i class="material-icons">edit</i></a>
                   </td>
                 @endif
-               	<td>
-                	<div class="switch">
-                		<label>
-                			<input type="checkbox" class="boar_make_candidate_breeder" value={{ $boar->registryid }} />
-                			<span class="lever"></span>
-                		</label>
-                	</div>
-                </td>
+                <td><a href="{{ URL::route('farm.pig.view_adg', [$boar->id]) }}" class="tooltipped" data-position="top" data-tooltip="View ADG"><i class="material-icons">insert_chart_outlined</i></a></td>
+               	@if(is_null($boar->getAnimalProperties()->where("property_id", 50)->first()))
+	                <td>
+	                	<div class="switch">
+	                		<label>
+	                			<input type="checkbox" class="boar_make_candidate_breeder" value="{{ $boar->registryid }}" />
+	                			<span class="lever"></span>
+	                		</label>
+	                	</div>
+	                </td>
+	              @else
+	              	@if($boar->getAnimalProperties()->where("property_id", 50)->first()->value == 1)
+	              		<td>
+		                	<div class="switch">
+		                		<label>
+		                			<input checked type="checkbox" class="boar_make_candidate_breeder" value="{{ $boar->registryid }}" />
+		                			<span class="lever"></span>
+		                		</label>
+		                	</div>
+		                </td>
+	              	@elseif($boar->getAnimalProperties()->where("property_id", 50)->first()->value == 0)
+	              		<td>
+		                	<div class="switch">
+		                		<label>
+		                			<input type="checkbox" class="boar_make_candidate_breeder" value="{{ $boar->registryid }}" />
+		                			<span class="lever"></span>
+		                		</label>
+		                	</div>
+		                </td>
+	              	@endif
+	              @endif
 								<td>
 									<p>
 							      <label>

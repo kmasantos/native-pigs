@@ -4965,6 +4965,10 @@ class FarmController extends Controller
 			}
 
 		}
+
+		public function getViewADGPage($id){
+			return view('pigs.adg');
+		}
 		
 		public function changeStatusFromBred($id, Request $request){
 			$group = Grouping::find($id);
