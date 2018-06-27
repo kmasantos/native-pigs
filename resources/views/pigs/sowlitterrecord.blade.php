@@ -1,13 +1,13 @@
 @extends('layouts.swinedefault')
 
 @section('title')
-	Sow-Litter Record
+	Sow and Litter Record
 @endsection
 
 @section('content')
 	<div class="container">
 		{{-- <h4><a href="{{route('farm.pig.breeding_record')}}"><img src="{{asset('images/back.png')}}" width="4.5%"></a> Sow-Litter Record</h4> --}}
-		<h4><a href="{{$_SERVER['HTTP_REFERER']}}"><img src="{{asset('images/back.png')}}" width="4.5%"></a> Sow-Litter Record</h4>
+		<h4><a href="{{$_SERVER['HTTP_REFERER']}}"><img src="{{asset('images/back.png')}}" width="4.5%"></a> Sow and Litter Record</h4>
 		<div class="divider"></div>
 		{!! Form::open(['route' => 'farm.pig.get_sowlitter_record', 'method' => 'post']) !!}
     <div class="row">

@@ -49,9 +49,9 @@
           </ul>
         </div>
         <!-- HERD VIEW -->
-        <div id="herdview" class="col s12">
+        <div id="herdview" class="col s12" style="padding-top: 10px;">
         	<table class="centered">
-        		<thead>
+        		<thead class="green lighten-1">
         			<tr>
           			<th>Property</th>
                 <th>Pigs with data</th>
@@ -187,7 +187,7 @@
       	</div>
       </div>
       <!-- YEAR OF BIRTH VIEW -->
-      <div id="yearofbirthview" class="col s12">
+      <div id="yearofbirthview" class="col s12" style="padding-top: 10px;">
         <div class="row center">
           <p class="green-text text-lighten-1">Ear Length, cm</p>
           <table class="centered">

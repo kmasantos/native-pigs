@@ -27,9 +27,9 @@
               <li class="tab col s6"><a href="#boarrecords">Boars</a></li>
             </ul>
           </div>
-          <div id="sowrecords" class="col s12">
+          <div id="sowrecords" class="col s12" style="padding-top:10px;">
             <table class="centered striped fixed-width">
-              <thead>
+              <thead class="green lighten-1">
                 <tr>
                   <th>Registration ID</th>
                   <th>Gross Morphology</th>
@@ -81,9 +81,9 @@
               </tbody>
             </table>
           </div>
-          <div id="boarrecords" class="col s12">
+          <div id="boarrecords" class="col s12" style="padding-top: 10px;">
             <table class="centered striped">
-              <thead>
+              <thead class="green lighten-1">
                 <tr>
                   <th>Registration ID</th>
                   <th>Gross Morphology</th>

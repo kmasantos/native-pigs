@@ -119,7 +119,7 @@ class Animal extends Model
     if(!is_null($animal->getAnimalProperties()->where("property_id", 25)->first())){
       if($animal->getAnimalProperties()->where("property_id", 25)->first()->value == "" || $animal->getAnimalProperties()->where("property_id", 25)->first()->value == "Not specified"){
         // dd($animal->getAnimalProperties()->where("property_id", 25)->first()->value);
-        $age = "";
+        $age = "Age unavailable";
       }
       else{
         $date_end = Carbon::parse($animal->getAnimalProperties()->where("property_id", 25)->first()->value);
@@ -127,7 +127,7 @@ class Animal extends Model
       }
     }
     else{
-      $age = "";
+      $age = "Age unavailable";
     }
 
     return $age;

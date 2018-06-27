@@ -47,7 +47,7 @@
 									<th>Date Bred</th>
 									<th>Expected Date of Farrowing</th>
 									<th>Status</th>
-									<th>Sow-Litter Record</th>
+									<th>Sow & Litter Record</th>
 								</tr>
 							</thead>
 							<tbody>

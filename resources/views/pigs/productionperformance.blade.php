@@ -66,9 +66,9 @@
 	    </div>
 	    <!-- PER PARITY -->
 	    <div id="perparityview" class="col s12">
-	    	<div class="row" style="padding-top: 10px;">
+	    	<div class="row"">
 	    		<div class="col s12">
-			      <ul class="tabs">
+			      <ul class="tabs smalltabs">
 			        <li class="tab col s2 offset-s4"><a href="#tableview"><i class="material-icons">border_all</i></a></li>
 			        <li class="tab col s2"><a href="#chartview"><i class="material-icons">pie_chart</i></a></li>
 			      </ul>

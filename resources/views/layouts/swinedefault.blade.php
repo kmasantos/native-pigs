@@ -19,7 +19,6 @@
 				<div class="nav-wrapper">
 					<a href="{{route('farm.index')}}" class="brand-logo"><img src="/images/logo-swine.png" height="65" / ></a>
 					<ul id="nav-mobile" class="right hide-on-med-and-down">
-						<li><a href="{{route('farm.index')}}">Home</a></li>
 						<li><a href="{{route('farm.index')}}">{{ Auth::user()->name }}</a></li>
 						<li><a href="logout" id="logoutbutton" onclick="window.location='https://accounts.google.com/Logout?&continue=http://www.google.com/';">Logout</a></li>
 					</ul>
@@ -33,7 +32,7 @@
 					<div class="background green lighten-1"></div>
 					<a href="#!"><img class="circle" src="/images/farmer.png"></a>
 					<a href="#!"><span class="black-text name">{{ Auth::user()->name }}</span></a>
-					<a href="#!"><span class="black-text email">{{ Auth::user()->email   }}</span></a>
+					<a href="#!"><span class="black-text email">{{ Auth::user()->email }}</span></a>
 				</div>
 			</li>
 			<li class="no-padding">

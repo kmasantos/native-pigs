@@ -503,7 +503,7 @@
 	    		</table>
 	    	</div>
 	    	<div class="row center">
-	    		<p>Body weight at 180 days, kg</p>
+	    		<p>Body weight at 150 days, kg</p>
 	    		<table class="centered">
 	    			<thead>
 	    				<tr>

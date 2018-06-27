@@ -15,14 +15,15 @@
           <li class="tab col s6"><a href="#malegrowersview">Male Growers</a></li>
         </ul>
       </div>
-      <div id="femalegrowersview" class="col s12">
+      <div id="femalegrowersview" class="col s12" style="padding-top: 10px;">
 				<table class="centered">
-					<thead>
+					<thead class="green lighten-1">
 						<tr>
 							<th>Registration ID</th>
 							<th>Birth weight, kg</th>
 							<th>Weaning weight, kg</th>
 							<th>Weight Record</th>
+							<th>Add as Candidate Breeder</th>
 							<th>Add as Breeder</th>
 						</tr>
 					</thead>
@@ -49,6 +50,36 @@
                     <a href="{{ URL::route('farm.pig.edit_weight_records_page', [$sow->id]) }}" class="tooltipped" data-position="top" data-tooltip="Edit"><i class="material-icons">edit</i></a>
                   </td>
                 @endif
+                @if(is_null($sow->getAnimalProperties()->where("property_id", 50)->first()))
+	                <td>
+	                	<div class="switch">
+	                		<label>
+	                			<input type="checkbox" class="sow_make_candidate_breeder" value="{{ $sow->registryid }}" />
+	                			<span class="lever"></span>
+	                		</label>
+	                	</div>
+	                </td>
+	              @else
+	              	@if($sow->getAnimalProperties()->where("property_id", 50)->first()->value == 1)
+	              		<td>
+		                	<div class="switch">
+		                		<label>
+		                			<input checked type="checkbox" class="sow_make_candidate_breeder" value="{{ $sow->registryid }}" />
+		                			<span class="lever"></span>
+		                		</label>
+		                	</div>
+		                </td>
+	              	@elseif($sow->getAnimalProperties()->where("property_id", 50)->first()->value == 0)
+	              		<td>
+		                	<div class="switch">
+		                		<label>
+		                			<input type="checkbox" class="sow_make_candidate_breeder" value="{{ $sow->registryid }}" />
+		                			<span class="lever"></span>
+		                		</label>
+		                	</div>
+		                </td>
+	              	@endif
+	              @endif
 								<td>
 									<p>
 							      <label>
@@ -66,14 +97,15 @@
 					</tbody>
 				</table>
 			</div>
-			<div id="malegrowersview" class="col s12">
+			<div id="malegrowersview" class="col s12" style="padding-top: 10px;">
 				<table class="centered">
-					<thead>
+					<thead class="green lighten-1">
 						<tr>
 							<th>Registration ID</th>
 							<th>Birth weight, kg</th>
 							<th>Weaning weight, kg</th>
 							<th>Weight Record</th>
+							<th>Add as Candidate Breeder</th>
 							<th>Add as Breeder</th>
 						</tr>
 					</thead>
@@ -100,6 +132,14 @@
                     <a href="{{ URL::route('farm.pig.edit_weight_records_page', [$boar->id]) }}" class="tooltipped" data-position="top" data-tooltip="Edit"><i class="material-icons">edit</i></a>
                   </td>
                 @endif
+               	<td>
+                	<div class="switch">
+                		<label>
+                			<input type="checkbox" class="boar_make_candidate_breeder" value={{ $boar->registryid }} />
+                			<span class="lever"></span>
+                		</label>
+                	</div>
+                </td>
 								<td>
 									<p>
 							      <label>
@@ -163,6 +203,82 @@
 						}
 					});
 			  }
+		  });
+		  $(".sow_make_candidate_breeder").change(function () {
+		  	if($(this).is(":checked")){
+		  		event.preventDefault();
+		  		var growerid = $(this).val();
+		  		var status = 1;
+		  		$.ajax({
+		  			headers: {
+		  				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		  			},
+		  			url: '../farm/make_candidate_breeder/'+growerid+'/'+status,
+		  			type: 'POST',
+		  			cache: false,
+		  			data: {growerid, status},
+		  			success: function(data)
+		  			{
+		  				Materialize.toast(growerid+' added as candidate breeder!', 4000);
+		  			}
+		  		});
+		  	}
+		  	if(!$(this).is(":checked")){
+		  		event.preventDefault();
+		  		var growerid = $(this).val();
+		  		var status = 0;
+		  		$.ajax({
+		  			headers: {
+		  				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		  			},
+		  			url: '../farm/make_candidate_breeder/'+growerid+'/'+status,
+		  			type: 'POST',
+		  			cache: false,
+		  			data: {growerid, status},
+		  			success: function(data)
+		  			{
+		  				Materialize.toast(growerid+' removed as candidate breeder!', 4000);
+		  			}
+		  		});
+		  	}
+		  });
+		  $(".boar_make_candidate_breeder").change(function () {
+		  	if($(this).is(":checked")){
+		  		event.preventDefault();
+		  		var growerid = $(this).val();
+		  		var status = 1;
+		  		$.ajax({
+		  			headers: {
+		  				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		  			},
+		  			url: '../farm/make_candidate_breeder/'+growerid+'/'+status,
+		  			type: 'POST',
+		  			cache: false,
+		  			data: {growerid, status},
+		  			success: function(data)
+		  			{
+		  				Materialize.toast(growerid+' added as candidate breeder!', 4000);
+		  			}
+		  		});
+		  	}
+		  	if(!$(this).is(":checked")){
+		  		event.preventDefault();
+		  		var growerid = $(this).val();
+		  		var status = 0;
+		  		$.ajax({
+		  			headers: {
+		  				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		  			},
+		  			url: '../farm/make_candidate_breeder/'+growerid+'/'+status,
+		  			type: 'POST',
+		  			cache: false,
+		  			data: {growerid, status},
+		  			success: function(data)
+		  			{
+		  				Materialize.toast(growerid+' removed as candidate breeder!', 4000);
+		  			}
+		  		});
+		  	}
 		  });
 		});
 	</script>

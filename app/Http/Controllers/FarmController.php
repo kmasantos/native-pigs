@@ -4944,6 +4944,27 @@ class FarmController extends Controller
 			$pig->status = "breeder";
 			$pig->save();
 		}
+
+		public function makeCandidateBreederAjax($growerid, $status){
+			$pig = Animal::where("registryid", $growerid)->first();
+
+			$statusprop = $pig->getAnimalProperties()->where("property_id", 50)->first();
+
+			if(is_null($statusprop)){
+				$pigstatus = new AnimalProperty;
+				$pigstatus->animal_id = $pig->id;
+				$pigstatus->property_id = 50;
+				$pigstatus->value = $status;
+				$pigstatus->save();
+
+				return $statusprop;
+			}
+			else{
+				$statusprop->value = $status;
+				$statusprop->save();
+			}
+
+		}
 		
 		public function changeStatusFromBred($id, Request $request){
 			$group = Grouping::find($id);
