@@ -20,7 +20,7 @@
 	<!-- SOW INVENTORY -->
 	<div id="sowinventory" class="col s12">
 		<h5>Inventory for {{ Carbon\Carbon::parse($now)->format('F, Y') }} as of {{ Carbon\Carbon::parse($now)->format('F j, Y') }}</h5>
-		<p>Number of sows in the herd: {{ count($sows) }}</p>
+		<p>Number of sows in the herd: <strong>{{ count($sows) }}</strong></p>
 		<div class="row">
 			<div class="col s12 m10 l6">
 				<div class="card">
@@ -100,7 +100,7 @@
 	<!-- BOAR INVENTORY -->
 	<div id="boarinventory" class="col s12">
 		<h5>Inventory for {{ Carbon\Carbon::parse($now)->format('F, Y') }} as of {{ Carbon\Carbon::parse($now)->format('F j, Y') }}</h5>
-		<p>Number of boars in the herd: {{ count($boars) }}</p>
+		<p>Number of boars in the herd: <strong>{{ count($boars) }}</strong></p>
 		<div class="row">
 			<div class="col s12 m10 l6">
 				<div class="card">

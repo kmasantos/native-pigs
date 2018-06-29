@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-  <h4 class="headline"><a href="{{$_SERVER['HTTP_REFERER']}}"><img src="{{asset('images/back.png')}}" width="3%"></a> Weight Records: {{ $animal->registryid }}</h4>
+  <h4 class="headline"><a href="{{$_SERVER['HTTP_REFERER']}}"><img src="{{asset('images/back.png')}}" width="3%"></a> Weight Records: <strong>{{ $animal->registryid }}</strong></h4>
   <div class="container">
     <div class="row">
       {!! Form::open(['route' => 'farm.pig.fetch_weight_records', 'method' => 'post']) !!}

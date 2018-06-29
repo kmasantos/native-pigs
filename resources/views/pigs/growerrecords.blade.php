@@ -20,10 +20,8 @@
 					<thead class="green lighten-1">
 						<tr>
 							<th>Registration ID</th>
-							<th>Birth weight, kg</th>
-							<th>Weaning weight, kg</th>
 							<th>Weight Record</th>
-							<th>ADG</th>
+							<th>Average Daily Gain</th>
 							<th>Add as Candidate Breeder</th>
 							<th>Add as Breeder</th>
 						</tr>
@@ -32,16 +30,6 @@
 						@forelse($sows as $sow)
 							<tr id="{{ $sow->registryid }}">
 								<td>{{ $sow->registryid }}</td>
-								@if(!is_null($sow->getAnimalProperties()->where("property_id", 53)->first()))
-									<td>{{ $sow->getAnimalProperties()->where("property_id", 53)->first()->value }}</td>
-								@else
-									<td>No data available</td>
-								@endif
-								@if(!is_null($sow->getAnimalProperties()->where("property_id", 54)->first()))
-									<td>{{ $sow->getAnimalProperties()->where("property_id", 54)->first()->value }}</td>
-								@else
-									<td>No data available</td>
-								@endif
 								@if($sow->weightrecord == 0)
                   <td>
                     <a href="{{ URL::route('farm.pig.weight_records_page', [$sow->id]) }}" class="tooltipped" data-position="top" data-tooltip="Add"><i class="material-icons">add_circle_outline</i></a>
@@ -104,10 +92,8 @@
 					<thead class="green lighten-1">
 						<tr>
 							<th>Registration ID</th>
-							<th>Birth weight, kg</th>
-							<th>Weaning weight, kg</th>
 							<th>Weight Record</th>
-							<th>ADG</th>
+							<th>Average Daily Gain</th>
 							<th>Add as Candidate Breeder</th>
 							<th>Add as Breeder</th>
 						</tr>
@@ -116,16 +102,6 @@
 						@forelse($boars as $boar)
 							<tr id="{{ $boar->registryid }}">
 								<td>{{ $boar->registryid }}</td>
-								@if(!is_null($boar->getAnimalProperties()->where("property_id", 53)->first()))
-									<td>{{ $boar->getAnimalProperties()->where("property_id", 53)->first()->value }}</td>
-								@else
-									<td>No data available</td>
-								@endif
-								@if(!is_null($boar->getAnimalProperties()->where("property_id", 54)->first()))
-									<td>{{ $boar->getAnimalProperties()->where("property_id", 54)->first()->value }}</td>
-								@else
-									<td>No data available</td>
-								@endif
 								@if($boar->weightrecord == 0)
                   <td>
                     <a href="{{ URL::route('farm.pig.weight_records_page', [$boar->id]) }}" class="tooltipped" data-position="top" data-tooltip="Add"><i class="material-icons">add_circle_outline</i></a>

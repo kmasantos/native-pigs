@@ -15,15 +15,15 @@
           </div>
           <div class="col s8">
             <div class="white black-text">
-              <h5>{{ $sow->registryid }}</h5>
+              <h5><strong>{{ $sow->registryid }}</strong></h5>
             </div>
             <div style="margin-top:10px;">
               <div class="col s12 card-panel white black-text">
                 <div class="col s6">
                   @if(is_null($properties->where("property_id", 25)->first()))
-                    <p><strong>Birthday:</strong> No data available</p>
+                    <p><strong>Birth date:</strong> No data available</p>
                   @else
-                    <p><strong>Birthday:</strong> {{ Carbon\Carbon::parse($properties->where("property_id", 25)->first()->value)->format('j F, Y') }}</p>
+                    <p><strong>Birth date:</strong> {{ Carbon\Carbon::parse($properties->where("property_id", 25)->first()->value)->format('j F, Y') }}</p>
                   @endif
                   @if(is_null($properties->where("property_id", 53)->first()))
                     <p><strong>Birth weight:</strong> No data available</p>

@@ -10,7 +10,7 @@
 		<div class="divider"></div>
 		<div class="row center" style="padding-top: 10px;">
 			<div class="col s12">
-				<p class="center">Total number of breeders in the herd: {{ count($breeders) }}</p>
+				<p class="center">Total number of breeders in the herd: <storng>{{ count($breeders) }}</storng></p>
 
 				<ul class="tabs tabs-fixed-width green lighten-1">
 					<li class="tab"><a href="#weaningageview">Age at Weaning</a></li>

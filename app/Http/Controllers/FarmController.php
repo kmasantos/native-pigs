@@ -4967,7 +4967,24 @@ class FarmController extends Controller
 		}
 
 		public function getViewADGPage($id){
-			return view('pigs.adg');
+			$pig = Animal::find($id);
+			$properties = $pig->getAnimalProperties();
+
+			/*
+			adg = (final weight - initial weight)/number of days
+				where
+					final weight = latest weight record
+					initial weight = birth weight (birth)
+												 = weaning weight (weaning)
+					number of days = number of days of latest weight record (birth)
+												 = number of days of latest weight record - weaning age (weaning)
+			*/
+			$birth_weight_prop = $properties->where("property_id", 53)->first();
+			$weaning_weight_prop = $properties->where("property_id", 54)->first();
+
+			
+
+			return view('pigs.adg', compact('pig', 'properties'));
 		}
 		
 		public function changeStatusFromBred($id, Request $request){

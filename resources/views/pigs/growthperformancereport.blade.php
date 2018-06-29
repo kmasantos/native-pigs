@@ -20,7 +20,7 @@
 	    </div>
 	    {{-- PER HERD --}}
 	    <div id="perherdview" class="col s12">
-	    	<h5 class="center">Total number of pigs: {{ count($pigs) }} <a href="#!" class="tooltipped" data-position="bottom" data-tooltip="All pigs including dead, sold, culled, and donated"><i class="material-icons">info_outline</i></a></h5>
+	    	<h5 class="center">Total number of pigs: <strong>{{ count($pigs) }}</strong> <a href="#!" class="tooltipped" data-position="bottom" data-tooltip="All pigs including dead, sold, culled, and donated"><i class="material-icons">info_outline</i></a></h5>
 	    	<table class="centered">
 	    		<thead>
 	    			<tr>
@@ -122,7 +122,7 @@
 	    </div>
 	    {{-- BREEDERS --}}
 	    <div id="breedersview" class="col s12">
-	    	<h5 class="center">Total number of breeders: {{ count($breeders) }}</h5>
+	    	<h5 class="center">Total number of breeders: <strong>{{ count($breeders) }}</strong></h5>
 	    	<table class="centered">
 	    		<thead>
 	    			<tr>
@@ -224,7 +224,7 @@
 	    </div>
 	    {{-- GROWERS --}}
 	    <div id="growersview" class="col s12">
-	    	<h5 class="center">Total number of growers: {{ count($growers) }}</h5>
+	    	<h5 class="center">Total number of growers: <strong>{{ count($growers) }}</strong></h5>
 	    	<table class="centered">
 	    		<thead>
 	    			<tr>
@@ -326,7 +326,7 @@
 	    </div>
 	    {{-- PER YEAR OF BIRTH --}}
 	    <div id="peryearofbirthview" class="col s12">
-	   		<h5 class="center">Total number of pigs: {{ count($pigs) }} <a href="#!" class="tooltipped" data-position="bottom" data-tooltip="All pigs including dead, sold, culled, and donated"><i class="material-icons">info_outline</i></a></h5>
+	   		<h5 class="center">Total number of pigs: <strong>{{ count($pigs) }}</strong> <a href="#!" class="tooltipped" data-position="bottom" data-tooltip="All pigs including dead, sold, culled, and donated"><i class="material-icons">info_outline</i></a></h5>
 	    	<div class="row center">
 	    		<p>Birth Weight, kg</p>
 	    		<table class="centered">

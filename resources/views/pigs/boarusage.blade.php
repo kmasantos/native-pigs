@@ -6,7 +6,7 @@
 
 @section('content')
 	<div class="container">
-		<h5><a href="{{route('farm.pig.breeder_inventory_report')}}"><img src="{{asset('images/back.png')}}" width="3%"></a> Boar Usage: {{ $boar->registryid }}</h5>
+		<h5><a href="{{route('farm.pig.breeder_inventory_report')}}"><img src="{{asset('images/back.png')}}" width="3%"></a> Boar Usage: <strong>{{ $boar->registryid }}</strong></h5>
 		<div class="divider"></div>
 		<div class="row center" style="padding-top: 10px;">
 			<div class="col s6">

@@ -6,7 +6,7 @@
 
 @section('content')
 	<div class="container">
-		<h5><a href="{{$_SERVER['HTTP_REFERER']}}"><img src="{{asset('images/back.png')}}" width="2.5%"></a> Boar Production Performance Per Service - {{ $group->getFather()->registryid }}</h5>
+		<h5><a href="{{$_SERVER['HTTP_REFERER']}}"><img src="{{asset('images/back.png')}}" width="2.5%"></a> Boar Production Performance Per Service - <strong>{{ $group->getFather()->registryid }}</strong></h5>
 		<div class="divider"></div>
 		<div class="row center" style="padding-top: 10px;">
 			<div class="col s12">

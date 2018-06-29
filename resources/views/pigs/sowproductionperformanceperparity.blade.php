@@ -6,7 +6,7 @@
 
 @section('content')
 	<div class="container">
-		<h5><a href="{{$_SERVER['HTTP_REFERER']}}"><img src="{{asset('images/back.png')}}" width="2.5%"></a> Sow Production Performance Per Parity - {{ $group->getMother()->registryid }}</h5>
+		<h5><a href="{{$_SERVER['HTTP_REFERER']}}"><img src="{{asset('images/back.png')}}" width="2.5%"></a> Sow Production Performance Per Parity - <strong>{{ $group->getMother()->registryid }}</strong></h5>
 		<div class="divider"></div>
 		<div class="row center" style="padding-top: 10px;">
 			<div class="col s12">

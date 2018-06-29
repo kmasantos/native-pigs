@@ -9,7 +9,7 @@
 		<h4>Mortality &amp; Sales Report</h4>
 		<div class="divider"></div>
 		<div class="row center" style="padding-top: 10px;">
-      <h5>Inventory for {{ Carbon\Carbon::parse($now)->format('F, Y') }} as of {{ Carbon\Carbon::parse($now)->format('F j, Y') }}</h5>
+      <h5>Inventory for <strong>{{ Carbon\Carbon::parse($now)->format('F, Y') }}</strong> as of <strong>{{ Carbon\Carbon::parse($now)->format('F j, Y') }}</strong></h5>
 			<div class="col s12 m10 l8">
         <div class="card">
           <div class="card-content grey lighten-2">

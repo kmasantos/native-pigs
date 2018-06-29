@@ -16,10 +16,10 @@
 				<div class="row center">
 					<div class="col s12">
 						<div class="col s6 center">
-							<h5>Sow used: {{ $family->getMother()->registryid }}</h5>
+							<h5>Sow used: <strong>{{ $family->getMother()->registryid }}</strong></h5>
 						</div>
 						<div class="col s6 center">
-							<h5>Boar used: {{ $family->getFather()->registryid }}</h5>
+							<h5>Boar used: <strong>{{ $family->getFather()->registryid }}</strong></h5>
 						</div>
 					</div>
 				</div>
