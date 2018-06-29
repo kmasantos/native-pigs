@@ -23,8 +23,8 @@
         <div class="row">
           <div class="col s12">
             <ul class="tabs tabs-fixed-width green lighten-1">
-              <li class="tab col s6"><a href="#sowrecords">Sows</a></li>
-              <li class="tab col s6"><a href="#boarrecords">Boars</a></li>
+              <li class="tab"><a href="#sowrecords">Sows</a></li>
+              <li class="tab"><a href="#boarrecords">Boars</a></li>
             </ul>
           </div>
           <div id="sowrecords" class="col s12" style="padding-top:10px;">

@@ -11,8 +11,8 @@
 		<div class="row" style="padding-top: 10px;">
 			<div class="col s12">
         <ul class="tabs tabs-fixed-width green lighten-1">
-          <li class="tab col s6"><a href="#femalegrowersview">Female Growers</a></li>
-          <li class="tab col s6"><a href="#malegrowersview">Male Growers</a></li>
+          <li class="tab"><a href="#femalegrowersview">Female Growers</a></li>
+          <li class="tab"><a href="#malegrowersview">Male Growers</a></li>
         </ul>
       </div>
       <div id="femalegrowersview" class="col s12" style="padding-top: 10px;">
