@@ -12,7 +12,11 @@
 			<div class="col s12 m10 l6">
 				<div class="card">
 					<div class="card-content grey lighten-2">
-						<h3>#</h3>
+						@if($adg_birth != "")
+							<h3>{{ round($adg_birth, 2) }} kg</h3>
+						@else
+							<h4>No data available</h4>
+						@endif
 						<p>From Birth</p>
 					</div>
 					<div class="card-action">
@@ -40,7 +44,19 @@
 			<div class="col s12 m10 l6">
 				<div class="card">
 					<div class="card-content grey lighten-2">
-						<h3>#</h3>
+						@if($adg_weaning != "")
+							@if($adg_weaning == 0)
+								<h3>0 kg</h3>
+							@else
+								<h3>{{ round($adg_weaning, 2) }} kg</h3>
+							@endif
+						@else
+							@if(!is_null($properties->where("property_id", 54)->first()))
+								<h3>0 kg</h3>
+							@else
+								<h4>No data available</h4>
+							@endif
+						@endif
 						<p>From Weaning</p>
 					</div>
 					<div class="card-action">

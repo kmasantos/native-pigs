@@ -46,7 +46,7 @@ class FarmController extends Controller
 			if($animaltype->species == "pig"){
 					$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "active")->get();
 					$breeders = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "breeder")->get();
-					$now = Carbon::now('Asia/Tokyo');
+					$now = Carbon::now();
 
 					// sorts growers per sex
 					$femalegrowers = [];
@@ -273,7 +273,7 @@ class FarmController extends Controller
 				$number_weaned->grouping_id = $family->id;
 				$number_weaned->property_id = 78;
 				$number_weaned->value = $weaned;
-				$number_weaned->datecollected = new Carbon('Asia/Tokyo');
+				$number_weaned->datecollected = new Carbon();
 				$number_weaned->save();
 			}
 			else{
@@ -340,7 +340,7 @@ class FarmController extends Controller
 
 
 			// TO FOLLOW: this will be used for filtering results
-			$now = Carbon::now('Asia/Tokyo');
+			$now = Carbon::now();
 			$current_year = $now->year;
 			$range = range($current_year-10, $current_year+10);
 			$years = array_combine($range, $range);
@@ -372,7 +372,7 @@ class FarmController extends Controller
 			}
 
 			// TO FOLLOW: this will be used for filtering results
-			$now = Carbon::now('Asia/Tokyo');
+			$now = Carbon::now();
 			$current_year = $now->year;
 			$range = range($current_year-10, $current_year+10);
 			$years = array_combine($range, $range);
@@ -1769,7 +1769,7 @@ class FarmController extends Controller
 			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->get();
 			$breeders = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "breeder")->get();
 			$growers = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "active")->get();
-			$now = Carbon::now('Asia/Tokyo');
+			$now = Carbon::now();
 
 			//year of birth
 			$years = [];
@@ -2316,7 +2316,7 @@ class FarmController extends Controller
 								if($bredbreederproperty->property_id == 25){ // date farrowed
 									if(!is_null($bredbreederproperty->value) && $bredbreederproperty->value != "Not specified"){
 										$bday_breeder = $bredbreederproperty->value;
-										$now = new Carbon('Asia/Tokyo');
+										$now = new Carbon();
 										$breederage = $now->diffInMonths(Carbon::parse($bday_breeder));
 										array_push($breederages, $breederage);
 									}
@@ -2341,7 +2341,7 @@ class FarmController extends Controller
 								if($bredsowproperty->property_id == 25){ // date farrowed
 									if(!is_null($bredsowproperty->value) && $bredsowproperty->value != "Not specified"){
 										$bday_sow = $bredsowproperty->value;
-										$now = new Carbon('Asia/Tokyo');
+										$now = new Carbon();
 										$breedersowage = $now->diffInMonths(Carbon::parse($bday_sow));
 										array_push($breedersowages, $breedersowage);
 									}
@@ -2366,7 +2366,7 @@ class FarmController extends Controller
 								if($bredboarproperty->property_id == 25){ // date farrowed
 									if(!is_null($bredboarproperty->value) && $bredboarproperty->value != "Not specified"){
 										$bday_boar = $bredboarproperty->value;
-										$now = new Carbon('Asia/Tokyo');
+										$now = new Carbon();
 										$breederboarage = $now->diffInMonths(Carbon::parse($bday_boar));
 										array_push($breederboarages, $breederboarage);
 									}
@@ -3867,7 +3867,7 @@ class FarmController extends Controller
 			$farm = $this->user->getFarm();
 			$breed = $farm->getBreed();
 			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "breeder")->get();
-			$now = Carbon::now('Asia/Tokyo');
+			$now = Carbon::now();
 
 			// sorts pigs by sex
 			$sows = [];
@@ -4045,7 +4045,7 @@ class FarmController extends Controller
 			$index = 0;
 
 			// default filter is the current year
-			$now = Carbon::now('Asia/Tokyo');
+			$now = Carbon::now();
 			$current_year = $now->year;
 			$range = range($current_year-10, $current_year+10);
 			$years = array_combine($range, $range);
@@ -4185,7 +4185,7 @@ class FarmController extends Controller
 
 			$index = 0;
 
-			$now = Carbon::now('Asia/Tokyo');
+			$now = Carbon::now();
 
 			$current_year = $now->year;
 			$range = range($current_year-10, $current_year+10);
@@ -4310,7 +4310,7 @@ class FarmController extends Controller
 			$farm = $this->user->getFarm();
 			$breed = $farm->getBreed();
 			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->get();
-			$now = Carbon::now('Asia/Tokyo');
+			$now = Carbon::now();
 
 			// sorts pigs by status
 			$dead_growers = [];
@@ -4703,7 +4703,7 @@ class FarmController extends Controller
 			$ponderalprop = $properties->where("property_id", 43)->first();
 
 			// computes current age
-			$now = Carbon::now('Asia/Tokyo');
+			$now = Carbon::now();
 			if(!is_null($properties->where("property_id", 25)->first())){
 				$end_date = Carbon::parse($properties->where("property_id", 25)->first()->value);
 				$age = $now->diffInMonths($end_date);
@@ -4803,7 +4803,7 @@ class FarmController extends Controller
 			$ponderalprop = $properties->where("property_id", 43)->first();
 
 			// computes current age
-			$now = Carbon::now('Asia/Tokyo');
+			$now = Carbon::now();
 			if(!is_null($properties->where("property_id", 25)->first())){
 				$end_date = Carbon::parse($properties->where("property_id", 25)->first()->value);
 				$age = $now->diffInMonths($end_date);
@@ -4978,13 +4978,116 @@ class FarmController extends Controller
 												 = weaning weight (weaning)
 					number of days = number of days of latest weight record (birth)
 												 = number of days of latest weight record - weaning age (weaning)
+
+			property id
+				45d - 45
+				60d - 46
+				90d - 69
+				150d - 90
+				180d - 47
 			*/
 			$birth_weight_prop = $properties->where("property_id", 53)->first();
 			$weaning_weight_prop = $properties->where("property_id", 54)->first();
-
+			$weight_45d_prop = $properties->where("property_id", 45)->first();
+			$weight_60d_prop = $properties->where("property_id", 46)->first();
+			$weight_90d_prop = $properties->where("property_id", 69)->first();
+			$weight_150d_prop = $properties->where("property_id", 90)->first();
+			$weight_180d_prop = $properties->where("property_id", 47)->first();
 			
+			$latest_weight = 0;
+			$number_of_days = 0;
+			if(!is_null($weight_180d_prop)){
+				if($weight_180d_prop->value != ""){
+					$latest_weight = $weight_180d_prop->value;
+					$number_of_days = 180;
+				}
+			}
+			else{
+				if(!is_null($weight_150d_prop)){
+					if($weight_150d_prop->value != ""){
+						$latest_weight = $weight_150d_prop->value;
+						$number_of_days = 150;
+					}
+				}
+				else{
+					if(!is_null($weight_90d_prop)){
+						if($weight_90d_prop->value != ""){
+							$latest_weight = $weight_90d_prop->value;
+							$number_of_days = 90;
+						}
+					}
+					else{
+						if(!is_null($weight_60d_prop)){
+							if($weight_60d_prop->value != ""){
+								$latest_weight = $weight_60d_prop->value;
+								$number_of_days = 60;
+							}
+						}
+						else{
+							if(!is_null($weight_45d_prop)){
+								if($weight_45d_prop->value != ""){
+									$latest_weight = $weight_45d_prop->value;
+									$number_of_days = 45;
+								}
+							}
+							else{
+								$latest_weight = "";
+								$number_of_days = "";
+							}
+						}
+					}
+				}
+			}
 
-			return view('pigs.adg', compact('pig', 'properties'));
+			$adg_birth = 0;
+			if($latest_weight != "" && $number_of_days != ""){
+				if(!is_null($birth_weight_prop) && $birth_weight_prop->value != ""){
+					$adg_birth = ($latest_weight-$birth_weight_prop->value)/$number_of_days;
+				}
+				else{
+					$adg_birth = "";
+				}
+			}
+			else{
+				if(!is_null($weaning_weight_prop) && $weaning_weight_prop->value != ""){
+					$date_weaned = Carbon::parse($properties->where("property_id", 61)->first()->value);
+					$bday = Carbon::parse($properties->where("property_id", 25)->first()->value);
+					$number_of_days_now = $date_weaned->diffInDays($bday);
+					$latest_weight_now = $weaning_weight_prop->value;
+					$adg_birth = ($latest_weight_now-$birth_weight_prop->value)/$number_of_days_now;
+				}
+				else{
+					$adg_birth = "";
+				}
+			}
+			
+			$adg_weaning = 0;
+			if($latest_weight != "" && $number_of_days != ""){
+				if(!is_null($weaning_weight_prop) && $weaning_weight_prop->value != ""){
+					$date_weaned = Carbon::parse($properties->where("property_id", 61)->first()->value);
+					$bday = Carbon::parse($properties->where("property_id", 25)->first()->value);
+					$age_weaned = $date_weaned->diffInDays($bday);
+					if($number_of_days != $age_weaned){
+						$adg_weaning = ($latest_weight-$weaning_weight_prop->value)/($number_of_days-$age_weaned);
+					}
+					else{
+						$adg_weaning = 0;
+					}
+				}
+				else{
+					$adg_weaning = "";
+				}
+			}
+			else{
+				if(!is_null($weaning_weight_prop) && $weaning_weight_prop->value != ""){
+					$adg_weaning = 0;
+				}
+				else{
+					$adg_weaning = "";
+				}
+			}
+
+			return view('pigs.adg', compact('pig', 'properties', 'adg_birth', 'adg_weaning'));
 		}
 		
 		public function changeStatusFromBred($id, Request $request){
@@ -5016,7 +5119,7 @@ class FarmController extends Controller
 				$date_aborted->grouping_id = $group->id;
 				$date_aborted->property_id = 89;
 				$date_aborted->value = $request->date_aborted;
-				$date_aborted->datecollected = new Carbon('Asia/Tokyo');
+				$date_aborted->datecollected = new Carbon();
 				$date_aborted->save();
 			}
 			else{
@@ -5046,7 +5149,7 @@ class FarmController extends Controller
 			$date_bred->grouping_id = $pair->id;
 			$date_bred->property_id = 48;
 			$date_bred->value = $dateBredValue;
-			$date_bred->datecollected = new Carbon('Asia/Tokyo');
+			$date_bred->datecollected = new Carbon();
 			$date_bred->save();
 
 			$edfValue = Carbon::parse($dateBredValue)->addDays(114);
@@ -5055,14 +5158,14 @@ class FarmController extends Controller
 			$edf->grouping_id = $pair->id;
 			$edf->property_id = 49;
 			$edf->value = $edfValue;
-			$edf->datecollected = new Carbon('Asia/Tokyo');
+			$edf->datecollected = new Carbon();
 			$edf->save();
 
 			$status = new GroupingProperty;
 			$status->grouping_id = $pair->id;
 			$status->property_id = 50;
 			$status->value = "Bred";
-			$status->datecollected = new Carbon('Asia/Tokyo');
+			$status->datecollected = new Carbon();
 			$status->save();
 
 			return Redirect::back()->with('message','Operation Successful!');
@@ -5118,7 +5221,7 @@ class FarmController extends Controller
 				$date_farrowed->grouping_id = $grouping->id;
 				$date_farrowed->property_id = 25;
 				$date_farrowed->value = $request->date_farrowed;
-				$date_farrowed->datecollected = new Carbon('Asia/Tokyo');
+				$date_farrowed->datecollected = new Carbon();
 				$date_farrowed->save();
 			}
 			else{
@@ -5143,7 +5246,7 @@ class FarmController extends Controller
 			//   $date_weaned->grouping_id = $grouping->id;
 			//   $date_weaned->property_id = 61;
 			//   $date_weaned->value = $dateWeanedValue;
-			//   $date_weaned->datecollected = new Carbon('Asia/Tokyo');
+			//   $date_weaned->datecollected = new Carbon();
 			//   $date_weaned->save();
 			// }
 
@@ -5160,7 +5263,7 @@ class FarmController extends Controller
 				$no_stillborn->grouping_id = $grouping->id;
 				$no_stillborn->property_id = 74;
 				$no_stillborn->value = $noStillbornValue;
-				$no_stillborn->datecollected = new Carbon('Asia/Tokyo');
+				$no_stillborn->datecollected = new Carbon();
 				$no_stillborn->save();
 			}
 			else{
@@ -5182,7 +5285,7 @@ class FarmController extends Controller
 				$no_mummified->grouping_id = $grouping->id;
 				$no_mummified->property_id = 75;
 				$no_mummified->value = $noMummifiedValue;
-				$no_mummified->datecollected = new Carbon('Asia/Tokyo');
+				$no_mummified->datecollected = new Carbon();
 				$no_mummified->save();
 			}
 			else{
@@ -5207,7 +5310,7 @@ class FarmController extends Controller
 						$parity->grouping_id = $grouping->id;
 						$parity->property_id = 76;
 						$parity->value = $parityValue;
-						$parity->datecollected = new Carbon('Asia/Tokyo');
+						$parity->datecollected = new Carbon();
 						$parity->save();
 					}
 					else{ // LATEST PARITY
@@ -5222,7 +5325,7 @@ class FarmController extends Controller
 						$parity->grouping_id = $grouping->id;
 						$parity->property_id = 76;
 						$parity->value = $parityValue;
-						$parity->datecollected = new Carbon('Asia/Tokyo');
+						$parity->datecollected = new Carbon();
 						$parity->save();
 					}
 				}
@@ -5242,7 +5345,7 @@ class FarmController extends Controller
 						$parity->grouping_id = $grouping->id;
 						$parity->property_id = 76;
 						$parity->value = $parityValue;
-						$parity->datecollected = new Carbon('Asia/Tokyo');
+						$parity->datecollected = new Carbon();
 						$parity->save();
 					}
 					else{ // LATEST PARITY
@@ -5256,7 +5359,7 @@ class FarmController extends Controller
 						$parity->grouping_id = $grouping->id;
 						$parity->property_id = 76;
 						$parity->value = $parityValue;
-						$parity->datecollected = new Carbon('Asia/Tokyo');
+						$parity->datecollected = new Carbon();
 						$parity->save();
 					}
 				}
@@ -5285,7 +5388,7 @@ class FarmController extends Controller
 				$date_weaned_group->grouping_id = $grouping->id;
 				$date_weaned_group->property_id = 61;
 				$date_weaned_group->value = Carbon::parse($grouping->getGroupingProperties()->where("property_id", 25)->first()->value)->addDays(45);
-				$date_weaned_group->datecollected = new Carbon('Asia/Tokyo');
+				$date_weaned_group->datecollected = new Carbon();
 				$date_weaned_group->save();
 
 				$date_weaned_individual = new AnimalProperty;
@@ -5452,7 +5555,7 @@ class FarmController extends Controller
 						$farrowed->grouping_id = $grouping->id;
 						$farrowed->property_id = 25;
 						$farrowed->value = $request->date_farrowed;
-						$farrowed->datecollected = new Carbon('Asia/Tokyo');
+						$farrowed->datecollected = new Carbon();
 						$farrowed->save();
 
 						$dateFarrowedValue = new Carbon($request->date_farrowed);
@@ -5461,28 +5564,28 @@ class FarmController extends Controller
 						$date_bred->grouping_id = $grouping->id;
 						$date_bred->property_id = 48;
 						$date_bred->value = $dateFarrowedValue->subDays(114);
-						$date_bred->datecollected = new Carbon('Asia/Tokyo');
+						$date_bred->datecollected = new Carbon();
 						$date_bred->save();
 
 						$edf = new GroupingProperty;
 						$edf->grouping_id = $grouping->id;
 						$edf->property_id = 49;
 						$edf->value = $request->date_farrowed;
-						$edf->datecollected = new Carbon('Asia/Tokyo');
+						$edf->datecollected = new Carbon();
 						$edf->save();
 
 						$recycled = new GroupingProperty;
 						$recycled->grouping_id = $grouping->id;
 						$recycled->property_id = 51;
 						$recycled->value = 0;
-						$recycled->datecollected = new Carbon('Asia/Tokyo');
+						$recycled->datecollected = new Carbon();
 						$recycled->save();
 
 						$status = new GroupingProperty;
 						$status->grouping_id = $grouping->id;
 						$status->property_id = 50;
 						$status->value = "Farrowed";
-						$status->datecollected = new Carbon('Asia/Tokyo');
+						$status->datecollected = new Carbon();
 						$status->save();
 
 						$date_weaned = new AnimalProperty;
@@ -5514,7 +5617,7 @@ class FarmController extends Controller
 			$othermarks = new AnimalProperty;
 
 			if(is_null($request->date_collected_gross)){
-				$dateCollectedGrossValue = new Carbon('Asia/Tokyo');
+				$dateCollectedGrossValue = new Carbon();
 			}
 			else{
 				$dateCollectedGrossValue = $request->date_collected_gross;
@@ -6331,7 +6434,7 @@ class FarmController extends Controller
 			}
 
 			if(is_null($request->date_died)){
-				$dateDiedValue = new Carbon('Asia/Tokyo');
+				$dateDiedValue = new Carbon();
 			}
 			else{
 				$dateDiedValue = $request->date_died;
@@ -6374,7 +6477,7 @@ class FarmController extends Controller
 			}
 				
 			if(is_null($request->date_sold)){
-				$dateSoldValue = new Carbon('Asia/Tokyo');
+				$dateSoldValue = new Carbon();
 			}
 			else{
 				$dateSoldValue = $request->date_sold;
@@ -6417,7 +6520,7 @@ class FarmController extends Controller
 			}
 
 			if(is_null($request->date_removed)){
-				$dateRemovedValue = new Carbon('Asia/Tokyo');
+				$dateRemovedValue = new Carbon();
 			}
 			else{
 				$dateRemovedValue = $request->date_removed;

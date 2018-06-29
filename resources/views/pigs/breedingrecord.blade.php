@@ -198,10 +198,10 @@
 											{{-- aborted --}}
 											@elseif($breedingRecord->getGroupingProperties()->where("property_id", 50)->first()->value == "Aborted")
 												@if(is_null($breedingRecord->getGroupingProperties()->where("property_id", 89)->first()))
-													{!! Form::open(['route' => 'farm.pig.change_status_bred', 'method' => 'post']) !!}
-													<td class="input-field" width="120">
-														<input id="date_aborted" type="text" placeholder="Date Aborted" name="date_aborted" class="datepicker">
-													</td>
+													{!! Form::open(['route' => 'farm.pig.add_date_aborted', 'method' => 'post', 'id' => 'add_dateaborted']) !!}
+														<td class="input-field" width="120">
+															<input id="date_aborted" type="text" placeholder="Date Aborted" name="date_aborted" class="datepicker" onchange="document.getElementById('add_dateaborted').submit();">
+														</td>
 													{!! Form::close() !!}
 												@else
 													<td width="120">
