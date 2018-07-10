@@ -84,7 +84,7 @@
 											<p>Date Weaned</p>
 										</div>
 										<div class="col s6">
-											<input id="date_weaned" type="text" name="date_weaned" placeholder="Pick date" class="datepicker">
+											
 										</div>
 									@else
 										<div class="col s6">
@@ -100,7 +100,7 @@
 										<p>Date Weaned</p>
 									</div>
 									<div class="col s6">
-										<input disabled id="date_weaned" type="text" name="date_weaned" placeholder="Pick date" class="datepicker">
+										
 									</div>
 								@endif
 							</div>
@@ -274,7 +274,42 @@
 							@endif
 						@endif
 					</div>
-					<div class="col s12">
+					<div class="col s12 center">
+						@if(is_null($family->getGroupingProperties()->where("property_id", 94)->first()))
+							<div class="switch">
+								<label>
+									Group Weighing
+									<input id="weighing_options" checked type="checkbox">
+									<span class="lever"></span>
+									Individual Weighing
+								</label>
+							</div>
+						@else
+							@if($family->getGroupingProperties()->where("property_id", 94)->first()->value == 0)
+								<div class="switch">
+									<label>
+										Group Weighing
+										<input id="weighing_options" type="checkbox">
+										<span class="lever"></span>
+										Individual Weighing
+									</label>
+								</div>
+							@elseif($family->getGroupingProperties()->where("property_id", 94)->first()->value == 1)
+								<div class="switch">
+									<label>
+										Group Weighing
+										<input id="weighing_options" checked type="checkbox">
+										<span class="lever"></span>
+										Individual Weighing
+									</label>
+								</div>
+							@endif
+						@endif
+					</div>
+					@if(is_null($family->getGroupingProperties()->where("property_id", 94)->first()))
+						{{-- INDIVIDUAL WEIGHING IS DISPLAYED, DEFAULT --}}
+						<div id="individual_weighing1" class="col s12" style="display: block;">
+						<h5 class=center">Individual Weighing</h5>
 						<h5 class="green lighten-1">Add offspring</h5>
 						{{-- <input type="hidden" name="sow_registryid" value="{{ $sow->registryid }}"> --}}
 						@if(!is_null($family->getGroupingProperties()->where("property_id", 25)->first()))
@@ -312,77 +347,359 @@
 						@endif
 					</div>
 				</div>
-				<div class="row center">
+				<div id="individual_weighing2" class="row center" style="display: block;">
 					<button class="btn waves-effect waves-light green darken-3" type="submit" onclick="Materialize.toast('Successfully added!', 4000)">Add
             <i class="material-icons right">add</i>
           </button>
 				</div>
-				{!! Form::close() !!}
-				<div class="row">
-					<div class="col s12">
-						<table class="centered striped">
-							<thead>
-								<tr class="green lighten-1">
-									<th>Offspring ID</th>
-									<th>Sex</th>
-									<th>Birth weight, kg</th>
-									<th>Weaning weight, kg</th>
-								</tr>
-							</thead>
-							<tbody>
-								@forelse($offsprings as $offspring)
-									<tr>
-										<td>{{ $offspring->getChild()->registryid }}</td>
-										<td>{{ $offspring->getAnimalProperties()->where("property_id", 27)->first()->value }}</td>
-										<td>{{ $offspring->getAnimalProperties()->where("property_id", 53)->first()->value }}</td>
-										{!! Form::open(['route' => 'farm.pig.get_weaning_weights', 'method' => 'post']) !!}
-										@if(is_null($family->getGroupingProperties()->where("property_id", 61)->first()))
-											@if(is_null($offspring->getAnimalProperties()->where("property_id", 54)->first()))
-												<td>
-													<div class="col s6">
-														<input type="hidden" name="offspring_id" value="{{ $offspring->getChild()->registryid }}">
-														<input type="hidden" name="family_id" value="{{ $family->id }}">
-														<input id="weaning_weight" type="text" name="weaning_weight">
-													</div>
-													<div class="col s6">
-														<button class="btn-floating waves-effect waves-light green darken-3" type="submit" onclick="Materialize.toast('Weaning weight added!', 4000)">
-									            <i class="material-icons right">add</i>
-									          </button>
-													</div>
-												</td>
-											@else
-												<td>{{ $offspring->getAnimalProperties()->where("property_id", 54)->first()->value }}</td>
-											@endif
-										@else
-											@if(is_null($offspring->getAnimalProperties()->where("property_id", 54)->first()))
-												<td>
-													<div class="col s6">
-														<input type="hidden" name="offspring_id" value="{{ $offspring->getChild()->registryid }}">
-														<input type="hidden" name="family_id" value="{{ $family->id }}">
-														{{-- <input type="hidden" name="date_weaned" value="{{ $family->getGroupingProperties()->where("property_id", 61)->first()->value }}"> --}}
-														<input id="weaning_weight" type="text" name="weaning_weight">
-													</div>
-													<div class="col s6">
-														<button class="btn-floating waves-effect waves-light green darken-3" type="submit" onclick="Materialize.toast('Weaning weight added!', 4000)">
-									            <i class="material-icons right">add</i>
-									          </button>
-													</div>
-												</td>
-											@else
-												<td>{{ $offspring->getAnimalProperties()->where("property_id", 54)->first()->value }}</td>
-											@endif
-										@endif
-										{!! Form::close() !!}
-									</tr>
-								@empty
-									<tr>
-										<td colspan="4">No offspring data found</td>
-									</tr>
-								@endforelse
-							</tbody>
-						</table>
-					</div>
+				{{-- GROUP WEIGHING IS HIDDEN --}}
+				<div id="group_weighing" class="row center" style="display: block;">
+					<h5>Group Weighing</h5>
+					<h5 class="green lighten-1">Add offspring</h5>
 				</div>
+						@else
+							@if($family->getGroupingProperties()->where("property_id", 94)->first()->value == 0)
+								{{-- INDIVIDUAL WEIGHING IS HIDDEN --}}
+								<div id="individual_weighing1" class="col s12" style="display: none;">
+									<h5 class=center">Individual Weighing</h5>
+									<h5 class="green lighten-1">Add offspring</h5>
+									{{-- <input type="hidden" name="sow_registryid" value="{{ $sow->registryid }}"> --}}
+									@if(!is_null($family->getGroupingProperties()->where("property_id", 25)->first()))
+										<div class="col s4">
+				              <input id="offspring_earnotch" type="text" name="offspring_earnotch" class="validate">
+				              <label for="offspring_earnotch">Offspring Earnotch</label>
+										</div>
+										<div class="col s4">
+											<select id="select_sex" name="sex" class="browser-default">
+												<option disabled selected>Choose sex</option>
+												<option value="M">Male</option>
+												<option value="F">Female</option>
+											</select>
+										</div>
+										<div class="col s4">
+											<input id="birth_weight" type="text" name="birth_weight">
+											<label for="birth_weight">Birth Weight, kg</label>
+										</div>
+									@else
+										<div class="col s4">
+				              <input id="offspring_earnotch" type="text" name="offspring_earnotch" class="validate">
+				              <label for="offspring_earnotch">Offspring Earnotch</label>
+										</div>
+										<div class="col s4">
+											<select id="select_sex" name="sex" class="browser-default">
+												<option disabled selected>Choose sex</option>
+												<option value="M">Male</option>
+												<option value="F">Female</option>
+											</select>
+										</div>
+										<div class="col s4">
+											<input id="birth_weight" type="text" name="birth_weight">
+											<label for="birth_weight">Birth Weight, kg</label>
+										</div>
+									@endif
+								</div>
+							</div>
+							<div id="individual_weighing2" class="row center" style="display: none;">
+								<button class="btn waves-effect waves-light green darken-3" type="submit" onclick="Materialize.toast('Successfully added!', 4000)">Add
+			            <i class="material-icons right">add</i>
+			          </button>
+							</div>
+							{{-- GROUP WEIGHING IS DISPLAYED--}}
+							<div id="group_weighing" class="row center" style="display: block;">
+								<h5>Group Weighing</h5>
+								<h5 class="green lighten-1">Add offspring</h5>
+							</div>
+							@elseif($family->getGroupingProperties()->where("property_id", 94)->first()->value == 1)
+								{{-- INDIVIDUAL WEIGHING IS DISPLAYED --}}
+								<div id="individual_weighing1" class="col s12" style="display: block;">
+								<h5 class=center">Individual Weighing</h5>
+								<h5 class="green lighten-1">Add offspring</h5>
+								{{-- <input type="hidden" name="sow_registryid" value="{{ $sow->registryid }}"> --}}
+								@if(!is_null($family->getGroupingProperties()->where("property_id", 25)->first()))
+									<div class="col s4">
+			              <input id="offspring_earnotch" type="text" name="offspring_earnotch" class="validate">
+			              <label for="offspring_earnotch">Offspring Earnotch</label>
+									</div>
+									<div class="col s4">
+										<select id="select_sex" name="sex" class="browser-default">
+											<option disabled selected>Choose sex</option>
+											<option value="M">Male</option>
+											<option value="F">Female</option>
+										</select>
+									</div>
+									<div class="col s4">
+										<input id="birth_weight" type="text" name="birth_weight">
+										<label for="birth_weight">Birth Weight, kg</label>
+									</div>
+								@else
+									<div class="col s4">
+			              <input id="offspring_earnotch" type="text" name="offspring_earnotch" class="validate">
+			              <label for="offspring_earnotch">Offspring Earnotch</label>
+									</div>
+									<div class="col s4">
+										<select id="select_sex" name="sex" class="browser-default">
+											<option disabled selected>Choose sex</option>
+											<option value="M">Male</option>
+											<option value="F">Female</option>
+										</select>
+									</div>
+									<div class="col s4">
+										<input id="birth_weight" type="text" name="birth_weight">
+										<label for="birth_weight">Birth Weight, kg</label>
+									</div>
+								@endif
+							</div>
+						</div>
+						<div id="individual_weighing2" class="row center" style="display: block;">
+							<button class="btn waves-effect waves-light green darken-3" type="submit" onclick="Materialize.toast('Successfully added!', 4000)">Add
+		            <i class="material-icons right">add</i>
+		          </button>
+						</div>
+						{{-- GROUP WEIGHING IS HIDDEN --}}
+						<div id="group_weighing" class="row center" style="display: none;">
+							<h5>Group Weighing</h5>
+							<h5 class="green lighten-1">Add offspring</h5>
+						</div>
+							@endif
+						@endif
+				{!! Form::close() !!}
+				@if(is_null($family->getGroupingProperties()->where("property_id", 94)->first()))
+					<div id="individual_weighing3" class="row" style="display: block;">
+						<div class="col s12">
+							<table class="centered striped">
+								<thead>
+									<tr class="green lighten-1">
+										<th>Offspring ID</th>
+										<th>Sex</th>
+										<th>Birth weight, kg</th>
+										<th>Weaning weight, kg</th>
+									</tr>
+								</thead>
+								<tbody>
+									@forelse($offsprings as $offspring)
+										<tr>
+											<td>{{ $offspring->getChild()->registryid }}</td>
+											<td>{{ $offspring->getAnimalProperties()->where("property_id", 27)->first()->value }}</td>
+											<td>{{ $offspring->getAnimalProperties()->where("property_id", 53)->first()->value }}</td>
+											{!! Form::open(['route' => 'farm.pig.get_weaning_weights', 'method' => 'post']) !!}
+											@if(is_null($family->getGroupingProperties()->where("property_id", 61)->first()))
+												@if(is_null($offspring->getAnimalProperties()->where("property_id", 54)->first()))
+													<td>
+														<a class="btn waves-effect waves-light green darken-3 modal-trigger" href="#weaning_weight_modal{{$offspring->getChild()->id}}">
+									            Add <i class="material-icons right">add</i>
+									          </a>
+													</td>
+												@else
+													<td>{{ $offspring->getAnimalProperties()->where("property_id", 54)->first()->value }}</td>
+												@endif
+											@else
+												@if(is_null($offspring->getAnimalProperties()->where("property_id", 54)->first()))
+													<td>
+														<a class="btn waves-effect waves-light green darken-3 modal-trigger" href="#weaning_weight_modal{{$offspring->getChild()->id}}">
+									            Add <i class="material-icons right">add</i>
+									          </a>
+													</td>
+												@else
+													<td>{{ $offspring->getAnimalProperties()->where("property_id", 54)->first()->value }}</td>
+												@endif
+											@endif
+											{{-- MODAL STRUCTURE --}}
+											<div id="weaning_weight_modal{{$offspring->getChild()->id}}" class="modal">
+												<div class="modal-content">
+													<h5 class="center">Weaning Record: <strong>{{ $offspring->getChild()->registryid }}</strong></h5>
+													<input type="hidden" name="offspring_id" value="{{ $offspring->getChild()->registryid }}">
+													<input type="hidden" name="family_id" value="{{ $family->id }}">
+													<div class="row center">
+														<div class="col s8 offset-s2 center">
+															Date Weaned:
+															<div class="input-field inline">
+																<input id="date_weaned" type="text" name="date_weaned" placeholder="Pick date" class="datepicker">
+															</div>
+														</div>
+														<div class="col s8 offset-s2 center">
+															Weaning Weight, kg:
+															<div class="input-field inline">
+																<input id="weaning_weight" type="text" name="weaning_weight">
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="row center">
+													<button class="btn waves-effect waves-light green darken-3" type="submit">
+								            Submit <i class="material-icons right">send</i>
+								          </button>
+												</div>
+											</div>
+											{!! Form::close() !!}
+										</tr>
+									@empty
+										<tr>
+											<td colspan="4">No offspring data found</td>
+										</tr>
+									@endforelse
+								</tbody>
+							</table>
+						</div>
+					</div>
+				@else
+					@if($family->getGroupingProperties()->where("property_id", 94)->first()->value == 0)
+						<div id="individual_weighing3" class="row" style="display: none;">
+							<div class="col s12">
+								<table class="centered striped">
+									<thead>
+										<tr class="green lighten-1">
+											<th>Offspring ID</th>
+											<th>Sex</th>
+											<th>Birth weight, kg</th>
+											<th>Weaning weight, kg</th>
+										</tr>
+									</thead>
+									<tbody>
+										@forelse($offsprings as $offspring)
+											<tr>
+												<td>{{ $offspring->getChild()->registryid }}</td>
+												<td>{{ $offspring->getAnimalProperties()->where("property_id", 27)->first()->value }}</td>
+												<td>{{ $offspring->getAnimalProperties()->where("property_id", 53)->first()->value }}</td>
+												{!! Form::open(['route' => 'farm.pig.get_weaning_weights', 'method' => 'post']) !!}
+												@if(is_null($family->getGroupingProperties()->where("property_id", 61)->first()))
+													@if(is_null($offspring->getAnimalProperties()->where("property_id", 54)->first()))
+														<td>
+															<a class="btn waves-effect waves-light green darken-3 modal-trigger" href="#weaning_weight_modal{{$offspring->getChild()->id}}">
+										            Add <i class="material-icons right">add</i>
+										          </a>
+														</td>
+													@else
+														<td>{{ $offspring->getAnimalProperties()->where("property_id", 54)->first()->value }}</td>
+													@endif
+												@else
+													@if(is_null($offspring->getAnimalProperties()->where("property_id", 54)->first()))
+														<td>
+															<a class="btn waves-effect waves-light green darken-3 modal-trigger" href="#weaning_weight_modal{{$offspring->getChild()->id}}">
+										            Add <i class="material-icons right">add</i>
+										          </a>
+														</td>
+													@else
+														<td>{{ $offspring->getAnimalProperties()->where("property_id", 54)->first()->value }}</td>
+													@endif
+												@endif
+												{{-- MODAL STRUCTURE --}}
+												<div id="weaning_weight_modal{{$offspring->getChild()->id}}" class="modal">
+													<div class="modal-content">
+														<h5 class="center">Weaning Record: <strong>{{ $offspring->getChild()->registryid }}</strong></h5>
+														<input type="hidden" name="offspring_id" value="{{ $offspring->getChild()->registryid }}">
+														<input type="hidden" name="family_id" value="{{ $family->id }}">
+														<div class="row center">
+															<div class="col s8 offset-s2 center">
+																Date Weaned:
+																<div class="input-field inline">
+																	<input id="date_weaned" type="text" name="date_weaned" placeholder="Pick date" class="datepicker">
+																</div>
+															</div>
+															<div class="col s8 offset-s2 center">
+																Weaning Weight, kg:
+																<div class="input-field inline">
+																	<input id="weaning_weight" type="text" name="weaning_weight">
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="row center">
+														<button class="btn waves-effect waves-light green darken-3" type="submit">
+									            Submit <i class="material-icons right">send</i>
+									          </button>
+													</div>
+												</div>
+												{!! Form::close() !!}
+											</tr>
+										@empty
+											<tr>
+												<td colspan="4">No offspring data found</td>
+											</tr>
+										@endforelse
+									</tbody>
+								</table>
+							</div>
+						</div>
+					@elseif($family->getGroupingProperties()->where("property_id", 94)->first()->value == 1)
+						<div id="individual_weighing3" class="row" style="display: block;">
+							<div class="col s12">
+								<table class="centered striped">
+									<thead>
+										<tr class="green lighten-1">
+											<th>Offspring ID</th>
+											<th>Sex</th>
+											<th>Birth weight, kg</th>
+											<th>Weaning weight, kg</th>
+										</tr>
+									</thead>
+									<tbody>
+										@forelse($offsprings as $offspring)
+											<tr>
+												<td>{{ $offspring->getChild()->registryid }}</td>
+												<td>{{ $offspring->getAnimalProperties()->where("property_id", 27)->first()->value }}</td>
+												<td>{{ $offspring->getAnimalProperties()->where("property_id", 53)->first()->value }}</td>
+												{!! Form::open(['route' => 'farm.pig.get_weaning_weights', 'method' => 'post']) !!}
+												@if(is_null($family->getGroupingProperties()->where("property_id", 61)->first()))
+													@if(is_null($offspring->getAnimalProperties()->where("property_id", 54)->first()))
+														<td>
+															<a class="btn waves-effect waves-light green darken-3 modal-trigger" href="#weaning_weight_modal{{$offspring->getChild()->id}}">
+										            Add <i class="material-icons right">add</i>
+										          </a>
+														</td>
+													@else
+														<td>{{ $offspring->getAnimalProperties()->where("property_id", 54)->first()->value }}</td>
+													@endif
+												@else
+													@if(is_null($offspring->getAnimalProperties()->where("property_id", 54)->first()))
+														<td>
+															<a class="btn waves-effect waves-light green darken-3 modal-trigger" href="#weaning_weight_modal{{$offspring->getChild()->id}}">
+										            Add <i class="material-icons right">add</i>
+										          </a>
+														</td>
+													@else
+														<td>{{ $offspring->getAnimalProperties()->where("property_id", 54)->first()->value }}</td>
+													@endif
+												@endif
+												{{-- MODAL STRUCTURE --}}
+												<div id="weaning_weight_modal{{$offspring->getChild()->id}}" class="modal">
+													<div class="modal-content">
+														<h5 class="center">Weaning Record: <strong>{{ $offspring->getChild()->registryid }}</strong></h5>
+														<input type="hidden" name="offspring_id" value="{{ $offspring->getChild()->registryid }}">
+														<input type="hidden" name="family_id" value="{{ $family->id }}">
+														<div class="row center">
+															<div class="col s8 offset-s2 center">
+																Date Weaned:
+																<div class="input-field inline">
+																	<input id="date_weaned" type="text" name="date_weaned" placeholder="Pick date" class="datepicker">
+																</div>
+															</div>
+															<div class="col s8 offset-s2 center">
+																Weaning Weight, kg:
+																<div class="input-field inline">
+																	<input id="weaning_weight" type="text" name="weaning_weight">
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="row center">
+														<button class="btn waves-effect waves-light green darken-3" type="submit">
+									            Submit <i class="material-icons right">send</i>
+									          </button>
+													</div>
+												</div>
+												{!! Form::close() !!}
+											</tr>
+										@empty
+											<tr>
+												<td colspan="4">No offspring data found</td>
+											</tr>
+										@endforelse
+									</tbody>
+								</table>
+							</div>
+						</div>
+					@endif
+				@endif
 			</div>
 		</div>
 	</div>
@@ -408,6 +725,52 @@
 		        Materialize.toast('Parity successfully added!', 4000);
 		      }
 		    });
+		  });
+		  $("#weighing_options").change(function(event) {
+		  	if($(this).is(":checked")){
+		  		document.getElementById("individual_weighing1").style.display = "block";
+		  		document.getElementById("individual_weighing2").style.display = "block";
+		  		document.getElementById("individual_weighing3").style.display = "block";
+		  		document.getElementById("group_weighing").style.display = "none";
+		  		event.preventDefault();
+		   		var familyidvalue = $('input[name=grouping_id]').val();
+		    	var option = 1;
+		    	$.ajax({
+		    		headers: {
+	          	'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+	          },
+			      url: '../fetch_weighing_option/'+familyidvalue+'/'+option,
+			      type: 'POST',
+			      cache: false,
+			      data: {familyidvalue, option},
+			      success: function(data)
+			      {
+			        Materialize.toast('Enabled individual weighing!', 4000);
+			      }
+		    	});
+		  	}
+		  	if(!$(this).is(":checked")){
+		  		document.getElementById("group_weighing").style.display = "block";
+		  		document.getElementById("individual_weighing1").style.display = "none";
+		  		document.getElementById("individual_weighing2").style.display = "none";
+		  		document.getElementById("individual_weighing3").style.display = "none";
+		  		event.preventDefault();
+		   		var familyidvalue = $('input[name=grouping_id]').val();
+		    	var option = 0;
+		    	$.ajax({
+		    		headers: {
+	          	'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+	          },
+			      url: '../fetch_weighing_option/'+familyidvalue+'/'+option,
+			      type: 'POST',
+			      cache: false,
+			      data: {familyidvalue, option},
+			      success: function(data)
+			      {
+			        Materialize.toast('Enabled group weighing!', 4000);
+			      }
+		    	});
+		  	}
 		  });
 		});
 	</script>

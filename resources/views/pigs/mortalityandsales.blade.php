@@ -295,6 +295,7 @@
 								<div class="col s4">
 									<select name="reason_removed" class="browser-default">
 										<option disabled selected>Choose reason</option>
+										<option value="Culled">Culled</option>
 										<option value="Representation">Donated</option>
 									</select>
 								</div>

@@ -17,7 +17,7 @@
 			</div>
 			<!-- SOW INVENTORY -->
 			<div id="sowinventory" class="col s12">
-				<h5>Inventory for {{ Carbon\Carbon::parse($now)->format('F, Y') }} as of {{ Carbon\Carbon::parse($now)->format('F j, Y') }}</h5>
+				<h5>Inventory for <strong>{{ Carbon\Carbon::parse($now)->format('F, Y') }}</strong> as of <strong>{{ Carbon\Carbon::parse($now)->format('F j, Y') }}</strong></h5>
 				<p>Number of sows in the herd: <strong>{{ count($sows) }}</strong></p>
 				<div class="row">
 					<div class="col s12 m10 l6">

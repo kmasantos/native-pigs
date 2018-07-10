@@ -103,6 +103,10 @@
 												<td>
 													<strong>{{ $breedingRecord->getMother()->registryid }}</strong> <p><sup>(Donated {{ Carbon\Carbon::parse($breedingRecord->getMother()->getAnimalProperties()->where("property_id", 72)->first()->value)->format('F j, Y') }})</sup></p>
 												</td>
+											@elseif($breedingRecord->getMother()->getAnimalProperties()->where("property_id", 73)->first()->value == "Culled")
+												<td>
+													<strong>{{ $breedingRecord->getMother()->registryid }}</strong> <p><sup>(Culled {{ Carbon\Carbon::parse($breedingRecord->getMother()->getAnimalProperties()->where("property_id", 72)->first()->value)->format('F j, Y') }})</sup></p>
+												</td>
 											@endif
 										@endif
 										{{-- boar used with status --}}
@@ -122,6 +126,10 @@
 											@if($breedingRecord->getFather()->getAnimalProperties()->where("property_id", 73)->first()->value == "Donated")
 												<td>
 													<strong>{{ $breedingRecord->getFather()->registryid }}</strong> <p><sup>(Donated {{ Carbon\Carbon::parse($breedingRecord->getFather()->getAnimalProperties()->where("property_id", 72)->first()->value)->format('F j, Y') }})</sup></p>
+												</td>
+											@elseif($breedingRecord->getFather()->getAnimalProperties()->where("property_id", 73)->first()->value == "Culled")
+												<td>
+													<strong>{{ $breedingRecord->getFather()->registryid }}</strong> <p><sup>(Culled {{ Carbon\Carbon::parse($breedingRecord->getFather()->getAnimalProperties()->where("property_id", 72)->first()->value)->format('F j, Y') }})</sup></p>
 												</td>
 											@endif
 										@endif

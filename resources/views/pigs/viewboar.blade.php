@@ -253,10 +253,10 @@
                   </tr>
                   <tr>
                     <td>Ponderal Index</td>
-                    @if($boar->weightrecord == 1)
-                      <td>{{ round($properties->where("property_id", 43)->first()->value, 4) }} kg/m<sup>3</sup></td>
+                     @if($properties->where("property_id", 43)->first()->value == "")
+                      <td>Not specified</td>
                     @else
-                      <td>Data not available</td>
+                      <td>{{ round($properties->where("property_id", 43)->first()->value, 2) }} kg/m<sup>3</sup></td>
                     @endif
                   </tr>
                   <tr>

@@ -39,8 +39,8 @@
       <div class="col s12 m10 l4">
         <div class="card">
           <div class="card-content grey lighten-2">
-            <h5>Donated Pigs</h5>
-              <h1>{{ count($currentremoved) }}</h1>
+            <h5>Culled/Donated Pigs</h5>
+              <h2>{{ count($currentremoved) }}</h2>
               <p>Total</p>
           </div>
         </div>
@@ -119,7 +119,7 @@
                       <th class="grey lighten-2" rowspan="2">Month</th>
                       <th colspan="2">Mortality</th>
                       <th colspan="3" class="grey lighten-2">Sales</th>
-                      <th>Donated</th>
+                      <th>Culled/Donated</th>
                     </tr>
                     <tr>
                       <th>Number of Pigs Died</th>
@@ -127,7 +127,7 @@
                       <th class="grey lighten-2">Number of Pigs Sold</th>
                       <th class="grey lighten-2">Average Age, months</th>
                       <th class="grey lighten-2">Average Weight, kg</th>
-                      <th>Number of Pigs Donated</th>
+                      <th>Number of Pigs Culled/Donated</th>
                     </tr>
                   </thead>
                   <tbody>
