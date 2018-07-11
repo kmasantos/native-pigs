@@ -353,9 +353,34 @@
           </button>
 				</div>
 				{{-- GROUP WEIGHING IS HIDDEN --}}
-				<div id="group_weighing" class="row center" style="display: block;">
+				<div id="group_weighing" class="row center" style="display: none;">
 					<h5>Group Weighing</h5>
+					<div class="row">
+						<div class="col s8 offset-s2">
+							Litter Birth Weight, kg
+							@if(!is_null($family->getGroupingProperties()->where("property_id", 93)->first()))
+								<div class="input-field inline">
+									<input id="litter_birth_weight" type="text" name="litter_birth_weight" value="{{ $family->getGroupingProperties()->where("property_id", 93)->first()->value }}">
+								</div>
+							@else
+								<div class="input-field inline">
+									<input id="litter_birth_weight" type="text" name="litter_birth_weight">
+								</div>
+							@endif
+						</div>
+					</div>
 					<h5 class="green lighten-1">Add offspring</h5>
+					<div class="col s4 push-s2">
+            <input id="offspring_earnotch" type="text" name="offspring_earnotch" class="validate">
+            <label for="offspring_earnotch">Offspring Earnotch</label>
+					</div>
+					<div class="col s4 push-s2">
+						<select id="select_sex" name="sex" class="browser-default">
+							<option disabled selected>Choose sex</option>
+							<option value="M">Male</option>
+							<option value="F">Female</option>
+						</select>
+					</div>
 				</div>
 						@else
 							@if($family->getGroupingProperties()->where("property_id", 94)->first()->value == 0)
@@ -407,7 +432,39 @@
 							{{-- GROUP WEIGHING IS DISPLAYED--}}
 							<div id="group_weighing" class="row center" style="display: block;">
 								<h5>Group Weighing</h5>
+								<div class="row">
+									<div class="col s8 offset-s2">
+										Litter Birth Weight, kg
+										@if(!is_null($family->getGroupingProperties()->where("property_id", 93)->first()))
+											<div class="input-field inline">
+												<input id="litter_birth_weight" type="text" name="litter_birth_weight" value="{{ $family->getGroupingProperties()->where("property_id", 93)->first()->value }}">
+											</div>
+										@else
+											<div class="input-field inline">
+												<input id="litter_birth_weight" type="text" name="litter_birth_weight">
+											</div>
+										@endif
+									</div>
+								</div>
 								<h5 class="green lighten-1">Add offspring</h5>
+								<div class="row">
+									<div class="col s4 push-s2">
+			              <input id="offspring_earnotch" type="text" name="offspring_earnotch" class="validate">
+			              <label for="offspring_earnotch">Offspring Earnotch</label>
+									</div>
+									<div class="col s4 push-s2">
+										<select id="select_sex" name="sex" class="browser-default">
+											<option disabled selected>Choose sex</option>
+											<option value="M">Male</option>
+											<option value="F">Female</option>
+										</select>
+									</div>
+								</div>
+								<divclass="row center">
+									<button class="btn waves-effect waves-light green darken-3" type="submit" onclick="Materialize.toast('Successfully added!', 4000)">Add
+				            <i class="material-icons right">add</i>
+				          </button>
+								</div>
 							</div>
 							@elseif($family->getGroupingProperties()->where("property_id", 94)->first()->value == 1)
 								{{-- INDIVIDUAL WEIGHING IS DISPLAYED --}}
@@ -458,10 +515,42 @@
 						{{-- GROUP WEIGHING IS HIDDEN --}}
 						<div id="group_weighing" class="row center" style="display: none;">
 							<h5>Group Weighing</h5>
+							<div class="row">
+								<div class="col s8 offset-s2">
+									Litter Birth Weight, kg
+									@if(!is_null($family->getGroupingProperties()->where("property_id", 93)->first()))
+										<div class="input-field inline">
+											<input id="litter_birth_weight" type="text" name="litter_birth_weight" value="{{ $family->getGroupingProperties()->where("property_id", 93)->first()->value }}">
+										</div>
+									@else
+										<div class="input-field inline">
+											<input id="litter_birth_weight" type="text" name="litter_birth_weight">
+										</div>
+									@endif
+								</div>
+							</div>
 							<h5 class="green lighten-1">Add offspring</h5>
+							<div class="row">
+								<div class="col s4 push-s2">
+		              <input id="offspring_earnotch" type="text" name="offspring_earnotch" class="validate">
+		              <label for="offspring_earnotch">Offspring Earnotch</label>
+								</div>
+								<div class="col s4 push-s2">
+									<select id="select_sex" name="sex" class="browser-default">
+										<option disabled selected>Choose sex</option>
+										<option value="M">Male</option>
+										<option value="F">Female</option>
+									</select>
+								</div>
+							</div>
+							<div class="row center">
+								<button class="btn waves-effect waves-light green darken-3" type="submit" onclick="Materialize.toast('Successfully added!', 4000)">Add
+			            <i class="material-icons right">add</i>
+			          </button>
+							</div>
 						</div>
-							@endif
-						@endif
+					@endif
+				@endif
 				{!! Form::close() !!}
 				@if(is_null($family->getGroupingProperties()->where("property_id", 94)->first()))
 					<div id="individual_weighing3" class="row" style="display: block;">
