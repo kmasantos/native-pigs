@@ -5204,40 +5204,110 @@ class FarmController extends Controller
 			$members = $grouping->getGroupingMembers();
 			$offspring = new Animal;
 
+			$weighing_option = $request->option;
+
 			// adds new offspring
 			$birthdayValue = new Carbon($request->date_farrowed);
-			if(!is_null($request->offspring_earnotch) && !is_null($request->sex) && !is_null($request->birth_weight)){
-				$farm = $this->user->getFarm();
-				$breed = $farm->getBreed();
-				$offspring->animaltype_id = 3;
-				$offspring->farm_id = $farm->id;
-				$offspring->breed_id = $breed->id;
-				$offspring->status = "active";
-				$offspring->registryid = $farm->code.$breed->breed."-".$birthdayValue->year.$request->sex.$request->offspring_earnotch;
-				$offspring->save();
+			if($weighing_option == 1){
+				if(!is_null($request->offspring_earnotch) && !is_null($request->sex) && !is_null($request->birth_weight)){
+					$farm = $this->user->getFarm();
+					$breed = $farm->getBreed();
+					$offspring->animaltype_id = 3;
+					$offspring->farm_id = $farm->id;
+					$offspring->breed_id = $breed->id;
+					$offspring->status = "active";
+					$offspring->registryid = $farm->code.$breed->breed."-".$birthdayValue->year.$request->sex.$request->offspring_earnotch;
+					$offspring->save();
 
-				$birthday = new AnimalProperty;
-				$birthday->animal_id = $offspring->id;
-				$birthday->property_id = 25;
-				$birthday->value = $request->date_farrowed;
-				$birthday->save();
+					$birthday = new AnimalProperty;
+					$birthday->animal_id = $offspring->id;
+					$birthday->property_id = 25;
+					$birthday->value = $request->date_farrowed;
+					$birthday->save();
 
-				$sex = new AnimalProperty;
-				$sex->animal_id = $offspring->id;
-				$sex->property_id = 27;
-				$sex->value = $request->sex;
-				$sex->save();
+					$sex = new AnimalProperty;
+					$sex->animal_id = $offspring->id;
+					$sex->property_id = 27;
+					$sex->value = $request->sex;
+					$sex->save();
 
-				$birthweight = new AnimalProperty;
-				$birthweight->animal_id = $offspring->id;
-				$birthweight->property_id = 53;
-				$birthweight->value = $request->birth_weight;
-				$birthweight->save();
+					$birthweight = new AnimalProperty;
+					$birthweight->animal_id = $offspring->id;
+					$birthweight->property_id = 53;
+					$birthweight->value = $request->birth_weight;
+					$birthweight->save();
 
-				$groupingmember = new GroupingMember;
-				$groupingmember->grouping_id = $grouping->id;
-				$groupingmember->animal_id = $offspring->id;
-				$groupingmember->save();
+					$groupingmember = new GroupingMember;
+					$groupingmember->grouping_id = $grouping->id;
+					$groupingmember->animal_id = $offspring->id;
+					$groupingmember->save();
+				}
+			}
+			elseif($weighing_option == 0){
+				$litterbirthweightprop = $grouping->getGroupingProperties()->where("property_id", 93)->first();
+				if(is_null($litterbirthweightprop)){
+					$litter_birth_weight = new GroupingProperty;
+					$litter_birth_weight->grouping_id = $grouping->id;
+					$litter_birth_weight->property_id = 93;
+					$litter_birth_weight->value = $request->litter_birth_weight;
+					$litter_birth_weight->datecollected = new Carbon();
+					$litter_birth_weight->save();
+				}
+				else{
+					$litterbirthweightprop->value = $request->litter_birth_weight;
+					$litterbirthweightprop->save();
+				}
+
+				$lsbaprop = $grouping->getGroupingProperties()->where("property_id", 95)->first();
+				if(is_null($lsbaprop)){
+					$lsba = new GroupingProperty;
+					$lsba->grouping_id = $grouping->id;
+					$lsba->property_id = 95;
+					$lsba->value = $request->lsba;
+					$lsba->datecollected = new Carbon();
+					$lsba->save();
+				}
+				else{
+					$lsbaprop->value = $request->lsba;
+					$lsbaprop->save();
+				}
+
+				if(!is_null($request->offspring_earnotch) && !is_null($request->sex)){
+					$farm = $this->user->getFarm();
+					$breed = $farm->getBreed();
+					$offspring->animaltype_id = 3;
+					$offspring->farm_id = $farm->id;
+					$offspring->breed_id = $breed->id;
+					$offspring->status = "temporary";
+					$offspring->registryid = $farm->code.$breed->breed."-".$birthdayValue->year.$request->sex.$request->offspring_earnotch;
+					$offspring->save();
+
+					$birthday = new AnimalProperty;
+					$birthday->animal_id = $offspring->id;
+					$birthday->property_id = 25;
+					$birthday->value = $request->date_farrowed;
+					$birthday->save();
+
+					$sex = new AnimalProperty;
+					$sex->animal_id = $offspring->id;
+					$sex->property_id = 27;
+					$sex->value = $request->sex;
+					$sex->save();
+
+					$litterbirthweightValue = $request->litter_birth_weight;
+					$lsbaValue = $request->lsba;
+
+					$birthweight = new AnimalProperty;
+					$birthweight->animal_id = $offspring->id;
+					$birthweight->property_id = 53;
+					$birthweight->value = $litterbirthweightValue/$lsbaValue;
+					$birthweight->save();
+
+					$groupingmember = new GroupingMember;
+					$groupingmember->grouping_id = $grouping->id;
+					$groupingmember->animal_id = $offspring->id;
+					$groupingmember->save();
+				}
 			}
 
 			// adds date farrowed as a group property
@@ -5260,22 +5330,6 @@ class FarmController extends Controller
 			$status->value = "Farrowed";
 			$status->save();
 
-			// if(!is_null($request->date_farrowed) || (is_null($request->sex) && is_null($request->birth_weight))){
-			//   if(is_null($request->date_weaned)){
-			//     $dateWeanedValue = Carbon::parse($request->date_farrowed)->addDays(45);
-			//   }
-			//   else{
-			//     $dateWeanedValue = $request->date_weaned;
-			//   }
-
-			//   $date_weaned = new GroupingProperty;
-			//   $date_weaned->grouping_id = $grouping->id;
-			//   $date_weaned->property_id = 61;
-			//   $date_weaned->value = $dateWeanedValue;
-			//   $date_weaned->datecollected = new Carbon();
-			//   $date_weaned->save();
-			// }
-
 			if(is_null($request->number_stillborn)){
 				$noStillbornValue = 0;
 			}
@@ -5296,7 +5350,6 @@ class FarmController extends Controller
 				$stillbornprop->value = $noStillbornValue;
 				$stillbornprop->save();
 			}
-		 
 
 			if(is_null($request->number_mummified)){
 				$noMummifiedValue = 0;
@@ -5317,6 +5370,27 @@ class FarmController extends Controller
 			else{
 				$mummifiedprop->value = $noMummifiedValue;
 				$mummifiedprop->save();
+			}
+
+			if(is_null($request->abnormalities)){
+				$abnormalityValue = "None";
+			}
+			else{
+				$abnormalityValue = $request->abnormalities;
+			}
+
+			$abnormalityprop = $grouping->getGroupingProperties()->where("property_id", 92)->first();
+			if(is_null($abnormalityprop)){
+				$abnormality = new GroupingProperty;
+				$abnormality->grouping_id = $grouping->id;
+				$abnormality->property_id = 92;
+				$abnormality->value = $abnormalityValue;
+				$abnormality->datecollected = new Carbon();
+				$abnormality->save();
+			}
+			else{
+				$abnormalityprop->value = $abnormalityValue;
+				$abnormalityprop->save();
 			}
 
 			// adding parity
@@ -5400,6 +5474,22 @@ class FarmController extends Controller
 
 			$grouping->members = 1;
 			$grouping->save();
+
+			return Redirect::back()->with('message', 'Operation Successful!');
+		}
+
+		public function editTemporaryRegistryId(Request $request){
+			$offspring = Animal::find($request->old_earnotch);
+
+			$offspringproperties = $offspring->getAnimalProperties();
+			$farm = $this->user->getFarm();
+			$breed = $farm->getBreed();
+			$birthdate = Carbon::parse($offspringproperties->where("property_id", 25)->first()->value);
+			$sex = $offspringproperties->where("property_id", 27)->first()->value;
+
+			$offspring->registryid = $farm->code.$breed->breed."-".$birthdate->year.$sex.$request->new_earnotch;
+			$offspring->status = "active";
+			$offspring->save();
 
 			return Redirect::back()->with('message', 'Operation Successful!');
 		}

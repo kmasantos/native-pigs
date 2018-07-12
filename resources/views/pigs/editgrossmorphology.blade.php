@@ -342,10 +342,33 @@
               <input id="other_marks" type="text" name="other_marks" placeholder="Enter values separated by commas" value="{{ $properties->where("property_id", 36)->first()->value }}" class="validate">
             </div>
           </div>
+          <div class="row">
+            <div class="col s4">
+              Upload photo<br><a href="#sample_photo" class="modal-trigger tooltipped" data-position="bottom" data-tooltip="View sample"><i class="material-icons">visibility</i></a>
+            </div>
+            <div class="file-field input-field col s8">
+              <div class="btn green darken-3 waves-effect waves-light">
+                <i class="material-icons right">file_upload</i>Upload
+                <input type="file" name="display_photo" id="display_photo">
+              </div>
+              <div class="file-path-wrapper">
+                <input class="file-path validate" type="text" id="display_photo">
+              </div>
+            </div>
+          </div>
           <div class="row center">
             <button class="btn waves-effect waves-light green darken-3" type="submit" onclick="Materialize.toast('Successfully updated!', 4000)">Update
               <i class="material-icons right">done</i>
             </button>
+          </div>
+        </div>
+        {{-- MODAL STRUCTURE --}}
+        <div id="sample_photo" class="modal modal-fixed-footer">
+          <div class="modal-content">
+            <h4 class="center">Sample Photo</h4>
+          </div>
+          <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
           </div>
         </div>
       </div>
