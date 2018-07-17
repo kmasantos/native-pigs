@@ -14,7 +14,7 @@
 	        <li class="tab"><a href="#persowview">Per sow</a></li>
 	        <li class="tab"><a href="#perboarview">Per boar</a></li>
 	        <li class="tab"><a id="per_parity" href="#perparityview">Per parity</a></li>
-	        <li class="tab"><a href="#permonthview">Per month</a></li>
+	        <li class="tab"><a href="#peryearview">Per year</a></li>
 	        <li class="tab"><a href="#perbreedview">Per breed</a></li>
 	      </ul>
 	    </div>
@@ -308,8 +308,8 @@
 			    </div>
 			  </div>
 	    </div>
-	    <!-- PER MONTH -->
-	    <div id="permonthview" class="col s12">
+	    <!-- PER YEAR -->
+	    <div id="peryearview" class="col s12">
 	    	<div class="row" style="padding-top: 10px;">
 		    	<div class="col s4 offset-s1">
 		  			<p>Generate Reports for:</p>
@@ -660,7 +660,7 @@
         labels: [@foreach($parity as $parity_number) "Parity "+"{{ $parity_number }}", @endforeach],
         datasets: [{
           label: 'Litter-size Born Alive',
-          data: [3,5.4,6.27,3,8.25,5.5],
+          data: [@foreach($parity as $parity_number) {{ App\Http\Controllers\FarmController::getPropertyAveragePerParity($parity_number, "lsba") }}, @endforeach],
           borderColor: [
             'rgba(255, 99, 132, 0.8)',
             'rgba(54, 162, 235, 0.8)',
@@ -698,7 +698,7 @@
         labels: [@foreach($parity as $parity_number) "Parity "+"{{ $parity_number }}", @endforeach],
         datasets: [{
           label: 'Number of Male Born',
-          data: [1.31,2.45,2.91,1.13,5.5,3],
+          data: [@foreach($parity as $parity_number) {{ App\Http\Controllers\FarmController::getPropertyAveragePerParity($parity_number, "number of males") }}, @endforeach],
           borderColor: [
             'rgba(255, 99, 132, 0.8)',
             'rgba(54, 162, 235, 0.8)',
@@ -736,7 +736,7 @@
         labels: [@foreach($parity as $parity_number) "Parity "+"{{ $parity_number }}", @endforeach],
         datasets: [{
           label: 'Number of Female Born',
-          data: [1.69,2.95,3.36,1.88,2.75,2.5],
+          data: [@foreach($parity as $parity_number) {{ App\Http\Controllers\FarmController::getPropertyAveragePerParity($parity_number, "number of females") }}, @endforeach],
           borderColor: [
             'rgba(255, 99, 132, 0.8)',
             'rgba(54, 162, 235, 0.8)',
@@ -774,7 +774,7 @@
         labels: [@foreach($parity as $parity_number) "Parity "+"{{ $parity_number }}", @endforeach],
         datasets: [{
           label: 'Number of Stillborn',
-          data: [0,0.04,0.31,0.2,0.5,0],
+          data: [@foreach($parity as $parity_number) {{ App\Http\Controllers\FarmController::getPropertyAveragePerParity($parity_number, "stillborn") }}, @endforeach],
           borderColor: [
             'rgba(255, 99, 132, 0.8)',
             'rgba(54, 162, 235, 0.8)',
@@ -812,7 +812,7 @@
         labels: [@foreach($parity as $parity_number) "Parity "+"{{ $parity_number }}", @endforeach],
         datasets: [{
           label: 'Number of Mummified',
-          data: [0.05,0.3,0,0,0,1.5],
+          data: [@foreach($parity as $parity_number) {{ App\Http\Controllers\FarmController::getPropertyAveragePerParity($parity_number, "mummified") }}, @endforeach],
           borderColor: [
             'rgba(255, 99, 132, 0.8)',
             'rgba(54, 162, 235, 0.8)',
@@ -850,7 +850,7 @@
         labels: [@foreach($parity as $parity_number) "Parity "+"{{ $parity_number }}", @endforeach],
         datasets: [{
           label: 'Litter Birth Weight',
-          data: [2.48,5.06,4.97,2.74,5.17,4.09],
+          data: [@foreach($parity as $parity_number) {{ App\Http\Controllers\FarmController::getPropertyAveragePerParity($parity_number, "birth weight") }}, @endforeach],
           borderColor: [
             'rgba(255, 99, 132, 0.8)',
             'rgba(54, 162, 235, 0.8)',
@@ -888,7 +888,7 @@
         labels: [@foreach($parity as $parity_number) "Parity "+"{{ $parity_number }}", @endforeach],
         datasets: [{
           label: 'Average Birth Weight',
-          data: [0.82,0.77,0.83,0.73,0.6,0.72],
+          data: [@foreach($parity as $parity_number) {{ App\Http\Controllers\FarmController::getPropertyAveragePerParity($parity_number, "ave birth weight") }}, @endforeach],
           borderColor: [
             'rgba(255, 99, 132, 0.8)',
             'rgba(54, 162, 235, 0.8)',
@@ -926,7 +926,7 @@
         labels: [@foreach($parity as $parity_number) "Parity "+"{{ $parity_number }}", @endforeach],
         datasets: [{
           label: 'Litter Weaning Weight',
-          data: [23.04,38.33,44,42.5,43.53,29],
+          data: [@foreach($parity as $parity_number) {{ App\Http\Controllers\FarmController::getPropertyAveragePerParity($parity_number, "weaning weight") }}, @endforeach],
           borderColor: [
             'rgba(255, 99, 132, 0.8)',
             'rgba(54, 162, 235, 0.8)',
@@ -964,7 +964,7 @@
         labels: [@foreach($parity as $parity_number) "Parity "+"{{ $parity_number }}", @endforeach],
         datasets: [{
           label: 'Average Weaning Weight',
-          data: [5.04,5.4,5.19,5.25,8.15,4.14],
+          data: [@foreach($parity as $parity_number) {{ App\Http\Controllers\FarmController::getPropertyAveragePerParity($parity_number, "ave weaning weight") }}, @endforeach],
           borderColor: [
             'rgba(255, 99, 132, 0.8)',
             'rgba(54, 162, 235, 0.8)',
@@ -1002,7 +1002,7 @@
         labels: [@foreach($parity as $parity_number) "Parity "+"{{ $parity_number }}", @endforeach],
         datasets: [{
           label: 'Adjusted Weaning Weight at 45 Days',
-          data: [5.32,5.4,5.19,5.25,8.15,4.14],
+          data: [@foreach($parity as $parity_number) {{ App\Http\Controllers\FarmController::getPropertyAveragePerParity($parity_number, "adj weaning weight") }}, @endforeach],
           borderColor: [
             'rgba(255, 99, 132, 0.8)',
             'rgba(54, 162, 235, 0.8)',
@@ -1040,7 +1040,7 @@
         labels: [@foreach($parity as $parity_number) "Parity "+"{{ $parity_number }}", @endforeach],
         datasets: [{
           label: 'Number Weaned',
-          data: [4.6,8.1,8.33,8.5,6,7],
+          data: [@foreach($parity as $parity_number) {{ App\Http\Controllers\FarmController::getPropertyAveragePerParity($parity_number, "number weaned") }}, @endforeach],
           borderColor: [
             'rgba(255, 99, 132, 0.8)',
             'rgba(54, 162, 235, 0.8)',
@@ -1078,7 +1078,7 @@
         labels: [@foreach($parity as $parity_number) "Parity "+"{{ $parity_number }}", @endforeach],
         datasets: [{
           label: 'Age Weaned',
-          data: [1,1,1,1,1,1],
+          data: [@foreach($parity as $parity_number) {{ App\Http\Controllers\FarmController::getPropertyAveragePerParity($parity_number, "age weaned") }}, @endforeach],
           borderColor: [
             'rgba(255, 99, 132, 0.8)',
             'rgba(54, 162, 235, 0.8)',
@@ -1116,7 +1116,7 @@
         labels: [@foreach($parity as $parity_number) "Parity "+"{{ $parity_number }}", @endforeach],
         datasets: [{
           label: 'Pre-weaning Mortality',
-          data: [1.6,1.2,2.67,0,2.33,0],
+          data: [@foreach($parity as $parity_number) {{ App\Http\Controllers\FarmController::getPropertyAveragePerParity($parity_number, "preweaning mortality") }}, @endforeach],
           borderColor: [
             'rgba(255, 99, 132, 0.8)',
             'rgba(54, 162, 235, 0.8)',
