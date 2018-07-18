@@ -6170,126 +6170,296 @@ class FarmController extends Controller
 			$properties = $animal->getAnimalProperties();
 
 			$bw45d = $properties->where("property_id", 45)->first();
-			if(is_null($request->body_weight_at_45_days)){
-				$bw45dValue = "";
+			if(is_null($bw45d)){
+				if(is_null($request->body_weight_at_45_days)){
+					$bw45dValue = "";
+				}
+				else{
+					$bw45dValue = $request->body_weight_at_45_days;
+				}
+				$bw45d_new = new AnimalProperty;
+				$bw45d_new->animal_id = $animal->id;
+				$bw45d_new->property_id = 45;
+				$bw45d_new->value = $bw45dValue;
+				$bw45d_new->save();
 			}
 			else{
-				$bw45dValue = $request->body_weight_at_45_days;
+				if(is_null($request->body_weight_at_45_days)){
+					$bw45dValue = "";
+				}
+				else{
+					$bw45dValue = $request->body_weight_at_45_days;
+				}
+				$bw45d->value = $bw45dValue;
 			}
-			$bw45d->value = $bw45dValue;
 
 			$bw60d = $properties->where("property_id", 46)->first();
-			if(is_null($request->body_weight_at_60_days)){
-				$bw60dValue = "";
+			if(is_null($bw60d)){
+				if(is_null($request->body_weight_at_60_days)){
+					$bw60dValue = "";
+				}
+				else{
+					$bw60dValue = $request->body_weight_at_60_days;
+				}
+				$bw60d_new = new AnimalProperty;
+				$bw60d_new->animal_id = $animal->id;
+				$bw60d_new->property_id = 46;
+				$bw60d_new->value = $bw60dValue;
+				$bw60d_new->save();
 			}
 			else{
-				$bw60dValue = $request->body_weight_at_60_days;
+				if(is_null($request->body_weight_at_60_days)){
+					$bw60dValue = "";
+				}
+				else{
+					$bw60dValue = $request->body_weight_at_60_days;
+				}
+				$bw60d->value = $bw60dValue;
 			}
-			$bw60d->value = $bw60dValue;
 
 			$bw90d = $properties->where("property_id", 69)->first();
-			if(is_null($request->body_weight_at_90_days)){
-				$bw90dValue = "";
+			if(is_null($bw90d)){
+				if(is_null($request->body_weight_at_90_days)){
+					$bw90dValue = "";
+				}
+				else{
+					$bw90dValue = $request->body_weight_at_90_days;
+				}
+				$bw90d_new = new AnimalProperty;
+				$bw90d_new->animal_id = $animal->id;
+				$bw90d_new->property_id = 69;
+				$bw90d_new->value = $bw90dValue;
+				$bw90d_new->save();
 			}
 			else{
-				$bw90dValue = $request->body_weight_at_90_days;
+				if(is_null($request->body_weight_at_90_days)){
+					$bw90dValue = "";
+				}
+				else{
+					$bw90dValue = $request->body_weight_at_90_days;
+				}
+				$bw90d->value = $bw90dValue;
 			}
-			$bw90d->value = $bw90dValue;
 
 			$bw150d = $properties->where("property_id", 90)->first();
-			if(is_null($request->body_weight_at_150_days)){
-				$bw150dValue = "";
+			if(is_null($bw150d)){
+				if(is_null($request->body_weight_at_150_days)){
+					$bw150dValue = "";
+				}
+				else{
+					$bw150dValue = $request->body_weight_at_150_days;
+				}
+				$bw150d_new = new AnimalProperty;
+				$bw150d_new->animal_id = $animal->id;
+				$bw150d_new->property_id = 90;
+				$bw150d_new->value = $bw150dValue;
+				$bw150d_new->save();
 			}
 			else{
-				$bw150dValue = $request->body_weight_at_150_days;
+				if(is_null($request->body_weight_at_150_days)){
+					$bw150dValue = "";
+				}
+				else{
+					$bw150dValue = $request->body_weight_at_150_days;
+				}
+				$bw150d->value = $bw150dValue;
 			}
-			$bw150d->value = $bw150dValue;
 
 			$bw180d = $properties->where("property_id", 47)->first();
-			if(is_null($request->body_weight_at_180_days)){
-				$bw180dValue = "";
+			if(is_null($bw180d)){
+				if(is_null($request->body_weight_at_180_days)){
+					$bw180dValue = "";
+				}
+				else{
+					$bw180dValue = $request->body_weight_at_180_days;
+				}
+				$bw180d_new = new AnimalProperty;
+				$bw180d_new->animal_id = $animal->id;
+				$bw180d_new->property_id = 47;
+				$bw180d_new->value = $bw180dValue;
+				$bw180d_new->save();
 			}
 			else{
-				$bw180dValue = $request->body_weight_at_180_days;
+				if(is_null($request->body_weight_at_180_days)){
+					$bw180dValue = "";
+				}
+				else{
+					$bw180dValue = $request->body_weight_at_180_days;
+				}
+				$bw180d->value = $bw180dValue;
 			}
-			$bw180d->value = $bw180dValue;
 
 			$bday = $properties->where("property_id", 25)->first();
-			
-			if(is_null($request->date_collected_45_days)){
-				if(!is_null($bday)){
-					$dc45dValue = Carbon::parse($bday->value)->addDays(45)->toDateString();
-				}
-				else{
-					$dc45dValue = "";
-				}
-			}
-			else{
-				$dc45dValue = $request->date_collected_45_days;
-			}
 
 			$dc45d = $properties->where("property_id", 58)->first();
-			$dc45d->value = $dc45dValue;
-
-			if(is_null($request->date_collected_60_days)){
-				if(!is_null($bday)){
-					$dc60dValue = Carbon::parse($bday->value)->addDays(60)->toDateString();
+			if(is_null($dc45d)){
+				if(is_null($request->date_collected_45_days)){
+					if(!is_null($bday)){
+						$dc45dValue = Carbon::parse($bday->value)->addDays(45)->toDateString();
+					}
+					else{
+						$dc45dValue = "";
+					}
 				}
 				else{
-					$dc60dValue = "";
+					$dc45dValue = $request->date_collected_45_days;
 				}
+				$dc45d_new = new AnimalProperty;
+				$dc45d_new->animal_id = $animal->id;
+				$dc45d_new->property_id = 58;
+				$dc45d_new->value = $dc45dValue;
+				$dc45d_new->save();
 			}
 			else{
-				$dc60dValue = $request->date_collected_60_days;
+				if(is_null($request->date_collected_45_days)){
+					if(!is_null($bday)){
+						$dc45dValue = Carbon::parse($bday->value)->addDays(45)->toDateString();
+					}
+					else{
+						$dc45dValue = "";
+					}
+				}
+				else{
+					$dc45dValue = $request->date_collected_45_days;
+				}
+				$dc45d->value = $dc45dValue;
 			}
 
 			$dc60d = $properties->where("property_id", 59)->first();
-			$dc60d->value = $dc60dValue;
-
-			if(is_null($request->date_collected_90_days)){
-				if(!is_null($bday)){
-					$dc90dValue = Carbon::parse($bday->value)->addDays(90)->toDateString();
+			if(is_null($dc60d)){
+				if(is_null($request->date_collected_60_days)){
+					if(!is_null($bday)){
+						$dc60dValue = Carbon::parse($bday->value)->addDays(60)->toDateString();
+					}
+					else{
+						$dc60dValue = "";
+					}
 				}
 				else{
-					$dc90dValue = "";
+					$dc60dValue = $request->date_collected_60_days;
 				}
+				$dc60d_new = new AnimalProperty;
+				$dc60d_new->animal_id = $animal->id;
+				$dc60d_new->property_id = 59;
+				$dc60d_new->value = $dc60dValue;
+				$dc60d_new->save();
 			}
 			else{
-				$dc90dValue = $request->date_collected_90_days;
+				if(is_null($request->date_collected_60_days)){
+					if(!is_null($bday)){
+						$dc60dValue = Carbon::parse($bday->value)->addDays(60)->toDateString();
+					}
+					else{
+						$dc60dValue = "";
+					}
+				}
+				else{
+					$dc60dValue = $request->date_collected_60_days;
+				}
+				$dc60d->value = $dc60dValue;
 			}
 
 			$dc90d = $properties->where("property_id", 70)->first();
-			$dc90d->value = $dc90dValue;
-
-			if(is_null($request->date_collected_150_days)){
-				if(!is_null($bday)){
-					$dc150dValue = Carbon::parse($bday->value)->addDays(150)->toDateString();
+			if(is_null($dc90d)){
+				if(is_null($request->date_collected_90_days)){
+					if(!is_null($bday)){
+						$dc90dValue = Carbon::parse($bday->value)->addDays(90)->toDateString();
+					}
+					else{
+						$dc90dValue = "";
+					}
 				}
 				else{
-					$dc150dValue = "";
+					$dc90dValue = $request->date_collected_90_days;
 				}
+				$dc90d_new = new AnimalProperty;
+				$dc90d_new->animal_id = $animal->id;
+				$dc90d_new->property_id = 70;
+				$dc90d_new->value = $dc90dValue;
+				$dc90d_new->save();
 			}
 			else{
-				$dc150dValue = $request->date_collected_150_days;
+				if(is_null($request->date_collected_90_days)){
+					if(!is_null($bday)){
+						$dc90dValue = Carbon::parse($bday->value)->addDays(90)->toDateString();
+					}
+					else{
+						$dc90dValue = "";
+					}
+				}
+				else{
+					$dc90dValue = $request->date_collected_90_days;
+				}
+				$dc90d->value = $dc90dValue;
 			}
 
 			$dc150d = $properties->where("property_id", 91)->first();
-			$dc150d->value = $dc150dValue;
-
-			if(is_null($request->date_collected_180_days)){
-				if(!is_null($bday)){
-					$dc180dValue = Carbon::parse($bday->value)->addDays(180)->toDateString();
+			if(is_null($dc150d)){
+				if(is_null($request->date_collected_150_days)){
+					if(!is_null($bday)){
+						$dc150dValue = Carbon::parse($bday->value)->addDays(150)->toDateString();
+					}
+					else{
+						$dc150dValue = "";
+					}
 				}
 				else{
-					$dc180dValue = "";
+					$dc150dValue = $request->date_collected_150_days;
 				}
+				$dc150d_new = new AnimalProperty;
+				$dc150d_new->animal_id = $animal->id;
+				$dc150d_new->property_id = 91;
+				$dc150d_new->value = $dc150dValue;
+				$dc150d_new->save();
 			}
 			else{
-				$dc180dValue = $request->date_collected_180_days;
+				if(is_null($request->date_collected_150_days)){
+					if(!is_null($bday)){
+						$dc150dValue = Carbon::parse($bday->value)->addDays(150)->toDateString();
+					}
+					else{
+						$dc150dValue = "";
+					}
+				}
+				else{
+					$dc150dValue = $request->date_collected_150_days;
+				}
+				$dc150d->value = $dc150dValue;
 			}
 
 			$dc180d = $properties->where("property_id", 60)->first();
-			$dc180d->value = $dc180dValue;
+			if(is_null($dc180d)){
+				if(is_null($request->date_collected_180_days)){
+					if(!is_null($bday)){
+						$dc180dValue = Carbon::parse($bday->value)->addDays(180)->toDateString();
+					}
+					else{
+						$dc180dValue = "";
+					}
+				}
+				else{
+					$dc180dValue = $request->date_collected_180_days;
+				}
+				$dc180d_new = new AnimalProperty;
+				$dc180d_new->animal_id = $animal->id;
+				$dc180d_new->property_id = 60;
+				$dc180d_new->value = $dc180dValue;
+				$dc180d_new->save();
+			}
+			else{
+				if(is_null($request->date_collected_180_days)){
+					if(!is_null($bday)){
+						$dc180dValue = Carbon::parse($bday->value)->addDays(180)->toDateString();
+					}
+					else{
+						$dc180dValue = "";
+					}
+				}
+				else{
+					$dc180dValue = $request->date_collected_180_days;
+				}
+				$dc180d->value = $dc180dValue;
+			}
 
 			$bw45d->save();
 			$bw60d->save();

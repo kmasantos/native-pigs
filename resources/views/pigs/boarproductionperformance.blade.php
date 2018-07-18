@@ -19,7 +19,7 @@
 									<th>Service</th>
 									<th>Sow Used</th>
 									<th>Date Bred</th>
-									<th>View</th>
+									<th>Status</th>
 								</tr>
 							</thead>
 							<tbody>

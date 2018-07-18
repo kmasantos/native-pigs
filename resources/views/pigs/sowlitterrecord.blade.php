@@ -479,7 +479,7 @@
 												@endif
 											@endif
 											{{-- MODAL STRUCTURE --}}
-											<div id="weaning_weight_modal{{$offspring->getChild()->id}}" class="modal">
+											{{-- <div id="weaning_weight_modal{{$offspring->getChild()->id}}" class="modal">
 												<div class="modal-content">
 													<h5 class="center">Weaning Record: <strong>{{ $offspring->getChild()->registryid }}</strong></h5>
 													<input type="hidden" name="offspring_id" value="{{ $offspring->getChild()->registryid }}">
@@ -504,7 +504,7 @@
 								            Submit <i class="material-icons right">send</i>
 								          </button>
 												</div>
-											</div>
+											</div> --}}
 											{!! Form::close() !!}
 										</tr>
 									@empty
@@ -876,7 +876,7 @@
 														@endif
 													@endif
 													{{-- MODAL STRUCTURE --}}
-													<div id="weaning_weight_modal{{$offspring->getChild()->id}}" class="modal">
+													{{-- <div id="weaning_weight_modal{{$offspring->getChild()->id}}" class="modal">
 														<div class="modal-content">
 															<h5 class="center">Weaning Record: <strong>{{ $offspring->getChild()->registryid }}</strong></h5>
 															<input type="hidden" name="offspring_id" value="{{ $offspring->getChild()->registryid }}">
@@ -901,7 +901,7 @@
 										            Submit <i class="material-icons right">send</i>
 										          </button>
 														</div>
-													</div>
+													</div> --}}
 													{!! Form::close() !!}
 												</tr>
 											@empty
@@ -1037,7 +1037,7 @@
 													@endif
 												@endif
 												{{-- MODAL STRUCTURE --}}
-												<div id="weaning_weight_modal{{$offspring->getChild()->id}}" class="modal">
+												{{-- <div id="weaning_weight_modal{{$offspring->getChild()->id}}" class="modal">
 													<div class="modal-content">
 														<h5 class="center">Weaning Record: <strong>{{ $offspring->getChild()->registryid }}</strong></h5>
 														<input type="hidden" name="offspring_id" value="{{ $offspring->getChild()->registryid }}">
@@ -1062,7 +1062,7 @@
 									            Submit <i class="material-icons right">send</i>
 									          </button>
 													</div>
-												</div>
+												</div> --}}
 												{!! Form::close() !!}
 											</tr>
 										@empty

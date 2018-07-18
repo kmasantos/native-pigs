@@ -151,7 +151,7 @@
           </div>
           <div class="row">
             <div class="col s4">
-              Upload photo<br><a href="#sample_photo" class="modal-trigger tooltipped" data-position="bottom" data-tooltip="View sample"><i class="material-icons">visibility</i></a>
+              Upload photo<br><a href="#sample_photo" class="modal-trigger tooltipped" data-position="right" data-tooltip="View sample"><i class="material-icons">visibility</i></a>
             </div>
             <div class="file-field input-field col s8">
               <div class="btn green darken-3 waves-effect waves-light">
