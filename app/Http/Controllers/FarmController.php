@@ -441,7 +441,8 @@ class FarmController extends Controller
 			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where(function ($query) {
 										$query->where("status", "breeder")
 													->orWhere("status", "sold breeder")
-													->orWhere("status", "dead breeder");
+													->orWhere("status", "dead breeder")
+													->orWhere("status", "removed breeder");
 													})->get();
 
 			// gets pigs born on the specified year
@@ -532,18 +533,22 @@ class FarmController extends Controller
 			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where(function ($query) {
 										$query->where("status", "breeder")
 													->orWhere("status", "sold breeder")
-													->orWhere("status", "dead breeder");
+													->orWhere("status", "dead breeder")
+													->orWhere("status", "removed breeder");
 													})->get();
 
 			$alive = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "breeder")->get();
 			$sold = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "sold breeder")->get();
 			$dead = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "dead breeder")->get();
+			$removed = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "removed breeder")->get();
 			$sowsalive = [];
 			$soldsows = [];
 			$deadsows = [];
+			$removedsows = [];
 			$boarsalive = [];
 			$soldboars = [];
 			$deadboars = [];
+			$removedboars = [];
 
 			// default filter
 			$filter = "All";
@@ -687,7 +692,7 @@ class FarmController extends Controller
 			$notailtypes = (count($pigs)-(count($curlytails)+count($straighttails)));
 			$nobacklines = (count($pigs)-(count($swaybacks)+count($straightbacks)));
 
-			return view('pigs.grossmorphoreport', compact('pigs', 'filter', 'sows', 'boars', 'curlyhairs', 'straighthairs', 'shorthairs', 'longhairs', 'blackcoats', 'nonblackcoats', 'plains', 'socks', 'concaves', 'straightheads', 'smooths', 'wrinkleds', 'droopingears', 'semilops', 'erectears', 'curlytails', 'straighttails', 'swaybacks', 'straightbacks', 'nohairtypes', 'nohairlengths', 'nocoats', 'nopatterns', 'noheadshapes', 'noskintypes', 'noeartypes', 'notailtypes', 'nobacklines', 'years', 'alive', 'sold', 'dead', 'sowsalive', 'soldsows', 'deadsows', 'boarsalive', 'soldboars', 'deadboars'));
+			return view('pigs.grossmorphoreport', compact('pigs', 'filter', 'sows', 'boars', 'curlyhairs', 'straighthairs', 'shorthairs', 'longhairs', 'blackcoats', 'nonblackcoats', 'plains', 'socks', 'concaves', 'straightheads', 'smooths', 'wrinkleds', 'droopingears', 'semilops', 'erectears', 'curlytails', 'straighttails', 'swaybacks', 'straightbacks', 'nohairtypes', 'nohairlengths', 'nocoats', 'nopatterns', 'noheadshapes', 'noskintypes', 'noeartypes', 'notailtypes', 'nobacklines', 'years', 'alive', 'sold', 'dead', 'removed', 'sowsalive', 'soldsows', 'deadsows', 'removedsows', 'boarsalive', 'soldboars', 'deadboars', 'removedboars'));
 		}
 
 		public function filterGrossMorphologyReport(Request $request){ // function to filter Gross Morphology Report onclick
@@ -702,6 +707,7 @@ class FarmController extends Controller
 			$alive = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "breeder")->get();
 			$sold = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "sold breeder")->get();
 			$dead = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "dead breeder")->get();
+			$removed = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "removed breeder")->get();
 
 			$filter = $request->filter_keywords;
 
@@ -760,6 +766,7 @@ class FarmController extends Controller
 				$sowsalive = [];
 				$soldsows = [];
 				$deadsows = [];
+				$removedsows = [];
 				foreach ($sows as $sow) {
 					if($sow->status == "breeder"){
 						array_push($sowsalive, $sow);
@@ -769,6 +776,9 @@ class FarmController extends Controller
 					}
 					elseif($sow->status == "dead breeder"){
 						array_push($deadsows, $sow);
+					}
+					elseif($sow->status == "removed breeder"){
+						array_push($removedsows, $sow);
 					}
 					$properties = $sow->getAnimalProperties();
 					foreach ($properties as $property) {
@@ -865,6 +875,7 @@ class FarmController extends Controller
 				$boarsalive = [];
 				$soldboars = [];
 				$deadboars = [];
+				$removedboars = [];
 				foreach ($boars as $boar) {
 					if($boar->status == "breeder"){
 						array_push($boarsalive, $boar);
@@ -874,6 +885,9 @@ class FarmController extends Controller
 					}
 					elseif($boar->status == "dead breeder"){
 						array_push($deadboars, $boar);
+					}
+					elseif($boar->status == "removed breeder"){
+						array_push($removedboars, $boar);
 					}
 					$properties = $boar->getAnimalProperties();
 					foreach ($properties as $property) {
@@ -1061,7 +1075,7 @@ class FarmController extends Controller
 			}
 
 			// return Redirect::back()->with('message','Operation Successful!');
-			return view('pigs.grossmorphoreport', compact('pigs', 'filter', 'sows', 'boars', 'curlyhairs', 'straighthairs', 'shorthairs', 'longhairs', 'blackcoats', 'nonblackcoats', 'plains', 'socks', 'concaves', 'straightheads', 'smooths', 'wrinkleds', 'droopingears', 'semilops', 'erectears', 'curlytails', 'straighttails', 'swaybacks', 'straightbacks', 'nohairtypes', 'nohairlengths', 'nocoats', 'nopatterns', 'noheadshapes', 'noskintypes', 'noeartypes', 'notailtypes', 'nobacklines', 'years', 'alive', 'sold', 'dead', 'sowsalive', 'soldsows', 'deadsows', 'boarsalive', 'soldboars', 'deadboars'));
+			return view('pigs.grossmorphoreport', compact('pigs', 'filter', 'sows', 'boars', 'curlyhairs', 'straighthairs', 'shorthairs', 'longhairs', 'blackcoats', 'nonblackcoats', 'plains', 'socks', 'concaves', 'straightheads', 'smooths', 'wrinkleds', 'droopingears', 'semilops', 'erectears', 'curlytails', 'straighttails', 'swaybacks', 'straightbacks', 'nohairtypes', 'nohairlengths', 'nocoats', 'nopatterns', 'noheadshapes', 'noskintypes', 'noeartypes', 'notailtypes', 'nobacklines', 'years', 'alive', 'sold', 'dead', 'removed', 'sowsalive', 'soldsows', 'deadsows', 'removedsows', 'boarsalive', 'soldboars', 'deadboars', 'removedboars'));
 		}
 
 		static function standardDeviation($arr, $samp = false){ // function to compute standard deviation
@@ -1080,7 +1094,8 @@ class FarmController extends Controller
 			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where(function ($query) {
 										$query->where("status", "breeder")
 													->orWhere("status", "sold breeder")
-													->orWhere("status", "dead breeder");
+													->orWhere("status", "dead breeder")
+													->orWhere("status", "removed breeder");
 													})->get();
 
 			// gets pigs born on specified year
@@ -1173,18 +1188,22 @@ class FarmController extends Controller
 			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where(function ($query) {
 										$query->where("status", "breeder")
 													->orWhere("status", "sold breeder")
-													->orWhere("status", "dead breeder");
+													->orWhere("status", "dead breeder")
+													->orWhere("status", "removed breeder");
 													})->get();
 
 			$alive = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "breeder")->get();
 			$sold = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "sold breeder")->get();
 			$dead = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "dead breeder")->get();
+			$removed = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "removed breeder")->get();
 			$sowsalive = [];
 			$soldsows = [];
 			$deadsows = [];
+			$removedsows = [];
 			$boarsalive = [];
 			$soldboars = [];
 			$deadboars = [];
+			$removedboars = [];
 
 			// default filter
 			$filter = "All";
@@ -1333,7 +1352,7 @@ class FarmController extends Controller
 				$normalteats_sd = static::standardDeviation($normalteats, false);
 			}
 
-			return view('pigs.morphocharsreport', compact('pigs', 'filter', 'sows', 'boars', 'earlengths', 'headlengths', 'snoutlengths', 'bodylengths', 'heartgirths', 'pelvicwidths', 'ponderalindices', 'taillengths', 'heightsatwithers', 'normalteats', 'earlengths_sd', 'headlengths_sd', 'snoutlengths_sd', 'bodylengths_sd', 'heartgirths_sd', 'pelvicwidths_sd', 'ponderalindices_sd', 'taillengths_sd', 'heightsatwithers_sd', 'normalteats_sd', 'years', 'ages_collected', 'alive', 'sold', 'dead', 'sowsalive', 'soldsows', 'deadsows', 'boarsalive', 'soldboars', 'deadboars'));
+			return view('pigs.morphocharsreport', compact('pigs', 'filter', 'sows', 'boars', 'earlengths', 'headlengths', 'snoutlengths', 'bodylengths', 'heartgirths', 'pelvicwidths', 'ponderalindices', 'taillengths', 'heightsatwithers', 'normalteats', 'earlengths_sd', 'headlengths_sd', 'snoutlengths_sd', 'bodylengths_sd', 'heartgirths_sd', 'pelvicwidths_sd', 'ponderalindices_sd', 'taillengths_sd', 'heightsatwithers_sd', 'normalteats_sd', 'years', 'ages_collected', 'alive', 'sold', 'dead', 'removed', 'sowsalive', 'soldsows', 'deadsows', 'removedsows', 'boarsalive', 'soldboars', 'deadboars', 'removedboars'));
 		}
 
 		public function filterMorphometricCharacteristicsReport(Request $request){ // function to filter Morphometric Characteristics Report
@@ -1344,6 +1363,7 @@ class FarmController extends Controller
 			$alive = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "breeder")->get();
 			$sold = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "sold breeder")->get();
 			$dead = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "dead breeder")->get();
+			$removed = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "removed breeder")->get();
 
 			$filter = $request->filter_keywords2;
 
@@ -1391,6 +1411,7 @@ class FarmController extends Controller
 				$sowsalive = [];
 				$soldsows = [];
 				$deadsows = [];
+				$removedsows = [];
 				foreach ($sows as $sow) {
 					if($sow->status == "breeder"){
 						array_push($sowsalive, $sow);
@@ -1400,6 +1421,9 @@ class FarmController extends Controller
 					}
 					elseif($sow->status == "dead breeder"){
 						array_push($deadsows, $sow);
+					}
+					elseif($sow->status == "removed breeder"){
+						array_push($removedsows, $sow);
 					}
 					$properties = $sow->getAnimalProperties();
 					foreach ($properties as $property) {
@@ -1509,6 +1533,7 @@ class FarmController extends Controller
 				$boarsalive = [];
 				$soldboars = [];
 				$deadboars = [];
+				$removedboars = [];
 				foreach ($boars as $boar) {
 					if($boar->status == "breeder"){
 						array_push($boarsalive, $boar);
@@ -1518,6 +1543,9 @@ class FarmController extends Controller
 					}
 					elseif($boar->status == "dead breeder"){
 						array_push($deadboars, $boar);
+					}
+					elseif($boar->status == "removed breeder"){
+						array_push($removedboars, $boar);
 					}
 					$properties = $boar->getAnimalProperties();
 					foreach ($properties as $property) {
@@ -1730,7 +1758,7 @@ class FarmController extends Controller
 				}
 			}
 
-			return view('pigs.morphocharsreport', compact('pigs', 'filter', 'sows', 'boars', 'earlengths', 'headlengths', 'snoutlengths', 'bodylengths', 'heartgirths', 'pelvicwidths', 'ponderalindices', 'taillengths', 'heightsatwithers', 'normalteats', 'earlengths_sd', 'headlengths_sd', 'snoutlengths_sd', 'bodylengths_sd', 'heartgirths_sd', 'pelvicwidths_sd', 'ponderalindices_sd', 'taillengths_sd', 'heightsatwithers_sd', 'normalteats_sd', 'years', 'ages_collected', 'alive', 'sold', 'dead', 'sowsalive', 'soldsows', 'deadsows', 'boarsalive', 'soldboars', 'deadboars'));
+			return view('pigs.morphocharsreport', compact('pigs', 'filter', 'sows', 'boars', 'earlengths', 'headlengths', 'snoutlengths', 'bodylengths', 'heartgirths', 'pelvicwidths', 'ponderalindices', 'taillengths', 'heightsatwithers', 'normalteats', 'earlengths_sd', 'headlengths_sd', 'snoutlengths_sd', 'bodylengths_sd', 'heartgirths_sd', 'pelvicwidths_sd', 'ponderalindices_sd', 'taillengths_sd', 'heightsatwithers_sd', 'normalteats_sd', 'years', 'ages_collected', 'alive', 'sold', 'dead', 'removed', 'sowsalive', 'soldsows', 'deadsows', 'removedsows', 'boarsalive', 'soldboars', 'deadboars', 'removedboars'));
 		}
 
 		public static function getWeightsPerYearOfBirth($year, $property_id){ // function to get weights per year of birth
@@ -3685,6 +3713,7 @@ class FarmController extends Controller
 			// sorts male pigs into jr and sr boars
 			$jrboars = []; // less than 1 year old
 			$srboars = []; // at least 1 year old
+			$noage = [];
 			foreach ($boars as $boar) {
 				$iproperties = $boar->getAnimalProperties();
 				foreach ($iproperties as $iproperty) {
@@ -3698,6 +3727,9 @@ class FarmController extends Controller
 							else{
 								array_push($srboars, $boar);
 							}
+						}
+						else{
+							array_push($noage, $boar);
 						}
 					}
 				}
@@ -3719,10 +3751,12 @@ class FarmController extends Controller
 								}
 							}
 						}
-						if($now->gte(Carbon::parse($gproperty->value)) && $now->lte(Carbon::parse($gproperty->value)->addDays(114))){ // in theory, pigs are pregnant for 114 days
-							$pregnant = $group->getMother();
-							if($pregnant->status == "breeder"){
-								array_push($pregnantsows, $pregnant);
+						if($now->gte(Carbon::parse($gproperty->value))){
+							if($group->getGroupingProperties()->where("property_id", 50)->first()->value == "Pregnant"){
+								$pregnant = $group->getMother();
+								if($pregnant->status == "breeder"){
+									array_push($pregnantsows, $pregnant);
+								}
 							}
 						}
 					}
@@ -3776,7 +3810,7 @@ class FarmController extends Controller
 				}
 			}
 
-			return view('pigs.breederinventory', compact('pigs', 'sows', 'boars', 'groups', 'frequency', 'breds', 'pregnantsows', 'lactatingsows', 'drysows', 'gilts', 'jrboars', 'srboars', 'now'));
+			return view('pigs.breederinventory', compact('pigs', 'sows', 'boars', 'groups', 'frequency', 'breds', 'pregnantsows', 'lactatingsows', 'drysows', 'gilts', 'jrboars', 'srboars', 'now', 'noage'));
 		}
 
 		public function getSowUsagePage($id){ // function to display Sow Usage page
@@ -4513,8 +4547,13 @@ class FarmController extends Controller
 			// computes current age
 			$now = Carbon::now();
 			if(!is_null($properties->where("property_id", 25)->first())){
-				$end_date = Carbon::parse($properties->where("property_id", 25)->first()->value);
-				$age = $now->diffInMonths($end_date);
+				if($properties->where("property_id", 25)->first()->value == "Not specified"){
+					$age = "";
+				}
+				else{
+					$end_date = Carbon::parse($properties->where("property_id", 25)->first()->value);
+					$age = $now->diffInMonths($end_date);
+				}
 			}
 			else{
 				$age = "";
@@ -4522,9 +4561,14 @@ class FarmController extends Controller
 
 			// computes age at weaning
 			if(!is_null($properties->where("property_id", 25)->first()) && !is_null($properties->where("property_id", 61)->first())){
-				$start_weaned = Carbon::parse($properties->where("property_id", 25)->first()->value);
-				$end_weaned = Carbon::parse($properties->where("property_id", 61)->first()->value);
-				$ageAtWeaning = $end_weaned->diffInMonths($start_weaned);
+				if($properties->where("property_id", 25)->first()->value == "Not specified" || $properties->where("property_id", 61)->first()->value == "Not specified"){
+					$ageAtWeaning = "";
+				}
+				else{
+					$start_weaned = Carbon::parse($properties->where("property_id", 25)->first()->value);
+					$end_weaned = Carbon::parse($properties->where("property_id", 61)->first()->value);
+					$ageAtWeaning = $end_weaned->diffInMonths($start_weaned);
+				}
 			}
 			else{
 				$ageAtWeaning = "";
@@ -4596,8 +4640,13 @@ class FarmController extends Controller
 			// computes current age
 			$now = Carbon::now();
 			if(!is_null($properties->where("property_id", 25)->first())){
-				$end_date = Carbon::parse($properties->where("property_id", 25)->first()->value);
-				$age = $now->diffInMonths($end_date);
+				if($properties->where("property_id", 25)->first()->value == "Not specified"){
+					$age = "";
+				}
+				else{
+					$end_date = Carbon::parse($properties->where("property_id", 25)->first()->value);
+					$age = $now->diffInMonths($end_date);
+				}
 			}
 			else{
 				$age = "";
@@ -4605,9 +4654,14 @@ class FarmController extends Controller
 
 			// computes age at weaning
 			if(!is_null($properties->where("property_id", 25)->first()) && !is_null($properties->where("property_id", 61)->first())){
-				$start_weaned = Carbon::parse($properties->where("property_id", 25)->first()->value);
-				$end_weaned = Carbon::parse($properties->where("property_id", 61)->first()->value);
-				$ageAtWeaning = $end_weaned->diffInMonths($start_weaned);
+				if($properties->where("property_id", 25)->first()->value == "Not specified" || $properties->where("property_id", 61)->first()->value == "Not specified"){
+					$ageAtWeaning = "";
+				}
+				else{
+					$start_weaned = Carbon::parse($properties->where("property_id", 25)->first()->value);
+					$end_weaned = Carbon::parse($properties->where("property_id", 61)->first()->value);
+					$ageAtWeaning = $end_weaned->diffInMonths($start_weaned);
+				}
 			}
 			else{
 				$ageAtWeaning = "";
@@ -4776,6 +4830,102 @@ class FarmController extends Controller
 				if($weight_180d_prop->value != ""){
 					$latest_weight = $weight_180d_prop->value;
 					$number_of_days = 180;
+				}
+				else{
+					if(!is_null($weight_150d_prop)){
+						if($weight_150d_prop->value != ""){
+							$latest_weight = $weight_150d_prop->value;
+							$number_of_days = 150;
+						}
+						else{
+							if(!is_null($weight_90d_prop)){
+								if($weight_90d_prop->value != ""){
+									$latest_weight = $weight_90d_prop->value;
+									$number_of_days = 90;
+								}
+								else{
+									if(!is_null($weight_60d_prop)){
+										if($weight_60d_prop->value != ""){
+											$latest_weight = $weight_60d_prop->value;
+											$number_of_days = 60;
+										}
+										else{
+											if(!is_null($weight_45d_prop)){
+												if($weight_45d_prop->value != ""){
+													$latest_weight = $weight_45d_prop->value;
+													$number_of_days = 45;
+												}
+											}
+											else{
+												$latest_weight = "";
+												$number_of_days = "";
+											}
+										}
+									}
+									else{
+										if(!is_null($weight_45d_prop)){
+											if($weight_45d_prop->value != ""){
+												$latest_weight = $weight_45d_prop->value;
+												$number_of_days = 45;
+											}
+										}
+										else{
+											$latest_weight = "";
+											$number_of_days = "";
+										}
+									}
+								}
+							}
+							else{
+								if(!is_null($weight_60d_prop)){
+									if($weight_60d_prop->value != ""){
+										$latest_weight = $weight_60d_prop->value;
+										$number_of_days = 60;
+									}
+								}
+								else{
+									if(!is_null($weight_45d_prop)){
+										if($weight_45d_prop->value != ""){
+											$latest_weight = $weight_45d_prop->value;
+											$number_of_days = 45;
+										}
+									}
+									else{
+										$latest_weight = "";
+										$number_of_days = "";
+									}
+								}
+							}
+						}
+					}
+					else{
+						if(!is_null($weight_90d_prop)){
+							if($weight_90d_prop->value != ""){
+								$latest_weight = $weight_90d_prop->value;
+								$number_of_days = 90;
+							}
+						}
+						else{
+							if(!is_null($weight_60d_prop)){
+								if($weight_60d_prop->value != ""){
+									$latest_weight = $weight_60d_prop->value;
+									$number_of_days = 60;
+								}
+							}
+							else{
+								if(!is_null($weight_45d_prop)){
+									if($weight_45d_prop->value != ""){
+										$latest_weight = $weight_45d_prop->value;
+										$number_of_days = 45;
+									}
+								}
+								else{
+									$latest_weight = "";
+									$number_of_days = "";
+								}
+							}
+						}
+					}
 				}
 			}
 			else{
@@ -4972,112 +5122,491 @@ class FarmController extends Controller
 		public function addSowLitterRecord(Request $request){ // function to add sow litter record and offsprings
 			$grouping = Grouping::find($request->grouping_id);
 			$members = $grouping->getGroupingMembers();
-			$offspring = new Animal;
-
-			$weighing_option = $request->option;
 
 			// adds new offspring
 			$birthdayValue = new Carbon($request->date_farrowed);
-			if($weighing_option == 1){
-				if(!is_null($request->offspring_earnotch) && !is_null($request->sex) && !is_null($request->birth_weight)){
-					$farm = $this->user->getFarm();
-					$breed = $farm->getBreed();
-					$offspring->animaltype_id = 3;
-					$offspring->farm_id = $farm->id;
-					$offspring->breed_id = $breed->id;
-					$offspring->status = "active";
-					$offspring->registryid = $farm->code.$breed->breed."-".$birthdayValue->year.$request->sex.$request->offspring_earnotch;
-					$offspring->save();
+			if(!is_null($request->offspring_earnotch) && !is_null($request->sex) && !is_null($request->birth_weight)){
+				$offspring = new Animal;
+				$farm = $this->user->getFarm();
+				$breed = $farm->getBreed();
+				$offspring->animaltype_id = 3;
+				$offspring->farm_id = $farm->id;
+				$offspring->breed_id = $breed->id;
+				$offspring->status = "active";
+				$offspring->registryid = $farm->code.$breed->breed."-".$birthdayValue->year.$request->sex.$request->offspring_earnotch;
+				$offspring->save();
 
-					$birthday = new AnimalProperty;
-					$birthday->animal_id = $offspring->id;
-					$birthday->property_id = 25;
-					$birthday->value = $request->date_farrowed;
-					$birthday->save();
+				$birthday = new AnimalProperty;
+				$birthday->animal_id = $offspring->id;
+				$birthday->property_id = 25;
+				$birthday->value = $request->date_farrowed;
+				$birthday->save();
 
-					$sex = new AnimalProperty;
-					$sex->animal_id = $offspring->id;
-					$sex->property_id = 27;
-					$sex->value = $request->sex;
-					$sex->save();
+				$sex = new AnimalProperty;
+				$sex->animal_id = $offspring->id;
+				$sex->property_id = 27;
+				$sex->value = $request->sex;
+				$sex->save();
 
-					$birthweight = new AnimalProperty;
-					$birthweight->animal_id = $offspring->id;
-					$birthweight->property_id = 53;
-					$birthweight->value = $request->birth_weight;
-					$birthweight->save();
+				$birthweight = new AnimalProperty;
+				$birthweight->animal_id = $offspring->id;
+				$birthweight->property_id = 53;
+				$birthweight->value = $request->birth_weight;
+				$birthweight->save();
 
-					$groupingmember = new GroupingMember;
-					$groupingmember->grouping_id = $grouping->id;
-					$groupingmember->animal_id = $offspring->id;
-					$groupingmember->save();
+				$groupingmember = new GroupingMember;
+				$groupingmember->grouping_id = $grouping->id;
+				$groupingmember->animal_id = $offspring->id;
+				$groupingmember->save();
+			}
+
+			// adds date farrowed as a group property
+			$datefarrowedgroupprop = $grouping->getGroupingProperties()->where("property_id", 25)->first();
+			if(is_null($datefarrowedgroupprop)){
+				$date_farrowed = new GroupingProperty;
+				$date_farrowed->grouping_id = $grouping->id;
+				$date_farrowed->property_id = 25;
+				$date_farrowed->value = $request->date_farrowed;
+				$date_farrowed->datecollected = new Carbon();
+				$date_farrowed->save();
+			}
+			else{
+				$datefarrowedgroupprop->value = $request->date_farrowed;
+				$datefarrowedgroupprop->save();
+			}
+
+			// changes status from Pregnant to Farrowed
+			$status = GroupingProperty::where("property_id", 50)->where("grouping_id", $grouping->id)->first();
+			$status->value = "Farrowed";
+			$status->save();
+
+			if(is_null($request->number_stillborn)){
+				$noStillbornValue = 0;
+			}
+			else{
+				$noStillbornValue = $request->number_stillborn;
+			}
+
+			$stillbornprop = $grouping->getGroupingProperties()->where("property_id", 74)->first();
+			if(is_null($stillbornprop)){
+				$no_stillborn = new GroupingProperty;
+				$no_stillborn->grouping_id = $grouping->id;
+				$no_stillborn->property_id = 74;
+				$no_stillborn->value = $noStillbornValue;
+				$no_stillborn->datecollected = new Carbon();
+				$no_stillborn->save();
+			}
+			else{
+				$stillbornprop->value = $noStillbornValue;
+				$stillbornprop->save();
+			}
+
+			if(is_null($request->number_mummified)){
+				$noMummifiedValue = 0;
+			}
+			else{
+				$noMummifiedValue = $request->number_mummified;
+			}
+
+			$mummifiedprop = $grouping->getGroupingProperties()->where("property_id", 75)->first();
+			if(is_null($mummifiedprop)){
+				$no_mummified = new GroupingProperty;
+				$no_mummified->grouping_id = $grouping->id;
+				$no_mummified->property_id = 75;
+				$no_mummified->value = $noMummifiedValue;
+				$no_mummified->datecollected = new Carbon();
+				$no_mummified->save();
+			}
+			else{
+				$mummifiedprop->value = $noMummifiedValue;
+				$mummifiedprop->save();
+			}
+
+			if(is_null($request->abnormalities)){
+				$abnormalityValue = "None";
+			}
+			else{
+				$abnormalityValue = $request->abnormalities;
+			}
+
+			$abnormalityprop = $grouping->getGroupingProperties()->where("property_id", 92)->first();
+			if(is_null($abnormalityprop)){
+				$abnormality = new GroupingProperty;
+				$abnormality->grouping_id = $grouping->id;
+				$abnormality->property_id = 92;
+				$abnormality->value = $abnormalityValue;
+				$abnormality->datecollected = new Carbon();
+				$abnormality->save();
+			}
+			else{
+				$abnormalityprop->value = $abnormalityValue;
+				$abnormalityprop->save();
+			}
+
+			// adding parity
+			$datefarrowedprop = $grouping->getGroupingProperties()->where("property_id", 25)->first();
+			$parityprop = $grouping->getGroupingProperties()->where("property_id", 76)->first();
+			if(is_null($datefarrowedprop)){ // NEW RECORD
+				if(is_null($parityprop)){
+					$paritymotherprop = $grouping->getMother()->getAnimalProperties()->where("property_id", 76)->first();
+					if(is_null($paritymotherprop)){ // FIRST PARITY
+						if(is_null($request->parity)){
+							$parityValue = 1;
+						}
+						else{
+							$parityValue = $request->parity;
+						}
+						$parity = new GroupingProperty;
+						$parity->grouping_id = $grouping->id;
+						$parity->property_id = 76;
+						$parity->value = $parityValue;
+						$parity->datecollected = new Carbon();
+						$parity->save();
+					}
+					else{ // LATEST PARITY
+						if(is_null($request->parity)){
+							$parityValue = $paritymotherprop->value + 1;
+						}
+						else{
+							$parityValue = $request->parity;
+						}
+
+						$parity = new GroupingProperty;
+						$parity->grouping_id = $grouping->id;
+						$parity->property_id = 76;
+						$parity->value = $parityValue;
+						$parity->datecollected = new Carbon();
+						$parity->save();
+					}
 				}
 			}
-			elseif($weighing_option == 0){
-				$litterbirthweightprop = $grouping->getGroupingProperties()->where("property_id", 93)->first();
-				if(is_null($litterbirthweightprop)){
-					$litter_birth_weight = new GroupingProperty;
-					$litter_birth_weight->grouping_id = $grouping->id;
-					$litter_birth_weight->property_id = 93;
-					$litter_birth_weight->value = $request->litter_birth_weight;
-					$litter_birth_weight->datecollected = new Carbon();
-					$litter_birth_weight->save();
+			else{ // EXISTING RECORD
+				if(is_null($parityprop)){
+					$paritymotherprop = $grouping->getMother()->getAnimalProperties()->where("property_id", 76)->first();
+					if(is_null($paritymotherprop)){ // FIRST PARITY
+						if(is_null($request->parity)){
+							$parityValue = 1;
+						}
+						else{
+							$parityValue = $request->parity;
+						}
+
+						$parity = new GroupingProperty;
+						$parity->grouping_id = $grouping->id;
+						$parity->property_id = 76;
+						$parity->value = $parityValue;
+						$parity->datecollected = new Carbon();
+						$parity->save();
+					}
+					else{ // LATEST PARITY
+						if(is_null($request->parity)){
+							$parityValue = $paritymotherprop->value + 1;
+						}
+						else{
+							$parityValue = $request->parity;
+						}
+						$parity = new GroupingProperty;
+						$parity->grouping_id = $grouping->id;
+						$parity->property_id = 76;
+						$parity->value = $parityValue;
+						$parity->datecollected = new Carbon();
+						$parity->save();
+					}
 				}
 				else{
-					$litterbirthweightprop->value = $request->litter_birth_weight;
-					$litterbirthweightprop->save();
+					$parityprop->value = $request->parity;
+					$parityprop->save();
 				}
+			}
 
-				$lsbaprop = $grouping->getGroupingProperties()->where("property_id", 95)->first();
-				if(is_null($lsbaprop)){
-					$lsba = new GroupingProperty;
-					$lsba->grouping_id = $grouping->id;
-					$lsba->property_id = 95;
-					$lsba->value = $request->lsba;
-					$lsba->datecollected = new Carbon();
-					$lsba->save();
+			// function call to update parity of mother
+			static::addParityMother($grouping->id);
+
+			$grouping->members = 1;
+			$grouping->save();
+
+			return Redirect::back()->with('message', 'Operation Successful!');
+		}
+
+		public function addSowlitterRecordIndividualWeighing(Request $request){
+			$grouping = Grouping::find($request->grouping_id);
+			$members = $grouping->getGroupingMembers();
+
+			// adds new offspring
+			$birthdayValue = new Carbon($request->date_farrowed);
+			if(!is_null($request->offspring_earnotch) && !is_null($request->sex) && !is_null($request->birth_weight)){
+				$offspring = new Animal;
+				$farm = $this->user->getFarm();
+				$breed = $farm->getBreed();
+				$offspring->animaltype_id = 3;
+				$offspring->farm_id = $farm->id;
+				$offspring->breed_id = $breed->id;
+				$offspring->status = "active";
+				$offspring->registryid = $farm->code.$breed->breed."-".$birthdayValue->year.$request->sex.$request->offspring_earnotch;
+				$offspring->save();
+
+				$birthday = new AnimalProperty;
+				$birthday->animal_id = $offspring->id;
+				$birthday->property_id = 25;
+				$birthday->value = $request->date_farrowed;
+				$birthday->save();
+
+				$sex = new AnimalProperty;
+				$sex->animal_id = $offspring->id;
+				$sex->property_id = 27;
+				$sex->value = $request->sex;
+				$sex->save();
+
+				$birthweight = new AnimalProperty;
+				$birthweight->animal_id = $offspring->id;
+				$birthweight->property_id = 53;
+				$birthweight->value = $request->birth_weight;
+				$birthweight->save();
+
+				$groupingmember = new GroupingMember;
+				$groupingmember->grouping_id = $grouping->id;
+				$groupingmember->animal_id = $offspring->id;
+				$groupingmember->save();
+			}
+
+			// adds date farrowed as a group property
+			$datefarrowedgroupprop = $grouping->getGroupingProperties()->where("property_id", 25)->first();
+			if(is_null($datefarrowedgroupprop)){
+				$date_farrowed = new GroupingProperty;
+				$date_farrowed->grouping_id = $grouping->id;
+				$date_farrowed->property_id = 25;
+				$date_farrowed->value = $request->date_farrowed;
+				$date_farrowed->datecollected = new Carbon();
+				$date_farrowed->save();
+			}
+			else{
+				$datefarrowedgroupprop->value = $request->date_farrowed;
+				$datefarrowedgroupprop->save();
+			}
+
+			// changes status from Pregnant to Farrowed
+			$status = GroupingProperty::where("property_id", 50)->where("grouping_id", $grouping->id)->first();
+			$status->value = "Farrowed";
+			$status->save();
+
+			if(is_null($request->number_stillborn)){
+				$noStillbornValue = 0;
+			}
+			else{
+				$noStillbornValue = $request->number_stillborn;
+			}
+
+			$stillbornprop = $grouping->getGroupingProperties()->where("property_id", 74)->first();
+			if(is_null($stillbornprop)){
+				$no_stillborn = new GroupingProperty;
+				$no_stillborn->grouping_id = $grouping->id;
+				$no_stillborn->property_id = 74;
+				$no_stillborn->value = $noStillbornValue;
+				$no_stillborn->datecollected = new Carbon();
+				$no_stillborn->save();
+			}
+			else{
+				$stillbornprop->value = $noStillbornValue;
+				$stillbornprop->save();
+			}
+
+			if(is_null($request->number_mummified)){
+				$noMummifiedValue = 0;
+			}
+			else{
+				$noMummifiedValue = $request->number_mummified;
+			}
+
+			$mummifiedprop = $grouping->getGroupingProperties()->where("property_id", 75)->first();
+			if(is_null($mummifiedprop)){
+				$no_mummified = new GroupingProperty;
+				$no_mummified->grouping_id = $grouping->id;
+				$no_mummified->property_id = 75;
+				$no_mummified->value = $noMummifiedValue;
+				$no_mummified->datecollected = new Carbon();
+				$no_mummified->save();
+			}
+			else{
+				$mummifiedprop->value = $noMummifiedValue;
+				$mummifiedprop->save();
+			}
+
+			if(is_null($request->abnormalities)){
+				$abnormalityValue = "None";
+			}
+			else{
+				$abnormalityValue = $request->abnormalities;
+			}
+
+			$abnormalityprop = $grouping->getGroupingProperties()->where("property_id", 92)->first();
+			if(is_null($abnormalityprop)){
+				$abnormality = new GroupingProperty;
+				$abnormality->grouping_id = $grouping->id;
+				$abnormality->property_id = 92;
+				$abnormality->value = $abnormalityValue;
+				$abnormality->datecollected = new Carbon();
+				$abnormality->save();
+			}
+			else{
+				$abnormalityprop->value = $abnormalityValue;
+				$abnormalityprop->save();
+			}
+
+			// adding parity
+			$datefarrowedprop = $grouping->getGroupingProperties()->where("property_id", 25)->first();
+			$parityprop = $grouping->getGroupingProperties()->where("property_id", 76)->first();
+			if(is_null($datefarrowedprop)){ // NEW RECORD
+				if(is_null($parityprop)){
+					$paritymotherprop = $grouping->getMother()->getAnimalProperties()->where("property_id", 76)->first();
+					if(is_null($paritymotherprop)){ // FIRST PARITY
+						if(is_null($request->parity)){
+							$parityValue = 1;
+						}
+						else{
+							$parityValue = $request->parity;
+						}
+						$parity = new GroupingProperty;
+						$parity->grouping_id = $grouping->id;
+						$parity->property_id = 76;
+						$parity->value = $parityValue;
+						$parity->datecollected = new Carbon();
+						$parity->save();
+					}
+					else{ // LATEST PARITY
+						if(is_null($request->parity)){
+							$parityValue = $paritymotherprop->value + 1;
+						}
+						else{
+							$parityValue = $request->parity;
+						}
+
+						$parity = new GroupingProperty;
+						$parity->grouping_id = $grouping->id;
+						$parity->property_id = 76;
+						$parity->value = $parityValue;
+						$parity->datecollected = new Carbon();
+						$parity->save();
+					}
+				}
+			}
+			else{ // EXISTING RECORD
+				if(is_null($parityprop)){
+					$paritymotherprop = $grouping->getMother()->getAnimalProperties()->where("property_id", 76)->first();
+					if(is_null($paritymotherprop)){ // FIRST PARITY
+						if(is_null($request->parity)){
+							$parityValue = 1;
+						}
+						else{
+							$parityValue = $request->parity;
+						}
+
+						$parity = new GroupingProperty;
+						$parity->grouping_id = $grouping->id;
+						$parity->property_id = 76;
+						$parity->value = $parityValue;
+						$parity->datecollected = new Carbon();
+						$parity->save();
+					}
+					else{ // LATEST PARITY
+						if(is_null($request->parity)){
+							$parityValue = $paritymotherprop->value + 1;
+						}
+						else{
+							$parityValue = $request->parity;
+						}
+						$parity = new GroupingProperty;
+						$parity->grouping_id = $grouping->id;
+						$parity->property_id = 76;
+						$parity->value = $parityValue;
+						$parity->datecollected = new Carbon();
+						$parity->save();
+					}
 				}
 				else{
-					$lsbaprop->value = $request->lsba;
-					$lsbaprop->save();
+					$parityprop->value = $request->parity;
+					$parityprop->save();
 				}
+			}
 
-				if(!is_null($request->offspring_earnotch) && !is_null($request->sex)){
-					$farm = $this->user->getFarm();
-					$breed = $farm->getBreed();
-					$offspring->animaltype_id = 3;
-					$offspring->farm_id = $farm->id;
-					$offspring->breed_id = $breed->id;
-					$offspring->status = "temporary";
-					$offspring->registryid = $farm->code.$breed->breed."-".$birthdayValue->year.$request->sex.$request->offspring_earnotch;
-					$offspring->save();
+			// function call to update parity of mother
+			static::addParityMother($grouping->id);
 
-					$birthday = new AnimalProperty;
-					$birthday->animal_id = $offspring->id;
-					$birthday->property_id = 25;
-					$birthday->value = $request->date_farrowed;
-					$birthday->save();
+			$grouping->members = 1;
+			$grouping->save();
 
-					$sex = new AnimalProperty;
-					$sex->animal_id = $offspring->id;
-					$sex->property_id = 27;
-					$sex->value = $request->sex;
-					$sex->save();
+			return Redirect::back()->with('message', 'Operation Successful!');
+		}
 
-					$litterbirthweightValue = $request->litter_birth_weight;
-					$lsbaValue = $request->lsba;
+		public function addSowlitterRecordGroupWeighing(Request $request){
+			$grouping = Grouping::find($request->grouping_id);
+			$members = $grouping->getGroupingMembers();
 
-					$birthweight = new AnimalProperty;
-					$birthweight->animal_id = $offspring->id;
-					$birthweight->property_id = 53;
-					$birthweight->value = $litterbirthweightValue/$lsbaValue;
-					$birthweight->save();
+			// adds new offspring
+			$birthdayValue = new Carbon($request->date_farrowed);
+			$litterbirthweightprop = $grouping->getGroupingProperties()->where("property_id", 93)->first();
+			if(is_null($litterbirthweightprop)){
+				$litter_birth_weight = new GroupingProperty;
+				$litter_birth_weight->grouping_id = $grouping->id;
+				$litter_birth_weight->property_id = 93;
+				$litter_birth_weight->value = $request->litter_birth_weight;
+				$litter_birth_weight->datecollected = new Carbon();
+				$litter_birth_weight->save();
+			}
+			else{
+				$litterbirthweightprop->value = $request->litter_birth_weight;
+				$litterbirthweightprop->save();
+			}
 
-					$groupingmember = new GroupingMember;
-					$groupingmember->grouping_id = $grouping->id;
-					$groupingmember->animal_id = $offspring->id;
-					$groupingmember->save();
-				}
+			$lsbaprop = $grouping->getGroupingProperties()->where("property_id", 95)->first();
+			if(is_null($lsbaprop)){
+				$lsba = new GroupingProperty;
+				$lsba->grouping_id = $grouping->id;
+				$lsba->property_id = 95;
+				$lsba->value = $request->lsba;
+				$lsba->datecollected = new Carbon();
+				$lsba->save();
+			}
+			else{
+				$lsbaprop->value = $request->lsba;
+				$lsbaprop->save();
+			}
+
+			if(!is_null($request->offspring_earnotch) && !is_null($request->sex)){
+				$offspring = new Animal;
+				$farm = $this->user->getFarm();
+				$breed = $farm->getBreed();
+				$offspring->animaltype_id = 3;
+				$offspring->farm_id = $farm->id;
+				$offspring->breed_id = $breed->id;
+				$offspring->status = "temporary";
+				$offspring->registryid = $farm->code.$breed->breed."-".$birthdayValue->year.$request->sex.$request->offspring_earnotch;
+				$offspring->save();
+
+				$birthday = new AnimalProperty;
+				$birthday->animal_id = $offspring->id;
+				$birthday->property_id = 25;
+				$birthday->value = $request->date_farrowed;
+				$birthday->save();
+
+				$sex = new AnimalProperty;
+				$sex->animal_id = $offspring->id;
+				$sex->property_id = 27;
+				$sex->value = $request->sex;
+				$sex->save();
+
+				$litterbirthweightValue = $request->litter_birth_weight;
+				$lsbaValue = $request->lsba;
+
+				$birthweight = new AnimalProperty;
+				$birthweight->animal_id = $offspring->id;
+				$birthweight->property_id = 53;
+				$birthweight->value = $litterbirthweightValue/$lsbaValue;
+				$birthweight->save();
+
+				$groupingmember = new GroupingMember;
+				$groupingmember->grouping_id = $grouping->id;
+				$groupingmember->animal_id = $offspring->id;
+				$groupingmember->save();
 			}
 
 			// adds date farrowed as a group property
@@ -6558,19 +7087,31 @@ class FarmController extends Controller
 			$weight_sold->value = $weightSoldValue;
 			$weight_sold->save();
 
+			if(is_null($request->price)){
+				$priceValue = "Not specified";
+			}
+			else{
+				$priceValue = $request->price;
+			}
+
+			$price_sold = new AnimalProperty;
+			$price_sold->animal_id = $sold->id;
+			$price_sold->property_id = 96;
+			$price_sold->value = $priceValue;
+			$price_sold->save();
+
 			return Redirect::back()->with('message','Operation Successful!');
 		}
 
 		public function addRemovedAnimalRecord(Request $request){ // function to add removed (culled/donated) animal records
 			$removed =  Animal::where("registryid", $request->registrationid_removed)->first();
 
-			// pig sold was a grower
+			// pig removed was a grower
 			if($removed->status == "active"){
 				$removed->status = "removed grower";
 				$removed->save();
 			}
-			// pig sold was a breeder
-			elseif($removed->status == "breeder"){
+			elseif($removed->status == "breeder"){ // pig removed was a breeder
 				$removed->status = "removed breeder";
 				$removed->save();
 			}

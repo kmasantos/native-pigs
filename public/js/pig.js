@@ -31,7 +31,7 @@ $(document).ready(function(){
   $('.tooltipped').tooltip();
 });
 
-if(document.getElementById("hidden_date") == null){
+/*if(document.getElementById("hidden_date") == null){
   document.getElementById("offspring_earnotch").disabled = true;
   document.getElementById("select_sex").disabled = true;
   document.getElementById("birth_weight").disabled = true;
@@ -62,7 +62,7 @@ weaned.onchange = function () {
   if (this.value != null || this.value.length > 0) {
       document.getElementById("weaning_weight").disabled = false;
   }
-}
+}*/
 
 function filterBreedingRecord() {
   var x = document.getElementById("month_div_breeding");

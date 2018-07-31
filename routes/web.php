@@ -34,6 +34,8 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('fetch_parity/{id}/{parity}', ['as' => 'farm.pig.fetch_parity', 'uses' => 'FarmController@fetchParityAjax']);
     Route::post('fetch_weighing_option/{id}/{option}', ['as' => 'farm.pig.fetch_weighing_option', 'uses' => 'FarmController@fetchWeighingOptionAjax']);
     Route::post('get_sowlitter_record', ['as' => 'farm.pig.get_sowlitter_record', 'uses' => 'FarmController@addSowlitterRecord']);
+    Route::post('add_sowlitter_record_individual', ['as' => 'farm.pig.add_sowlitter_record_individual', 'uses' => 'FarmController@addSowlitterRecordIndividualWeighing']);
+    Route::post('add_sowlitter_record_group', ['as' => 'farm.pig.add_sowlitter_record_group', 'uses' => 'FarmController@addSowlitterRecordGroupWeighing']);
     Route::post('edit_temporary_registryid', ['as' => 'farm.pig.edit_temporary_registryid', 'uses' => 'FarmController@editTemporaryRegistryId']);
     Route::post('get_weaning_weights', ['as' => 'farm.pig.get_weaning_weights', 'uses' => 'FarmController@addWeaningWeights']);
     Route::get('grower_records', ['as' => 'farm.pig.grower_records', 'uses' => 'FarmController@getGrowerRecordsPage']);

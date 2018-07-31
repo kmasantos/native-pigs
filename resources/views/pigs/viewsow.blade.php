@@ -23,12 +23,20 @@
                   @if(is_null($properties->where("property_id", 25)->first()))
                     <p><strong>Birth date:</strong> No data available</p>
                   @else
-                    <p><strong>Birth date:</strong> {{ Carbon\Carbon::parse($properties->where("property_id", 25)->first()->value)->format('j F, Y') }}</p>
+                    @if($properties->where("property_id", 25)->first()->value == "Not specified")
+                      <p><strong>Birth date:</strong> No data available</p>
+                    @else
+                      <p><strong>Birth date:</strong> {{ Carbon\Carbon::parse($properties->where("property_id", 25)->first()->value)->format('j F, Y') }}</p>
+                    @endif
                   @endif
                   @if(is_null($properties->where("property_id", 53)->first()))
                     <p><strong>Birth weight:</strong> No data available</p>
                   @else
-                    <p><strong>Birth weight:</strong> {{ $properties->where("property_id", 53)->first()->value }} kg</p>
+                    @if($properties->where("property_id", 53)->first()->value == "")
+                      <p><strong>Birth weight:</strong> No data available</p>
+                    @else
+                      <p><strong>Birth weight:</strong> {{ $properties->where("property_id", 53)->first()->value }} kg</p>
+                    @endif
                   @endif
                   @if(is_null($sow->getGrouping()))
                     <p><strong>Litter-size Born Alive:</strong> No data available</p>
@@ -50,12 +58,20 @@
                   @if(is_null($properties->where("property_id", 54)->first()))
                     <p><strong>Weaning weight:</strong> No data available</p>
                   @else
-                    <p><strong>Weaning weight:</strong> {{ $properties->where("property_id", 54)->first()->value }} kg</p>
+                    @if($properties->where("property_id", 54)->first()->value == "")
+                      <p><strong>Weaning weight:</strong> No data available</p>
+                    @else
+                      <p><strong>Weaning weight:</strong> {{ $properties->where("property_id", 54)->first()->value }} kg</p>
+                    @endif
                   @endif
                   @if(is_null($properties->where("property_id", 54)->first()))
                     <p><strong>Age at weaning:</strong> No data available</p>
                   @else
-                    <p><strong>Age at weaning:</strong> {{ $ageAtWeaning }} months</p>
+                    @if($ageAtWeaning == "")
+                      <p><strong>Age at weaning:</strong> No data available</p>
+                    @else
+                      <p><strong>Age at weaning:</strong> {{ $ageAtWeaning }} months</p>
+                    @endif
                   @endif
                 </div>
               </div>        

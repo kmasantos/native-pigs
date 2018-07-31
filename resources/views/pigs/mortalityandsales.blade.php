@@ -160,7 +160,7 @@
 						<div class="row">
 							<div class="col s10 offset-s1">
 								{{ csrf_field() }}
-								<div class="col s4">
+								<div class="col s3">
 									<select name="registrationid_sold" class="browser-default">
 										<option disabled selected>Choose pig</option>
 										<optgroup label="Breeders">
@@ -175,11 +175,14 @@
 										</optgroup>
 									</select>
 								</div>
-								<div class="col s4">
+								<div class="col s3">
 									<input id="date_sold" type="text" placeholder="Date Sold" name="date_sold" class="datepicker">
 								</div>
-								<div class="col s4">
+								<div class="col s3">
 									<input id="weight_sold" type="text" placeholder="Weight sold, kg" name="weight_sold" class="validate" />
+								</div>
+								<div class="col s3">
+									<input id="price" type="text" placeholder="Price sold, Php" name="price" class="validate" />
 								</div>
 							</div>
 						</div>
@@ -196,6 +199,7 @@
 										<th>Registration ID</th>
 										<th>Date Sold</th>
 										<th>Weight, kg</th>
+										<th>Price, Php</th>
 										<th>Age</th>
 									</tr>
 								</thead>
@@ -206,6 +210,11 @@
 											<td>{{ Carbon\Carbon::parse($pig_sold->getAnimalProperties()->where("property_id", 56)->first()->value)->format('j F, Y') }}</td>
 											@if(!is_null($pig_sold->getAnimalProperties()->where("property_id", 57)->first()))
 												<td>{{ $pig_sold->getAnimalProperties()->where("property_id", 57)->first()->value }}</td>
+											@else
+												<td>Not specified</td>
+											@endif
+											@if(!is_null($pig_sold->getAnimalProperties()->where("property_id", 96)->first()))
+												<td>{{ $pig_sold->getAnimalProperties()->where("property_id", 96)->first()->value }}</td>
 											@else
 												<td>Not specified</td>
 											@endif
@@ -235,7 +244,7 @@
 										</tr>
 									@empty
 										<tr>
-											<td colspan="4">No sales record found</td>
+											<td colspan="5">No sales record found</td>
 										</tr>
 									@endforelse
 								</tbody>
@@ -296,7 +305,7 @@
 									<select name="reason_removed" class="browser-default">
 										<option disabled selected>Choose reason</option>
 										<option value="Culled">Culled</option>
-										<option value="Representation">Donated</option>
+										<option value="Donated">Donated</option>
 									</select>
 								</div>
 							</div>

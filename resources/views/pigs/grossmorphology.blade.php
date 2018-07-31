@@ -172,7 +172,10 @@
         {{-- MODAL STRUCTURE --}}
         <div id="sample_photo" class="modal modal-fixed-footer">
           <div class="modal-content">
-            <h4 class="center">Sample Photo</h4>
+            <h5 class="center">Sample Photo</h5>
+            <div class="row center">
+              <img src="{{asset('images/sample.jpg')}}" width="60%">
+            </div>
           </div>
           <div class="modal-footer">
             <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>

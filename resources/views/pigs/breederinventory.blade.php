@@ -55,7 +55,11 @@
 					<div class="col s12 m10 l4">
 						<div class="card">
 							<div class="card-content grey lighten-2">
-								<h3>{{ $drysows }}</h3>
+								@if($drysows < 0)
+									<h3>0</h3>
+								@else
+									<h3>{{ $drysows }}</h3>
+								@endif
 								<p>Dry</p>
 							</div>
 						</div>
@@ -64,7 +68,7 @@
 			</div>
 			<!-- BOAR INVENTORY -->
 			<div id="boarinventory" class="col s12">
-				<h5>Inventory for {{ Carbon\Carbon::parse($now)->format('F, Y') }} as of {{ Carbon\Carbon::parse($now)->format('F j, Y') }}</h5>
+				<h5>Inventory for <strong>{{ Carbon\Carbon::parse($now)->format('F, Y') }}</strong> as of <strong>{{ Carbon\Carbon::parse($now)->format('F j, Y') }}</strong></h5>
 				<p>Number of boars in the herd: <strong>{{ count($boars) }}</strong></p>
 				<div class="row">
 					<div class="col s12 m10 l6">
@@ -84,6 +88,9 @@
 						</div>
 					</div>
 				</div>
+				@if($noage != [])
+					<p>*boars without age data: {{ count($noage) }}</p>
+				@endif
 			</div>
 		</div>
 	</div>

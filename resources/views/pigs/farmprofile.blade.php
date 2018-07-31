@@ -14,7 +14,7 @@
         <div class="row">
           <div class="input-field col s10 offset-s1">
             <i class="material-icons prefix">info</i>
-            <input id="farm_name" type="text" value="{{ $farm->name }}" name="farm_name" class="validate">
+            <input disabled id="farm_name" type="text" value="{{ $farm->name }}" name="farm_name" class="validate">
             <label for="farm_name">Farm name</label>
           </div>
         </div>
@@ -50,8 +50,8 @@
         <div class="row">
           <div class="input-field col s6 offset-s1">
             <i class="material-icons prefix">place</i>
-            <input id="baranggay" type="text" name="baranggay" class="validate">
-            <label for="baranggay">Baranggay</label>
+            <input id="barangay" type="text" name="baranggay" class="validate">
+            <label for="barangay">Barangay</label>
           </div>
           <div class="input-field col s4">
             <i class="material-icons prefix">smartphone</i>
