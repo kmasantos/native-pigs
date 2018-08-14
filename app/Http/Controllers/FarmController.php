@@ -3759,6 +3759,12 @@ class FarmController extends Controller
 								}
 							}
 						}
+						if($now->lte(Carbon::parse($gproperty->value)->addDays(140))){
+							$pregnant = $group->getMother();
+							if($pregnant->status == "breeder"){
+								array_push($pregnantsows, $pregnantsows);
+							}
+						}
 					}
 					if($gproperty->property_id == 25){ // date farrowed
 						if($now->gte(Carbon::parse($gproperty->value)) && $now->lte(Carbon::parse($gproperty->value)->addDays(100))){ // some farms wean their pigs as late as 100 days
