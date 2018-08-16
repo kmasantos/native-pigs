@@ -3394,6 +3394,11 @@ class FarmController extends Controller
 			$usage = [];
 			$count = 1;
 			$temp = [];
+			$parities = [];
+			$unsorted_parities = [];
+			$dates_farrowed = [];
+			$unsorted_farrowings = [];
+			$temp_dates = [];
 			foreach ($groups as $group) {
 				$groupingproperties = $group->getGroupingProperties();
 				foreach ($groupingproperties as $groupingproperty) {
@@ -3401,11 +3406,36 @@ class FarmController extends Controller
 						$date = $groupingproperty->value;
 						array_push($temp, $date);
 					}
+					if($groupingproperty->property_id == 76){ //parity
+						array_push($unsorted_parities, $groupingproperty->value);
+					}
+					if($groupingproperty->property_id == 25){ //date farrowed
+						$date = Carbon::parse($groupingproperty->value);
+						array_push($unsorted_farrowings, $date);
+					}
 				}
 			}
 			$usage = array_sort($temp);
+			$parities = array_sort($unsorted_parities);
+			$removed_first = array_slice($parities, 1);
+			$last_parity = array_pop($parities);
+			$temp_dates = array_sort($unsorted_farrowings);
+			$farrowing_intervals_text = [];
+			if(count($parities) >= 1){
+				for($i = 0, $n = count($unsorted_farrowings); $i < $n; $i++){
+					array_push($dates_farrowed, array_shift($temp_dates));
+				}
 
-			return view('pigs.sowproductionperformance', compact('sow', 'properties', 'usage'));
+				for($i = 1, $n = count($dates_farrowed); $i < $n; $i++){
+					array_push($farrowing_intervals_text, "From Parity ".($i+1)." to Parity ".$i.": ".$dates_farrowed[$i]->diffInDays($dates_farrowed[$i-1])."");
+					$farrowing_intervals[] = $dates_farrowed[$i]->diffInDays($dates_farrowed[$i-1]);
+				}
+
+				$average = array_sum($farrowing_intervals)/count($farrowing_intervals);
+				$farrowing_index =  365/$average;
+			}
+		
+			return view('pigs.sowproductionperformance', compact('sow', 'properties', 'usage', 'parities', 'removed_first', 'farrowing_intervals_text', 'farrowing_index'));
 		}
 
 		static function getGroupingPerParity($sow_id, $usage, $filter){
@@ -3684,31 +3714,6 @@ class FarmController extends Controller
 			$groups = Grouping::whereNotNull("mother_id")->where("breed_id", $breed->id)->get();
 
 			// BOAR INVENTORY
-			foreach ($boars as $boar) {	// adds frequency of boar service
-				$frequencies = [];
-				$frequency = 0;
-				$freqproperty = $boar->getAnimalProperties()->where("property_id", 88)->first();
-
-				foreach ($groups as $group) {
-					if($boar->registryid == $group->getFather()->registryid){
-						$frequency = $frequency+1;
-						array_push($frequencies, $frequency);
-					}
-					$frequency = 0;
-				}
-
-				if(is_null($freqproperty)){
-					$freqprop = new AnimalProperty;
-					$freqprop->animal_id = $boar->id;
-					$freqprop->property_id = 88;
-					$freqprop->value = array_sum($frequencies);
-					$freqprop->save();
-				}
-				else{
-					$freqproperty->value = array_sum($frequencies);
-					$freqproperty->save();
-				}
-			}
 			
 			// sorts male pigs into jr and sr boars
 			$jrboars = []; // less than 1 year old
@@ -3777,31 +3782,7 @@ class FarmController extends Controller
 				}
 			}
 			$drysows = count($sows) - (count($breds) + count($pregnantsows) + count($lactatingsows));
-			foreach ($sows as $sow) { // adds frequency of sow usage
-				$sowfrequencies = [];
-				$sowfrequency = 0;
-				$sowfreqproperty = $sow->getAnimalProperties()->where("property_id", 88)->first();
-
-				foreach ($groups as $group) {
-					if($sow->registryid == $group->getMother()->registryid){
-						$sowfrequency = $sowfrequency+1;
-						array_push($sowfrequencies, $sowfrequency);
-					}
-					$sowfrequency = 0;
-				}
-
-				if(is_null($sowfreqproperty)){
-					$sowfreqprop = new AnimalProperty;
-					$sowfreqprop->animal_id = $sow->id;
-					$sowfreqprop->property_id = 88;
-					$sowfreqprop->value = array_sum($sowfrequencies);
-					$sowfreqprop->save();
-				}
-				else{
-					$sowfreqproperty->value = array_sum($sowfrequencies);
-					$sowfreqproperty->save();
-				}
-			}
+			
 			// sorts female pigs into gilts and sows which were bred at least once
 			$gilts = [];
 			$bredsows = [];
@@ -4535,6 +4516,64 @@ class FarmController extends Controller
 					else{
 						$ponderalprop->value = $ponderalIndexValue;
 						$ponderalprop->save();
+					}
+				}
+			}
+
+			if(!is_null($pigs)){
+				// gets all groups available
+				$groups = Grouping::whereNotNull("mother_id")->where("breed_id", $breed->id)->get();
+
+				// BOAR INVENTORY
+				foreach ($boars as $boar) {	// adds frequency of boar service
+					$frequencies = [];
+					$frequency = 0;
+					$freqproperty = $boar->getAnimalProperties()->where("property_id", 88)->first();
+
+					foreach ($groups as $group) {
+						if($boar->registryid == $group->getFather()->registryid){
+							$frequency = $frequency+1;
+							array_push($frequencies, $frequency);
+						}
+						$frequency = 0;
+					}
+
+					if(is_null($freqproperty)){
+						$freqprop = new AnimalProperty;
+						$freqprop->animal_id = $boar->id;
+						$freqprop->property_id = 88;
+						$freqprop->value = array_sum($frequencies);
+						$freqprop->save();
+					}
+					else{
+						$freqproperty->value = array_sum($frequencies);
+						$freqproperty->save();
+					}
+				}
+
+				foreach ($sows as $sow) { // adds frequency of sow usage
+					$sowfrequencies = [];
+					$sowfrequency = 0;
+					$sowfreqproperty = $sow->getAnimalProperties()->where("property_id", 88)->first();
+
+					foreach ($groups as $group) {
+						if($sow->registryid == $group->getMother()->registryid){
+							$sowfrequency = $sowfrequency+1;
+							array_push($sowfrequencies, $sowfrequency);
+						}
+						$sowfrequency = 0;
+					}
+
+					if(is_null($sowfreqproperty)){
+						$sowfreqprop = new AnimalProperty;
+						$sowfreqprop->animal_id = $sow->id;
+						$sowfreqprop->property_id = 88;
+						$sowfreqprop->value = array_sum($sowfrequencies);
+						$sowfreqprop->save();
+					}
+					else{
+						$sowfreqproperty->value = array_sum($sowfrequencies);
+						$sowfreqproperty->save();
 					}
 				}
 			}
