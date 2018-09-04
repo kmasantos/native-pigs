@@ -74,6 +74,13 @@
       <li class="no-padding">
         <ul>
           <li>
+            <a href="{{route('farm.pig.pedigree')}}" class="collapsible-header"><i class="material-icons">device_hub</i>Pedigree Visualizer</a>
+          </li>
+        </ul>
+      </li>
+      <li class="no-padding">
+        <ul>
+          <li>
             <a href="{{route('farm.pig.mortality_and_sales')}}" class="collapsible-header"><i class="material-icons">remove_from_queue</i>Mortality and Sales</a>
           </li>
         </ul>

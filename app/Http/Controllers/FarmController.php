@@ -148,7 +148,307 @@ class FarmController extends Controller
 		/***** FUNCTIONS FOR PIG *****/
 
 		public function getPedigreePage(){ // function to display View Pedigree page
-			return view('pigs.pedigree');
+			$user = Auth::User();
+			$farm = Auth::User()->getFarm();
+			$breed = $farm->getBreed();
+			$registrationid = "";
+			$sex = "";
+			$birthday = "";
+			$birthweight = 0;
+			$groupingmembers = [];
+			$femalelitters = [];
+			$malelitters = [];
+			$parity = "";
+			$father_registryid = "";
+			$father_birthday = "";
+			$father_birthweight = 0;
+			$father_malelitters = [];
+			$father_femalelitters = [];
+			$father_groupingmembers = [];
+			$father_parity = "";
+			$father_grandfather_registryid = "";
+			$father_grandfather_birthday = "";
+			$father_grandfather_birthweight = 0;
+			$father_grandmother_registryid = "";
+			$father_grandmother_birthday = "";
+			$father_grandmother_birthweight = 0;
+			$mother_registryid = "";
+			$mother_birthday = "";
+			$mother_birthweight = 0;
+			$mother_malelitters = [];
+			$mother_femalelitters = [];
+			$mother_groupingmembers = [];
+			$mother_parity = "";
+			$mother_grandfather_registryid = "";
+			$mother_grandfather_birthday = "";
+			$mother_grandfather_birthweight = 0;
+			$mother_grandmother_registryid = "";
+			$mother_grandmother_birthday = "";
+			$mother_grandmother_birthweight = 0;
+
+			return view('pigs.pedigree', compact('registrationid', 'user', 'breed', 'sex', 'birthday', 'birthweight', 'malelitters', 'femalelitters', 'groupingmembers', 'parity', 'father_registryid', 'father_birthday', 'father_birthweight', 'father_malelitters', 'father_femalelitters', 'father_groupingmembers', 'father_parity', 'father_grandfather_registryid', 'father_grandfather_birthday', 'father_grandfather_birthweight', 'father_grandmother_registryid', 'father_grandmother_birthday', 'father_grandmother_birthweight', 'mother_registryid', 'mother_birthday', 'mother_birthweight', 'mother_malelitters', 'mother_femalelitters', 'mother_groupingmembers', 'mother_parity', 'mother_grandfather_registryid', 'mother_grandfather_birthday', 'mother_grandfather_birthweight', 'mother_grandmother_registryid', 'mother_grandmother_birthday', 'mother_grandmother_birthweight'));
+		}
+
+		public static function findPig(Request $request){
+			$earnotch = $request->earnotch;
+			$user = Auth::User();
+			$farm = Auth::User()->getFarm();
+			$breed = $farm->getBreed();
+			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->get();
+			$registrationid = "temp";
+			$animalid = 0;
+
+			foreach ($pigs as $pig) {
+				if(substr($pig->registryid, -6, 6) == $earnotch){
+					$registrationid = $pig->registryid;
+					$animalid = $pig->id;
+				}
+			}
+
+			$animal = Animal::find($animalid);
+	
+			if(substr($registrationid, -7, 1) == 'F'){
+				$sex = "Female";
+			}
+			elseif(substr($registrationid, -7, 1) == 'M'){
+				$sex = "Male";
+			}
+
+			$properties = $animal->getAnimalProperties();
+			foreach ($properties as $property) {
+				if($property->property_id == 25){
+					if(!is_null($property->value) && $property->value != "Not specified"){
+						$birthday = Carbon::parse($property->value)->format('Y-m-d');
+					}
+					else{
+						$birtday = "No data available";
+					}
+				}
+				if($property->property_id == 53){
+					if(!is_null($property->value) && $property->value != ""){
+						$birthweight = $property->value;
+					}
+					else{
+						$birthweight = 0;
+					}
+				}
+			}
+
+			$group = $animal->getGrouping();
+			
+			if(!is_null($group)){
+				$father = $group->getFather();
+				$mother = $group->getMother();
+				$groupingmembers = $group->getGroupingMembers();
+				$parity = $group->getGroupingProperties()->where("property_id", 76)->first()->value;
+				$femalelitters = [];
+				$malelitters = [];
+
+				foreach ($groupingmembers as $groupingmember) {
+					if(substr($groupingmember->getChild()->registryid, -7, 1) == 'F'){
+						array_push($femalelitters, $groupingmember);
+					}
+					elseif(substr($groupingmember->getChild()->registryid, -7, 1) == 'M'){
+						array_push($malelitters, $groupingmember);
+					}
+				}
+
+				$father_registryid = $father->registryid;
+				$father_bday = $father->getAnimalProperties()->where("property_id", 25)->first();
+				$father_bw = $father->getAnimalProperties()->where("property_id", 53)->first();
+				if(!is_null($father_bday) && $father_bday->value != "Not specified"){
+					$father_birthday = Carbon::parse($father_bday->value)->format('Y-m-d');
+				}
+				else{
+					$father_birthday = "No data available";
+				}
+				if(!is_null($father_bw) && $father_bw->value != ""){
+					$father_birthweight = $father_bw->value;
+				}
+				else{
+					$father_birthweight = 0;
+				}
+
+				$fathergroup = $father->getGrouping();
+
+				if(!is_null($fathergroup)){
+					$father_grandfather = $fathergroup->getFather();
+					$father_grandmother = $fathergroup->getMother();
+					$father_groupingmembers = $fathergroup->getGroupingMembers();
+					$father_parity = $fathergroup->getGroupingProperties()->where("property_id", 76)->first()->value;
+					$father_femalelitters = [];
+					$father_malelitters = [];
+
+					foreach ($father_groupingmembers as $father_groupingmember) {
+						if(substr($father_groupingmember->getChild()->registryid, -7, 1) == 'F'){
+							array_push($father_femalelitters, $father_groupingmember);
+						}
+						elseif(substr($father_groupingmember->getChild()->registryid, -7, 1) == 'M'){
+							array_push($father_malelitters, $father_groupingmember);
+						}
+					}
+
+					$father_grandfather_registryid = $father_grandfather->registryid;
+					$father_grandfather_bday = $father_grandfather->getAnimalProperties()->where("property_id", 25)->first();
+					$father_grandfather_bw = $father_grandfather->getAnimalProperties()->where("property_id", 53)->first();
+					if(!is_null($father_grandfather_bday) && $father_grandfather_bday->value != "Not specified"){
+						$father_grandfather_birthday = Carbon::parse($father_grandfather_bday->value)->format('Y-m-d');
+					}
+					else{
+						$father_grandfather_birthday = "No data available";
+					}
+					if(!is_null($father_grandfather_bw) && $father_grandfather_bw->value != ""){
+						$father_grandfather_birthweight = $father_grandfather_bw->value;
+					}
+					else{
+						$father_grandfather_birthweight = 0;
+					}
+
+					$father_grandmother_registryid = $father_grandmother->registryid;
+					$father_grandmother_bday = $father_grandmother->getAnimalProperties()->where("property_id", 25)->first();
+					$father_grandmother_bw = $father_grandmother->getAnimalProperties()->where("property_id", 53)->first();
+					if(!is_null($father_grandmother_bday) && $father_grandmother_bday->value != "Not specified"){
+						$father_grandmother_birthday = Carbon::parse($father_grandmother_bday->value)->format('Y-m-d');
+					}
+					else{
+						$father_grandmother_birthday = "No data available";
+					}
+					if(!is_null($father_grandmother_bw) && $father_grandmother_bw->value != ""){
+						$father_grandmother_birthweight = $father_grandmother_bw->value;
+					}
+					else{
+						$father_grandmother_birthweight = 0;
+					}
+				}
+				else{
+					$father_birthweight = 0;
+					$father_malelitters = [];
+					$father_femalelitters = [];
+					$father_groupingmembers = [];
+					$father_parity = "No data available";
+					$father_grandfather_registryid = "No data available";
+					$father_grandfather_birthday = "No data available";
+					$father_grandfather_birthweight = 0;
+					$father_grandmother_registryid = "No data available";
+					$father_grandmother_birthday = "No data available";
+					$father_grandmother_birthweight = 0;
+				}
+
+				$mother_registryid = $mother->registryid;
+				$mother_bday = $mother->getAnimalProperties()->where("property_id", 25)->first();
+				$mother_bw = $mother->getAnimalProperties()->where("property_id", 53)->first();
+				if(!is_null($mother_bday) && $mother_bday->value != "Not specified"){
+					$mother_birthday = Carbon::parse($mother_bday->value)->format('Y-m-d');
+				}
+				else{
+					$mother_birthday = "No data available";
+				}
+				if(!is_null($mother_bw) && $mother_bw->value != ""){
+					$mother_birthweight = $mother_bw->value;
+				}
+				else{
+					$mother_birthweight = 0;
+				}
+
+				$mothergroup = $mother->getGrouping();
+
+				if(!is_null($mothergroup)){
+					$mother_grandfather = $mothergroup->getFather();
+					$mother_grandmother = $mothergroup->getMother();
+					$mother_groupingmembers = $mothergroup->getGroupingMembers();
+					$mother_parity = $mothergroup->getGroupingProperties()->where("property_id", 76)->first()->value;
+					$mother_femalelitters = [];
+					$mother_malelitters = [];
+
+					foreach ($mother_groupingmembers as $mother_groupingmember) {
+						if(substr($mother_groupingmember->getChild()->registryid, -7, 1) == 'F'){
+							array_push($mother_femalelitters, $mother_groupingmember);
+						}
+						elseif(substr($mother_groupingmember->getChild()->registryid, -7, 1) == 'M'){
+							array_push($mother_malelitters, $mother_groupingmember);
+						}
+					}
+
+					$mother_grandfather_registryid = $mother_grandfather->registryid;
+					$mother_grandfather_bday = $mother_grandfather->getAnimalProperties()->where("property_id", 25)->first();
+					$mother_grandfather_bw = $mother_grandfather->getAnimalProperties()->where("property_id", 53)->first();
+					if(!is_null($mother_grandfather_bday) && $mother_grandfather_bday->value != "Not specified"){
+						$mother_grandfather_birthday = Carbon::parse($mother_grandfather_bday->value)->format('Y-m-d');
+					}
+					else{
+						$mother_grandfather_birthday = "No data available";
+					}
+					if(!is_null($mother_grandfather_bw) && $mother_grandfather_bw->value != ""){
+						$mother_grandfather_birthweight = $mother_grandfather_bw->value;
+					}
+					else{
+						$mother_grandfather_birthweight = 0;
+					}
+
+					$mother_grandmother_registryid = $mother_grandmother->registryid;
+					$mother_grandmother_bday = $mother_grandmother->getAnimalProperties()->where("property_id", 25)->first();
+					$mother_grandmother_bw = $mother_grandmother->getAnimalProperties()->where("property_id", 53)->first();
+					if(!is_null($mother_grandmother_bday) && $mother_grandmother_bday->value != "Not specified"){
+						$mother_grandmother_birthday = Carbon::parse($mother_grandmother_bday->value)->format('Y-m-d');
+					}
+					else{
+						$mother_grandmother_birthday = "No data available";
+					}
+					if(!is_null($mother_grandmother_bw) && $mother_grandmother_bw->value != ""){
+						$mother_grandmother_birthweight = $mother_grandmother_bw->value;
+					}
+					else{
+						$mother_grandmother_birthweight = 0;
+					}
+				}
+				else{
+					$mother_birthweight = 0;
+					$mother_malelitters = [];
+					$mother_femalelitters = [];
+					$mother_groupingmembers = [];
+					$mother_parity = "No data available";
+					$mother_grandfather_registryid = "No data available";
+					$mother_grandfather_birthday = "No data available";
+					$mother_grandfather_birthweight = 0;
+					$mother_grandmother_registryid = "No data available";
+					$mother_grandmother_birthday = "No data available";
+					$mother_grandmother_birthweight = 0;
+				}
+			}
+			else{
+				$parity = "No data available";
+				$groupingmembers = [];
+				$femalelitters = [];
+				$malelitters = [];
+				$father_registryid = "No data available";
+				$father_birthday = "No data available";
+				$father_birthweight = 0;
+				$father_malelitters = [];
+				$father_femalelitters = [];
+				$father_groupingmembers = [];
+				$father_parity = "No data available";
+				$father_grandfather_registryid = "No data available";
+				$father_grandfather_birthday = "No data available";
+				$father_grandfather_birthweight = 0;
+				$father_grandmother_registryid = "No data available";
+				$father_grandmother_birthday = "No data available";
+				$father_grandmother_birthweight = 0;
+				$mother_registryid = "No data available";
+				$mother_birthday = "No data available";
+				$mother_birthweight = 0;
+				$mother_malelitters = [];
+				$mother_femalelitters = [];
+				$mother_groupingmembers = [];
+				$mother_parity = "No data available";
+				$mother_grandfather_registryid = "No data available";
+				$mother_grandfather_birthday = "No data available";
+				$mother_grandfather_birthweight = 0;
+				$mother_grandmother_registryid = "No data available";
+				$mother_grandmother_birthday = "No data available";
+				$mother_grandmother_birthweight = 0;
+			}
+
+			return view('pigs.pedigree', compact('registrationid', 'user', 'breed', 'sex', 'birthday', 'birthweight', 'malelitters', 'femalelitters', 'groupingmembers', 'parity', 'father_registryid', 'father_birthday', 'father_birthweight', 'father_malelitters', 'father_femalelitters', 'father_groupingmembers', 'father_parity', 'father_grandfather_registryid', 'father_grandfather_birthday', 'father_grandfather_birthweight', 'father_grandmother_registryid', 'father_grandmother_birthday', 'father_grandmother_birthweight', 'mother_registryid', 'mother_birthday', 'mother_birthweight', 'mother_malelitters', 'mother_femalelitters', 'mother_groupingmembers', 'mother_parity', 'mother_grandfather_registryid', 'mother_grandfather_birthday', 'mother_grandfather_birthweight', 'mother_grandmother_registryid', 'mother_grandmother_birthday', 'mother_grandmother_birthweight'));
 		}
 
 		public function fetchParityAjax($familyidvalue, $parityvalue){ // function to save parity onchange

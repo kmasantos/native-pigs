@@ -25,6 +25,7 @@ Route::group(['middleware' => ['web']], function () {
     // Swine Routes
 
     Route::get('pedigree', ['as' => 'farm.pig.pedigree', 'uses' => 'FarmController@getPedigreePage']);
+    Route::post('find_pig', ['as' => 'farm.pig.find_pig', 'uses' => 'FarmController@findPig']);
     Route::get('breeding_record', ['as' => 'farm.pig.breeding_record', 'uses' => 'FarmController@getBreedingRecordPage']);
     Route::post('get_breeding_record', ['as' => 'farm.pig.get_breeding_record', 'uses' => 'FarmController@addBreedingRecord']);
     Route::post('change_status_bred/{id}', ['as' => 'farm.pig.change_status_bred', 'uses' => 'FarmController@changeStatusFromBred']);
