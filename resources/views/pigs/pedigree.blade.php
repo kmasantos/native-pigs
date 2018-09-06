@@ -25,7 +25,11 @@
 		</div>
 	</div>
 	<div style="padding-left:200px;">
-		<div id="mainDiv"></div>
+		<div id="mainDiv">
+			@if($animal->count() == 0)
+				<h4 class="center">No data available</h4>
+			@endif
+		</div>
 	</div>
 @endsection
 
@@ -34,21 +38,76 @@
 	<script type="text/javascript" src="{{asset('js/pedigree-visualizer/pediview.js')}}"></script>
 
 	<script>
-		let json = {"registrationnumber":"{{ $registrationid }}", "qualitative_info":{"farm_name":"{{ $user->name }}","breed":"{{ $breed->breed }}", "sex": "{{ $sex }}","birthyear":"{{ $birthday }}"}, "quantitative_info": {"birth_weight": {{ $birthweight }}, "total_when_born_male": {{ count($malelitters) }} , "total_when_born_female": {{ count($femalelitters) }}, "littersize_born_alive": {{ count($groupingmembers) }}, "parity": {{ $parity }} }, "parents": [
-				{"registrationnumber":"{{ $father_registryid }}", "qualitative_info":{"farm_name":"{{ $user->name }}","breed":"{{ $breed->breed }}", "sex":"Male", "birthyear":"{{ $father_birthday }}"}, "quantitative_info": {"birth_weight": {{ $father_birthweight }}, "total_when_born_male": {{ count($father_malelitters) }}, "total_when_born_female": {{ count($father_femalelitters) }}, "littersize_born_alive": {{ count($father_groupingmembers) }}, "parity": {{ $father_parity }} }, "parents":[
+		var animal = "<?php echo $animal->count() ?>";
+		console.log(animal);
 		
-						{"registrationnumber":"{{ $father_grandfather_registryid }}", "qualitative_info":{"farm_name":"{{ $user->name }}","breed":"{{ $breed->breed }}", "sex":"Male", "birthyear": "{{ $father_grandfather_birthday }}"}, "quantitative_info": {"birth_weight": {{ $father_grandfather_birthweight }} }},
-						{"registrationnumber":"{{ $father_grandmother_registryid }}", "qualitative_info":{"farm_name":"{{ $user->name }}","breed":"{{ $breed->breed }}", "sex":"Female", "birthyear": "{{ $father_grandmother_birthday }}"}, "quantitative_info": {"birth_weight": {{ $father_grandmother_birthweight }} }}
-					]
-				},
-				{"registrationnumber":"{{ $mother_registryid }}", "qualitative_info":{"farm_name":"{{ $user->name }}","breed":"{{ $breed->breed }}", "sex":"Female", "birthyear":"{{ $mother_birthday }}"}, "quantitative_info": {"birth_weight": {{ $mother_birthweight }}, "total_when_born_male": {{ count($mother_malelitters) }}, "total_when_born_female": {{ count($mother_femalelitters) }}, "littersize_born_alive": {{ count($mother_groupingmembers) }}, "parity": {{ $mother_parity }} }, "parents":[
+		if(animal != 0){
+			var group = "<?php echo $group->count(); ?>";
 
-						{"registrationnumber":"{{ $mother_grandfather_registryid }}", "qualitative_info":{"farm_name":"{{ $user->name }}","breed":"{{ $breed->breed }}", "sex":"Male", "birthyear": "{{ $mother_grandfather_birthday }}"}, "quantitative_info": {"birth_weight": {{ $mother_grandfather_birthweight }} }},
-						{"registrationnumber":"{{ $mother_grandmother_registryid }}", "qualitative_info":{"farm_name":"{{ $user->name }}","breed":"{{ $breed->breed }}", "sex":"Female", "birthyear": "{{ $mother_grandmother_birthday }}"}, "quantitative_info": {"birth_weight":{{ $mother_grandmother_birthweight }} }}
-					]
+			if(group != 0){
+				var father_group = "<?php echo $father_group->count(); ?>";
+				var mother_group = "<?php echo $mother_group->count(); ?>";
+				if(father_group == 0 && mother_group != 0){
+					let json = {"registrationnumber":"{{ $registrationid }}", "qualitative_info":{"farm_name":"{{ $user->name }}","breed":"{{ $breed->breed }}", "sex": "{{ $sex }}","birthyear":"{{ $birthday }}"}, "quantitative_info": {"birth_weight": {{ $birthweight }}, "total_when_born_male": {{ count($malelitters) }} , "total_when_born_female": {{ count($femalelitters) }}, "littersize_born_alive": {{ count($groupingmembers) }}, "parity": {{ $parity }} }, "parents": [
+						{"registrationnumber":"{{ $father_registryid }}", "qualitative_info":{"farm_name":"{{ $user->name }}","breed":"{{ $breed->breed }}", "sex":"Male", "birthyear":"{{ $father_birthday }}"}, "quantitative_info": {"birth_weight": {{ $father_birthweight }}, "total_when_born_male": {{ count($father_malelitters) }}, "total_when_born_female": {{ count($father_femalelitters) }}, "littersize_born_alive": {{ count($father_groupingmembers) }}, "parity": {{ $father_parity }} }, "parents":[{},{}]
+						},
+						{"registrationnumber":"{{ $mother_registryid }}", "qualitative_info":{"farm_name":"{{ $user->name }}","breed":"{{ $breed->breed }}", "sex":"Female", "birthyear":"{{ $mother_birthday }}"}, "quantitative_info": {"birth_weight": {{ $mother_birthweight }}, "total_when_born_male": {{ count($mother_malelitters) }}, "total_when_born_female": {{ count($mother_femalelitters) }}, "littersize_born_alive": {{ count($mother_groupingmembers) }}, "parity": {{ $mother_parity }} }, "parents":[
+
+								{"registrationnumber":"{{ $mother_grandfather_registryid }}", "qualitative_info":{"farm_name":"{{ $user->name }}","breed":"{{ $breed->breed }}", "sex":"Male", "birthyear": "{{ $mother_grandfather_birthday }}"}, "quantitative_info": {"birth_weight": {{ $mother_grandfather_birthweight }} }},
+								{"registrationnumber":"{{ $mother_grandmother_registryid }}", "qualitative_info":{"farm_name":"{{ $user->name }}","breed":"{{ $breed->breed }}", "sex":"Female", "birthyear": "{{ $mother_grandmother_birthday }}"}, "quantitative_info": {"birth_weight":{{ $mother_grandmother_birthweight }} }}
+							]
+						}
+					]};
+
+					visualize(json);
 				}
-			]};
+				else if(father_group != 0 && mother_group == 0){
+					let json = {"registrationnumber":"{{ $registrationid }}", "qualitative_info":{"farm_name":"{{ $user->name }}","breed":"{{ $breed->breed }}", "sex": "{{ $sex }}","birthyear":"{{ $birthday }}"}, "quantitative_info": {"birth_weight": {{ $birthweight }}, "total_when_born_male": {{ count($malelitters) }} , "total_when_born_female": {{ count($femalelitters) }}, "littersize_born_alive": {{ count($groupingmembers) }}, "parity": {{ $parity }} }, "parents": [
+						{"registrationnumber":"{{ $father_registryid }}", "qualitative_info":{"farm_name":"{{ $user->name }}","breed":"{{ $breed->breed }}", "sex":"Male", "birthyear":"{{ $father_birthday }}"}, "quantitative_info": {"birth_weight": {{ $father_birthweight }}, "total_when_born_male": {{ count($father_malelitters) }}, "total_when_born_female": {{ count($father_femalelitters) }}, "littersize_born_alive": {{ count($father_groupingmembers) }}, "parity": {{ $father_parity }} }, "parents":[
+				
+								{"registrationnumber":"{{ $father_grandfather_registryid }}", "qualitative_info":{"farm_name":"{{ $user->name }}","breed":"{{ $breed->breed }}", "sex":"Male", "birthyear": "{{ $father_grandfather_birthday }}"}, "quantitative_info": {"birth_weight": {{ $father_grandfather_birthweight }} }},
+								{"registrationnumber":"{{ $father_grandmother_registryid }}", "qualitative_info":{"farm_name":"{{ $user->name }}","breed":"{{ $breed->breed }}", "sex":"Female", "birthyear": "{{ $father_grandmother_birthday }}"}, "quantitative_info": {"birth_weight": {{ $father_grandmother_birthweight }} }}
+							]
+						},
+						{"registrationnumber":"{{ $mother_registryid }}", "qualitative_info":{"farm_name":"{{ $user->name }}","breed":"{{ $breed->breed }}", "sex":"Female", "birthyear":"{{ $mother_birthday }}"}, "quantitative_info": {"birth_weight": {{ $mother_birthweight }}, "total_when_born_male": {{ count($mother_malelitters) }}, "total_when_born_female": {{ count($mother_femalelitters) }}, "littersize_born_alive": {{ count($mother_groupingmembers) }}, "parity": {{ $mother_parity }} }, "parents":[{},{}]
+						}
+					]};
 
-		visualize(json);
+					visualize(json);
+				}
+				else if(father_group != 0 && mother_group != 0){
+					let json = {"registrationnumber":"{{ $registrationid }}", "qualitative_info":{"farm_name":"{{ $user->name }}","breed":"{{ $breed->breed }}", "sex": "{{ $sex }}","birthyear":"{{ $birthday }}"}, "quantitative_info": {"birth_weight": {{ $birthweight }}, "total_when_born_male": {{ count($malelitters) }} , "total_when_born_female": {{ count($femalelitters) }}, "littersize_born_alive": {{ count($groupingmembers) }}, "parity": {{ $parity }} }, "parents": [
+						{"registrationnumber":"{{ $father_registryid }}", "qualitative_info":{"farm_name":"{{ $user->name }}","breed":"{{ $breed->breed }}", "sex":"Male", "birthyear":"{{ $father_birthday }}"}, "quantitative_info": {"birth_weight": {{ $father_birthweight }}, "total_when_born_male": {{ count($father_malelitters) }}, "total_when_born_female": {{ count($father_femalelitters) }}, "littersize_born_alive": {{ count($father_groupingmembers) }}, "parity": {{ $father_parity }} }, "parents":[
+				
+								{"registrationnumber":"{{ $father_grandfather_registryid }}", "qualitative_info":{"farm_name":"{{ $user->name }}","breed":"{{ $breed->breed }}", "sex":"Male", "birthyear": "{{ $father_grandfather_birthday }}"}, "quantitative_info": {"birth_weight": {{ $father_grandfather_birthweight }} }},
+								{"registrationnumber":"{{ $father_grandmother_registryid }}", "qualitative_info":{"farm_name":"{{ $user->name }}","breed":"{{ $breed->breed }}", "sex":"Female", "birthyear": "{{ $father_grandmother_birthday }}"}, "quantitative_info": {"birth_weight": {{ $father_grandmother_birthweight }} }}
+							]
+						},
+						{"registrationnumber":"{{ $mother_registryid }}", "qualitative_info":{"farm_name":"{{ $user->name }}","breed":"{{ $breed->breed }}", "sex":"Female", "birthyear":"{{ $mother_birthday }}"}, "quantitative_info": {"birth_weight": {{ $mother_birthweight }}, "total_when_born_male": {{ count($mother_malelitters) }}, "total_when_born_female": {{ count($mother_femalelitters) }}, "littersize_born_alive": {{ count($mother_groupingmembers) }}, "parity": {{ $mother_parity }} }, "parents":[
+
+								{"registrationnumber":"{{ $mother_grandfather_registryid }}", "qualitative_info":{"farm_name":"{{ $user->name }}","breed":"{{ $breed->breed }}", "sex":"Male", "birthyear": "{{ $mother_grandfather_birthday }}"}, "quantitative_info": {"birth_weight": {{ $mother_grandfather_birthweight }} }},
+								{"registrationnumber":"{{ $mother_grandmother_registryid }}", "qualitative_info":{"farm_name":"{{ $user->name }}","breed":"{{ $breed->breed }}", "sex":"Female", "birthyear": "{{ $mother_grandmother_birthday }}"}, "quantitative_info": {"birth_weight":{{ $mother_grandmother_birthweight }} }}
+							]
+						}
+					]};
+
+					visualize(json);
+				}
+				else if(father_group == 0 && mother_group == 0){
+					let json = {"registrationnumber":"{{ $registrationid }}", "qualitative_info":{"farm_name":"{{ $user->name }}","breed":"{{ $breed->breed }}", "sex": "{{ $sex }}","birthyear":"{{ $birthday }}"}, "quantitative_info": {"birth_weight": {{ $birthweight }}, "total_when_born_male": {{ count($malelitters) }} , "total_when_born_female": {{ count($femalelitters) }}, "littersize_born_alive": {{ count($groupingmembers) }}, "parity": {{ $parity }} }, "parents": [
+						{"registrationnumber":"{{ $father_registryid }}", "qualitative_info":{"farm_name":"{{ $user->name }}","breed":"{{ $breed->breed }}", "sex":"Male", "birthyear":"{{ $father_birthday }}"}, "quantitative_info": {"birth_weight": {{ $father_birthweight }}, "total_when_born_male": {{ count($father_malelitters) }}, "total_when_born_female": {{ count($father_femalelitters) }}, "littersize_born_alive": {{ count($father_groupingmembers) }}, "parity": {{ $father_parity }} }, "parents": [{}, {}]},
+						{"registrationnumber":"{{ $mother_registryid }}", "qualitative_info":{"farm_name":"{{ $user->name }}","breed":"{{ $breed->breed }}", "sex":"Female", "birthyear":"{{ $mother_birthday }}"}, "quantitative_info": {"birth_weight": {{ $mother_birthweight }}, "total_when_born_male": {{ count($mother_malelitters) }}, "total_when_born_female": {{ count($mother_femalelitters) }}, "littersize_born_alive": {{ count($mother_groupingmembers) }}, "parity": {{ $mother_parity }} }, "parents": [{}, {}]}
+					]};
+
+					visualize(json);
+				}
+			}
+			else if(group == 0){
+				let json = {"registrationnumber":"{{ $registrationid }}", "qualitative_info":{"farm_name":"{{ $user->name }}","breed":"{{ $breed->breed }}", "sex": "{{ $sex }}","birthyear":"{{ $birthday }}"}, "quantitative_info": {"birth_weight": {{ $birthweight }}, "total_when_born_male": {{ count($malelitters) }} , "total_when_born_female": {{ count($femalelitters) }}, "littersize_born_alive": {{ count($groupingmembers) }}, "parity": {{ $parity }} }, "parents": [{}, {}]};
+
+				visualize(json);
+			}
+		}
+
 	</script>
 @endsection
