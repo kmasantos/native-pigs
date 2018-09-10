@@ -35,7 +35,7 @@ const visualize = (json) => {
 
 	// empty the childNodes of main_container from the previous visualize call
 	main_container.innerHTML = '';
-	main_container.style.cssText = 'border: 1%; overflow:auto;';
+	main_container.style.border = '1%;';
 
 	// storage of qualitative and quantitative value keys
 	const qualitative_value_keys = [];
@@ -56,41 +56,31 @@ const visualize = (json) => {
 
 	/**	FEATURE #1. SVG for pedigree **/
 
-	let svg_div = document.createElement("div");
-	svg_div.style.cssText = "border:1px solid #c6b89e; border-radius: 5px; margin-bottom: 5px; width: 98vw;overflow:auto;";
-	svg_div.setAttribute("class", "svgrow");
-
-	main_container.appendChild(svg_div);
-
 	// Set initial margins for SVG dimension initialization
 	let margin =	{
 						top: 20,
 						right: 100,
-						left: 200,
+						left: 100,
 						bottom: 20
 					},
 
-		width =		400,
-		height =	200; 
-
-	// width = generations * 200
-	// svg width = generations * 400
-
-	const rootNode = d3.hierarchy(treeData, (d) => {return d.children;});
-
-	// Set tree dimensions
-	const treemap = d3.tree().size([rootNode.height*height, rootNode.height * width]);
-
-	// Store the entities to nodes for tree UI creation
-	const data = treemap(rootNode);
-	const nodes = data.descendants();
+		width =		700,
+		height =	700; 
 
 	// Set SVG size
-	const svg =	d3.select(svg_div).append("svg")
-					.attr("width", rootNode.height * 550 + "px")
-					.attr("height", rootNode.height * 200 + "px"),
+	const svg =	d3.select("#mainDiv").append("svg")
+					.attr("width", '100%')
+					.attr("height", screen.height - 120),
 		g	=	svg.append("g")
 					.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+	
+	// Set tree dimensions
+	const treemap = d3.tree().size([height, width]);
+
+	// Store the entities to nodes for tree UI creation
+	const rootNode = d3.hierarchy(treeData, (d) => {return d.children;});
+	const data = treemap(rootNode);
+	const nodes = data.descendants();
 
 	// Tooltip feature
 	const tooltipdiv = d3.select("#mainDiv").append("div")
@@ -218,8 +208,8 @@ const visualize = (json) => {
 	node.append("text")
 		.attr("dy", ".20em")
 		.attr("x", (d) => { return d.children ? -10 : 10;})
-		.attr("y", (d) => {return -20;})
-		.style("text-anchor", function(d) { return d.children ? "middle" : "middle";})
+		.attr("y", (d) => {return 20;})
+		.style("text-anchor", function(d) { return d.children ? "start" : "end";})
 		.style("font-size", "12px")
 		.style("font-weight", "bold")
 		.text(function(d) {return d.data.name;});
@@ -235,19 +225,19 @@ const visualize = (json) => {
 	
 	// div for the covariance table
 	const covariance_table_div = document.createElement("div");
-	covariance_table_div.style.cssText = "border:1px solid #c6b89e; border-radius: 5px; margin-bottom: 5px; width: 100%;overflow:auto;min-height: 200px; max-height:400px;";
+	covariance_table_div.style.cssText = "border:1px solid #c6b89e; border-radius: 5px; margin-bottom: 5px; width: 100%;overflow:auto;";
 	
 	required_data_div.appendChild(covariance_table_div);
 
 	const covariance_table_text = document.createElement("h4");
-	covariance_table_text.innerHTML = "Relationship Coefficient Table"
+	covariance_table_text.innerHTML = "Covariance Table"
 	covariance_table_text.style.cssText = "font-family: Arial, Helvetica, sans-serif; padding-left: 1%";
 
 	covariance_table_div.appendChild(covariance_table_text);
 
 	const covariance_table_desc = document.createElement("p");
-	covariance_table_desc.innerHTML = 	"This table is used to determine individual inbreeding values."+
-										" The table contains relationship values between two individuals or the relationship value"+
+	covariance_table_desc.innerHTML = 	"A covariance table can be used to calculate individual inbreeding values."+
+										" The table contains covariance values between two individuals or the covariance"+
 										" of each individual.";
 
 	covariance_table_desc.style.cssText = "font-family: Arial, Helvetica, sans-serif; margin-left: 5%";
@@ -260,8 +250,8 @@ const visualize = (json) => {
 	covariance_table_div.appendChild(covariance_table_container);
 
 	const covariance_table_ui = document.createElement('table');
-	// covariance_table_ui.cellPadding = '1';
-	covariance_table_ui.style.cssText = "font-size: 12px; margin-bottom: 2%;border:1px solid black; margin-left:1%;border-collapse:collapse;table-layout:fixed; width: 100%;";
+	covariance_table_ui.cellPadding = '5';
+	covariance_table_ui.style.cssText = "font-size: 12px; margin-bottom: 2%;border:1px solid black; margin-left:1%;border-collapse:collapse;";
 
 	covariance_table_container.appendChild(covariance_table_ui);
 
@@ -409,7 +399,7 @@ const visualize = (json) => {
 		for(let j = 0; j < covariance_table[i].length; j++) {
 				
 			let covariance_header = document.createElement("td");
-			covariance_header.style.cssText = 'font-family: Arial, Helvetica, sans-serif; padding: 7px 7px; line-height: 1;border:1px solid black;word-wrap: break-word;';
+			covariance_header.style.cssText = 'font-family: Arial, Helvetica, sans-serif; padding: 7px 7px; line-height: 1;border:1px solid black;';
 
 			if(i == 0) {
 				
@@ -423,50 +413,11 @@ const visualize = (json) => {
 			else {
 
 				const covariance_col = document.createElement('td');
-				covariance_col.style.cssText = 'font-family: Arial, Helvetica, sans-serif;padding: 7px 7px; line-height: 1;border:1px solid black;word-wrap:break-word';
+				covariance_col.style.cssText = 'font-family: Arial, Helvetica, sans-serif;padding: 7px 7px; line-height: 1;border:1px solid black;';
 
 				if(covariance_table[i][j] == -1) covariance_col.innerHTML = "";
-				else {
+				else covariance_col.innerHTML = covariance_table[i][j];
 
-					covariance_col.setAttribute("class", "toolTip");
-					covariance_col.innerHTML = covariance_table[i][j];
-
-					let classif = document.createElement("span");
-					classif.setAttribute("class", "toolTiptext");
-
-					if(covariance_table[i][j] >= 0.5 && covariance_table[i][j] < 1) {
-
-						classif.innerHTML = "Possibly parent";
-						covariance_col.appendChild(classif);
-					}
-
-					else if(covariance_table[i][j] == 1) {
-						if(i != j) {
-
-							classif.innerHTML = "Possibly parent";
-							covariance_col.appendChild(classif);
-						}
-
-						else {
-
-							classif.innerHTML = "Same animal, not in-bred";
-							covariance_col.appendChild(classif);
-						}	
-					}
-
-					else if(covariance_table[i][j] > 1) {
-
-						classif.innerHTML = "Same animal, in-bred";
-						covariance_col.appendChild(classif);	
-					}
-
-					else if(covariance_table[i][j] < 0.5) {
-
-						classif.innerHTML = "Possibly grandparent";
-						covariance_col.appendChild(classif);	
-					}
-
-				}
 				covariance_row.appendChild(covariance_col);	
 			}
 		}
@@ -509,7 +460,7 @@ const visualize = (json) => {
 	inbreeding_table.appendChild(inbreeding_table_header);
 
 	const inbred_header = document.createElement("td");
-	inbred_header.innerHTML = 'Inbred Animal';
+	inbred_header.innerHTML = 'Inbred Entity';
 	inbred_header.style.cssText = 'font-family: Arial, Helvetica, sans-serif; border:1px solid black;';
 
 	const inbreeding_coefficient = document.createElement("td");
@@ -609,6 +560,17 @@ const visualize = (json) => {
 	performance_label.setAttribute("for", performance_input.id);
 	performance_label.style.cssText = 'font-family: Arial, Helvetica, sans-serif;';
 
+	const qualitative_graph_p = document.createElement("p");
+
+	const qualitative_graph_input = document.createElement("input");
+	qualitative_graph_input.type = 'checkbox';
+	qualitative_graph_input.id = "qualitativeGraphCheckBox";
+
+	const qualitative_graph_label = document.createElement("label");
+	qualitative_graph_label.innerHTML = "Show Qualitative Graph";	
+	qualitative_graph_label.setAttribute("for", qualitative_graph_input.id);
+	qualitative_graph_label.style.cssText = 'font-family: Arial, Helvetica, sans-serif;';
+
 	// when inbreeding_input is checked, the inbred entities in the SVG pedigree will be filled with red, unchecking will unfill
 	const inbreeding_p = document.createElement("p");
 
@@ -631,6 +593,9 @@ const visualize = (json) => {
 	checkbox_form.appendChild(performance_p);
 	performance_p.appendChild(performance_input);
 	performance_p.appendChild(performance_label);
+	checkbox_form.appendChild(qualitative_graph_p);
+	qualitative_graph_p.appendChild(qualitative_graph_input);
+	qualitative_graph_p.appendChild(qualitative_graph_label);
 	checkbox_form.appendChild(inbreeding_p);
 	inbreeding_p.appendChild(inbreeding_input);
 	inbreeding_p.appendChild(inbreeding_label);
@@ -1077,8 +1042,6 @@ const visualize = (json) => {
 
 			quantitative_data_object['values'] = [];
 
-			console.log(entities_tree[i].quantitative_info);
-
 			for(let j = 0; j < entities_tree.length; j++) {
 
 				let current_value = entities_tree[j].quantitative_info[quantitative_value_keys[i]];
@@ -1219,7 +1182,85 @@ const visualize = (json) => {
 	}
 
 	quantitative_data_container.appendChild(quanti_table);
-	
+
+	// GRAPH VERSION SECTION
+
+	const qualitative_data_graph = document.createElement("div");
+	qualitative_data_graph.style.cssText = "border:1px solid #c6b89e;border-radius:5px;margin-bottom:5px; display:none;width:100%;overflow:auto;";
+
+	let qualitative_graph_text = document.createElement("h4");
+	qualitative_graph_text.innerHTML = "Quantitative Traits Graph";
+	qualitative_graph_text.style.cssText = "font-family: Arial, Helvetica, sans-serif; padding-left: 1%;"
+
+	main_container.appendChild(qualitative_data_graph);
+
+	qualitative_data_graph.appendChild(qualitative_graph_text);
+
+	const graph_margin = {top: 30, right: 20, bottom: 30, left: 50},
+	graph_width = 400 - graph_margin.left - graph_margin.right,
+	graph_height = 220 - graph_margin.top - graph_margin.bottom;
+
+	for(let i = 0; i < qualitative_data_array.length; i++) {
+
+		let data = qualitative_data_array[i]['values'];
+
+		let graph_x = d3.scaleBand()
+        	.range([0, graph_width])
+        	.padding(0.1);
+
+		let graph_y = d3.scaleLinear()
+		    .range([graph_height, 0]);
+
+		var graph_svg = d3.select(qualitative_data_graph).append("svg")
+    		.attr("width", graph_width + graph_margin.left + graph_margin.right)
+    		.attr("height", graph_height + graph_margin.top + graph_margin.bottom)
+  		.append("g")
+    	.attr("transform", "translate(" + graph_margin.left + "," + graph_margin.top + ")");
+
+    	graph_x.domain(data.map(function(d) { return d.value; }));
+    	graph_y.domain([0, d3.max(data, function(d) { return d.count; })]);
+
+   //      const toolTip = d3.select(qualitative_data_graph).append('div')
+			// .attr('class', 'toolTip')
+			// .style('opacity', 0);
+
+    	graph_svg.selectAll(".bar")
+	      .data(data)
+	    .enter().append("rect")
+	      .attr("class", "bar")
+	      .attr("x", function(d) { return graph_x(d.value); })
+	      .attr("width", graph_x.bandwidth())
+	      .attr("y", function(d) { return graph_y(d.count); })
+	      .attr("height", function(d) { return graph_height - graph_y(d.count); })
+	   //    .on('mouseover', (d) => {
+		  //   toolTip.transition().duration(200).style('opacity', 0.9);
+		  //   toolTip.html("Value: <span>" + d.value + "</span>")
+		  //     .style('left', (d3.event.layerX) + "px")
+		  //     .style('top',  (d3.event.layerY - 28) + "px");
+		  // })
+ 	 	// .on('mouseout', () => toolTip.transition().duration(500).style('opacity', 0));
+
+	    graph_svg.append("g")
+	    	.attr("transform", "translate(0," + graph_height + ")")
+	    	.call(d3.axisBottom(graph_x).ticks(10));
+	    	// .selectAll("text")	
+		    //     .style("text-anchor", "middle")
+		    //     .attr("dx", "-.8em")
+		    //     .attr("dy", ".20em")
+		    //     .attr("transform", "rotate(-8)");
+
+		  // add the y Axis
+		graph_svg.append("g")
+		      .call(d3.axisLeft(graph_y));
+
+		graph_svg.append("text")
+        .attr("x", (graph_width / 2))             
+        .attr("y", 0 - (graph_margin.top / 2))
+        .attr("text-anchor", "middle")  
+        .style("font-size", "16px")
+        .text(qualitative_data_array[i].trait + " Graph");
+	}	
+
 	// checkbox listeners
 
 	filter_input.addEventListener('change', () => {
@@ -1240,6 +1281,19 @@ const visualize = (json) => {
 
 			qualitative_data_container.style.display = 'none';
 			quantitative_data_container.style.display = 'none';
+		}
+	});
+
+	qualitative_graph_input.addEventListener('change', () => {
+
+		if(qualitative_graph_input.checked == true) {
+
+			qualitative_data_graph.style.display = 'block';
+		}
+
+		else {
+
+			qualitative_data_graph.style.display = 'none';
 		}
 	});
 
