@@ -14,7 +14,10 @@ class Animal extends Model
   protected $table = 'animals';
   protected $fillable = [
       'registryid',
-      'status'
+      'status',
+      'grossmorpho',
+      'morphochars',
+      'weightrecord'
   ];
 
   /*
@@ -59,6 +62,11 @@ class Animal extends Model
     return $this->hasOne('App\Models\Mortality');
   }
 
+  public function removedanimals()
+  {
+    return $this->hasOne('App\Models\RemovedAnimal');
+  }
+
 
   /*
     Model Functions
@@ -79,6 +87,21 @@ class Animal extends Model
     return $this->status;
   }
 
+  public function getGrossMorpho()
+  {
+    return $this->grossmorpho;
+  }
+
+  public function getMorphoChars()
+  {
+    return $this->morphochars;
+  }
+
+  public function getWeightRecord()
+  {
+    return $this->weightrecord;
+  }
+
   public function setAnimalType($animaltype_id){
     $this->animaltype = $animaltype_id;
   }
@@ -94,6 +117,21 @@ class Animal extends Model
   public function setStatus($status)
   {
     $this->status = $status;
+  }
+
+  public function setGrossMorpho($grossmorpho)
+  {
+    $this->grossmorpho = $grossmorpho;
+  }
+
+  public function setMorphoChars($morphochars)
+  {
+    $this->morphochars = $morphochars;
+  }
+
+  public function setWeightRecord($weightrecord)
+  {
+    $this->weightrecord = $weightrecord;
   }
 
   public function getAnimalProperties()

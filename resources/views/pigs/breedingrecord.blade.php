@@ -221,7 +221,7 @@
 									</tr>
 								@empty
 									<tr>
-										<td colspan="6">No mating record found</td>
+										<td colspan="6">No breeding record found</td>
 									</tr>
 								@endforelse
               </tbody>

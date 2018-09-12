@@ -90,7 +90,7 @@
             </div>
             <div class="col s7">
               <p class="range-field">
-                <input type="range" id="number_of_normal_teats" name="number_of_normal_teats" min="6" max="18" />
+                <input type="range" id="number_normal_teats" name="number_normal_teats" min="6" max="18" />
               </p>
             </div>
           </div>

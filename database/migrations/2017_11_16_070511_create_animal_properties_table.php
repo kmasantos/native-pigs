@@ -20,6 +20,11 @@ class CreateAnimalPropertiesTable extends Migration
           $table->string('value');
           $table->timestamps();
         });
+
+        Schema::table('animal_properties', function($table) {
+            $table->foreign('animal_id')->references('id')->on('animals');
+            $table->foreign('property_id')->references('id')->on('properties');
+        });
     }
 
     /**

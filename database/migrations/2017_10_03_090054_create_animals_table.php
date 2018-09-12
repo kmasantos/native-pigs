@@ -19,11 +19,17 @@ class CreateAnimalsTable extends Migration
             $table->string('registryid')->nullable();
             $table->integer('farm_id')->unsigned();
             $table->integer('breed_id')->unsigned();
-            $table->boolean('phenotypic')->default(false);
-            $table->boolean('morphometric')->default(false);
+            $table->boolean('grossmorpho')->default(false);
+            $table->boolean('morphochars')->default(false);
             $table->boolean('weightrecord')->default(false);
             $table->string('status');
             $table->timestamps();
+        });
+
+        Schema::table('animals', function($table) {
+            $table->foreign('animaltype_id')->references('id')->on('animal_types');
+            $table->foreign('farm_id')->references('id')->on('farms');
+            $table->foreign('breed_id')->references('id')->on('breeds');
         });
     }
 

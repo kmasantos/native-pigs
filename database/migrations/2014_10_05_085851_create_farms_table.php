@@ -17,8 +17,15 @@ class CreateFarmsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('code');
-            $table->string('address');
+            $table->string('region')->nullable();
+            $table->string('province');
+            $table->string('town')->nullable();
+            $table->string('barangay')->nullable();
             $table->integer('breedable_id')->unsigned();
+        });
+
+        Schema::table('farms', function($table) {
+            $table->foreign('breedable_id')->references('id')->on('breeds');
         });
     }
 

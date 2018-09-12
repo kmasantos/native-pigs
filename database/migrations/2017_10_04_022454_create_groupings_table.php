@@ -21,6 +21,10 @@ class CreateGroupingsTable extends Migration
             $table->integer('breed_id')->unsigned();
             $table->boolean('members')->default(false);
         });
+
+        Schema::table('groupings', function($table) {
+            $table->foreign('breed_id')->references('id')->on('breeds');
+        });
     }
 
     /**

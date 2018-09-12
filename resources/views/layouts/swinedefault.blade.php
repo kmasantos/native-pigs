@@ -74,7 +74,7 @@
       <li class="no-padding">
         <ul>
           <li>
-            <a href="{{route('farm.pig.pedigree')}}" class="collapsible-header"><i class="material-icons">device_hub</i>Pedigree Visualizer</a>
+            <a href="{{route('farm.pig.pedigree')}}" class="collapsible-header"><i class="material-icons">device_hub</i>Pedigree Viewer</a>
           </li>
         </ul>
       </li>

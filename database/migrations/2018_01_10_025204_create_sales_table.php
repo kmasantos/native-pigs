@@ -15,11 +15,20 @@ class CreateSalesTable extends Migration
     {
         Schema::create('sales', function (Blueprint $table) {
             $table->increments('id');
-            $table->double('weight');
             $table->integer('animal_id')->unsigned();
+            $table->integer('animaltype_id')->unsigned();
+            $table->integer('breed_id')->unsigned();
             $table->date('datesold');
-            $table->string('age');
+            $table->string('weight')->nullable();
+            $table->string('price')->nullable();
+            $table->string('age')->nullable();
             $table->timestamps();
+        });
+
+        Schema::table('sales', function($table) {
+            $table->foreign('animal_id')->references('id')->on('animals');
+            $table->foreign('animaltype_id')->references('id')->on('animal_types');
+            $table->foreign('breed_id')->references('id')->on('breeds');
         });
     }
 

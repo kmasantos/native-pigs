@@ -13,7 +13,12 @@ class Farm extends Model
   protected $table = 'farms';
   public $timestamps = false;
   protected $fillable = [
-      'name', 'code', 'address'
+      'name',
+      'code',
+      'region',
+      'province',
+      'town',
+      'barangay'
   ];
 
   public function animals()

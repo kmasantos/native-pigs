@@ -17,9 +17,13 @@ class CreateGroupingPropertiesTable extends Migration
             $table->increments('id');
             $table->integer('grouping_id')->unsigned();
             $table->integer('property_id')->unsigned();
-            $table->date('datecollected');
             $table->string('value');
             $table->timestamps();
+        });
+
+        Schema::table('grouping_properties', function($table) {
+            $table->foreign('grouping_id')->references('id')->on('groupings');
+            $table->foreign('property_id')->references('id')->on('properties');
         });
     }
 

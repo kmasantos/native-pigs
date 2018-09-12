@@ -25,12 +25,12 @@
               Hair Type
             </div>
             <div class="col s4">
-              <input class="with-gap" name="hair_type1" type="radio" id="hair_type1_curly" value="Curly" />
-              <label for="hair_type1_curly">Curly</label>
+              <input class="with-gap" name="hair_type" type="radio" id="hair_type_curly" value="Curly" />
+              <label for="hair_type_curly">Curly</label>
             </div>
             <div class="col s4">
-              <input class="with-gap" name="hair_type1" type="radio" id="hair_type1_straight" value="Straight" />
-              <label for="hair_type1_straight">Straight</label>
+              <input class="with-gap" name="hair_type" type="radio" id="hair_type_straight" value="Straight" />
+              <label for="hair_type_straight">Straight</label>
             </div>
           </div>
           <div class="row">
@@ -38,12 +38,12 @@
               Hair Length
             </div>
             <div class="col s4">
-              <input class="with-gap" name="hair_type2" type="radio" id="hair_type2_short" value="Short" />
-              <label for="hair_type2_short">Short</label>
+              <input class="with-gap" name="hair_length" type="radio" id="hair_length_short" value="Short" />
+              <label for="hair_length_short">Short</label>
             </div>
             <div class="col s4">
-              <input class="with-gap" name="hair_type2" type="radio" id="hair_type2_long" value="Long" />
-              <label for="hair_type2_long">Long</label>
+              <input class="with-gap" name="hair_length" type="radio" id="hair_length_long" value="Long" />
+              <label for="hair_length_long">Long</label>
             </div>
           </div>
           <div class="row">

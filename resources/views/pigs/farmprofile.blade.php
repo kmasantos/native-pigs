@@ -33,29 +33,45 @@
         <div class="row">
           <div class="input-field col s2 offset-s1">
             <i class="material-icons prefix">map</i>
-            <input id="region" type="text" name="region" class="validate">
+            @if(!is_null($farm->region))
+              <input id="region" type="text" name="region" value="{{ $farm->region }}" class="validate">
+            @else
+              <input id="region" type="text" name="region" class="validate">
+            @endif
             <label for="region">Region</label>
           </div>
           <div class="input-field col s4">
             <i class="material-icons prefix">terrain</i>
-            <input id="province" type="text" name="province" value="{{ $farm->address }}" class="validate">
+            <input id="province" type="text" name="province" value="{{ $farm->province }}" class="validate">
             <label for="province">Province</label>
           </div>
           <div class="input-field col s4">
             <i class="material-icons prefix">location_city</i>
-            <input id="town" type="text" name="town" class="validate">
+            @if(!is_null($farm->town))
+              <input id="town" type="text" name="town" value ="{{ $farm->town }}" class="validate">
+            @else
+              <input id="town" type="text" name="town" class="validate">
+            @endif
             <label for="town">Town</label>
           </div>
         </div>
         <div class="row">
           <div class="input-field col s6 offset-s1">
             <i class="material-icons prefix">place</i>
-            <input id="barangay" type="text" name="baranggay" class="validate">
+            @if(!is_null($farm->barangay))
+              <input id="barangay" type="text" name="barangay" value="{{ $farm->barangay }}" class="validate">
+            @else
+              <input id="barangay" type="text" name="baranggay" class="validate">
+            @endif
             <label for="barangay">Barangay</label>
           </div>
           <div class="input-field col s4">
             <i class="material-icons prefix">smartphone</i>
-            <input id="phone_number" type="text" name="phone_number" class="validate">
+            @if(!is_null($user->phone))
+              <input id="phone_number" type="text" name="phone_number" value="{{ $user->phone }}" class="validate">
+            @else
+              <input id="phone_number" type="text" name="phone_number" class="validate">
+            @endif
             <label for="phone_number">Phone number</label>
           </div>
         </div>

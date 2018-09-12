@@ -18,6 +18,10 @@ class CreateBreedsTable extends Migration
             $table->string('breed');
             $table->integer('animaltype_id')->unsigned();
         });
+
+        Schema::table('breeds', function($table) {
+            $table->foreign('animaltype_id')->references('id')->on('animal_types');
+        });
     }
 
     /**
@@ -27,6 +31,6 @@ class CreateBreedsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('breeds');
+       Schema::dropIfExists('breeds');
     }
 }

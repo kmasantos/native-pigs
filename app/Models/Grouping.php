@@ -8,6 +8,9 @@ class Grouping extends Model
 {
     protected $table = 'groupings';
     public $timestamps = false;
+    protected $fillable = [
+      'members'
+    ];
 
     public function animals()
     {

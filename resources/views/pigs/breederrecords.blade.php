@@ -40,25 +40,25 @@
               <tbody>
                 @forelse($sows as $sow)
                   <tr>
-                    @if($sow->phenotypic == 1 || $sow->morphometric == 1 || $sow->weightrecord == 1)
+                    @if($sow->grossmorpho == 1 || $sow->morphochars == 1 || $sow->weightrecord == 1)
                       <td><a href="{{ URL::route('farm.pig.view_sow', [$sow->id]) }}" class="tooltipped" data-position="top" data-tooltip="View sow">{{ $sow->registryid }}</a></td>
-                    @elseif($sow->phenotypic == 0 && $sow->morphometric == 0 && $sow->weightrecord == 0)
+                    @elseif($sow->grossmorpho == 0 && $sow->morphochars == 0 && $sow->weightrecord == 0)
                       <td>{{ $sow->registryid }}</td>
                     @endif
-                    @if($sow->phenotypic == 0)
+                    @if($sow->grossmorpho == 0)
                       <td>
                         <a href="{{ URL::route('farm.pig.gross_morphology_page', [$sow->id]) }}" class="tooltipped" data-position="top" data-tooltip="Add"><i class="material-icons">add_circle_outline</i></a>
                       </td>
-                    @elseif($sow->phenotypic == 1)
+                    @elseif($sow->grossmorpho == 1)
                       <td>
                         <a href="{{ URL::route('farm.pig.edit_gross_morphology_page', [$sow->id]) }}" class="tooltipped" data-position="top" data-tooltip="Edit"><i class="material-icons">edit</i></a>
                       </td>
                     @endif
-                    @if($sow->morphometric == 0)
+                    @if($sow->morphochars == 0)
                       <td>
                         <a href="{{ URL::route('farm.pig.pig_morphometric_characteristics_page', [$sow->id]) }}" class="tooltipped" data-position="top" data-tooltip="Add"><i class="material-icons">add_circle_outline</i></a>
                       </td>
-                    @elseif($sow->morphometric == 1)
+                    @elseif($sow->morphochars == 1)
                       <td>
                         <a href="{{ URL::route('farm.pig.edit_pig_morphometric_characteristics_page', [$sow->id]) }}" class="tooltipped" data-position="top" data-tooltip="Edit"><i class="material-icons">edit</i></a>
                       </td>
@@ -94,25 +94,25 @@
               <tbody>
                 @forelse($boars as $boar)
                   <tr>
-                    @if($boar->phenotypic == 1 || $boar->morphometric == 1 || $boar->weightrecord == 1)
+                    @if($boar->grossmorpho == 1 || $boar->morphochars == 1 || $boar->weightrecord == 1)
                       <td><a href="{{ URL::route('farm.pig.view_boar', [$boar->id]) }}" class="tooltipped" data-position="top" data-tooltip="View boar"> {{ $boar->registryid }}</a></td>
-                    @elseif($boar->phenotypic == 0 && $boar->morphometric == 0 && $boar->weightrecord == 0)
+                    @elseif($boar->grossmorpho == 0 && $boar->morphochars == 0 && $boar->weightrecord == 0)
                       <td>{{ $boar->registryid }}</td>
                     @endif
-                    @if($boar->phenotypic == 0)
+                    @if($boar->grossmorpho == 0)
                       <td>
                         <a href="{{ URL::route('farm.pig.gross_morphology_page', [$boar->id]) }}" class="tooltipped" data-position="top" data-tooltip="Add"><i class="material-icons">add_circle_outline</i></a>
                       </td>
-                    @elseif($boar->phenotypic == 1)
+                    @elseif($boar->grossmorpho == 1)
                       <td>
                         <a href="{{ URL::route('farm.pig.edit_gross_morphology_page', [$boar->id]) }}" class="tooltipped" data-position="top" data-tooltip="Edit"><i class="material-icons">edit</i></a>
                       </td>
                     @endif
-                    @if($boar->morphometric == 0)
+                    @if($boar->morphochars == 0)
                       <td>
                         <a href="{{ URL::route('farm.pig.pig_morphometric_characteristics_page', [$boar->id]) }}" class="tooltipped" data-position="top" data-tooltip="Add"><i class="material-icons">add_circle_outline</i></a>
                       </td>
-                    @elseif($boar->morphometric == 1)
+                    @elseif($boar->morphochars == 1)
                       <td>
                         <a href="{{ URL::route('farm.pig.edit_pig_morphometric_characteristics_page', [$boar->id]) }}" class="tooltipped" data-position="top" data-tooltip="Edit"><i class="material-icons">edit</i></a>
                       </td>

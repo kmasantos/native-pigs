@@ -20,6 +20,11 @@ class CreateFarmUsersTable extends Migration
             $table->string('user_type');
 
         });
+
+        Schema::table('farm_users', function($table) {
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('farm_id')->references('id')->on('farms');
+        });
     }
 
     /**

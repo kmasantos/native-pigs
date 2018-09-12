@@ -1,7 +1,7 @@
 @extends('layouts.swinedefault')
 
 @section('title')
-	Pedigree Visualizer
+	Pedigree Viewer
 @endsection
 
 @section('initScriptsAndStyles')
@@ -10,7 +10,7 @@
 
 @section('content')
 	<div class="container">
-		<h4>Pedigree Visualizer</h4>
+		<h4>Pedigree Viewer</h4>
 		<div class="divider"></div>
 		<div class="row" style="padding-top: 10px;">
 			{!! Form::open(['route' => 'farm.pig.find_pig', 'method' => 'post']) !!}

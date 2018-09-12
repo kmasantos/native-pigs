@@ -344,14 +344,14 @@
 	    				@forelse($years as $year)
 		    				<tr>
 		    					<td>{{ $year }}</td>
-		    					<td>{{ count(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 53)) }}</td>
-		    					@if(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 53) == [])
+		    					<td>{{ count(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 5)) }}</td>
+		    					@if(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 5) == [])
 			    					<td colspan="4">No data available</td>
 			    				@else
-			    					<td>{{ min(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 53)) }}</td>
-			    					<td>{{ max(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 53)) }}</td>
-			    					<td>{{ round(array_sum(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 53))/count(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 53)), 2) }}</td>
-			    					<td>{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 53), false), 2) }}</td>
+			    					<td>{{ min(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 5)) }}</td>
+			    					<td>{{ max(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 5)) }}</td>
+			    					<td>{{ round(array_sum(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 5))/count(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 5)), 2) }}</td>
+			    					<td>{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 5), false), 2) }}</td>
 			    				@endif
 		    				</tr>
 		    			@empty
@@ -379,14 +379,14 @@
 	    				@forelse($years as $year)
 		    				<tr>
 		    					<td>{{ $year }}</td>
-		    					<td>{{ count(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 54)) }}</td>
-		    					@if(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 54) == [])
+		    					<td>{{ count(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 7)) }}</td>
+		    					@if(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 7) == [])
 			    					<td colspan="4">No data available</td>
 			    				@else
-			    					<td>{{ min(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 54)) }}</td>
-			    					<td>{{ max(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 54)) }}</td>
-			    					<td>{{ round(array_sum(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 54))/count(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 54)), 2) }}</td>
-			    					<td>{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 54), false), 2) }}</td>
+			    					<td>{{ min(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 7)) }}</td>
+			    					<td>{{ max(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 7)) }}</td>
+			    					<td>{{ round(array_sum(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 7))/count(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 7)), 2) }}</td>
+			    					<td>{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 7), false), 2) }}</td>
 			    				@endif
 		    				</tr>
 		    			@empty
@@ -414,14 +414,14 @@
 	    				@forelse($years as $year)
 		    				<tr>
 		    					<td>{{ $year }}</td>
-		    					<td>{{ count(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 45)) }}</td>
-		    					@if(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 45) == [])
+		    					<td>{{ count(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 32)) }}</td>
+		    					@if(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 32) == [])
 			    					<td colspan="4">No data available</td>
 			    				@else
-			    					<td>{{ min(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 45)) }}</td>
-			    					<td>{{ max(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 45)) }}</td>
-			    					<td>{{ round(array_sum(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 45))/count(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 45)), 2) }}</td>
-			    					<td>{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 45), false), 2) }}</td>
+			    					<td>{{ min(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 32)) }}</td>
+			    					<td>{{ max(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 32)) }}</td>
+			    					<td>{{ round(array_sum(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 32))/count(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 32)), 2) }}</td>
+			    					<td>{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 32), false), 2) }}</td>
 			    				@endif
 		    				</tr>
 		    			@empty
@@ -449,14 +449,14 @@
 	    				@forelse($years as $year)
 		    				<tr>
 		    					<td>{{ $year }}</td>
-		    					<td>{{ count(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 46)) }}</td>
-		    					@if(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 46) == [])
+		    					<td>{{ count(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 33)) }}</td>
+		    					@if(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 33) == [])
 			    					<td colspan="4">No data available</td>
 			    				@else
-			    					<td>{{ min(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 46)) }}</td>
-			    					<td>{{ max(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 46)) }}</td>
-			    					<td>{{ round(array_sum(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 46))/count(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 46)), 2) }}</td>
-			    					<td>{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 46), false), 2) }}</td>
+			    					<td>{{ min(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 33)) }}</td>
+			    					<td>{{ max(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 33)) }}</td>
+			    					<td>{{ round(array_sum(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 33))/count(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 33)), 2) }}</td>
+			    					<td>{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 33), false), 2) }}</td>
 			    				@endif
 		    				</tr>
 	    				@empty
@@ -484,14 +484,14 @@
 	    				@forelse($years as $year)
 		    				<tr>
 		    					<td>{{ $year }}</td>
-		    					<td>{{ count(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 69)) }}</td>
-		    					@if(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 69) == [])
+		    					<td>{{ count(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 34)) }}</td>
+		    					@if(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 34) == [])
 			    					<td colspan="4">No data available</td>
 			    				@else
-			    					<td>{{ min(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 69)) }}</td>
-			    					<td>{{ max(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 69)) }}</td>
-			    					<td>{{ round(array_sum(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 69))/count(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 69)), 2) }}</td>
-			    					<td>{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 69), false), 2) }}</td>
+			    					<td>{{ min(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 34)) }}</td>
+			    					<td>{{ max(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 34)) }}</td>
+			    					<td>{{ round(array_sum(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 34))/count(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 34)), 2) }}</td>
+			    					<td>{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 34), false), 2) }}</td>
 			    				@endif
 		    				</tr>
 	    				@empty
@@ -519,14 +519,14 @@
 	    				@forelse($years as $year)
 		    				<tr>
 		    					<td>{{ $year }}</td>
-		    					<td>{{ count(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 90)) }}</td>
-		    					@if(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 90) == [])
+		    					<td>{{ count(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 35)) }}</td>
+		    					@if(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 35) == [])
 			    					<td colspan="4">No data available</td>
 			    				@else
-			    					<td>{{ min(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 90)) }}</td>
-			    					<td>{{ max(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 90)) }}</td>
-			    					<td>{{ round(array_sum(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 90))/count(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 90)), 2) }}</td>
-			    					<td>{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 90), false), 2) }}</td>
+			    					<td>{{ min(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 35)) }}</td>
+			    					<td>{{ max(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 35)) }}</td>
+			    					<td>{{ round(array_sum(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 35))/count(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 35)), 2) }}</td>
+			    					<td>{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 35), false), 2) }}</td>
 			    				@endif
 		    				</tr>
 	    				@empty
@@ -554,14 +554,14 @@
 	    				@forelse($years as $year)
 		    				<tr>
 		    					<td>{{ $year }}</td>
-		    					<td>{{ count(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 47)) }}</td>
-		    					@if(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 47) == [])
+		    					<td>{{ count(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 36)) }}</td>
+		    					@if(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 36) == [])
 			    					<td colspan="4">No data available</td>
 			    				@else
-			    					<td>{{ min(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 47)) }}</td>
-			    					<td>{{ max(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 47)) }}</td>
-			    					<td>{{ round(array_sum(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 47))/count(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 47)), 2) }}</td>
-			    					<td>{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 47), false), 2) }}</td>
+			    					<td>{{ min(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 36)) }}</td>
+			    					<td>{{ max(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 36)) }}</td>
+			    					<td>{{ round(array_sum(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 36))/count(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 36)), 2) }}</td>
+			    					<td>{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getWeightsPerYearOfBirth($year, 36), false), 2) }}</td>
 			    				@endif
 		    				</tr>
 	    				@empty

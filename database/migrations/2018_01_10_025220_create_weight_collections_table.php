@@ -19,6 +19,10 @@ class CreateWeightCollectionsTable extends Migration
             $table->double('weight');
             $table->timestamps();
         });
+
+        Schema::table('weight_collections', function($table) {
+            $table->foreign('animal_id')->references('id')->on('animals');
+        });
     }
 
     /**

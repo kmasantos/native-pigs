@@ -55,12 +55,12 @@
       	</div>
         <div class="row">
           <div class="col s3 offset-s2">
-            <input id="mother" type="text" name="mother" class="validate">
-            <label for="mother">Mother's Earnotch</label>
+            <input id="dam" type="text" name="dam" class="validate">
+            <label for="dam">Dam's Earnotch</label>
           </div>
           <div class="col s3 push-s2">
-            <input id="father" type="text" name="father" class="validate">
-            <label for="father">Father's Earnotch</label>
+            <input id="sire" type="text" name="sire" class="validate">
+            <label for="sire">Sire's Earnotch</label>
           </div>
         </div>
         <div class="divider"></div>

@@ -18,6 +18,11 @@ class CreateFarmAnimaltypesTable extends Migration
             $table->integer('farm_id')->unsigned();
             $table->integer('animaltype_id')->unsigned();
         });
+
+        Schema::table('farm_animaltypes', function($table) {
+            $table->foreign('farm_id')->references('id')->on('farms');
+            $table->foreign('animaltype_id')->references('id')->on('animal_types');
+        });
     }
 
     /**
@@ -27,6 +32,6 @@ class CreateFarmAnimaltypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('farm_animaltypes');
+       Schema::dropIfExists('farm_animaltypes');
     }
 }

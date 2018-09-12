@@ -19,6 +19,11 @@ class CreateGroupingMembersTable extends Migration
             $table->integer('animal_id')->unsigned();
             $table->timestamps();
         });
+
+        Schema::table('grouping_members', function($table) {
+            $table->foreign('grouping_id')->references('id')->on('groupings');
+            $table->foreign('animal_id')->references('id')->on('animals');
+        });
     }
 
     /**

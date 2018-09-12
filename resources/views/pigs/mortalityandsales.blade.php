@@ -90,31 +90,25 @@
 									</tr>
 								</thead>
 								<tbody>
-									@forelse($dead as $dead_pig)
+									@forelse($deadpigs as $deadpig)
 										<tr>
-											<td>{{ $dead_pig->registryid }}</td>
-											<td>{{ Carbon\Carbon::parse($dead_pig->getAnimalProperties()->where("property_id", 55)->first()->value)->format('j F, Y') }}</td>
-											<td>{{ $dead_pig->getAnimalProperties()->where("property_id", 71)->first()->value }}</td>
-											@if($dead_pig->getAge($dead_pig->id) != "")
-												@if($dead_pig->getAge($dead_pig->id) != "Age unavailable")
-													@if(floor($dead_pig->getAge($dead_pig->id)/30) == 1)
-														@if($dead_pig->getAge($dead_pig->id) % 30 == 1)
-															<td>{{ floor($dead_pig->getAge($dead_pig->id)/30) }} month, {{ $dead_pig->getAge($dead_pig->id) % 30 }} day</td>
-														@else
-															<td>{{ floor($dead_pig->getAge($dead_pig->id)/30) }} month, {{ $dead_pig->getAge($dead_pig->id) % 30 }} days</td>
-														@endif
+											<td>{{ $deadpig->getRegistryId() }}</td>
+											<td>{{ Carbon\Carbon::parse($deadpig->datedied)->format('j F, Y') }}</td>
+											<td>{{ $deadpig->cause }}</td>
+											@if($deadpig->age != "Age unavailable")
+												@if(floor($deadpig->age/30) == 1)
+													@if($deadpig->age % 30 == 1)
+														<td>{{ floor($deadpig->age/30) }} month, {{ $deadpig->age % 30 }} day</td>
 													@else
-														@if($dead_pig->getAge($dead_pig->id) % 30 == 1)
-															<td>{{ floor($dead_pig->getAge($dead_pig->id)/30) }} months, {{ $dead_pig->getAge($dead_pig->id) % 30 }} day</td>
-														@else
-															<td>{{ floor($dead_pig->getAge($dead_pig->id)/30) }} months, {{ $dead_pig->getAge($dead_pig->id) % 30 }} days</td>
-														@endif
+														<td>{{ floor($deadpig->age/30) }} month, {{ $deadpig->age % 30 }} days</td>
 													@endif
 												@else
-													<td>Age unavailable</td>
+													@if($deadpig->age % 30 == 1)
+														<td>{{ floor($deadpig->age/30) }} months, {{ $deadpig->age % 30 }} day</td>
+													@else
+														<td>{{ floor($deadpig->age/30) }} months, {{ $deadpig->age % 30 }} days</td>
+													@endif
 												@endif
-											@elseif($dead_pig->getAge($dead_pig->id) == 0)
-												<td>0 months, 0 days</td>
 											@else
 												<td>Age unavailable</td>
 											@endif
@@ -204,40 +198,26 @@
 									</tr>
 								</thead>
 								<tbody>
-									@forelse($sold as $pig_sold)
+									@forelse($soldpigs as $soldpig)
 										<tr>
-											<td>{{ $pig_sold->registryid }}</td>
-											<td>{{ Carbon\Carbon::parse($pig_sold->getAnimalProperties()->where("property_id", 56)->first()->value)->format('j F, Y') }}</td>
-											@if(!is_null($pig_sold->getAnimalProperties()->where("property_id", 57)->first()))
-												<td>{{ $pig_sold->getAnimalProperties()->where("property_id", 57)->first()->value }}</td>
-											@else
-												<td>Not specified</td>
-											@endif
-											@if(!is_null($pig_sold->getAnimalProperties()->where("property_id", 96)->first()))
-												<td>{{ $pig_sold->getAnimalProperties()->where("property_id", 96)->first()->value }}</td>
-											@else
-												<td>Not specified</td>
-											@endif
-											@if($pig_sold->getAge($pig_sold->id) != "")
-												@if($pig_sold->getAge($pig_sold->id) != "Age unavailable")
-													@if(floor($pig_sold->getAge($pig_sold->id)/30) == 1)
-														@if($pig_sold->getAge($pig_sold->id) % 30 == 1)
-															<td>{{ floor($pig_sold->getAge($pig_sold->id)/30) }} month, {{ $pig_sold->getAge($pig_sold->id) % 30 }} day</td>
-														@else
-															<td>{{ floor($pig_sold->getAge($pig_sold->id)/30) }} month, {{ $pig_sold->getAge($pig_sold->id) % 30 }} days</td>
-														@endif
+											<td>{{ $soldpig->getRegistryId() }}</td>
+											<td>{{ Carbon\Carbon::parse($soldpig->datesold)->format('j F, Y') }}</td>
+											<td>{{ $soldpig->weight }}</td>
+											<td>{{ $soldpig->price }}</td>
+											@if($soldpig->age != "Age unavailable")
+												@if(floor($soldpig->age/30) == 1)
+													@if($soldpig->age % 30 == 1)
+														<td>{{ floor($soldpig->age/30) }} month, {{ $soldpig->age % 30 }} day</td>
 													@else
-														@if($pig_sold->getAge($pig_sold->id) % 30 == 1)
-															<td>{{ floor($pig_sold->getAge($pig_sold->id)/30) }} months, {{ $pig_sold->getAge($pig_sold->id) % 30 }} day</td>
-														@else
-															<td>{{ floor($pig_sold->getAge($pig_sold->id)/30) }} months, {{ $pig_sold->getAge($pig_sold->id) % 30 }} days</td>
-														@endif
+														<td>{{ floor($soldpig->age/30) }} month, {{ $soldpig->age % 30 }} days</td>
 													@endif
 												@else
-													<td>Age unavailable</td>
+													@if($soldpig->ages % 30 == 1)
+														<td>{{ floor($soldpig->age/30) }} months, {{ $soldpig->age % 30 }} day</td>
+													@else
+														<td>{{ floor($soldpig->age/30) }} months, {{ $soldpig->age % 30 }} days</td>
+													@endif
 												@endif
-											@elseif($pig_sold->getAge($pig_sold->id) == 0)
-												<td>0 months, 0 days</td>
 											@else
 												<td>Age unavailable</td>
 											@endif
@@ -327,31 +307,25 @@
 									</tr>
 								</thead>
 								<tbody>
-									@forelse($removed as $removed_pig)
+									@forelse($removedpigs as $removedpig)
 										<tr>
-											<td>{{ $removed_pig->registryid }}</td>
-											<td>{{ Carbon\Carbon::parse($removed_pig->getAnimalProperties()->where("property_id", 72)->first()->value)->format('j F, Y') }}</td>
-											<td>{{ $removed_pig->getAnimalProperties()->where("property_id", 73)->first()->value }}</td>
-											@if($removed_pig->getAge($removed_pig->id) != "")
-												@if($removed_pig->getAge($removed_pig->id) != "Age unavailable")
-													@if(floor($removed_pig->getAge($removed_pig->id)/30) == 1)
-														@if($removed_pig->getAge($removed_pig->id) % 30 == 1)
-															<td>{{ floor($removed_pig->getAge($removed_pig->id)/30) }} month, {{ $removed_pig->getAge($removed_pig->id) % 30 }} day</td>
-														@else
-															<td>{{ floor($removed_pig->getAge($removed_pig->id)/30) }} month, {{ $removed_pig->getAge($removed_pig->id) % 30 }} days</td>
-														@endif
+											<td>{{ $removedpig->getRegistryId() }}</td>
+											<td>{{ Carbon\Carbon::parse($removedpig->dateremoved)->format('j F, Y') }}</td>
+											<td>{{ $removedpig->reason }}</td>
+											@if($removedpig->age != "Age unavailable")
+												@if(floor($removedpig->age/30) == 1)
+													@if($removedpig->age % 30 == 1)
+														<td>{{ floor($removedpig->age/30) }} month, {{ $removedpig->age % 30 }} day</td>
 													@else
-														@if($removed_pig->getAge($removed_pig->id) % 30 == 1)
-															<td>{{ floor($removed_pig->getAge($removed_pig->id)/30) }} months, {{ $removed_pig->getAge($removed_pig->id) % 30 }} day</td>
-														@else
-															<td>{{ floor($removed_pig->getAge($removed_pig->id)/30) }} months, {{ $removed_pig->getAge($removed_pig->id) % 30 }} days</td>
-														@endif
+														<td>{{ floor($removedpig->age/30) }} month, {{ $removedpig->age % 30 }} days</td>
 													@endif
 												@else
-													<td>Age unavailable</td>
+													@if($removedpig->age % 30 == 1)
+														<td>{{ floor($removedpig->age/30) }} months, {{ $removedpig->age % 30 }} day</td>
+													@else
+														<td>{{ floor($removedpig->age/30) }} months, {{ $removedpig->age % 30 }} days</td>
+													@endif
 												@endif
-											@elseif($removed_pig->getAge($removed_pig->id) == 0)
-												<td>0 months, 0 days</td>
 											@else
 												<td>Age unavailable</td>
 											@endif
