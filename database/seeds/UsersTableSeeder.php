@@ -484,6 +484,12 @@ class UsersTableSeeder extends Seeder
 				$additional2->description = "Number of times sow or boar was used in breeding";
 				$additional2->save();
 
+				$additional3 = new Property;
+				$additional3->name = "Litter Weaning Weight";
+				$additional3->fname = "litter_weaning_weight";
+				$additional3->description = "Litter weaning weight";
+				$additional3->save();
+
 				$this->command->info('Additional properties seeded');
 				$this->command->info('All properties seeded');
 
