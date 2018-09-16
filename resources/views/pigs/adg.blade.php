@@ -20,18 +20,18 @@
 						<p>From Birth</p>
 					</div>
 					<div class="card-action">
-						@if(!is_null($properties->where("property_id", 53)->first()))
-							@if($properties->where("property_id", 53)->first()->value != "")
-								<p>Birth Weight: <strong>{{ $properties->where("property_id", 53)->first()->value }} kg</strong></p>
+						@if(!is_null($properties->where("property_id", 5)->first()))
+							@if($properties->where("property_id", 5)->first()->value != "")
+								<p>Birth Weight: <strong>{{ $properties->where("property_id", 5)->first()->value }} kg</strong></p>
 							@else
 								<p>Birth Weight: <strong>No data available</strong></p>
 							@endif
 						@else
 							<p>Birth Weight: <strong>No data available</strong></p>
 						@endif
-						@if(!is_null($properties->where("property_id", 25)->first()))
-							@if($properties->where("property_id", 25)->first()->value != "Not specified")
-								<p>Birth Date: <strong>{{ Carbon\Carbon::parse($properties->where("property_id", 25)->first()->value)->format('j F, Y') }}</strong></p>
+						@if(!is_null($properties->where("property_id", 3)->first()))
+							@if($properties->where("property_id", 3)->first()->value != "Not specified")
+								<p>Birth Date: <strong>{{ Carbon\Carbon::parse($properties->where("property_id", 3)->first()->value)->format('j F, Y') }}</strong></p>
 							@else
 								<p>Birth Date: <strong>No data available</strong></p>
 							@endif
@@ -51,7 +51,7 @@
 								<h3>{{ round($adg_weaning, 2) }} kg</h3>
 							@endif
 						@else
-							@if(!is_null($properties->where("property_id", 54)->first()))
+							@if(!is_null($properties->where("property_id", 7)->first()))
 								<h3>0 kg</h3>
 							@else
 								<h4>No data available</h4>
@@ -60,18 +60,18 @@
 						<p>From Weaning</p>
 					</div>
 					<div class="card-action">
-						@if(!is_null($properties->where("property_id", 54)->first()))
-							@if($properties->where("property_id", 54)->first()->value != "")
-								<p>Weaning Weight: <strong>{{ $properties->where("property_id", 54)->first()->value }} kg</strong></p>
+						@if(!is_null($properties->where("property_id", 7)->first()))
+							@if($properties->where("property_id", 7)->first()->value != "")
+								<p>Weaning Weight: <strong>{{ $properties->where("property_id", 7)->first()->value }} kg</strong></p>
 							@else
 								<p>Weaning Weight: <strong>No data available</strong></p>
 							@endif
 						@else
 							<p>Weaning Weight: <strong>No data available</strong></p>
 						@endif
-						@if(!is_null($properties->where("property_id", 61)->first()))
-							@if($properties->where("property_id", 61)->first()->value != "Not specified")
-								<p>Date Weaned: <strong>{{ Carbon\Carbon::parse($properties->where("property_id", 61)->first()->value)->format('j F, Y') }}</strong></p>
+						@if(!is_null($properties->where("property_id", 6)->first()))
+							@if($properties->where("property_id", 6)->first()->value != "Not specified")
+								<p>Date Weaned: <strong>{{ Carbon\Carbon::parse($properties->where("property_id", 6)->first()->value)->format('j F, Y') }}</strong></p>
 							@else
 								<p>Date Weaned: <strong>No data available</strong></p>
 							@endif

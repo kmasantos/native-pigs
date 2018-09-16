@@ -73,5 +73,9 @@ class Mortality extends Model
   public function getRegistryId(){
     return Animal::find($this->animal_id)->registryid;
   }
+
+  public function getStatus(){
+    return Animal::find($this->animal_id)->status;
+  }
   
 }

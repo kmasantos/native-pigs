@@ -40,7 +40,7 @@
                   </td>
                 @endif
                 <td><a href="{{ URL::route('farm.pig.view_adg', [$sow->id]) }}" class="tooltipped" data-position="top" data-tooltip="View ADG"><i class="material-icons">insert_chart_outlined</i></a></td>
-                @if(is_null($sow->getAnimalProperties()->where("property_id", 50)->first()))
+                @if(is_null($sow->getAnimalProperties()->where("property_id", 60)->first()))
 	                <td>
 	                	<div class="switch">
 	                		<label>
@@ -50,7 +50,7 @@
 	                	</div>
 	                </td>
 	              @else
-	              	@if($sow->getAnimalProperties()->where("property_id", 50)->first()->value == 1)
+	              	@if($sow->getAnimalProperties()->where("property_id", 60)->first()->value == 1)
 	              		<td>
 		                	<div class="switch">
 		                		<label>
@@ -59,7 +59,7 @@
 		                		</label>
 		                	</div>
 		                </td>
-	              	@elseif($sow->getAnimalProperties()->where("property_id", 50)->first()->value == 0)
+	              	@elseif($sow->getAnimalProperties()->where("property_id", 60)->first()->value == 0)
 	              		<td>
 		                	<div class="switch">
 		                		<label>
@@ -112,7 +112,7 @@
                   </td>
                 @endif
                 <td><a href="{{ URL::route('farm.pig.view_adg', [$boar->id]) }}" class="tooltipped" data-position="top" data-tooltip="View ADG"><i class="material-icons">insert_chart_outlined</i></a></td>
-               	@if(is_null($boar->getAnimalProperties()->where("property_id", 50)->first()))
+               	@if(is_null($boar->getAnimalProperties()->where("property_id", 60)->first()))
 	                <td>
 	                	<div class="switch">
 	                		<label>
@@ -122,7 +122,7 @@
 	                	</div>
 	                </td>
 	              @else
-	              	@if($boar->getAnimalProperties()->where("property_id", 50)->first()->value == 1)
+	              	@if($boar->getAnimalProperties()->where("property_id", 60)->first()->value == 1)
 	              		<td>
 		                	<div class="switch">
 		                		<label>
@@ -131,7 +131,7 @@
 		                		</label>
 		                	</div>
 		                </td>
-	              	@elseif($boar->getAnimalProperties()->where("property_id", 50)->first()->value == 0)
+	              	@elseif($boar->getAnimalProperties()->where("property_id", 60)->first()->value == 0)
 	              		<td>
 		                	<div class="switch">
 		                		<label>

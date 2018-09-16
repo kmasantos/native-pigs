@@ -56,11 +56,11 @@
 									Date Bred
 								</div>
 								<div class="col s6">
-									{{ Carbon\Carbon::parse($family->getGroupingProperties()->where("property_id", 48)->first()->value)->format('j F, Y') }}
+									{{ Carbon\Carbon::parse($family->getGroupingProperties()->where("property_id", 42)->first()->value)->format('j F, Y') }}
 								</div>
 							</div>
 							<div class="row">
-								@if(is_null($family->getGroupingProperties()->where("property_id", 25)->first()))
+								@if(is_null($family->getGroupingProperties()->where("property_id", 3)->first()))
 									<div class="col s6">
 										<p>Date Farrowed</p>
 									</div>
@@ -72,14 +72,14 @@
 										Date Farrowed
 									</div>
 									<div class="col s6">
-										{{ Carbon\Carbon::parse($family->getGroupingProperties()->where("property_id", 25)->first()->value)->format('j F, Y') }}
-										<input id="hidden_date" type="hidden" name="date_farrowed" value="{{ $family->getGroupingProperties()->where("property_id", 25)->first()->value }}">
+										{{ Carbon\Carbon::parse($family->getGroupingProperties()->where("property_id", 3)->first()->value)->format('j F, Y') }}
+										<input id="hidden_date" type="hidden" name="date_farrowed" value="{{ $family->getGroupingProperties()->where("property_id", 3)->first()->value }}">
 									</div>
 								@endif
 							</div>
 							<div class="row">
-								@if(!is_null($family->getGroupingProperties()->where("property_id", 25)->first()))
-									@if(is_null($family->getGroupingProperties()->where("property_id", 61)->first()))
+								@if(!is_null($family->getGroupingProperties()->where("property_id", 3)->first()))
+									@if(is_null($family->getGroupingProperties()->where("property_id", 6)->first()))
 										<div class="col s6">
 											<p>Date Weaned</p>
 										</div>
@@ -91,8 +91,8 @@
 											Date Weaned
 										</div>
 										<div class="col s6">
-											{{ Carbon\Carbon::parse($family->getGroupingProperties()->where("property_id", 61)->first()->value)->format('j F, Y') }}
-											<input id="hidden_weaned" type="hidden" name="date_weaned" value="{{ $family->getGroupingProperties()->where("property_id", 61)->first()->value }}">
+											{{ Carbon\Carbon::parse($family->getGroupingProperties()->where("property_id", 6)->first()->value)->format('j F, Y') }}
+											<input id="hidden_weaned" type="hidden" name="date_weaned" value="{{ $family->getGroupingProperties()->where("property_id", 6)->first()->value }}">
 										</div>
 									@endif
 								@else
@@ -115,17 +115,17 @@
 									<p>Parity</p>
 								</div>
 								<div class="col s4">
-									@if(is_null($family->getGroupingProperties()->where("property_id", 25)->first()))
-										@if(is_null($family->getGroupingProperties()->where("property_id", 76)->first()))
+									@if(is_null($family->getGroupingProperties()->where("property_id", 3)->first()))
+										@if(is_null($family->getGroupingProperties()->where("property_id", 48)->first()))
 											<input id="paritytext" type="text" name="parity"> 
 										@else
-											<input id="paritytext" type="text" name="parity" value="{{ $family->getGroupingProperties()->where("property_id", 76)->first()->value }}">
+											<input id="paritytext" type="text" name="parity" value="{{ $family->getGroupingProperties()->where("property_id", 48)->first()->value }}">
 										@endif
 									@else
-										@if(is_null($family->getGroupingProperties()->where("property_id", 76)->first()))
+										@if(is_null($family->getGroupingProperties()->where("property_id", 48)->first()))
 											<input id="paritytext" type="text" name="parity"> 
 										@else
-											<input id="paritytext" type="text" name="parity" value="{{ $family->getGroupingProperties()->where("property_id", 76)->first()->value }}">
+											<input id="paritytext" type="text" name="parity" value="{{ $family->getGroupingProperties()->where("property_id", 48)->first()->value }}">
 										@endif
 									@endif
 								</div>
@@ -135,18 +135,15 @@
 									Total Littersize Born
 								</div>
 								<div class="col s4">
-									@if($family->members == 1 && !is_null($family->getGroupingProperties()->where("property_id", 74)->first()) || !is_null($family->getGroupingProperties()->where("property_id", 75)->first()))
-										{{ count($family->getGroupingMembers()) + $family->getGroupingProperties()->where("property_id", 74)->first()->value + $family->getGroupingProperties()->where("property_id", 75)->first()->value }}
-									@elseif($family->members == 1 && (is_null($family->getGroupingProperties()->where("property_id", 74)->first()) && is_null($family->getGroupingProperties()->where("property_id", 75)->first())))
-										{{ count($family->getGroupingMembers()) }}
-									@elseif($family->members == 0 && (!is_null($family->getGroupingProperties()->where("property_id", 74)->first()) || !is_null($family->getGroupingProperties()->where("property_id", 75)->first())))
-										{{ $family->getGroupingProperties()->where("property_id", 74)->first()->value + $family->getGroupingProperties()->where("property_id", 75)->first()->value }}
-									@endif
+									
 								</div>
 							</div>
 							<div class="row">
 								<div class="col s8">
 									Total Littersize Born Alive
+									@if($family->members == 1)
+
+									@endif
 								</div>
 								<div class="col s4">
 									@if($family->members == 1)
@@ -160,9 +157,7 @@
 								</div>
 								<div class="col s4">
 									@if($family->members == 1)
-										@if(!is_null($family->getGroupingProperties()->where("property_id", 78)->first()))
-											{{ $family->getGroupingProperties()->where("property_id", 78)->first()->value }}
-										@endif
+										
 									@endif
 								</div>
 							</div>
@@ -182,7 +177,7 @@
 								</div>
 								<div class="col s4">
 									@if($family->members == 1)
-										{{ $countMales }}
+										
 									@endif
 								</div>
 							</div>
@@ -192,7 +187,7 @@
 								</div>
 								<div class="col s4">
 									@if($family->members == 1)
-										{{ $countFemales }}
+										
 									@endif
 								</div>
 							</div>
@@ -202,7 +197,7 @@
 								</div>
 								<div class="col s4">
 									@if($family->members == 1)
-										{{ $countMales.':'.$countFemales }}
+										
 									@endif
 								</div>
 							</div>
@@ -212,7 +207,7 @@
 								</div>
 								<div class="col s4">
 									@if($family->members == 1)
-										{{ round($aveWeaningWeight, 4) }}
+										
 									@endif
 								</div>
 							</div>
@@ -221,8 +216,8 @@
 				</div>
 				<div class="row center">
 					<div class="col s6">
-						@if(is_null($family->getGroupingProperties()->where("property_id", 25)->first()))
-							@if(is_null($family->getGroupingProperties()->where("property_id", 74)->first()))
+						@if(is_null($family->getGroupingProperties()->where("property_id", 3)->first()))
+							@if(is_null($family->getGroupingProperties()->where("property_id", 45)->first()))
 								Number Stillborn:
 								<div class="input-field inline">
 									<input id="number_stillborn" type="text" name="number_stillborn">
@@ -230,11 +225,11 @@
 							@else
 								Number Stillborn:
 								<div class="input-field inline">
-									<input id="number_stillborn" type="text" name="number_stillborn" value="{{ $family->getGroupingProperties()->where("property_id", 74)->first()->value }}">
+									<input id="number_stillborn" type="text" name="number_stillborn" value="{{ $family->getGroupingProperties()->where("property_id", 45)->first()->value }}">
 								</div>
 							@endif
 						@else
-							@if(is_null($family->getGroupingProperties()->where("property_id", 74)->first()))
+							@if(is_null($family->getGroupingProperties()->where("property_id", 45)->first()))
 								Number Stillborn:
 								<div class="input-field inline">
 									<input id="number_stillborn" type="text" name="number_stillborn">
@@ -242,14 +237,14 @@
 							@else
 								Number Stillborn:
 								<div class="input-field inline">
-									<input id="number_stillborn" type="text" name="number_stillborn" value="{{ $family->getGroupingProperties()->where("property_id", 74)->first()->value }}">
+									<input id="number_stillborn" type="text" name="number_stillborn" value="{{ $family->getGroupingProperties()->where("property_id", 45)->first()->value }}">
 								</div>
 							@endif
 						@endif
 					</div>
 					<div class="col s6">
-						@if(is_null($family->getGroupingProperties()->where("property_id", 25)->first()))
-							@if(is_null($family->getGroupingProperties()->where("property_id", 75)->first()))
+						@if(is_null($family->getGroupingProperties()->where("property_id", 3)->first()))
+							@if(is_null($family->getGroupingProperties()->where("property_id", 46)->first()))
 								Number Mummified:
 								<div class="input-field inline">
 									<input id="number_mummified" type="text" name="number_mummified">
@@ -257,11 +252,11 @@
 							@else
 								Number Mummified:
 								<div class="input-field inline">
-									<input id="number_mummified" type="text" name="number_mummified" value="{{ $family->getGroupingProperties()->where("property_id", 75)->first()->value }}">
+									<input id="number_mummified" type="text" name="number_mummified" value="{{ $family->getGroupingProperties()->where("property_id", 46)->first()->value }}">
 								</div>
 							@endif
 						@else
-							@if(is_null($family->getGroupingProperties()->where("property_id", 75)->first()))
+							@if(is_null($family->getGroupingProperties()->where("property_id", 46)->first()))
 								Number Mummified:
 								<div class="input-field inline">
 									<input id="number_mummified" type="text" name="number_mummified">
@@ -269,26 +264,26 @@
 							@else
 								Number Mummified:
 								<div class="input-field inline">
-									<input id="number_mummified" type="text" name="number_mummified" value="{{ $family->getGroupingProperties()->where("property_id", 75)->first()->value }}">
+									<input id="number_mummified" type="text" name="number_mummified" value="{{ $family->getGroupingProperties()->where("property_id", 46)->first()->value }}">
 								</div>
 							@endif
 						@endif
 					</div>
 					<div class="col s12 center">
-						@if(is_null($family->getGroupingProperties()->where("property_id", 92)->first()))
+						@if(is_null($family->getGroupingProperties()->where("property_id", 47)->first()))
 							<div class="input-field col s8 offset-s2">
 			          <textarea id="abnomalities" name="abnomalities" class="materialize-textarea" placeholder="Enter values separated by commas"></textarea>
 			          <label for="abnomalities">Abnormalities</label>
 			        </div>
 			      @else
 			      	<div class="input-field col s8 offset-s2">
-			          <textarea id="abnomalities" name="abnomalities" class="materialize-textarea" value="{{ $family->getGroupingProperties()->where("property_id", 92)->first()->value }}"></textarea>
+			          <textarea id="abnomalities" name="abnomalities" class="materialize-textarea" value="{{ $family->getGroupingProperties()->where("property_id", 47)->first()->value }}"></textarea>
 			          <label for="abnomalities">Abnormalities</label>
 			        </div>
 			      @endif
 					</div>
 					<div class="col s12 center">
-						@if(is_null($family->getGroupingProperties()->where("property_id", 94)->first()))
+						@if(is_null($family->getGroupingProperties()->where("property_id", 54)->first()))
 							<div class="switch">
 								<label>
 									Group Weighing
@@ -298,7 +293,7 @@
 								</label>
 							</div>
 						@else
-							@if($family->getGroupingProperties()->where("property_id", 94)->first()->value == 0)
+							@if($family->getGroupingProperties()->where("property_id", 54)->first()->value == 0)
 								<div class="switch">
 									<label>
 										Group Weighing
@@ -307,7 +302,7 @@
 										Individual Weighing
 									</label>
 								</div>
-							@elseif($family->getGroupingProperties()->where("property_id", 94)->first()->value == 1)
+							@elseif($family->getGroupingProperties()->where("property_id", 54)->first()->value == 1)
 								<div class="switch">
 									<label>
 										Group Weighing
@@ -323,7 +318,7 @@
 			</div>
 		</div>
 		<div class="row">
-			@if(is_null($family->getGroupingProperties()->where("property_id", 94)->first()))
+			@if(is_null($family->getGroupingProperties()->where("property_id", 54)->first()))
 				{{-- INDIVIDUAL WEIGHING IS DISPLAYED, DEFAULT --}}
 				<div id="individual_weighing1" class="col s12" style="display: block;">
 					<h5  class="green darken-3 white-text center">Individual Weighing</h5>
@@ -366,28 +361,28 @@
 								@forelse($offsprings as $offspring)
 									<tr>
 										<td>{{ $offspring->getChild()->registryid }}</td>
-										<td>{{ $offspring->getAnimalProperties()->where("property_id", 27)->first()->value }}</td>
-										<td>{{ $offspring->getAnimalProperties()->where("property_id", 53)->first()->value }}</td>
+										<td>{{ $offspring->getAnimalProperties()->where("property_id", 2)->first()->value }}</td>
+										<td>{{ $offspring->getAnimalProperties()->where("property_id", 5)->first()->value }}</td>
 										{!! Form::open(['route' => 'farm.pig.get_weaning_weights', 'method' => 'post']) !!}
-										@if(is_null($family->getGroupingProperties()->where("property_id", 61)->first()))
-											@if(is_null($offspring->getAnimalProperties()->where("property_id", 54)->first()))
+										@if(is_null($family->getGroupingProperties()->where("property_id", 6)->first()))
+											@if(is_null($offspring->getAnimalProperties()->where("property_id", 7)->first()))
 												<td>
 													<a class="btn waves-effect waves-light green darken-3 modal-trigger" href="#weaning_weight_modal{{$offspring->getChild()->id}}">
 								            Add <i class="material-icons right">add</i>
 								          </a>
 												</td>
 											@else
-												<td>{{ $offspring->getAnimalProperties()->where("property_id", 54)->first()->value }}</td>
+												<td>{{ $offspring->getAnimalProperties()->where("property_id", 7)->first()->value }}</td>
 											@endif
 										@else
-											@if(is_null($offspring->getAnimalProperties()->where("property_id", 54)->first()))
+											@if(is_null($offspring->getAnimalProperties()->where("property_id", 7)->first()))
 												<td>
 													<a class="btn waves-effect waves-light green darken-3 modal-trigger" href="#weaning_weight_modal{{$offspring->getChild()->id}}">
 								            Add <i class="material-icons right">add</i>
 								          </a>
 												</td>
 											@else
-												<td>{{ $offspring->getAnimalProperties()->where("property_id", 54)->first()->value }}</td>
+												<td>{{ $offspring->getAnimalProperties()->where("property_id", 7)->first()->value }}</td>
 											@endif
 										@endif
 										{{-- MODAL STRUCTURE --}}
@@ -399,13 +394,13 @@
 												<div class="row center">
 													<div class="col s8 offset-s2 center">
 														Date Weaned:
-														@if(is_null($family->getGroupingProperties()->where("property_id", 61)->first()))
+														@if(is_null($family->getGroupingProperties()->where("property_id", 6)->first()))
 															<div class="input-field inline">
 																<input id="date_weaned" type="text" name="date_weaned" placeholder="Pick date" class="datepicker">
 															</div>
 														@else
 															<div class="input-field inline">
-																<input id="date_weaned" type="text" name="date_weaned" class="datepicker" value="{{ $family->getGroupingProperties()->where("property_id", 61)->first()->value }}">
+																<input id="date_weaned" type="text" name="date_weaned" class="datepicker" value="{{ $family->getGroupingProperties()->where("property_id", 6)->first()->value }}">
 															</div>
 														@endif
 													</div>
@@ -439,27 +434,27 @@
 				<div id="group_weighing" class="row center" style="display: none;">
 					<h5 class="green darken-3 white-text">Group Weighing</h5>
 					<input type="hidden" name="grouping_id" value="{{ $family->id }}">
-					@if(!is_null($family->getGroupingProperties()->where("property_id", 25)->first()))
-						<input id="hidden_date" type="hidden" name="date_farrowed" value="{{ $family->getGroupingProperties()->where("property_id", 25)->first()->value }}">
+					@if(!is_null($family->getGroupingProperties()->where("property_id", 3)->first()))
+						<input id="hidden_date" type="hidden" name="date_farrowed" value="{{ $family->getGroupingProperties()->where("property_id", 3)->first()->value }}">
 					@endif
-					@if(!is_null($family->getGroupingProperties()->where("property_id", 76)->first()))
-						<input id="parity" type="hidden" name="parity" value="{{ $family->getGroupingProperties()->where("property_id", 76)->first()->value }}">
+					@if(!is_null($family->getGroupingProperties()->where("property_id", 48)->first()))
+						<input id="parity" type="hidden" name="parity" value="{{ $family->getGroupingProperties()->where("property_id", 48)->first()->value }}">
 					@endif
-					@if(!is_null($family->getGroupingProperties()->where("property_id", 74)->first()))
-						<input id="number_stillborn" type="hidden" name="number_stillborn" value="{{ $family->getGroupingProperties()->where("property_id", 74)->first()->value }}">
+					@if(!is_null($family->getGroupingProperties()->where("property_id", 45)->first()))
+						<input id="number_stillborn" type="hidden" name="number_stillborn" value="{{ $family->getGroupingProperties()->where("property_id", 45)->first()->value }}">
 					@endif
-					@if(!is_null($family->getGroupingProperties()->where("property_id", 75)->first()))
-						<input id="number_mummified" type="hidden" name="number_mummified" value="{{ $family->getGroupingProperties()->where("property_id", 75)->first()->value }}">
+					@if(!is_null($family->getGroupingProperties()->where("property_id", 46)->first()))
+						<input id="number_mummified" type="hidden" name="number_mummified" value="{{ $family->getGroupingProperties()->where("property_id", 46)->first()->value }}">
 					@endif
-					@if(!is_null($family->getGroupingProperties()->where("property_id", 92)->first()))
-						<input type="hidden" name="abnomalities" value="{{ $family->getGroupingProperties()->where("property_id", 92)->first()->value }}">
+					@if(!is_null($family->getGroupingProperties()->where("property_id", 47)->first()))
+						<input type="hidden" name="abnomalities" value="{{ $family->getGroupingProperties()->where("property_id", 47)->first()->value }}">
 					@endif
 					<div class="row">
 						<div class="col s4 offset-s2">
 							Litter Birth Weight, kg
-							@if(!is_null($family->getGroupingProperties()->where("property_id", 93)->first()))
+							@if(!is_null($family->getGroupingProperties()->where("property_id", 55)->first()))
 								<div class="input-field inline">
-									<input id="litter_birth_weight" type="text" name="litter_birth_weight" value="{{ $family->getGroupingProperties()->where("property_id", 93)->first()->value }}">
+									<input id="litter_birth_weight" type="text" name="litter_birth_weight" value="{{ $family->getGroupingProperties()->where("property_id", 55)->first()->value }}">
 								</div>
 							@else
 								<div class="input-field inline">
@@ -469,9 +464,9 @@
 						</div>
 						<div class="col s4">
 							Litter-size Born Alive
-							@if(!is_null($family->getGroupingProperties()->where("property_id", 95)->first()))
+							@if(!is_null($family->getGroupingProperties()->where("property_id", 50)->first()))
 								<div class="input-field inline">
-									<input id="lsba" type="text" name="lsba" value="{{ $family->getGroupingProperties()->where("property_id", 95)->first()->value }}">
+									<input id="lsba" type="text" name="lsba" value="{{ $family->getGroupingProperties()->where("property_id", 50)->first()->value }}">
 								</div>
 							@else
 								<div class="input-field inline">
@@ -538,28 +533,28 @@
 												</div>
 											</div> --}}
 											{!! Form::close() !!}
-											<td>{{ $offspring->getAnimalProperties()->where("property_id", 27)->first()->value }}</td>
-											<td>{{ round($offspring->getAnimalProperties()->where("property_id", 53)->first()->value, 4) }}</td>
+											<td>{{ $offspring->getAnimalProperties()->where("property_id", 2)->first()->value }}</td>
+											<td>{{ round($offspring->getAnimalProperties()->where("property_id", 5)->first()->value, 4) }}</td>
 											{!! Form::open(['route' => 'farm.pig.get_weaning_weights', 'method' => 'post']) !!}
-											@if(is_null($family->getGroupingProperties()->where("property_id", 61)->first()))
-												@if(is_null($offspring->getAnimalProperties()->where("property_id", 54)->first()))
+											@if(is_null($family->getGroupingProperties()->where("property_id", 6)->first()))
+												@if(is_null($offspring->getAnimalProperties()->where("property_id", 7)->first()))
 													<td>
 														<a class="btn waves-effect waves-light green darken-3 modal-trigger" href="#weaning_weight_modal{{$offspring->getChild()->id}}">
 									            Add <i class="material-icons right">add</i>
 									          </a>
 													</td>
 												@else
-													<td>{{ $offspring->getAnimalProperties()->where("property_id", 54)->first()->value }}</td>
+													<td>{{ $offspring->getAnimalProperties()->where("property_id", 7)->first()->value }}</td>
 												@endif
 											@else
-												@if(is_null($offspring->getAnimalProperties()->where("property_id", 54)->first()))
+												@if(is_null($offspring->getAnimalProperties()->where("property_id", 7)->first()))
 													<td>
 														<a class="btn waves-effect waves-light green darken-3 modal-trigger" href="#weaning_weight_modal{{$offspring->getChild()->id}}">
 									            Add <i class="material-icons right">add</i>
 									          </a>
 													</td>
 												@else
-													<td>{{ $offspring->getAnimalProperties()->where("property_id", 54)->first()->value }}</td>
+													<td>{{ $offspring->getAnimalProperties()->where("property_id", 7)->first()->value }}</td>
 												@endif
 											@endif
 											{{-- MODAL STRUCTURE --}}
@@ -571,13 +566,13 @@
 													<div class="row center">
 														<div class="col s8 offset-s2 center">
 															Date Weaned:
-															@if(is_null($family->getGroupingProperties()->where("property_id", 61)->first()))
+															@if(is_null($family->getGroupingProperties()->where("property_id", 6)->first()))
 																<div class="input-field inline">
 																	<input id="date_weaned" type="text" name="date_weaned" placeholder="Pick date" class="datepicker">
 																</div>
 															@else
 																<div class="input-field inline">
-																	<input id="date_weaned" type="text" name="date_weaned" class="datepicker" value="{{ $family->getGroupingProperties()->where("property_id", 61)->first()->value }}">
+																	<input id="date_weaned" type="text" name="date_weaned" class="datepicker" value="{{ $family->getGroupingProperties()->where("property_id", 6)->first()->value }}">
 																</div>
 															@endif
 														</div>
@@ -608,27 +603,27 @@
 					</div>
 				</div>
 			@else
-				@if($family->getGroupingProperties()->where("property_id", 94)->first()->value == 1)
+				@if($family->getGroupingProperties()->where("property_id", 54)->first()->value == 1)
 					{{-- INDIVIDUAL WEIGHING IS DISPLAYED --}}
 					{!! Form::open(['route' => 'farm.pig.add_sowlitter_record_individual', 'method' => 'post']) !!}
 					<div id="individual_weighing1" class="col s12" style="display: block;">
 						<h5  class="green darken-3 white-text center">Individual Weighing</h5>
 						<h5 class="green lighten-1 center">Add offspring</h5>
 						<input type="hidden" name="grouping_id" value="{{ $family->id }}">
-						@if(!is_null($family->getGroupingProperties()->where("property_id", 25)->first()))
-							<input id="hidden_date" type="hidden" name="date_farrowed" value="{{ $family->getGroupingProperties()->where("property_id", 25)->first()->value }}">
+						@if(!is_null($family->getGroupingProperties()->where("property_id", 3)->first()))
+							<input id="hidden_date" type="hidden" name="date_farrowed" value="{{ $family->getGroupingProperties()->where("property_id", 3)->first()->value }}">
 						@endif
-						@if(!is_null($family->getGroupingProperties()->where("property_id", 76)->first()))
-							<input id="parity" type="hidden" name="parity" value="{{ $family->getGroupingProperties()->where("property_id", 76)->first()->value }}">
+						@if(!is_null($family->getGroupingProperties()->where("property_id", 48)->first()))
+							<input id="parity" type="hidden" name="parity" value="{{ $family->getGroupingProperties()->where("property_id", 48)->first()->value }}">
 						@endif
-						@if(!is_null($family->getGroupingProperties()->where("property_id", 74)->first()))
-							<input id="number_stillborn" type="hidden" name="number_stillborn" value="{{ $family->getGroupingProperties()->where("property_id", 74)->first()->value }}">
+						@if(!is_null($family->getGroupingProperties()->where("property_id", 45)->first()))
+							<input id="number_stillborn" type="hidden" name="number_stillborn" value="{{ $family->getGroupingProperties()->where("property_id", 45)->first()->value }}">
 						@endif
-						@if(!is_null($family->getGroupingProperties()->where("property_id", 75)->first()))
-							<input id="number_mummified" type="hidden" name="number_mummified" value="{{ $family->getGroupingProperties()->where("property_id", 75)->first()->value }}">
+						@if(!is_null($family->getGroupingProperties()->where("property_id", 46)->first()))
+							<input id="number_mummified" type="hidden" name="number_mummified" value="{{ $family->getGroupingProperties()->where("property_id", 46)->first()->value }}">
 						@endif
-						@if(!is_null($family->getGroupingProperties()->where("property_id", 92)->first()))
-							<input type="hidden" name="abnomalities" value="{{ $family->getGroupingProperties()->where("property_id", 92)->first()->value }}">
+						@if(!is_null($family->getGroupingProperties()->where("property_id", 47)->first()))
+							<input type="hidden" name="abnomalities" value="{{ $family->getGroupingProperties()->where("property_id", 47)->first()->value }}">
 						@endif
 						<div class="col s4">
               <input id="offspring_earnotch" type="text" name="offspring_earnotch" class="validate">
@@ -668,28 +663,28 @@
 									@forelse($offsprings as $offspring)
 										<tr>
 											<td>{{ $offspring->getChild()->registryid }}</td>
-											<td>{{ $offspring->getAnimalProperties()->where("property_id", 27)->first()->value }}</td>
-											<td>{{ $offspring->getAnimalProperties()->where("property_id", 53)->first()->value }}</td>
+											<td>{{ $offspring->getAnimalProperties()->where("property_id", 2)->first()->value }}</td>
+											<td>{{ $offspring->getAnimalProperties()->where("property_id", 5)->first()->value }}</td>
 											{!! Form::open(['route' => 'farm.pig.get_weaning_weights', 'method' => 'post']) !!}
-											@if(is_null($family->getGroupingProperties()->where("property_id", 61)->first()))
-												@if(is_null($offspring->getAnimalProperties()->where("property_id", 54)->first()))
+											@if(is_null($family->getGroupingProperties()->where("property_id", 6)->first()))
+												@if(is_null($offspring->getAnimalProperties()->where("property_id", 7)->first()))
 													<td>
 														<a class="btn waves-effect waves-light green darken-3 modal-trigger" href="#weaning_weight_modal{{$offspring->getChild()->id}}">
 									            Add <i class="material-icons right">add</i>
 									          </a>
 													</td>
 												@else
-													<td>{{ $offspring->getAnimalProperties()->where("property_id", 54)->first()->value }}</td>
+													<td>{{ $offspring->getAnimalProperties()->where("property_id", 7)->first()->value }}</td>
 												@endif
 											@else
-												@if(is_null($offspring->getAnimalProperties()->where("property_id", 54)->first()))
+												@if(is_null($offspring->getAnimalProperties()->where("property_id", 7)->first()))
 													<td>
 														<a class="btn waves-effect waves-light green darken-3 modal-trigger" href="#weaning_weight_modal{{$offspring->getChild()->id}}">
 									            Add <i class="material-icons right">add</i>
 									          </a>
 													</td>
 												@else
-													<td>{{ $offspring->getAnimalProperties()->where("property_id", 54)->first()->value }}</td>
+													<td>{{ $offspring->getAnimalProperties()->where("property_id", 7)->first()->value }}</td>
 												@endif
 											@endif
 											{{-- MODAL STRUCTURE --}}
@@ -701,13 +696,13 @@
 													<div class="row center">
 														<div class="col s8 offset-s2 center">
 															Date Weaned:
-															@if(is_null($family->getGroupingProperties()->where("property_id", 61)->first()))
+															@if(is_null($family->getGroupingProperties()->where("property_id", 6)->first()))
 																<div class="input-field inline">
 																	<input id="date_weaned" type="text" name="date_weaned" placeholder="Pick date" class="datepicker">
 																</div>
 															@else
 																<div class="input-field inline">
-																	<input id="date_weaned" type="text" name="date_weaned" class="datepicker" value="{{ $family->getGroupingProperties()->where("property_id", 61)->first()->value }}">
+																	<input id="date_weaned" type="text" name="date_weaned" class="datepicker" value="{{ $family->getGroupingProperties()->where("property_id", 6)->first()->value }}">
 																</div>
 															@endif
 														</div>
@@ -741,27 +736,27 @@
 					<div id="group_weighing" class="row center" style="display: none;">
 						<h5 class="green darken-3 white-text">Group Weighing</h5>
 						<input type="hidden" name="grouping_id" value="{{ $family->id }}">
-						@if(!is_null($family->getGroupingProperties()->where("property_id", 25)->first()))
-							<input id="hidden_date" type="hidden" name="date_farrowed" value="{{ $family->getGroupingProperties()->where("property_id", 25)->first()->value }}">
+						@if(!is_null($family->getGroupingProperties()->where("property_id", 3)->first()))
+							<input id="hidden_date" type="hidden" name="date_farrowed" value="{{ $family->getGroupingProperties()->where("property_id", 3)->first()->value }}">
 						@endif
-						@if(!is_null($family->getGroupingProperties()->where("property_id", 76)->first()))
-							<input id="parity" type="hidden" name="parity" value="{{ $family->getGroupingProperties()->where("property_id", 76)->first()->value }}">
+						@if(!is_null($family->getGroupingProperties()->where("property_id", 48)->first()))
+							<input id="parity" type="hidden" name="parity" value="{{ $family->getGroupingProperties()->where("property_id", 48)->first()->value }}">
 						@endif
-						@if(!is_null($family->getGroupingProperties()->where("property_id", 74)->first()))
-							<input id="number_stillborn" type="hidden" name="number_stillborn" value="{{ $family->getGroupingProperties()->where("property_id", 74)->first()->value }}">
+						@if(!is_null($family->getGroupingProperties()->where("property_id", 45)->first()))
+							<input id="number_stillborn" type="hidden" name="number_stillborn" value="{{ $family->getGroupingProperties()->where("property_id", 45)->first()->value }}">
 						@endif
-						@if(!is_null($family->getGroupingProperties()->where("property_id", 75)->first()))
-							<input id="number_mummified" type="hidden" name="number_mummified" value="{{ $family->getGroupingProperties()->where("property_id", 75)->first()->value }}">
+						@if(!is_null($family->getGroupingProperties()->where("property_id", 46)->first()))
+							<input id="number_mummified" type="hidden" name="number_mummified" value="{{ $family->getGroupingProperties()->where("property_id", 46)->first()->value }}">
 						@endif
-						@if(!is_null($family->getGroupingProperties()->where("property_id", 92)->first()))
-							<input type="hidden" name="abnomalities" value="{{ $family->getGroupingProperties()->where("property_id", 92)->first()->value }}">
+						@if(!is_null($family->getGroupingProperties()->where("property_id", 47)->first()))
+							<input type="hidden" name="abnomalities" value="{{ $family->getGroupingProperties()->where("property_id", 47)->first()->value }}">
 						@endif
 						<div class="row">
 							<div class="col s4 offset-s2">
 								Litter Birth Weight, kg
-								@if(!is_null($family->getGroupingProperties()->where("property_id", 93)->first()))
+								@if(!is_null($family->getGroupingProperties()->where("property_id", 55)->first()))
 									<div class="input-field inline">
-										<input id="litter_birth_weight" type="text" name="litter_birth_weight" value="{{ $family->getGroupingProperties()->where("property_id", 93)->first()->value }}">
+										<input id="litter_birth_weight" type="text" name="litter_birth_weight" value="{{ $family->getGroupingProperties()->where("property_id", 55)->first()->value }}">
 									</div>
 								@else
 									<div class="input-field inline">
@@ -771,9 +766,9 @@
 							</div>
 							<div class="col s4">
 								Litter-size Born Alive
-								@if(!is_null($family->getGroupingProperties()->where("property_id", 95)->first()))
+								@if(!is_null($family->getGroupingProperties()->where("property_id", 50)->first()))
 									<div class="input-field inline">
-										<input id="lsba" type="text" name="lsba" value="{{ $family->getGroupingProperties()->where("property_id", 95)->first()->value }}">
+										<input id="lsba" type="text" name="lsba" value="{{ $family->getGroupingProperties()->where("property_id", 50)->first()->value }}">
 									</div>
 								@else
 									<div class="input-field inline">
@@ -840,28 +835,28 @@
 													</div>
 												</div> --}}
 												{!! Form::close() !!}
-												<td>{{ $offspring->getAnimalProperties()->where("property_id", 27)->first()->value }}</td>
-												<td>{{ round($offspring->getAnimalProperties()->where("property_id", 53)->first()->value, 4) }}</td>
+												<td>{{ $offspring->getAnimalProperties()->where("property_id", 2)->first()->value }}</td>
+												<td>{{ round($offspring->getAnimalProperties()->where("property_id", 5)->first()->value, 4) }}</td>
 												{!! Form::open(['route' => 'farm.pig.get_weaning_weights', 'method' => 'post']) !!}
-												@if(is_null($family->getGroupingProperties()->where("property_id", 61)->first()))
-													@if(is_null($offspring->getAnimalProperties()->where("property_id", 54)->first()))
+												@if(is_null($family->getGroupingProperties()->where("property_id", 6)->first()))
+													@if(is_null($offspring->getAnimalProperties()->where("property_id", 7)->first()))
 														<td>
 															<a class="btn waves-effect waves-light green darken-3 modal-trigger" href="#weaning_weight_modal{{$offspring->getChild()->id}}">
 										            Add <i class="material-icons right">add</i>
 										          </a>
 														</td>
 													@else
-														<td>{{ $offspring->getAnimalProperties()->where("property_id", 54)->first()->value }}</td>
+														<td>{{ $offspring->getAnimalProperties()->where("property_id", 7)->first()->value }}</td>
 													@endif
 												@else
-													@if(is_null($offspring->getAnimalProperties()->where("property_id", 54)->first()))
+													@if(is_null($offspring->getAnimalProperties()->where("property_id", 7)->first()))
 														<td>
 															<a class="btn waves-effect waves-light green darken-3 modal-trigger" href="#weaning_weight_modal{{$offspring->getChild()->id}}">
 										            Add <i class="material-icons right">add</i>
 										          </a>
 														</td>
 													@else
-														<td>{{ $offspring->getAnimalProperties()->where("property_id", 54)->first()->value }}</td>
+														<td>{{ $offspring->getAnimalProperties()->where("property_id", 7)->first()->value }}</td>
 													@endif
 												@endif
 												{{-- MODAL STRUCTURE --}}
@@ -873,13 +868,13 @@
 														<div class="row center">
 															<div class="col s8 offset-s2 center">
 																Date Weaned:
-																@if(is_null($family->getGroupingProperties()->where("property_id", 61)->first()))
+																@if(is_null($family->getGroupingProperties()->where("property_id", 6)->first()))
 																	<div class="input-field inline">
 																		<input id="date_weaned" type="text" name="date_weaned" placeholder="Pick date" class="datepicker">
 																	</div>
 																@else
 																	<div class="input-field inline">
-																		<input id="date_weaned" type="text" name="date_weaned" class="datepicker" value="{{ $family->getGroupingProperties()->where("property_id", 61)->first()->value }}">
+																		<input id="date_weaned" type="text" name="date_weaned" class="datepicker" value="{{ $family->getGroupingProperties()->where("property_id", 6)->first()->value }}">
 																	</div>
 																@endif
 															</div>
@@ -909,27 +904,27 @@
 							</div>
 						</div>
 					</div>
-				@elseif($family->getGroupingProperties()->where("property_id", 94)->first()->value == 0)
+				@elseif($family->getGroupingProperties()->where("property_id", 54)->first()->value == 0)
 					{{-- INDIVIDUAL WEIGHING IS HIDDEN --}}
 					{!! Form::open(['route' => 'farm.pig.add_sowlitter_record_individual', 'method' => 'post']) !!}
 					<div id="individual_weighing1" class="col s12" style="display: none;">
 						<h5  class="green darken-3 white-text center">Individual Weighing</h5>
 						<h5 class="green lighten-1 center">Add offspring</h5>
 						<input type="hidden" name="grouping_id" value="{{ $family->id }}">
-						@if(!is_null($family->getGroupingProperties()->where("property_id", 25)->first()))
-							<input id="hidden_date" type="hidden" name="date_farrowed" value="{{ $family->getGroupingProperties()->where("property_id", 25)->first()->value }}">
+						@if(!is_null($family->getGroupingProperties()->where("property_id", 3)->first()))
+							<input id="hidden_date" type="hidden" name="date_farrowed" value="{{ $family->getGroupingProperties()->where("property_id", 3)->first()->value }}">
 						@endif
-						@if(!is_null($family->getGroupingProperties()->where("property_id", 76)->first()))
-							<input id="parity" type="hidden" name="parity" value="{{ $family->getGroupingProperties()->where("property_id", 76)->first()->value }}">
+						@if(!is_null($family->getGroupingProperties()->where("property_id", 48)->first()))
+							<input id="parity" type="hidden" name="parity" value="{{ $family->getGroupingProperties()->where("property_id", 48)->first()->value }}">
 						@endif
-						@if(!is_null($family->getGroupingProperties()->where("property_id", 74)->first()))
-							<input id="number_stillborn" type="hidden" name="number_stillborn" value="{{ $family->getGroupingProperties()->where("property_id", 74)->first()->value }}">
+						@if(!is_null($family->getGroupingProperties()->where("property_id", 45)->first()))
+							<input id="number_stillborn" type="hidden" name="number_stillborn" value="{{ $family->getGroupingProperties()->where("property_id", 45)->first()->value }}">
 						@endif
-						@if(!is_null($family->getGroupingProperties()->where("property_id", 75)->first()))
-							<input id="number_mummified" type="hidden" name="number_mummified" value="{{ $family->getGroupingProperties()->where("property_id", 75)->first()->value }}">
+						@if(!is_null($family->getGroupingProperties()->where("property_id", 46)->first()))
+							<input id="number_mummified" type="hidden" name="number_mummified" value="{{ $family->getGroupingProperties()->where("property_id", 46)->first()->value }}">
 						@endif
-						@if(!is_null($family->getGroupingProperties()->where("property_id", 92)->first()))
-							<input type="hidden" name="abnomalities" value="{{ $family->getGroupingProperties()->where("property_id", 92)->first()->value }}">
+						@if(!is_null($family->getGroupingProperties()->where("property_id", 47)->first()))
+							<input type="hidden" name="abnomalities" value="{{ $family->getGroupingProperties()->where("property_id", 47)->first()->value }}">
 						@endif
 						<div class="col s4">
               <input id="offspring_earnotch" type="text" name="offspring_earnotch" class="validate">
@@ -969,28 +964,28 @@
 									@forelse($offsprings as $offspring)
 										<tr>
 											<td>{{ $offspring->getChild()->registryid }}</td>
-											<td>{{ $offspring->getAnimalProperties()->where("property_id", 27)->first()->value }}</td>
-											<td>{{ $offspring->getAnimalProperties()->where("property_id", 53)->first()->value }}</td>
+											<td>{{ $offspring->getAnimalProperties()->where("property_id", 2)->first()->value }}</td>
+											<td>{{ $offspring->getAnimalProperties()->where("property_id", 5)->first()->value }}</td>
 											{!! Form::open(['route' => 'farm.pig.get_weaning_weights', 'method' => 'post']) !!}
-											@if(is_null($family->getGroupingProperties()->where("property_id", 61)->first()))
-												@if(is_null($offspring->getAnimalProperties()->where("property_id", 54)->first()))
+											@if(is_null($family->getGroupingProperties()->where("property_id", 6)->first()))
+												@if(is_null($offspring->getAnimalProperties()->where("property_id", 7)->first()))
 													<td>
 														<a class="btn waves-effect waves-light green darken-3 modal-trigger" href="#weaning_weight_modal{{$offspring->getChild()->id}}">
 									            Add <i class="material-icons right">add</i>
 									          </a>
 													</td>
 												@else
-													<td>{{ $offspring->getAnimalProperties()->where("property_id", 54)->first()->value }}</td>
+													<td>{{ $offspring->getAnimalProperties()->where("property_id", 7)->first()->value }}</td>
 												@endif
 											@else
-												@if(is_null($offspring->getAnimalProperties()->where("property_id", 54)->first()))
+												@if(is_null($offspring->getAnimalProperties()->where("property_id", 7)->first()))
 													<td>
 														<a class="btn waves-effect waves-light green darken-3 modal-trigger" href="#weaning_weight_modal{{$offspring->getChild()->id}}">
 									            Add <i class="material-icons right">add</i>
 									          </a>
 													</td>
 												@else
-													<td>{{ $offspring->getAnimalProperties()->where("property_id", 54)->first()->value }}</td>
+													<td>{{ $offspring->getAnimalProperties()->where("property_id", 7)->first()->value }}</td>
 												@endif
 											@endif
 											{{-- MODAL STRUCTURE --}}
@@ -1002,13 +997,13 @@
 													<div class="row center">
 														<div class="col s8 offset-s2 center">
 															Date Weaned:
-															@if(is_null($family->getGroupingProperties()->where("property_id", 61)->first()))
+															@if(is_null($family->getGroupingProperties()->where("property_id", 6)->first()))
 																<div class="input-field inline">
 																	<input id="date_weaned" type="text" name="date_weaned" placeholder="Pick date" class="datepicker">
 																</div>
 															@else
 																<div class="input-field inline">
-																	<input id="date_weaned" type="text" name="date_weaned" class="datepicker" value="{{ $family->getGroupingProperties()->where("property_id", 61)->first()->value }}">
+																	<input id="date_weaned" type="text" name="date_weaned" class="datepicker" value="{{ $family->getGroupingProperties()->where("property_id", 6)->first()->value }}">
 																</div>
 															@endif
 														</div>
@@ -1042,27 +1037,27 @@
 					<div id="group_weighing" class="row center" style="display: block;">
 						<h5 class="green darken-3 white-text">Group Weighing</h5>
 						<input type="hidden" name="grouping_id" value="{{ $family->id }}">
-						@if(!is_null($family->getGroupingProperties()->where("property_id", 25)->first()))
-							<input id="hidden_date" type="hidden" name="date_farrowed" value="{{ $family->getGroupingProperties()->where("property_id", 25)->first()->value }}">
+						@if(!is_null($family->getGroupingProperties()->where("property_id", 3)->first()))
+							<input id="hidden_date" type="hidden" name="date_farrowed" value="{{ $family->getGroupingProperties()->where("property_id", 3)->first()->value }}">
 						@endif
-						@if(!is_null($family->getGroupingProperties()->where("property_id", 76)->first()))
-							<input id="parity" type="hidden" name="parity" value="{{ $family->getGroupingProperties()->where("property_id", 76)->first()->value }}">
+						@if(!is_null($family->getGroupingProperties()->where("property_id", 48)->first()))
+							<input id="parity" type="hidden" name="parity" value="{{ $family->getGroupingProperties()->where("property_id", 48)->first()->value }}">
 						@endif
-						@if(!is_null($family->getGroupingProperties()->where("property_id", 74)->first()))
-							<input id="number_stillborn" type="hidden" name="number_stillborn" value="{{ $family->getGroupingProperties()->where("property_id", 74)->first()->value }}">
+						@if(!is_null($family->getGroupingProperties()->where("property_id", 45)->first()))
+							<input id="number_stillborn" type="hidden" name="number_stillborn" value="{{ $family->getGroupingProperties()->where("property_id", 45)->first()->value }}">
 						@endif
-						@if(!is_null($family->getGroupingProperties()->where("property_id", 75)->first()))
-							<input id="number_mummified" type="hidden" name="number_mummified" value="{{ $family->getGroupingProperties()->where("property_id", 75)->first()->value }}">
+						@if(!is_null($family->getGroupingProperties()->where("property_id", 46)->first()))
+							<input id="number_mummified" type="hidden" name="number_mummified" value="{{ $family->getGroupingProperties()->where("property_id", 46)->first()->value }}">
 						@endif
-						@if(!is_null($family->getGroupingProperties()->where("property_id", 92)->first()))
-							<input type="hidden" name="abnomalities" value="{{ $family->getGroupingProperties()->where("property_id", 92)->first()->value }}">
+						@if(!is_null($family->getGroupingProperties()->where("property_id", 47)->first()))
+							<input type="hidden" name="abnomalities" value="{{ $family->getGroupingProperties()->where("property_id", 47)->first()->value }}">
 						@endif
 						<div class="row">
 							<div class="col s4 offset-s2">
 								Litter Birth Weight, kg
-								@if(!is_null($family->getGroupingProperties()->where("property_id", 93)->first()))
+								@if(!is_null($family->getGroupingProperties()->where("property_id", 55)->first()))
 									<div class="input-field inline">
-										<input id="litter_birth_weight" type="text" name="litter_birth_weight" value="{{ $family->getGroupingProperties()->where("property_id", 93)->first()->value }}">
+										<input id="litter_birth_weight" type="text" name="litter_birth_weight" value="{{ $family->getGroupingProperties()->where("property_id", 55)->first()->value }}">
 									</div>
 								@else
 									<div class="input-field inline">
@@ -1072,9 +1067,9 @@
 							</div>
 							<div class="col s4">
 								Litter-size Born Alive
-								@if(!is_null($family->getGroupingProperties()->where("property_id", 95)->first()))
+								@if(!is_null($family->getGroupingProperties()->where("property_id", 50)->first()))
 									<div class="input-field inline">
-										<input id="lsba" type="text" name="lsba" value="{{ $family->getGroupingProperties()->where("property_id", 95)->first()->value }}">
+										<input id="lsba" type="text" name="lsba" value="{{ $family->getGroupingProperties()->where("property_id", 50)->first()->value }}">
 									</div>
 								@else
 									<div class="input-field inline">
@@ -1141,28 +1136,28 @@
 													</div>
 												</div>
 												{!! Form::close() !!}
-												<td>{{ $offspring->getAnimalProperties()->where("property_id", 27)->first()->value }}</td>
-												<td>{{ round($offspring->getAnimalProperties()->where("property_id", 53)->first()->value, 4) }}</td>
+												<td>{{ $offspring->getAnimalProperties()->where("property_id", 2)->first()->value }}</td>
+												<td>{{ round($offspring->getAnimalProperties()->where("property_id", 5)->first()->value, 4) }}</td>
 												{!! Form::open(['route' => 'farm.pig.get_weaning_weights', 'method' => 'post']) !!}
-												@if(is_null($family->getGroupingProperties()->where("property_id", 61)->first()))
-													@if(is_null($offspring->getAnimalProperties()->where("property_id", 54)->first()))
+												@if(is_null($family->getGroupingProperties()->where("property_id", 6)->first()))
+													@if(is_null($offspring->getAnimalProperties()->where("property_id", 7)->first()))
 														<td>
 															<a class="btn waves-effect waves-light green darken-3 modal-trigger" href="#weaning_weight_modal{{$offspring->getChild()->id}}">
 										            Add <i class="material-icons right">add</i>
 										          </a>
 														</td>
 													@else
-														<td>{{ $offspring->getAnimalProperties()->where("property_id", 54)->first()->value }}</td>
+														<td>{{ $offspring->getAnimalProperties()->where("property_id", 7)->first()->value }}</td>
 													@endif
 												@else
-													@if(is_null($offspring->getAnimalProperties()->where("property_id", 54)->first()))
+													@if(is_null($offspring->getAnimalProperties()->where("property_id", 7)->first()))
 														<td>
 															<a class="btn waves-effect waves-light green darken-3 modal-trigger" href="#weaning_weight_modal{{$offspring->getChild()->id}}">
 										            Add <i class="material-icons right">add</i>
 										          </a>
 														</td>
 													@else
-														<td>{{ $offspring->getAnimalProperties()->where("property_id", 54)->first()->value }}</td>
+														<td>{{ $offspring->getAnimalProperties()->where("property_id", 7)->first()->value }}</td>
 													@endif
 												@endif
 												{{-- MODAL STRUCTURE --}}
@@ -1174,13 +1169,13 @@
 														<div class="row center">
 															<div class="col s8 offset-s2 center">
 																Date Weaned:
-																@if(is_null($family->getGroupingProperties()->where("property_id", 61)->first()))
+																@if(is_null($family->getGroupingProperties()->where("property_id", 6)->first()))
 																	<div class="input-field inline">
 																		<input id="date_weaned" type="text" name="date_weaned" placeholder="Pick date" class="datepicker">
 																	</div>
 																@else
 																	<div class="input-field inline">
-																		<input id="date_weaned" type="text" name="date_weaned" class="datepicker" value="{{ $family->getGroupingProperties()->where("property_id", 61)->first()->value }}">
+																		<input id="date_weaned" type="text" name="date_weaned" class="datepicker" value="{{ $family->getGroupingProperties()->where("property_id", 6)->first()->value }}">
 																	</div>
 																@endif
 															</div>

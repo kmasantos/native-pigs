@@ -74,6 +74,8 @@ class FarmController extends Controller
 							array_push($malebreeders, $breeder);
 						}
 					}
+
+					static::addFrequency();
 					
 					return view('pigs.dashboard', compact('user', 'farm', 'pigs', 'breeders', 'femalegrowers', 'malegrowers', 'femalebreeders', 'malebreeders', 'now'));
 			}else{
@@ -165,9 +167,6 @@ class FarmController extends Controller
 			$malelitters = [];
 			$parity = 0;
 			$father_registryid = "";
-			$father_farm = "";
-			$father_breed = "";
-			$father_sex = "";
 			$father_birthday = "";
 			$father_birthweight = 0;
 			$father_group = collect([]);
@@ -178,9 +177,31 @@ class FarmController extends Controller
 			$father_grandfather_registryid = "";
 			$father_grandfather_birthday = "";
 			$father_grandfather_birthweight = 0;
+			$father_grandfather_group = collect([]);
+			$father_grandfather_malelitters = [];
+			$father_grandfather_femalelitters = [];
+			$father_grandfather_groupingmembers = [];
+			$father_grandfather_parity = 0;
+			$father_grandfather_greatgrandfather_registryid = "";
+			$father_grandfather_greatgrandfather_birthday = "";
+			$father_grandfather_greatgrandfather_birthweight = 0;
+			$father_grandfather_greatgrandmother_registryid = "";
+			$father_grandfather_greatgrandmother_birthday = "";
+			$father_grandfather_greatgrandmother_birthweight = 0;
 			$father_grandmother_registryid = "";
 			$father_grandmother_birthday = "";
 			$father_grandmother_birthweight = 0;
+			$father_grandmother_group = collect([]);
+			$father_grandmother_malelitters = [];
+			$father_grandmother_femalelitters = [];
+			$father_grandmother_groupingmembers = [];
+			$father_grandmother_parity = 0;
+			$father_grandmother_greatgrandfather_registryid = "";
+			$father_grandmother_greatgrandfather_birthday = "";
+			$father_grandmother_greatgrandfather_birthweight = 0;
+			$father_grandmother_greatgrandmother_registryid = "";
+			$father_grandmother_greatgrandmother_birthday = "";
+			$father_grandmother_greatgrandmother_birthweight = 0;
 			$mother_registryid = "";
 			$mother_birthday = "";
 			$mother_birthweight = 0;
@@ -192,11 +213,33 @@ class FarmController extends Controller
 			$mother_grandfather_registryid = "";
 			$mother_grandfather_birthday = "";
 			$mother_grandfather_birthweight = 0;
+			$mother_grandfather_group = collect([]);
+			$mother_grandfather_malelitters = [];
+			$mother_grandfather_femalelitters = [];
+			$mother_grandfather_groupingmembers = [];
+			$mother_grandfather_parity = 0;
+			$mother_grandfather_greatgrandfather_registryid = "";
+			$mother_grandfather_greatgrandfather_birthday = "";
+			$mother_grandfather_greatgrandfather_birthweight = 0;
+			$mother_grandfather_greatgrandmother_registryid = "";
+			$mother_grandfather_greatgrandmother_birthday = "";
+			$mother_grandfather_greatgrandmother_birthweight = 0;
 			$mother_grandmother_registryid = "";
 			$mother_grandmother_birthday = "";
 			$mother_grandmother_birthweight = 0;
+			$mother_grandmother_group = collect([]);
+			$mother_grandmother_malelitters = [];
+			$mother_grandmother_femalelitters = [];
+			$mother_grandmother_groupingmembers = [];
+			$mother_grandmother_parity = 0;
+			$mother_grandmother_greatgrandfather_registryid = "";
+			$mother_grandmother_greatgrandfather_birthday = "";
+			$mother_grandmother_greatgrandfather_birthweight = 0;
+			$mother_grandmother_greatgrandmother_registryid = "";
+			$mother_grandmother_greatgrandmother_birthday = "";
+			$mother_grandmother_greatgrandmother_birthweight = 0;
 
-			return view('pigs.pedigree', compact('animal', 'registrationid', 'user', 'breed', 'sex', 'birthday', 'birthweight', 'group', 'malelitters', 'femalelitters', 'groupingmembers', 'parity', 'father_registryid', 'father_birthday', 'father_birthweight', 'father_group', 'father_malelitters', 'father_femalelitters', 'father_groupingmembers', 'father_parity', 'father_grandfather_registryid', 'father_grandfather_birthday', 'father_grandfather_birthweight', 'father_grandmother_registryid', 'father_grandmother_birthday', 'father_grandmother_birthweight', 'mother_registryid', 'mother_birthday', 'mother_birthweight', 'mother_group', 'mother_malelitters', 'mother_femalelitters', 'mother_groupingmembers', 'mother_parity', 'mother_grandfather_registryid', 'mother_grandfather_birthday', 'mother_grandfather_birthweight', 'mother_grandmother_registryid', 'mother_grandmother_birthday', 'mother_grandmother_birthweight'));
+			return view('pigs.pedigree', compact('animal', 'registrationid', 'user', 'breed', 'sex', 'birthday', 'birthweight', 'group', 'malelitters', 'femalelitters', 'groupingmembers', 'parity', 'father_registryid', 'father_birthday', 'father_birthweight', 'father_group', 'father_malelitters', 'father_femalelitters', 'father_groupingmembers', 'father_parity', 'father_grandfather_registryid', 'father_grandfather_birthday', 'father_grandfather_birthweight', 'father_grandfather_group', 'father_grandfather_malelitters', 'father_grandfather_femalelitters', 'father_grandfather_groupingmembers', 'father_grandfather_parity', 'father_grandfather_greatgrandfather_registryid', 'father_grandfather_greatgrandfather_birthday', 'father_grandfather_greatgrandfather_birthweight', 'father_grandfather_greatgrandmother_registryid', 'father_grandfather_greatgrandmother_birthday', 'father_grandfather_greatgrandmother_birthweight', 'father_grandmother_registryid', 'father_grandmother_birthday', 'father_grandmother_birthweight', 'father_grandmother_group', 'father_grandmother_malelitters', 'father_grandmother_femalelitters', 'father_grandmother_groupingmembers', 'father_grandmother_parity', 'father_grandmother_greatgrandfather_registryid', 'father_grandmother_greatgrandfather_birthday', 'father_grandmother_greatgrandfather_birthweight', 'father_grandmother_greatgrandmother_registryid', 'father_grandmother_greatgrandmother_birthday', 'father_grandmother_greatgrandmother_birthweight', 'mother_registryid', 'mother_birthday', 'mother_birthweight', 'mother_group', 'mother_malelitters', 'mother_femalelitters', 'mother_groupingmembers', 'mother_parity', 'mother_grandfather_registryid', 'mother_grandfather_birthday', 'mother_grandfather_birthweight', 'mother_grandfather_group', 'mother_grandfather_malelitters', 'mother_grandfather_femalelitters', 'mother_grandfather_groupingmembers', 'mother_grandfather_parity', 'mother_grandfather_greatgrandfather_registryid', 'mother_grandfather_greatgrandfather_birthday', 'mother_grandfather_greatgrandfather_birthweight', 'mother_grandfather_greatgrandmother_registryid', 'mother_grandfather_greatgrandmother_birthday', 'mother_grandfather_greatgrandmother_birthweight', 'mother_grandmother_registryid', 'mother_grandmother_birthday', 'mother_grandmother_birthweight', 'mother_grandmother_group', 'mother_grandmother_malelitters', 'mother_grandmother_femalelitters', 'mother_grandmother_groupingmembers', 'mother_grandmother_parity', 'mother_grandmother_greatgrandfather_registryid', 'mother_grandmother_greatgrandfather_birthday', 'mother_grandmother_greatgrandfather_birthweight', 'mother_grandmother_greatgrandmother_registryid', 'mother_grandmother_greatgrandmother_birthday', 'mother_grandmother_greatgrandmother_birthweight'));
 		}
 
 		public static function findPig(Request $request){
@@ -319,6 +362,71 @@ class FarmController extends Controller
 							$father_grandfather_birthweight = 0;
 						}
 
+						$father_grandfather_group = $father_grandfather->getGrouping();
+
+						if(!is_null($father_grandfather_group)){
+							$father_grandfather_greatgrandfather = $father_grandfather_group->getFather();
+							$father_grandfather_greatgrandmother = $father_grandfather_group->getMother();
+							$father_grandfather_groupingmembers = $father_grandfather_group->getGroupingMembers();
+							$father_grandfather_parity = $father_grandfather_group->getGroupingProperties()->where("property_id", 48)->first()->value;
+							$father_grandfather_femalelitters = [];
+							$father_grandfather_malelitters = [];
+
+							foreach ($father_grandfather_groupingmembers as $father_grandfather_groupingmember) {
+								if(substr($father_grandfather_groupingmember->getChild()->registryid, -7, 1) == 'F'){
+									array_push($father_grandfather_femalelitters, $father_grandfather_groupingmember);
+								}
+								elseif(substr($father_grandfather_groupingmember->getChild()->registryid, -7, 1) == 'M'){
+									array_push($father_grandfather_malelitters, $father_grandfather_groupingmember);
+								}
+							}
+
+							$father_grandfather_greatgrandfather_registryid = $father_grandfather_greatgrandfather->registryid;
+							$father_grandfather_greatgrandfather_bday = $father_grandfather_greatgrandfather->getAnimalProperties()->where("property_id", 3)->first();
+							$father_grandfather_greatgrandfather_bw = $father_grandfather_greatgrandfather->getAnimalProperties()->where("property_id", 5)->first();
+							if(!is_null($father_grandfather_greatgrandfather_bday) && $father_grandfather_greatgrandfather_bday->value != "Not specified"){
+								$father_grandfather_greatgrandfather_birthday = Carbon::parse($father_grandfather_greatgrandfather_bday->value)->format('Y-m-d');
+							}
+							else{
+								$father_grandfather_greatgrandfather_birthday = null;
+							}
+							if(!is_null($father_grandfather_greatgrandfather_bw) && $father_grandfather_greatgrandfather_bw->value != ""){
+								$father_grandfather_greatgrandfather_birthweight = $father_grandfather_greatgrandfather_bw->value;
+							}
+							else{
+								$father_grandfather_greatgrandfather_birthweight = 0;
+							}
+
+							$father_grandfather_greatgrandmother_registryid = $father_grandfather_greatgrandmother->registryid;
+							$father_grandfather_greatgrandmother_bday = $father_grandfather_greatgrandmother->getAnimalProperties()->where("property_id", 3)->first();
+							$father_grandfather_greatgrandmother_bw = $father_grandfather_greatgrandmother->getAnimalProperties()->where("property_id", 5)->first();
+							if(!is_null($father_grandfather_greatgrandmother_bday) && $father_grandfather_greatgrandmother_bday->value != "Not specified"){
+								$father_grandfather_greatgrandmother_birthday = Carbon::parse($father_grandfather_greatgrandmother_bday->value)->format('Y-m-d');
+							}
+							else{
+								$father_grandfather_greatgrandmother_birthday = null;
+							}
+							if(!is_null($father_grandfather_greatgrandmother_bw) && $father_grandfather_greatgrandmother_bw->value != ""){
+								$father_grandfather_greatgrandmother_birthweight = $father_grandfather_greatgrandmother_bw->value;
+							}
+							else{
+								$father_grandfather_greatgrandmother_birthweight = 0;
+							}
+						}
+						else{
+							$father_grandfather_group = collect([]);
+							$father_grandfather_malelitters = [];
+							$father_grandfather_femalelitters = [];
+							$father_grandfather_groupingmembers = [];
+							$father_grandfather_parity = 0;
+							$father_grandfather_greatgrandfather_registryid = null;
+							$father_grandfather_greatgrandfather_birthday = null;
+							$father_grandfather_greatgrandfather_birthweight = 0;
+							$father_grandfather_greatgrandmother_registryid = null;
+							$father_grandfather_greatgrandmother_birthday = null;
+							$father_grandfather_greatgrandmother_birthweight = 0;
+						}
+
 						$father_grandmother_registryid = $father_grandmother->registryid;
 						$father_grandmother_bday = $father_grandmother->getAnimalProperties()->where("property_id", 3)->first();
 						$father_grandmother_bw = $father_grandmother->getAnimalProperties()->where("property_id", 5)->first();
@@ -334,6 +442,71 @@ class FarmController extends Controller
 						else{
 							$father_grandmother_birthweight = 0;
 						}
+
+						$father_grandmother_group = $father_grandmother->getGrouping();
+
+						if(!is_null($father_grandmother_group)){
+							$father_grandmother_greatgrandfather = $father_grandmother_group->getFather();
+							$father_grandmother_greatgrandmother = $father_grandmother_group->getMother();
+							$father_grandmother_groupingmembers = $father_grandmother_group->getGroupingMembers();
+							$father_grandmother_parity = $father_grandmother_group->getGroupingProperties()->where("property_id", 48)->first()->value;
+							$father_grandmother_femalelitters = [];
+							$father_grandmother_malelitters = [];
+
+							foreach ($father_grandmother_groupingmembers as $father_grandmother_groupingmember) {
+								if(substr($father_grandmother_groupingmember->getChild()->registryid, -7, 1) == 'F'){
+									array_push($father_grandmother_femalelitters, $father_grandmother_groupingmember);
+								}
+								elseif(substr($father_grandmother_groupingmember->getChild()->registryid, -7, 1) == 'M'){
+									array_push($father_grandmother_malelitters, $father_grandmother_groupingmember);
+								}
+							}
+
+							$father_grandmother_greatgrandfather_registryid = $father_grandmother_greatgrandfather->registryid;
+							$father_grandmother_greatgrandfather_bday = $father_grandmother_greatgrandfather->getAnimalProperties()->where("property_id", 3)->first();
+							$father_grandmother_greatgrandfather_bw = $father_grandmother_greatgrandfather->getAnimalProperties()->where("property_id", 5)->first();
+							if(!is_null($father_grandmother_greatgrandfather_bday) && $father_grandmother_greatgrandfather_bday->value != "Not specified"){
+								$father_grandmother_greatgrandfather_birthday = Carbon::parse($father_grandmother_greatgrandfather_bday->value)->format('Y-m-d');
+							}
+							else{
+								$father_grandmother_greatgrandfather_birthday = null;
+							}
+							if(!is_null($father_grandmother_greatgrandfather_bw) && $father_grandmother_greatgrandfather_bw->value != ""){
+								$father_grandmother_greatgrandfather_birthweight = $father_grandmother_greatgrandfather_bw->value;
+							}
+							else{
+								$father_grandmother_greatgrandfather_birthweight = 0;
+							}
+
+							$father_grandmother_greatgrandmother_registryid = $father_grandmother_greatgrandmother->registryid;
+							$father_grandmother_greatgrandmother_bday = $father_grandmother_greatgrandmother->getAnimalProperties()->where("property_id", 3)->first();
+							$father_grandmother_greatgrandmother_bw = $father_grandmother_greatgrandmother->getAnimalProperties()->where("property_id", 5)->first();
+							if(!is_null($father_grandmother_greatgrandmother_bday) && $father_grandmother_greatgrandmother_bday->value != "Not specified"){
+								$father_grandmother_greatgrandmother_birthday = Carbon::parse($father_grandmother_greatgrandmother_bday->value)->format('Y-m-d');
+							}
+							else{
+								$father_grandmother_greatgrandmother_birthday = null;
+							}
+							if(!is_null($father_grandmother_greatgrandmother_bw) && $father_grandmother_greatgrandmother_bw->value != ""){
+								$father_grandmother_greatgrandmother_birthweight = $father_grandmother_greatgrandmother_bw->value;
+							}
+							else{
+								$father_grandmother_greatgrandmother_birthweight = 0;
+							}
+						}
+						else{
+							$father_grandmother_group = collect([]);
+							$father_grandmother_malelitters = [];
+							$father_grandmother_femalelitters = [];
+							$father_grandmother_groupingmembers = [];
+							$father_grandmother_parity = 0;
+							$father_grandmother_greatgrandfather_registryid = null;
+							$father_grandmother_greatgrandfather_birthday = null;
+							$father_grandmother_greatgrandfather_birthweight = 0;
+							$father_grandmother_greatgrandmother_registryid = null;
+							$father_grandmother_greatgrandmother_birthday = null;
+							$father_grandmother_greatgrandmother_birthweight = 0;
+						}
 					}
 					else{
 						$father_group = collect([]);
@@ -347,6 +520,28 @@ class FarmController extends Controller
 						$father_grandmother_registryid = null;
 						$father_grandmother_birthday = null;
 						$father_grandmother_birthweight = 0;
+						$father_grandfather_group = collect([]);
+						$father_grandfather_malelitters = [];
+						$father_grandfather_femalelitters = [];
+						$father_grandfather_groupingmembers = [];
+						$father_grandfather_parity = 0;
+						$father_grandfather_greatgrandfather_registryid = null;
+						$father_grandfather_greatgrandfather_birthday = null;
+						$father_grandfather_greatgrandfather_birthweight = 0;
+						$father_grandfather_greatgrandmother_registryid = null;
+						$father_grandfather_greatgrandmother_birthday = null;
+						$father_grandfather_greatgrandmother_birthweight = 0;
+						$father_grandmother_group = collect([]);
+						$father_grandmother_malelitters = [];
+						$father_grandmother_femalelitters = [];
+						$father_grandmother_groupingmembers = [];
+						$father_grandmother_parity = 0;
+						$father_grandmother_greatgrandfather_registryid = null;
+						$father_grandmother_greatgrandfather_birthday = null;
+						$father_grandmother_greatgrandfather_birthweight = 0;
+						$father_grandmother_greatgrandmother_registryid = null;
+						$father_grandmother_greatgrandmother_birthday = null;
+						$father_grandmother_greatgrandmother_birthweight = 0;
 					}
 
 					$mother_registryid = $mother->registryid;
@@ -400,6 +595,70 @@ class FarmController extends Controller
 							$mother_grandfather_birthweight = 0;
 						}
 
+						$mother_grandfather_group = $mother_grandfather->getGrouping();
+						if(!is_null($mother_grandfather_group)){
+							$mother_grandfather_greatgrandfather = $mother_grandfather_group->getFather();
+							$mother_grandfather_greatgrandmother = $mother_grandfather_group->getMother();
+							$mother_grandfather_groupingmembers = $mother_grandfather_group->getGroupingMembers();
+							$mother_grandfather_parity = $mother_grandfather_group->getGroupingProperties()->where("property_id", 48)->first()->value;
+							$mother_grandfather_femalelitters = [];
+							$mother_grandfather_malelitters = [];
+
+							foreach ($mother_grandfather_groupingmembers as $mother_grandfather_groupingmember) {
+								if(substr($mother_grandfather_groupingmember->getChild()->registryid, -7, 1) == 'F'){
+									array_push($mother_grandfather_femalelitters, $mother_grandfather_groupingmember);
+								}
+								elseif(substr($mother_grandfather_groupingmember->getChild()->registryid, -7, 1) == 'M'){
+									array_push($mother_grandfather_malelitters, $mother_grandfather_groupingmember);
+								}
+							}
+
+							$mother_grandfather_greatgrandfather_registryid = $mother_grandfather_greatgrandfather->registryid;
+							$mother_grandfather_greatgrandfather_bday = $mother_grandfather_greatgrandfather->getAnimalProperties()->where("property_id", 3)->first();
+							$mother_grandfather_greatgrandfather_bw = $mother_grandfather_greatgrandfather->getAnimalProperties()->where("property_id", 5)->first();
+							if(!is_null($mother_grandfather_greatgrandfather_bday) && $mother_grandfather_greatgrandfather_bday->value != "Not specified"){
+								$mother_grandfather_greatgrandfather_birthday = Carbon::parse($mother_grandfather_greatgrandfather_bday->value)->format('Y-m-d');
+							}
+							else{
+								$mother_grandfather_greatgrandfather_birthday = null;
+							}
+							if(!is_null($mother_grandfather_greatgrandfather_bw) && $mother_grandfather_greatgrandfather_bw->value != ""){
+								$mother_grandfather_greatgrandfather_birthweight = $mother_grandfather_greatgrandfather_bw->value;
+							}
+							else{
+								$mother_grandfather_greatgrandfather_birthweight = 0;
+							}
+
+							$mother_grandfather_greatgrandmother_registryid = $mother_grandfather_greatgrandmother->registryid;
+							$mother_grandfather_greatgrandmother_bday = $mother_grandfather_greatgrandmother->getAnimalProperties()->where("property_id", 3)->first();
+							$mother_grandfather_greatgrandmother_bw = $mother_grandfather_greatgrandmother->getAnimalProperties()->where("property_id", 5)->first();
+							if(!is_null($mother_grandfather_greatgrandmother_bday) && $mother_grandfather_greatgrandmother_bday->value != "Not specified"){
+								$mother_grandfather_greatgrandmother_birthday = Carbon::parse($mother_grandfather_greatgrandmother_bday->value)->format('Y-m-d');
+							}
+							else{
+								$mother_grandfather_greatgrandmother_birthday = null;
+							}
+							if(!is_null($mother_grandfather_greatgrandmother_bw) && $mother_grandfather_greatgrandmother_bw->value != ""){
+								$mother_grandfather_greatgrandmother_birthweight = $mother_grandfather_greatgrandmother_bw->value;
+							}
+							else{
+								$mother_grandfather_greatgrandmother_birthweight = 0;
+							}
+						}
+						else{
+							$mother_grandfather_group = collect([]);
+							$mother_grandfather_malelitters = [];
+							$mother_grandfather_femalelitters = [];
+							$mother_grandfather_groupingmembers = [];
+							$mother_grandfather_parity = 0;
+							$mother_grandfather_greatgrandfather_registryid = null;
+							$mother_grandfather_greatgrandfather_birthday = null;
+							$mother_grandfather_greatgrandfather_birthweight = 0;
+							$mother_grandfather_greatgrandmother_registryid = null;
+							$mother_grandfather_greatgrandmother_birthday = null;
+							$mother_grandfather_greatgrandmother_birthweight = 0;
+						}
+
 						$mother_grandmother_registryid = $mother_grandmother->registryid;
 						$mother_grandmother_bday = $mother_grandmother->getAnimalProperties()->where("property_id", 3)->first();
 						$mother_grandmother_bw = $mother_grandmother->getAnimalProperties()->where("property_id", 5)->first();
@@ -415,6 +674,71 @@ class FarmController extends Controller
 						else{
 							$mother_grandmother_birthweight = 0;
 						}
+
+						$mother_grandmother_group = $mother_grandmother->getGrouping();
+
+						if(!is_null($mother_grandmother_group)){
+							$mother_grandmother_greatgrandfather = $mother_grandmother_group->getFather();
+							$mother_grandmother_greatgrandmother = $mother_grandmother_group->getMother();
+							$mother_grandmother_groupingmembers = $mother_grandmother_group->getGroupingMembers();
+							$mother_grandmother_parity = $mother_grandmother_group->getGroupingProperties()->where("property_id", 48)->first()->value;
+							$mother_grandmother_femalelitters = [];
+							$mother_grandmother_malelitters = [];
+
+							foreach ($mother_grandmother_groupingmembers as $mother_grandmother_groupingmember) {
+								if(substr($mother_grandmother_groupingmember->getChild()->registryid, -7, 1) == 'F'){
+									array_push($mother_grandmother_femalelitters, $mother_grandmother_groupingmember);
+								}
+								elseif(substr($mother_grandmother_groupingmember->getChild()->registryid, -7, 1) == 'M'){
+									array_push($mother_grandmother_malelitters, $mother_grandmother_groupingmember);
+								}
+							}
+
+							$mother_grandmother_greatgrandfather_registryid = $mother_grandmother_greatgrandfather->registryid;
+							$mother_grandmother_greatgrandfather_bday = $mother_grandmother_greatgrandfather->getAnimalProperties()->where("property_id", 3)->first();
+							$mother_grandmother_greatgrandfather_bw = $mother_grandmother_greatgrandfather->getAnimalProperties()->where("property_id", 5)->first();
+							if(!is_null($mother_grandmother_greatgrandfather_bday) && $mother_grandmother_greatgrandfather_bday->value != "Not specified"){
+								$mother_grandmother_greatgrandfather_birthday = Carbon::parse($mother_grandmother_greatgrandfather_bday->value)->format('Y-m-d');
+							}
+							else{
+								$mother_grandmother_greatgrandfather_birthday = null;
+							}
+							if(!is_null($mother_grandmother_greatgrandfather_bw) && $mother_grandmother_greatgrandfather_bw->value != ""){
+								$mother_grandmother_greatgrandfather_birthweight = $mother_grandmother_greatgrandfather_bw->value;
+							}
+							else{
+								$mother_grandmother_greatgrandfather_birthweight = 0;
+							}
+
+							$mother_grandmother_greatgrandmother_registryid = $mother_grandmother_greatgrandmother->registryid;
+							$mother_grandmother_greatgrandmother_bday = $mother_grandmother_greatgrandmother->getAnimalProperties()->where("property_id", 3)->first();
+							$mother_grandmother_greatgrandmother_bw = $mother_grandmother_greatgrandmother->getAnimalProperties()->where("property_id", 5)->first();
+							if(!is_null($mother_grandmother_greatgrandmother_bday) && $mother_grandmother_greatgrandmother_bday->value != "Not specified"){
+								$mother_grandmother_greatgrandmother_birthday = Carbon::parse($mother_grandmother_greatgrandmother_bday->value)->format('Y-m-d');
+							}
+							else{
+								$mother_grandmother_greatgrandmother_birthday = null;
+							}
+							if(!is_null($father_grandmother_greatgrandmother_bw) && $father_grandmother_greatgrandmother_bw->value != ""){
+								$mother_grandmother_greatgrandmother_birthweight = $father_grandmother_greatgrandmother_bw->value;
+							}
+							else{
+								$mother_grandmother_greatgrandmother_birthweight = 0;
+							}
+						}
+						else{
+							$mother_grandmother_group = collect([]);
+							$mother_grandmother_malelitters = [];
+							$mother_grandmother_femalelitters = [];
+							$mother_grandmother_groupingmembers = [];
+							$mother_grandmother_parity = 0;
+							$mother_grandmother_greatgrandfather_registryid = null;
+							$mother_grandmother_greatgrandfather_birthday = null;
+							$mother_grandmother_greatgrandfather_birthweight = 0;
+							$mother_grandmother_greatgrandmother_registryid = null;
+							$mother_grandmother_greatgrandmother_birthday = null;
+							$mother_grandmother_greatgrandmother_birthweight = 0;
+						}
 					}
 					else{
 						$mother_group = collect([]);
@@ -428,6 +752,28 @@ class FarmController extends Controller
 						$mother_grandmother_registryid = null;
 						$mother_grandmother_birthday = null;
 						$mother_grandmother_birthweight = 0;
+						$mother_grandfather_group = collect([]);
+						$mother_grandfather_malelitters = [];
+						$mother_grandfather_femalelitters = [];
+						$mother_grandfather_groupingmembers = [];
+						$mother_grandfather_parity = 0;
+						$mother_grandfather_greatgrandfather_registryid = null;
+						$mother_grandfather_greatgrandfather_birthday = null;
+						$mother_grandfather_greatgrandfather_birthweight = 0;
+						$mother_grandfather_greatgrandmother_registryid = null;
+						$mother_grandfather_greatgrandmother_birthday = null;
+						$mother_grandfather_greatgrandmother_birthweight = 0;
+						$mother_grandmother_group = collect([]);
+						$mother_grandmother_malelitters = [];
+						$mother_grandmother_femalelitters = [];
+						$mother_grandmother_groupingmembers = [];
+						$mother_grandmother_parity = 0;
+						$mother_grandmother_greatgrandfather_registryid = null;
+						$mother_grandmother_greatgrandfather_birthday = null;
+						$mother_grandmother_greatgrandfather_birthweight = 0;
+						$mother_grandmother_greatgrandmother_registryid = null;
+						$mother_grandmother_greatgrandmother_birthday = null;
+						$mother_grandmother_greatgrandmother_birthweight = 0;
 					}
 				}
 				else{
@@ -450,6 +796,28 @@ class FarmController extends Controller
 					$father_grandmother_registryid = null;
 					$father_grandmother_birthday = null;
 					$father_grandmother_birthweight = 0;
+					$father_grandfather_group = collect([]);
+					$father_grandfather_malelitters = [];
+					$father_grandfather_femalelitters = [];
+					$father_grandfather_groupingmembers = [];
+					$father_grandfather_parity = 0;
+					$father_grandfather_greatgrandfather_registryid = null;
+					$father_grandfather_greatgrandfather_birthday = null;
+					$father_grandfather_greatgrandfather_birthweight = 0;
+					$father_grandfather_greatgrandmother_registryid = null;
+					$father_grandfather_greatgrandmother_birthday = null;
+					$father_grandfather_greatgrandmother_birthweight = 0;
+					$father_grandmother_group = collect([]);
+					$father_grandmother_malelitters = [];
+					$father_grandmother_femalelitters = [];
+					$father_grandmother_groupingmembers = [];
+					$father_grandmother_parity = 0;
+					$father_grandmother_greatgrandfather_registryid = null;
+					$father_grandmother_greatgrandfather_birthday = null;
+					$father_grandmother_greatgrandfather_birthweight = 0;
+					$father_grandmother_greatgrandmother_registryid = null;
+					$father_grandmother_greatgrandmother_birthday = null;
+					$father_grandmother_greatgrandmother_birthweight = 0;
 					$mother_registryid = null;
 					$mother_birthday = null;
 					$mother_birthweight = 0;
@@ -464,6 +832,28 @@ class FarmController extends Controller
 					$mother_grandmother_registryid = null;
 					$mother_grandmother_birthday = null;
 					$mother_grandmother_birthweight = 0;
+					$mother_grandfather_group = collect([]);
+					$mother_grandfather_malelitters = [];
+					$mother_grandfather_femalelitters = [];
+					$mother_grandfather_groupingmembers = [];
+					$mother_grandfather_parity = 0;
+					$mother_grandfather_greatgrandfather_registryid = null;
+					$mother_grandfather_greatgrandfather_birthday = null;
+					$mother_grandfather_greatgrandfather_birthweight = 0;
+					$mother_grandfather_greatgrandmother_registryid = null;
+					$mother_grandfather_greatgrandmother_birthday = null;
+					$mother_grandfather_greatgrandmother_birthweight = 0;
+					$mother_grandmother_group = collect([]);
+					$mother_grandmother_malelitters = [];
+					$mother_grandmother_femalelitters = [];
+					$mother_grandmother_groupingmembers = [];
+					$mother_grandmother_parity = 0;
+					$mother_grandmother_greatgrandfather_registryid = null;
+					$mother_grandmother_greatgrandfather_birthday = null;
+					$mother_grandmother_greatgrandfather_birthweight = 0;
+					$mother_grandmother_greatgrandmother_registryid = null;
+					$mother_grandmother_greatgrandmother_birthday = null;
+					$mother_grandmother_greatgrandmother_birthweight = 0;
 				}
 			}
 			else{
@@ -473,12 +863,10 @@ class FarmController extends Controller
 				$birthday = null;
 				$birthweight = 0;
 				$group = collect([]);
-				$father_group = collect([]);
-				$mother_group = collect([]);
-				$parity = 0;
 				$groupingmembers = [];
 				$femalelitters = [];
 				$malelitters = [];
+				$parity = 0;
 				$father_registryid = null;
 				$father_birthday = null;
 				$father_birthweight = 0;
@@ -490,9 +878,31 @@ class FarmController extends Controller
 				$father_grandfather_registryid = null;
 				$father_grandfather_birthday = null;
 				$father_grandfather_birthweight = 0;
+				$father_grandfather_group = collect([]);
+				$father_grandfather_malelitters = [];
+				$father_grandfather_femalelitters = [];
+				$father_grandfather_groupingmembers = [];
+				$father_grandfather_parity = 0;
+				$father_grandfather_greatgrandfather_registryid = null;
+				$father_grandfather_greatgrandfather_birthday = null;
+				$father_grandfather_greatgrandfather_birthweight = 0;
+				$father_grandfather_greatgrandmother_registryid = null;
+				$father_grandfather_greatgrandmother_birthday = null;
+				$father_grandfather_greatgrandmother_birthweight = 0;
 				$father_grandmother_registryid = null;
 				$father_grandmother_birthday = null;
 				$father_grandmother_birthweight = 0;
+				$father_grandmother_group = collect([]);
+				$father_grandmother_malelitters = [];
+				$father_grandmother_femalelitters = [];
+				$father_grandmother_groupingmembers = [];
+				$father_grandmother_parity = 0;
+				$father_grandmother_greatgrandfather_registryid = null;
+				$father_grandmother_greatgrandfather_birthday = null;
+				$father_grandmother_greatgrandfather_birthweight = 0;
+				$father_grandmother_greatgrandmother_registryid = null;
+				$father_grandmother_greatgrandmother_birthday = null;
+				$father_grandmother_greatgrandmother_birthweight = 0;
 				$mother_registryid = null;
 				$mother_birthday = null;
 				$mother_birthweight = 0;
@@ -504,12 +914,34 @@ class FarmController extends Controller
 				$mother_grandfather_registryid = null;
 				$mother_grandfather_birthday = null;
 				$mother_grandfather_birthweight = 0;
+				$mother_grandfather_group = collect([]);
+				$mother_grandfather_malelitters = [];
+				$mother_grandfather_femalelitters = [];
+				$mother_grandfather_groupingmembers = [];
+				$mother_grandfather_parity = 0;
+				$mother_grandfather_greatgrandfather_registryid = null;
+				$mother_grandfather_greatgrandfather_birthday = null;
+				$mother_grandfather_greatgrandfather_birthweight = 0;
+				$mother_grandfather_greatgrandmother_registryid = null;
+				$mother_grandfather_greatgrandmother_birthday = null;
+				$mother_grandfather_greatgrandmother_birthweight = 0;
 				$mother_grandmother_registryid = null;
 				$mother_grandmother_birthday = null;
 				$mother_grandmother_birthweight = 0;
+				$mother_grandmother_group = collect([]);
+				$mother_grandmother_malelitters = [];
+				$mother_grandmother_femalelitters = [];
+				$mother_grandmother_groupingmembers = [];
+				$mother_grandmother_parity = 0;
+				$mother_grandmother_greatgrandfather_registryid = null;
+				$mother_grandmother_greatgrandfather_birthday = null;
+				$mother_grandmother_greatgrandfather_birthweight = 0;
+				$mother_grandmother_greatgrandmother_registryid = null;
+				$mother_grandmother_greatgrandmother_birthday = null;
+				$mother_grandmother_greatgrandmother_birthweight = 0;
 			}
 
-			return view('pigs.pedigree', compact('animal', 'registrationid', 'user', 'breed', 'sex', 'birthday', 'birthweight', 'group', 'malelitters', 'femalelitters', 'groupingmembers', 'parity', 'father_registryid', 'father_birthday', 'father_birthweight', 'father_group', 'father_malelitters', 'father_femalelitters', 'father_groupingmembers', 'father_parity', 'father_grandfather_registryid', 'father_grandfather_birthday', 'father_grandfather_birthweight', 'father_grandmother_registryid', 'father_grandmother_birthday', 'father_grandmother_birthweight', 'mother_registryid', 'mother_birthday', 'mother_birthweight', 'mother_group', 'mother_malelitters', 'mother_femalelitters', 'mother_groupingmembers', 'mother_parity', 'mother_grandfather_registryid', 'mother_grandfather_birthday', 'mother_grandfather_birthweight', 'mother_grandmother_registryid', 'mother_grandmother_birthday', 'mother_grandmother_birthweight'));
+			return view('pigs.pedigree', compact('animal', 'registrationid', 'user', 'breed', 'sex', 'birthday', 'birthweight', 'group', 'malelitters', 'femalelitters', 'groupingmembers', 'parity', 'father_registryid', 'father_birthday', 'father_birthweight', 'father_group', 'father_malelitters', 'father_femalelitters', 'father_groupingmembers', 'father_parity', 'father_grandfather_registryid', 'father_grandfather_birthday', 'father_grandfather_birthweight', 'father_grandfather_group', 'father_grandfather_malelitters', 'father_grandfather_femalelitters', 'father_grandfather_groupingmembers', 'father_grandfather_parity', 'father_grandfather_greatgrandfather_registryid', 'father_grandfather_greatgrandfather_birthday', 'father_grandfather_greatgrandfather_birthweight', 'father_grandfather_greatgrandmother_registryid', 'father_grandfather_greatgrandmother_birthday', 'father_grandfather_greatgrandmother_birthweight', 'father_grandmother_registryid', 'father_grandmother_birthday', 'father_grandmother_birthweight', 'father_grandmother_group', 'father_grandmother_malelitters', 'father_grandmother_femalelitters', 'father_grandmother_groupingmembers', 'father_grandmother_parity', 'father_grandmother_greatgrandfather_registryid', 'father_grandmother_greatgrandfather_birthday', 'father_grandmother_greatgrandfather_birthweight', 'father_grandmother_greatgrandmother_registryid', 'father_grandmother_greatgrandmother_birthday', 'father_grandmother_greatgrandmother_birthweight', 'mother_registryid', 'mother_birthday', 'mother_birthweight', 'mother_group', 'mother_malelitters', 'mother_femalelitters', 'mother_groupingmembers', 'mother_parity', 'mother_grandfather_registryid', 'mother_grandfather_birthday', 'mother_grandfather_birthweight', 'mother_grandfather_group', 'mother_grandfather_malelitters', 'mother_grandfather_femalelitters', 'mother_grandfather_groupingmembers', 'mother_grandfather_parity', 'mother_grandfather_greatgrandfather_registryid', 'mother_grandfather_greatgrandfather_birthday', 'mother_grandfather_greatgrandfather_birthweight', 'mother_grandfather_greatgrandmother_registryid', 'mother_grandfather_greatgrandmother_birthday', 'mother_grandfather_greatgrandmother_birthweight', 'mother_grandmother_registryid', 'mother_grandmother_birthday', 'mother_grandmother_birthweight', 'mother_grandmother_group', 'mother_grandmother_malelitters', 'mother_grandmother_femalelitters', 'mother_grandmother_groupingmembers', 'mother_grandmother_parity', 'mother_grandmother_greatgrandfather_registryid', 'mother_grandmother_greatgrandfather_birthday', 'mother_grandmother_greatgrandfather_birthweight', 'mother_grandmother_greatgrandmother_registryid', 'mother_grandmother_greatgrandmother_birthday', 'mother_grandmother_greatgrandmother_birthweight'));
 		}
 
 		public function fetchParityAjax($familyidvalue, $parityvalue){ // function to save parity onchange
@@ -634,7 +1066,6 @@ class FarmController extends Controller
 				$number_weaned->grouping_id = $family->id;
 				$number_weaned->property_id = 57;
 				$number_weaned->value = $weaned;
-				$number_weaned->datecollected = new Carbon();
 				$number_weaned->save();
 			}
 			else{
@@ -666,21 +1097,8 @@ class FarmController extends Controller
 		public function getBreedingRecordPage(){ // function to display Breeding Record page
 			$farm = $this->user->getFarm();
 			$breed = $farm->getBreed();
-			$growers = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "active")->get();
 			$breeders = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "breeder")->get();
 			$family = Grouping::whereNotNull("mother_id")->where("breed_id", $breed->id)->get();
-
-			// sorts growers per sex
-			$femalegrowers = [];
-			$malegrowers = [];
-			foreach($growers as $grower){
-				if(substr($grower->registryid, -7, 1) == 'F'){
-					array_push($femalegrowers, $grower);
-				}
-				if(substr($grower->registryid, -7, 1) == 'M'){
-					array_push($malegrowers, $grower);
-				}
-			}
 
 			// sorts breeders per sex
 			$sows = [];
@@ -699,6 +1117,7 @@ class FarmController extends Controller
 				static::addParityMother($group->id);
 			}
 
+			static::addFrequency();
 
 			// TO FOLLOW: this will be used for filtering results
 			$now = Carbon::now();
@@ -3077,13 +3496,13 @@ class FarmController extends Controller
 				}
 			}
 
-			// sow breeders are sows with parity of at least 1
+			// sow breeders are sows with frequency of at least 1
 			$sowbreeders = [];
 			$boarbreeders = [];
 			foreach ($sows as $sow) {
 				$sowproperties = $sow->getAnimalProperties();
 				foreach ($sowproperties as $sowproperty) {
-					if($sowproperty->property_id == 48){ // parity
+					if($sowproperty->property_id == 61){ // frequency
 						if($sowproperty->value > 0){
 							array_push($sowbreeders, $sow);
 						}
@@ -3498,13 +3917,13 @@ class FarmController extends Controller
 				}
 			}
 
-			// sow breeders are sows with parity of at least 1
+			// sow breeders are sows with frequency of at least 1
 			$sowbreeders = [];
 			$boarbreeders = [];
 			foreach ($sows as $sow) {
 				$sowproperties = $sow->getAnimalProperties();
 				foreach ($sowproperties as $sowproperty) {
-					if($sowproperty->property_id == 48){ // parity
+					if($sowproperty->property_id == 61){ // frequency
 						if($sowproperty->value > 0){
 							array_push($sowbreeders, $sow);
 						}
@@ -4097,9 +4516,11 @@ class FarmController extends Controller
 					if($gproperty->property_id == 42){ // date bred
 						if(Carbon::parse($gproperty->value)->month == $now->month && Carbon::parse($gproperty->value)->year == $now->year){
 							if(Carbon::parse($gproperty->value)->lte($now)){
-								$bred = $group->getMother();
-								if($bred->status == "breeder"){
-									array_push($breds, $bred);
+								if($group->getGroupingProperties()->where("property_id", 60)->first()->value == "Bred"){
+									$bred = $group->getMother();
+									if($bred->status == "breeder"){
+										array_push($breds, $bred);
+									}
 								}
 							}
 						}
@@ -4109,12 +4530,6 @@ class FarmController extends Controller
 								if($pregnant->status == "breeder"){
 									array_push($pregnantsows, $pregnant);
 								}
-							}
-						}
-						if($now->lte(Carbon::parse($gproperty->value)->addDays(140))){
-							$pregnant = $group->getMother();
-							if($pregnant->status == "breeder"){
-								array_push($pregnantsows, $pregnantsows);
 							}
 						}
 					}
@@ -4144,23 +4559,9 @@ class FarmController extends Controller
 				}
 			}
 
+			static::addFrequency();
+
 			return view('pigs.breederinventory', compact('pigs', 'sows', 'boars', 'groups', 'frequency', 'breds', 'pregnantsows', 'lactatingsows', 'drysows', 'gilts', 'jrboars', 'srboars', 'now', 'noage'));
-		}
-
-		public function getSowUsagePage($id){ // function to display Sow Usage page
-			$sow = Animal::find($id);
-
-			$groups = Grouping::whereNotNull("mother_id")->where("mother_id", $sow->id)->get();
-
-			return view('pigs.sowusage', compact('sow', 'groups'));
-		}
-
-		public function getBoarUsagePage($id){ // function to display Boar Usage page
-			$boar = Animal::find($id);
-
-			$groups = Grouping::whereNotNull("mother_id")->where("father_id", $boar->id)->get();
-
-			return view('pigs.boarusage', compact('boar', 'groups'));
 		}
 
 		public function getGrowerInventoryPage(){ // function to display Grower Inventory page
@@ -4264,7 +4665,7 @@ class FarmController extends Controller
 				foreach ($boars as $boar) {
 					$boarproperties = $boar->getAnimalProperties();
 					foreach ($boarproperties as $boarproperty) {
-						if($boarproperty->property_id == 3){ //date farrowedf
+						if($boarproperty->property_id == 3){ //date farrowed
 							if(!is_null($boarproperty->value) && $boarproperty->value != "Not specified" && $date->gt(Carbon::parse($boarproperty->value))){
 								$bday = $boarproperty->value;
 								$age = Carbon::parse($date)->diffInMonths(Carbon::parse($bday));
@@ -4325,13 +4726,11 @@ class FarmController extends Controller
 
 			$index = 0;
 
-			$now = Carbon::now();
+			$filter = $request->year_grower_inventory;
 
-			$current_year = $now->year;
+			$current_year = $filter;
 			$range = range($current_year-10, $current_year+10);
 			$years = array_combine($range, $range);
-
-			$filter = $request->year_grower_inventory;
 
 			// gets all the last day of each month
 			$dates = [];
@@ -4354,7 +4753,7 @@ class FarmController extends Controller
 				foreach ($sows as $sow) {
 					$sowproperties = $sow->getAnimalProperties();
 					foreach ($sowproperties as $sowproperty) {
-						if($sowproperty->property_id == 25){
+						if($sowproperty->property_id == 3){ //date farrowed
 							if(!is_null($sowproperty->value) && $sowproperty->value != "Not specified" && $date->gt(Carbon::parse($sowproperty->value))){
 								$bday = $sowproperty->value;
 								$age = Carbon::parse($date)->diffInMonths(Carbon::parse($bday));
@@ -4405,7 +4804,7 @@ class FarmController extends Controller
 				foreach ($boars as $boar) {
 					$boarproperties = $boar->getAnimalProperties();
 					foreach ($boarproperties as $boarproperty) {
-						if($boarproperty->property_id == 25){
+						if($boarproperty->property_id == 3){ //date farrowed
 							if(!is_null($boarproperty->value) && $boarproperty->value != "Not specified" && $date->gt(Carbon::parse($boarproperty->value))){
 								$bday = $boarproperty->value;
 								$age = Carbon::parse($date)->diffInMonths(Carbon::parse($bday));
@@ -4449,169 +4848,79 @@ class FarmController extends Controller
 		public function getMortalityAndSalesReportPage(){ // function to display Mortality and Sales Report page
 			$farm = $this->user->getFarm();
 			$breed = $farm->getBreed();
-			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->get();
+			$deadpigs = Mortality::where("animaltype_id", 3)->where("breed_id", $breed->id)->get();
+			$soldpigs = Sale::where("animaltype_id", 3)->where("breed_id", $breed->id)->get();
+			$removedpigs = RemovedAnimal::where("animaltype_id", 3)->where("breed_id", $breed->id)->get();
 			$now = Carbon::now();
 
 			// sorts pigs by status
-			$dead_growers = [];
-			$currentdeadgrowers = [];
-			$dead_breeders = [];
-			$currentdeadbreeders = [];
-			$sold_growers = [];
+			$currentdeadpigs = [];
 			$currentsoldgrowers = [];
-			$sold_breeders = [];
 			$currentsoldbreeders = [];
-			$removed = [];
 			$currentremoved = [];
-			/*foreach ($pigs as $pig) {
-				if($pig->status == "dead grower"){
-					array_push($dead_growers, $pig);
-					$date_died = Carbon::parse($pig->getAnimalProperties()->where("property_id", 55)->first()->value);
-					if($date_died->month == $now->month && $date_died->year == $now->year){
-						if($date_died->lte($now)){
-							array_push($currentdeadgrowers, $pig);
+
+			foreach ($deadpigs as $deadpig) {
+				$date_died = Carbon::parse($deadpig->datedied);
+				if($date_died->month == $now->month && $date_died->year == $now->year){
+					if($date_died->lte($now)){
+						array_push($currentdeadpigs, $deadpig);
+					}
+				}
+			}
+
+			foreach ($soldpigs as $soldpig) {
+				$date_sold = Carbon::parse($soldpig->datesold);
+				if($date_sold->month == $now->month && $date_sold->year == $now->year){
+					if($date_sold->lte($now)){
+						if($soldpig->getStatus() == "sold breeder"){
+							array_push($currentsoldbreeders, $soldpig);
+						}
+						elseif($soldpig->getStatus() == "sold grower"){
+							array_push($currentsoldgrowers, $soldpig);
 						}
 					}
 				}
-				elseif($pig->status == "dead breeder"){
-					array_push($dead_breeders, $pig);
-					$date_died = Carbon::parse($pig->getAnimalProperties()->where("property_id", 55)->first()->value);
-					if($date_died->month == $now->month && $date_died->year == $now->year){
-						if($date_died->lte($now)){
-							array_push($currentdeadbreeders, $pig);
-						}
+			}
+
+			foreach ($removedpigs as $removedpig) {
+				$date_removed = Carbon::parse($removedpig->dateremoved);
+				if($date_removed->month == $now->month && $date_removed->year == $now->year){
+					if($date_removed->lte($now)){
+						array_push($currentremoved, $removedpig);
 					}
 				}
-				elseif($pig->status == "sold grower"){
-					array_push($sold_growers, $pig);
-					$date_sold = Carbon::parse($pig->getAnimalProperties()->where("property_id", 56)->first()->value);
-					if($date_sold->month == $now->month && $date_sold->year == $now->year){
-						if($date_sold->lte($now)){
-							array_push($currentsoldgrowers, $pig);
-						}
-					}
-				}
-				elseif($pig->status == "sold breeder"){
-					array_push($sold_breeders, $pig);
-					$date_sold = Carbon::parse($pig->getAnimalProperties()->where("property_id", 56)->first()->value);
-					if($date_sold->month == $now->month && $date_sold->year == $now->year){
-						if($date_sold->lte($now)){
-							array_push($currentsoldbreeders, $pig);
-						}
-					}
-				}
-				elseif($pig->status == "removed"){
-					array_push($removed, $pig);
-					$date_removed = Carbon::parse($pig->getAnimalProperties()->where("property_id", 72)->first()->value);
-					if($date_removed->month == $now->month && $date_removed->year == $now->year){
-						if($date_removed->lte($now)){
-							array_push($currentremoved, $pig);
-						}
-					}
-				}
-			}*/
+			}
+
 
 			$ages_dead = [];
 			$ages_currentsoldbreeder = [];
 			$ages_currentsoldgrower = [];
 			$weights_currentsoldbreeder = [];
 			$weights_currentsoldgrower = [];
-			/*//mortality
-			foreach ($currentdeadgrowers as $currentdeadgrower) { // gets ages of dead growers
-				$properties = $currentdeadgrower->getAnimalProperties();
-				foreach ($properties as $property) {
-					if($property->property_id == 25){ // date farrowed
-						if($property->value != "Not specified"){
-							$bday_currentdeadgrower = $property->value;
-							$deadgrowerpropperties = $currentdeadgrower->getAnimalProperties();
-							foreach ($deadgrowerpropperties as $deadgrowerpropperty) {
-								if($deadgrowerpropperty->property_id == 55){ // date died
-									$date_died_grower = $deadgrowerpropperty->value;
-								}
-							}
-							$age_currentdeadgrower = Carbon::parse($date_died_grower)->diffInMonths(Carbon::parse($bday_currentdeadgrower));
-							array_push($ages_dead, $age_currentdeadgrower);
-						}
-					}
+
+			foreach ($currentdeadpigs as $currentdeadpig) {
+				if($currentdeadpig->age != "Age unavailable"){
+					array_push($ages_dead, $currentdeadpig->age/30);
 				}
 			}
-			foreach ($currentdeadbreeders as $currentdeadbreeder) { // gets ages of dead breeders
-				$deadproperties = $currentdeadbreeder->getAnimalProperties();
-				foreach ($deadproperties as $deadproperty) {
-					if($deadproperty->property_id == 25){ // date farrowed
-						if($deadproperty->value != "Not specified"){
-							$bday_currentdeadbreeder = $deadproperty->value;
-							$deadbreederpropperties = $currentdeadbreeder->getAnimalProperties();
-							foreach ($deadbreederpropperties as $deadbreederpropperty) {
-								if($deadbreederpropperty->property_id == 55){ // date died
-									$date_died_breeder = $deadbreederpropperty->value;
-								}
-							}
-							$age_currentdeadbreeder = Carbon::parse($date_died_breeder)->diffInMonths(Carbon::parse($bday_currentdeadbreeder));
-							array_push($ages_dead, $age_currentdeadbreeder);
-						}
-					}
+
+			foreach ($currentsoldbreeders as $currentsoldbreeder) {
+				if($currentsoldbreeder->age != "Age unavailable"){
+					array_push($ages_currentsoldbreeder, $currentsoldbreeder->age/30);
+				}
+				if($currentsoldbreeder->weight != "Weight unavailable"){
+					array_push($weights_currentsoldbreeder, $currentsoldbreeder->weight);
 				}
 			}
-			// sales
-			foreach ($currentsoldgrowers as $currentsoldgrower) {  // gets ages of sold growers
-				$growerproperties = $currentsoldgrower->getAnimalProperties();
-				foreach ($growerproperties as $growerproperty) {
-					if($growerproperty->property_id == 25){ // date farrowed
-						if($growerproperty->value != "Not specified"){
-							$bday_currentsoldgrower = $growerproperty->value;
-							$soldgrowerpropperties = $currentsoldgrower->getAnimalProperties();
-							foreach ($soldgrowerpropperties as $soldgrowerpropperty) {
-								if($soldgrowerpropperty->property_id == 56){ // date sold
-									$date_sold = $soldgrowerpropperty->value;
-								}
-							}
-							$age_currentsoldgrower = Carbon::parse($date_sold)->diffInMonths(Carbon::parse($bday_currentsoldgrower));
-							array_push($ages_currentsoldgrower, $age_currentsoldgrower);
-						}
-					}
+
+			foreach ($currentsoldgrowers as $currentsoldgrower) {
+				if($currentsoldgrower->age != "Age unavailable"){
+					array_push($ages_currentsoldgrower, $currentsoldgrower->age/30);
+				}
+				if($currentsoldgrower->weight != "Weight unavailable"){
+					array_push($weights_currentsoldgrower, $currentsoldgrower->weight);
 				}
 			}
-			foreach ($currentsoldbreeders as $currentsoldbreeder) { // gets ages of sold breeders
-				$breederproperties = $currentsoldbreeder->getAnimalProperties();
-				foreach ($breederproperties as $breederproperty) {
-					if($breederproperty->property_id == 25){ // date farrowed
-						if($breederproperty->value != "Not specified"){
-							$bday_currentsoldbreeder = $breederproperty->value;
-							$soldbreederpropperties = $currentsoldbreeder->getAnimalProperties();
-							foreach ($soldbreederpropperties as $soldbreederpropperty) {
-								if($soldbreederpropperty->property_id == 56){ // date sold
-									$date_sold = $soldbreederpropperty->value;
-								}
-							}
-							$age_currentsoldbreeder = Carbon::parse($date_sold)->diffInMonths(Carbon::parse($bday_currentsoldbreeder));
-							array_push($ages_currentsoldbreeder, $age_currentsoldbreeder);
-						}
-					}
-				}
-			}
-			foreach ($currentsoldgrowers as $currentsoldgrower) { // gets average weights of sold growers
-				$grower_properties = $currentsoldgrower->getAnimalProperties();
-				foreach ($grower_properties as $grower_property) {
-					if($grower_property->property_id == 57){
-						if($grower_property->value != "Not specified"){
-							$weight_currentsoldgrower = $grower_property->value;
-							array_push($weights_currentsoldgrower, $weight_currentsoldgrower);
-						}
-					}
-				}
-			}
-			foreach ($currentsoldbreeders as $currentsoldbreeder) { // gets average weights of sold breeders
-				$breeder_properties = $currentsoldbreeder->getAnimalProperties();
-				foreach ($breeder_properties as $breeder_property) {
-					if($breeder_property->property_id == 57){
-						if($breeder_property->value != "Not specified"){
-							$weight_currentsoldbreeder = $breeder_property->value;
-							array_push($weights_currentsoldbreeder, $weight_currentsoldbreeder);
-						}
-					}
-				}
-			}*/
 			
 			$months = ["December", "November", "October", "September", "August", "July", "June", "May", "April", "March", "Febraury", "January"];
 			// $months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -4619,57 +4928,39 @@ class FarmController extends Controller
 			// gets the unique years of death/sales/removed
 			$years = [];
 			$tempyears = [];
-		 /* foreach ($pigs as $pig) {
-		  	$pigproperties = $pig->getAnimalProperties();
-		  	foreach ($pigproperties as $pigproperty) {
-		  		if($pigproperty->property_id == 55){ //death
-		  			if(!is_null($pigproperty->value)){
-		  				$date = Carbon::parse($pigproperty->value);
-		  				array_push($tempyears, $date->year);
-		  			}
-		  		}
-		  		if($pigproperty->property_id == 56){ //sales
-		  			if(!is_null($pigproperty->value)){
-		  				$date = Carbon::parse($pigproperty->value);
-		  				array_push($tempyears, $date->year);
-		  			}
-		  		}
-		  		if($pigproperty->property_id == 72){ //removed
-		  			if(!is_null($pigproperty->value)){
-		  				$date = Carbon::parse($pigproperty->value);
-		  				array_push($tempyears, $date->year);
-		  			}
-		  		}
-		  	}
-		  }
-		  $years = array_reverse(array_sort(array_unique($tempyears)));*/
+
+			foreach ($deadpigs as $deadpig) {
+				$date_died = Carbon::parse($deadpig->datedied);
+				array_push($tempyears, $date_died->year);
+			}
+
+			foreach ($soldpigs as $soldpig) {
+				$date_sold = Carbon::parse($soldpig->datesold);
+				array_push($tempyears, $date_sold->year);
+			}
+
+			foreach ($removedpigs as $removedpig) {
+				$date_removed = Carbon::parse($removedpig->dateremoved);
+				array_push($tempyears, $date_removed->year);
+			}
+		  $years = array_reverse(array_sort(array_unique($tempyears)));
 		  
 
-			return view('pigs.mortalityandsalesreport', compact('dead_breeders', 'currentdeadgrowers', 'dead_growers', 'currentdeadbreeders', 'sold_breeders', 'currentsoldbreeders', 'sold_growers', 'currentsoldgrowers', 'removed', 'currentremoved', 'ages_dead', 'ages_currentsoldbreeder', 'ages_currentsoldgrower', 'weights_currentsoldbreeder', 'weights_currentsoldgrower', 'now', 'years', 'months'));
+			return view('pigs.mortalityandsalesreport', compact('deadpigs', 'currentdeadpigs', 'soldpigs', 'currentsoldbreeders', 'currentsoldgrowers', 'removedpigs', 'currentremoved', 'ages_dead', 'ages_currentsoldbreeder', 'ages_currentsoldgrower', 'weights_currentsoldbreeder', 'weights_currentsoldgrower', 'now', 'years', 'months'));
 		}
 
 		static function getMonthlyMortality($year, $month){
 			$farm = Auth::User()->getFarm();
 			$breed = $farm->getBreed();
-			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where(function ($query) {
-										$query->where("status", "dead breeder")
-													->orWhere("status", "dead grower");
-													})->get();
+			$deadpigs = Mortality::where("animaltype_id", 3)->where("breed_id", $breed->id)->get();
 
 			$monthlymortality = [];
-			/*foreach ($pigs as $pig) {
-				$properties = $pig->getAnimalProperties();
-				foreach ($properties as $property) {
-					if($property->property_id == 55){ //date died
-						if(!is_null($property->value)){
-							$date = Carbon::parse($property->value);
-							if($date->year == $year && $date->format('F') == $month){
-									array_push($monthlymortality, $pig);
-							}
-						}
-					}
+			foreach ($deadpigs as $deadpig) {
+				$date_died = Carbon::parse($deadpig->datedied);
+				if($date_died->year == $year && $date_died->format('F') == $month){
+					array_push($monthlymortality, $deadpig);
 				}
-			}*/
+			}
 
 			return $monthlymortality;
 		}
@@ -4677,25 +4968,15 @@ class FarmController extends Controller
 		static function getMonthlySales($year, $month){
 			$farm = Auth::User()->getFarm();
 			$breed = $farm->getBreed();
-			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where(function ($query) {
-										$query->where("status", "sold breeder")
-													->orWhere("status", "sold grower");
-													})->get();
+			$soldpigs = Sale::where("animaltype_id", 3)->where("breed_id", $breed->id)->get();
 
 			$monthlysales = [];
-			/*foreach ($pigs as $pig) {
-				$properties = $pig->getAnimalProperties();
-				foreach ($properties as $property) {
-					if($property->property_id == 56){ //date sold
-						if(!is_null($property->value)){
-							$date = Carbon::parse($property->value);
-							if($date->year == $year && $date->format('F') == $month){
-									array_push($monthlysales, $pig);
-							}
-						}
-					}
+			foreach ($soldpigs as $soldpig) {
+				$date_sold = Carbon::parse($soldpig->datesold);
+				if($date_sold->year == $year && $date_sold->format('F') == $month){
+					array_push($monthlysales, $soldpig);
 				}
-			}*/
+			}
 
 			return $monthlysales;
 		}
@@ -4703,55 +4984,46 @@ class FarmController extends Controller
 		static function getMonthlyRemoved($year, $month){
 			$farm = Auth::User()->getFarm();
 			$breed = $farm->getBreed();
-			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "removed")->get();
+			$removedpigs = RemovedAnimal::where("animaltype_id", 3)->where("breed_id", $breed->id)->get();
 
 			$monthlyremoved = [];
-			/*foreach ($pigs as $pig) {
-				$properties = $pig->getAnimalProperties();
-				foreach ($properties as $property) {
-					if($property->property_id == 72){ //removed
-						if(!is_null($property->value)){
-							$date = Carbon::parse($property->value);
-							if($date->year == $year && $date->format('F') == $month){
-									array_push($monthlyremoved, $pig);
-							}
-						}
-					}
+			foreach ($removedpigs as $removedpig) {
+				$date_removed = Carbon::parse($removedpig->dateremoved);
+				if($date_removed->year == $year && $date_removed->format('F') == $month){
+					array_push($monthlyremoved, $removedpig);
 				}
-			}*/
-
+			}
+		
 			return $monthlyremoved;
 		}
 
-		static function getMonthlyAverageAge($year, $month, $property_id){
+		static function getMonthlyAverageAge($year, $month, $type){
 			$farm = Auth::User()->getFarm();
 			$breed = $farm->getBreed();
-			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where(function ($query) {
-										$query->where("status", "sold breeder")
-													->orWhere("status", "sold grower")
-													->orWhere("status", "dead breeder")
-													->orWhere("status", "dead grower");
-													})->get();
+			$deadpigs = Mortality::where("animaltype_id", 3)->where("breed_id", $breed->id)->get();
+			$soldpigs = Sale::where("animaltype_id", 3)->where("breed_id", $breed->id)->get();
 
 			$ages = [];
-			// foreach ($pigs as $pig) {
-			// 	$properties = $pig->getAnimalProperties();
-			// 	foreach ($properties as $property) {
-			// 		if($property->property_id == $property_id){
-			// 			if(!is_null($property->value)){
-			// 				$date = Carbon::parse($property->value);
-			// 				if($date->year == $year && $date->format('F') == $month){
-			// 					$bdayprop = $pig->getAnimalProperties()->where("property_id", 25)->first(); //date farrowed
-			// 					if(!is_null($bdayprop) && $bdayprop->value != "Not specified"){
-			// 						$bday = Carbon::parse($bdayprop->value);
-			// 						$age = $date->diffInMonths($bday);
-			// 						array_push($ages, $age);
-			// 					}
-			// 				}
-			// 			}
-			// 		}
-			// 	}
-			// }
+			if ($type == "dead"){
+				foreach ($deadpigs as $deadpig) {
+					$date_died = Carbon::parse($deadpig->datedied);
+					if($date_died->year == $year && $date_died->format('F') == $month){
+						if($deadpig->age != "Age unavailable"){
+							array_push($ages, $deadpig->age/30);
+						}
+					}
+				}
+			}
+			elseif ($type == "sold") {
+				foreach ($soldpigs as $soldpig) {
+					$date_sold = Carbon::parse($soldpig->datesold);
+					if($date_sold->year == $year && $date_sold->format('F') == $month){
+						if($soldpig->age != "Age unavailable"){
+							array_push($ages, $soldpig->age/30);
+						}
+					}
+				}
+			}
 
 			return $ages;
 		}
@@ -4759,28 +5031,17 @@ class FarmController extends Controller
 		static function getMonthlyAverageWeightSold($year, $month){
 			$farm = Auth::User()->getFarm();
 			$breed = $farm->getBreed();
-			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where(function ($query) {
-										$query->where("status", "sold breeder")
-													->orWhere("status", "sold grower");
-													})->get();
+			$soldpigs = Sale::where("animaltype_id", 3)->where("breed_id", $breed->id)->get();
 
 			$weights = [];
-			/*foreach ($pigs as $pig) {
-				$properties = $pig->getAnimalProperties();
-				foreach ($properties as $property) {
-					if($property->property_id == 56){ //date sold
-						if(!is_null($property->value)){
-							$date = Carbon::parse($property->value);
-							if($date->year == $year && $date->format('F') == $month){
-								$weightprop = $pig->getAnimalProperties()->where("property_id", 57)->first(); //weight sold
-								if(!is_null($weightprop) && $weightprop->value != "Not specified"){
-									array_push($weights, $weightprop->value);
-								}								
-							}
-						}
+			foreach ($soldpigs as $soldpig) {
+				$date_sold = Carbon::parse($soldpig->datesold);
+				if($date_sold->year == $year && $date_sold->format('F') == $month){
+					if($soldpig->weight != "Weight unavailable"){
+						array_push($weights, $soldpig->weight);
 					}
 				}
-			}*/
+			}
 
 			return $weights;
 		}
@@ -4813,8 +5074,8 @@ class FarmController extends Controller
 			return view('pigs.growerrecords', compact('pigs', 'sows', 'boars'));
 		}
 
-		public function getBreederRecordsPage(){ // function to display Breeder Records page
-			$farm = $this->user->getFarm();
+		static function addFrequency(){
+			$farm = Auth::User()->getFarm();
 			$breed = $farm->getBreed();
 			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "breeder")->get();
 
@@ -4827,43 +5088,6 @@ class FarmController extends Controller
 				}
 				if(substr($pig->registryid, -7, 1) == 'M'){
 					array_push($boars, $pig);
-				}
-			}
-
-			// computes ponderal index = weight at 180 days divided by body length converted to meters cube
-			$ponderalIndexValue = 0;
-			if(!is_null($pigs)){
-				foreach ($pigs as $pig) {
-					$properties = $pig->getAnimalProperties();
-					foreach ($properties as $property) {
-						if($property->property_id == 25){
-							if(!is_null($property) && $property->value != ""){
-								$bodylength = $property->value;
-								$bodyweight180dprop = $pig->getAnimalProperties()->where("property_id", 36)->first();
-								if(!is_null($bodyweight180dprop) && $bodyweight180dprop->value != ""){
-									$ponderalIndexValue = $bodyweight180dprop->value/(($property->value/100)**3); 
-								}
-								else{
-									$ponderalIndexValue = "";
-								}
-							}
-							else{
-								$ponderalIndexValue = "";
-							}
-						}
-					}
-					$ponderalprop = $pig->getAnimalProperties()->where("property_id", 31)->first();
-					if(is_null($ponderalprop)){
-						$ponderalindex = new AnimalProperty;
-						$ponderalindex->animal_id = $pig->id;
-						$ponderalindex->property_id = 31;
-						$ponderalindex->value = $ponderalIndexValue;
-						$ponderalindex->save();
-					}
-					else{
-						$ponderalprop->value = $ponderalIndexValue;
-						$ponderalprop->save();
-					}
 				}
 			}
 
@@ -4924,6 +5148,70 @@ class FarmController extends Controller
 					}
 				}
 			}
+		}
+
+		static function addPonderalIndices(){
+			$farm = Auth::User()->getFarm();
+			$breed = $farm->getBreed();
+			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "breeder")->get();
+
+			// computes ponderal index = weight at 180 days divided by body length converted to meters cube
+			$ponderalIndexValue = 0;
+			if(!is_null($pigs)){
+				foreach ($pigs as $pig) {
+					$properties = $pig->getAnimalProperties();
+					foreach ($properties as $property) {
+						if($property->property_id == 25){
+							if(!is_null($property) && $property->value != ""){
+								$bodylength = $property->value;
+								$bodyweight180dprop = $pig->getAnimalProperties()->where("property_id", 36)->first();
+								if(!is_null($bodyweight180dprop) && $bodyweight180dprop->value != ""){
+									$ponderalIndexValue = $bodyweight180dprop->value/(($property->value/100)**3); 
+								}
+								else{
+									$ponderalIndexValue = "";
+								}
+							}
+							else{
+								$ponderalIndexValue = "";
+							}
+						}
+					}
+					$ponderalprop = $pig->getAnimalProperties()->where("property_id", 31)->first();
+					if(is_null($ponderalprop)){
+						$ponderalindex = new AnimalProperty;
+						$ponderalindex->animal_id = $pig->id;
+						$ponderalindex->property_id = 31;
+						$ponderalindex->value = $ponderalIndexValue;
+						$ponderalindex->save();
+					}
+					else{
+						$ponderalprop->value = $ponderalIndexValue;
+						$ponderalprop->save();
+					}
+				}
+			}
+		}
+
+		public function getBreederRecordsPage(){ // function to display Breeder Records page
+			$farm = $this->user->getFarm();
+			$breed = $farm->getBreed();
+			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "breeder")->get();
+
+			// sorts pigs by sex
+			$sows = [];
+			$boars = [];
+			foreach($pigs as $pig){
+				if(substr($pig->registryid, -7, 1) == 'F'){
+					array_push($sows, $pig);
+				}
+				if(substr($pig->registryid, -7, 1) == 'M'){
+					array_push($boars, $pig);
+				}
+			}
+
+			static::addPonderalIndices();
+			static::addFrequency();
 
 			return view('pigs.breederrecords', compact('pigs', 'sows', 'boars'));
 		}
@@ -5412,7 +5700,7 @@ class FarmController extends Controller
 			$group = Grouping::find($id);
 
 			$status = $group->getGroupingProperties()->where("property_id", 60)->first();
-			$status->value = $request->mating_status;
+			$status->value = $request->change_status_bred;
 			$status->save();
 
 			return Redirect::back()->with('message','Operation Successful!');
@@ -5422,7 +5710,7 @@ class FarmController extends Controller
 			$group = Grouping::find($id);
 
 			$status = $group->getGroupingProperties()->where("property_id", 60)->first();
-			$status->value = $request->mating_status;
+			$status->value = $request->change_status_pregnant;
 			$status->save();
 
 			return Redirect::back()->with('message','Operation Successful!');
@@ -5431,13 +5719,13 @@ class FarmController extends Controller
 		public function addDateAborted(Request $request){
 			$group = Grouping::find($request->group_id);
 
+
 			$dateabortedprop = $group->getGroupingProperties()->where("property_id", 44)->first();
 			if(is_null($dateabortedprop)){
 				$date_aborted = new GroupingProperty;
 				$date_aborted->grouping_id = $group->id;
 				$date_aborted->property_id = 44;
 				$date_aborted->value = $request->date_aborted;
-				$date_aborted->datecollected = new Carbon();
 				$date_aborted->save();
 			}
 			else{
@@ -5461,13 +5749,17 @@ class FarmController extends Controller
 			$pair->breed_id = $breed->id;
 			$pair->save();
 
-			$dateBredValue = $request->date_bred;
+			if(is_null($request->date_bred)){
+				$dateBredValue = new Carbon();
+			}
+			else{
+				$dateBredValue = $request->date_bred;
+			}
 
 			$date_bred = new GroupingProperty;
 			$date_bred->grouping_id = $pair->id;
 			$date_bred->property_id = 42;
 			$date_bred->value = $dateBredValue;
-			$date_bred->datecollected = new Carbon();
 			$date_bred->save();
 
 			$edfValue = Carbon::parse($dateBredValue)->addDays(114);
@@ -5476,14 +5768,12 @@ class FarmController extends Controller
 			$edf->grouping_id = $pair->id;
 			$edf->property_id = 43;
 			$edf->value = $edfValue;
-			$edf->datecollected = new Carbon();
 			$edf->save();
 
 			$status = new GroupingProperty;
 			$status->grouping_id = $pair->id;
 			$status->property_id = 60;
 			$status->value = "Bred";
-			$status->datecollected = new Carbon();
 			$status->save();
 
 			return Redirect::back()->with('message','Operation Successful!');
@@ -5500,7 +5790,6 @@ class FarmController extends Controller
 				$weighing_option->grouping_id = $familyidvalue;
 				$weighing_option->property_id = 54;
 				$weighing_option->value = $option;
-				$weighing_option->datecollected = new Carbon();
 				$weighing_option->save();
 
 				return $weighingoption_prop;
@@ -5578,7 +5867,6 @@ class FarmController extends Controller
 				$date_farrowed->grouping_id = $grouping->id;
 				$date_farrowed->property_id = 3;
 				$date_farrowed->value = $request->date_farrowed;
-				$date_farrowed->datecollected = new Carbon();
 				$date_farrowed->save();
 			}
 			else{
@@ -5604,7 +5892,6 @@ class FarmController extends Controller
 				$no_stillborn->grouping_id = $grouping->id;
 				$no_stillborn->property_id = 45;
 				$no_stillborn->value = $noStillbornValue;
-				$no_stillborn->datecollected = new Carbon();
 				$no_stillborn->save();
 			}
 			else{
@@ -5625,7 +5912,6 @@ class FarmController extends Controller
 				$no_mummified->grouping_id = $grouping->id;
 				$no_mummified->property_id = 46;
 				$no_mummified->value = $noMummifiedValue;
-				$no_mummified->datecollected = new Carbon();
 				$no_mummified->save();
 			}
 			else{
@@ -5646,7 +5932,6 @@ class FarmController extends Controller
 				$abnormality->grouping_id = $grouping->id;
 				$abnormality->property_id = 47;
 				$abnormality->value = $abnormalityValue;
-				$abnormality->datecollected = new Carbon();
 				$abnormality->save();
 			}
 			else{
@@ -5671,7 +5956,6 @@ class FarmController extends Controller
 						$parity->grouping_id = $grouping->id;
 						$parity->property_id = 76;
 						$parity->value = $parityValue;
-						$parity->datecollected = new Carbon();
 						$parity->save();
 					}
 					else{ // LATEST PARITY
@@ -5686,7 +5970,6 @@ class FarmController extends Controller
 						$parity->grouping_id = $grouping->id;
 						$parity->property_id = 48;
 						$parity->value = $parityValue;
-						$parity->datecollected = new Carbon();
 						$parity->save();
 					}
 				}
@@ -5706,7 +5989,6 @@ class FarmController extends Controller
 						$parity->grouping_id = $grouping->id;
 						$parity->property_id = 48;
 						$parity->value = $parityValue;
-						$parity->datecollected = new Carbon();
 						$parity->save();
 					}
 					else{ // LATEST PARITY
@@ -5720,7 +6002,6 @@ class FarmController extends Controller
 						$parity->grouping_id = $grouping->id;
 						$parity->property_id = 48;
 						$parity->value = $parityValue;
-						$parity->datecollected = new Carbon();
 						$parity->save();
 					}
 				}
@@ -5806,7 +6087,6 @@ class FarmController extends Controller
 				$date_farrowed->grouping_id = $grouping->id;
 				$date_farrowed->property_id = 3;
 				$date_farrowed->value = $request->date_farrowed;
-				$date_farrowed->datecollected = new Carbon();
 				$date_farrowed->save();
 			}
 			else{
@@ -5832,7 +6112,6 @@ class FarmController extends Controller
 				$no_stillborn->grouping_id = $grouping->id;
 				$no_stillborn->property_id = 45;
 				$no_stillborn->value = $noStillbornValue;
-				$no_stillborn->datecollected = new Carbon();
 				$no_stillborn->save();
 			}
 			else{
@@ -5853,7 +6132,6 @@ class FarmController extends Controller
 				$no_mummified->grouping_id = $grouping->id;
 				$no_mummified->property_id = 46;
 				$no_mummified->value = $noMummifiedValue;
-				$no_mummified->datecollected = new Carbon();
 				$no_mummified->save();
 			}
 			else{
@@ -5874,7 +6152,6 @@ class FarmController extends Controller
 				$abnormality->grouping_id = $grouping->id;
 				$abnormality->property_id = 47;
 				$abnormality->value = $abnormalityValue;
-				$abnormality->datecollected = new Carbon();
 				$abnormality->save();
 			}
 			else{
@@ -5899,7 +6176,6 @@ class FarmController extends Controller
 						$parity->grouping_id = $grouping->id;
 						$parity->property_id = 48;
 						$parity->value = $parityValue;
-						$parity->datecollected = new Carbon();
 						$parity->save();
 					}
 					else{ // LATEST PARITY
@@ -5914,7 +6190,6 @@ class FarmController extends Controller
 						$parity->grouping_id = $grouping->id;
 						$parity->property_id = 48;
 						$parity->value = $parityValue;
-						$parity->datecollected = new Carbon();
 						$parity->save();
 					}
 				}
@@ -5934,7 +6209,6 @@ class FarmController extends Controller
 						$parity->grouping_id = $grouping->id;
 						$parity->property_id = 48;
 						$parity->value = $parityValue;
-						$parity->datecollected = new Carbon();
 						$parity->save();
 					}
 					else{ // LATEST PARITY
@@ -5948,7 +6222,6 @@ class FarmController extends Controller
 						$parity->grouping_id = $grouping->id;
 						$parity->property_id = 48;
 						$parity->value = $parityValue;
-						$parity->datecollected = new Carbon();
 						$parity->save();
 					}
 				}
@@ -5979,7 +6252,6 @@ class FarmController extends Controller
 				$litter_birth_weight->grouping_id = $grouping->id;
 				$litter_birth_weight->property_id = 55;
 				$litter_birth_weight->value = $request->litter_birth_weight;
-				$litter_birth_weight->datecollected = new Carbon();
 				$litter_birth_weight->save();
 			}
 			else{
@@ -5993,7 +6265,6 @@ class FarmController extends Controller
 				$lsba->grouping_id = $grouping->id;
 				$lsba->property_id = 50;
 				$lsba->value = $request->lsba;
-				$lsba->datecollected = new Carbon();
 				$lsba->save();
 			}
 			else{
@@ -6046,7 +6317,6 @@ class FarmController extends Controller
 				$date_farrowed->grouping_id = $grouping->id;
 				$date_farrowed->property_id = 3;
 				$date_farrowed->value = $request->date_farrowed;
-				$date_farrowed->datecollected = new Carbon();
 				$date_farrowed->save();
 			}
 			else{
@@ -6072,7 +6342,6 @@ class FarmController extends Controller
 				$no_stillborn->grouping_id = $grouping->id;
 				$no_stillborn->property_id = 45;
 				$no_stillborn->value = $noStillbornValue;
-				$no_stillborn->datecollected = new Carbon();
 				$no_stillborn->save();
 			}
 			else{
@@ -6093,7 +6362,6 @@ class FarmController extends Controller
 				$no_mummified->grouping_id = $grouping->id;
 				$no_mummified->property_id = 46;
 				$no_mummified->value = $noMummifiedValue;
-				$no_mummified->datecollected = new Carbon();
 				$no_mummified->save();
 			}
 			else{
@@ -6114,7 +6382,6 @@ class FarmController extends Controller
 				$abnormality->grouping_id = $grouping->id;
 				$abnormality->property_id = 47;
 				$abnormality->value = $abnormalityValue;
-				$abnormality->datecollected = new Carbon();
 				$abnormality->save();
 			}
 			else{
@@ -6139,7 +6406,6 @@ class FarmController extends Controller
 						$parity->grouping_id = $grouping->id;
 						$parity->property_id = 48;
 						$parity->value = $parityValue;
-						$parity->datecollected = new Carbon();
 						$parity->save();
 					}
 					else{ // LATEST PARITY
@@ -6154,7 +6420,6 @@ class FarmController extends Controller
 						$parity->grouping_id = $grouping->id;
 						$parity->property_id = 48;
 						$parity->value = $parityValue;
-						$parity->datecollected = new Carbon();
 						$parity->save();
 					}
 				}
@@ -6174,7 +6439,6 @@ class FarmController extends Controller
 						$parity->grouping_id = $grouping->id;
 						$parity->property_id = 48;
 						$parity->value = $parityValue;
-						$parity->datecollected = new Carbon();
 						$parity->save();
 					}
 					else{ // LATEST PARITY
@@ -6188,7 +6452,6 @@ class FarmController extends Controller
 						$parity->grouping_id = $grouping->id;
 						$parity->property_id = 48;
 						$parity->value = $parityValue;
-						$parity->datecollected = new Carbon();
 						$parity->save();
 					}
 				}
@@ -6253,7 +6516,6 @@ class FarmController extends Controller
 				$date_weaned_group->grouping_id = $grouping->id;
 				$date_weaned_group->property_id = 6;
 				$date_weaned_group->value = $request->date_weaned;
-				$date_weaned_group->datecollected = new Carbon();
 				$date_weaned_group->save();
 
 				$date_weaned_individual = new AnimalProperty;

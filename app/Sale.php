@@ -84,4 +84,8 @@ class Sale extends Model
     return Animal::find($this->animal_id)->registryid;
   }
 
+  public function getStatus(){
+    return Animal::find($this->animal_id)->status;
+  }
+
 }
