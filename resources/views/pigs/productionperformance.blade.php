@@ -211,7 +211,7 @@
 									@endif
 			    			</tr>
 			    			<tr>
-			    				<td>Age Weaned, months</td>
+			    				<td>Age Weaned, days</td>
 			    				@if($totalagesweaned == [])
 				    				<td class="center">No data available</td>
 				    				<td class="center">No data available</td>
@@ -296,7 +296,7 @@
 			    		</div>
 			    		<div class="row">
 			    			<div class="col s6">
-			    				<p>Age Weaned, months</p>
+			    				<p>Age Weaned, days</p>
 					    		<canvas id="ageweanedcanvas"></canvas>
 			    			</div>
 			    			<div class="col s6">
@@ -446,7 +446,7 @@
 							@endif
 	    			</tr>
 	    			<tr>
-	    				<td>Age Weaned, months</td>
+	    				<td>Age Weaned, days</td>
 	    				@if($totalagesweaned == [])
 		    				<td class="center">No data available</td>
 		    				<td class="center">No data available</td>
@@ -606,7 +606,7 @@
 							@endif
 	    			</tr>
 	    			<tr>
-	    				<td>Age Weaned, months</td>
+	    				<td>Age Weaned, days</td>
 	    				@if($totalagesweaned == [])
 		    				<td class="center">No data available</td>
 		    				<td class="center">No data available</td>

@@ -42,8 +42,8 @@
 						<table class="centered responsive-table striped">
 							<thead>
 								<tr class="green lighten-1">
-									<th>Sow ID</th>
-									<th>Boar ID</th>
+									<th>Sow Used</th>
+									<th>Boar Used</th>
 									<th>Date Bred</th>
 									<th>Expected Date of Farrowing</th>
 									<th>Status</th>

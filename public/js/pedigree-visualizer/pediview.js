@@ -225,7 +225,7 @@ const visualize = (json) => {
 	
 	// div for the covariance table
 	const covariance_table_div = document.createElement("div");
-	covariance_table_div.style.cssText = "border:1px solid #c6b89e; border-radius: 5px; margin-bottom: 5px; width: 100%;overflow:auto;";
+	covariance_table_div.style.cssText = "display: none; border:1px solid #c6b89e; border-radius: 5px; margin-bottom: 5px; width: 100%;overflow:auto;";
 	
 	required_data_div.appendChild(covariance_table_div);
 
@@ -429,7 +429,7 @@ const visualize = (json) => {
 	
 	// create div for the inbreeding table
 	const show_inbreeding_div = document.createElement("div");
-	show_inbreeding_div.style.cssText = "border:1px solid #c6b89e;border-radius:5px; margin-bottom: 5px;width:100%;overflow:auto;";
+	show_inbreeding_div.style.cssText = "display: none; border:1px solid #c6b89e;border-radius:5px; margin-bottom: 5px;width:100%;overflow:auto;";
 
 	required_data_div.appendChild(show_inbreeding_div);
 	
@@ -531,7 +531,7 @@ const visualize = (json) => {
 
 	// div for checkboxes
 	const checkbox_div = document.createElement("div");
-	checkbox_div.style.cssText = "border:1px solid #c6b89e;border-radius:5px;margin-bottom:5px; padding-left: 10px;";
+	checkbox_div.style.cssText = "display: none; border:1px solid #c6b89e;border-radius:5px;margin-bottom:5px; padding-left: 10px;";
 
 	const checkbox_form = document.createElement("form");
 	checkbox_form.action = "#";

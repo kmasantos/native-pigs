@@ -20,60 +20,87 @@
 		  		<tbody>
 		  			<tr>
 		  				<td>Parity</td>
-		  				<td class="center">{{ $parity }}</td>
+		  				<td class="center">{{ $groupingproperties->where("property_id", 48)->first()->value }}</td>
 		  			</tr>
 		  			<tr>
 		  				<td>Litter-size Born Alive</td>
-	  					<td class="center">{{ $lsba }}</td>
+	  					<td class="center">{{ $groupingproperties->where("property_id", 50)->first()->value }}</td>
 		  			</tr>
 		  			<tr>
 		  				<td>Number Male Born</td>
-		  				<td class="center">{{ count($males) }}</td>
+		  				<td class="center">{{ $groupingproperties->where("property_id", 51)->first()->value }}</td>
 		  			</tr>
 		  			<tr>
 		  				<td>Number Female Born</td>
-		  				<td class="center">{{ count($females) }}</td>
+		  				<td class="center">{{ $groupingproperties->where("property_id", 52)->first()->value }}</td>
 		  			</tr>
 		  			<tr>
 		  				<td>Number Stillborn</td>
-	  					<td class="center">{{ $stillborn }}</td>
+	  					<td class="center">{{ $groupingproperties->where("property_id", 45)->first()->value }}</td>
 		  			</tr>
 		  			<tr>
 		  				<td>Number Mummified</td>
-	  					<td class="center">{{ $mummified }}</td>
+	  					<td class="center">{{ $groupingproperties->where("property_id", 46)->first()->value }}</td>
 		  			</tr>
 		  			<tr>
 		  				<td>Litter Birth Weight, kg</td>
-		  				<td class="center">{{ array_sum($litterbirthweights) }}</td>
+		  				<td class="center">{{ round($groupingproperties->where("property_id", 55)->first()->value, 2) }}</td>
 		  			</tr>
 		  			<tr>
 		  				<td>Average Birth Weight, kg</td>
-	  					<td class="center">{{ $avebirthweight }}</td>
+	  					<td class="center">{{ round($groupingproperties->where("property_id", 56)->first()->value, 2) }}</td>
 		  			</tr>
-		  			<tr>
-		  				<td>Litter Weaning Weight, kg</td>
-							<td class="center">{{ array_sum($litterweaningweights) }}</td>
-		  			</tr>
-		  			<tr>
-		  				<td>Average Weaning Weight, kg</td>
-	  					<td class="center">{{ $aveweaningweight }}</td>
-		  			</tr>
-		  			<tr>
-		  				<td>Adjusted Weaning Weight at 45 Days, kg</td>
-	  					<td class="center">{{ $aveadjweaningweights }}</td>
-		  			</tr>
-		  			<tr>
-		  				<td>Number Weaned</td>
-	  					<td class="center">{{ $numberweaned }}</td>
-		  			</tr>
-		  			<tr>
-		  				<td>Age Weaned, days</td>
-	  					<td class="center">{{ $aveageweaned }}</td>
-		  			</tr>
-		  			<tr>
-		  				<td>Pre-weaning Mortality</td>
-		  				<td class="center">{{ $preweaningmortality }}</td>
-		  			</tr>
+		  			@if(!is_null($groupingproperties->where("property_id", 6)->first()))
+			  			<tr>
+			  				<td>Litter Weaning Weight, kg</td>
+								<td class="center">{{ round($groupingproperties->where("property_id", 62)->first()->value, 2) }}</td>
+			  			</tr>
+			  			<tr>
+			  				<td>Average Weaning Weight, kg</td>
+		  					<td class="center">{{ round($groupingproperties->where("property_id", 58)->first()->value, 2) }}</td>
+			  			</tr>
+			  			<tr>
+			  				<td>Adjusted Weaning Weight at 45 Days, kg</td>
+		  					<td class="center">{{ $aveadjweaningweights }}</td>
+			  			</tr>
+			  			<tr>
+			  				<td>Number Weaned</td>
+		  					<td class="center">{{ $groupingproperties->where("property_id", 57)->first()->value }}</td>
+			  			</tr>
+			  			<tr>
+			  				<td>Age Weaned, days</td>
+		  					<td class="center">{{ $aveageweaned }}</td>
+			  			</tr>
+			  			<tr>
+			  				<td>Pre-weaning Mortality, %</td>
+			  				<td class="center">{{ round($groupingproperties->where("property_id", 59)->first()->value, 2) }}</td>
+			  			</tr>
+			  		@else
+			  			<tr>
+			  				<td>Litter Weaning Weight, kg</td>
+								<td class="center">No data available</td>
+			  			</tr>
+			  			<tr>
+			  				<td>Average Weaning Weight, kg</td>
+		  					<td class="center">No data available</td>
+			  			</tr>
+			  			<tr>
+			  				<td>Adjusted Weaning Weight at 45 Days, kg</td>
+		  					<td class="center">No data available</td>
+			  			</tr>
+			  			<tr>
+			  				<td>Number Weaned</td>
+		  					<td class="center">No data available</td>
+			  			</tr>
+			  			<tr>
+			  				<td>Age Weaned, days</td>
+		  					<td class="center">No data available</td>
+			  			</tr>
+			  			<tr>
+			  				<td>Pre-weaning Mortality, %</td>
+			  				<td class="center">No data available</td>
+			  			</tr>
+			  		@endif
 		  		</tbody>
 		  	</table>
 		  </div>

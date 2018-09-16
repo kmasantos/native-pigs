@@ -135,39 +135,26 @@
 									Total Littersize Born
 								</div>
 								<div class="col s4">
-									
+									@if($family->members == 1)
+										@if(!is_null($properties->where("property_id", 49)->first()))
+											{{ $properties->where("property_id", 49)->first()->value }}
+										@else
+											{{ $properties->where("property_id", 45)->first()->value + $properties->where("property_id", 46)->first()->value + count($offsprings) }}
+										@endif
+									@endif
 								</div>
 							</div>
 							<div class="row">
 								<div class="col s8">
 									Total Littersize Born Alive
-									@if($family->members == 1)
-
-									@endif
 								</div>
 								<div class="col s4">
 									@if($family->members == 1)
-										{{ count($family->getGroupingMembers()) }}
-									@endif
-								</div>
-							</div>
-							<div class="row">
-								<div class="col s8">
-									Number weaned
-								</div>
-								<div class="col s4">
-									@if($family->members == 1)
-										
-									@endif
-								</div>
-							</div>
-							<div class="row">
-								<div class="col s8">
-									Average birth weight
-								</div>
-								<div class="col s4">
-									@if($family->members == 1)
-										{{ round($aveBirthWeight, 4) }}
+										@if(!is_null($properties->where("property_id", 50)->first()))
+											{{ $properties->where("property_id", 50)->first()->value }}
+										@else
+											{{ count($offsprings) }}
+										@endif
 									@endif
 								</div>
 							</div>
@@ -177,7 +164,11 @@
 								</div>
 								<div class="col s4">
 									@if($family->members == 1)
-										
+										@if(!is_null($properties->where("property_id", 51)->first()))
+											{{ $properties->where("property_id", 51)->first()->value }}
+										@else
+											{{ $countMales }}
+										@endif
 									@endif
 								</div>
 							</div>
@@ -187,7 +178,11 @@
 								</div>
 								<div class="col s4">
 									@if($family->members == 1)
-										
+										@if(!is_null($properties->where("property_id", 52)->first()))
+											{{ $properties->where("property_id", 52)->first()->value }}
+										@else
+											{{ $countFemales }}
+										@endif
 									@endif
 								</div>
 							</div>
@@ -197,7 +192,39 @@
 								</div>
 								<div class="col s4">
 									@if($family->members == 1)
-										
+										@if(!is_null($properties->where("property_id", 53)->first()))
+											{{ $properties->where("property_id", 53)->first()->value }}
+										@else
+											{{ $countMales }}:{{ $countFemales }}
+										@endif
+									@endif
+								</div>
+							</div>
+							<div class="row">
+								<div class="col s8">
+									Average birth weight
+								</div>
+								<div class="col s4">
+									@if($family->members == 1)
+										@if(!is_null($properties->where("property_id", 56)->first()))
+											{{ round($properties->where("property_id", 56)->first()->value, 3) }}
+										@else
+											{{ round($aveBirthWeight, 3) }}
+										@endif
+									@endif
+								</div>
+							</div>
+							<div class="row">
+								<div class="col s8">
+									Number weaned
+								</div>
+								<div class="col s4">
+									@if($family->members == 1)
+										@if(!is_null($properties->where("property_id", 57)->first()))
+											{{ $properties->where("property_id", 57)->first()->value }}
+										@else
+											{{ $weaned }}
+										@endif
 									@endif
 								</div>
 							</div>
@@ -207,7 +234,11 @@
 								</div>
 								<div class="col s4">
 									@if($family->members == 1)
-										
+										@if(!is_null($properties->where("property_id", 58)->first()))
+											{{ round($properties->where("property_id", 58)->first()->value, 3) }}
+										@else
+											{{ round($aveWeaningWeight, 3) }}
+										@endif
 									@endif
 								</div>
 							</div>
