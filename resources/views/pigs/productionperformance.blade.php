@@ -14,8 +14,6 @@
 	        <li class="tab"><a href="#persowview">Per sow</a></li>
 	        <li class="tab"><a href="#perboarview">Per boar</a></li>
 	        <li class="tab"><a id="per_parity" href="#perparityview">Per parity</a></li>
-	        <li class="tab"><a href="#peryearview">Per year</a></li>
-	        <li class="tab"><a href="#perbreedview">Per breed</a></li>
 	      </ul>
 	    </div>
 	    <!-- PER SOW -->
@@ -107,27 +105,27 @@
 				    				<td class="center">No data available</td>
 				    			@else
 				    				<td class="center">{{ round(array_sum($lsba)/count($lsba), 2) }}</td>
-										<td class="center">{{ round($lsba_sd, 2) }}</td>
+										<td class="center">{{ round(App\Http\Controllers\FarmController::standardDeviation($lsba, false), 2) }}</td>
 									@endif
 			    			</tr>
 			    			<tr>
 			    				<td>Number Male Born</td>
-			    				@if($totalmales == [])
+			    				@if($numbermales == [])
 				    				<td class="center">No data available</td>
 				    				<td class="center">No data available</td>
 				    			@else
-				    				<td class="center">{{ round(array_sum($totalmales)/count($totalmales), 2) }}</td>
-										<td class="center">{{ round($totalmales_sd, 2) }}</td>
+				    				<td class="center">{{ round(array_sum($numbermales)/count($numbermales), 2) }}</td>
+										<td class="center">{{ round(App\Http\Controllers\FarmController::standardDeviation($numbermales, false), 2) }}</td>
 									@endif
 			    			</tr>
 			    			<tr>
 			    				<td>Number Female Born</td>
-			    				@if($totalfemales == [])
+			    				@if($numberfemales == [])
 				    				<td class="center">No data available</td>
 				    				<td class="center">No data available</td>
 				    			@else
-				    				<td class="center">{{ round(array_sum($totalfemales)/count($totalfemales), 2) }}</td>
-										<td class="center">{{ round($totalfemales_sd, 2) }}</td>
+				    				<td class="center">{{ round(array_sum($numberfemales)/count($numberfemales), 2) }}</td>
+										<td class="center">{{ round(App\Http\Controllers\FarmController::standardDeviation($numberfemales, false), 2) }}</td>
 									@endif
 			    			</tr>
 			    			<tr>
@@ -137,7 +135,7 @@
 				    				<td class="center">No data available</td>
 				    			@else
 				    				<td class="center">{{ round(array_sum($stillborn)/count($stillborn), 2) }}</td>
-										<td class="center">{{ round($stillborn_sd, 2) }}</td>
+										<td class="center">{{ round(App\Http\Controllers\FarmController::standardDeviation($stillborn, false), 2) }}</td>
 									@endif
 			    			</tr>
 			    			<tr>
@@ -147,77 +145,77 @@
 				    				<td class="center">No data available</td>
 				    			@else
 				    				<td class="center">{{ round(array_sum($mummified)/count($mummified), 2) }}</td>
-										<td class="center">{{ round($mummified_sd, 2) }}</td>
+										<td class="center">{{ round(App\Http\Controllers\FarmController::standardDeviation($mummified, false), 2) }}</td>
 									@endif
 			    			</tr>
 			    			<tr>
 			    				<td>Litter Birth Weight, kg</td>
-			    				@if($totallitterbirthweights == [])
+			    				@if($litterbirthweights == [])
 				    				<td class="center">No data available</td>
 				    				<td class="center">No data available</td>
 				    			@else
-				    				<td class="center">{{ round(array_sum($totallitterbirthweights)/count($totallitterbirthweights), 2) }}</td>
-										<td class="center">{{ round($totallitterbirthweights_sd, 2) }}</td>
+				    				<td class="center">{{ round(array_sum($litterbirthweights)/count($litterbirthweights), 2) }}</td>
+										<td class="center">{{ round(App\Http\Controllers\FarmController::standardDeviation($litterbirthweights, false), 2) }}</td>
 									@endif
 			    			</tr>
 			    			<tr>
 			    				<td>Average Birth Weight, kg</td>
-			    				@if($avelitterbirthweights == [])
+			    				@if($avebirthweights == [])
 				    				<td class="center">No data available</td>
 				    				<td class="center">No data available</td>
 				    			@else
-				    				<td class="center">{{ round(array_sum($avelitterbirthweights)/count($avelitterbirthweights), 2) }}</td>
-										<td class="center">{{ round($avelitterbirthweights_sd, 2) }}</td>
+				    				<td class="center">{{ round(array_sum($avebirthweights)/count($avebirthweights), 2) }}</td>
+										<td class="center">{{ round(App\Http\Controllers\FarmController::standardDeviation($avebirthweights, false), 2) }}</td>
 									@endif
 			    			</tr>
 			    			<tr>
 			    				<td>Litter Weaning Weight, kg</td>
-			    				@if($totallitterweaningweights == [])
+			    				@if($litterweaningweights == [])
 				    				<td class="center">No data available</td>
 				    				<td class="center">No data available</td>
 				    			@else
-				    				<td class="center">{{ round(array_sum($totallitterweaningweights)/count($totallitterweaningweights), 2) }}</td>
-										<td class="center">{{ round($totallitterweaningweights_sd, 2) }}</td>
+				    				<td class="center">{{ round(array_sum($litterweaningweights)/count($litterweaningweights), 2) }}</td>
+										<td class="center">{{ round(App\Http\Controllers\FarmController::standardDeviation($litterweaningweights, false), 2) }}</td>
 									@endif
 			    			</tr>
 			    			<tr>
 			    				<td>Average Weaning Weight, kg</td>
-			    				@if($avelitterweaningweights == [])
+			    				@if($aveweaningweights == [])
 				    				<td class="center">No data available</td>
 				    				<td class="center">No data available</td>
 				    			@else
-				    				<td class="center">{{ round(array_sum($avelitterweaningweights)/count($avelitterweaningweights), 2) }}</td>
-										<td class="center">{{ round($avelitterweaningweights_sd, 2) }}</td>
+				    				<td class="center">{{ round(array_sum($aveweaningweights)/count($aveweaningweights), 2) }}</td>
+										<td class="center">{{ round(App\Http\Controllers\FarmController::standardDeviation($aveweaningweights, false), 2) }}</td>
 									@endif
 			    			</tr>
 			    			<tr>
 			    				<td>Adjusted Weaning Weight at 45 Days, kg</td>
-			    				@if($aveadjweaningweights == [])
+			    				@if($adjweaningweights == [])
 				    				<td class="center">No data available</td>
 				    				<td class="center">No data available</td>
 				    			@else
-				    				<td class="center">{{ round(array_sum($aveadjweaningweights)/count($aveadjweaningweights), 2) }}</td>
-										<td class="center">{{ round($aveadjweaningweights_sd, 2) }}</td>
+				    				<td class="center">{{ round(array_sum($adjweaningweights)/count($adjweaningweights), 2) }}</td>
+										<td class="center">{{ round(App\Http\Controllers\FarmController::standardDeviation($adjweaningweights, false), 2) }}</td>
 									@endif
 			    			</tr>
 			    			<tr>
 			    				<td>Number Weaned</td>
-			    				@if($totalweaned == [])
+			    				@if($numberweaned == [])
 				    				<td class="center">No data available</td>
 				    				<td class="center">No data available</td>
 				    			@else
-				    				<td class="center">{{ round(array_sum($totalweaned)/count($totalweaned), 2) }}</td>
-										<td class="center">{{ round($totalweaned_sd, 2) }}</td>
+				    				<td class="center">{{ round(array_sum($numberweaned)/count($numberweaned), 2) }}</td>
+										<td class="center">{{ round(App\Http\Controllers\FarmController::standardDeviation($numberweaned, false), 2) }}</td>
 									@endif
 			    			</tr>
 			    			<tr>
 			    				<td>Age Weaned, days</td>
-			    				@if($totalagesweaned == [])
+			    				@if($agesweaned == [])
 				    				<td class="center">No data available</td>
 				    				<td class="center">No data available</td>
 				    			@else
-				    				<td class="center">{{ round(array_sum($totalagesweaned)/count($totalagesweaned), 2) }}</td>
-										<td class="center">{{ round($totalagesweaned_sd, 2) }}</td>
+				    				<td class="center">{{ round(array_sum($agesweaned)/count($agesweaned), 2) }}</td>
+										<td class="center">{{ round(App\Http\Controllers\FarmController::standardDeviation($agesweaned, false), 2) }}</td>
 									@endif
 			    			</tr>
 			    			<tr>
@@ -227,7 +225,7 @@
 				    				<td class="center">No data available</td>
 				    			@else
 				    				<td class="center">{{ round(array_sum($preweaningmortality)/count($preweaningmortality), 2) }}</td>
-										<td class="center">{{ round($preweaningmortality_sd, 2) }}</td>
+										<td class="center">{{ round(App\Http\Controllers\FarmController::standardDeviation($preweaningmortality, false), 2) }}</td>
 									@endif
 			    			</tr>
 			    		</tbody>
@@ -300,333 +298,13 @@
 					    		<canvas id="ageweanedcanvas"></canvas>
 			    			</div>
 			    			<div class="col s6">
-			    				<p>Pre-weaning Mortality</p>
+			    				<p>Pre-weaning Mortality, %</p>
 					    		<canvas id="preweaningmortalitycanvas"></canvas>
 			    			</div>
 			    		</div>
 			    	</div>
 			    </div>
 			  </div>
-	    </div>
-	    <!-- PER YEAR -->
-	    <div id="peryearview" class="col s12">
-	    	<div class="row" style="padding-top: 10px;">
-		    	<div class="col s4 offset-s1">
-		  			<p>Generate Reports for:</p>
-		  		</div>
-		  		<div class="col s5"> 
-		  		{!! Form::open(['route' => 'farm.pig.prod_performance_month', 'method' => 'post', 'id' => 'report_filter2']) !!}
-	    			<select id="filter_yearandmonth" name="filter_yearandmonth" class="browser-default" onchange="document.getElementById('year_filter').submit();">
-							<option disabled selected>Year ({{ $filter_year }})</option>
-							@foreach($years as $year)
-								<option value="{{ $year }}">{{ $year }}</option>
-							@endforeach
-						</select>
-	    		{!! Form::close() !!}
-	    		</div>
-	    	</div>
-	    	<table>
-	    		<thead>
-	    			<tr>
-	    				<th>Parameters (Averages)</th>
-	    				<th class="center">Value</th>
-	    				<th class="center">Standard Deviation</th>
-	    			</tr>
-	    		</thead>
-	    		<tbody>
-	    			{{-- TO BE CHANGED --}}
-	    			<tr>
-	    				<td>Litter-size Born Alive</td>
-	    				@if($lsba == [])
-		    				<td class="center">No data available</td>
-		    				<td class="center">No data available</td>
-		    			@else
-		    				<td class="center">{{ round(array_sum($lsba)/count($lsba), 2) }}</td>
-								<td class="center">{{ round($lsba_sd, 2) }}</td>
-							@endif
-	    			</tr>
-	    			<tr>
-	    				<td>Number Male Born</td>
-	    				@if($totalmales == [])
-		    				<td class="center">No data available</td>
-		    				<td class="center">No data available</td>
-		    			@else
-		    				<td class="center">{{ round(array_sum($totalmales)/count($totalmales), 2) }}</td>
-								<td class="center">{{ round($totalmales_sd, 2) }}</td>
-							@endif
-	    			</tr>
-	    			<tr>
-	    				<td>Number Female Born</td>
-	    				@if($totalfemales == [])
-		    				<td class="center">No data available</td>
-		    				<td class="center">No data available</td>
-		    			@else
-		    				<td class="center">{{ round(array_sum($totalfemales)/count($totalfemales), 2) }}</td>
-								<td class="center">{{ round($totalfemales_sd, 2) }}</td>
-							@endif
-	    			</tr>
-	    			<tr>
-	    				<td>Number Stillborn</td>
-	    				@if($stillborn == [])
-		    				<td class="center">No data available</td>
-		    				<td class="center">No data available</td>
-		    			@else
-		    				<td class="center">{{ round(array_sum($stillborn)/count($stillborn), 2) }}</td>
-								<td class="center">{{ round($stillborn_sd, 2) }}</td>
-							@endif
-	    			</tr>
-	    			<tr>
-	    				<td>Number Mummified</td>
-	    				@if($mummified == [])
-		    				<td class="center">No data available</td>
-		    				<td class="center">No data available</td>
-		    			@else
-		    				<td class="center">{{ round(array_sum($mummified)/count($mummified), 2) }}</td>
-								<td class="center">{{ round($mummified_sd, 2) }}</td>
-							@endif
-	    			</tr>
-	    			<tr>
-	    				<td>Litter Birth Weight, kg</td>
-	    				@if($totallitterbirthweights == [])
-		    				<td class="center">No data available</td>
-		    				<td class="center">No data available</td>
-		    			@else
-		    				<td class="center">{{ round(array_sum($totallitterbirthweights)/count($totallitterbirthweights), 2) }}</td>
-								<td class="center">{{ round($totallitterbirthweights_sd, 2) }}</td>
-							@endif
-	    			</tr>
-	    			<tr>
-	    				<td>Average Birth Weight, kg</td>
-	    				@if($avelitterbirthweights == [])
-		    				<td class="center">No data available</td>
-		    				<td class="center">No data available</td>
-		    			@else
-		    				<td class="center">{{ round(array_sum($avelitterbirthweights)/count($avelitterbirthweights), 2) }}</td>
-								<td class="center">{{ round($avelitterbirthweights_sd, 2) }}</td>
-							@endif
-	    			</tr>
-	    			<tr>
-	    				<td>Litter Weaning Weight, kg</td>
-	    				@if($totallitterweaningweights == [])
-		    				<td class="center">No data available</td>
-		    				<td class="center">No data available</td>
-		    			@else
-		    				<td class="center">{{ round(array_sum($totallitterweaningweights)/count($totallitterweaningweights), 2) }}</td>
-								<td class="center">{{ round($totallitterweaningweights_sd, 2) }}</td>
-							@endif
-	    			</tr>
-	    			<tr>
-	    				<td>Average Weaning Weight, kg</td>
-	    				@if($avelitterweaningweights == [])
-		    				<td class="center">No data available</td>
-		    				<td class="center">No data available</td>
-		    			@else
-		    				<td class="center">{{ round(array_sum($avelitterweaningweights)/count($avelitterweaningweights), 2) }}</td>
-								<td class="center">{{ round($avelitterweaningweights_sd, 2) }}</td>
-							@endif
-	    			</tr>
-	    			<tr>
-	    				<td>Adjusted Weaning Weight at 45 Days, kg</td>
-	    				@if($aveadjweaningweights == [])
-		    				<td class="center">No data available</td>
-		    				<td class="center">No data available</td>
-		    			@else
-		    				<td class="center">{{ round(array_sum($aveadjweaningweights)/count($aveadjweaningweights), 2) }}</td>
-								<td class="center">{{ round($aveadjweaningweights_sd, 2) }}</td>
-							@endif
-	    			</tr>
-	    			<tr>
-	    				<td>Number Weaned</td>
-	    				@if($totalweaned == [])
-		    				<td class="center">No data available</td>
-		    				<td class="center">No data available</td>
-		    			@else
-		    				<td class="center">{{ round(array_sum($totalweaned)/count($totalweaned), 2) }}</td>
-								<td class="center">{{ round($totalweaned_sd, 2) }}</td>
-							@endif
-	    			</tr>
-	    			<tr>
-	    				<td>Age Weaned, days</td>
-	    				@if($totalagesweaned == [])
-		    				<td class="center">No data available</td>
-		    				<td class="center">No data available</td>
-		    			@else
-		    				<td class="center">{{ round(array_sum($totalagesweaned)/count($totalagesweaned), 2) }}</td>
-								<td class="center">{{ round($totalagesweaned_sd, 2) }}</td>
-							@endif
-	    			</tr>
-	    			<tr>
-	    				<td>Pre-weaning Mortality</td>
-	    				@if($preweaningmortality == [])
-		    				<td class="center">No data available</td>
-		    				<td class="center">No data available</td>
-		    			@else
-		    				<td class="center">{{ round(array_sum($preweaningmortality)/count($preweaningmortality), 2) }}</td>
-								<td class="center">{{ round($preweaningmortality_sd, 2) }}</td>
-							@endif
-	    			</tr>
-	    		</tbody>
-	    	</table>
-	    </div>
-	    <!-- PER BREED -->
-	    <div id="perbreedview" class="col s12">
-	    	<div class="row" style="padding-top: 10px;">
-		    	<div class="col s4 offset-s1">
-		  			<p>Year-end Report for the year</p>
-		  		</div>
-	  			<div class="col s5"> 
-		  		{{-- {!! Form::open(['route' => 'farm.pig.prod_performance_month', 'method' => 'post', 'id' => 'report_filter2']) !!} --}}
-	    			<select id="filter_yearandmonth" name="filter_yearandmonth" class="browser-default" onchange="document.getElementById('year_filter').submit();">
-							<option disabled selected>Year ({{ $filter_year }})</option>
-							@foreach($years as $year)
-								<option value="{{ $year }}">{{ $year }}</option>
-							@endforeach
-						</select>
-	    		{{-- {!! Form::close() !!} --}}
-	    		</div
->		  	</div>
-	    	<table>
-	    		<thead>
-	    			<tr>
-	    				<th>Parameters (Averages)</th>
-	    				<th class="center">Value</th>
-	    				<th class="center">Standard Deviation</th>
-	    			</tr>
-	    		</thead>
-	    		<tbody>
-	    			{{-- TO BE CHANGED --}}
-	    			<tr>
-	    				<td>Litter-size Born Alive</td>
-	    				@if($lsba == [])
-		    				<td class="center">No data available</td>
-		    				<td class="center">No data available</td>
-		    			@else
-		    				<td class="center">{{ round(array_sum($lsba)/count($lsba), 2) }}</td>
-								<td class="center">{{ round($lsba_sd, 2) }}</td>
-							@endif
-	    			</tr>
-	    			<tr>
-	    				<td>Number Male Born</td>
-	    				@if($totalmales == [])
-		    				<td class="center">No data available</td>
-		    				<td class="center">No data available</td>
-		    			@else
-		    				<td class="center">{{ round(array_sum($totalmales)/count($totalmales), 2) }}</td>
-								<td class="center">{{ round($totalmales_sd, 2) }}</td>
-							@endif
-	    			</tr>
-	    			<tr>
-	    				<td>Number Female Born</td>
-	    				@if($totalfemales == [])
-		    				<td class="center">No data available</td>
-		    				<td class="center">No data available</td>
-		    			@else
-		    				<td class="center">{{ round(array_sum($totalfemales)/count($totalfemales), 2) }}</td>
-								<td class="center">{{ round($totalfemales_sd, 2) }}</td>
-							@endif
-	    			</tr>
-	    			<tr>
-	    				<td>Number Stillborn</td>
-	    				@if($stillborn == [])
-		    				<td class="center">No data available</td>
-		    				<td class="center">No data available</td>
-		    			@else
-		    				<td class="center">{{ round(array_sum($stillborn)/count($stillborn), 2) }}</td>
-								<td class="center">{{ round($stillborn_sd, 2) }}</td>
-							@endif
-	    			</tr>
-	    			<tr>
-	    				<td>Number Mummified</td>
-	    				@if($mummified == [])
-		    				<td class="center">No data available</td>
-		    				<td class="center">No data available</td>
-		    			@else
-		    				<td class="center">{{ round(array_sum($mummified)/count($mummified), 2) }}</td>
-								<td class="center">{{ round($mummified_sd, 2) }}</td>
-							@endif
-	    			</tr>
-	    			<tr>
-	    				<td>Litter Birth Weight, kg</td>
-	    				@if($totallitterbirthweights == [])
-		    				<td class="center">No data available</td>
-		    				<td class="center">No data available</td>
-		    			@else
-		    				<td class="center">{{ round(array_sum($totallitterbirthweights)/count($totallitterbirthweights), 2) }}</td>
-								<td class="center">{{ round($totallitterbirthweights_sd, 2) }}</td>
-							@endif
-	    			</tr>
-	    			<tr>
-	    				<td>Average Birth Weight, kg</td>
-	    				@if($avelitterbirthweights == [])
-		    				<td class="center">No data available</td>
-		    				<td class="center">No data available</td>
-		    			@else
-		    				<td class="center">{{ round(array_sum($avelitterbirthweights)/count($avelitterbirthweights), 2) }}</td>
-								<td class="center">{{ round($avelitterbirthweights_sd, 2) }}</td>
-							@endif
-	    			</tr>
-	    			<tr>
-	    				<td>Litter Weaning Weight, kg</td>
-	    				@if($totallitterweaningweights == [])
-		    				<td class="center">No data available</td>
-		    				<td class="center">No data available</td>
-		    			@else
-		    				<td class="center">{{ round(array_sum($totallitterweaningweights)/count($totallitterweaningweights), 2) }}</td>
-								<td class="center">{{ round($totallitterweaningweights_sd, 2) }}</td>
-							@endif
-	    			</tr>
-	    			<tr>
-	    				<td>Average Weaning Weight, kg</td>
-	    				@if($avelitterweaningweights == [])
-		    				<td class="center">No data available</td>
-		    				<td class="center">No data available</td>
-		    			@else
-		    				<td class="center">{{ round(array_sum($avelitterweaningweights)/count($avelitterweaningweights), 2) }}</td>
-								<td class="center">{{ round($avelitterweaningweights_sd, 2) }}</td>
-							@endif
-	    			</tr>
-	    			<tr>
-	    				<td>Adjusted Weaning Weight at 45 Days, kg</td>
-	    				@if($aveadjweaningweights == [])
-		    				<td class="center">No data available</td>
-		    				<td class="center">No data available</td>
-		    			@else
-		    				<td class="center">{{ round(array_sum($aveadjweaningweights)/count($aveadjweaningweights), 2) }}</td>
-								<td class="center">{{ round($aveadjweaningweights_sd, 2) }}</td>
-							@endif
-	    			</tr>
-	    			<tr>
-	    				<td>Number Weaned</td>
-	    				@if($totalweaned == [])
-		    				<td class="center">No data available</td>
-		    				<td class="center">No data available</td>
-		    			@else
-		    				<td class="center">{{ round(array_sum($totalweaned)/count($totalweaned), 2) }}</td>
-								<td class="center">{{ round($totalweaned_sd, 2) }}</td>
-							@endif
-	    			</tr>
-	    			<tr>
-	    				<td>Age Weaned, days</td>
-	    				@if($totalagesweaned == [])
-		    				<td class="center">No data available</td>
-		    				<td class="center">No data available</td>
-		    			@else
-		    				<td class="center">{{ round(array_sum($totalagesweaned)/count($totalagesweaned), 2) }}</td>
-								<td class="center">{{ round($totalagesweaned_sd, 2) }}</td>
-							@endif
-	    			</tr>
-	    			<tr>
-	    				<td>Pre-weaning Mortality</td>
-	    				@if($preweaningmortality == [])
-		    				<td class="center">No data available</td>
-		    				<td class="center">No data available</td>
-		    			@else
-		    				<td class="center">{{ round(array_sum($preweaningmortality)/count($preweaningmortality), 2) }}</td>
-								<td class="center">{{ round($preweaningmortality_sd, 2) }}</td>
-							@endif
-	    			</tr>
-	    		</tbody>
-	    	</table>
 	    </div>
 		</div>
 	</div>
@@ -661,14 +339,8 @@
         datasets: [{
           label: 'Litter-size Born Alive',
           data: [@foreach($parity as $parity_number) {{ App\Http\Controllers\FarmController::getPropertyAveragePerParity($parity_number, "lsba") }}, @endforeach],
-          borderColor: [
-            'rgba(255, 99, 132, 0.8)',
-            'rgba(54, 162, 235, 0.8)',
-            'rgba(255, 206, 86, 0.8)',
-            'rgba(75, 192, 192, 0.8)',
-            'rgba(153, 102, 255, 0.8)',
-            'rgba(255, 159, 64, 0.8)'
-          ]
+          borderColor: 'rgba(255, 99, 132, 0.8)',
+          backgroundColor: 'transparent'
         }],
         options: {
 					responsive: true,
@@ -699,14 +371,8 @@
         datasets: [{
           label: 'Number of Male Born',
           data: [@foreach($parity as $parity_number) {{ App\Http\Controllers\FarmController::getPropertyAveragePerParity($parity_number, "number of males") }}, @endforeach],
-          borderColor: [
-            'rgba(255, 99, 132, 0.8)',
-            'rgba(54, 162, 235, 0.8)',
-            'rgba(255, 206, 86, 0.8)',
-            'rgba(75, 192, 192, 0.8)',
-            'rgba(153, 102, 255, 0.8)',
-            'rgba(255, 159, 64, 0.8)'
-          ]
+          borderColor: 'rgba(255, 99, 132, 0.8)',
+          backgroundColor: 'transparent'
         }],
         options: {
 					responsive: true,
@@ -737,14 +403,8 @@
         datasets: [{
           label: 'Number of Female Born',
           data: [@foreach($parity as $parity_number) {{ App\Http\Controllers\FarmController::getPropertyAveragePerParity($parity_number, "number of females") }}, @endforeach],
-          borderColor: [
-            'rgba(255, 99, 132, 0.8)',
-            'rgba(54, 162, 235, 0.8)',
-            'rgba(255, 206, 86, 0.8)',
-            'rgba(75, 192, 192, 0.8)',
-            'rgba(153, 102, 255, 0.8)',
-            'rgba(255, 159, 64, 0.8)'
-          ]
+          borderColor: 'rgba(255, 99, 132, 0.8)',
+          backgroundColor: 'transparent'
         }],
         options: {
 					responsive: true,
@@ -775,14 +435,8 @@
         datasets: [{
           label: 'Number of Stillborn',
           data: [@foreach($parity as $parity_number) {{ App\Http\Controllers\FarmController::getPropertyAveragePerParity($parity_number, "stillborn") }}, @endforeach],
-          borderColor: [
-            'rgba(255, 99, 132, 0.8)',
-            'rgba(54, 162, 235, 0.8)',
-            'rgba(255, 206, 86, 0.8)',
-            'rgba(75, 192, 192, 0.8)',
-            'rgba(153, 102, 255, 0.8)',
-            'rgba(255, 159, 64, 0.8)'
-          ]
+          borderColor: 'rgba(255, 99, 132, 0.8)',
+          backgroundColor: 'transparent'
         }],
         options: {
 					responsive: true,
@@ -813,14 +467,8 @@
         datasets: [{
           label: 'Number of Mummified',
           data: [@foreach($parity as $parity_number) {{ App\Http\Controllers\FarmController::getPropertyAveragePerParity($parity_number, "mummified") }}, @endforeach],
-          borderColor: [
-            'rgba(255, 99, 132, 0.8)',
-            'rgba(54, 162, 235, 0.8)',
-            'rgba(255, 206, 86, 0.8)',
-            'rgba(75, 192, 192, 0.8)',
-            'rgba(153, 102, 255, 0.8)',
-            'rgba(255, 159, 64, 0.8)'
-          ]
+          borderColor: 'rgba(255, 99, 132, 0.8)',
+          backgroundColor: 'transparent'
         }],
         options: {
 					responsive: true,
@@ -851,14 +499,8 @@
         datasets: [{
           label: 'Litter Birth Weight',
           data: [@foreach($parity as $parity_number) {{ App\Http\Controllers\FarmController::getPropertyAveragePerParity($parity_number, "birth weight") }}, @endforeach],
-          borderColor: [
-            'rgba(255, 99, 132, 0.8)',
-            'rgba(54, 162, 235, 0.8)',
-            'rgba(255, 206, 86, 0.8)',
-            'rgba(75, 192, 192, 0.8)',
-            'rgba(153, 102, 255, 0.8)',
-            'rgba(255, 159, 64, 0.8)'
-          ]
+          borderColor: 'rgba(255, 99, 132, 0.8)',
+          backgroundColor: 'transparent'
         }],
         options: {
 					responsive: true,
@@ -889,14 +531,8 @@
         datasets: [{
           label: 'Average Birth Weight',
           data: [@foreach($parity as $parity_number) {{ App\Http\Controllers\FarmController::getPropertyAveragePerParity($parity_number, "ave birth weight") }}, @endforeach],
-          borderColor: [
-            'rgba(255, 99, 132, 0.8)',
-            'rgba(54, 162, 235, 0.8)',
-            'rgba(255, 206, 86, 0.8)',
-            'rgba(75, 192, 192, 0.8)',
-            'rgba(153, 102, 255, 0.8)',
-            'rgba(255, 159, 64, 0.8)'
-          ]
+          borderColor: 'rgba(255, 99, 132, 0.8)',
+          backgroundColor: 'transparent'
         }],
         options: {
 					responsive: true,
@@ -927,14 +563,8 @@
         datasets: [{
           label: 'Litter Weaning Weight',
           data: [@foreach($parity as $parity_number) {{ App\Http\Controllers\FarmController::getPropertyAveragePerParity($parity_number, "weaning weight") }}, @endforeach],
-          borderColor: [
-            'rgba(255, 99, 132, 0.8)',
-            'rgba(54, 162, 235, 0.8)',
-            'rgba(255, 206, 86, 0.8)',
-            'rgba(75, 192, 192, 0.8)',
-            'rgba(153, 102, 255, 0.8)',
-            'rgba(255, 159, 64, 0.8)'
-          ]
+          borderColor: 'rgba(255, 99, 132, 0.8)',
+          backgroundColor: 'transparent'
         }],
         options: {
 					responsive: true,
@@ -965,14 +595,8 @@
         datasets: [{
           label: 'Average Weaning Weight',
           data: [@foreach($parity as $parity_number) {{ App\Http\Controllers\FarmController::getPropertyAveragePerParity($parity_number, "ave weaning weight") }}, @endforeach],
-          borderColor: [
-            'rgba(255, 99, 132, 0.8)',
-            'rgba(54, 162, 235, 0.8)',
-            'rgba(255, 206, 86, 0.8)',
-            'rgba(75, 192, 192, 0.8)',
-            'rgba(153, 102, 255, 0.8)',
-            'rgba(255, 159, 64, 0.8)'
-          ]
+          borderColor: 'rgba(255, 99, 132, 0.8)',
+          backgroundColor: 'transparent'
         }],
         options: {
 					responsive: true,
@@ -1003,14 +627,8 @@
         datasets: [{
           label: 'Adjusted Weaning Weight at 45 Days',
           data: [@foreach($parity as $parity_number) {{ App\Http\Controllers\FarmController::getPropertyAveragePerParity($parity_number, "adj weaning weight") }}, @endforeach],
-          borderColor: [
-            'rgba(255, 99, 132, 0.8)',
-            'rgba(54, 162, 235, 0.8)',
-            'rgba(255, 206, 86, 0.8)',
-            'rgba(75, 192, 192, 0.8)',
-            'rgba(153, 102, 255, 0.8)',
-            'rgba(255, 159, 64, 0.8)'
-          ]
+          borderColor: 'rgba(255, 99, 132, 0.8)',
+          backgroundColor: 'transparent'
         }],
         options: {
 					responsive: true,
@@ -1041,14 +659,8 @@
         datasets: [{
           label: 'Number Weaned',
           data: [@foreach($parity as $parity_number) {{ App\Http\Controllers\FarmController::getPropertyAveragePerParity($parity_number, "number weaned") }}, @endforeach],
-          borderColor: [
-            'rgba(255, 99, 132, 0.8)',
-            'rgba(54, 162, 235, 0.8)',
-            'rgba(255, 206, 86, 0.8)',
-            'rgba(75, 192, 192, 0.8)',
-            'rgba(153, 102, 255, 0.8)',
-            'rgba(255, 159, 64, 0.8)'
-          ]
+          borderColor: 'rgba(255, 99, 132, 0.8)',
+          backgroundColor: 'transparent'
         }],
         options: {
 					responsive: true,
@@ -1079,14 +691,8 @@
         datasets: [{
           label: 'Age Weaned',
           data: [@foreach($parity as $parity_number) {{ App\Http\Controllers\FarmController::getPropertyAveragePerParity($parity_number, "age weaned") }}, @endforeach],
-          borderColor: [
-            'rgba(255, 99, 132, 0.8)',
-            'rgba(54, 162, 235, 0.8)',
-            'rgba(255, 206, 86, 0.8)',
-            'rgba(75, 192, 192, 0.8)',
-            'rgba(153, 102, 255, 0.8)',
-            'rgba(255, 159, 64, 0.8)'
-          ]
+          borderColor: 'rgba(255, 99, 132, 0.8)',
+          backgroundColor: 'transparent'
         }],
         options: {
 					responsive: true,
@@ -1117,14 +723,8 @@
         datasets: [{
           label: 'Pre-weaning Mortality',
           data: [@foreach($parity as $parity_number) {{ App\Http\Controllers\FarmController::getPropertyAveragePerParity($parity_number, "preweaning mortality") }}, @endforeach],
-          borderColor: [
-            'rgba(255, 99, 132, 0.8)',
-            'rgba(54, 162, 235, 0.8)',
-            'rgba(255, 206, 86, 0.8)',
-            'rgba(75, 192, 192, 0.8)',
-            'rgba(153, 102, 255, 0.8)',
-            'rgba(255, 159, 64, 0.8)'
-          ]
+          borderColor: 'rgba(255, 99, 132, 0.8)',
+          backgroundColor: 'transparent'
         }],
         options: {
 					responsive: true,

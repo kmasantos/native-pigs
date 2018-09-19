@@ -22,11 +22,12 @@
 						<li><a href="{{route('farm.index')}}">{{ Auth::user()->name }}</a></li>
 						<li><a href="logout" id="logoutbutton" onclick="window.location='https://accounts.google.com/Logout?&continue=http://www.google.com/';">Logout</a></li>
 					</ul>
+          <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
 				</div>
 			</nav>
 		</div>
 
-		<ul id="slide-out" class="side-nav grey lighten-2 fixed">
+		<ul id="slide-out" class="sidenav grey lighten-2 sidenav-fixed">
 			<li>
 				<div class="user-view">
 					<div class="background green lighten-1"></div>
@@ -96,6 +97,8 @@
                 <li><a href="{{route('farm.pig.growth_performance_report')}}">Growth Performance</a></li>
                 <li><a href="{{route('farm.pig.breeder_production_report')}}">Breeder Production</a></li>
                 <li><a href="{{route('farm.pig.production_performance_report')}}">Production Performance</a></li>
+                <li><a href="{{route('farm.pig.monthly_performance_report')}}">Monthly Performance</a></li>
+                <li><a href="{{route('farm.pig.year_end_performance_report')}}">Year-end Performance</a></li>
                	<li><a href="{{route('farm.pig.breeder_inventory_report')}}">Breeder Inventory</a></li>
                	<li><a href="{{route('farm.pig.grower_inventory_report')}}">Grower Inventory</a></li>
                	<li><a href="{{route('farm.pig.mortality_and_sales_report')}}">Mortality &amp; Sales</a></li>
