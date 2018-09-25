@@ -6,7 +6,7 @@
 
 @section('content')
 	<div class="container">
-		<h4><a href="{{route('farm.pig.breeding_record')}}"><img src="{{asset('images/back.png')}}" width="4.5%"></a> Sow-Litter Record</h4>
+		<h4><a href="{{route('farm.pig.breeding_record')}}"><img src="{{asset('images/back.png')}}" width="4.5%"></a> Sow and Litter Record</h4>
 		{{-- <h4><a href="{{$_SERVER['HTTP_REFERER']}}"><img src="{{asset('images/back.png')}}" width="4.5%"></a> Sow and Litter Record</h4> --}}
 		<div class="divider"></div>
 		{!! Form::open(['route' => 'farm.pig.get_sowlitter_record', 'method' => 'post']) !!}
@@ -542,9 +542,15 @@
 									@forelse($offsprings as $offspring)
 										{!! Form::open(['route' => 'farm.pig.edit_temporary_registryid', 'method' => 'post']) !!}
 										<tr>
-											<td>
-												{{ $offspring->getChild()->registryid }} <a href="#edit_id{{$offspring->getChild()->id}}" class="modal-trigger"><i class="material-icons right">edit</i></a>
-											</td>
+											@if($offspring->getChild()->status != "active")
+												<td>
+													{{ $offspring->getChild()->registryid }} <a href="#edit_id{{$offspring->getChild()->id}}" class="modal-trigger"><i class="material-icons right">edit</i></a>
+												</td>
+											@else
+												<td>
+													{{ $offspring->getChild()->registryid }} {{-- <a href="#edit_id{{$offspring->getChild()->id}}" class="modal-trigger"><i class="material-icons right">edit</i></a> --}}
+												</td>
+											@endif
 											{{-- MODAL STRUCTURE --}}
 											{{-- <div id="edit_id{{$offspring->getChild()->id}}" class="modal">
 												<div class="modal-content">
@@ -844,9 +850,15 @@
 										@forelse($offsprings as $offspring)
 											{!! Form::open(['route' => 'farm.pig.edit_temporary_registryid', 'method' => 'post']) !!}
 											<tr>
+												@if($offspring->getChild()->status != "active")
 												<td>
 													{{ $offspring->getChild()->registryid }} <a href="#edit_id{{$offspring->getChild()->id}}" class="modal-trigger"><i class="material-icons right">edit</i></a>
 												</td>
+											@else
+												<td>
+													{{ $offspring->getChild()->registryid }} {{-- <a href="#edit_id{{$offspring->getChild()->id}}" class="modal-trigger"><i class="material-icons right">edit</i></a> --}}
+												</td>
+											@endif
 												{{-- MODAL STRUCTURE --}}
 												{{-- <div id="edit_id{{$offspring->getChild()->id}}" class="modal">
 													<div class="modal-content">
@@ -1145,9 +1157,15 @@
 										@forelse($offsprings as $offspring)
 											{!! Form::open(['route' => 'farm.pig.edit_temporary_registryid', 'method' => 'post']) !!}
 											<tr>
-												<td>
-													{{ $offspring->getChild()->registryid }} <a href="#edit_id{{$offspring->getChild()->id}}" class="modal-trigger"><i class="material-icons right">edit</i></a>
-												</td>
+												@if($offspring->getChild()->status != "active")
+													<td>
+														{{ $offspring->getChild()->registryid }} <a href="#edit_id{{$offspring->getChild()->id}}" class="modal-trigger"><i class="material-icons right">edit</i></a>
+													</td>
+												@else
+													<td>
+														{{ $offspring->getChild()->registryid }} {{-- <a href="#edit_id{{$offspring->getChild()->id}}" class="modal-trigger"><i class="material-icons right">edit</i></a> --}}
+													</td>
+												@endif
 												{{-- MODAL STRUCTURE --}}
 												<div id="edit_id{{$offspring->getChild()->id}}" class="modal">
 													<div class="modal-content">

@@ -75,7 +75,7 @@ class FarmController extends Controller
 						}
 					}
 
-					static::addFrequency();
+					// static::addFrequency();
 					
 					return view('pigs.dashboard', compact('user', 'farm', 'pigs', 'breeders', 'femalegrowers', 'malegrowers', 'femalebreeders', 'malebreeders', 'now'));
 			}else{
@@ -2736,43 +2736,43 @@ class FarmController extends Controller
 				$properties = $pig->getAnimalProperties();
 				foreach ($properties as $property) {
 					if($property->property_id == 5){ //birth weights
-						if($property->value != ""){
+						if(!is_null($property) && $property->value != ""){
 							$bweight = $property->value;
 							array_push($bweights, $bweight);
 						}
 					}
 					if($property->property_id == 7){ //weaning weights
-						if($property->value != ""){
+						if(!is_null($property) && $property->value != ""){
 							$wweight = $property->value;
 							array_push($wweights, $wweight);
 						}
 					}
 					if($property->property_id == 32){ //45d
-						if($property->value != ""){
+						if(!is_null($property) && $property->value != ""){
 							$weight45d = $property->value;
 							array_push($weights45d, $weight45d);
 						}
 					}
 					if($property->property_id == 33){ //60d
-						if($property->value != ""){
+						if(!is_null($property) && $property->value != ""){
 							$weight60d = $property->value;
 							array_push($weights60d, $weight60d);
 						}
 					}
 					if($property->property_id == 34){ //90d
-						if($property->value != ""){
+						if(!is_null($property) && $property->value != ""){
 							$weight90d = $property->value;
 							array_push($weights90d, $weight90d);
 						}
 					}
 					if($property->property_id == 35){ //150d
-						if($property->value != ""){
-							$weight1500d = $property->value;
+						if(!is_null($property) && $property->value != ""){
+							$weight150d = $property->value;
 							array_push($weights150d, $weight150d);
 						}
 					}
 					if($property->property_id == 36){ //180d
-						if($property->value != ""){
+						if(!is_null($property) && $property->value != ""){
 							$weight180d = $property->value;
 							array_push($weights180d, $weight180d);
 						}
@@ -2814,43 +2814,43 @@ class FarmController extends Controller
 				$breederproperties = $breeder->getAnimalProperties();
 				foreach ($breederproperties as $breederproperty) {
 					if($breederproperty->property_id == 5){ //birth weights
-						if($breederproperty->value != ""){
+						if(!is_null($breederproperty) && $breederproperty->value != ""){
 							$bweight_breeders = $breederproperty->value;
 							array_push($bweights_breeders, $bweight_breeders);
 						}
 					}
 					if($breederproperty->property_id == 7){ //weaning weights
-						if($breederproperty->value != ""){
+						if(!is_null($breederproperty) && $breederproperty->value != ""){
 							$wweight_breeders = $breederproperty->value;
 							array_push($wweights_breeders, $wweight_breeders);
 						}
 					}
 					if($breederproperty->property_id == 32){ //45d
-						if($breederproperty->value != ""){
+						if(!is_null($breederproperty) && $breederproperty->value != ""){
 							$weight45d_breeders = $breederproperty->value;
 							array_push($weights45d_breeders, $weight45d_breeders);
 						}
 					}
 					if($breederproperty->property_id == 33){ //60d
-						if($breederproperty->value != ""){
+						if(!is_null($breederproperty) && $breederproperty->value != ""){
 							$weight60d_breeders = $breederproperty->value;
 							array_push($weights60d_breeders, $weight60d_breeders);
 						}
 					}
 					if($breederproperty->property_id == 34){ //90d
-						if($breederproperty->value != ""){
+						if(!is_null($breederproperty) && $breederproperty->value != ""){
 							$weight90d_breeders = $breederproperty->value;
 							array_push($weights90d_breeders, $weight90d_breeders);
 						}
 					}
 					if($breederproperty->property_id == 35){ //150d
-						if($breederproperty->value != ""){
-							$weight1500d_breeders = $breederproperty->value;
+						if(!is_null($breederproperty) && $breederproperty->value != ""){
+							$weight150d_breeders = $breederproperty->value;
 							array_push($weights150d_breeders, $weight150d_breeders);
 						}
 					}
 					if($breederproperty->property_id == 36){ //180d
-						if($breederproperty->value != ""){
+						if(!is_null($breederproperty) && $breederproperty->value != ""){
 							$weight180d_breeders = $breederproperty->value;
 							array_push($weights180d_breeders, $weight180d_breeders);
 						}
@@ -2891,43 +2891,43 @@ class FarmController extends Controller
 				$growerproperties = $grower->getAnimalProperties();
 				foreach ($growerproperties as $growerproperty) {
 					if($growerproperty->property_id == 5){ //birth weights
-						if($growerproperty->value != ""){
+						if(!is_null($growerproperty) && $growerproperty->value != ""){
 							$bweight_growers = $growerproperty->value;
 							array_push($bweights_growers, $bweight_growers);
 						}
 					}
 					if($growerproperty->property_id == 7){ //weaning weights
-						if($growerproperty->value != ""){
+						if(!is_null($growerproperty) && $growerproperty->value != ""){
 							$wweight_growers = $growerproperty->value;
 							array_push($wweights_growers, $wweight_growers);
 						}
 					}
 					if($growerproperty->property_id == 32){ //45d
-						if($growerproperty->value != ""){
+						if(!is_null($growerproperty) && $growerproperty->value != ""){
 							$weight45d_growers = $growerproperty->value;
 							array_push($weights45d_growers, $weight45d_growers);
 						}
 					}
 					if($growerproperty->property_id == 33){ //60d
-						if($growerproperty->value != ""){
+						if(!is_null($growerproperty) && $growerproperty->value != ""){
 							$weight60d_growers = $growerproperty->value;
 							array_push($weights60d_growers, $weight60d_growers);
 						}
 					}
 					if($growerproperty->property_id == 34){ //90d
-						if($growerproperty->value != ""){
+						if(!is_null($growerproperty) && $growerproperty->value != ""){
 							$weight90d_growers = $growerproperty->value;
 							array_push($weights90d_growers, $weight90d_growers);
 						}
 					}
 					if($growerproperty->property_id == 35){ //150d
-						if($growerproperty->value != ""){
-							$weight1500d_growers = $growerproperty->value;
+						if(!is_null($growerproperty) && $growerproperty->value != ""){
+							$weight150d_growers = $growerproperty->value;
 							array_push($weights150d_growers, $weight150d_growers);
 						}
 					}
 					if($growerproperty->property_id == 36){ //180d
-						if($growerproperty->value != ""){
+						if(!is_null($growerproperty) && $growerproperty->value != ""){
 							$weight180d_growers = $growerproperty->value;
 							array_push($weights180d_growers, $weight180d_growers);
 						}
@@ -5081,10 +5081,15 @@ class FarmController extends Controller
 						foreach ($groupingproperties as $groupingproperty) {
 							if($groupingproperty->property_id == 48){ //parity
 								if($groupingproperty->value == 1){
-									$date_bred = $group->getGroupingProperties()->where("property_id", 42)->first()->value;
-									if(!is_null($sow->getAnimalProperties()->where("property_id", 3)->first())){
-										$bday = $sow->getAnimalProperties()->where("property_id", 3)->first()->value;
-										$ageAtFirstMating = Carbon::parse($date_bred)->diffInMonths(Carbon::parse($bday));
+									$date_bred = $group->getGroupingProperties()->where("property_id", 42)->first();
+									if(!is_null($date_bred) && $date_bred->value != "Not specified"){
+										if(!is_null($sow->getAnimalProperties()->where("property_id", 3)->first()) && $sow->getAnimalProperties()->where("property_id", 3)->first()->value != "Not specified"){
+											$bday = $sow->getAnimalProperties()->where("property_id", 3)->first()->value;
+											$ageAtFirstMating = Carbon::parse($date_bred)->diffInMonths(Carbon::parse($bday));
+										}
+										else{
+											$ageAtFirstMating = "";
+										}
 									}
 									else{
 										$ageAtFirstMating = "";
@@ -6876,7 +6881,7 @@ class FarmController extends Controller
 			$animal = Animal::find($animalid);
 
 			// used when date collected was not provided
-			$bday = $animal->getAnimalProperties()->where("property_id", 25)->first();
+			$bday = $animal->getAnimalProperties()->where("property_id", 3)->first();
 
 			// creates new properties
 			$bw45d = new AnimalProperty;
