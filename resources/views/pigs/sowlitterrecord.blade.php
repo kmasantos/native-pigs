@@ -542,7 +542,7 @@
 									@forelse($offsprings as $offspring)
 										{!! Form::open(['route' => 'farm.pig.edit_temporary_registryid', 'method' => 'post']) !!}
 										<tr>
-											@if($offspring->getChild()->status != "active")
+											@if($offspring->getChild()->status == "temporary")
 												<td>
 													{{ $offspring->getChild()->registryid }} <a href="#edit_id{{$offspring->getChild()->id}}" class="modal-trigger"><i class="material-icons right">edit</i></a>
 												</td>
@@ -850,7 +850,7 @@
 										@forelse($offsprings as $offspring)
 											{!! Form::open(['route' => 'farm.pig.edit_temporary_registryid', 'method' => 'post']) !!}
 											<tr>
-												@if($offspring->getChild()->status != "active")
+												@if($offspring->getChild()->status == "temporary")
 												<td>
 													{{ $offspring->getChild()->registryid }} <a href="#edit_id{{$offspring->getChild()->id}}" class="modal-trigger"><i class="material-icons right">edit</i></a>
 												</td>
@@ -1157,7 +1157,7 @@
 										@forelse($offsprings as $offspring)
 											{!! Form::open(['route' => 'farm.pig.edit_temporary_registryid', 'method' => 'post']) !!}
 											<tr>
-												@if($offspring->getChild()->status != "active")
+												@if($offspring->getChild()->status == "temporary")
 													<td>
 														{{ $offspring->getChild()->registryid }} <a href="#edit_id{{$offspring->getChild()->id}}" class="modal-trigger"><i class="material-icons right">edit</i></a>
 													</td>

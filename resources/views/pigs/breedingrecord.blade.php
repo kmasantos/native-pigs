@@ -154,7 +154,7 @@
 										@else
 											{{-- bred --}}
 											@if($breedingRecord->getGroupingProperties()->where("property_id", 60)->first()->value == "Bred")
-												{!! Form::open(['route' => ['farm.pig.change_status_bred', $breedingRecord->id], 'method' => 'post', 'id' => 'bred_change']) !!}
+												{!! Form::open(['route' => ['farm.pig.change_status_bred', $breedingRecord->id], 'method' => 'post']) !!}
 												<td width="120">
 													{{ $breedingRecord->getGroupingProperties()->where("property_id", 60)->first()->value }} <a href="#change_from_bred_modal{{ $breedingRecord->id }}" class="modal-trigger tooltipped" data-position="top" data-tooltip="Change status"><i class="material-icons right">swap_vert</i></a>
 												</td>
@@ -186,7 +186,7 @@
 												{!! Form::close() !!}
 											{{-- pregnant --}}
 											@elseif($breedingRecord->getGroupingProperties()->where("property_id", 60)->first()->value == "Pregnant")
-												{!! Form::open(['route' => ['farm.pig.change_status_pregnant', $breedingRecord->id], 'method' => 'post', 'id' => 'pregnant_change']) !!}
+												{!! Form::open(['route' => ['farm.pig.change_status_pregnant', $breedingRecord->id], 'method' => 'post']) !!}
 												<td width="120">
 													{{ $breedingRecord->getGroupingProperties()->where("property_id", 60)->first()->value }} <a href="#change_from_pregnant_modal{{ $breedingRecord->id }}" class="modal-trigger tooltipped" data-position="top" data-tooltip="Change status"><i class="material-icons right">swap_vert</i></a>
 												</td>

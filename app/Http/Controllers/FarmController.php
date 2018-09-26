@@ -1256,11 +1256,11 @@ class FarmController extends Controller
 			}
 
 			// automatically updates mother's parity
-			foreach ($family as $group) {
+			/*foreach ($family as $group) {
 				static::addParityMother($group->id);
 			}
 
-			static::addFrequency();
+			static::addFrequency();*/
 
 			// TO FOLLOW: this will be used for filtering results
 			$now = Carbon::now();
@@ -4327,6 +4327,7 @@ class FarmController extends Controller
 			$breds = [];
 			$pregnantsows = [];
 			$lactatingsows = [];
+			$templactating = [];
 			foreach ($groups as $group) {
 				$gproperties = $group->getGroupingProperties();
 				foreach ($gproperties as $gproperty) {
@@ -4341,25 +4342,35 @@ class FarmController extends Controller
 								}
 							}
 						}
-						if($now->gte(Carbon::parse($gproperty->value))){
-							if($group->getGroupingProperties()->where("property_id", 60)->first()->value == "Pregnant"){
-								$pregnant = $group->getMother();
-								if($pregnant->status == "breeder"){
-									array_push($pregnantsows, $pregnant);
-								}
+						if($now->gte(Carbon::parse($gproperty->value)) && Carbon::parse($gproperty->value)->addDays(114)->gte($now)){
+							$pregnant = $group->getMother();
+							if($pregnant->status == "breeder"){
+								array_push($pregnantsows, $pregnant);
+							}
+						}
+					}
+					if($gproperty->property_id == 60){ //status
+						if($gproperty->value == "Pregnant"){
+							$pregnant = $group->getMother();
+							if($pregnant->status == "breeder"){
+								array_push($pregnantsows, $pregnant);
 							}
 						}
 					}
 					if($gproperty->property_id == 3){ // date farrowed
-						if($now->gte(Carbon::parse($gproperty->value)) && $now->lte(Carbon::parse($gproperty->value)->addDays(100))){ // some farms wean their pigs as late as 100 days
-							$lactating = $group->getMother();
-							if($lactating->status == "breeder"){
-								array_push($lactatingsows, $lactating);
+						if($now->gte(Carbon::parse($gproperty->value))){
+							if(is_null($group->getGroupingProperties()->where("property_id", 6)->first())){
+								$lactating = $group->getMother();
+								if($lactating->status == "breeder"){
+									array_push($templactating, $lactating);
+								}
 							}
 						}
 					}
 				}
 			}
+			$intersection = array_intersect($pregnantsows, array_unique($templactating));
+			$lactatingsows = array_diff(array_unique($templactating), $intersection);
 			$drysows = count($sows) - (count($breds) + count($pregnantsows) + count($lactatingsows));
 			
 			// sorts female pigs into gilts and sows which were bred at least once
@@ -4376,7 +4387,7 @@ class FarmController extends Controller
 				}
 			}
 
-			static::addFrequency();
+			// static::addFrequency();
 
 			return view('pigs.breederinventory', compact('pigs', 'sows', 'boars', 'groups', 'frequency', 'breds', 'pregnantsows', 'lactatingsows', 'drysows', 'gilts', 'jrboars', 'srboars', 'now', 'noage'));
 		}
