@@ -3241,6 +3241,7 @@ class FarmController extends Controller
 			
 			//age of breeding herd
 			// age of all breeders
+			$now = new Carbon();
 			$breederages = [];
 			$herdbreeders = [];
 			foreach ($breeders as $breeder) {
@@ -3254,7 +3255,6 @@ class FarmController extends Controller
 								if($bredbreederproperty->property_id == 3){ // date farrowed
 									if(!is_null($bredbreederproperty->value) && $bredbreederproperty->value != "Not specified"){
 										$bday_breeder = $bredbreederproperty->value;
-										$now = new Carbon();
 										$breederage = $now->diffInMonths(Carbon::parse($bday_breeder));
 										array_push($breederages, $breederage);
 									}
@@ -3279,7 +3279,6 @@ class FarmController extends Controller
 								if($bredsowproperty->property_id == 3){ // date farrowed
 									if(!is_null($bredsowproperty->value) && $bredsowproperty->value != "Not specified"){
 										$bday_sow = $bredsowproperty->value;
-										$now = new Carbon();
 										$breedersowage = $now->diffInMonths(Carbon::parse($bday_sow));
 										array_push($breedersowages, $breedersowage);
 									}
@@ -3304,7 +3303,6 @@ class FarmController extends Controller
 								if($bredboarproperty->property_id == 3){ // date farrowed
 									if(!is_null($bredboarproperty->value) && $bredboarproperty->value != "Not specified"){
 										$bday_boar = $bredboarproperty->value;
-										$now = new Carbon();
 										$breederboarage = $now->diffInMonths(Carbon::parse($bday_boar));
 										array_push($breederboarages, $breederboarage);
 									}
@@ -3333,7 +3331,7 @@ class FarmController extends Controller
 				}
 			}
 
-			return view('pigs.breederproduction', compact('breeders', 'sows', 'boars', 'ages_weanedsow', 'ages_weanedsow_sd', 'ages_weanedboar', 'ages_weanedboar_sd', 'ages_weanedbreeder', 'ages_weanedbreeder_sd', 'breederages', 'herdbreeders', 'breedersowages', 'breedersows', 'breederboarages', 'breederboars', 'firstbreds', 'firstbredsows', 'firstbredsowsages', 'firstbredsowsages_sd', 'duplicates', 'firstbredboars', 'uniqueboars', 'firstbredboarsages', 'firstbredboarsages_sd', 'firstbredages', 'firstbredages_sd', 'months', 'years_weaning'));
+			return view('pigs.breederproduction', compact('breeders', 'sows', 'boars', 'ages_weanedsow', 'ages_weanedsow_sd', 'ages_weanedboar', 'ages_weanedboar_sd', 'ages_weanedbreeder', 'ages_weanedbreeder_sd', 'breederages', 'herdbreeders', 'breedersowages', 'breedersows', 'breederboarages', 'breederboars', 'firstbreds', 'firstbredsows', 'firstbredsowsages', 'firstbredsowsages_sd', 'duplicates', 'firstbredboars', 'uniqueboars', 'firstbredboarsages', 'firstbredboarsages_sd', 'firstbredages', 'firstbredages_sd', 'months', 'years_weaning', 'now'));
 		}
 
 		static function getMonthlyAgeAtWeaning($year, $month, $filter){
@@ -4371,8 +4369,7 @@ class FarmController extends Controller
 			}
 			$intersection = array_intersect($pregnantsows, array_unique($templactating));
 			$lactatingsows = array_diff(array_unique($templactating), $intersection);
-			$drysows = count($sows) - (count($breds) + count($pregnantsows) + count($lactatingsows));
-			
+
 			// sorts female pigs into gilts and sows which were bred at least once
 			$gilts = [];
 			$bredsows = [];
@@ -4388,6 +4385,9 @@ class FarmController extends Controller
 			}
 
 			// static::addFrequency();
+
+			$drysows = count($sows) - (count($breds) + count($pregnantsows) + count($lactatingsows) + count($gilts));
+			
 
 			return view('pigs.breederinventory', compact('pigs', 'sows', 'boars', 'groups', 'frequency', 'breds', 'pregnantsows', 'lactatingsows', 'drysows', 'gilts', 'jrboars', 'srboars', 'now', 'noage'));
 		}

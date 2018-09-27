@@ -24,17 +24,15 @@
 			{!! Form::close() !!}
 		</div>
 	</div>
-	<div style="padding-left: 200px;">
-		<div id="mainDiv">
-			@if($animal->count() == 0)
-				<h4 class="center">No results available</h4>
-			@else
-				@if($group->count() == 0)
-					<h4 class="center">{{ $registrationid }}: Parent data unavailable</h4>
-				@endif
+	<div id="mainDiv">
+		@if($animal->count() == 0)
+			<h4 class="center">No results available</h4>
+		@else
+			@if($group->count() == 0)
+				<h4 class="center">{{ $registrationid }}: Parent data unavailable</h4>
 			@endif
-		</div>
-  </div>
+		@endif
+	</div>
 @endsection
 
 @section('scripts')

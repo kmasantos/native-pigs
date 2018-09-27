@@ -60,7 +60,7 @@
 							@endif
 						</tr>
 						<tr>
-							<td>Herd</td>
+							<td>Total</td>
 							@if($ages_weanedbreeder == [])
 								<td colspan="5" class="center">No data available</td>
 							@else
@@ -162,7 +162,7 @@
 							@endif
 						</tr>
 						<tr>
-							<td>Herd</td>
+							<td>Total</td>
 							@if($firstbredages == [])
 								<td colspan="5" class="center">No data available</td>
 							@else
@@ -179,6 +179,7 @@
 			<!-- AGE OF BREEDING HERD -->
 			<div id="breedingherdview" class="col s12" style="padding-top: 10px;">
 				<div class="row">
+					<h5>As of <strong>{{ Carbon\Carbon::parse($now)->format('F j, Y') }}</strong></h5>
 					<div class="col s6 push-s3">
 						<div class="card">
 							<div class="card-content grey lighten-2">

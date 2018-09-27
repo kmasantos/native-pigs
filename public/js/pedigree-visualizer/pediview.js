@@ -58,9 +58,9 @@ const visualize = (json) => {
 
 	// Set initial margins for SVG dimension initialization
 	let margin =	{
-						top: 20,
+						top: 0,
 						right: 100,
-						left: 100,
+						left: 350,
 						bottom: 20
 					},
 
