@@ -219,7 +219,7 @@
 									@endif
 			    			</tr>
 			    			<tr>
-			    				<td>Pre-weaning Mortality</td>
+			    				<td>Pre-weaning Mortality, %</td>
 			    				@if($preweaningmortality == [])
 				    				<td class="center">No data available</td>
 				    				<td class="center">No data available</td>

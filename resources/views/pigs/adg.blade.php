@@ -14,10 +14,11 @@
 					<div class="card-content grey lighten-2">
 						@if($adg_birth != "")
 							<h3>{{ round($adg_birth, 2) }} kg</h3>
+							<p>Latest weight record: {{ $number_of_days }} days</p>
 						@else
 							<h4>No data available</h4>
 						@endif
-						<p>From Birth</p>
+						<h5>From Birth</h5>
 					</div>
 					<div class="card-action">
 						@if(!is_null($properties->where("property_id", 5)->first()))
@@ -49,6 +50,7 @@
 								<h3>0 kg</h3>
 							@else
 								<h3>{{ round($adg_weaning, 2) }} kg</h3>
+								<p>Latest weight record: {{ $number_of_days }} days</p>
 							@endif
 						@else
 							@if(!is_null($properties->where("property_id", 7)->first()))
@@ -57,7 +59,7 @@
 								<h4>No data available</h4>
 							@endif
 						@endif
-						<p>From Weaning</p>
+						<h5>From Weaning</h5>
 					</div>
 					<div class="card-action">
 						@if(!is_null($properties->where("property_id", 7)->first()))

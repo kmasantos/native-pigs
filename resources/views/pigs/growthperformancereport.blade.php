@@ -20,7 +20,7 @@
 	    </div>
 	    {{-- PER HERD --}}
 	    <div id="perherdview" class="col s12">
-	    	<h5 class="center">Total number of pigs: <strong>{{ count($pigs) }}</strong> <a href="#!" class="tooltipped" data-position="bottom" data-tooltip="All pigs including dead, sold, culled, and donated"><i class="material-icons">info_outline</i></a></h5>
+	    	<h5 class="center">Total number of pigs: <strong>{{ count($pigs) }}</strong> <a class="tooltipped" data-position="bottom" data-tooltip="All pigs including dead, sold, culled, and donated"><i class="material-icons">info_outline</i></a></h5>
 	    	<table class="centered">
 	    		<thead>
 	    			<tr>
@@ -326,7 +326,7 @@
 	    </div>
 	    {{-- PER YEAR OF BIRTH --}}
 	    <div id="peryearofbirthview" class="col s12">
-	   		<h5 class="center">Total number of pigs: <strong>{{ count($pigs) }}</strong> <a href="#!" class="tooltipped" data-position="bottom" data-tooltip="All pigs including dead, sold, culled, and donated"><i class="material-icons">info_outline</i></a></h5>
+	   		<h5 class="center">Total number of pigs: <strong>{{ count($pigs) }}</strong> <a class="tooltipped" data-position="bottom" data-tooltip="All pigs including dead, sold, culled, and donated"><i class="material-icons">info_outline</i></a></h5>
 	    	<div class="row center">
 	    		<p>Birth Weight, kg</p>
 	    		<table class="centered">

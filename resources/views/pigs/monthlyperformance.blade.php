@@ -25,6 +25,9 @@
 			<div class="row center">
 				<canvas id="monthlyperformancecanvas"></canvas>
 			</div>
+			<div class="row center">
+				<canvas id="monthlyinventorycanvas"></canvas>
+			</div>
     </div>
   </div>
 @endsection
@@ -88,6 +91,64 @@
 	    type: 'line',
 	    data: monthlydata,
 	    options: chartOptions
+		});
+		var monthlylsba = {
+      label: 'Monthly LSBA',
+      data: [
+      	@foreach($months as $month) {{ App\Http\Controllers\FarmController::getMonthlyLSBA($filter, $month) }}, @endforeach, 
+      ],
+      borderColor: 'rgb(255, 99, 132)',
+      backgroundColor: 'transparent'
+		};
+		var monthlynumbermales = {
+      label: 'Monthly Number Males',
+      data: [
+      	@foreach($months as $month) {{ App\Http\Controllers\FarmController::getMonthlyNumberMales($filter, $month) }}, @endforeach, 
+      ],
+      borderColor: 'rgb(54, 162, 235)',
+      backgroundColor: 'transparent'
+		};
+		var monthlynumberfemales = {
+      label: 'Monthly Number Females',
+      data: [
+      	@foreach($months as $month) {{ App\Http\Controllers\FarmController::getMonthlyNumberFemales($filter, $month) }}, @endforeach, 
+      ],
+      borderColor: 'rgb(255, 206, 86)',
+      backgroundColor: 'transparent'
+		};
+		var monthlyinventory = {
+			labels: [@foreach($months as $month) "{{ $month }}", @endforeach],
+			datasets: [monthlylsba, monthlynumbermales, monthlynumberfemales]
+		};
+		var chartOptions2 = {
+			responsive: true,
+			scales: {
+				xAxes: [{
+					display: true,
+					scaleLabel: {
+						display: true,
+						labelString: 'Months'
+					}
+				}],
+				yAxes: [{
+					display: true,
+					scaleLabel: {
+						display: true,
+						labelString: 'Count'
+					}
+				}],
+				elements: {
+          line: {
+            fill: false
+          }
+      	}
+			}
+		};
+		var ctx2 = document.getElementById("monthlyinventorycanvas").getContext('2d');
+		var monthlyinventorychart = new Chart(ctx2, {
+	    type: 'line',
+	    data: monthlyinventory,
+	    options: chartOptions2
 		});
 	</script>
 @endsection

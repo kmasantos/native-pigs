@@ -24,7 +24,7 @@
 						<div class="card">
 							<div class="card-content grey lighten-2">
 								<h3>{{ count($breds) }}</h3>
-								<p>Bred</p>
+								<p><a class="tooltipped" data-position="bottom" data-tooltip="Bred sows for the month as of today">Bred</a></p></p>
 							</div>
 						</div>
 					</div>
@@ -32,7 +32,7 @@
 						<div class="card">
 							<div class="card-content grey lighten-2">
 								<h3>{{ count($gilts) }}</h3>
-								<p><a href="#!" class="tooltipped" data-position="bottom" data-tooltip="Not bred sows">Gilts</a></p>
+								<p><a class="tooltipped" data-position="bottom" data-tooltip="Not bred sows">Gilts</a></p>
 							</div>
 						</div>
 					</div>
@@ -40,7 +40,7 @@
 						<div class="card">
 							<div class="card-content grey lighten-2">
 								<h3>{{ count($pregnantsows) }}</h3>
-								<p>Pregnant</p>
+								<p><a class="tooltipped" data-position="bottom" data-tooltip="Pregnant sows for the month as of today">Pregnant</a></p></p>
 							</div>
 						</div>
 					</div>
@@ -48,7 +48,7 @@
 						<div class="card">
 							<div class="card-content grey lighten-2">
 								<h3>{{ count($lactatingsows) }}</h3>
-								<p><a href="#!" class="tooltipped" data-position="bottom" data-tooltip="Farrowed, not yet weaned">Lactating</a></p>
+								<p><a class="tooltipped" data-position="bottom" data-tooltip="Farrowed, not yet weaned">Lactating</a></p>
 							</div>
 						</div>
 					</div>
@@ -60,7 +60,7 @@
 								@else
 									<h3>{{ $drysows }}</h3>
 								@endif
-								<p><a href="#!" class="tooltipped" data-position="bottom" data-tooltip="Weaned and recycled sows">Dry</a></p>
+								<p><a class="tooltipped" data-position="bottom" data-tooltip="Weaned and recycled sows">Dry</a></p>
 							</div>
 						</div>
 					</div>
@@ -75,7 +75,7 @@
 						<div class="card">
 							<div class="card-content grey lighten-2">
 								<h3>{{ count($jrboars) }}</h3>
-								<p><a href="#!" class="tooltipped" data-position="bottom" data-tooltip="Less than 1 year old">Junior Boars</a></p>
+								<p><a class="tooltipped" data-position="bottom" data-tooltip="Less than 1 year old">Junior Boars</a></p>
 							</div>
 						</div>
 					</div>
@@ -83,7 +83,7 @@
 						<div class="card">
 							<div class="card-content grey lighten-2">
 								<h3>{{ count($srboars) }}</h3>
-								<p><a href="#!" class="tooltipped" data-position="bottom" data-tooltip="1 year old and above">Senior Boars</a></p>
+								<p><a class="tooltipped" data-position="bottom" data-tooltip="1 year old and above">Senior Boars</a></p>
 							</div>
 						</div>
 					</div>

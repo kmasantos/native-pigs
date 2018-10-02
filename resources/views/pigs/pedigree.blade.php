@@ -23,13 +23,43 @@
 			</div>
 			{!! Form::close() !!}
 		</div>
+		<div class="row center">
+			@if($animal->count() == 0)
+				
+			@else
+				@if($group->count() == 0)
+					
+				@else
+					<a class="btn waves-effect waves-light green darken-3 modal-trigger" href="#compare_pedigree{{$registrationid}}">
+		        Compare <i class="material-icons right">library_books</i>
+					</a>
+					{{-- MODAL STRUCTURE --}}
+					<div id="compare_pedigree{{$registrationid}}" class="modal">
+						<div class="modal-content">
+							<h5 class="center">Compare Pedigree: <strong>{{ $registrationid }}</strong></h5>
+							<div class="row center">
+								<div class="col s8 offset-s2">
+									<input type="text" id="earnotch_compare" name="earnotch_compare" class="validate">
+									<label for="earnotch_compare">Earnotch</label>
+								</div>
+							</div>
+						</div>
+						<div class="row center">
+							<button class="btn waves-effect waves-light green darken-3" type="submit">
+		            Compare <i class="material-icons right">library_books</i>
+		          </button>
+						</div>
+					</div>
+				@endif
+			@endif
+		</div>
 	</div>
 	<div id="mainDiv">
 		@if($animal->count() == 0)
-			<h4 class="center">No results available</h4>
+			<h4 class="center" style="padding-left: 150px;">No results available</h4>
 		@else
 			@if($group->count() == 0)
-				<h4 class="center">{{ $registrationid }}: Parent data unavailable</h4>
+				<h4 class="center" style="padding-left: 150px;">{{ $registrationid }}: Parent data unavailable</h4>
 			@endif
 		@endif
 	</div>

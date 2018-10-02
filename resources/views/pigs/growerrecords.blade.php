@@ -6,7 +6,7 @@
 
 @section('content')
 	<div class="container">
-		<h4>Grower Records <a href="#!" class="tooltipped" data-position="right" data-tooltip="All pigs except breeders"><i class="material-icons">info_outline</i></a></h4>
+		<h4>Grower Records <a class="tooltipped" data-position="right" data-tooltip="All pigs except breeders"><i class="material-icons">info_outline</i></a></h4>
 		<div class="divider"></div>
 		<div class="row" style="padding-top: 10px;">
 			<div class="col s12">
