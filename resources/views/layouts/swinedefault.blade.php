@@ -98,7 +98,6 @@
                 <li><a href="{{route('farm.pig.breeder_production_report')}}">Breeder Production</a></li>
                 <li><a href="{{route('farm.pig.production_performance_report')}}">Production Performance</a></li>
                 <li><a href="{{route('farm.pig.monthly_performance_report')}}">Monthly Performance</a></li>
-                <li><a href="{{route('farm.pig.year_end_performance_report')}}">Year-end Performance</a></li>
                	<li><a href="{{route('farm.pig.breeder_inventory_report')}}">Breeder Inventory</a></li>
                	<li><a href="{{route('farm.pig.grower_inventory_report')}}">Grower Inventory</a></li>
                	<li><a href="{{route('farm.pig.mortality_and_sales_report')}}">Mortality &amp; Sales</a></li>

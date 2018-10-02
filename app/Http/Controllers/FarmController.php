@@ -1295,7 +1295,8 @@ class FarmController extends Controller
 			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where(function ($query) {
 										$query->where("status", "breeder")
 													->orWhere("status", "sold breeder")
-													->orWhere("status", "dead breeder");
+													->orWhere("status", "dead breeder")
+													->orWhere("status", "removed breeder");
 													})->get();
 
 			// gets pigs born on the specified year
@@ -1402,6 +1403,7 @@ class FarmController extends Controller
 					}
 				}
 
+				// dd($pigsbornonyear);
 				return $grossmorpho;
 			}
 			elseif($filter == "Sow"){ // data returned are for all sows
@@ -1465,7 +1467,7 @@ class FarmController extends Controller
 			// sorts pigs per sex
 			$sows = [];
 			$boars = [];
-			foreach ($pigs as $pig) {
+			foreach ($alive as $pig) {
 				if(substr($pig->registryid, -7, 1) == 'F'){
 					array_push($sows, $pig);
 				}
@@ -1477,7 +1479,7 @@ class FarmController extends Controller
 			// gets the unique years of birth
 			$years = [];
 			$tempyears = [];
-			foreach ($pigs as $pig) {
+			foreach ($alive as $pig) {
 				$pigproperties = $pig->getAnimalProperties();
 				foreach ($pigproperties as $pigproperty) {
 					if($pigproperty->property_id == 3){ //date farrowed
@@ -1509,7 +1511,7 @@ class FarmController extends Controller
 			$straighttails = [];
 			$swaybacks = [];
 			$straightbacks = [];
-			foreach ($pigs as $pig) {
+			foreach ($alive as $pig) {
 				$properties = $pig->getAnimalProperties();
 				foreach ($properties as $property) {
 					if($property->property_id == 11){ //hairtype
@@ -1591,15 +1593,15 @@ class FarmController extends Controller
 			}  
 
 			// counts the pigs without records
-			$nohairtypes = (count($pigs)-(count($curlyhairs)+count($straighthairs)));
-			$nohairlengths = (count($pigs)-(count($shorthairs)+count($longhairs)));
-			$nocoats = (count($pigs)-(count($blackcoats)+count($nonblackcoats)));
-			$nopatterns = (count($pigs)-(count($plains)+count($socks)));
-			$noheadshapes = (count($pigs)-(count($concaves)+count($straightheads)));
-			$noskintypes = (count($pigs)-(count($smooths)+count($wrinkleds)));
-			$noeartypes = (count($pigs)-(count($droopingears)+count($semilops)+count($erectears)));
-			$notailtypes = (count($pigs)-(count($curlytails)+count($straighttails)));
-			$nobacklines = (count($pigs)-(count($swaybacks)+count($straightbacks)));
+			$nohairtypes = (count($alive)-(count($curlyhairs)+count($straighthairs)));
+			$nohairlengths = (count($alive)-(count($shorthairs)+count($longhairs)));
+			$nocoats = (count($alive)-(count($blackcoats)+count($nonblackcoats)));
+			$nopatterns = (count($alive)-(count($plains)+count($socks)));
+			$noheadshapes = (count($alive)-(count($concaves)+count($straightheads)));
+			$noskintypes = (count($alive)-(count($smooths)+count($wrinkleds)));
+			$noeartypes = (count($alive)-(count($droopingears)+count($semilops)+count($erectears)));
+			$notailtypes = (count($alive)-(count($curlytails)+count($straighttails)));
+			$nobacklines = (count($alive)-(count($swaybacks)+count($straightbacks)));
 
 			return view('pigs.grossmorphoreport', compact('pigs', 'filter', 'sows', 'boars', 'curlyhairs', 'straighthairs', 'shorthairs', 'longhairs', 'blackcoats', 'nonblackcoats', 'plains', 'socks', 'concaves', 'straightheads', 'smooths', 'wrinkleds', 'droopingears', 'semilops', 'erectears', 'curlytails', 'straighttails', 'swaybacks', 'straightbacks', 'nohairtypes', 'nohairlengths', 'nocoats', 'nopatterns', 'noheadshapes', 'noskintypes', 'noeartypes', 'notailtypes', 'nobacklines', 'years', 'alive', 'sold', 'dead', 'removed', 'sowsalive', 'soldsows', 'deadsows', 'removedsows', 'boarsalive', 'soldboars', 'deadboars', 'removedboars'));
 		}
@@ -1689,7 +1691,9 @@ class FarmController extends Controller
 					elseif($sow->status == "removed breeder"){
 						array_push($removedsows, $sow);
 					}
-					$properties = $sow->getAnimalProperties();
+				}
+				foreach ($sowsalive as $sowalive) {
+					$properties = $sowalive->getAnimalProperties();
 					foreach ($properties as $property) {
 						if($property->property_id == 11){ //hairtype
 							if($property->value == "Curly"){
@@ -1770,15 +1774,15 @@ class FarmController extends Controller
 				}
 
 				// count of sows without records
-				$nohairtypes = (count($sows)-(count($curlyhairs)+count($straighthairs)));
-				$nohairlengths = (count($sows)-(count($shorthairs)+count($longhairs)));
-				$nocoats = (count($sows)-(count($blackcoats)+count($nonblackcoats)));
-				$nopatterns = (count($sows)-(count($plains)+count($socks)));
-				$noheadshapes = (count($sows)-(count($concaves)+count($straightheads)));
-				$noskintypes = (count($sows)-(count($smooths)+count($wrinkleds)));
-				$noeartypes = (count($sows)-(count($droopingears)+count($semilops)+count($erectears)));
-				$notailtypes = (count($sows)-(count($curlytails)+count($straighttails)));
-				$nobacklines = (count($sows)-(count($swaybacks)+count($straightbacks)));
+				$nohairtypes = (count($sowsalive)-(count($curlyhairs)+count($straighthairs)));
+				$nohairlengths = (count($sowsalive)-(count($shorthairs)+count($longhairs)));
+				$nocoats = (count($sowsalive)-(count($blackcoats)+count($nonblackcoats)));
+				$nopatterns = (count($sowsalive)-(count($plains)+count($socks)));
+				$noheadshapes = (count($sowsalive)-(count($concaves)+count($straightheads)));
+				$noskintypes = (count($sowsalive)-(count($smooths)+count($wrinkleds)));
+				$noeartypes = (count($sowsalive)-(count($droopingears)+count($semilops)+count($erectears)));
+				$notailtypes = (count($sowsalive)-(count($curlytails)+count($straighttails)));
+				$nobacklines = (count($sowsalive)-(count($swaybacks)+count($straightbacks)));
 			}
 			elseif($filter == "Boar"){ // data displayed are for all boars
 				$boarsalive = [];
@@ -1798,7 +1802,9 @@ class FarmController extends Controller
 					elseif($boar->status == "removed breeder"){
 						array_push($removedboars, $boar);
 					}
-					$properties = $boar->getAnimalProperties();
+				}
+				foreach ($boarsalive as $boaralive){
+					$properties = $boaralive->getAnimalProperties();
 					foreach ($properties as $property) {
 						if($property->property_id == 11){ //hairtype
 							if($property->value == "Curly"){
@@ -1879,18 +1885,18 @@ class FarmController extends Controller
 				}
 
 				// count of boars without records
-				$nohairtypes = (count($boars)-(count($curlyhairs)+count($straighthairs)));
-				$nohairlengths = (count($boars)-(count($shorthairs)+count($longhairs)));
-				$nocoats = (count($boars)-(count($blackcoats)+count($nonblackcoats)));
-				$nopatterns = (count($boars)-(count($plains)+count($socks)));
-				$noheadshapes = (count($boars)-(count($concaves)+count($straightheads)));
-				$noskintypes = (count($boars)-(count($smooths)+count($wrinkleds)));
-				$noeartypes = (count($boars)-(count($droopingears)+count($semilops)+count($erectears)));
-				$notailtypes = (count($boars)-(count($curlytails)+count($straighttails)));
-				$nobacklines = (count($boars)-(count($swaybacks)+count($straightbacks)));
+				$nohairtypes = (count($boarsalive)-(count($curlyhairs)+count($straighthairs)));
+				$nohairlengths = (count($boarsalive)-(count($shorthairs)+count($longhairs)));
+				$nocoats = (count($boarsalive)-(count($blackcoats)+count($nonblackcoats)));
+				$nopatterns = (count($boarsalive)-(count($plains)+count($socks)));
+				$noheadshapes = (count($boarsalive)-(count($concaves)+count($straightheads)));
+				$noskintypes = (count($boarsalive)-(count($smooths)+count($wrinkleds)));
+				$noeartypes = (count($boarsalive)-(count($droopingears)+count($semilops)+count($erectears)));
+				$notailtypes = (count($boarsalive)-(count($curlytails)+count($straighttails)));
+				$nobacklines = (count($boarsalive)-(count($swaybacks)+count($straightbacks)));
 			}
 			elseif($filter == "All"){ // data displayed are for all pigs in the herd
-				foreach ($pigs as $pig) {
+				foreach ($alive as $pig) {
 					$properties = $pig->getAnimalProperties();
 					foreach ($properties as $property) {
 						if($property->property_id == 11){ //hairtype
@@ -1972,15 +1978,15 @@ class FarmController extends Controller
 				}
 
 				// count of pigs without records
-				$nohairtypes = (count($pigs)-(count($curlyhairs)+count($straighthairs)));
-				$nohairlengths = (count($pigs)-(count($shorthairs)+count($longhairs)));
-				$nocoats = (count($pigs)-(count($blackcoats)+count($nonblackcoats)));
-				$nopatterns = (count($pigs)-(count($plains)+count($socks)));
-				$noheadshapes = (count($pigs)-(count($concaves)+count($straightheads)));
-				$noskintypes = (count($pigs)-(count($smooths)+count($wrinkleds)));
-				$noeartypes = (count($pigs)-(count($droopingears)+count($semilops)+count($erectears)));
-				$notailtypes = (count($pigs)-(count($curlytails)+count($straighttails)));
-				$nobacklines = (count($pigs)-(count($swaybacks)+count($straightbacks)));
+				$nohairtypes = (count($alive)-(count($curlyhairs)+count($straighthairs)));
+				$nohairlengths = (count($alive)-(count($shorthairs)+count($longhairs)));
+				$nocoats = (count($alive)-(count($blackcoats)+count($nonblackcoats)));
+				$nopatterns = (count($alive)-(count($plains)+count($socks)));
+				$noheadshapes = (count($alive)-(count($concaves)+count($straightheads)));
+				$noskintypes = (count($alive)-(count($smooths)+count($wrinkleds)));
+				$noeartypes = (count($alive)-(count($droopingears)+count($semilops)+count($erectears)));
+				$notailtypes = (count($alive)-(count($curlytails)+count($straighttails)));
+				$nobacklines = (count($alive)-(count($swaybacks)+count($straightbacks)));
 			}
 
 			// return Redirect::back()->with('message','Operation Successful!');
@@ -2120,7 +2126,7 @@ class FarmController extends Controller
 			// sorts pigs per sex
 			$sows = [];
 			$boars = [];
-			foreach ($pigs as $pig) {
+			foreach ($alive as $pig) {
 				if(substr($pig->registryid, -7, 1) == 'F'){
 					array_push($sows, $pig);
 				}
@@ -2132,7 +2138,7 @@ class FarmController extends Controller
 			// gets unique years of birth
 			$years = [];
 			$tempyears = [];
-			foreach ($pigs as $pig) {
+			foreach ($alive as $pig) {
 				$pigproperties = $pig->getAnimalProperties();
 				foreach ($pigproperties as $pigproperty) {
 					if($pigproperty->property_id == 3){ //date farrowed
@@ -2156,7 +2162,19 @@ class FarmController extends Controller
 			$heightsatwithers = [];
 			$normalteats = [];
 			$ages_collected = [];
+			$ages_collected_all = [];
 			foreach ($pigs as $pig) {
+				$dc = $pig->getAnimalProperties()->where("property_id", 21)->first();
+				if(!is_null($dc) && $dc->value != ""){
+					$date_collected = Carbon::parse($dc->value);
+					$bday = $pig->getAnimalProperties()->where("property_id", 3)->first();
+					if(!is_null($bday) && $bday->value != "Not specified"){
+						$age = $date_collected->diffInMonths(Carbon::parse($bday->value));
+						array_push($ages_collected_all, $age);
+					}
+				}
+			}
+			foreach ($alive as $pig) {
 				$properties = $pig->getAnimalProperties();
 				foreach ($properties as $property) {
 					if($property->property_id == 21){ // date collected for morpho chars
@@ -2261,7 +2279,7 @@ class FarmController extends Controller
 				$normalteats_sd = static::standardDeviation($normalteats, false);
 			}
 
-			return view('pigs.morphocharsreport', compact('pigs', 'filter', 'sows', 'boars', 'earlengths', 'headlengths', 'snoutlengths', 'bodylengths', 'heartgirths', 'pelvicwidths', 'ponderalindices', 'taillengths', 'heightsatwithers', 'normalteats', 'earlengths_sd', 'headlengths_sd', 'snoutlengths_sd', 'bodylengths_sd', 'heartgirths_sd', 'pelvicwidths_sd', 'ponderalindices_sd', 'taillengths_sd', 'heightsatwithers_sd', 'normalteats_sd', 'years', 'ages_collected', 'alive', 'sold', 'dead', 'removed', 'sowsalive', 'soldsows', 'deadsows', 'removedsows', 'boarsalive', 'soldboars', 'deadboars', 'removedboars'));
+			return view('pigs.morphocharsreport', compact('pigs', 'filter', 'sows', 'boars', 'earlengths', 'headlengths', 'snoutlengths', 'bodylengths', 'heartgirths', 'pelvicwidths', 'ponderalindices', 'taillengths', 'heightsatwithers', 'normalteats', 'earlengths_sd', 'headlengths_sd', 'snoutlengths_sd', 'bodylengths_sd', 'heartgirths_sd', 'pelvicwidths_sd', 'ponderalindices_sd', 'taillengths_sd', 'heightsatwithers_sd', 'normalteats_sd', 'years', 'ages_collected', 'ages_collected_all', 'alive', 'sold', 'dead', 'removed', 'sowsalive', 'soldsows', 'deadsows', 'removedsows', 'boarsalive', 'soldboars', 'deadboars', 'removedboars'));
 		}
 
 		public function filterMorphometricCharacteristicsReport(Request $request){ // function to filter Morphometric Characteristics Report
@@ -2279,7 +2297,7 @@ class FarmController extends Controller
 			// sorts pigs per sex
 			$sows = [];
 			$boars = [];
-			foreach ($pigs as $pig) {
+			foreach ($alive as $pig) {
 				if(substr($pig->registryid, -7, 1) == 'F'){
 					array_push($sows, $pig);
 				}
@@ -2291,7 +2309,7 @@ class FarmController extends Controller
 			// gets unique years of birth
 			$years = [];
 			$tempyears = [];
-			foreach ($pigs as $pig) {
+			foreach ($alive as $pig) {
 				$pigproperties = $pig->getAnimalProperties();
 				foreach ($pigproperties as $pigproperty) {
 					if($pigproperty->property_id == 3){ //date farrowed
@@ -2316,6 +2334,7 @@ class FarmController extends Controller
 			$heightsatwithers = [];
 			$normalteats = [];
 			$ages_collected = [];
+			$ages_collected_all = [];
 			if($filter == "Sow"){ // data displayed are for all sows
 				$sowsalive = [];
 				$soldsows = [];
@@ -2334,14 +2353,27 @@ class FarmController extends Controller
 					elseif($sow->status == "removed breeder"){
 						array_push($removedsows, $sow);
 					}
-					$properties = $sow->getAnimalProperties();
+					$dc = $sow->getAnimalProperties()->where("property_id", 21)->first();
+					if(!is_null($dc) && $dc->value != ""){
+						$date_collected = Carbon::parse($dc->value);
+						$bday = $sow->getAnimalProperties()->where("property_id", 3)->first();
+						if(!is_null($bday) && $bday->value != "Not specified"){
+							$age = $date_collected->diffInMonths(Carbon::parse($bday->value));
+							array_push($ages_collected_all, $age);
+						}
+					}
+				}
+				foreach ($sowsalive as $sowalive) {
+					$properties = $sowalive->getAnimalProperties();
 					foreach ($properties as $property) {
 						if($property->property_id == 21){ // date collected for morpho chars
 							if($property->value != ""){
 								$date_collected = $property->value;
-								$bday = $sow->getAnimalProperties()->where("property_id", 3)->first()->value;
-								$age = Carbon::parse($date_collected)->diffInMonths(Carbon::parse($bday));
-								array_push($ages_collected, $age);
+								$bday = $sowalive->getAnimalProperties()->where("property_id", 3)->first();
+								if(!is_null($bday) && $bday->value != "Not specified"){
+									$age = Carbon::parse($date_collected)->diffInMonths(Carbon::parse($bday->value));
+									array_push($ages_collected, $age);
+								}
 							}
 						}
 						if($property->property_id == 22){ //earlength
@@ -2456,14 +2488,27 @@ class FarmController extends Controller
 					elseif($boar->status == "removed breeder"){
 						array_push($removedboars, $boar);
 					}
-					$properties = $boar->getAnimalProperties();
+					$dc = $boar->getAnimalProperties()->where("property_id", 21)->first();
+					if(!is_null($dc) && $dc->value != ""){
+						$date_collected = Carbon::parse($dc->value);
+						$bday = $boar->getAnimalProperties()->where("property_id", 3)->first();
+						if(!is_null($bday) && $bday->value != "Not specified"){
+							$age = $date_collected->diffInMonths(Carbon::parse($bday->value));
+							array_push($ages_collected_all, $age);
+						}
+					}
+				}
+				foreach ($boarsalive as $boaralive) {
+					$properties = $boaralive->getAnimalProperties();
 					foreach ($properties as $property) {
 						if($property->property_id == 21){ // date collected for morpho chars
 							if($property->value != ""){
 								$date_collected = $property->value;
-								$bday = $boar->getAnimalProperties()->where("property_id", 3)->first()->value;
-								$age = Carbon::parse($date_collected)->diffInMonths(Carbon::parse($bday));
-								array_push($ages_collected, $age);
+								$bday = $boaralive->getAnimalProperties()->where("property_id", 3)->first();
+								if(!is_null($bday) && $bday->value != "Not specified"){
+									$age = Carbon::parse($date_collected)->diffInMonths(Carbon::parse($bday->value));
+									array_push($ages_collected, $age);
+								}
 							}
 						}
 						if($property->property_id == 22){ //earlength
@@ -2528,6 +2573,7 @@ class FarmController extends Controller
 						}
 					}
 				}
+					
 
 				if($earlengths != []){
 					$earlengths_sd = static::standardDeviation($earlengths, false);
@@ -2562,14 +2608,27 @@ class FarmController extends Controller
 			}
 			elseif($filter == "All"){ // data displayed are for all pigs in the herd
 				foreach ($pigs as $pig) {
+					$dc = $pig->getAnimalProperties()->where("property_id", 21)->first();
+					if(!is_null($dc) && $dc->value != ""){
+						$date_collected = Carbon::parse($dc->value);
+						$bday = $pig->getAnimalProperties()->where("property_id", 3)->first();
+						if(!is_null($bday) && $bday->value != "Not specified"){
+							$age = $date_collected->diffInMonths(Carbon::parse($bday->value));
+							array_push($ages_collected_all, $age);
+						}
+					}
+				}
+				foreach ($alive as $pig) {
 					$properties = $pig->getAnimalProperties();
 					foreach ($properties as $property) {
 						if($property->property_id == 21){ // date collected for morpho chars
 							if($property->value != ""){
 								$date_collected = $property->value;
-								$bday = $pig->getAnimalProperties()->where("property_id", 3)->first()->value;
-								$age = Carbon::parse($date_collected)->diffInMonths(Carbon::parse($bday));
-								array_push($ages_collected, $age);
+								$bday = $pig->getAnimalProperties()->where("property_id", 3)->first();
+								if(!is_null($bday) && $bday->value != "Not specified"){
+									$age = Carbon::parse($date_collected)->diffInMonths(Carbon::parse($bday->value));
+									array_push($ages_collected, $age);
+								}
 							}
 						}
 						if($property->property_id == 22){ //earlength
@@ -2667,7 +2726,7 @@ class FarmController extends Controller
 				}
 			}
 
-			return view('pigs.morphocharsreport', compact('pigs', 'filter', 'sows', 'boars', 'earlengths', 'headlengths', 'snoutlengths', 'bodylengths', 'heartgirths', 'pelvicwidths', 'ponderalindices', 'taillengths', 'heightsatwithers', 'normalteats', 'earlengths_sd', 'headlengths_sd', 'snoutlengths_sd', 'bodylengths_sd', 'heartgirths_sd', 'pelvicwidths_sd', 'ponderalindices_sd', 'taillengths_sd', 'heightsatwithers_sd', 'normalteats_sd', 'years', 'ages_collected', 'alive', 'sold', 'dead', 'removed', 'sowsalive', 'soldsows', 'deadsows', 'removedsows', 'boarsalive', 'soldboars', 'deadboars', 'removedboars'));
+			return view('pigs.morphocharsreport', compact('pigs', 'filter', 'sows', 'boars', 'earlengths', 'headlengths', 'snoutlengths', 'bodylengths', 'heartgirths', 'pelvicwidths', 'ponderalindices', 'taillengths', 'heightsatwithers', 'normalteats', 'earlengths_sd', 'headlengths_sd', 'snoutlengths_sd', 'bodylengths_sd', 'heartgirths_sd', 'pelvicwidths_sd', 'ponderalindices_sd', 'taillengths_sd', 'heightsatwithers_sd', 'normalteats_sd', 'years', 'ages_collected', 'ages_collected_all', 'alive', 'sold', 'dead', 'removed', 'sowsalive', 'soldsows', 'deadsows', 'removedsows', 'boarsalive', 'soldboars', 'deadboars', 'removedboars'));
 		}
 
 		public static function getWeightsPerYearOfBirth($year, $property_id){ // function to get weights per year of birth
@@ -3068,92 +3127,79 @@ class FarmController extends Controller
 			$firstbredages = [];
 
 			//for sows
-
-			// gets groups with first bred sows
-			foreach ($groups as $group) {
-				$groupproperties = $group->getGroupingProperties();
-				foreach ($groupproperties as $groupproperty) {
-					if($groupproperty->property_id == 48){ // parity
-						if($groupproperty->value == 1 || $groupproperty->value == 0){
-							if($group->getMother()->status == "breeder"){
-								array_push($firstbreds, $group);
+			$tempsows = [];
+			$uniquesows = [];
+			foreach ($sows as $sow) {
+				$sowproperties = $sow->getAnimalProperties();
+				foreach ($sowproperties as $sowproperty) {
+					if($sowproperty->property_id == 61){ // frequency
+						if($sowproperty->value == 1){ //for sows used only once
+							array_push($firstbredsows, $sow);
+						}
+						elseif($sowproperty->value > 1){ //other sows
+							foreach ($groups as $group) {
+								if($group->mother_id == $sow->id){
+									array_push($tempsows, $sow);
+									$uniquesows = array_unique($tempsows);
+								}
 							}
 						}
 					}
 				}
 			}
-			foreach ($firstbreds as $firstbred) { // gets first bred sows
-				$mother = $firstbred->getMother();
-				if($mother->status == "breeder"){
-					array_push($tempfirstbredsows, $mother);
-					$firstbredsows = array_unique($tempfirstbredsows);
-				}
-			}
-			array_push($duplicates, array_unique(array_diff_assoc($tempfirstbredsows, $firstbredsows))); // gets the animal with duplicates
+			//for sows used only once
 			foreach ($firstbredsows as $firstbredsow) {
-				foreach ($duplicates as $duplicate) {
-					$duplicate_keys = array_keys($duplicate); // gets the key of the duplicate
-					foreach ($duplicate_keys as $duplicate_key) { // since $duplicates is an array of arrays
-						$animal = $duplicate[$duplicate_key];
-						if($firstbredsow->id == $animal->id){ // if duplicate is found
-							$groupings = Grouping::where("mother_id", $animal->id)->get();
-							$duplicates_datesbred = [];
-							foreach ($groupings as $grouping) {
-								$groupingproperties = $grouping->getGroupingProperties();
-								foreach ($groupingproperties as $groupingproperty) {
-									if($groupingproperty->property_id == 42){ // date bred
-										if($groupingproperty->value != "Not specified" && !is_null($groupingproperty->value)){
-											array_push($duplicates_datesbred, $groupingproperty->value);
-										}
-									}
-								}
-							}
-							// sorts dates bred to get first date of breeding
-							$sorted_datesbred = array_sort($duplicates_datesbred);
-							$arrkeys = array_keys($sorted_datesbred);
-							$date_bredsow = $sorted_datesbred[$arrkeys[0]];
-							$bredsowproperties = $animal->getAnimalProperties();
-							foreach ($bredsowproperties as $bredsowproperty) {
-								if($bredsowproperty->property_id == 3){ //date farrowed
-									if(!is_null($bredsowproperty->value) && $bredsowproperty->value != "Not specified"){
-										$bday_sow_duplicate = $bredsowproperty->value;
-									}
-								}
-							}
-							$firstbredsowsage = Carbon::parse($date_bredsow)->diffInMonths(Carbon::parse($bday_sow_duplicate));
-							array_push($firstbredsowsages, $firstbredsowsage);
-							$firstbredsows = array_diff($firstbredsows, [$firstbredsow]); // removes duplicates
-						}
-					}
-				}
-			}
-			foreach ($firstbredsows as $firstbredsow) { // computation for first bred sows' age without duplicates
-				foreach ($firstbreds as $firstbred) {
-					if($firstbred->getMother()->id == $firstbredsow->id){
-						$firstbredfamilyproperties = $firstbred->getGroupingProperties();
-						foreach ($firstbredfamilyproperties as $firstbredfamilyproperty) {
-							if($firstbredfamilyproperty->property_id == 42){ // date bred
-								if($firstbredfamilyproperty->value != "Not specified" && !is_null($firstbredfamilyproperty->value)){
-									$datebred_family = $firstbredfamilyproperty->value;
-									$firstbredsowsproperties = $firstbredsow->getAnimalProperties();
-									foreach ($firstbredsowsproperties as $firstbredsowsproperty) {
-										if($firstbredsowsproperty->property_id == 3){ // date farrowed
-											if(!is_null($firstbredsowsproperty->value) && $firstbredsowsproperty->value != "Not specified"){
-												$bday_firstbredsow = $firstbredsowsproperty->value;
-												$firstbredsowage = Carbon::parse($datebred_family)->diffInMonths(Carbon::parse($bday_firstbredsow));
-												array_push($firstbredsowsages, $firstbredsowage);
-											}
-										}
-									}
+				foreach ($groups as $group) {
+					if($group->mother_id == $firstbredsow->id){
+						$groupproperties = $group->getGroupingProperties();
+						foreach ($groupproperties as $groupproperty) {
+							if($groupproperty->property_id == 42){ // date bred
+								$date_bred = $groupproperty->value;
+								$bday = $firstbredsow->getAnimalProperties()->where("property_id", 3)->first();
+								if(!is_null($bday) && $bday->value != "Not specified"){
+									$bday_sow = Carbon::parse($bday->value);
+									$firstbredsowsage = Carbon::parse($date_bred)->diffInMonths($bday_sow);
+									array_push($firstbredsowsages, $firstbredsowsage);
+									// array_push($firstbredsowsages, [$firstbredsowsage, $firstbredsow->registryid, $bday_sow, $date_bred]);
 								}
 							}
 						}
 					}
 				}
 			}
+			//other sows
+			foreach ($uniquesows as $uniquesow) {
+				$dates_bred = [];
+				foreach ($groups as $group) {
+					if($group->mother_id == $uniquesow->id){
+						$groupproperties = $group->getGroupingProperties();
+						foreach ($groupproperties as $groupproperty) {
+							if($groupproperty->property_id == 42){ // date bred
+								$date_bred = $groupproperty->value;
+								array_push($dates_bred, $date_bred);
+							}
+						}
+					}
+				}
+				// gets the first date of breeding
+				$sorted_dates = array_sort($dates_bred);
+				$keys = array_keys($sorted_dates);
+				$date_bredsow = $sorted_dates[$keys[0]];
+				$bday = $uniquesow->getAnimalProperties()->where("property_id", 3)->first();
+				if(!is_null($bday) && $bday->value != "Not specified"){
+					$bday_sow = Carbon::parse($bday->value);
+				}
+				// age computation
+				$firstbredsowsage = Carbon::parse($date_bredsow)->diffInMonths($bday_sow);
+				array_push($firstbredsowsages, $firstbredsowsage);
+				// array_push($firstbredsowsages, [$firstbredsowsage, $uniquesow->registryid, $bday_sow, $date_bredsow]);
+			}
+
 			if($firstbredsowsages != []){
 				$firstbredsowsages_sd = static::standardDeviation($firstbredsowsages, false);
 			}
+
+			// dd($firstbredsowsages);
 
 			//first bred boars
 			$tempboars = [];
@@ -3184,15 +3230,11 @@ class FarmController extends Controller
 						foreach ($groupproperties as $groupproperty) {
 							if($groupproperty->property_id == 42){ // date bred
 								$date_bred = $groupproperty->value;
-								$bredboarproperties = $firstbredboar->getAnimalProperties();
-								foreach ($bredboarproperties as $bredboarproperty) {
-									if($bredboarproperty->property_id == 3){ // date farrowed
-										if(!is_null($bredboarproperty->value) && $bredboarproperty->value != "Not specified"){
-											$bday_boar = $bredboarproperty->value;
-											$firstbredboarsage = Carbon::parse($date_bred)->diffInMonths(Carbon::parse($bday_boar));
-											array_push($firstbredboarsages, $firstbredboarsage);
-										}
-									}
+								$bday = $firstbredboar->getAnimalProperties()->where("property_id", 3)->first();
+								if(!is_null($bday) && $bday->value != "Not specified"){
+									$bday_boar = Carbon::parse($bredboarproperty->value);
+									$firstbredboarsage = Carbon::parse($date_bred)->diffInMonths($bday_boar);
+									array_push($firstbredboarsages, $firstbredboarsage);
 								}
 							}
 						}
@@ -3215,18 +3257,14 @@ class FarmController extends Controller
 						$sorted_dates = array_sort($dates_bred);
 						$keys = array_keys($sorted_dates);
 						$date_bredboar = $sorted_dates[$keys[0]];
-						$bredboarproperties = $uniqueboar->getAnimalProperties();
-						foreach ($bredboarproperties as $bredboarproperty) {
-							if($bredboarproperty->property_id == 3){ // date farrowed
-								if(!is_null($bredboarproperty->value) && $bredboarproperty->value != "Not specified"){
-									$bday_boar = $bredboarproperty->value;
-								}
-							}
+						$bday = $uniqueboar->getAnimalProperties()->where("property_id", 3)->first();
+						if(!is_null($bday) && $bday->value != "Not specified"){
+							$bday_boar = Carbon::parse($bday->value);
 						}
 					}
 				}
 				// age computation
-				$firstbredboarsage = Carbon::parse($date_bredboar)->diffInMonths(Carbon::parse($bday_boar));
+				$firstbredboarsage = Carbon::parse($date_bredboar)->diffInMonths($bday_boar);
 				array_push($firstbredboarsages, $firstbredboarsage);
 			}
 			if($firstbredboarsages != []){
@@ -3331,7 +3369,7 @@ class FarmController extends Controller
 				}
 			}
 
-			return view('pigs.breederproduction', compact('breeders', 'sows', 'boars', 'ages_weanedsow', 'ages_weanedsow_sd', 'ages_weanedboar', 'ages_weanedboar_sd', 'ages_weanedbreeder', 'ages_weanedbreeder_sd', 'breederages', 'herdbreeders', 'breedersowages', 'breedersows', 'breederboarages', 'breederboars', 'firstbreds', 'firstbredsows', 'firstbredsowsages', 'firstbredsowsages_sd', 'duplicates', 'firstbredboars', 'uniqueboars', 'firstbredboarsages', 'firstbredboarsages_sd', 'firstbredages', 'firstbredages_sd', 'months', 'years_weaning', 'now'));
+			return view('pigs.breederproduction', compact('breeders', 'sows', 'boars', 'ages_weanedsow', 'ages_weanedsow_sd', 'ages_weanedboar', 'ages_weanedboar_sd', 'ages_weanedbreeder', 'ages_weanedbreeder_sd', 'breederages', 'herdbreeders', 'breedersowages', 'breedersows', 'breederboarages', 'breederboars', 'firstbreds', 'firstbredsows', 'uniquesows', 'firstbredsowsages', 'firstbredsowsages_sd', 'duplicates', 'firstbredboars', 'uniqueboars', 'firstbredboarsages', 'firstbredboarsages_sd', 'firstbredages', 'firstbredages_sd', 'months', 'years_weaning', 'now'));
 		}
 
 		static function getMonthlyAgeAtWeaning($year, $month, $filter){
@@ -4267,10 +4305,6 @@ class FarmController extends Controller
 			}
 
 			return $count;
-		}
-
-		public function getYearEndPerformanceReportPage(){
-			return view('pigs.yearendperformance');
 		}
 
 		public function getBreederInventoryPage(){ // function to display Breeder Inventory page

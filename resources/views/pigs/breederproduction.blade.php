@@ -142,7 +142,7 @@
 							@if($firstbredsowsages == [])
 								<td colspan="5" class="center">No data available</td>
 							@else
-								<td>{{ count($firstbredsowsages) }} out of {{ count($firstbredsows)+count($duplicates) }}</td>
+								<td>{{ count($firstbredsowsages) }} out of {{ count($firstbredsows)+count($uniquesows) }}</td>
 								<td>{{ min($firstbredsowsages) }}</td>
 								<td>{{ max($firstbredsowsages) }}</td>
 								<td>{{ round(array_sum($firstbredsowsages)/count($firstbredsowsages), 2) }}</td>
@@ -166,7 +166,7 @@
 							@if($firstbredages == [])
 								<td colspan="5" class="center">No data available</td>
 							@else
-								<td>{{ count($firstbredages) }} out of {{ count($firstbredsows)+count($duplicates)+count($firstbredboars)+count($uniqueboars) }}</td>
+								<td>{{ count($firstbredages) }} out of {{ count($firstbredsows)+count($uniquesows)+count($firstbredboars)+count($uniqueboars) }}</td>
 								<td>{{ min($firstbredages) }}</td>
 								<td>{{ max($firstbredages) }}</td>
 								<td>{{ round(array_sum($firstbredages)/count($firstbredages), 2) }}</td>
@@ -225,6 +225,7 @@
 						</div>
 					</div>
 				</div>
+				<p>*only the breeders used at least once were considered</p>
 			</div>
 		</div>
 	</div>

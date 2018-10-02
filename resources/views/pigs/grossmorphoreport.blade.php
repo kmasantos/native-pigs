@@ -10,15 +10,6 @@
 		<div class="divider"></div>
 		<div class="row center" style="padding-top: 10px;">
 			{!! Form::open(['route' => 'farm.pig.filter_gross_morphology_report', 'method' => 'post', 'id' => 'report_filter']) !!}
-  		<div class="col s12">
-  			@if($filter == "All")
-  				<p class="center">Total number of pigs: <strong>{{ count($pigs) }}</strong> (Active: <strong>{{ count($alive) }}</strong>, Sold: <strong>{{ count($sold) }}</strong>, Dead: <strong>{{ count($dead) }}</strong>, Removed: <strong>{{ count($removed) }}</strong>)</p>
-  			@elseif($filter == "Sow")
-  				<p class="center">Total number of sows: <strong>{{ count($sows) }}</strong> (Active: <strong>{{ count($sowsalive) }}</strong>, Sold: <strong>{{ count($soldsows) }}</strong>, Dead: <strong>{{ count($deadsows) }}</strong>, Removed: <strong>{{ count($removedsows) }}</strong>)</p>
-  			@elseif($filter == "Boar")
-  				<p class="center">Total number of boars: <strong>{{ count($boars) }}</strong> (Active: <strong>{{ count($boarsalive) }}</strong>, Sold: <strong>{{ count($soldboars) }}</strong>, Dead: <strong>{{ count($deadboars) }}</strong>, Removed: <strong>{{ count($removedboars) }}</strong>)</p>
-  			@endif
-  		</div>
 	  	<div class="row">
 	  		<div class="col s4 offset-s1">
 	  			<p>Generate Reports by:</p>
@@ -37,13 +28,23 @@
 			<div class="row">
 		    <div class="col s12">
 		      <ul class="tabs tabs-fixed-width green lighten-1">
-		        <li class="tab col s6"><a href="#herdview">Herd</a></li>
+		        <li class="tab col s6"><a href="#herdview">Breeders</a></li>
 		        <li class="tab col s6"><a href="#yearofbirthview">Year of Birth</a></li>
 		      </ul>
 		    </div>
 		    <!-- HERD VIEW -->
 		    <div id="herdview" class="col s12">
-
+		    	<div class="row center">
+			    	<div class="col s12">
+			  			@if($filter == "All")
+			  				<p class="center">Total number of breeders: <strong>{{ count($alive) }}</strong></p>
+			  			@elseif($filter == "Sow")
+			  				<p class="center">Total number of sows: <strong>{{ count($sowsalive) }}</strong></p>
+			  			@elseif($filter == "Boar")
+			  				<p class="center">Total number of boars: <strong>{{ count($boarsalive) }}</strong></p>
+			  			@endif
+			  		</div>
+			  	</div>
 			  	<div class="row">
 				    <div class="col s12">
 				      <ul class="tabs smalltabs">
@@ -418,6 +419,17 @@
 			  </div>
 		    <!-- YEAR OF BIRTH VIEW -->
 		    <div id="yearofbirthview" class="col s12">
+		    	<div class="row center">
+			    	<div class="col s12">
+			  			@if($filter == "All")
+			  				<p class="center">Total number of pigs: <strong>{{ count($pigs) }}</strong> (Active: <strong>{{ count($alive) }}</strong>, Sold: <strong>{{ count($sold) }}</strong>, Dead: <strong>{{ count($dead) }}</strong>, Removed: <strong>{{ count($removed) }}</strong>)</p>
+			  			@elseif($filter == "Sow")
+			  				<p class="center">Total number of sows: <strong>{{ count($sows) }}</strong> (Active: <strong>{{ count($sowsalive) }}</strong>, Sold: <strong>{{ count($soldsows) }}</strong>, Dead: <strong>{{ count($deadsows) }}</strong>, Removed: <strong>{{ count($removedsows) }}</strong>)</p>
+			  			@elseif($filter == "Boar")
+			  				<p class="center">Total number of boars: <strong>{{ count($boars) }}</strong> (Active: <strong>{{ count($boarsalive) }}</strong>, Sold: <strong>{{ count($soldboars) }}</strong>, Dead: <strong>{{ count($deadboars) }}</strong>, Removed: <strong>{{ count($removedboars) }}</strong>)</p>
+			  			@endif
+			  		</div>
+			  	</div>
 		    	<div class="row center">
 		    		<div class="col s6">
 		    			<p class="green-text text-lighten-1">Hair Type</p>
