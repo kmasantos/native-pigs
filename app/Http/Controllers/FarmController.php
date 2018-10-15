@@ -3367,7 +3367,7 @@ class FarmController extends Controller
 			return view('pigs.breederproduction', compact('breeders', 'sows', 'boars', 'ages_weanedsow', 'ages_weanedsow_sd', 'ages_weanedboar', 'ages_weanedboar_sd', 'ages_weanedbreeder', 'ages_weanedbreeder_sd', 'breederages', 'herdbreeders', 'breedersowages', 'breedersows', 'breederboarages', 'breederboars', 'firstbreds', 'firstbredsows', 'uniquesows', 'firstbredsowsages', 'firstbredsowsages_sd', 'duplicates', 'firstbredboars', 'uniqueboars', 'firstbredboarsages', 'firstbredboarsages_sd', 'firstbredages', 'firstbredages_sd', 'months', 'years_weaning', 'now'));
 		}
 
-		static function getMonthlyAgeAtWeaning($year, $month, $filter){
+		static function getAgeAtWeaning($year, $month, $filter){
 			$farm = Auth::User()->getFarm();
 			$breed = $farm->getBreed();
 			$breeders = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "breeder")->get();
@@ -3771,7 +3771,12 @@ class FarmController extends Controller
 		public function getProductionPerformancePage(Request $request){ // function to display Production Performace page
 			$farm = $this->user->getFarm();
 			$breed = $farm->getBreed();
-			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "breeder")->get();
+			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where(function ($query) {
+										$query->where("status", "breeder")
+													->orWhere("status", "sold breeder")
+													->orWhere("status", "dead breeder")
+													->orWhere("status", "removed breeder");
+													})->get();
 
 			// sorts pigs by sex
 			$sows = [];
@@ -4524,6 +4529,161 @@ class FarmController extends Controller
 			return array_sum($numberfemalesvalue);
 		}
 
+		static function getMonthlyAverageBorn($filter, $month){
+			$farm = Auth::User()->getFarm();
+			$breed = $farm->getBreed();
+			$groups = Grouping::whereNotNull("mother_id")->where("breed_id", $breed->id)->get();
+
+			$lsbavalues = [];
+			$groupsthismonth = [];
+			foreach ($groups as $group) {
+				$groupingproperties = $group->getGroupingProperties();
+				foreach ($groupingproperties as $groupingproperty) {
+					if($groupingproperty->property_id == 3){ //date farrowed
+						if(!is_null($groupingproperty) && $groupingproperty->value != "Not specified"){
+							$datefarrowed = Carbon::parse($groupingproperty->value);
+							if($datefarrowed->year == $filter && $datefarrowed->format('F') == $month){
+								array_push($groupsthismonth, $group);
+								$lsba = $group->getGroupingProperties()->where("property_id", 50)->first()->value;
+								array_push($lsbavalues, $lsba);
+							}
+						}
+					}
+				}
+			}
+
+			if(count($groupsthismonth) != 0){
+				$averageborn = round(array_sum($lsbavalues)/count($groupsthismonth), 2);
+			}
+			else{
+				$averageborn = 0;
+			}
+
+			return $averageborn;
+			
+		}
+
+		static function getMonthlyNumberWeaned($filter, $month){
+			$farm = Auth::User()->getFarm();
+			$breed = $farm->getBreed();
+			$groups = Grouping::whereNotNull("mother_id")->where("breed_id", $breed->id)->get();
+
+			$numberweanedvalues = [];
+			foreach ($groups as $group) {
+				$groupingproperties = $group->getGroupingProperties();
+				foreach ($groupingproperties as $groupingproperty) {
+					if($groupingproperty->property_id == 6){ //date weaned
+						if(!is_null($groupingproperty) && $groupingproperty->value != "Not specified"){
+							$dateweaned = Carbon::parse($groupingproperty->value);
+							if($dateweaned->year == $filter && $dateweaned->format('F') == $month){
+								$numberweaned = $group->getGroupingProperties()->where("property_id", 57)->first()->value;
+								array_push($numberweanedvalues, $numberweaned);
+							}
+						}
+					}
+				}
+			}
+
+			return array_sum($numberweanedvalues);
+		}
+
+		static function getMonthlyAverageWeaned($filter, $month){
+			$farm = Auth::User()->getFarm();
+			$breed = $farm->getBreed();
+			$groups = Grouping::whereNotNull("mother_id")->where("breed_id", $breed->id)->get();
+
+			$numberweanedvalues = [];
+			$groupsthismonth = [];
+			foreach ($groups as $group) {
+				$groupingproperties = $group->getGroupingProperties();
+				foreach ($groupingproperties as $groupingproperty) {
+					if($groupingproperty->property_id == 6){ //date weaned
+						if(!is_null($groupingproperty) && $groupingproperty->value != "Not specified"){
+							$dateweaned = Carbon::parse($groupingproperty->value);
+							if($dateweaned->year == $filter && $dateweaned->format('F') == $month){
+								array_push($groupsthismonth, $group);
+								$numberweaned = $group->getGroupingProperties()->where("property_id", 57)->first()->value;
+								array_push($numberweanedvalues, $numberweaned);
+							}
+						}
+					}
+				}
+			}
+
+			if(count($groupsthismonth) != 0){
+				$averageweaned = round(array_sum($numberweanedvalues)/count($groupsthismonth), 2);
+			}
+			else{
+				$averageweaned = 0;
+			}
+
+			return $averageweaned;
+			
+		}
+
+		static function getMonthlyAverageBirthWeight($filter, $month){
+			$farm = Auth::User()->getFarm();
+			$breed = $farm->getBreed();
+			$groups = Grouping::whereNotNull("mother_id")->where("breed_id", $breed->id)->get();
+
+			$avebirthweights = [];
+			foreach ($groups as $group) {
+				$groupingproperties = $group->getGroupingProperties();
+				foreach ($groupingproperties as $groupingproperty) {
+					if($groupingproperty->property_id == 3){ //date farrowed
+						if(!is_null($groupingproperty) && $groupingproperty->value != "Not specified"){
+							$datefarrowed = Carbon::parse($groupingproperty->value);
+							if($datefarrowed->year == $filter && $datefarrowed->format('F') == $month){
+								$avebirthweight = $group->getGroupingProperties()->where("property_id", 56)->first()->value;
+								array_push($avebirthweights, $avebirthweight);
+							}
+						}
+					}
+				}
+			}
+
+			if(count($avebirthweights) != 0){
+				$averagebirthweight = round(array_sum($avebirthweights)/count($avebirthweights), 2);
+			}
+			else{
+				$averagebirthweight = 0;
+			}
+
+			return $averagebirthweight;
+		}
+
+		static function getMonthlyAverageWeaningWeight($filter, $month){
+			$farm = Auth::User()->getFarm();
+			$breed = $farm->getBreed();
+			$groups = Grouping::whereNotNull("mother_id")->where("breed_id", $breed->id)->get();
+
+			$aveweaningweights = [];
+			foreach ($groups as $group) {
+				$groupingproperties = $group->getGroupingProperties();
+				foreach ($groupingproperties as $groupingproperty) {
+					if($groupingproperty->property_id == 6){ //date weaned
+						if(!is_null($groupingproperty) && $groupingproperty->value != "Not specified"){
+							$dateweaned = Carbon::parse($groupingproperty->value);
+							if($dateweaned->year == $filter && $dateweaned->format('F') == $month){
+								$aveweaningweight = $group->getGroupingProperties()->where("property_id", 58)->first()->value;
+								array_push($aveweaningweights, $aveweaningweight);
+							}
+						}
+					}
+				}
+			}
+
+			if(count($aveweaningweights) != 0){
+				$averageweaningweight = round(array_sum($aveweaningweights)/count($aveweaningweights), 2);
+			}
+			else{
+				$averageweaningweight = 0;
+			}
+
+			return $averageweaningweight;
+		}
+
+
 		public function getBreederInventoryPage(){ // function to display Breeder Inventory page
 			$farm = $this->user->getFarm();
 			$breed = $farm->getBreed();
@@ -4592,9 +4752,11 @@ class FarmController extends Controller
 							}
 						}
 						if($now->gte(Carbon::parse($gproperty->value)) && Carbon::parse($gproperty->value)->addDays(114)->gte($now)){
-							$pregnant = $group->getMother();
-							if($pregnant->status == "breeder"){
-								array_push($pregnantsows, $pregnant);
+							if($group->getGroupingProperties()->where("property_id", 60)->first()->value != "Recycled"){
+								$pregnant = $group->getMother();
+								if($pregnant->status == "breeder"){
+									array_push($pregnantsows, $pregnant);
+								}
 							}
 						}
 					}
@@ -4607,11 +4769,13 @@ class FarmController extends Controller
 						}
 					}
 					if($gproperty->property_id == 3){ // date farrowed
-						if($now->gte(Carbon::parse($gproperty->value))){
-							if(is_null($group->getGroupingProperties()->where("property_id", 6)->first())){
-								$lactating = $group->getMother();
-								if($lactating->status == "breeder"){
-									array_push($templactating, $lactating);
+						if(!is_null($gproperty) && $gproperty->value != "Not specified"){
+							if($now->gte(Carbon::parse($gproperty->value))){
+								if(is_null($group->getGroupingProperties()->where("property_id", 6)->first())){
+									$lactating = $group->getMother();
+									if($lactating->status == "breeder"){
+										array_push($templactating, $lactating);
+									}
 								}
 							}
 						}
@@ -4639,19 +4803,126 @@ class FarmController extends Controller
 
 			$drysows = count($sows) - (count($breds) + count($pregnantsows) + count($lactatingsows) + count($gilts));
 			
+			// gets unique years of age at weaning
+			$years = [];
+			$tempyears = [];
+			foreach ($groups as $group) {
+				$properties = $group->getGroupingProperties();
+				foreach ($properties as $property) {
+					if($property->property_id == 6){ //date weaned
+						if(!is_null($property) && $property->value != "Not specified"){
+							$year = Carbon::parse($property->value)->year;
+							array_push($tempyears, $year);
+							$years = array_reverse(array_sort(array_unique($tempyears)));
+						}
+					}
+				}
+			}
 
-			return view('pigs.breederinventory', compact('pigs', 'sows', 'boars', 'groups', 'frequency', 'breds', 'pregnantsows', 'lactatingsows', 'drysows', 'gilts', 'jrboars', 'srboars', 'now', 'noage'));
+			$months = ["December", "November", "October", "September", "August", "July", "June", "May", "April", "March", "February", "January"];
+
+			return view('pigs.breederinventory', compact('pigs', 'sows', 'boars', 'groups', 'frequency', 'breds', 'pregnantsows', 'lactatingsows', 'drysows', 'gilts', 'jrboars', 'srboars', 'now', 'noage', 'years', 'months'));
+		}
+
+		static function getMonthlyBredSows($year, $month){
+			$farm = Auth::User()->getFarm();
+			$breed = $farm->getBreed();
+			$groups = Grouping::whereNotNull("mother_id")->where("breed_id", $breed->id)->get();
+
+			$monthlybredsows = [];
+			foreach ($groups as $group) {
+				$properties = $group->getGroupingProperties();
+				foreach ($properties as $property) {
+					if($property->property_id == 42){ //date bred
+						if(!is_null($property) && $property->value != "Not specified"){
+							$date_bred = Carbon::parse($property->value);
+							if($date_bred->year == $year && $date_bred->format('F') == $month){
+								array_push($monthlybredsows, $group->getMother()->registryid);
+							}
+						}
+					}
+				}
+			}
+
+			return count($monthlybredsows);
+		}
+
+		static function getMonthlyPregnantSows($year, $month){
+			$farm = Auth::User()->getFarm();
+			$breed = $farm->getBreed();
+			$groups = Grouping::whereNotNull("mother_id")->where("breed_id", $breed->id)->get();
+
+			$monthlypregnantsows = [];
+			foreach ($groups as $group) {
+				$properties = $group->getGroupingProperties();
+				foreach ($properties as $property) {
+					if($property->property_id == 42){ //date bred
+						if(!is_null($property) && $property->value != "Not specified"){
+							$date_bred = Carbon::parse($property->value);
+							$date = new Carbon('last day of '.$month.' '.$year);
+							if($date->gte($date_bred) && $date_bred->addDays(114)->gte($date)){
+								if($group->getGroupingProperties()->where("property_id", 60)->first()->value != "Recycled"){
+									array_push($monthlypregnantsows, $group->getMother()->registryid);
+								}
+							}
+						}
+					}
+				}
+			}
+
+			return count($monthlypregnantsows);
+		}
+
+		static function getMonthlyLactatingSows($year, $month){
+			$farm = Auth::User()->getFarm();
+			$breed = $farm->getBreed();
+			$groups = Grouping::whereNotNull("mother_id")->where("breed_id", $breed->id)->get();
+
+			$monthlylactatingsows = [];
+			foreach ($groups as $group) {
+				$properties = $group->getGroupingProperties();
+				foreach ($properties as $property) {
+					if($property->property_id == 3){ //date farrowed
+						if(!is_null($property) && $property->value != "Not specified"){
+							$date = new Carbon('last day of '.$month.' '.$year);
+							$datefarrowed = Carbon::parse($property->value);
+							$dateweanedprop = $group->getGroupingProperties()->where("property_id", 6)->first();
+							if(!is_null($dateweanedprop)){
+								$dateweaned = Carbon::parse($dateweanedprop->value);
+								if($date->between($datefarrowed, $dateweaned)){
+									array_push($monthlylactatingsows, $group->getMother()->registryid);
+								}
+							}
+							else{
+								if(($datefarrowed->year == $year && $datefarrowed->format('F') == $month) || $date->lte($datefarrowed->addDays(90))){
+									array_push($monthlylactatingsows, $group->getMother()->registryid);
+								}
+							}
+						}
+					}
+				}
+			}
+
+			return count($monthlylactatingsows);
+		}
+
+		static function getMonthlyDrySows($year, $month, $count){
+			$dry = $count - (static::getMonthlyBredSows($year, $month) + static::getMonthlyPregnantSows($year, $month) + static::getMonthlyLactatingSows($year, $month));
+
+			if($dry > 0){
+				$drysows = $dry;
+			}
+			else{
+				$drysows = 0;
+			}
+
+			return $drysows;
 		}
 
 		public function getGrowerInventoryPage(){ // function to display Grower Inventory page
 			$farm = $this->user->getFarm();
 			$breed = $farm->getBreed();
-			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where(function ($query) {
-										$query->where("status", "active")
-													->orWhere("status", "sold grower")
-													->orWhere("status", "dead grower")
-													->orWhere("status", "removed grower");
-													})->get();
+			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "active")->get();
 
 			// sorts pigs by sex
 			$sows = [];
@@ -5006,7 +5277,7 @@ class FarmController extends Controller
 				}
 			}
 			
-			$months = ["December", "November", "October", "September", "August", "July", "June", "May", "April", "March", "Febraury", "January"];
+			$months = ["December", "November", "October", "September", "August", "July", "June", "May", "April", "March", "February", "January"];
 			// $months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
 			// gets the unique years of death/sales/removed

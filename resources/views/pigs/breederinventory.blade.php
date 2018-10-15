@@ -32,7 +32,7 @@
 						<div class="card">
 							<div class="card-content grey lighten-2">
 								<h3>{{ count($gilts) }}</h3>
-								<p><a class="tooltipped" data-position="bottom" data-tooltip="Not bred sows">Gilts</a></p>
+								<p><a class="tooltipped" data-position="bottom" data-tooltip="Not yet bred sows">Gilts</a></p>
 							</div>
 						</div>
 					</div>
@@ -65,6 +65,40 @@
 						</div>
 					</div>
 				</div>
+				<h5>Summary</h5>
+				<div class="col s12">
+        	<ul class="collapsible popout">
+        		@foreach($years as $year)
+	            <li>
+	              <div class="collapsible-header grey lighten-2">{{ $year }}</div>
+	              <div class="collapsible-body">
+	              	<table class="centered">
+	              		<thead>
+	              			<tr>
+	              				<th class="grey lighten-2">Month</th>
+	              				<th>Bred</th>
+	              				<th class="grey lighten-2">Pregnant</th>
+	              				<th>Lactating</th>
+	              				<th class="grey lighten-2">Dry</th>
+	              			</tr>
+	              		</thead>
+	              		<tbody>
+	              			@foreach($months as $month)
+	              				<tr>
+	              					<td class="grey lighten-2">{{ $month }}</td>
+	              					<td>{{ App\Http\Controllers\FarmController::getMonthlyBredSows($year, $month) }}</td>
+	              					<td class="grey lighten-2">{{ App\Http\Controllers\FarmController::getMonthlyPregnantSows($year, $month) }}</td>
+	              					<td>{{ App\Http\Controllers\FarmController::getMonthlyLactatingSows($year, $month) }}</td>
+	              					<td class="grey lighten-2">{{ App\Http\Controllers\FarmController::getMonthlyDrySows($year, $month, count($sows)) }}</td>
+	              				</tr>
+	              			@endforeach
+	              		</tbody>
+	              	</table>
+	              </div>
+	            </li>
+	          @endforeach
+	        </ul>
+	      </div>
 			</div>
 			<!-- BOAR INVENTORY -->
 			<div id="boarinventory" class="col s12">

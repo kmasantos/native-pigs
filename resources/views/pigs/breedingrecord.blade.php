@@ -199,11 +199,15 @@
 															<div class="col s2 offset-s1">
 																Change to:
 															</div>
-															<div class="col s4">
+															<div class="col s3">
 									              <input class="with-gap" name="change_status_pregnant" type="radio" id="change_status_pregnant_farrowed" value="Farrowed" />
 									              <label for="change_status_pregnant_farrowed">Farrowed</label>
 									            </div>
-									            <div class="col s4">
+									            <div class="col s3">
+									              <input class="with-gap" name="change_status_pregnant" type="radio" id="change_status_pregnant_recycled" value="Recycled" />
+									              <label for="change_status_pregnant_recycled">Recycled</label>
+									            </div>
+									            <div class="col s3">
 									              <input class="with-gap" name="change_status_pregnant" type="radio" id="change_status_pregnant_aborted" value="Aborted" />
 									              <label for="change_status_pregnant_aborted">Aborted</label>
 									            </div>
