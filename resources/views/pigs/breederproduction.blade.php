@@ -94,20 +94,20 @@
 												@foreach($months as $month)
 													<tr>
 														<td class="grey lighten-2">{{ $month }}</td>
-														@if(App\Http\Controllers\FarmController::getMonthlyAgeAtWeaning($year_weaning, $month, "Sow") == [])
+														@if(App\Http\Controllers\FarmController::getAgeAtWeaning($year_weaning, $month, "Sow") == [])
 		                          <td>No data available</td>
 		                        @else
-		                          <td>{{ round(array_sum(App\Http\Controllers\FarmController::getMonthlyAgeAtWeaning($year_weaning, $month, "Sow"))/count(App\Http\Controllers\FarmController::getMonthlyAgeAtWeaning($year_weaning, $month, "Sow")), 2) }}</td>
+		                          <td>{{ round(array_sum(App\Http\Controllers\FarmController::getAgeAtWeaning($year_weaning, $month, "Sow"))/count(App\Http\Controllers\FarmController::getAgeAtWeaning($year_weaning, $month, "Sow")), 2) }}</td>
 		                        @endif
-		                        @if(App\Http\Controllers\FarmController::getMonthlyAgeAtWeaning($year_weaning, $month, "Boar") == [])
+		                        @if(App\Http\Controllers\FarmController::getAgeAtWeaning($year_weaning, $month, "Boar") == [])
 		                          <td class="grey lighten-2">No data available</td>
 		                        @else
-		                          <td class="grey lighten-2">{{ round(array_sum(App\Http\Controllers\FarmController::getMonthlyAgeAtWeaning($year_weaning, $month, "Boar"))/count(App\Http\Controllers\FarmController::getMonthlyAgeAtWeaning($year_weaning, $month, "Boar")), 2) }}</td>
+		                          <td class="grey lighten-2">{{ round(array_sum(App\Http\Controllers\FarmController::getAgeAtWeaning($year_weaning, $month, "Boar"))/count(App\Http\Controllers\FarmController::getAgeAtWeaning($year_weaning, $month, "Boar")), 2) }}</td>
 		                        @endif
-														@if(App\Http\Controllers\FarmController::getMonthlyAgeAtWeaning($year_weaning, $month, "All") == [])
+														@if(App\Http\Controllers\FarmController::getAgeAtWeaning($year_weaning, $month, "All") == [])
 		                          <td>No data available</td>
 		                        @else
-		                          <td>{{ round(array_sum(App\Http\Controllers\FarmController::getMonthlyAgeAtWeaning($year_weaning, $month, "All"))/count(App\Http\Controllers\FarmController::getMonthlyAgeAtWeaning($year_weaning, $month, "All")), 2) }}</td>
+		                          <td>{{ round(array_sum(App\Http\Controllers\FarmController::getAgeAtWeaning($year_weaning, $month, "All"))/count(App\Http\Controllers\FarmController::getAgeAtWeaning($year_weaning, $month, "All")), 2) }}</td>
 		                        @endif
 													</tr>
 												@endforeach

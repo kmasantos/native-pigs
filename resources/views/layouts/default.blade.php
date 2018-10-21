@@ -21,7 +21,7 @@
  <div class="navbar-fixed">
     <nav class="blue-grey">
       <div class="nav-wrapper" style="padding-left: 10px;">
-        <a href="{{url('/')}}" class="brand-logo"><img src="/images/logo-default.png" height="65" / ></a>
+        <a href="{{url('/')}}" class="brand-logo"><img src="{{asset('images/logo-default.png')}}" alt="Native Animals" height="65" / ></a>
       </div>
     </nav>
   </div>

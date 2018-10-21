@@ -5,9 +5,9 @@
 		<meta name="csrf-token" content="{{ csrf_token() }}">
 		<title>Native Pigs: @yield('title')</title>
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-		<link rel="stylesheet" href="/thirdparty/materialize/css/materialize.min.css">
+		<link rel="stylesheet" href="{{asset('thirdparty/materialize/css/materialize.min.css')}}">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-alpha.1/css/materialize.min.css">
-		<link rel="stylesheet" href="/css/global.css">
+		<link rel="stylesheet" href="{{asset('css/global.css')}}">
 		<link type="text/css" rel="stylesheet" href="{{asset('css/pig.css')}}"  media="screen,projection"/>
 		@yield('initScriptsAndStyles')
 	</head>
@@ -17,7 +17,7 @@
 		<div class="navbar-fixed">
 			<nav class="green lighten-1" role="navigation">
 				<div class="nav-wrapper">
-					<a href="{{route('farm.index')}}" class="brand-logo"><img src="/images/logo-swine.png" height="65" / ></a>
+					<a href="{{route('farm.index')}}" class="brand-logo"><img src="{{asset('images/logo-default.png')}}" alt="Native Animals" height="65" / ></a>
 					<ul id="nav-mobile" class="right hide-on-med-and-down">
 						<li><a href="{{route('farm.index')}}">{{ Auth::user()->name }}</a></li>
 						<li><a href="logout" id="logoutbutton" onclick="window.location='https://accounts.google.com/Logout?&continue=http://www.google.com/';">Logout</a></li>
@@ -31,7 +31,7 @@
 			<li>
 				<div class="user-view">
 					<div class="background green lighten-1"></div>
-					<a href="#!"><img class="circle" src="/images/farmer.png"></a>
+					<a href="#!"><img class="circle" src="{{asset('images/farmer.png')}}" alt="Farm User"></a>
 					<a href="#!"><span class="black-text name">{{ Auth::user()->name }}</span></a>
 					<a href="#!"><span class="black-text email">{{ Auth::user()->email }}</span></a>
 				</div>
@@ -133,9 +133,9 @@
 
 		{{-- Footer --}}
 
-		<script type="text/javascript" src="/thirdparty/jquery-3.2.1.js"></script>
-		<script type="text/javascript" src="/thirdparty/materialize/js/materialize.min.js"></script>
-		<script type="text/javascript" src="/js/global.js"></script>
+		<script type="text/javascript" src="{{asset('thirdparty/jquery-3.2.1.js')}}"></script>
+		<script type="text/javascript" src="{{asset('thirdparty/materialize/js/materialize.min.js')}}"></script>
+		<script type="text/javascript" src="{{asset('js/global.js')}}"></script>
 		<script type="text/javascript" src="{{asset('js/pig.js')}}"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
 		{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-alpha.1/js/materialize.min.js"></script> --}}
