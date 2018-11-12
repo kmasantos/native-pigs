@@ -1271,6 +1271,65 @@ class FarmController extends Controller
 			return view('pigs.breedingrecord', compact('pigs', 'sows', 'boars', 'femalegrowers', 'malegrowers', 'family', 'years'));
 		}
 
+		public function getEditBreedingRecordPage($id){ //function to display edit breeding record page
+			$farm = $this->user->getFarm();
+			$breed = $farm->getBreed();
+			$breeders = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "breeder")->get();
+			$family = Grouping::find($id);
+			$properties = GroupingProperty::where("grouping_id", $id)->get();
+
+			// sorts breeders per sex
+			$sows = [];
+			$boars = [];
+			foreach($breeders as $breeder){
+				if(substr($breeder->registryid, -7, 1) == 'F'){
+					array_push($sows, $breeder);
+				}
+				if(substr($breeder->registryid, -7, 1) == 'M'){
+					array_push($boars, $breeder);
+				}
+			}
+
+			return view('pigs.editbreedingrecord', compact('pigs', 'sows', 'boars', 'family', 'properties'));
+		}
+
+		public function editBreedingRecord(Request $request){ //function to update breeding record
+			$farm = $this->user->getFarm();
+			$breed = $farm->getBreed();
+			$sow = Animal::where("registryid", $request->sow_id)->first();
+			$boar = Animal::where("registryid", $request->boar_id)->first();
+			$family = Grouping::find($request->grouping_id);
+			$properties = GroupingProperty::where("grouping_id", $family->id)->get();
+
+			$family->registryid = $sow->registryid;
+			$family->father_id = $boar->id;
+			$family->mother_id = $sow->id;
+			$family->save();
+
+			if(is_null($request->date_bred)){
+				$dateBredValue = new Carbon();
+			}
+			else{
+				$dateBredValue = $request->date_bred;
+			}
+
+			$date_bred = $properties->where("property_id", 42)->first();
+			$date_bred->value = $dateBredValue;
+			$date_bred->save();
+
+			$edfValue = Carbon::parse($dateBredValue)->addDays(114);
+
+			$edf = $properties->where("property_id", 43)->first();
+			$edf->value = $edfValue;
+			$edf->save();
+
+			$status = $properties->where("property_id", 60)->first();
+			$status->value = $request->status;
+			$status->save();
+
+			return Redirect::back()->with('message', 'Operation Successful!');
+		}
+
 		public function getMortalityAndSalesPage(){ // function to display Mortality and Sales page
 			$farm = $this->user->getFarm();
 			$breed = $farm->getBreed();
@@ -2179,9 +2238,11 @@ class FarmController extends Controller
 					if($property->property_id == 21){ // date collected for morpho chars
 						if($property->value != ""){
 							$date_collected = $property->value;
-							$bday = $pig->getAnimalProperties()->where("property_id", 3)->first()->value;
-							$age = Carbon::parse($date_collected)->diffInMonths(Carbon::parse($bday));
-							array_push($ages_collected, $age);
+							$bday = $pig->getAnimalProperties()->where("property_id", 3)->first();
+							if(!is_null($bday) && $bday->value != "Not specified"){
+								$age = Carbon::parse($date_collected)->diffInMonths(Carbon::parse($bday->value));
+								array_push($ages_collected, $age);
+							}
 						}
 					}
 					if($property->property_id == 22){ //earlength
@@ -3187,9 +3248,14 @@ class FarmController extends Controller
 				if(!is_null($bday) && $bday->value != "Not specified"){
 					$bday_sow = Carbon::parse($bday->value);
 				}
+				else{
+					$bday_sow = "";
+				}
 				// age computation
-				$firstbredsowsage = Carbon::parse($date_bredsow)->diffInMonths($bday_sow);
-				array_push($firstbredsowsages, $firstbredsowsage);
+				if($bday_sow != ""){
+					$firstbredsowsage = Carbon::parse($date_bredsow)->diffInMonths($bday_sow);
+					array_push($firstbredsowsages, $firstbredsowsage);
+				}
 			}
 
 			if($firstbredsowsages != []){
@@ -3227,7 +3293,7 @@ class FarmController extends Controller
 								$date_bred = $groupproperty->value;
 								$bday = $firstbredboar->getAnimalProperties()->where("property_id", 3)->first();
 								if(!is_null($bday) && $bday->value != "Not specified"){
-									$bday_boar = Carbon::parse($bredboarproperty->value);
+									$bday_boar = Carbon::parse($bday->value);
 									$firstbredboarsage = Carbon::parse($date_bred)->diffInMonths($bday_boar);
 									array_push($firstbredboarsages, $firstbredboarsage);
 								}
@@ -3256,11 +3322,16 @@ class FarmController extends Controller
 						if(!is_null($bday) && $bday->value != "Not specified"){
 							$bday_boar = Carbon::parse($bday->value);
 						}
+						else{
+							$bday_boar = "";
+						}
 					}
 				}
 				// age computation
-				$firstbredboarsage = Carbon::parse($date_bredboar)->diffInMonths($bday_boar);
-				array_push($firstbredboarsages, $firstbredboarsage);
+				if($bday_boar != ""){
+					$firstbredboarsage = Carbon::parse($date_bredboar)->diffInMonths($bday_boar);
+					array_push($firstbredboarsages, $firstbredboarsage);
+				}
 			}
 			if($firstbredboarsages != []){
 				$firstbredboarsages_sd = static::standardDeviation($firstbredboarsages, false);
@@ -3610,7 +3681,7 @@ class FarmController extends Controller
 		}
 
 		static function getPropertyAveragePerParity($parity, $filter){
-			set_time_limit(3600);
+			set_time_limit(5000);
 			$farm = Auth::User()->getFarm();
 			$breed = $farm->getBreed();
 			$groups = Grouping::whereNotNull("mother_id")->where("breed_id", $breed->id)->get();
@@ -3967,8 +4038,10 @@ class FarmController extends Controller
 					$farrowing_intervals[] = $dates_farrowed[$i]->diffInDays($dates_farrowed[$i-1]);
 				}
 
-				$average = array_sum($farrowing_intervals)/count($farrowing_intervals);
-				$farrowing_index =  365/$average;
+				if($farrowing_intervals != []){
+					$average = array_sum($farrowing_intervals)/count($farrowing_intervals);
+					$farrowing_index =  365/$average;
+				}
 			}
 
 			return view('pigs.sowproductionperformance', compact('sow', 'properties', 'usage', 'parities', 'removed_first', 'farrowing_intervals_text', 'farrowing_index'));
@@ -4752,7 +4825,7 @@ class FarmController extends Controller
 							}
 						}
 						if($now->gte(Carbon::parse($gproperty->value)) && Carbon::parse($gproperty->value)->addDays(114)->gte($now)){
-							if($group->getGroupingProperties()->where("property_id", 60)->first()->value != "Recycled"){
+							if($group->getGroupingProperties()->where("property_id", 60)->first()->value != "Recycled" && $group->getGroupingProperties()->where("property_id", 60)->first()->value != "Farrowed"){
 								$pregnant = $group->getMother();
 								if($pregnant->status == "breeder"){
 									array_push($pregnantsows, $pregnant);
@@ -5726,7 +5799,12 @@ class FarmController extends Controller
 						$date_bredboar = $sorted_dates[$keys[0]];
 						if(!is_null($boar->getAnimalProperties()->where("property_id", 3)->first())){
 							$bday = $boar->getAnimalProperties()->where("property_id", 3)->first()->value;
-							$ageAtFirstMating = Carbon::parse($date_bredboar)->diffInMonths(Carbon::parse($bday));
+							if($bday != "Not specified"){
+								$ageAtFirstMating = Carbon::parse($date_bredboar)->diffInMonths(Carbon::parse($bday));
+							}
+							else{
+								$ageAtFirstMating = "";
+							}
 						}
 						else{
 							$ageAtFirstMating = "";
@@ -7590,6 +7668,15 @@ class FarmController extends Controller
 			$animal = Animal::find($request->animal_id);
 			$properties = $animal->getAnimalProperties();
 
+			$dcgross = $properties->where("property_id", 10)->first();
+			if(is_null($request->date_collected_gross)){
+				$dcgrossValue = new Carbon();
+			}
+			else{
+				$dcgrossValue = $request->date_collected_gross;
+			}
+			$dcgross->value = $dcgrossValue;
+
 			$hairtype = $properties->where("property_id", 11)->first();
 			if(is_null($request->hair_type1)){
 				$hairTypeValue = "Not specified";
@@ -7680,6 +7767,7 @@ class FarmController extends Controller
 			}
 			$othermarks->value = $otherMarksValue;
 
+			$dcgross->save();
 			$hairtype->save();
 			$hairlength->save();
 			$coatcolor->save();
@@ -7697,6 +7785,15 @@ class FarmController extends Controller
 		public function editMorphometricCharacteristics(Request $request){ // function to edit morphometric characteristics
 			$animal = Animal::find($request->animal_id);
 			$properties = $animal->getAnimalProperties();
+
+			$dcmorpho = $properties->where("property_id", 21)->first();
+			if(is_null($request->date_collected_morpho)){
+				$dcmorphoValue = new Carbon();
+			}
+			else{
+				$dcmorphoValue = $request->date_collected_morpho;
+			}
+			$dcmorpho->value = $dcmorphoValue;
 
 			$earlength = $properties->where("property_id", 22)->first();
 			if(is_null($request->ear_length)){
@@ -7779,6 +7876,7 @@ class FarmController extends Controller
 			}
 			$normalteats->value = $normalTeatsValue;
 
+			$dcmorpho->save();
 			$earlength->save();
 			$headlength->save();
 			$snoutlength->save();

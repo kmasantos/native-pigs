@@ -17,7 +17,7 @@
               Date Collected
             </div>
             <div class="col s8">
-              {{ Carbon\Carbon::parse($properties->where("property_id", 10)->first()->value)->format('j F, Y') }}
+              <input id="date_collected_gross" type="text" value="{{ Carbon\Carbon::parse($properties->where("property_id", 10)->first()->value)->format('j F, Y') }}" name="date_collected_gross" class="datepicker">
             </div>
           </div>
           <div class="row">

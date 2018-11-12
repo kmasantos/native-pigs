@@ -48,6 +48,7 @@
 									<th>Expected Date of Farrowing</th>
 									<th>Status</th>
 									<th>Sow & Litter Record</th>
+									<th>Edit</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -76,7 +77,7 @@
 										<input id="date_bred" type="text" placeholder="Pick date" name="date_bred" class="datepicker">
 									</td>
 									{{-- submit button --}}
-									<td colspan="3" class="center">
+									<td colspan="4" class="center">
 										<button class="btn waves-effect waves-light green darken-3 tooltipped" data-position="top" data-tooltip="Add breeding record" type="submit" onclick="Materialize.toast('Successfully added!', 4000)">
 											Add <i class="material-icons right">add</i>
 					          </button>
@@ -265,6 +266,8 @@
 												@endif
 											@endif
 										@endif
+										{{-- edit button --}}
+										<td><a href="{{ URL::route('farm.pig.edit_breeding_record', [$breedingRecord->id]) }}"><i class="material-icons">edit</i></a></td>
 									</tr>
 								@empty
 									<tr>

@@ -28,6 +28,8 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('find_pig', ['as' => 'farm.pig.find_pig', 'uses' => 'FarmController@findPig']);
     Route::get('breeding_record', ['as' => 'farm.pig.breeding_record', 'uses' => 'FarmController@getBreedingRecordPage']);
     Route::post('get_breeding_record', ['as' => 'farm.pig.get_breeding_record', 'uses' => 'FarmController@addBreedingRecord']);
+    Route::get('edit_breeding_record/{id}', ['as' => 'farm.pig.edit_breeding_record', 'uses' => 'FarmController@getEditBreedingRecordPage']);
+    Route::post('update_breeding_record', ['as' => 'farm.pig.update_breeding_record', 'uses' => 'FarmController@editBreedingRecord']);
     Route::post('change_status_bred/{id}', ['as' => 'farm.pig.change_status_bred', 'uses' => 'FarmController@changeStatusFromBred']);
     Route::post('change_status_pregnant/{id}', ['as' => 'farm.pig.change_status_pregnant', 'uses' => 'FarmController@changeStatusFromPregnant']);
     Route::post('add_date_aborted', ['as' => 'farm.pig.add_date_aborted', 'uses' => 'FarmController@addDateAborted']);
