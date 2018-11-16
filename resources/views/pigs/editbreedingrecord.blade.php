@@ -6,7 +6,7 @@
 
 @section('content')
 	<div class="container">
-		<h4>Edit Breeding Record</h4>
+		<h4><a href="{{route('farm.pig.breeding_record')}}"><img src="{{asset('images/back.png')}}" width="4.5%"></a> Edit Breeding Record</h4>
 		<div class="divider"></div>
 		{!! Form::open(['route' => 'farm.pig.update_breeding_record', 'method' => 'post']) !!}
 		<div class="row" style="padding-top: 10px;">

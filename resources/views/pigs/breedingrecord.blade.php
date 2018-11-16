@@ -153,78 +153,9 @@
 										@if(is_null($breedingRecord->getGroupingProperties()->where("property_id", 60)->first()))
 											<td></td>
 										@else
-											{{-- bred --}}
-											@if($breedingRecord->getGroupingProperties()->where("property_id", 60)->first()->value == "Bred")
-												{!! Form::open(['route' => ['farm.pig.change_status_bred', $breedingRecord->id], 'method' => 'post']) !!}
-												<td width="120">
-													{{ $breedingRecord->getGroupingProperties()->where("property_id", 60)->first()->value }} <a href="#change_from_bred_modal{{ $breedingRecord->id }}" class="modal-trigger tooltipped" data-position="top" data-tooltip="Change status"><i class="material-icons right">swap_vert</i></a>
-												</td>
-												{{-- MODAL STRUCTURE --}}
-												<div id="change_from_bred_modal{{ $breedingRecord->id }}" class="modal">
-													<div class="modal-content">
-														<h5 class="center">Current status: <strong>{{ $breedingRecord->getGroupingProperties()->where("property_id", 60)->first()->value }}</strong></h5><br><br>
-														<input type="hidden" name="grouping_id" value="{{ $breedingRecord->id }}">
-														<div class="row">
-															<div class="col s2 offset-s1">
-																Change to:
-															</div>
-															<div class="col s4">
-									              <input class="with-gap" name="change_status_bred" type="radio" id="change_status_bred_pregnant" value="Pregnant" />
-									              <label for="change_status_bred_pregnant">Pregnant</label>
-									            </div>
-									            <div class="col s4">
-									              <input class="with-gap" name="change_status_bred" type="radio" id="change_status_bred_recycled" value="Recycled" />
-									              <label for="change_status_bred_recycled">Recycled</label>
-									            </div>
-									          </div>
-									          <div class="row center">
-									          	<button class="btn waves-effect waves-light green darken-3" type="submit" onclick="Materialize.toast('Saved successfully!', 4000)">Update
-									              <i class="material-icons right">done</i>
-									            </button>
-									          </div>
-													</div>
-												</div>
-												{!! Form::close() !!}
-											{{-- pregnant --}}
-											@elseif($breedingRecord->getGroupingProperties()->where("property_id", 60)->first()->value == "Pregnant")
-												{!! Form::open(['route' => ['farm.pig.change_status_pregnant', $breedingRecord->id], 'method' => 'post']) !!}
-												<td width="120">
-													{{ $breedingRecord->getGroupingProperties()->where("property_id", 60)->first()->value }} <a href="#change_from_pregnant_modal{{ $breedingRecord->id }}" class="modal-trigger tooltipped" data-position="top" data-tooltip="Change status"><i class="material-icons right">swap_vert</i></a>
-												</td>
-												{{-- MODAL STRUCTURE --}}
-												<div id="change_from_pregnant_modal{{ $breedingRecord->id }}" class="modal">
-													<div class="modal-content">
-														<h5 class="center">Current status: <strong>{{ $breedingRecord->getGroupingProperties()->where("property_id", 60)->first()->value }}</strong></h5><br><br>
-														<input type="hidden" name="grouping_id" value="{{ $breedingRecord->id }}">
-														<div class="row">
-															<div class="col s2 offset-s1">
-																Change to:
-															</div>
-															<div class="col s3">
-									              <input class="with-gap" name="change_status_pregnant" type="radio" id="change_status_pregnant_farrowed" value="Farrowed" />
-									              <label for="change_status_pregnant_farrowed">Farrowed</label>
-									            </div>
-									            <div class="col s3">
-									              <input class="with-gap" name="change_status_pregnant" type="radio" id="change_status_pregnant_recycled" value="Recycled" />
-									              <label for="change_status_pregnant_recycled">Recycled</label>
-									            </div>
-									            <div class="col s3">
-									              <input class="with-gap" name="change_status_pregnant" type="radio" id="change_status_pregnant_aborted" value="Aborted" />
-									              <label for="change_status_pregnant_aborted">Aborted</label>
-									            </div>
-									          </div>
-									          <div class="row center">
-									          	<button class="btn waves-effect waves-light green darken-3" type="submit" onclick="Materialize.toast('Saved successfully!', 4000)">Update
-									              <i class="material-icons right">done</i>
-									            </button>
-									          </div>
-													</div>
-												</div>
-												{!! Form::close() !!}
-											{{-- recycled/aborted/farrowed --}}
-											@elseif($breedingRecord->getGroupingProperties()->where("property_id", 60)->first()->value == "Recycled" || $breedingRecord->getGroupingProperties()->where("property_id", 60)->first()->value == "Farrowed" || $breedingRecord->getGroupingProperties()->where("property_id", 60)->first()->value == "Aborted")
-												<td>{{ $breedingRecord->getGroupingProperties()->where("property_id", 60)->first()->value }}</td>
-											@endif
+											<td width="120">
+												{{ $breedingRecord->getGroupingProperties()->where("property_id", 60)->first()->value }}
+											</td>
 										@endif
 										{{-- icons --}}
 										@if(is_null($breedingRecord->getGroupingProperties()->where("property_id", 60)->first()))
