@@ -84,6 +84,8 @@
           <input class="with-gap" name="status" type="radio" id="status_aborted" value="Aborted" />
           <label for="status_aborted">Aborted</label>
         </div>
+      @elseif($properties->where("property_id", 60)->first()->value == "Farrowed" || $properties->where("property_id", 60)->first()->value == "Recycled" || $properties->where("property_id", 60)->first()->value == "Aborted")
+      	<input type="hidden" name="status" value="{{ $properties->where("property_id", 60)->first()->value }}">
 			@endif
 		</div>
 		<div class="row center">
