@@ -3622,20 +3622,41 @@ class FarmController extends Controller
 			$agesweaned = [];
 			$preweaningmortality = [];
 			foreach ($groupswiththisparity as $groupwiththisparity) {
-				$lsbavalue = $groupwiththisparity->getGroupingProperties()->where("property_id", 50)->first()->value;
-				array_push($lsba, $lsbavalue);
-				$numbermalesvalue = $groupwiththisparity->getGroupingProperties()->where("property_id", 51)->first()->value;
-				array_push($numbermales, $numbermalesvalue);
-				$numberfemalesvalue = $groupwiththisparity->getGroupingProperties()->where("property_id", 52)->first()->value;
-				array_push($numberfemales, $numberfemalesvalue);
-				$stillbornvalue = $groupwiththisparity->getGroupingProperties()->where("property_id", 45)->first()->value;
-				array_push($stillborn, $stillbornvalue);
-				$mummifiedvalue = $groupwiththisparity->getGroupingProperties()->where("property_id", 46)->first()->value;
-				array_push($mummified, $mummifiedvalue);
-				$litterbwvalue = $groupwiththisparity->getGroupingProperties()->where("property_id", 55)->first()->value;
-				array_push($litterbirthweights, $litterbwvalue);
-				$avebwvalue = $groupwiththisparity->getGroupingProperties()->where("property_id", 56)->first()->value;
-				array_push($avebirthweights, $avebwvalue);
+				$lsbaprop = $groupwiththisparity->getGroupingProperties()->where("property_id", 50)->first();
+				if(!is_null($lsbaprop)){
+					$lsbavalue = $lsbaprop->value;
+					array_push($lsba, $lsbavalue);
+				}
+				$numbermalesprop = $groupwiththisparity->getGroupingProperties()->where("property_id", 51)->first();
+				if(!is_null($numbermalesprop)){
+					$numbermalesvalue = $numbermalesprop->value;
+					array_push($numbermales, $numbermalesvalue);
+				}
+				$numberfemalesprop = $groupwiththisparity->getGroupingProperties()->where("property_id", 52)->first();
+				if(!is_null($numberfemalesprop)){
+					$numberfemalesvalue = $numberfemalesprop->value;
+					array_push($numberfemales, $numberfemalesvalue);
+				}
+				$stillbornprop = $groupwiththisparity->getGroupingProperties()->where("property_id", 45)->first();
+				if(!is_null($stillbornprop)){
+					$stillbornvalue = $stillbornprop->value;
+					array_push($stillborn, $stillbornvalue);
+				}
+				$mummifiedprop = $groupwiththisparity->getGroupingProperties()->where("property_id", 46)->first();
+				if(!is_null($mummifiedprop)){
+					$mummifiedvalue = $mummifiedprop->value;
+					array_push($mummified, $mummifiedvalue);
+				}
+				$litterbwprop = $groupwiththisparity->getGroupingProperties()->where("property_id", 55)->first();
+				if(!is_null($litterbwprop)){
+					$litterbwvalue = $litterbwprop->value;
+					array_push($litterbirthweights, $litterbwvalue);
+				}
+				$avebwprop = $groupwiththisparity->getGroupingProperties()->where("property_id", 56)->first();
+				if(!is_null($avebwprop)){
+					$avebwvalue = $avebwprop->value;
+					array_push($avebirthweights, $avebwvalue);
+				}
 				if(!is_null($groupwiththisparity->getGroupingProperties()->where("property_id", 62)->first())){
 					$litterwwvalue = $groupwiththisparity->getGroupingProperties()->where("property_id", 62)->first()->value;
 				}
@@ -3712,20 +3733,41 @@ class FarmController extends Controller
 			$agesweaned = [];
 			$preweaningmortality = [];
 			foreach ($groupswiththisparity as $groupwiththisparity) {
-				$lsbavalue = $groupwiththisparity->getGroupingProperties()->where("property_id", 50)->first()->value;
-				array_push($lsba, $lsbavalue);
-				$numbermalesvalue = $groupwiththisparity->getGroupingProperties()->where("property_id", 51)->first()->value;
-				array_push($numbermales, $numbermalesvalue);
-				$numberfemalesvalue = $groupwiththisparity->getGroupingProperties()->where("property_id", 52)->first()->value;
-				array_push($numberfemales, $numberfemalesvalue);
-				$stillbornvalue = $groupwiththisparity->getGroupingProperties()->where("property_id", 45)->first()->value;
-				array_push($stillborn, $stillbornvalue);
-				$mummifiedvalue = $groupwiththisparity->getGroupingProperties()->where("property_id", 46)->first()->value;
-				array_push($mummified, $mummifiedvalue);
-				$litterbwvalue = $groupwiththisparity->getGroupingProperties()->where("property_id", 55)->first()->value;
-				array_push($litterbirthweights, $litterbwvalue);
-				$avebwvalue = $groupwiththisparity->getGroupingProperties()->where("property_id", 56)->first()->value;
-				array_push($avebirthweights, $avebwvalue);
+				$lsbaprop = $groupwiththisparity->getGroupingProperties()->where("property_id", 50)->first();
+				if(!is_null($lsbaprop)){
+					$lsbavalue = $lsbaprop->value;
+					array_push($lsba, $lsbavalue);
+				}
+				$numbermalesprop = $groupwiththisparity->getGroupingProperties()->where("property_id", 51)->first();
+				if(!is_null($numbermalesprop)){
+					$numbermalesvalue = $numbermalesprop->value;
+					array_push($numbermales, $numbermalesvalue);
+				}
+				$numberfemalesprop = $groupwiththisparity->getGroupingProperties()->where("property_id", 52)->first();
+				if(!is_null($numberfemalesprop)){
+					$numberfemalesvalue = $numberfemalesprop->value;
+					array_push($numberfemales, $numberfemalesvalue);
+				}
+				$stillbornprop = $groupwiththisparity->getGroupingProperties()->where("property_id", 45)->first();
+				if(!is_null($stillbornprop)){
+					$stillbornvalue = $stillbornprop->value;
+					array_push($stillborn, $stillbornvalue);
+				}
+				$mummifiedprop = $groupwiththisparity->getGroupingProperties()->where("property_id", 46)->first();
+				if(!is_null($mummifiedprop)){
+					$mummifiedvalue = $mummifiedprop->value;
+					array_push($mummified, $mummifiedvalue);
+				}
+				$litterbwprop = $groupwiththisparity->getGroupingProperties()->where("property_id", 55)->first();
+				if(!is_null($litterbwprop)){
+					$litterbwvalue = $litterbwprop->value;
+					array_push($litterbirthweights, $litterbwvalue);
+				}
+				$avebwprop = $groupwiththisparity->getGroupingProperties()->where("property_id", 56)->first();
+				if(!is_null($avebwprop)){
+					$avebwvalue = $avebwprop->value;
+					array_push($avebirthweights, $avebwvalue);
+				}
 				if(!is_null($groupwiththisparity->getGroupingProperties()->where("property_id", 62)->first())){
 					$litterwwvalue = $groupwiththisparity->getGroupingProperties()->where("property_id", 62)->first()->value;
 				}
@@ -3935,20 +3977,41 @@ class FarmController extends Controller
 			$agesweaned = [];
 			$preweaningmortality = [];
 			foreach ($groupswiththisparity as $groupwiththisparity) {
-				$lsbavalue = $groupwiththisparity->getGroupingProperties()->where("property_id", 50)->first()->value;
-				array_push($lsba, $lsbavalue);
-				$numbermalesvalue = $groupwiththisparity->getGroupingProperties()->where("property_id", 51)->first()->value;
-				array_push($numbermales, $numbermalesvalue);
-				$numberfemalesvalue = $groupwiththisparity->getGroupingProperties()->where("property_id", 52)->first()->value;
-				array_push($numberfemales, $numberfemalesvalue);
-				$stillbornvalue = $groupwiththisparity->getGroupingProperties()->where("property_id", 45)->first()->value;
-				array_push($stillborn, $stillbornvalue);
-				$mummifiedvalue = $groupwiththisparity->getGroupingProperties()->where("property_id", 46)->first()->value;
-				array_push($mummified, $mummifiedvalue);
-				$litterbwvalue = $groupwiththisparity->getGroupingProperties()->where("property_id", 55)->first()->value;
-				array_push($litterbirthweights, $litterbwvalue);
-				$avebwvalue = $groupwiththisparity->getGroupingProperties()->where("property_id", 56)->first()->value;
-				array_push($avebirthweights, $avebwvalue);
+				$lsbaprop = $groupwiththisparity->getGroupingProperties()->where("property_id", 50)->first();
+				if(!is_null($lsbaprop)){
+					$lsbavalue = $lsbaprop->value;
+					array_push($lsba, $lsbavalue);
+				}
+				$numbermalesprop = $groupwiththisparity->getGroupingProperties()->where("property_id", 51)->first();
+				if(!is_null($numbermalesprop)){
+					$numbermalesvalue = $numbermalesprop->value;
+					array_push($numbermales, $numbermalesvalue);
+				}
+				$numberfemalesprop = $groupwiththisparity->getGroupingProperties()->where("property_id", 52)->first();
+				if(!is_null($numberfemalesprop)){
+					$numberfemalesvalue = $numberfemalesprop->value;
+					array_push($numberfemales, $numberfemalesvalue);
+				}
+				$stillbornprop = $groupwiththisparity->getGroupingProperties()->where("property_id", 45)->first();
+				if(!is_null($stillbornprop)){
+					$stillbornvalue = $stillbornprop->value;
+					array_push($stillborn, $stillbornvalue);
+				}
+				$mummifiedprop = $groupwiththisparity->getGroupingProperties()->where("property_id", 46)->first();
+				if(!is_null($mummifiedprop)){
+					$mummifiedvalue = $mummifiedprop->value;
+					array_push($mummified, $mummifiedvalue);
+				}
+				$litterbwprop = $groupwiththisparity->getGroupingProperties()->where("property_id", 55)->first();
+				if(!is_null($litterbwprop)){
+					$litterbwvalue = $litterbwprop->value;
+					array_push($litterbirthweights, $litterbwvalue);
+				}
+				$avebwprop = $groupwiththisparity->getGroupingProperties()->where("property_id", 56)->first();
+				if(!is_null($avebwprop)){
+					$avebwvalue = $avebwprop->value;
+					array_push($avebirthweights, $avebwvalue);
+				}
 				if(!is_null($groupwiththisparity->getGroupingProperties()->where("property_id", 62)->first())){
 					$litterwwvalue = $groupwiththisparity->getGroupingProperties()->where("property_id", 62)->first()->value;
 				}

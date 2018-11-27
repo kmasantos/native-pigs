@@ -123,7 +123,7 @@
       backgroundColor: 'transparent'
 		};
 		var monthlyaverageborn = {
-			label: 'Average Born',
+			label: 'Average Born Alive',
 			data: [
 				@foreach($months as $month) {{ App\Http\Controllers\FarmController::getMonthlyAverageBorn($filter, $month) }}, @endforeach,
 			],
