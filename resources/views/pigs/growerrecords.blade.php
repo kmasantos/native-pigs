@@ -71,12 +71,21 @@
 	              	@endif
 	              @endif
 								<td>
-									<p>
-							      <label>
-							        <input type="checkbox" class="filled-in add_sow_breeder" value="{{ $sow->registryid }}" />
-							        <span></span>
-							      </label>
-							    </p>
+									@if((!is_null($sow->getAnimalProperties()->where("property_id", 35)->first()) && $sow->getAnimalProperties()->where("property_id", 35)->first()->value != "") || (!is_null($sow->getAnimalProperties()->where("property_id", 36)->first()) && $sow->getAnimalProperties()->where("property_id", 36)->first()->value != ""))
+										<p>
+								      <label>
+								        <input type="checkbox" class="filled-in add_sow_breeder" value="{{ $sow->registryid }}" />
+								        <span></span>
+								      </label>
+								    </p>
+								  @else
+								  	<p>
+								      <label>
+								        <input disabled type="checkbox" class="filled-in add_sow_breeder" value="{{ $sow->registryid }}" />
+								        <span></span>
+								      </label>
+								    </p>
+								  @endif
 								</td>
 							</tr>
 						@empty
@@ -143,12 +152,21 @@
 	              	@endif
 	              @endif
 								<td>
-									<p>
-							      <label>
-							        <input type="checkbox" class="filled-in add_boar_breeder" value="{{ $boar->registryid }}" />
-							        <span></span>
-							      </label>
-							    </p>
+									@if((!is_null($boar->getAnimalProperties()->where("property_id", 35)->first()) && $boar->getAnimalProperties()->where("property_id", 35)->first()->value != "") || (!is_null($boar->getAnimalProperties()->where("property_id", 36)->first()) && $boar->getAnimalProperties()->where("property_id", 36)->first()->value != ""))
+										<p>
+								      <label>
+								        <input type="checkbox" class="filled-in add_boar_breeder" value="{{ $boar->registryid }}" />
+								        <span></span>
+								      </label>
+								    </p>
+								  @else
+								  	<p>
+								      <label>
+								        <input disabled type="checkbox" class="filled-in add_boar_breeder" value="{{ $boar->registryid }}" />
+								        <span></span>
+								      </label>
+								    </p>
+								  @endif
 								</td>
 							</tr>
 						@empty

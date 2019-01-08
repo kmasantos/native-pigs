@@ -29,6 +29,11 @@
                       <p><strong>Birth date:</strong> {{ Carbon\Carbon::parse($properties->where("property_id", 3)->first()->value)->format('j F, Y') }}</p>
                     @endif
                   @endif
+                  @if($parity_born == "")
+                    <p><strong>Parity born:</strong> No data available</p>
+                  @else
+                    <p><strong>Parity born:</strong> {{ $parity_born }}</p>
+                  @endif
                   @if(is_null($properties->where("property_id", 5)->first()))
                     <p><strong>Birth weight:</strong> No data available</p>
                   @else
@@ -42,11 +47,6 @@
                     <p><strong>Litter-size Born Alive:</strong> No data available</p>
                   @else
                     <p><strong>Littersize Born Alive:</strong> {{ count($sow->getGrouping()->getGroupingMembers()) }}</p>
-                  @endif
-                  @if($ageAtFirstMating != "")
-                    <p><strong>Age at First Mating:</strong> {{ $ageAtFirstMating }} months</p>
-                  @else
-                    <p><strong>Age at First Mating:</strong> No data available</p>
                   @endif
                 </div>
                 <div class="col s6">
@@ -72,6 +72,11 @@
                     @else
                       <p><strong>Age at weaning:</strong> {{ $ageAtWeaning }} months</p>
                     @endif
+                  @endif
+                  @if($ageAtFirstMating != "")
+                    <p><strong>Age at First Mating:</strong> {{ $ageAtFirstMating }} months</p>
+                  @else
+                    <p><strong>Age at First Mating:</strong> No data available</p>
                   @endif
                 </div>
               </div>        
@@ -151,7 +156,7 @@
         <div class="row">
           @if($sow->grossmorpho == 1)
             <div class="col s6 card-panel">
-              <h6>GROSS MORPHOLOGY</h6>
+              <h6>GROSS MORPHOLOGY AT 180 DAYS</h6>
               <table>
                 <tbody>
                   <tr>
@@ -200,7 +205,7 @@
           @endif
           @if($sow->morphochars == 1)
             <div class="col s6 card-panel">
-              <h6>MORPHOMETRIC CHARACTERISTICS</h6>
+              <h6>MORPHOMETRIC CHARACTERISTICS AT 180 DAYS</h6>
               <table>
                 <tbody>
                   <tr>

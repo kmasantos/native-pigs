@@ -282,11 +282,7 @@
 									<input id="date_removed" type="text" placeholder="Date Removed" name="date_removed" class="datepicker">
 								</div>
 								<div class="col s4">
-									<select name="reason_removed" class="browser-default">
-										<option disabled selected>Choose reason</option>
-										<option value="Culled">Culled</option>
-										<option value="Donated">Donated</option>
-									</select>
+									<input id="reason_removed" type="text" placeholder="Reason Removed" name="reason_removed" class="validate">
 								</div>
 							</div>
 						</div>

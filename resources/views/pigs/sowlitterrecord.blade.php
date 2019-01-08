@@ -46,18 +46,21 @@
 								
 							</div>
 							<div class="row">
-								
-							</div>
-							<div class="row">
-								
-							</div>
-							<div class="row">
 								<div class="col s6">
 									Date Bred
 								</div>
 								<div class="col s6">
 									{{ Carbon\Carbon::parse($family->getGroupingProperties()->where("property_id", 42)->first()->value)->format('j F, Y') }}
 								</div>
+							</div>
+							<div class="row">
+								@if($gestationperiod == "")
+
+								@elseif($gestationperiod != "")
+									<div class="col s10">
+										<p class="center"><strong>Gestation Period:</strong> {{ $gestationperiod }} days</p>
+									</div>
+								@endif
 							</div>
 							<div class="row">
 								@if(is_null($family->getGroupingProperties()->where("property_id", 3)->first()))
@@ -74,6 +77,15 @@
 									<div class="col s6">
 										{{ Carbon\Carbon::parse($family->getGroupingProperties()->where("property_id", 3)->first()->value)->format('j F, Y') }}
 										<input id="hidden_date" type="hidden" name="date_farrowed" value="{{ $family->getGroupingProperties()->where("property_id", 3)->first()->value }}">
+									</div>
+								@endif
+							</div>
+							<div class="row">
+								@if($lactationperiod == "")
+
+								@elseif($lactationperiod != "")
+									<div class="col s10">
+										<p class="center"><strong>Lactation Period:</strong> {{ $lactationperiod }} days </p>
 									</div>
 								@endif
 							</div>
@@ -355,7 +367,7 @@
 					<h5  class="green darken-3 white-text center">Individual Weighing</h5>
 					<h5 class="green lighten-1 center">Add offspring</h5>
 					<div class="col s4">
-	          <input id="offspring_earnotch" type="text" name="offspring_earnotch" class="validate">
+	          <input id="offspring_earnotch" type="text" name="offspring_earnotch" class="validate" data-length="6">
 	          <label for="offspring_earnotch">Offspring Earnotch</label>
 	          <input type="hidden" name="option" value="1">
 					</div>
@@ -391,8 +403,51 @@
 							<tbody>
 								@forelse($offsprings as $offspring)
 									<tr>
-										<td>{{ $offspring->getChild()->registryid }}</td>
-										<td>{{ $offspring->getAnimalProperties()->where("property_id", 2)->first()->value }}</td>
+										{!! Form::open(['route' => 'farm.pig.edit_id', 'method' => 'post']) !!}
+										<td>{{ $offspring->getChild()->registryid }}  <a href="#edit_id{{$offspring->getChild()->id}}" class="modal-trigger"><i class="material-icons right">edit</i></td>
+											{{-- MODAL STRUCTURE --}}
+											<div id="edit_id{{$offspring->getChild()->id}}" class="modal">
+												<div class="modal-content">
+													<h5 class="center">Edit Earnotch:<br><strong>{{ $offspring->getChild()->registryid }}</strong></h5>
+													<input type="hidden" name="old_earnotch" value="{{ $offspring->getChild()->id }}">
+													<div class="row center">
+														<div class="input-field col s8 offset-s2">
+															<input id="new_earnotch" type="text" name="new_earnotch" class="validate" data-length="6">
+															<label for="new_earnotch">New Earnotch</label>
+														</div>
+													</div>
+												</div>
+												<div class="row center">
+													<button class="btn waves-effect waves-light green darken-3" type="submit">
+								            Submit <i class="material-icons right">send</i>
+								          </button>
+												</div>
+											</div>
+										{!! Form::close() !!}
+										{!! Form::open(['route' => 'farm.pig.edit_sex', 'method' => 'post']) !!}
+										<td>{{ $offspring->getAnimalProperties()->where("property_id", 2)->first()->value }}  <a href="#edit_sex{{$offspring->getChild()->id}}" class="modal-trigger"><i class="material-icons right">edit</i></td>
+											{{-- MODAL STRUCTURE --}}
+											<div id="edit_sex{{$offspring->getChild()->id}}" class="modal">
+												<div class="modal-content">
+													<h5 class="center">Edit Sex of <br><strong>{{ $offspring->getChild()->registryid }}</strong></h5>
+													<input type="hidden" name="animalid" value="{{ $offspring->getChild()->id }}">
+													<div class="row center">
+														<div class="col s8 offset-s2">
+															<select id="new_sex" name="new_sex" class="browser-default">
+																<option disabled selected>Choose sex</option>
+																<option value="M">Male</option>
+																<option value="F">Female</option>
+															</select>
+														</div>
+													</div>
+												</div>
+												<div class="row center">
+													<button class="btn waves-effect waves-light green darken-3" type="submit">
+								            Submit <i class="material-icons right">send</i>
+								          </button>
+												</div>
+											</div>
+										{!! Form::close() !!}
 										<td>{{ $offspring->getAnimalProperties()->where("property_id", 5)->first()->value }}</td>
 										{!! Form::open(['route' => 'farm.pig.get_weaning_weights', 'method' => 'post']) !!}
 										@if(is_null($family->getGroupingProperties()->where("property_id", 6)->first()))
@@ -420,7 +475,7 @@
 										<div id="weaning_weight_modal{{$offspring->getChild()->id}}" class="modal">
 											<div class="modal-content">
 												<h5 class="center">Weaning Record: <strong>{{ $offspring->getChild()->registryid }}</strong></h5>
-												<input type="hidden" name="offspring_id" value="{{ $offspring->getChild()->registryid }}">
+												<input type="hidden" name="offspring_id" value="{{ $offspring->getChild()->id }}">
 												<input type="hidden" name="family_id" value="{{ $family->id }}">
 												<div class="row center">
 													<div class="col s8 offset-s2 center">
@@ -509,7 +564,7 @@
 					<h5 class="green lighten-1">Add offspring</h5>
 					<div class="row">
 						<div class="col s4 push-s2">
-	            <input id="offspring_earnotch" type="text" name="offspring_earnotch" class="validate">
+	            <input id="offspring_earnotch" type="text" name="offspring_earnotch" class="validate" data-length="6">
 	            <label for="offspring_earnotch">Offspring Earnotch</label>
 	            <input type="hidden" name="option" value="0">
 						</div>
@@ -544,21 +599,21 @@
 										<tr>
 											@if($offspring->getChild()->status == "temporary")
 												<td>
-													{{ $offspring->getChild()->registryid }} <a href="#edit_id{{$offspring->getChild()->id}}" class="modal-trigger"><i class="material-icons right">edit</i></a>
+													{{ $offspring->getChild()->registryid }} <a href="#edit_temp_id{{$offspring->getChild()->id}}" class="modal-trigger"><i class="material-icons right">edit</i></a>
 												</td>
 											@else
 												<td>
-													{{ $offspring->getChild()->registryid }} {{-- <a href="#edit_id{{$offspring->getChild()->id}}" class="modal-trigger"><i class="material-icons right">edit</i></a> --}}
+													{{ $offspring->getChild()->registryid }} {{-- <a href="#edit_temp_id{{$offspring->getChild()->id}}" class="modal-trigger"><i class="material-icons right">edit</i></a> --}}
 												</td>
 											@endif
 											{{-- MODAL STRUCTURE --}}
-											{{-- <div id="edit_id{{$offspring->getChild()->id}}" class="modal">
+											{{-- <div id="edit_temp_id{{$offspring->getChild()->id}}" class="modal">
 												<div class="modal-content">
 													<h5 class="center">Edit Temporary Earnotch:<br><strong>{{ $offspring->getChild()->registryid }}</strong></h5>
 													<input type="hidden" name="old_earnotch" value="{{ $offspring->getChild()->id }}">
 													<div class="row center">
 														<div class="input-field col s8 offset-s2">
-															<input id="new_earnotch" type="text" name="new_earnotch" class="valideate">
+															<input id="new_earnotch" type="text" name="new_earnotch" class="validate" data-length="6">
 															<label for="new_earnotch">New Earnotch</label>
 														</div>
 													</div>
@@ -570,7 +625,30 @@
 												</div>
 											</div> --}}
 											{!! Form::close() !!}
-											<td>{{ $offspring->getAnimalProperties()->where("property_id", 2)->first()->value }}</td>
+											{!! Form::open(['route' => 'farm.pig.edit_sex', 'method' => 'post']) !!}
+											<td>{{ $offspring->getAnimalProperties()->where("property_id", 2)->first()->value }}  <a href="#edit_sex{{$offspring->getChild()->id}}" class="modal-trigger"><i class="material-icons right">edit</i></td>
+												{{-- MODAL STRUCTURE --}}
+												{{-- <div id="edit_sex{{$offspring->getChild()->id}}" class="modal">
+													<div class="modal-content">
+														<h5 class="center">Edit Sex of <br><strong>{{ $offspring->getChild()->registryid }}</strong></h5>
+														<input type="hidden" name="animalid" value="{{ $offspring->getChild()->id }}">
+														<div class="row center">
+															<div class="col s8 offset-s2">
+																<select id="new_sex" name="new_sex" class="browser-default">
+																	<option disabled selected>Choose sex</option>
+																	<option value="M">Male</option>
+																	<option value="F">Female</option>
+																</select>
+															</div>
+														</div>
+													</div>
+													<div class="row center">
+														<button class="btn waves-effect waves-light green darken-3" type="submit">
+									            Submit <i class="material-icons right">send</i>
+									          </button>
+													</div>
+												</div> --}}
+											{!! Form::close() !!}
 											<td>{{ round($offspring->getAnimalProperties()->where("property_id", 5)->first()->value, 4) }}</td>
 											{!! Form::open(['route' => 'farm.pig.get_weaning_weights', 'method' => 'post']) !!}
 											@if(is_null($family->getGroupingProperties()->where("property_id", 6)->first()))
@@ -598,7 +676,7 @@
 											{{-- <div id="weaning_weight_modal{{$offspring->getChild()->id}}" class="modal">
 												<div class="modal-content">
 													<h5 class="center">Weaning Record: <strong>{{ $offspring->getChild()->registryid }}</strong></h5>
-													<input type="hidden" name="offspring_id" value="{{ $offspring->getChild()->registryid }}">
+													<input type="hidden" name="offspring_id" value="{{ $offspring->getChild()->id }}">
 													<input type="hidden" name="family_id" value="{{ $family->id }}">
 													<div class="row center">
 														<div class="col s8 offset-s2 center">
@@ -663,7 +741,7 @@
 							<input type="hidden" name="abnomalities" value="{{ $family->getGroupingProperties()->where("property_id", 47)->first()->value }}">
 						@endif
 						<div class="col s4">
-              <input id="offspring_earnotch" type="text" name="offspring_earnotch" class="validate">
+              <input id="offspring_earnotch" type="text" name="offspring_earnotch" class="validate" data-length="6">
               <label for="offspring_earnotch">Offspring Earnotch</label>
               <input type="hidden" name="option" value="1">
 						</div>
@@ -699,8 +777,51 @@
 								<tbody>
 									@forelse($offsprings as $offspring)
 										<tr>
-											<td>{{ $offspring->getChild()->registryid }}</td>
-											<td>{{ $offspring->getAnimalProperties()->where("property_id", 2)->first()->value }}</td>
+											{!! Form::open(['route' => 'farm.pig.edit_id', 'method' => 'post']) !!}
+											<td>{{ $offspring->getChild()->registryid }}  <a href="#edit_id{{$offspring->getChild()->id}}" class="modal-trigger"><i class="material-icons right">edit</i></td>
+												{{-- MODAL STRUCTURE --}}
+												<div id="edit_id{{$offspring->getChild()->id}}" class="modal">
+													<div class="modal-content">
+														<h5 class="center">Edit Earnotch:<br><strong>{{ $offspring->getChild()->registryid }}</strong></h5>
+														<input type="hidden" name="old_earnotch" value="{{ $offspring->getChild()->id }}">
+														<div class="row center">
+															<div class="input-field col s8 offset-s2">
+																<input id="new_earnotch" type="text" name="new_earnotch" class="validate" data-length="6">
+																<label for="new_earnotch">New Earnotch</label>
+															</div>
+														</div>
+													</div>
+													<div class="row center">
+														<button class="btn waves-effect waves-light green darken-3" type="submit">
+									            Submit <i class="material-icons right">send</i>
+									          </button>
+													</div>
+												</div>
+											{!! Form::close() !!}
+											{!! Form::open(['route' => 'farm.pig.edit_sex', 'method' => 'post']) !!}
+											<td>{{ $offspring->getAnimalProperties()->where("property_id", 2)->first()->value }}  <a href="#edit_sex{{$offspring->getChild()->id}}" class="modal-trigger"><i class="material-icons right">edit</i></td>
+												{{-- MODAL STRUCTURE --}}
+												<div id="edit_sex{{$offspring->getChild()->id}}" class="modal">
+													<div class="modal-content">
+														<h5 class="center">Edit Sex of <br><strong>{{ $offspring->getChild()->registryid }}</strong></h5>
+														<input type="hidden" name="animalid" value="{{ $offspring->getChild()->id }}">
+														<div class="row center">
+															<div class="col s8 offset-s2">
+																<select id="new_sex" name="new_sex" class="browser-default">
+																	<option disabled selected>Choose sex</option>
+																	<option value="M">Male</option>
+																	<option value="F">Female</option>
+																</select>
+															</div>
+														</div>
+													</div>
+													<div class="row center">
+														<button class="btn waves-effect waves-light green darken-3" type="submit">
+									            Submit <i class="material-icons right">send</i>
+									          </button>
+													</div>
+												</div>
+											{!! Form::close() !!}
 											<td>{{ $offspring->getAnimalProperties()->where("property_id", 5)->first()->value }}</td>
 											{!! Form::open(['route' => 'farm.pig.get_weaning_weights', 'method' => 'post']) !!}
 											@if(is_null($family->getGroupingProperties()->where("property_id", 6)->first()))
@@ -728,7 +849,7 @@
 											<div id="weaning_weight_modal{{$offspring->getChild()->id}}" class="modal">
 												<div class="modal-content">
 													<h5 class="center">Weaning Record: <strong>{{ $offspring->getChild()->registryid }}</strong></h5>
-													<input type="hidden" name="offspring_id" value="{{ $offspring->getChild()->registryid }}">
+													<input type="hidden" name="offspring_id" value="{{ $offspring->getChild()->id }}">
 													<input type="hidden" name="family_id" value="{{ $family->id }}">
 													<div class="row center">
 														<div class="col s8 offset-s2 center">
@@ -817,7 +938,7 @@
 						<h5 class="green lighten-1">Add offspring</h5>
 						<div class="row">
 							<div class="col s4 push-s2">
-	              <input id="offspring_earnotch" type="text" name="offspring_earnotch" class="validate">
+	              <input id="offspring_earnotch" type="text" name="offspring_earnotch" class="validate" data-length="6">
 	              <label for="offspring_earnotch">Offspring Earnotch</label>
 	              <input type="hidden" name="option" value="0">
 							</div>
@@ -852,21 +973,21 @@
 											<tr>
 												@if($offspring->getChild()->status == "temporary")
 												<td>
-													{{ $offspring->getChild()->registryid }} <a href="#edit_id{{$offspring->getChild()->id}}" class="modal-trigger"><i class="material-icons right">edit</i></a>
+													{{ $offspring->getChild()->registryid }} <a href="#edit_temp_id{{$offspring->getChild()->id}}" class="modal-trigger"><i class="material-icons right">edit</i></a>
 												</td>
 											@else
 												<td>
-													{{ $offspring->getChild()->registryid }} {{-- <a href="#edit_id{{$offspring->getChild()->id}}" class="modal-trigger"><i class="material-icons right">edit</i></a> --}}
+													{{ $offspring->getChild()->registryid }} {{-- <a href="#edit_temp_id{{$offspring->getChild()->id}}" class="modal-trigger"><i class="material-icons right">edit</i></a> --}}
 												</td>
 											@endif
 												{{-- MODAL STRUCTURE --}}
-												{{-- <div id="edit_id{{$offspring->getChild()->id}}" class="modal">
+												{{-- <div id="edit_temp_id{{$offspring->getChild()->id}}" class="modal">
 													<div class="modal-content">
 														<h5 class="center">Edit Temporary Earnotch:<br><strong>{{ $offspring->getChild()->registryid }}</strong></h5>
 														<input type="hidden" name="old_earnotch" value="{{ $offspring->getChild()->id }}">
 														<div class="row center">
 															<div class="input-field col s8 offset-s2">
-																<input id="new_earnotch" type="text" name="new_earnotch" class="valideate">
+																<input id="new_earnotch" type="text" name="new_earnotch" class="validate" data-length="6">
 																<label for="new_earnotch">New Earnotch</label>
 															</div>
 														</div>
@@ -878,7 +999,30 @@
 													</div>
 												</div> --}}
 												{!! Form::close() !!}
-												<td>{{ $offspring->getAnimalProperties()->where("property_id", 2)->first()->value }}</td>
+												{!! Form::open(['route' => 'farm.pig.edit_sex', 'method' => 'post']) !!}
+												<td>{{ $offspring->getAnimalProperties()->where("property_id", 2)->first()->value }}  <a href="#edit_sex{{$offspring->getChild()->id}}" class="modal-trigger"><i class="material-icons right">edit</i></td>
+													{{-- MODAL STRUCTURE --}}
+													{{-- <div id="edit_sex{{$offspring->getChild()->id}}" class="modal">
+														<div class="modal-content">
+															<h5 class="center">Edit Sex of <br><strong>{{ $offspring->getChild()->registryid }}</strong></h5>
+															<input type="hidden" name="animalid" value="{{ $offspring->getChild()->id }}">
+															<div class="row center">
+																<div class="col s8 offset-s2">
+																	<select id="new_sex" name="new_sex" class="browser-default">
+																		<option disabled selected>Choose sex</option>
+																		<option value="M">Male</option>
+																		<option value="F">Female</option>
+																	</select>
+																</div>
+															</div>
+														</div>
+														<div class="row center">
+															<button class="btn waves-effect waves-light green darken-3" type="submit">
+										            Submit <i class="material-icons right">send</i>
+										          </button>
+														</div>
+													</div> --}}
+												{!! Form::close() !!}
 												<td>{{ round($offspring->getAnimalProperties()->where("property_id", 5)->first()->value, 4) }}</td>
 												{!! Form::open(['route' => 'farm.pig.get_weaning_weights', 'method' => 'post']) !!}
 												@if(is_null($family->getGroupingProperties()->where("property_id", 6)->first()))
@@ -906,7 +1050,7 @@
 												{{-- <div id="weaning_weight_modal{{$offspring->getChild()->id}}" class="modal">
 													<div class="modal-content">
 														<h5 class="center">Weaning Record: <strong>{{ $offspring->getChild()->registryid }}</strong></h5>
-														<input type="hidden" name="offspring_id" value="{{ $offspring->getChild()->registryid }}">
+														<input type="hidden" name="offspring_id" value="{{ $offspring->getChild()->id }}">
 														<input type="hidden" name="family_id" value="{{ $family->id }}">
 														<div class="row center">
 															<div class="col s8 offset-s2 center">
@@ -970,7 +1114,7 @@
 							<input type="hidden" name="abnomalities" value="{{ $family->getGroupingProperties()->where("property_id", 47)->first()->value }}">
 						@endif
 						<div class="col s4">
-              <input id="offspring_earnotch" type="text" name="offspring_earnotch" class="validate">
+              <input id="offspring_earnotch" type="text" name="offspring_earnotch" class="validate" data-length="6">
               <label for="offspring_earnotch">Offspring Earnotch</label>
               <input type="hidden" name="option" value="1">
 						</div>
@@ -1006,8 +1150,51 @@
 								<tbody>
 									@forelse($offsprings as $offspring)
 										<tr>
-											<td>{{ $offspring->getChild()->registryid }}</td>
-											<td>{{ $offspring->getAnimalProperties()->where("property_id", 2)->first()->value }}</td>
+											{!! Form::open(['route' => 'farm.pig.edit_id', 'method' => 'post']) !!}
+											<td>{{ $offspring->getChild()->registryid }}  <a href="#edit_id{{$offspring->getChild()->id}}" class="modal-trigger"><i class="material-icons right">edit</i></td>
+												{{-- MODAL STRUCTURE --}}
+												{{-- <div id="edit_id{{$offspring->getChild()->id}}" class="modal">
+													<div class="modal-content">
+														<h5 class="center">Edit Earnotch:<br><strong>{{ $offspring->getChild()->registryid }}</strong></h5>
+														<input type="hidden" name="old_earnotch" value="{{ $offspring->getChild()->id }}">
+														<div class="row center">
+															<div class="input-field col s8 offset-s2">
+																<input id="new_earnotch" type="text" name="new_earnotch" class="validate" data-length="6">
+																<label for="new_earnotch">New Earnotch</label>
+															</div>
+														</div>
+													</div>
+													<div class="row center">
+														<button class="btn waves-effect waves-light green darken-3" type="submit">
+									            Submit <i class="material-icons right">send</i>
+									          </button>
+													</div>
+												</div> --}}
+											{!! Form::close() !!}
+											{!! Form::open(['route' => 'farm.pig.edit_sex', 'method' => 'post']) !!}
+											<td>{{ $offspring->getAnimalProperties()->where("property_id", 2)->first()->value }}  <a href="#edit_sex{{$offspring->getChild()->id}}" class="modal-trigger"><i class="material-icons right">edit</i></td>
+												{{-- MODAL STRUCTURE --}}
+												{{-- <div id="edit_sex{{$offspring->getChild()->id}}" class="modal">
+													<div class="modal-content">
+														<h5 class="center">Edit Sex of <br><strong>{{ $offspring->getChild()->registryid }}</strong></h5>
+														<input type="hidden" name="animalid" value="{{ $offspring->getChild()->id }}">
+														<div class="row center">
+															<div class="col s8 offset-s2">
+																<select id="new_sex" name="new_sex" class="browser-default">
+																	<option disabled selected>Choose sex</option>
+																	<option value="M">Male</option>
+																	<option value="F">Female</option>
+																</select>
+															</div>
+														</div>
+													</div>
+													<div class="row center">
+														<button class="btn waves-effect waves-light green darken-3" type="submit">
+									            Submit <i class="material-icons right">send</i>
+									          </button>
+													</div>
+												</div> --}}
+											{!! Form::close() !!}
 											<td>{{ $offspring->getAnimalProperties()->where("property_id", 5)->first()->value }}</td>
 											{!! Form::open(['route' => 'farm.pig.get_weaning_weights', 'method' => 'post']) !!}
 											@if(is_null($family->getGroupingProperties()->where("property_id", 6)->first()))
@@ -1035,7 +1222,7 @@
 											{{-- <div id="weaning_weight_modal{{$offspring->getChild()->id}}" class="modal">
 												<div class="modal-content">
 													<h5 class="center">Weaning Record: <strong>{{ $offspring->getChild()->registryid }}</strong></h5>
-													<input type="hidden" name="offspring_id" value="{{ $offspring->getChild()->registryid }}">
+													<input type="hidden" name="offspring_id" value="{{ $offspring->getChild()->id }}">
 													<input type="hidden" name="family_id" value="{{ $family->id }}">
 													<div class="row center">
 														<div class="col s8 offset-s2 center">
@@ -1124,7 +1311,7 @@
 						<h5 class="green lighten-1">Add offspring</h5>
 						<div class="row">
 							<div class="col s4 push-s2">
-	              <input id="offspring_earnotch" type="text" name="offspring_earnotch" class="validate">
+	              <input id="offspring_earnotch" type="text" name="offspring_earnotch" class="validate" data-length="6">
 	              <label for="offspring_earnotch">Offspring Earnotch</label>
 	              <input type="hidden" name="option" value="0">
 							</div>
@@ -1159,21 +1346,21 @@
 											<tr>
 												@if($offspring->getChild()->status == "temporary")
 													<td>
-														{{ $offspring->getChild()->registryid }} <a href="#edit_id{{$offspring->getChild()->id}}" class="modal-trigger"><i class="material-icons right">edit</i></a>
+														{{ $offspring->getChild()->registryid }} <a href="#edit_temp_id{{$offspring->getChild()->id}}" class="modal-trigger"><i class="material-icons right">edit</i></a>
 													</td>
 												@else
 													<td>
-														{{ $offspring->getChild()->registryid }} {{-- <a href="#edit_id{{$offspring->getChild()->id}}" class="modal-trigger"><i class="material-icons right">edit</i></a> --}}
+														{{ $offspring->getChild()->registryid }} {{-- <a href="#edit_temp_id{{$offspring->getChild()->id}}" class="modal-trigger"><i class="material-icons right">edit</i></a> --}}
 													</td>
 												@endif
 												{{-- MODAL STRUCTURE --}}
-												<div id="edit_id{{$offspring->getChild()->id}}" class="modal">
+												<div id="edit_temp_id{{$offspring->getChild()->id}}" class="modal">
 													<div class="modal-content">
 														<h5 class="center">Edit Temporary Earnotch:<br><strong>{{ $offspring->getChild()->registryid }}</strong></h5>
 														<input type="hidden" name="old_earnotch" value="{{ $offspring->getChild()->id }}">
 														<div class="row center">
 															<div class="input-field col s8 offset-s2">
-																<input id="new_earnotch" type="text" name="new_earnotch" class="valideate">
+																<input id="new_earnotch" type="text" name="new_earnotch" class="validate" data-length="6">
 																<label for="new_earnotch">New Earnotch</label>
 															</div>
 														</div>
@@ -1185,7 +1372,30 @@
 													</div>
 												</div>
 												{!! Form::close() !!}
-												<td>{{ $offspring->getAnimalProperties()->where("property_id", 2)->first()->value }}</td>
+												{!! Form::open(['route' => 'farm.pig.edit_sex', 'method' => 'post']) !!}
+												<td>{{ $offspring->getAnimalProperties()->where("property_id", 2)->first()->value }}  <a href="#edit_sex{{$offspring->getChild()->id}}" class="modal-trigger"><i class="material-icons right">edit</i></td>
+													{{-- MODAL STRUCTURE --}}
+													<div id="edit_sex{{$offspring->getChild()->id}}" class="modal">
+														<div class="modal-content">
+															<h5 class="center">Edit Sex of <br><strong>{{ $offspring->getChild()->registryid }}</strong></h5>
+															<input type="hidden" name="animalid" value="{{ $offspring->getChild()->id }}">
+															<div class="row center">
+																<div class="col s8 offset-s2">
+																	<select id="new_sex" name="new_sex" class="browser-default">
+																		<option disabled selected>Choose sex</option>
+																		<option value="M">Male</option>
+																		<option value="F">Female</option>
+																	</select>
+																</div>
+															</div>
+														</div>
+														<div class="row center">
+															<button class="btn waves-effect waves-light green darken-3" type="submit">
+										            Submit <i class="material-icons right">send</i>
+										          </button>
+														</div>
+													</div>
+												{!! Form::close() !!}
 												<td>{{ round($offspring->getAnimalProperties()->where("property_id", 5)->first()->value, 4) }}</td>
 												{!! Form::open(['route' => 'farm.pig.get_weaning_weights', 'method' => 'post']) !!}
 												@if(is_null($family->getGroupingProperties()->where("property_id", 6)->first()))
@@ -1213,7 +1423,7 @@
 												<div id="weaning_weight_modal{{$offspring->getChild()->id}}" class="modal">
 													<div class="modal-content">
 														<h5 class="center">Weaning Record: <strong>{{ $offspring->getChild()->registryid }}</strong></h5>
-														<input type="hidden" name="offspring_id" value="{{ $offspring->getChild()->registryid }}">
+														<input type="hidden" name="offspring_id" value="{{ $offspring->getChild()->id }}">
 														<input type="hidden" name="family_id" value="{{ $family->id }}">
 														<div class="row center">
 															<div class="col s8 offset-s2 center">
@@ -1278,6 +1488,42 @@
 		      success: function(data)
 		      {
 		        Materialize.toast('Parity successfully added!', 4000);
+		      }
+		    });
+		  });
+		  $("#number_stillborn").change(function (event) {
+		    event.preventDefault();
+		    var familyidvalue = $('input[name=grouping_id]').val();
+		    var stillbornvalue = $('input[name=number_stillborn]').val();
+		    $.ajax({
+		    	headers: {
+          	'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+		      url: '../fetch_stillborn/'+familyidvalue+'/'+stillbornvalue,
+		      type: 'POST',
+		      cache: false,
+		      data: {familyidvalue, stillbornvalue},
+		      success: function(data)
+		      {
+		        Materialize.toast('Number stillborn successfully added!', 4000);
+		      }
+		    });
+		  });
+		  $("#number_mummified").change(function (event) {
+		    event.preventDefault();
+		    var familyidvalue = $('input[name=grouping_id]').val();
+		    var mummifiedvalue = $('input[name=number_mummified]').val();
+		    $.ajax({
+		    	headers: {
+          	'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+		      url: '../fetch_mummified/'+familyidvalue+'/'+mummifiedvalue,
+		      type: 'POST',
+		      cache: false,
+		      data: {familyidvalue, mummifiedvalue},
+		      success: function(data)
+		      {
+		        Materialize.toast('Number mummified successfully added!', 4000);
 		      }
 		    });
 		  });

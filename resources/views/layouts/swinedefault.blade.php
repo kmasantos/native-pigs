@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+fbreed<!DOCTYPE html>
 <html>
 	<head>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" charset="utf-8" />
@@ -95,7 +95,6 @@
                 <li><a href="{{route('farm.pig.gross_morphology_report')}}">Gross Morphology</a></li>
                 <li><a href="{{route('farm.pig.morpho_chars_report')}}">Morphometric Characteristics</a></li>
                 <li><a href="{{route('farm.pig.growth_performance_report')}}">Growth Performance</a></li>
-                <li><a href="{{route('farm.pig.breeder_production_report')}}">Breeder Production</a></li>
                 <li><a href="{{route('farm.pig.production_performance_report')}}">Production Performance</a></li>
                 <li><a href="{{route('farm.pig.monthly_performance_report')}}">Monthly Performance</a></li>
                	<li><a href="{{route('farm.pig.breeder_inventory_report')}}">Breeder Inventory</a></li>

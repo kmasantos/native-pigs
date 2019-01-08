@@ -35,10 +35,14 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('add_date_aborted', ['as' => 'farm.pig.add_date_aborted', 'uses' => 'FarmController@addDateAborted']);
     Route::get('sowlitter_record/{id}', ['as' => 'farm.pig.sowlitter_record', 'uses' => 'FarmController@getAddSowLitterRecordPage']);
     Route::post('fetch_parity/{id}/{parity}', ['as' => 'farm.pig.fetch_parity', 'uses' => 'FarmController@fetchParityAjax']);
+    Route::post('fetch_stillborn/{id}/{stillborn}', ['as' => 'farm.pig.fetch_stillborn', 'uses' => 'FarmController@fetchStillbornAjax']);
+    Route::post('fetch_mummified/{id}/{mummified}', ['as' => 'farm.pig.fetch_mummified', 'uses' => 'FarmController@fetchMummifiedAjax']);
     Route::post('fetch_weighing_option/{id}/{option}', ['as' => 'farm.pig.fetch_weighing_option', 'uses' => 'FarmController@fetchWeighingOptionAjax']);
     Route::post('get_sowlitter_record', ['as' => 'farm.pig.get_sowlitter_record', 'uses' => 'FarmController@addSowlitterRecord']);
     Route::post('add_sowlitter_record_individual', ['as' => 'farm.pig.add_sowlitter_record_individual', 'uses' => 'FarmController@addSowlitterRecordIndividualWeighing']);
     Route::post('add_sowlitter_record_group', ['as' => 'farm.pig.add_sowlitter_record_group', 'uses' => 'FarmController@addSowlitterRecordGroupWeighing']);
+    Route::post('edit_id', ['as' => 'farm.pig.edit_id', 'uses' => 'FarmController@editRegistryId']);
+    Route::post('edit_sex', ['as' => 'farm.pig.edit_sex', 'uses' => 'FarmController@editSex']);
     Route::post('edit_temporary_registryid', ['as' => 'farm.pig.edit_temporary_registryid', 'uses' => 'FarmController@editTemporaryRegistryId']);
     Route::post('get_weaning_weights', ['as' => 'farm.pig.get_weaning_weights', 'uses' => 'FarmController@addWeaningWeights']);
     Route::get('grower_records', ['as' => 'farm.pig.grower_records', 'uses' => 'FarmController@getGrowerRecordsPage']);
@@ -119,7 +123,7 @@ Route::group(['middleware' => ['web']], function () {
   });
 
   // Route::group(['prefix' => 'admin'], function(){
-  //   Route::get('/',['as' => 'farm.index', 'uses' => 'AdminController@index']);
+  //   Route::get('/',['as' => 'admin.index', 'uses' => 'AdminController@index']);
   // });
 
 });

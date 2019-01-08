@@ -53,7 +53,7 @@
 				<div id="performance" class="col s12" style="padding-top:10px;">
 					<div class="row center">
 						<div class="col s12">
-							<p>Total number of service: <strong>{{ count($services) }}</strong> (Successful: <strong>{{ count($successful) }}</strong>, Failed: <strong>{{ count($failed) }}</strong>, Others: <strong>{{ count($others) }}</strong>)</p>
+							<p>Total number of service: <strong>{{ count($services) }}</strong> (Successful: <strong>{{ count($successful) }}</strong>, Failed: <strong>{{ count($failed) }}</strong>, Others: <strong>{{ count($others) }}</strong>) <a class="tooltipped" data-position="right" data-tooltip="Others: Bred, Pregnant, Aborted"><i class="material-icons tiny">info_outline</i></a></p>
 							<table>
 								<thead>
 									<tr>

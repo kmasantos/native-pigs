@@ -169,12 +169,12 @@
 											{{-- pregnant --}}
 											@elseif($breedingRecord->getGroupingProperties()->where("property_id", 60)->first()->value == "Pregnant")
 												<td>
-													<a href="{{ URL::route('farm.pig.sowlitter_record', [$breedingRecord->id]) }}"><i class="material-icons">add_circle_outline</i></a>
+													<a href="{{ URL::route('farm.pig.sowlitter_record', [$breedingRecord->id]) }}" class="tooltipped" data-position="top" data-tooltip="Add Sow & Litter Record"><i class="material-icons">add_circle_outline</i></a>
 												</td>
 											{{-- farrowed --}}
 											@elseif($breedingRecord->getGroupingProperties()->where("property_id", 60)->first()->value == "Farrowed")
 												<td>
-													<a href="{{ URL::route('farm.pig.sowlitter_record', [$breedingRecord->id]) }}"><i class="material-icons">done</i></a>
+													<a href="{{ URL::route('farm.pig.sowlitter_record', [$breedingRecord->id]) }}" class="tooltipped" data-position="top" data-tooltip="View Sow & Litter Record"><i class="material-icons">done</i></a>
 												</td>
 											{{-- recycled --}}
 											@elseif($breedingRecord->getGroupingProperties()->where("property_id", 60)->first()->value == "Recycled")
@@ -198,7 +198,13 @@
 											@endif
 										@endif
 										{{-- edit button --}}
-										<td><a href="{{ URL::route('farm.pig.edit_breeding_record', [$breedingRecord->id]) }}"><i class="material-icons">edit</i></a></td>
+										<td>
+											@if($breedingRecord->getGroupingProperties()->where("property_id", 60)->first()->value == "Recycled" || $breedingRecord->getGroupingProperties()->where("property_id", 60)->first()->value == "Aborted")
+												<i class="material-icons tooltipped" data-position="top" data-tooltip="Cannot be edited">clear</i>
+											@else
+												<a href="{{ URL::route('farm.pig.edit_breeding_record', [$breedingRecord->id]) }}" class="tooltipped" data-position="top" data-tooltip="Edit"><i class="material-icons">edit</i></a>
+											@endif
+										</td>
 									</tr>
 								@empty
 									<tr>

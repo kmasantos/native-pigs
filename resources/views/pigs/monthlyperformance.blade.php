@@ -99,7 +99,7 @@
 	    options: chartOptions
 		});
 		var monthlylsba = {
-      label: 'LSBA',
+      label: 'Total Born Alive',
       data: [
       	@foreach($months as $month) {{ App\Http\Controllers\FarmController::getMonthlyLSBA($filter, $month) }}, @endforeach, 
       ],

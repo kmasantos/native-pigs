@@ -52,6 +52,10 @@
 								<h3>{{ round($adg_weaning, 2) }} kg</h3>
 								<p>Latest weight record: {{ $number_of_days }} days</p>
 							@endif
+						@elseif($adg_weaning == 0)
+							@if(!is_null($properties->where("property_id", 7)->first()))
+								<h4>No data available</h4>
+							@endif
 						@else
 							@if(!is_null($properties->where("property_id", 7)->first()))
 								<h3>0 kg</h3>

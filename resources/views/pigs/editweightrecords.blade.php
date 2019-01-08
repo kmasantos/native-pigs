@@ -14,6 +14,25 @@
         <div class="row card-panel">
           <div class="row">
             <div class="col s4">
+              Weaning Weight
+            </div>
+            <div class="col s4">
+              @if(!is_null($properties->where("property_id", 7)->first()))
+                <input id="weaning_weight" type="text" placeholder="Weight" name="weaning_weight" value="{{ $properties->where("property_id", 7)->first()->value }}" class="validate">
+              @else
+                <input id="weaning_weight" type="text" placeholder="Weight" name="weaning_weight" class="validate">
+              @endif
+            </div>
+            <div class="col s4">
+              @if(!is_null($properties->where("property_id", 6)->first()))
+                <input id="date_weaned" type="text" placeholder="Date Collected" name="date_weaned" value="{{ $properties->where("property_id", 6)->first()->value }}" class="datepicker">
+              @else
+                <input id="date_weaned" type="text" placeholder="Date Collected" name="date_weaned" class="datepicker">
+              @endif
+            </div>
+          </div>
+          <div class="row">
+            <div class="col s4">
               Body Weight at 45 Days
             </div>
             <div class="col s4">
