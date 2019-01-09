@@ -1333,7 +1333,9 @@ class FarmController extends Controller
 				}
 			}
 
-			return view('pigs.editbreedingrecord', compact('pigs', 'sows', 'boars', 'family', 'properties'));
+			$now = Carbon::now();
+
+			return view('pigs.editbreedingrecord', compact('pigs', 'sows', 'boars', 'family', 'properties', 'now'));
 		}
 
 		public function editBreedingRecord(Request $request){ //function to update breeding record

@@ -61,14 +61,25 @@
           <input class="with-gap" name="status" type="radio" id="status_bred" value="Bred" checked />
           <label for="status_bred">Bred</label>
         </div>
-        <div class="col s3">
-          <input class="with-gap" name="status" type="radio" id="status_pregnant" value="Pregnant" />
-          <label for="status_pregnant">Pregnant</label>
-        </div>
-        <div class="col s3">
-          <input class="with-gap" name="status" type="radio" id="status_recycled" value="Recycled" />
-          <label for="status_recycled">Recycled</label>
-        </div>
+        @if($now->gte(Carbon\Carbon::parse($properties->where("property_id", 42)->first()->value)->addDays(18)))
+	        <div class="col s3">
+	          <input class="with-gap" name="status" type="radio" id="status_pregnant" value="Pregnant" />
+	          <label for="status_pregnant">Pregnant</label>
+	        </div>
+	        <div class="col s3">
+	          <input class="with-gap" name="status" type="radio" id="status_recycled" value="Recycled" />
+	          <label for="status_recycled">Recycled</label>
+	        </div>
+	      @else
+	      	<div class="col s3">
+	          <input disabled class="with-gap" name="status" type="radio" id="status_pregnant" value="Pregnant" />
+	          <label for="status_pregnant" class="tooltipped" data-position="top" data-tooltip="Disabled until 18 days from date bred">Pregnant</label>
+	        </div>
+	        <div class="col s3">
+	          <input disabled class="with-gap" name="status" type="radio" id="status_recycled" value="Recycled" />
+	          <label for="status_recycled" class="tooltipped" data-position="top" data-tooltip="Disabled until 18 days from date bred">Recycled</label>
+	        </div>
+	      @endif
 			@elseif($properties->where("property_id", 60)->first()->value == "Pregnant")
 				<div class="col s2 offset-s1">
           Status
@@ -77,17 +88,31 @@
           <input class="with-gap" name="status" type="radio" id="status_pregnant" value="Pregnant" checked />
           <label for="status_pregnant">Pregnant</label>
         </div>
-        <div class="col s2">
-          <input class="with-gap" name="status" type="radio" id="status_farrowed" value="Farrowed" />
-          <label for="status_farrowed">Farrowed</label>
-        </div>
+        @if($now->gte(Carbon\Carbon::parse($properties->where("property_id", 42)->first()->value)->addDays(109)))
+	        <div class="col s2">
+	          <input class="with-gap" name="status" type="radio" id="status_farrowed" value="Farrowed" />
+	          <label for="status_farrowed">Farrowed</label>
+	        </div>
+	      @else
+	      	<div class="col s2">
+	          <input disabled class="with-gap" name="status" type="radio" id="status_farrowed" value="Farrowed" />
+	          <label for="status_farrowed" class="tooltipped" data-position="top" data-tooltip="Disabled until 109 days from date bred">Farrowed</label>
+	        </div>
+	      @endif
+	      @if($now->gte(Carbon\Carbon::parse($properties->where("property_id", 42)->first()->value)->addDays(21)))
+	        <div class="col s2">
+	          <input class="with-gap" name="status" type="radio" id="status_aborted" value="Aborted" />
+	          <label for="status_aborted">Aborted</label>
+	        </div>
+	      @else
+	      	<div class="col s2">
+	          <input class="with-gap" name="status" type="radio" id="status_aborted" value="Aborted" />
+	          <label for="status_aborted" class="tooltipped" data-position="top" data-tooltip="Disabled until 21 days from date bred">Aborted</label>
+	        </div>
+	      @endif
         <div class="col s2">
           <input class="with-gap" name="status" type="radio" id="status_recycled" value="Recycled" />
           <label for="status_recycled">Recycled</label>
-        </div>
-        <div class="col s2">
-          <input class="with-gap" name="status" type="radio" id="status_aborted" value="Aborted" />
-          <label for="status_aborted">Aborted</label>
         </div>
       @elseif($properties->where("property_id", 60)->first()->value == "Farrowed" || $properties->where("property_id", 60)->first()->value == "Recycled" || $properties->where("property_id", 60)->first()->value == "Aborted")
       	<input type="hidden" name="status" value="{{ $properties->where("property_id", 60)->first()->value }}">
