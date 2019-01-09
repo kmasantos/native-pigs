@@ -1,29 +1,15 @@
-{{--
-	Display error messages on user requests such as filling up forms
---}}
+@extends('layouts.swinedefault')
 
-@if (count($errors) > 0)
-	{{-- Form Error List --}}
-	<div class="card-panel">
-		<strong> <span class="red-text text-darken-1"> Whoops! Something went wrong! </span> </strong>
-		<br>
-		<ul>
-			@foreach ($errors->all() as $error)
-				<li class="red-text">{{ $error }}</li>
-			@endforeach
-		</ul>
-	</div>
-@endif
+@section('title')
+	Page Not Found
+@endsection
 
-@if (Session::has('customErrors'))
-	{{-- Custom Error List --}}
-	<div class="card-panel">
-		<strong> <span class="red-text text-darken-1"> Whoops! Something went wrong! </span> </strong>
-		<br>
-		<ul>
-			@foreach (Session::get('customErrors') as $error)
-				<li class="red-text">{{ $error }}</li>
-			@endforeach
-		</ul>
+@section('content')
+	<div class="row">
+		<div class="col s12 center">
+			<h1>OOPS!</h1>
+			<img src="{{asset('images/pig.gif')}}">
+			<h4>PAGE NOT FOUND</h4>
+		</div>
 	</div>
-@endif
+@endsection

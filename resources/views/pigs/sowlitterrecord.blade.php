@@ -384,7 +384,7 @@
 					</div>
 				</div>
 				<div id="individual_weighing2" class="row center" style="display: block;">
-					<button class="btn waves-effect waves-light green darken-3" type="submit" onclick="Materialize.toast('Successfully added!', 4000)">Add
+					<button class="btn waves-effect waves-light green darken-3" type="submit">Add
 	          <i class="material-icons right">add</i>
 	        </button>
 	        {!! Form::close() !!}
@@ -577,7 +577,7 @@
 						</div>
 					</div>
 					<div class="row center">
-						<button class="btn waves-effect waves-light green darken-3" type="submit" onclick="Materialize.toast('Successfully added!', 4000)">Add
+						<button class="btn waves-effect waves-light green darken-3" type="submit">Add
 	            <i class="material-icons right">add</i>
 	          </button>
 	          {!! Form::close() !!}
@@ -758,7 +758,7 @@
 						</div>
 					</div>
 					<div id="individual_weighing2" class="row center" style="display: block;">
-						<button class="btn waves-effect waves-light green darken-3" type="submit" onclick="Materialize.toast('Successfully added!', 4000)">Add
+						<button class="btn waves-effect waves-light green darken-3" type="submit">Add
 	            <i class="material-icons right">add</i>
 	          </button>
 					</div>
@@ -951,7 +951,7 @@
 							</div>
 						</div>
 						<div class="row center">
-							<button class="btn waves-effect waves-light green darken-3" type="submit" onclick="Materialize.toast('Successfully added!', 4000)">Add
+							<button class="btn waves-effect waves-light green darken-3" type="submit">Add
 		            <i class="material-icons right">add</i>
 		          </button>
 		          {!! Form::close() !!}
@@ -1131,7 +1131,7 @@
 						</div>
 					</div>
 					<div id="individual_weighing2" class="row center" style="display: none;">
-						<button class="btn waves-effect waves-light green darken-3" type="submit" onclick="Materialize.toast('Successfully added!', 4000)">Add
+						<button class="btn waves-effect waves-light green darken-3" type="submit">Add
 	            <i class="material-icons right">add</i>
 	          </button>
 					</div>
@@ -1324,7 +1324,7 @@
 							</div>
 						</div>
 						<div class="row center">
-							<button class="btn waves-effect waves-light green darken-3" type="submit" onclick="Materialize.toast('Successfully added!', 4000)">Add
+							<button class="btn waves-effect waves-light green darken-3" type="submit">Add
 		            <i class="material-icons right">add</i>
 		          </button>
 		          {!! Form::close() !!}

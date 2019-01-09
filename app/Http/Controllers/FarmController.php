@@ -6386,54 +6386,69 @@ class FarmController extends Controller
 			else{
 				$earnotch = str_pad($temp_earnotch, 6, "0", STR_PAD_LEFT);
 			}
-			// adds new offspring
-			$birthdayValue = new Carbon($request->date_farrowed);
-			if(!is_null($request->offspring_earnotch) && !is_null($request->sex) && !is_null($request->birth_weight)){
-				$offspring = new Animal;
-				$farm = $this->user->getFarm();
-				$breed = $farm->getBreed();
-				$offspring->animaltype_id = 3;
-				$offspring->farm_id = $farm->id;
-				$offspring->breed_id = $breed->id;
-				$offspring->status = "active";
-				$registryid = $farm->code.$breed->breed."-".$birthdayValue->year.$request->sex.$earnotch;
-				$offspring->registryid = $registryid;
-				$offspring->save();
 
-				$earnotchproperty = new AnimalProperty;
-				$earnotchproperty->animal_id = $offspring->id;
-				$earnotchproperty->property_id = 1;
-				$earnotchproperty->value = $earnotch;
-				$earnotchproperty->save();
+			//checks if earnotch is unique
+			$conflict = [];
+			foreach ($members as $member) {
+				$offspring = $member->getChild();
+				if(substr($offspring->registryid, -6, 6) == $earnotch){
+					array_push($conflict, "1");
+				}
+				else{
+					array_push($conflict, "0");
+				}
+			}
 
-				$sex = new AnimalProperty;
-				$sex->animal_id = $offspring->id;
-				$sex->property_id = 2;
-				$sex->value = $request->sex;
-				$sex->save();
+			if(!in_array("1", $conflict, false)){
+				// adds new offspring
+				$birthdayValue = new Carbon($request->date_farrowed);
+				if(!is_null($request->offspring_earnotch) && !is_null($request->sex) && !is_null($request->birth_weight)){
+					$offspring = new Animal;
+					$farm = $this->user->getFarm();
+					$breed = $farm->getBreed();
+					$offspring->animaltype_id = 3;
+					$offspring->farm_id = $farm->id;
+					$offspring->breed_id = $breed->id;
+					$offspring->status = "active";
+					$registryid = $farm->code.$breed->breed."-".$birthdayValue->year.$request->sex.$earnotch;
+					$offspring->registryid = $registryid;
+					$offspring->save();
 
-				$birthday = new AnimalProperty;
-				$birthday->animal_id = $offspring->id;
-				$birthday->property_id = 3;
-				$birthday->value = $request->date_farrowed;
-				$birthday->save();
+					$earnotchproperty = new AnimalProperty;
+					$earnotchproperty->animal_id = $offspring->id;
+					$earnotchproperty->property_id = 1;
+					$earnotchproperty->value = $earnotch;
+					$earnotchproperty->save();
 
-				$registrationidproperty = new AnimalProperty;
-				$registrationidproperty->animal_id = $offspring->id;
-				$registrationidproperty->property_id = 4;
-				$registrationidproperty->value = $registryid;
-				$registrationidproperty->save();
+					$sex = new AnimalProperty;
+					$sex->animal_id = $offspring->id;
+					$sex->property_id = 2;
+					$sex->value = $request->sex;
+					$sex->save();
 
-				$birthweight = new AnimalProperty;
-				$birthweight->animal_id = $offspring->id;
-				$birthweight->property_id = 5;
-				$birthweight->value = $request->birth_weight;
-				$birthweight->save();
+					$birthday = new AnimalProperty;
+					$birthday->animal_id = $offspring->id;
+					$birthday->property_id = 3;
+					$birthday->value = $request->date_farrowed;
+					$birthday->save();
 
-				$groupingmember = new GroupingMember;
-				$groupingmember->grouping_id = $grouping->id;
-				$groupingmember->animal_id = $offspring->id;
-				$groupingmember->save();
+					$registrationidproperty = new AnimalProperty;
+					$registrationidproperty->animal_id = $offspring->id;
+					$registrationidproperty->property_id = 4;
+					$registrationidproperty->value = $registryid;
+					$registrationidproperty->save();
+
+					$birthweight = new AnimalProperty;
+					$birthweight->animal_id = $offspring->id;
+					$birthweight->property_id = 5;
+					$birthweight->value = $request->birth_weight;
+					$birthweight->save();
+
+					$groupingmember = new GroupingMember;
+					$groupingmember->grouping_id = $grouping->id;
+					$groupingmember->animal_id = $offspring->id;
+					$groupingmember->save();
+				}
 			}
 
 			// adds date farrowed as a group property
@@ -7048,6 +7063,8 @@ class FarmController extends Controller
 
 		public function editRegistryId(Request $request){
 			$offspring = Animal::find($request->old_earnotch);
+			$family = $offspring->getGrouping();
+			$members = $family->getGroupingMembers();
 
 			$offspringproperties = $offspring->getAnimalProperties();
 			$farm = $this->user->getFarm();
@@ -7062,17 +7079,32 @@ class FarmController extends Controller
 			else{
 				$earnotch = str_pad($temp_earnotch, 6, "0", STR_PAD_LEFT);
 			}
-			$registryid = $farm->code.$breed->breed."-".$birthdate->year.$sex.$earnotch;
-			$offspring->registryid = $registryid;
-			$offspring->save();
 
-			$earnotchprop = $offspringproperties->where("property_id", 1)->first();
-			$earnotchprop->value = $earnotch;
-			$earnotchprop->save();
+			//checks if earnotch is unique
+			$conflict = [];
+			foreach ($members as $member) {
+				$offspring = $member->getChild();
+				if(substr($offspring->registryid, -6, 6) == $earnotch){
+					array_push($conflict, "1");
+				}
+				else{
+					array_push($conflict, "0");
+				}
+			}
 
-			$registryidprop = $offspringproperties->where("property_id", 4)->first();
-			$registryidprop->value = $registryid;
-			$registryidprop->save();
+			if(!in_array("1", $conflict, false)){
+				$registryid = $farm->code.$breed->breed."-".$birthdate->year.$sex.$earnotch;
+				$offspring->registryid = $registryid;
+				$offspring->save();
+
+				$earnotchprop = $offspringproperties->where("property_id", 1)->first();
+				$earnotchprop->value = $earnotch;
+				$earnotchprop->save();
+
+				$registryidprop = $offspringproperties->where("property_id", 4)->first();
+				$registryidprop->value = $registryid;
+				$registryidprop->save();
+			}
 
 			return Redirect::back()->with('message', 'Operation Successful!');
 		}
@@ -7104,6 +7136,8 @@ class FarmController extends Controller
 
 		public function editTemporaryRegistryId(Request $request){
 			$offspring = Animal::find($request->old_earnotch);
+			$family = $offspring->getGrouping();
+			$members = $family->getGroupingMembers();
 
 			$offspringproperties = $offspring->getAnimalProperties();
 			$farm = $this->user->getFarm();
@@ -7118,22 +7152,37 @@ class FarmController extends Controller
 			else{
 				$earnotch = str_pad($temp_earnotch, 6, "0", STR_PAD_LEFT);
 			}
-			$registryid = $farm->code.$breed->breed."-".$birthdate->year.$sex.$earnotch;
-			$offspring->registryid = $registryid;
-			$offspring->status = "active";
-			$offspring->save();
 
-			$earnotchproperty = new AnimalProperty;
-			$earnotchproperty->animal_id = $offspring->id;
-			$earnotchproperty->property_id = 1;
-			$earnotchproperty->value = $earnotch;
-			$earnotchproperty->save();
+			//checks if earnotch is unique
+			$conflict = [];
+			foreach ($members as $member) {
+				$offspring = $member->getChild();
+				if(substr($offspring->registryid, -6, 6) == $earnotch){
+					array_push($conflict, "1");
+				}
+				else{
+					array_push($conflict, "0");
+				}
+			}
 
-			$registrationidproperty = new AnimalProperty;
-			$registrationidproperty->animal_id = $offspring->id;
-			$registrationidproperty->property_id = 4;
-			$registrationidproperty->value = $registryid;
-			$registrationidproperty->save();
+			if(!in_array("1", $conflict, false)){
+				$registryid = $farm->code.$breed->breed."-".$birthdate->year.$sex.$earnotch;
+				$offspring->registryid = $registryid;
+				$offspring->status = "active";
+				$offspring->save();
+
+				$earnotchproperty = new AnimalProperty;
+				$earnotchproperty->animal_id = $offspring->id;
+				$earnotchproperty->property_id = 1;
+				$earnotchproperty->value = $earnotch;
+				$earnotchproperty->save();
+
+				$registrationidproperty = new AnimalProperty;
+				$registrationidproperty->animal_id = $offspring->id;
+				$registrationidproperty->property_id = 4;
+				$registrationidproperty->value = $registryid;
+				$registrationidproperty->save();
+			}
 
 			return Redirect::back()->with('message', 'Operation Successful!');
 		}
