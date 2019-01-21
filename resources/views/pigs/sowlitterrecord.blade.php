@@ -403,6 +403,7 @@
 							<tbody>
 								@forelse($offsprings as $offspring)
 									<tr>
+										{{-- OFFSPRING ID --}}
 										{!! Form::open(['route' => 'farm.pig.edit_id', 'method' => 'post']) !!}
 										<td>{{ $offspring->getChild()->registryid }}  <a href="#edit_id{{$offspring->getChild()->id}}" class="modal-trigger"><i class="material-icons right">edit</i></td>
 											{{-- MODAL STRUCTURE --}}
@@ -425,6 +426,7 @@
 											</div>
 										{!! Form::close() !!}
 										{!! Form::open(['route' => 'farm.pig.edit_sex', 'method' => 'post']) !!}
+										{{-- SEX --}}
 										<td>{{ $offspring->getAnimalProperties()->where("property_id", 2)->first()->value }}  <a href="#edit_sex{{$offspring->getChild()->id}}" class="modal-trigger"><i class="material-icons right">edit</i></td>
 											{{-- MODAL STRUCTURE --}}
 											<div id="edit_sex{{$offspring->getChild()->id}}" class="modal">
@@ -448,14 +450,20 @@
 												</div>
 											</div>
 										{!! Form::close() !!}
+										{{-- BIRTH WEIGHT --}}
 										<td>{{ $offspring->getAnimalProperties()->where("property_id", 5)->first()->value }}</td>
 										{!! Form::open(['route' => 'farm.pig.get_weaning_weights', 'method' => 'post']) !!}
+										{{-- WEANING WEIGHT --}}
 										@if(is_null($family->getGroupingProperties()->where("property_id", 6)->first()))
 											@if(is_null($offspring->getAnimalProperties()->where("property_id", 7)->first()))
 												<td>
-													<a class="btn waves-effect waves-light green darken-3 modal-trigger" href="#weaning_weight_modal{{$offspring->getChild()->id}}">
-								            Add <i class="material-icons right">add</i>
-								          </a>
+													@if($now->gte(Carbon\Carbon::parse($properties->where("property_id", 3)->first()->value)->addDays(35)))
+														<a class="btn waves-effect waves-light green darken-3 modal-trigger" href="#weaning_weight_modal{{$offspring->getChild()->id}}">
+									            Add <i class="material-icons right">add</i>
+									          </a>
+									        @else
+									        	<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Disabled until 35 days after date farrowed" style="vertical-align: middle;">info_outline</i>
+									        @endif
 												</td>
 											@else
 												<td>{{ $offspring->getAnimalProperties()->where("property_id", 7)->first()->value }}</td>
@@ -463,9 +471,13 @@
 										@else
 											@if(is_null($offspring->getAnimalProperties()->where("property_id", 7)->first()))
 												<td>
-													<a class="btn waves-effect waves-light green darken-3 modal-trigger" href="#weaning_weight_modal{{$offspring->getChild()->id}}">
-								            Add <i class="material-icons right">add</i>
-								          </a>
+													@if($now->gte(Carbon\Carbon::parse($properties->where("property_id", 3)->first()->value)->addDays(35)))
+														<a class="btn waves-effect waves-light green darken-3 modal-trigger" href="#weaning_weight_modal{{$offspring->getChild()->id}}">
+									            Add <i class="material-icons right">add</i>
+									          </a>
+									        @else
+									        	<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Disabled until 35 days after date farrowed" style="vertical-align: middle;">info_outline</i>
+									        @endif
 												</td>
 											@else
 												<td>{{ $offspring->getAnimalProperties()->where("property_id", 7)->first()->value }}</td>
@@ -654,9 +666,13 @@
 											@if(is_null($family->getGroupingProperties()->where("property_id", 6)->first()))
 												@if(is_null($offspring->getAnimalProperties()->where("property_id", 7)->first()))
 													<td>
-														<a class="btn waves-effect waves-light green darken-3 modal-trigger" href="#weaning_weight_modal{{$offspring->getChild()->id}}">
-									            Add <i class="material-icons right">add</i>
-									          </a>
+														@if($now->gte(Carbon\Carbon::parse($properties->where("property_id", 3)->first()->value)->addDays(35)))
+															<a class="btn waves-effect waves-light green darken-3 modal-trigger" href="#weaning_weight_modal{{$offspring->getChild()->id}}">
+										            Add <i class="material-icons right">add</i>
+										          </a>
+										        @else
+										        	<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Disabled until 35 days after date farrowed" style="vertical-align: middle;">info_outline</i>
+										        @endif
 													</td>
 												@else
 													<td>{{ $offspring->getAnimalProperties()->where("property_id", 7)->first()->value }}</td>
@@ -664,9 +680,13 @@
 											@else
 												@if(is_null($offspring->getAnimalProperties()->where("property_id", 7)->first()))
 													<td>
-														<a class="btn waves-effect waves-light green darken-3 modal-trigger" href="#weaning_weight_modal{{$offspring->getChild()->id}}">
-									            Add <i class="material-icons right">add</i>
-									          </a>
+														@if($now->gte(Carbon\Carbon::parse($properties->where("property_id", 3)->first()->value)->addDays(35)))
+															<a class="btn waves-effect waves-light green darken-3 modal-trigger" href="#weaning_weight_modal{{$offspring->getChild()->id}}">
+										            Add <i class="material-icons right">add</i>
+										          </a>
+										        @else
+										        	<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Disabled until 35 days after date farrowed" style="vertical-align: middle;">info_outline</i>
+										        @endif
 													</td>
 												@else
 													<td>{{ $offspring->getAnimalProperties()->where("property_id", 7)->first()->value }}</td>
@@ -827,9 +847,13 @@
 											@if(is_null($family->getGroupingProperties()->where("property_id", 6)->first()))
 												@if(is_null($offspring->getAnimalProperties()->where("property_id", 7)->first()))
 													<td>
-														<a class="btn waves-effect waves-light green darken-3 modal-trigger" href="#weaning_weight_modal{{$offspring->getChild()->id}}">
-									            Add <i class="material-icons right">add</i>
-									          </a>
+														@if($now->gte(Carbon\Carbon::parse($properties->where("property_id", 3)->first()->value)->addDays(35)))
+															<a class="btn waves-effect waves-light green darken-3 modal-trigger" href="#weaning_weight_modal{{$offspring->getChild()->id}}">
+										            Add <i class="material-icons right">add</i>
+										          </a>
+										        @else
+										        	<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Disabled until 35 days after date farrowed" style="vertical-align: middle;">info_outline</i>
+										        @endif
 													</td>
 												@else
 													<td>{{ $offspring->getAnimalProperties()->where("property_id", 7)->first()->value }}</td>
@@ -837,9 +861,13 @@
 											@else
 												@if(is_null($offspring->getAnimalProperties()->where("property_id", 7)->first()))
 													<td>
-														<a class="btn waves-effect waves-light green darken-3 modal-trigger" href="#weaning_weight_modal{{$offspring->getChild()->id}}">
-									            Add <i class="material-icons right">add</i>
-									          </a>
+														@if($now->gte(Carbon\Carbon::parse($properties->where("property_id", 3)->first()->value)->addDays(35)))
+															<a class="btn waves-effect waves-light green darken-3 modal-trigger" href="#weaning_weight_modal{{$offspring->getChild()->id}}">
+										            Add <i class="material-icons right">add</i>
+										          </a>
+										        @else
+										        	<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Disabled until 35 days after date farrowed" style="vertical-align: middle;">info_outline</i>
+										        @endif
 													</td>
 												@else
 													<td>{{ $offspring->getAnimalProperties()->where("property_id", 7)->first()->value }}</td>
@@ -1028,9 +1056,13 @@
 												@if(is_null($family->getGroupingProperties()->where("property_id", 6)->first()))
 													@if(is_null($offspring->getAnimalProperties()->where("property_id", 7)->first()))
 														<td>
-															<a class="btn waves-effect waves-light green darken-3 modal-trigger" href="#weaning_weight_modal{{$offspring->getChild()->id}}">
-										            Add <i class="material-icons right">add</i>
-										          </a>
+															@if($now->gte(Carbon\Carbon::parse($properties->where("property_id", 3)->first()->value)->addDays(35)))
+																<a class="btn waves-effect waves-light green darken-3 modal-trigger" href="#weaning_weight_modal{{$offspring->getChild()->id}}">
+											            Add <i class="material-icons right">add</i>
+											          </a>
+											        @else
+											        	<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Disabled until 35 days after date farrowed" style="vertical-align: middle;">info_outline</i>
+											        @endif
 														</td>
 													@else
 														<td>{{ $offspring->getAnimalProperties()->where("property_id", 7)->first()->value }}</td>
@@ -1038,9 +1070,13 @@
 												@else
 													@if(is_null($offspring->getAnimalProperties()->where("property_id", 7)->first()))
 														<td>
-															<a class="btn waves-effect waves-light green darken-3 modal-trigger" href="#weaning_weight_modal{{$offspring->getChild()->id}}">
-										            Add <i class="material-icons right">add</i>
-										          </a>
+															@if($now->gte(Carbon\Carbon::parse($properties->where("property_id", 3)->first()->value)->addDays(35)))
+																<a class="btn waves-effect waves-light green darken-3 modal-trigger" href="#weaning_weight_modal{{$offspring->getChild()->id}}">
+											            Add <i class="material-icons right">add</i>
+											          </a>
+											        @else
+											        	<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Disabled until 35 days after date farrowed" style="vertical-align: middle;">info_outline</i>
+											        @endif
 														</td>
 													@else
 														<td>{{ $offspring->getAnimalProperties()->where("property_id", 7)->first()->value }}</td>
@@ -1200,9 +1236,13 @@
 											@if(is_null($family->getGroupingProperties()->where("property_id", 6)->first()))
 												@if(is_null($offspring->getAnimalProperties()->where("property_id", 7)->first()))
 													<td>
-														<a class="btn waves-effect waves-light green darken-3 modal-trigger" href="#weaning_weight_modal{{$offspring->getChild()->id}}">
-									            Add <i class="material-icons right">add</i>
-									          </a>
+														@if($now->gte(Carbon\Carbon::parse($properties->where("property_id", 3)->first()->value)->addDays(35)))
+															<a class="btn waves-effect waves-light green darken-3 modal-trigger" href="#weaning_weight_modal{{$offspring->getChild()->id}}">
+										            Add <i class="material-icons right">add</i>
+										          </a>
+										        @else
+										        	<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Disabled until 35 days after date farrowed" style="vertical-align: middle;">info_outline</i>
+										        @endif
 													</td>
 												@else
 													<td>{{ $offspring->getAnimalProperties()->where("property_id", 7)->first()->value }}</td>
@@ -1210,9 +1250,13 @@
 											@else
 												@if(is_null($offspring->getAnimalProperties()->where("property_id", 7)->first()))
 													<td>
-														<a class="btn waves-effect waves-light green darken-3 modal-trigger" href="#weaning_weight_modal{{$offspring->getChild()->id}}">
-									            Add <i class="material-icons right">add</i>
-									          </a>
+														@if($now->gte(Carbon\Carbon::parse($properties->where("property_id", 3)->first()->value)->addDays(35)))
+															<a class="btn waves-effect waves-light green darken-3 modal-trigger" href="#weaning_weight_modal{{$offspring->getChild()->id}}">
+										            Add <i class="material-icons right">add</i>
+										          </a>
+										        @else
+										        	<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Disabled until 35 days after date farrowed" style="vertical-align: middle;">info_outline</i>
+										        @endif
 													</td>
 												@else
 													<td>{{ $offspring->getAnimalProperties()->where("property_id", 7)->first()->value }}</td>
@@ -1401,9 +1445,13 @@
 												@if(is_null($family->getGroupingProperties()->where("property_id", 6)->first()))
 													@if(is_null($offspring->getAnimalProperties()->where("property_id", 7)->first()))
 														<td>
-															<a class="btn waves-effect waves-light green darken-3 modal-trigger" href="#weaning_weight_modal{{$offspring->getChild()->id}}">
-										            Add <i class="material-icons right">add</i>
-										          </a>
+															@if($now->gte(Carbon\Carbon::parse($properties->where("property_id", 3)->first()->value)->addDays(35)))
+																<a class="btn waves-effect waves-light green darken-3 modal-trigger" href="#weaning_weight_modal{{$offspring->getChild()->id}}">
+											            Add <i class="material-icons right">add</i>
+											          </a>
+											        @else
+											        	<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Disabled until 35 days after date farrowed" style="vertical-align: middle;">info_outline</i>
+											        @endif
 														</td>
 													@else
 														<td>{{ $offspring->getAnimalProperties()->where("property_id", 7)->first()->value }}</td>
@@ -1411,9 +1459,13 @@
 												@else
 													@if(is_null($offspring->getAnimalProperties()->where("property_id", 7)->first()))
 														<td>
-															<a class="btn waves-effect waves-light green darken-3 modal-trigger" href="#weaning_weight_modal{{$offspring->getChild()->id}}">
-										            Add <i class="material-icons right">add</i>
-										          </a>
+															@if($now->gte(Carbon\Carbon::parse($properties->where("property_id", 3)->first()->value)->addDays(35)))
+																<a class="btn waves-effect waves-light green darken-3 modal-trigger" href="#weaning_weight_modal{{$offspring->getChild()->id}}">
+											            Add <i class="material-icons right">add</i>
+											          </a>
+											        @else
+											        	<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Disabled until 35 days after date farrowed" style="vertical-align: middle;">info_outline</i>
+											        @endif
 														</td>
 													@else
 														<td>{{ $offspring->getAnimalProperties()->where("property_id", 7)->first()->value }}</td>
@@ -1471,8 +1523,22 @@
 @endsection
 
 @section('scripts')
-		<script>
+	<script>
 		$(document).ready(function(){
+			$("#date_farrowed").pickadate({
+				min: new Date(<?php echo Carbon\Carbon::parse($family->getGroupingProperties()->where("property_id", 42)->first()->value)->addDays(109)->format('Y') ?>, <?php echo Carbon\Carbon::parse($family->getGroupingProperties()->where("property_id", 42)->first()->value)->addDays(109)->format('m')-1 ?>, <?php echo Carbon\Carbon::parse($family->getGroupingProperties()->where("property_id", 42)->first()->value)->addDays(109)->format('d') ?>),
+				max: new Date()
+			});
+			$('.datepicker').pickadate({
+			  selectMonths: true, // Creates a dropdown to control month
+			  selectYears: 15, // Creates a dropdown of 15 years to control year,
+			  today: 'Today',
+			  clear: 'Clear',
+			  close: 'Ok',
+			  closeOnSelect: false, // Close upon selecting a date,
+			  format: 'yyyy-mm-dd', 
+			  max: new Date()
+			});
 		  $("#paritytext").change(function (event) {
 		    event.preventDefault();
 		    var familyidvalue = $('input[name=grouping_id]').val();

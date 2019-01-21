@@ -1276,8 +1276,9 @@ class FarmController extends Controller
 				$lactationperiod = "";
 			}
 
+			$now = Carbon::now();
 
-			return view('pigs.sowlitterrecord', compact('family', 'offsprings', 'properties', 'countMales', 'countFemales', 'aveBirthWeight', 'weaned', 'aveWeaningWeight', 'gestationperiod', 'lactationperiod'));
+			return view('pigs.sowlitterrecord', compact('family', 'offsprings', 'properties', 'countMales', 'countFemales', 'aveBirthWeight', 'weaned', 'aveWeaningWeight', 'gestationperiod', 'lactationperiod', 'now'));
 		}
 
 		public function getBreedingRecordPage(){ // function to display Breeding Record page
