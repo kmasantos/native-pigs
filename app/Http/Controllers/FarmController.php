@@ -1299,6 +1299,40 @@ class FarmController extends Controller
 				}
 			}
 
+			$temp = [];
+			foreach ($family as $fam) {
+				foreach ($sows as $sow) {
+					if($fam->mother_id == $sow->id){
+						$values = [];
+						array_push($values, $fam->registryid);
+						array_push($values, $fam->getGroupingProperties()->where("property_id", 60)->first()->value); //status
+						array_push($values, $fam->id);
+						array_push($values, $fam->getGroupingProperties()->where("property_id", 42)->first()->value); //date bred
+						if(!is_null($fam->getGroupingProperties()->where("property_id", 6)->first())){
+							array_push($values, $fam->getGroupingProperties()->where("property_id", 6)->first()->value);
+						}
+						array_push($temp, $values);
+					}
+				}
+			}
+
+			$available_temp = [];
+			$available = [];
+			foreach ($temp as $value) {
+				if($value[1] == "Farrowed"){
+					if(array_map('count', $temp) == 5){
+						array_push($available_temp, $value[0]);
+					}
+				}
+				elseif($value[1] == "Recycled"){
+					array_push($available_temp, $value[0]);
+				}
+				elseif($value[1] == "Aborted"){
+					array_push($available_temp, $value[0]);
+				}
+			}
+			$available = array_unique($available_temp);
+
 			// automatically updates mother's parity
 			foreach ($family as $group) {
 				static::addParityMother($group->id);
@@ -1312,7 +1346,7 @@ class FarmController extends Controller
 			$range = range($current_year-10, $current_year+10);
 			$years = array_combine($range, $range);
 
-			return view('pigs.breedingrecord', compact('pigs', 'sows', 'boars', 'femalegrowers', 'malegrowers', 'family', 'years'));
+			return view('pigs.breedingrecord', compact('pigs', 'sows', 'boars', 'femalegrowers', 'malegrowers', 'family', 'years', 'available'));
 		}
 
 		public function getEditBreedingRecordPage($id){ //function to display edit breeding record page
@@ -6004,14 +6038,118 @@ class FarmController extends Controller
 			$animal = Animal::find($id);
 			$properties = $animal->getAnimalProperties();
 
-			return view('pigs.weightrecords', compact('animal', 'properties'));
+			$datefarrowedprop = $properties->where("property_id", 3)->first();
+			$dateweanedprop = $properties->where("property_id", 6)->first();
+
+			if(!is_null($datefarrowedprop) && !is_null($dateweanedprop)){
+				$datefarrowed = Carbon::parse($datefarrowedprop->value);
+				$dateweaned = Carbon::parse($dateweanedprop->value);
+				$age_weaned = $dateweaned->diffInDays($datefarrowed);
+			}
+			else{
+				$age_weaned = "";
+			}
+			
+			return view('pigs.weightrecords', compact('animal', 'properties', 'age_weaned'));
 		}
 
 		public function getEditWeightRecordsPage($id){ // function to display Edit Weight Records page
 			$animal = Animal::find($id);
 			$properties = $animal->getAnimalProperties();
 
-			return view('pigs.editweightrecords', compact('animal', 'properties'));
+			$datefarrowedprop = $properties->where("property_id", 3)->first();
+			$dateweanedprop = $properties->where("property_id", 6)->first();
+			$bw45dprop = $properties->where("property_id", 32)->first();
+			$bw60dprop = $properties->where("property_id", 33)->first();
+			$bw90dprop = $properties->where("property_id", 34)->first();
+			$bw150dprop = $properties->where("property_id", 35)->first();
+			$bw180dprop = $properties->where("property_id", 36)->first();
+			$dc45dprop = $properties->where("property_id", 37)->first();
+			$dc60dprop = $properties->where("property_id", 38)->first();
+			$dc90dprop = $properties->where("property_id", 39)->first();
+			$dc150dprop = $properties->where("property_id", 40)->first();
+			$dc180dprop = $properties->where("property_id", 41)->first();
+
+			if(!is_null($datefarrowedprop) && !is_null($dateweanedprop)){
+				$datefarrowed = Carbon::parse($datefarrowedprop->value);
+				$dateweaned = Carbon::parse($dateweanedprop->value);
+				$age_weaned = $dateweaned->diffInDays($datefarrowed);
+			}
+			else{
+				$age_weaned = "";
+			}
+
+			if(!is_null($bw45dprop)){
+				if($bw45dprop->value != ""){
+					$datefarrowed = Carbon::parse($datefarrowedprop->value);
+					$dc45d = Carbon::parse($dc45dprop->value);
+					$actual45d = $dc45d->diffInDays($datefarrowed);
+				}
+				else{
+					$actual45d = "";
+				}
+			}
+			else{
+				$actual45d = "";
+			}
+
+			if(!is_null($bw60dprop)){
+				if($bw60dprop->value != ""){
+					$datefarrowed = Carbon::parse($datefarrowedprop->value);
+					$dc60d = Carbon::parse($dc60dprop->value);
+					$actual60d = $dc60d->diffInDays($datefarrowed);
+				}
+				else{
+					$actual60d = "";
+				}
+			}
+			else{
+				$actual60d = "";
+			}
+
+			if(!is_null($bw90dprop)){
+				if($bw90dprop->value != ""){
+					$datefarrowed = Carbon::parse($datefarrowedprop->value);
+					$dc90d = Carbon::parse($dc90dprop->value);
+					$actual90d = $dc90d->diffInDays($datefarrowed);
+				}
+				else{
+					$actual90d = "";
+				}
+			}
+			else{
+				$actual90d = "";
+			}
+
+			if(!is_null($bw150dprop)){
+				if($bw150dprop->value != ""){
+					$datefarrowed = Carbon::parse($datefarrowedprop->value);
+					$dc150d = Carbon::parse($dc150dprop->value);
+					$actual150d = $dc150d->diffInDays($datefarrowed);
+				}
+				else{
+					$actual150d = "";
+				}
+			}
+			else{
+				$actual150d = "";
+			}
+
+			if(!is_null($bw180dprop)){
+				if($bw180dprop->value != ""){
+					$datefarrowed = Carbon::parse($datefarrowedprop->value);
+					$dc180d = Carbon::parse($dc180dprop->value);
+					$actual180d = $dc180d->diffInDays($datefarrowed);
+				}
+				else{
+					$actual180d = "";
+				}
+			}
+			else{
+				$actual180d = "";
+			}
+
+			return view('pigs.editweightrecords', compact('animal', 'properties', 'age_weaned', 'actual45d', 'actual60d', 'actual90d', 'actual150d', 'actual180d'));
 		}
 
 		public function fetchBreedersAjax($breederid){ // function to add pigs as breeders onclick
@@ -7746,9 +7884,10 @@ class FarmController extends Controller
 		public function fetchWeightRecords(Request $request){ // function to add weight records
 			$animalid = $request->animal_id;
 			$animal = Animal::find($animalid);
+			$properties = $animal->getAnimalProperties();
 
 			// used when date collected was not provided
-			$bday = $animal->getAnimalProperties()->where("property_id", 3)->first();
+			$bday = $properties->where("property_id", 3)->first();
 
 			// creates new properties
 			$bw45d = new AnimalProperty;
@@ -7762,8 +7901,22 @@ class FarmController extends Controller
 			$bw180d = new AnimalProperty;
 			$dc180d = new AnimalProperty;
 
+			$datefarrowedprop = $properties->where("property_id", 3)->first();
+			$dateweanedprop = $properties->where("property_id", 6)->first();
+
+			if(!is_null($datefarrowedprop) && !is_null($dateweanedprop)){
+				$datefarrowed = Carbon::parse($datefarrowedprop->value);
+				$dateweaned = Carbon::parse($dateweanedprop->value);
+				$age_weaned = $dateweaned->diffInDays($datefarrowed);
+			}
+
 			if(is_null($request->body_weight_at_45_days)){
-				$bw45dValue = "";
+				if($age_weaned == 45){
+					$bw45dValue = $request->body_weight_at_45_days;
+				}
+				else{
+					$bw45dValue = "";
+				}
 			}
 			else{
 				$bw45dValue = $request->body_weight_at_45_days;
@@ -7790,7 +7943,12 @@ class FarmController extends Controller
 			$dc45d->value = $dc45dValue;
 
 			if(is_null($request->body_weight_at_60_days)){
-				$bw60dValue = "";
+				if($age_weaned == 60){
+					$bw60dValue = $request->body_weight_at_60_days;
+				}
+				else{
+					$bw60dValue = "";
+				}
 			}
 			else{
 				$bw60dValue = $request->body_weight_at_60_days;

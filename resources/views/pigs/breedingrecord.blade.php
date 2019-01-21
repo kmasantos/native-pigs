@@ -58,8 +58,8 @@
 									<td> 
 										<select name="sow_id" class="browser-default">
 											<option disabled selected>Choose sow</option>
-												@foreach($sows as $sow)	
-													<option value="{{ $sow->registryid }}">{{ $sow->registryid }}</option>
+												@foreach($available as $sow)	
+													<option value="{{ $sow }}">{{ $sow }}</option>
 												@endforeach
 										</select>
 									</td>
@@ -223,6 +223,11 @@
 @section('scripts')
 	<script type="text/javascript">
 		$(document).ready(function(){
+			$('#<?php echo $breedingRecord->id ?>').pickadate({
+				format: 'yyyy-mm-dd',
+				min: new Date(<?php echo Carbon\Carbon::parse($breedingRecord->getGroupingProperties()->where("property_id", 42)->first()->value)->addDays(18)->format('Y') ?>, <?php echo Carbon\Carbon::parse($breedingRecord->getGroupingProperties()->where("property_id", 42)->first()->value)->addDays(18)->format('m')-1 ?>, <?php echo Carbon\Carbon::parse($breedingRecord->getGroupingProperties()->where("property_id", 42)->first()->value)->addDays(18)->format('d') ?>),
+				max: new Date()
+			});
 			$('.datepicker').pickadate({
 			  selectMonths: true, // Creates a dropdown to control month
 			  selectYears: 15, // Creates a dropdown of 15 years to control year,

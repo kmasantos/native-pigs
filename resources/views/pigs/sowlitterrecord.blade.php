@@ -1525,7 +1525,13 @@
 @section('scripts')
 	<script>
 		$(document).ready(function(){
+			$("#date_weaned").pickadate({
+				format: 'yyyy-mm-dd',
+				min: new Date(<?php echo Carbon\Carbon::parse($family->getGroupingProperties()->where("property_id", 3)->first()->value)->addDays(35)->format('Y') ?>, <?php echo Carbon\Carbon::parse($family->getGroupingProperties()->where("property_id", 3)->first()->value)->addDays(35)->format('m')-1 ?>, <?php echo Carbon\Carbon::parse($family->getGroupingProperties()->where("property_id", 3)->first()->value)->addDays(35)->format('d') ?>),
+				max: new Date()
+			});
 			$("#date_farrowed").pickadate({
+				format: 'yyyy-mm-dd',
 				min: new Date(<?php echo Carbon\Carbon::parse($family->getGroupingProperties()->where("property_id", 42)->first()->value)->addDays(109)->format('Y') ?>, <?php echo Carbon\Carbon::parse($family->getGroupingProperties()->where("property_id", 42)->first()->value)->addDays(109)->format('m')-1 ?>, <?php echo Carbon\Carbon::parse($family->getGroupingProperties()->where("property_id", 42)->first()->value)->addDays(109)->format('d') ?>),
 				max: new Date()
 			});

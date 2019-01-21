@@ -16,23 +16,43 @@
             <div class="col s4">
               Body Weight at 45 Days
             </div>
-            <div class="col s4">
-              <input id="body_weight_at_45_days" type="text" placeholder="Weight" name="body_weight_at_45_days" class="validate">
-            </div>
-            <div class="col s4">
-              <input id="date_collected_45_days" type="text" placeholder="Date Collected" name="date_collected_45_days" class="datepicker">
-            </div>
+            @if($age_weaned == 45)
+              <div class="col s4">
+                <input id="body_weight_at_45_days" type="text" placeholder="Weight" name="body_weight_at_45_days" value="{{ $properties->where("property_id", 7)->first()->value }}" class="validate">
+                <input type="hidden" name="body_weight_at_45_days" value="{{ $properties->where("property_id", 7)->first()->value }}">
+              </div>
+              <div class="col s4">
+                <input id="date_collected_45_days" type="text" placeholder="Date Collected" name="date_collected_45_days" value="{{ Carbon\Carbon::parse($properties->where("property_id", 6)->first()->value)->format('Y-m-d') }}" class="datepicker">
+              </div>
+            @else
+              <div class="col s4">
+                <input id="body_weight_at_45_days" type="text" placeholder="Weight" name="body_weight_at_45_days" class="validate">
+              </div>
+              <div class="col s4">
+                <input id="date_collected_45_days" type="text" placeholder="Date Collected" name="date_collected_45_days" class="datepicker">
+              </div>
+            @endif
           </div>
           <div class="row">
             <div class="col s4">
               Body Weight at 60 Days
             </div>
-            <div class="col s4">
-              <input id="body_weight_at_60_days" type="text" placeholder="Weight" name="body_weight_at_60_days" class="validate">
-            </div>
-            <div class="col s4">
-              <input id="date_collected_60_days" type="text" placeholder="Date Collected" name="date_collected_60_days" class="datepicker">
-            </div>
+            @if($age_weaned == 60)
+              <div class="col s4">
+                <input id="body_weight_at_60_days" type="text" placeholder="Weight" name="body_weight_at_60_days" value="{{ $properties->where("property_id", 7)->first()->value }}" class="validate">
+                <input type="hidden" name="body_weight_at_60_days" value="{{ $properties->where("property_id", 7)->first()->value }}">
+              </div>
+              <div class="col s4">
+                <input id="date_collected_60_days" type="text" placeholder="Date Collected" name="date_collected_60_days" value="{{ Carbon\Carbon::parse($properties->where("property_id", 6)->first()->value)->format('Y-m-d') }}" class="datepicker">
+              </div>
+            @else
+              <div class="col s4">
+                <input id="body_weight_at_60_days" type="text" placeholder="Weight" name="body_weight_at_60_days" class="validate">
+              </div>
+              <div class="col s4">
+                <input id="date_collected_60_days" type="text" placeholder="Date Collected" name="date_collected_60_days" class="datepicker">
+              </div>
+            @endif
           </div>
           <div class="row">
             <div class="col s4">
@@ -89,7 +109,8 @@
         clear: 'Clear',
         close: 'Ok',
         closeOnSelect: false, // Close upon selecting a date,
-        format: 'yyyy-mm-dd', 
+        format: 'yyyy-mm-dd',
+        min: new Date(<?php echo Carbon\Carbon::parse($properties->where("property_id", 3)->first()->value)->addDays(1)->format('Y') ?>, <?php echo Carbon\Carbon::parse($properties->where("property_id", 3)->first()->value)->addDays(1)->format('m')-1 ?>, <?php echo Carbon\Carbon::parse($properties->where("property_id", 3)->first()->value)->addDays(1)->format('d') ?>),
         max: new Date()
       });
     });

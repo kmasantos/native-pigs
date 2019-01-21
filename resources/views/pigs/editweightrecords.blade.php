@@ -14,7 +14,11 @@
         <div class="row card-panel">
           <div class="row">
             <div class="col s4">
-              Weaning Weight
+              @if($age_weaned != "")
+                Weaning Weight <i class="material-icons tooltipped" data-position="top" data-tooltip="Age weaned: {{ $age_weaned }} days" style="vertical-align: middle;">info_outline</i>
+              @else
+                Weaning Weight
+              @endif
             </div>
             <div class="col s4">
               @if(!is_null($properties->where("property_id", 7)->first()))
@@ -33,7 +37,15 @@
           </div>
           <div class="row">
             <div class="col s4">
-              Body Weight at 45 Days
+              @if($actual45d != "")
+                @if($actual45d != 45)
+                  Body Weight at 45 Days <i class="material-icons tooltipped" data-position="top" data-tooltip="Actual: {{ $actual45d }} days" style="vertical-align: middle;">info_outline</i>
+                @elseif($actual45d == 45)
+                  Body Weight at 45 Days
+                @endif
+              @else
+                Body Weight at 45 Days
+              @endif
             </div>
             <div class="col s4">
               @if(!is_null($properties->where("property_id", 32)->first()))
@@ -52,7 +64,15 @@
           </div>
           <div class="row">
             <div class="col s4">
-              Body Weight at 60 Days
+              @if($actual60d != "")
+                @if($actual60d != 60)
+                  Body Weight at 60 Days <i class="material-icons tooltipped" data-position="top" data-tooltip="Actual: {{ $actual60d }} days" style="vertical-align: middle;">info_outline</i>
+                @elseif($actual60d == 60)
+                  Body Weight at 60 Days
+                @endif
+              @else
+                Body Weight at 60 Days
+              @endif
             </div>
             <div class="col s4">
               @if(!is_null($properties->where("property_id", 33)->first()))
@@ -71,7 +91,15 @@
           </div>
           <div class="row">
             <div class="col s4">
-              Body Weight at 90 Days
+              @if($actual90d != "")
+                @if($actual90d != 90)
+                  Body Weight at 90 Days <i class="material-icons tooltipped" data-position="top" data-tooltip="Actual: {{ $actual90d }} days" style="vertical-align: middle;">info_outline</i>
+                @elseif($actual90d == 90)
+                  Body Weight at 90 Days
+                @endif
+              @else
+                Body Weight at 90 Days
+              @endif
             </div>
             <div class="col s4">
               @if(!is_null($properties->where("property_id", 34)->first()))
@@ -90,7 +118,15 @@
           </div>
           <div class="row">
             <div class="col s4">
-              Body Weight at 150 Days
+              @if($actual150d != "")
+                @if($actual150d != 150)
+                  Body Weight at 150 Days <i class="material-icons tooltipped" data-position="top" data-tooltip="Actual: {{ $actual150d }} days" style="vertical-align: middle;">info_outline</i>
+                @elseif($actual150d == 150)
+                  Body Weight at 150 Days
+                @endif
+              @else
+                Body Weight at 150 Days
+              @endif
             </div>
             <div class="col s4">
               @if(!is_null($properties->where("property_id", 35)->first()))
@@ -109,7 +145,15 @@
           </div>
           <div class="row">
             <div class="col s4">
-              Body Weight at 180 Days
+              @if($actual180d != "")
+                @if($actual180d != 180)
+                  Body Weight at 180 Days <i class="material-icons tooltipped" data-position="top" data-tooltip="Actual: {{ $actual180d }} days" style="vertical-align: middle;">info_outline</i>
+                @elseif($actual180d == 180)
+                  Body Weight at 180 Days
+                @endif
+              @else
+                Body Weight at 180 Days
+              @endif
             </div>
             <div class="col s4">
               @if(!is_null($properties->where("property_id", 36)->first()))
@@ -148,7 +192,8 @@
         clear: 'Clear',
         close: 'Ok',
         closeOnSelect: false, // Close upon selecting a date,
-        format: 'yyyy-mm-dd', 
+        format: 'yyyy-mm-dd',
+        min: new Date(<?php echo Carbon\Carbon::parse($properties->where("property_id", 3)->first()->value)->addDays(1)->format('Y') ?>, <?php echo Carbon\Carbon::parse($properties->where("property_id", 3)->first()->value)->addDays(1)->format('m')-1 ?>, <?php echo Carbon\Carbon::parse($properties->where("property_id", 3)->first()->value)->addDays(1)->format('d') ?>),
         max: new Date()
       });
     });

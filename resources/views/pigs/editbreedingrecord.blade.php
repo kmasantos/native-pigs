@@ -137,7 +137,7 @@
 			  clear: 'Clear',
 			  close: 'Ok',
 			  closeOnSelect: false, // Close upon selecting a date,
-			  format: 'yyyy-mm-dd', 
+			  format: 'yyyy-mm-dd',
 			  max: new Date()
 			});
 		});
