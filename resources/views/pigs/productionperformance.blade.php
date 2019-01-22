@@ -312,17 +312,17 @@
 
 @section('scripts')
 	<script>
+		$('.datepicker').pickadate({
+		  selectMonths: true, // Creates a dropdown to control month
+		  selectYears: 15, // Creates a dropdown of 15 years to control year,
+		  today: 'Today',
+		  clear: 'Clear',
+		  close: 'Ok',
+		  closeOnSelect: false, // Close upon selecting a date,
+		  format: 'yyyy-mm-dd', 
+		  max: new Date()
+		});
 		$(document).ready(function(){
-			$('.datepicker').pickadate({
-			  selectMonths: true, // Creates a dropdown to control month
-			  selectYears: 15, // Creates a dropdown of 15 years to control year,
-			  today: 'Today',
-			  clear: 'Clear',
-			  close: 'Ok',
-			  closeOnSelect: false, // Close upon selecting a date,
-			  format: 'yyyy-mm-dd', 
-			  max: new Date()
-			});
 		  $("#filter_parity").change(function () {
 				event.preventDefault();
 				var filter = $(this).val();

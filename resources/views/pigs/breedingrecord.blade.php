@@ -222,7 +222,6 @@
 
 @section('scripts')
 	<script type="text/javascript">
-		$(document).ready(function(){
 			$('#<?php echo $breedingRecord->id ?>').pickadate({
 				format: 'yyyy-mm-dd',
 				min: new Date(<?php echo Carbon\Carbon::parse($breedingRecord->getGroupingProperties()->where("property_id", 42)->first()->value)->addDays(18)->format('Y') ?>, <?php echo Carbon\Carbon::parse($breedingRecord->getGroupingProperties()->where("property_id", 42)->first()->value)->addDays(18)->format('m')-1 ?>, <?php echo Carbon\Carbon::parse($breedingRecord->getGroupingProperties()->where("property_id", 42)->first()->value)->addDays(18)->format('d') ?>),
@@ -238,6 +237,5 @@
 			  format: 'yyyy-mm-dd', 
 			  max: new Date()
 			});
-		});
 	</script>
 @endsection

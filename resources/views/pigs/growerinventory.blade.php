@@ -40,17 +40,15 @@
 
 @section('scripts')
 	<script>
-		$(document).ready(function(){
-			$('.datepicker').pickadate({
-			  selectMonths: true, // Creates a dropdown to control month
-			  selectYears: 15, // Creates a dropdown of 15 years to control year,
-			  today: 'Today',
-			  clear: 'Clear',
-			  close: 'Ok',
-			  closeOnSelect: false, // Close upon selecting a date,
-			  format: 'yyyy-mm-dd', 
-			  max: new Date()
-			});
+		$('.datepicker').pickadate({
+		  selectMonths: true, // Creates a dropdown to control month
+		  selectYears: 15, // Creates a dropdown of 15 years to control year,
+		  today: 'Today',
+		  clear: 'Clear',
+		  close: 'Ok',
+		  closeOnSelect: false, // Close upon selecting a date,
+		  format: 'yyyy-mm-dd', 
+		  max: new Date()
 		});
 		var ctx0 = document.getElementById("0").getContext('2d');
 		var growerinventorychart0 = new Chart(ctx0, {

@@ -78,12 +78,17 @@ class FarmController extends Controller
 					$sows = [];
 					$gilts = [];
 					foreach ($femalebreeders as $female) {
-						$parity = $female->getAnimalProperties()->where("property_id", 48)->first()->value;
-						if($parity == 0){
-							array_push($gilts, $female);
+						$parity = $female->getAnimalProperties()->where("property_id", 48)->first();
+						if(!is_null($parity)){
+							if($parity->value == 0){
+								array_push($gilts, $female);
+							}
+							elseif($parity->value > 0){
+								array_push($sows, $female);
+							}
 						}
-						elseif($parity > 0){
-							array_push($sows, $female);
+						else{
+							array_push($gilts, $female);
 						}
 					}
 
