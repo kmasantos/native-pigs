@@ -23,7 +23,14 @@
               <div class="row">
                 <div class="col s6">
                   @if($femalebreeders != [])
-                    <h2>{{ count($femalebreeders) }}</h2>
+                    <div class="col s6">
+                      <h3>{{ count($sows) }}</h3>
+                      <p>Sows</p>
+                    </div>
+                    <div class="col s6">
+                      <h3>{{ count($gilts) }}</h3>
+                      <p>Gilts</p>
+                    </div>
                   @else
                     <h4>No female breeders available</h4>
                   @endif

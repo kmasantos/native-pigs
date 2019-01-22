@@ -17,50 +17,84 @@
 			</div>
 			<!-- SOW INVENTORY -->
 			<div id="sowinventory" class="col s12">
-				<h5>Inventory for <strong>{{ Carbon\Carbon::parse($now)->format('F, Y') }}</strong> as of <strong>{{ Carbon\Carbon::parse($now)->format('F j, Y') }}</strong></h5>
-				<p>Number of sows in the herd: <strong>{{ count($sows) }}</strong></p>
+				<h5>Inventory for <strong>{{ Carbon\Carbon::parse($now)->format('F, Y') }}</strong> as of <strong>{{ Carbon\Carbon::parse($now)->format('F j, Y') }}</strong></h5>	
+				@if($noage_sows == [])
+					<p>Number of female breeders in the herd: <strong>{{ count($sows) }}</strong>, Average age: <strong>{{ round(array_sum($age_sows)/(count($sows)-count($noage_sows)), 2) }} months</strong></p>
+				@else
+					<p>Number of female breeders in the herd: <strong>{{ count($sows) }}</strong>, Average age: <strong>{{ round(array_sum($age_sows)/(count($sows)-count($noage_sows)), 2) }} months</strong> *female breeders without age data: {{ $count($noage_sows) }}</p>
+				@endif
 				<div class="row">
-					<div class="col s12 m10 l6">
+					<div class="col s12 m12 l6">
 						<div class="card">
 							<div class="card-content grey lighten-2">
-								<h3>{{ count($breds) }}</h3>
-								<p><a class="tooltipped" data-position="bottom" data-tooltip="Bred sows for the month as of today">Bred</a></p></p>
+								<div class="row">
+									<div class="col s6">
+										<h2>{{ count($bredsows) }}</h2>
+									</div>
+									<div class="col s6">
+										<h2>{{ count($bredgilts) }}</h2>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col s6">
+										<p><a class="tooltipped" data-position="bottom" data-tooltip="Bred sows for the month as of today">Bred Sows</a></p>
+									</div>
+									<div class="col s6">
+										<p><a class="tooltipped" data-position="bottom" data-tooltip="Bred gilts for the month as of today">Bred Gilts</a></p>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
-					<div class="col s12 m10 l6">
+					<div class="col s12 m12 l6">
 						<div class="card">
 							<div class="card-content grey lighten-2">
-								<h3>{{ count($gilts) }}</h3>
-								<p><a class="tooltipped" data-position="bottom" data-tooltip="Not yet bred sows">Gilts</a></p>
+								<div class="row">
+									<h2>{{ count($gilts) }}</h2>
+								</div>
+								<div class="row">
+									<p><a class="tooltipped" data-position="bottom" data-tooltip="Not yet bred sows">Gilts</a></p>
+								</div>
 							</div>
 						</div>
 					</div>
-					<div class="col s12 m10 l4">
+					<div class="col s12 m12 l4">
 						<div class="card">
 							<div class="card-content grey lighten-2">
-								<h3>{{ count($pregnantsows) }}</h3>
-								<p><a class="tooltipped" data-position="bottom" data-tooltip="Pregnant sows for the month as of today">Pregnant</a></p></p>
+								<div class="row">
+									<h2>{{ count($pregnantsows) }}</h2>
+								</div>
+								<div class="row">
+									<p><a class="tooltipped" data-position="bottom" data-tooltip="Pregnant sows for the month as of today">Pregnant</a></p>
+								</div>
 							</div>
 						</div>
 					</div>
-					<div class="col s12 m10 l4">
+					<div class="col s12 m12 l4">
 						<div class="card">
 							<div class="card-content grey lighten-2">
-								<h3>{{ count($lactatingsows) }}</h3>
-								<p><a class="tooltipped" data-position="bottom" data-tooltip="Farrowed, not yet weaned">Lactating</a></p>
+								<div class="row">
+									<h2>{{ count($lactatingsows) }}</h2>
+								</div>
+								<div class="row">
+									<p><a class="tooltipped" data-position="bottom" data-tooltip="Farrowed, not yet weaned">Lactating</a></p>
+								</div>
 							</div>
 						</div>
 					</div>
-					<div class="col s12 m10 l4">
+					<div class="col s12 m12 l4">
 						<div class="card">
 							<div class="card-content grey lighten-2">
-								@if($drysows < 0)
-									<h3>0</h3>
-								@else
-									<h3>{{ $drysows }}</h3>
-								@endif
-								<p><a class="tooltipped" data-position="bottom" data-tooltip="Weaned and recycled sows">Dry</a></p>
+								<div class="row">
+									@if($drysows < 0)
+										<h2>0</h2>
+									@else
+										<h2>{{ $drysows }}</h2>
+									@endif
+								</div>
+								<div class="row">
+									<p><a class="tooltipped" data-position="bottom" data-tooltip="Weaned and recycled sows">Dry</a></p>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -103,27 +137,35 @@
 			<!-- BOAR INVENTORY -->
 			<div id="boarinventory" class="col s12">
 				<h5>Inventory for <strong>{{ Carbon\Carbon::parse($now)->format('F, Y') }}</strong> as of <strong>{{ Carbon\Carbon::parse($now)->format('F j, Y') }}</strong></h5>
-				<p>Number of boars in the herd: <strong>{{ count($boars) }}</strong></p>
+				<p>Number of boars in the herd: <strong>{{ count($boars) }}</strong>, Average age: <strong>{{ round(array_sum($age_boars)/(count($srboars)+count($jrboars)), 2) }} months</strong></p>
 				<div class="row">
-					<div class="col s12 m10 l6">
+					<div class="col s12 m12 l6">
 						<div class="card">
 							<div class="card-content grey lighten-2">
-								<h3>{{ count($jrboars) }}</h3>
-								<p><a class="tooltipped" data-position="bottom" data-tooltip="Less than 1 year old">Junior Boars</a></p>
+								<div class="row">
+									<h2>{{ count($jrboars) }}</h2>
+								</div>
+								<div class="row">
+									<p><a class="tooltipped" data-position="bottom" data-tooltip="Less than 1 year old">Junior Boars</a></p>
+								</div>
 							</div>
 						</div>
 					</div>
-					<div class="col s12 m10 l6">
+					<div class="col s12 m12 l6">
 						<div class="card">
 							<div class="card-content grey lighten-2">
-								<h3>{{ count($srboars) }}</h3>
-								<p><a class="tooltipped" data-position="bottom" data-tooltip="1 year old and above">Senior Boars</a></p>
+								<div class="row">
+									<h2>{{ count($srboars) }}</h2>
+								</div>
+								<div class="row">
+									<p><a class="tooltipped" data-position="bottom" data-tooltip="1 year old and above">Senior Boars</a></p>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-				@if($noage != [])
-					<p>*boars without age data: {{ count($noage) }}</p>
+				@if($noage_boars != [])
+					<p>*boars without age data: {{ count($noage_boars) }}</p>
 				@endif
 			</div>
 		</div>
