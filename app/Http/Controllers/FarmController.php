@@ -4239,9 +4239,92 @@ class FarmController extends Controller
 				$age_firstparity = "";
 			}
 
+			$lsba = [];
+			$numbermales = [];
+			$numberfemales = [];
+			$stillborn = [];
+			$mummified = [];
+			$litterbirthweights = [];
+			$avebirthweights = [];
+			$litterweaningweights = [];
+			$aveweaningweights = [];
+			$adjweaningweights = [];
+			$numberweaned = [];
+			$agesweaned = [];
+			$preweaningmortality = [];
+			foreach ($groups as $group) {
+				$lsbaprop = $group->getGroupingProperties()->where("property_id", 50)->first();
+				if(!is_null($lsbaprop)){
+					array_push($lsba, $lsbaprop->value);
+				}
+				$numbermalesprop = $group->getGroupingProperties()->where("property_id", 51)->first();
+				if(!is_null($numbermalesprop)){
+					array_push($numbermales, $numbermalesprop->value);
+				}
+				$numberfemalesprop = $group->getGroupingProperties()->where("property_id", 52)->first();
+				if(!is_null($numberfemalesprop)){
+					array_push($numberfemales, $numberfemalesprop->value);
+				}
+				$stillbornprop = $group->getGroupingProperties()->where("property_id", 45)->first();
+				if(!is_null($stillbornprop)){
+					array_push($stillborn, $stillbornprop->value);
+				}
+				$mummifiedprop = $group->getGroupingProperties()->where("property_id", 46)->first();
+				if(!is_null($mummifiedprop)){
+					array_push($mummified, $mummifiedprop->value);
+				}
+				$litterbwprop = $group->getGroupingProperties()->where("property_id", 55)->first();
+				if(!is_null($litterbwprop)){
+					array_push($litterbirthweights, $litterbwprop->value);
+				}
+				$avebwprop = $group->getGroupingProperties()->where("property_id", 56)->first();
+				if(!is_null($avebwprop)){
+					array_push($avebirthweights, $avebwprop->value);
+				}
+				$litterwwprop = $group->getGroupingProperties()->where("property_id", 62)->first();
+				if(!is_null($litterwwprop)){
+					array_push($litterweaningweights, $litterwwprop->value);	
+				}
+				$avewwprop = $group->getGroupingProperties()->where("property_id", 58)->first();
+				if(!is_null($avewwprop)){
+					array_push($aveweaningweights, $avewwprop->value);
+				}
+				$numberweanedprop = $group->getGroupingProperties()->where("property_id", 57)->first();
+				if(!is_null($numberweanedprop)){
+					array_push($numberweaned, $numberweanedprop->value);
+				}
+				$pwmprop = $group->getGroupingProperties()->where("property_id", 59)->first();
+				if(!is_null($pwmprop)){
+					array_push($preweaningmortality, $pwmprop->value);
+				}
+				$thisoffsprings = $group->getGroupingMembers();
+				$ageweaned = [];
+				$adjweaningweight = [];
+				foreach ($thisoffsprings as $thisoffspring) {
+					if(!is_null($thisoffspring->getAnimalProperties()->where("property_id", 6)->first())){
+						$dateweanedprop = $thisoffspring->getAnimalProperties()->where("property_id", 6)->first();
+						$bdayprop = $thisoffspring->getAnimalProperties()->where("property_id", 3)->first();
+						if(!is_null($bdayprop) && $bdayprop->value != "Not specified"){
+							$bday = $bdayprop->value;
+						}
+						$age = Carbon::parse($dateweanedprop->value)->diffInDays(Carbon::parse($bday));
+						array_push($ageweaned, $age);
+						$wwprop = $thisoffspring->getAnimalProperties()->where("property_id", 7)->first();
+						$adjww = ((float)$wwprop->value*45)/$age;
+						array_push($adjweaningweight, $adjww);
+					}
+				}
+				if($ageweaned != []){
+					array_push($agesweaned, (array_sum($ageweaned)/count($ageweaned)));
+				}
+				if($adjweaningweight != []){
+					array_push($adjweaningweights, (array_sum($adjweaningweight)/count($adjweaningweight)));
+				}
+			}
 
 
-			return view('pigs.sowproductionperformance', compact('sow', 'properties', 'usage', 'parities', 'removed_first', 'farrowing_intervals_text', 'farrowing_index', 'age_firstbred', 'age_firstparity'));
+
+			return view('pigs.sowproductionperformance', compact('sow', 'properties', 'usage', 'parities', 'removed_first', 'farrowing_intervals_text', 'farrowing_index', 'age_firstbred', 'age_firstparity', 'lsba', 'numbermales', 'numberfemales', 'stillborn', 'mummified', 'litterbirthweights', 'avebirthweights', 'litterweaningweights', 'aveweaningweights', 'adjweaningweights', 'numberweaned', 'agesweaned', 'preweaningmortality'));
 		}
 
 		static function getGroupingPerParity($sow_id, $usage, $filter){

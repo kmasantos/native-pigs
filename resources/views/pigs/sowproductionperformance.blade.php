@@ -94,6 +94,7 @@
       				<tr>
       					<th>Parameters</th>
       					<th colspan="{{ count($parities) }}" class="center">Values</th>
+      					<th class="center">Average &plusmn; SD</th>
       				</tr>
       			</thead>
       			<tbody>
@@ -102,84 +103,150 @@
       					@foreach($parities as $parity)
       						<td class="center"><strong>{{ $parity }}</strong></td>
       					@endforeach
+      					<td class="center">&mdash;</td>
       				</tr>
       				<tr>
 			  				<td>Litter-size Born Alive</td>
 			  				@foreach($parities as $parity)
 		  						<td class="center">{{ App\Http\Controllers\FarmController::getSowProductionPerformanceSummary($sow->id, $parity, "lsba") }}</td>
 		  					@endforeach
+		  					@if($lsba != [])
+									<td class="center">{{ round(array_sum($lsba)/count($lsba), 2) }} &plusmn; {{ round(App\Http\Controllers\FarmController::standardDeviation($lsba, false), 2) }}</td>
+								@else
+									<td class="center">No data available</td>
+								@endif
 			  			</tr>
 			  			<tr>
 			  				<td>Number Male Born</td>
 			  				@foreach($parities as $parity)
 		  						<td class="center">{{ App\Http\Controllers\FarmController::getSowProductionPerformanceSummary($sow->id, $parity, "number males") }}</td>
 		  					@endforeach
+		  					@if($numbermales != [])
+									<td class="center">{{ round(array_sum($numbermales)/count($numbermales), 2) }} &plusmn; {{ round(App\Http\Controllers\FarmController::standardDeviation($numbermales, false), 2) }}</td>
+								@else
+									<td class="center">No data available</td>
+								@endif
 			  			</tr>
 			  			<tr>
 			  				<td>Number Female Born</td>
 			  				@foreach($parities as $parity)
 		  						<td class="center">{{ App\Http\Controllers\FarmController::getSowProductionPerformanceSummary($sow->id, $parity, "number females") }}</td>
 		  					@endforeach
+		  					@if($numberfemales != [])
+									<td class="center">{{ round(array_sum($numberfemales)/count($numberfemales), 2) }} &plusmn; {{ round(App\Http\Controllers\FarmController::standardDeviation($numberfemales, false), 2) }}</td>
+								@else
+									<td class="center">No data available</td>
+								@endif
 			  			</tr>
 			  			<tr>
 			  				<td>Number Stillborn</td>
 		  					@foreach($parities as $parity)
 		  						<td class="center">{{ App\Http\Controllers\FarmController::getSowProductionPerformanceSummary($sow->id, $parity, "stillborn") }}</td>
 		  					@endforeach
+		  					@if($stillborn != [])
+									<td class="center">{{ round(array_sum($stillborn)/count($stillborn), 2) }} &plusmn; {{ round(App\Http\Controllers\FarmController::standardDeviation($stillborn, false), 2) }}</td>
+								@else
+									<td class="center">No data available</td>
+								@endif
 			  			</tr>
 			  			<tr>
 			  				<td>Number Mummified</td>
 		  					@foreach($parities as $parity)
 		  						<td class="center">{{ App\Http\Controllers\FarmController::getSowProductionPerformanceSummary($sow->id, $parity, "mummified") }}</td>
 		  					@endforeach
+		  					@if($mummified != [])
+									<td class="center">{{ round(array_sum($mummified)/count($mummified), 2) }} &plusmn; {{ round(App\Http\Controllers\FarmController::standardDeviation($mummified, false), 2) }}</td>
+								@else
+									<td class="center">No data available</td>
+								@endif
 			  			</tr>
 			  			<tr>
 			  				<td>Litter Birth Weight, kg</td>
 			  				@foreach($parities as $parity)
 		  						<td class="center">{{ App\Http\Controllers\FarmController::getSowProductionPerformanceSummary($sow->id, $parity, "litter birth weight") }}</td>
 		  					@endforeach
+		  					@if($litterbirthweights != [])
+									<td class="center">{{ round(array_sum($litterbirthweights)/count($litterbirthweights), 2) }} &plusmn; {{ round(App\Http\Controllers\FarmController::standardDeviation($litterbirthweights, false), 2) }}</td>
+								@else
+									<td class="center">No data available</td>
+								@endif
 			  			</tr>
 			  			<tr>
 			  				<td>Average Birth Weight, kg</td>
 		  					@foreach($parities as $parity)
 		  						<td class="center">{{ App\Http\Controllers\FarmController::getSowProductionPerformanceSummary($sow->id, $parity, "ave birth weight") }}</td>
 		  					@endforeach
+		  					@if($avebirthweights != [])
+									<td class="center">{{ round(array_sum($avebirthweights)/count($avebirthweights), 2) }} &plusmn; {{ round(App\Http\Controllers\FarmController::standardDeviation($avebirthweights, false), 2) }}</td>
+								@else
+									<td class="center">No data available</td>
+								@endif
 			  			</tr>
 			  			<tr>
 			  				<td>Litter Weaning Weight, kg</td>
 								@foreach($parities as $parity)
 		  						<td class="center">{{ App\Http\Controllers\FarmController::getSowProductionPerformanceSummary($sow->id, $parity, "litter weaning weight") }}</td>
 		  					@endforeach
+		  					@if($litterweaningweights != [])
+									<td class="center">{{ round(array_sum($litterweaningweights)/count($litterweaningweights), 2) }} &plusmn; {{ round(App\Http\Controllers\FarmController::standardDeviation($litterweaningweights, false), 2) }}</td>
+								@else
+									<td class="center">No data available</td>
+								@endif
 			  			</tr>
 			  			<tr>
 			  				<td>Average Weaning Weight, kg</td>
 		  					@foreach($parities as $parity)
 		  						<td class="center">{{ App\Http\Controllers\FarmController::getSowProductionPerformanceSummary($sow->id, $parity, "ave weaning weight") }}</td>
 		  					@endforeach
+		  					@if($aveweaningweights != [])
+									<td class="center">{{ round(array_sum($aveweaningweights)/count($aveweaningweights), 2) }} &plusmn; {{ round(App\Http\Controllers\FarmController::standardDeviation($aveweaningweights, false), 2) }}</td>
+								@else
+									<td class="center">No data available</td>
+								@endif
 			  			</tr>
 			  			<tr>
 			  				<td>Adjusted Weaning Weight at 45 Days, kg</td>
 		  					@foreach($parities as $parity)
 		  						<td class="center">{{ App\Http\Controllers\FarmController::getSowProductionPerformanceSummary($sow->id, $parity, "adj weaning weight") }}</td>
 		  					@endforeach
+		  					@if($adjweaningweights != [])
+									<td class="center">{{ round(array_sum($adjweaningweights)/count($adjweaningweights), 2) }} &plusmn; {{ round(App\Http\Controllers\FarmController::standardDeviation($adjweaningweights, false), 2) }}</td>
+								@else
+									<td class="center">No data available</td>
+								@endif
 			  			</tr>
 			  			<tr>
 			  				<td>Number Weaned</td>
 		  					@foreach($parities as $parity)
 		  						<td class="center">{{ App\Http\Controllers\FarmController::getSowProductionPerformanceSummary($sow->id, $parity, "number weaned") }}</td>
 		  					@endforeach
+		  					@if($numberweaned != [])
+									<td class="center">{{ round(array_sum($numberweaned)/count($numberweaned), 2) }} &plusmn; {{ round(App\Http\Controllers\FarmController::standardDeviation($numberweaned, false), 2) }}</td>
+								@else
+									<td class="center">No data available</td>
+								@endif
 			  			</tr>
 			  			<tr>
 			  				<td>Age Weaned, days</td>
 		  					@foreach($parities as $parity)
 		  						<td class="center">{{ App\Http\Controllers\FarmController::getSowProductionPerformanceSummary($sow->id, $parity, "age weaned") }}</td>
 		  					@endforeach
+		  					@if($agesweaned != [])
+									<td class="center">{{ round(array_sum($agesweaned)/count($agesweaned), 2) }} &plusmn; {{ round(App\Http\Controllers\FarmController::standardDeviation($agesweaned, false), 2) }}</td>
+								@else
+									<td class="center">No data available</td>
+								@endif
 			  			</tr>
 			  			<tr>
 			  				<td>Pre-weaning Mortality, %</td>
 			  				@foreach($parities as $parity)
 		  						<td class="center">{{ App\Http\Controllers\FarmController::getSowProductionPerformanceSummary($sow->id, $parity, "preweaning mortality") }}</td>
 		  					@endforeach
+		  					@if($preweaningmortality != [])
+									<td class="center">{{ round(array_sum($preweaningmortality)/count($preweaningmortality), 2) }} &plusmn; {{ round(App\Http\Controllers\FarmController::standardDeviation($preweaningmortality, false), 2) }}</td>
+								@else
+									<td class="center">No data available</td>
+								@endif
 			  			</tr>
       			</tbody>
       		</table>
