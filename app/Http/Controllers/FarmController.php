@@ -75,6 +75,7 @@ class FarmController extends Controller
 						}
 					}
 
+					// sorts female breeders into sows and gilts
 					$sows = [];
 					$gilts = [];
 					foreach ($femalebreeders as $female) {
@@ -969,7 +970,7 @@ class FarmController extends Controller
 			$paritypropgroup->save();
 		}
 
-		public function fetchStillbornAjax($familyidvalue, $stillbornvalue){ // function to save parity onchange
+		public function fetchStillbornAjax($familyidvalue, $stillbornvalue){ // function to save number stillborn onchange
 			$grouping = Grouping::find($familyidvalue);
 			$stillbornprop = $grouping->getGroupingProperties()->where("property_id", 45)->first();
 
@@ -977,7 +978,7 @@ class FarmController extends Controller
 			$stillbornprop->save();
 		}
 
-		public function fetchMummifiedAjax($familyidvalue, $mummifiedvalue){ // function to save parity onchange
+		public function fetchMummifiedAjax($familyidvalue, $mummifiedvalue){ // function to save number mummified onchange
 			$grouping = Grouping::find($familyidvalue);
 			$mummifiedprop = $grouping->getGroupingProperties()->where("property_id", 46)->first();
 
@@ -4201,7 +4202,7 @@ class FarmController extends Controller
 			$removed_first = array_slice($parities, 1);
 			$temp_dates = array_sort($unsorted_farrowings);
 			$farrowing_intervals_text = [];
-			if(count($parities) >= 1){
+			if(count($parities) > 1){
 				for($i = 0, $n = count($unsorted_farrowings); $i < $n; $i++){
 					array_push($dates_farrowed, array_shift($temp_dates));
 				}
@@ -4217,7 +4218,30 @@ class FarmController extends Controller
 				}
 			}
 
-			return view('pigs.sowproductionperformance', compact('sow', 'properties', 'usage', 'parities', 'removed_first', 'farrowing_intervals_text', 'farrowing_index'));
+			$dobprop = $properties->where("property_id", 3)->first();
+			if(!is_null($dobprop)){
+				if($dobprop->value != "Not specified"){
+					$dob = Carbon::parse($dobprop->value);
+					$firstbred = Carbon::parse(reset($usage));
+					$age_firstbred = $firstbred->diffInMonths($dob);
+					if(count($parities) > 1){
+						$firstparity = Carbon::parse(reset($dates_farrowed));
+						$age_firstparity = $firstparity->diffInMonths($dob);
+					}
+					else{
+						$firstparity = Carbon::parse(reset($temp_dates));
+						$age_firstparity = $firstparity->diffInMonths($dob);
+					}
+				}
+			}
+			else{
+				$age_firstbred = "";
+				$age_firstparity = "";
+			}
+
+
+
+			return view('pigs.sowproductionperformance', compact('sow', 'properties', 'usage', 'parities', 'removed_first', 'farrowing_intervals_text', 'farrowing_index', 'age_firstbred', 'age_firstparity'));
 		}
 
 		static function getGroupingPerParity($sow_id, $usage, $filter){

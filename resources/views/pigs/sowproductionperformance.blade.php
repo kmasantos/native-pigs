@@ -9,10 +9,15 @@
 		<h4><a href="{{route('farm.pig.production_performance_report')}}"><img src="{{asset('images/back.png')}}" width="4%"></a> Sow Production Performance: <strong>{{ $sow->registryid }}</strong></h4>
 		<div class="divider"></div>
 		<div class="row center" style="padding-top: 10px;">
-			<div class="col s12 m10 l6">
+			@if(!is_null($properties->where("property_id", 3)->first()) && $properties->where("property_id", 3)->first()->value != "Not specified")
+				<p>Age First Bred: <strong>{{ $age_firstbred }} months</strong>, Age First Parity: <strong>{{ $age_firstparity }} months</strong> (Date of Birth: <strong>{{ Carbon\Carbon::parse($properties->where("property_id", 3)->first()->value)->format('F j, Y') }}</strong>)</p>
+			@else
+				<p>No Date of Birth to compute for Age First Bred and Age First Parity</p>
+			@endif
+			<div class="col s12 m12 l6">
 				<div class="card">
 					<div class="card-content grey lighten-2">
-						@if(count($parities) < 1)
+						@if(count($parities) <= 1)
 							<h3>No data available</h3>
 						@else
 							@foreach($farrowing_intervals_text as $farrowing_interval_text)
@@ -24,10 +29,10 @@
 					</div>
 				</div>
 			</div>
-			<div class="col s12 m10 l6">
+			<div class="col s12 m12 l6">
 				<div class="card">
 					<div class="card-content grey lighten-2">
-						@if(count($parities) < 1)
+						@if(count($parities) <= 1)
 							<h3>No data available</h3>
 						@else
 							<h2>{{ round($farrowing_index, 2) }}</h2>
