@@ -10,7 +10,7 @@
 		<div class="divider"></div>
 		<div class="row center" style="padding-top: 10px;">
       <h5>Inventory for <strong>{{ Carbon\Carbon::parse($now)->format('F, Y') }}</strong> as of <strong>{{ Carbon\Carbon::parse($now)->format('F j, Y') }}</strong></h5>
-			<div class="col s12 m10 l8">
+			<div class="col s12 m12 l8">
         <div class="card">
           <div class="card-content grey lighten-2">
             <h5>Dead Pigs</h5>
@@ -36,7 +36,7 @@
           </div>
         </div>
       </div>
-      <div class="col s12 m10 l4">
+      <div class="col s12 m12 l4">
         <div class="card">
           <div class="card-content grey lighten-2">
             <h5>Culled/Donated Pigs</h5>
@@ -45,7 +45,7 @@
           </div>
         </div>
       </div>
-      <div class="col s12 m10 l12">
+      <div class="col s12 m12 l12">
         <div class="card">
           <div class="card-content grey lighten-2">
             <h5>Sold Pigs</h5>
