@@ -17,7 +17,7 @@
 	      </ul>
 	    </div>
 	    <!-- PER SOW -->
-	    <div id="persowview" class="col s12">	    	
+	    <div id="persowview" class="col s12"> 	
 	    	<table>
 	    		<thead>
 	    			<tr>
@@ -38,6 +38,145 @@
     				@endforelse
 	    		</tbody>
 	    	</table>
+	    	<div class="row center" style="padding-top: 10px;">
+	    		<div class="col s12">
+	    			<ul class="collapsible popout">
+	    				<li>
+	    					<div class="collapsible-header grey lighten-2">Summary</div>
+	              <div class="collapsible-body">
+	                <table>
+	                	<thead>
+	                		<tr>
+	                			<th>Parameters</th>
+	                			<th class="center">Average</th>
+	                			<th class="center">Standard Deviation</th>
+	                		</tr>
+	                	</thead>
+	                	<tbody>
+	                		<tr>
+	                			<td>Litter-size Born Alive</td>
+	                			@if(App\Http\Controllers\FarmController::getProductionPerformanceSummary("sow", "lsba") == "")
+		         							<td class="center" colspan="2">No data available</td>
+		                		@else
+		                			<td class="center">{{ round(array_sum(App\Http\Controllers\FarmController::getProductionPerformanceSummary("sow", "lsba"))/count(App\Http\Controllers\FarmController::getProductionPerformanceSummary("sow", "lsba")), 2) }}</td>
+		                			<td class="center">{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getProductionPerformanceSummary("sow", "lsba"), false), 2) }}</td>
+		                		@endif
+	                		</tr>
+	                		<tr>
+	                			<td>Number Male Born</td>
+	                			@if(App\Http\Controllers\FarmController::getProductionPerformanceSummary("sow", "number males") == "")
+		         							<td class="center" colspan="2">No data available</td>
+		                		@else
+		                			<td class="center">{{ round(array_sum(App\Http\Controllers\FarmController::getProductionPerformanceSummary("sow", "number males"))/count(App\Http\Controllers\FarmController::getProductionPerformanceSummary("sow", "number males")), 2) }}</td>
+		                			<td class="center">{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getProductionPerformanceSummary("sow", "number males"), false), 2) }}</td>
+		                		@endif
+	                		</tr>
+	                		<tr>
+	                			<td>Number Female Born</td>
+	                			@if(App\Http\Controllers\FarmController::getProductionPerformanceSummary("sow", "number females") == "")
+		         							<td class="center" colspan="2">No data available</td>
+		                		@else
+		                			<td class="center">{{ round(array_sum(App\Http\Controllers\FarmController::getProductionPerformanceSummary("sow", "number females"))/count(App\Http\Controllers\FarmController::getProductionPerformanceSummary("sow", "number females")), 2) }}</td>
+		                			<td class="center">{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getProductionPerformanceSummary("sow", "number females"), false), 2) }}</td>
+		                		@endif
+	                		</tr>
+	                		<tr>
+	                			<td>Number Stillborn</td>
+	                			@if(App\Http\Controllers\FarmController::getProductionPerformanceSummary("sow", "stillborn") == "")
+		         							<td class="center" colspan="2">No data available</td>
+		                		@else
+		                			<td class="center">{{ round(array_sum(App\Http\Controllers\FarmController::getProductionPerformanceSummary("sow", "stillborn"))/count(App\Http\Controllers\FarmController::getProductionPerformanceSummary("sow", "stillborn")), 2) }}</td>
+		                			<td class="center">{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getProductionPerformanceSummary("sow", "stillborn"), false), 2) }}</td>
+		                		@endif
+	                		</tr>
+	                		<tr>
+	                			<td>Number Mummified</td>
+	                			@if(App\Http\Controllers\FarmController::getProductionPerformanceSummary("sow", "mummified") == "")
+		         							<td class="center" colspan="2">No data available</td>
+		                		@else
+		                			<td class="center">{{ round(array_sum(App\Http\Controllers\FarmController::getProductionPerformanceSummary("sow", "mummified"))/count(App\Http\Controllers\FarmController::getProductionPerformanceSummary("sow", "mummified")), 2) }}</td>
+		                			<td class="center">{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getProductionPerformanceSummary("sow", "mummified"), false), 2) }}</td>
+		                		@endif
+	                		</tr>
+	                		<tr>
+	                			<td>Litter Birth Weight, kg</td>
+	                			@if(App\Http\Controllers\FarmController::getProductionPerformanceSummary("sow", "litter bw") == "")
+		         							<td class="center" colspan="2">No data available</td>
+		                		@else
+		                			<td class="center">{{ round(array_sum(App\Http\Controllers\FarmController::getProductionPerformanceSummary("sow", "litter bw"))/count(App\Http\Controllers\FarmController::getProductionPerformanceSummary("sow", "litter bw")), 2) }}</td>
+		                			<td class="center">{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getProductionPerformanceSummary("sow", "litter bw"), false), 2) }}</td>
+		                		@endif
+	                		</tr>
+	                		<tr>
+	                			<td>Average Birth Weight, kg</td>
+	                			@if(App\Http\Controllers\FarmController::getProductionPerformanceSummary("sow", "ave bw") == "")
+		         							<td class="center" colspan="2">No data available</td>
+		                		@else
+		                			<td class="center">{{ round(array_sum(App\Http\Controllers\FarmController::getProductionPerformanceSummary("sow", "ave bw"))/count(App\Http\Controllers\FarmController::getProductionPerformanceSummary("sow", "ave bw")), 2) }}</td>
+		                			<td class="center">{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getProductionPerformanceSummary("sow", "ave bw"), false), 2) }}</td>
+		                		@endif
+	                		</tr>
+	                		<tr>
+	                			<td>Litter Weaning Weight, kg</td>
+	                			@if(App\Http\Controllers\FarmController::getProductionPerformanceSummary("sow", "litter ww") == "")
+		         							<td class="center" colspan="2">No data available</td>
+		                		@else
+		                			<td class="center">{{ round(array_sum(App\Http\Controllers\FarmController::getProductionPerformanceSummary("sow", "litter ww"))/count(App\Http\Controllers\FarmController::getProductionPerformanceSummary("sow", "litter ww")), 2) }}</td>
+		                			<td class="center">{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getProductionPerformanceSummary("sow", "litter ww"), false), 2) }}</td>
+		                		@endif
+	                		</tr>
+	                		<tr>
+	                			<td>Average Weaning Weight, kg</td>
+	                			@if(App\Http\Controllers\FarmController::getProductionPerformanceSummary("sow", "ave ww") == "")
+		         							<td class="center" colspan="2">No data available</td>
+		                		@else
+		                			<td class="center">{{ round(array_sum(App\Http\Controllers\FarmController::getProductionPerformanceSummary("sow", "ave ww"))/count(App\Http\Controllers\FarmController::getProductionPerformanceSummary("sow", "ave ww")), 2) }}</td>
+		                			<td class="center">{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getProductionPerformanceSummary("sow", "ave ww"), false), 2) }}</td>
+		                		@endif
+	                		</tr>
+	                		<tr>
+	                			<td>Adjusted Weaning Weight at 45 Days, kg</td>
+	                			@if(App\Http\Controllers\FarmController::getProductionPerformanceSummary("sow", "adj ww") == "")
+		         							<td class="center" colspan="2">No data available</td>
+		                		@else
+		                			<td class="center">{{ round(array_sum(App\Http\Controllers\FarmController::getProductionPerformanceSummary("sow", "adj ww"))/count(App\Http\Controllers\FarmController::getProductionPerformanceSummary("sow", "adj ww")), 2) }}</td>
+		                			<td class="center">{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getProductionPerformanceSummary("sow", "adj ww"), false), 2) }}</td>
+		                		@endif
+	                		</tr>
+	                		<tr>
+	                			<td>Number Weaned</td>
+	                			@if(App\Http\Controllers\FarmController::getProductionPerformanceSummary("sow", "number weaned") == "")
+		         							<td class="center" colspan="2">No data available</td>
+		                		@else
+		                			<td class="center">{{ round(array_sum(App\Http\Controllers\FarmController::getProductionPerformanceSummary("sow", "number weaned"))/count(App\Http\Controllers\FarmController::getProductionPerformanceSummary("sow", "number weaned")), 2) }}</td>
+		                			<td class="center">{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getProductionPerformanceSummary("sow", "number weaned"), false), 2) }}</td>
+		                		@endif
+	                		</tr>
+	                		<tr>
+	                			<td>Age Weaned, days</td>
+	                			@if(App\Http\Controllers\FarmController::getProductionPerformanceSummary("sow", "age weaned") == "")
+		         							<td class="center" colspan="2">No data available</td>
+		                		@else
+		                			<td class="center">{{ round(array_sum(App\Http\Controllers\FarmController::getProductionPerformanceSummary("sow", "age weaned"))/count(App\Http\Controllers\FarmController::getProductionPerformanceSummary("sow", "age weaned")), 2) }}</td>
+		                			<td class="center">{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getProductionPerformanceSummary("sow", "age weaned"), false), 2) }}</td>
+		                		@endif
+	                		</tr>
+	                		<tr>
+	                			<td>Pre-weaning Mortality, %</td>
+	                			@if(App\Http\Controllers\FarmController::getProductionPerformanceSummary("sow", "preweaning mortality") == "")
+		         							<td class="center" colspan="2">No data available</td>
+		                		@else
+		                			<td class="center">{{ round(array_sum(App\Http\Controllers\FarmController::getProductionPerformanceSummary("sow", "preweaning mortality"))/count(App\Http\Controllers\FarmController::getProductionPerformanceSummary("sow", "preweaning mortality")), 2) }}</td>
+		                			<td class="center">{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getProductionPerformanceSummary("sow", "preweaning mortality"), false), 2) }}</td>
+		                		@endif
+	                		</tr>
+	                	</tbody>
+	                </table>
+	              </div>
+	    				</li>
+	    			</ul>
+	    		</div>
+	    	</div>
 	    </div>
 	    <!-- PER BOAR -->
 	    <div id="perboarview" class="col s12">
@@ -61,6 +200,145 @@
     				@endforelse
 	    		</tbody>
 	    	</table>
+	    	<div class="row center" style="padding-top: 10px;">
+	    		<div class="col s12">
+	    			<ul class="collapsible popout">
+	    				<li>
+	    					<div class="collapsible-header grey lighten-2">Summary</div>
+	              <div class="collapsible-body">
+	                <table>
+	                	<thead>
+	                		<tr>
+	                			<th>Parameters</th>
+	                			<th class="center">Average</th>
+	                			<th class="center">Standard Deviation</th>
+	                		</tr>
+	                	</thead>
+	                	<tbody>
+	                		<tr>
+	                			<td>Litter-size Born Alive</td>
+	                			@if(App\Http\Controllers\FarmController::getProductionPerformanceSummary("boar", "lsba") == "")
+		         							<td class="center" colspan="2">No data available</td>
+		                		@else
+		                			<td class="center">{{ round(array_sum(App\Http\Controllers\FarmController::getProductionPerformanceSummary("boar", "lsba"))/count(App\Http\Controllers\FarmController::getProductionPerformanceSummary("boar", "lsba")), 2) }}</td>
+		                			<td class="center">{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getProductionPerformanceSummary("boar", "lsba"), false), 2) }}</td>
+		                		@endif
+	                		</tr>
+	                		<tr>
+	                			<td>Number Male Born</td>
+	                			@if(App\Http\Controllers\FarmController::getProductionPerformanceSummary("boar", "number males") == "")
+		         							<td class="center" colspan="2">No data available</td>
+		                		@else
+		                			<td class="center">{{ round(array_sum(App\Http\Controllers\FarmController::getProductionPerformanceSummary("boar", "number males"))/count(App\Http\Controllers\FarmController::getProductionPerformanceSummary("boar", "number males")), 2) }}</td>
+		                			<td class="center">{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getProductionPerformanceSummary("boar", "number males"), false), 2) }}</td>
+		                		@endif
+	                		</tr>
+	                		<tr>
+	                			<td>Number Female Born</td>
+	                			@if(App\Http\Controllers\FarmController::getProductionPerformanceSummary("boar", "number females") == "")
+		         							<td class="center" colspan="2">No data available</td>
+		                		@else
+		                			<td class="center">{{ round(array_sum(App\Http\Controllers\FarmController::getProductionPerformanceSummary("boar", "number females"))/count(App\Http\Controllers\FarmController::getProductionPerformanceSummary("boar", "number females")), 2) }}</td>
+		                			<td class="center">{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getProductionPerformanceSummary("boar", "number females"), false), 2) }}</td>
+		                		@endif
+	                		</tr>
+	                		<tr>
+	                			<td>Number Stillborn</td>
+	                			@if(App\Http\Controllers\FarmController::getProductionPerformanceSummary("boar", "stillborn") == "")
+		         							<td class="center" colspan="2">No data available</td>
+		                		@else
+		                			<td class="center">{{ round(array_sum(App\Http\Controllers\FarmController::getProductionPerformanceSummary("boar", "stillborn"))/count(App\Http\Controllers\FarmController::getProductionPerformanceSummary("boar", "stillborn")), 2) }}</td>
+		                			<td class="center">{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getProductionPerformanceSummary("boar", "stillborn"), false), 2) }}</td>
+		                		@endif
+	                		</tr>
+	                		<tr>
+	                			<td>Number Mummified</td>
+	                			@if(App\Http\Controllers\FarmController::getProductionPerformanceSummary("boar", "mummified") == "")
+		         							<td class="center" colspan="2">No data available</td>
+		                		@else
+		                			<td class="center">{{ round(array_sum(App\Http\Controllers\FarmController::getProductionPerformanceSummary("boar", "mummified"))/count(App\Http\Controllers\FarmController::getProductionPerformanceSummary("boar", "mummified")), 2) }}</td>
+		                			<td class="center">{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getProductionPerformanceSummary("boar", "mummified"), false), 2) }}</td>
+		                		@endif
+	                		</tr>
+	                		<tr>
+	                			<td>Litter Birth Weight, kg</td>
+	                			@if(App\Http\Controllers\FarmController::getProductionPerformanceSummary("boar", "litter bw") == "")
+		         							<td class="center" colspan="2">No data available</td>
+		                		@else
+		                			<td class="center">{{ round(array_sum(App\Http\Controllers\FarmController::getProductionPerformanceSummary("boar", "litter bw"))/count(App\Http\Controllers\FarmController::getProductionPerformanceSummary("boar", "litter bw")), 2) }}</td>
+		                			<td class="center">{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getProductionPerformanceSummary("boar", "litter bw"), false), 2) }}</td>
+		                		@endif
+	                		</tr>
+	                		<tr>
+	                			<td>Average Birth Weight, kg</td>
+	                			@if(App\Http\Controllers\FarmController::getProductionPerformanceSummary("boar", "ave bw") == "")
+		         							<td class="center" colspan="2">No data available</td>
+		                		@else
+		                			<td class="center">{{ round(array_sum(App\Http\Controllers\FarmController::getProductionPerformanceSummary("boar", "ave bw"))/count(App\Http\Controllers\FarmController::getProductionPerformanceSummary("boar", "ave bw")), 2) }}</td>
+		                			<td class="center">{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getProductionPerformanceSummary("boar", "ave bw"), false), 2) }}</td>
+		                		@endif
+	                		</tr>
+	                		<tr>
+	                			<td>Litter Weaning Weight, kg</td>
+	                			@if(App\Http\Controllers\FarmController::getProductionPerformanceSummary("boar", "litter ww") == "")
+		         							<td class="center" colspan="2">No data available</td>
+		                		@else
+		                			<td class="center">{{ round(array_sum(App\Http\Controllers\FarmController::getProductionPerformanceSummary("boar", "litter ww"))/count(App\Http\Controllers\FarmController::getProductionPerformanceSummary("boar", "litter ww")), 2) }}</td>
+		                			<td class="center">{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getProductionPerformanceSummary("boar", "litter ww"), false), 2) }}</td>
+		                		@endif
+	                		</tr>
+	                		<tr>
+	                			<td>Average Weaning Weight, kg</td>
+	                			@if(App\Http\Controllers\FarmController::getProductionPerformanceSummary("boar", "ave ww") == "")
+		         							<td class="center" colspan="2">No data available</td>
+		                		@else
+		                			<td class="center">{{ round(array_sum(App\Http\Controllers\FarmController::getProductionPerformanceSummary("boar", "ave ww"))/count(App\Http\Controllers\FarmController::getProductionPerformanceSummary("boar", "ave ww")), 2) }}</td>
+		                			<td class="center">{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getProductionPerformanceSummary("boar", "ave ww"), false), 2) }}</td>
+		                		@endif
+	                		</tr>
+	                		<tr>
+	                			<td>Adjusted Weaning Weight at 45 Days, kg</td>
+	                			@if(App\Http\Controllers\FarmController::getProductionPerformanceSummary("boar", "adj ww") == "")
+		         							<td class="center" colspan="2">No data available</td>
+		                		@else
+		                			<td class="center">{{ round(array_sum(App\Http\Controllers\FarmController::getProductionPerformanceSummary("boar", "adj ww"))/count(App\Http\Controllers\FarmController::getProductionPerformanceSummary("boar", "adj ww")), 2) }}</td>
+		                			<td class="center">{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getProductionPerformanceSummary("boar", "adj ww"), false), 2) }}</td>
+		                		@endif
+	                		</tr>
+	                		<tr>
+	                			<td>Number Weaned</td>
+	                			@if(App\Http\Controllers\FarmController::getProductionPerformanceSummary("boar", "number weaned") == "")
+		         							<td class="center" colspan="2">No data available</td>
+		                		@else
+		                			<td class="center">{{ round(array_sum(App\Http\Controllers\FarmController::getProductionPerformanceSummary("boar", "number weaned"))/count(App\Http\Controllers\FarmController::getProductionPerformanceSummary("boar", "number weaned")), 2) }}</td>
+		                			<td class="center">{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getProductionPerformanceSummary("boar", "number weaned"), false), 2) }}</td>
+		                		@endif
+	                		</tr>
+	                		<tr>
+	                			<td>Age Weaned, days</td>
+	                			@if(App\Http\Controllers\FarmController::getProductionPerformanceSummary("boar", "age weaned") == "")
+		         							<td class="center" colspan="2">No data available</td>
+		                		@else
+		                			<td class="center">{{ round(array_sum(App\Http\Controllers\FarmController::getProductionPerformanceSummary("boar", "age weaned"))/count(App\Http\Controllers\FarmController::getProductionPerformanceSummary("boar", "age weaned")), 2) }}</td>
+		                			<td class="center">{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getProductionPerformanceSummary("boar", "age weaned"), false), 2) }}</td>
+		                		@endif
+	                		</tr>
+	                		<tr>
+	                			<td>Pre-weaning Mortality, %</td>
+	                			@if(App\Http\Controllers\FarmController::getProductionPerformanceSummary("boar", "preweaning mortality") == "")
+		         							<td class="center" colspan="2">No data available</td>
+		                		@else
+		                			<td class="center">{{ round(array_sum(App\Http\Controllers\FarmController::getProductionPerformanceSummary("boar", "preweaning mortality"))/count(App\Http\Controllers\FarmController::getProductionPerformanceSummary("boar", "preweaning mortality")), 2) }}</td>
+		                			<td class="center">{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getProductionPerformanceSummary("boar", "preweaning mortality"), false), 2) }}</td>
+		                		@endif
+	                		</tr>
+	                	</tbody>
+	                </table>
+	              </div>
+	    				</li>
+	    			</ul>
+	    		</div>
+	    	</div>
 	    </div>
 	    <!-- PER PARITY -->
 	    <div id="perparityview" class="col s12">
