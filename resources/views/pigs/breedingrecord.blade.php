@@ -11,33 +11,6 @@
 		<div class="row" style="padding-top: 10px;">
 			<div class="col s12">
 				<div class="row">
-					<div class="col s4">
-						<select id="year_mating" name="year_mating" class="browser-default" onclick="filterBreedingRecord()">
-							<option disabled selected>Choose year</option>
-							@foreach($years as $year)
-								<option value="{{ $year }}">{{ $year }}</option>
-							@endforeach
-						</select>
-					</div>
-					<div id="month_div_breeding" class="col s4" style="display:none;">
-						<select id="month_mating" name="month_mating" class="browser-default">
-							<option disabled selected>Choose month</option>
-							<option value="January">January</option>
-							<option value="February">February</option>
-							<option value="March">March</option>
-							<option value="April">April</option>
-							<option value="May">May</option>
-							<option value="June">June</option>
-							<option value="July">July</option>
-							<option value="August">August</option>
-							<option value="September">September</option>
-							<option value="October">October</option>
-							<option value="November">November</option>
-							<option value="December">December</option>
-						</select>
-					</div>
-				</div>
-				<div class="row">
 					<div class="col s12">
 						<table class="centered responsive-table striped">
 							<thead>
@@ -55,11 +28,19 @@
 								{!! Form::open(['route' => 'farm.pig.get_breeding_record', 'method' => 'post']) !!}
 								<tr>
 									{{-- sow used --}}
-									<td> 
+									{{-- <td> 
 										<select name="sow_id" class="browser-default">
 											<option disabled selected>Choose sow</option>
 												@foreach($available as $sow)	
 													<option value="{{ $sow }}">{{ $sow }}</option>
+												@endforeach
+										</select>
+									</td> --}}
+									<td> 
+										<select name="sow_id" class="browser-default">
+											<option disabled selected>Choose sow</option>
+												@foreach($sows as $sow)	
+													<option value="{{ $sow->registryid }}">{{ $sow->registryid }}</option>
 												@endforeach
 										</select>
 									</td>

@@ -19,33 +19,6 @@
 						</ul>
 					</div>
 					<div id="mortality_tab" class="col s12" style="padding-top: 10px;">
-						<div class="row">
-							<div class="col s4">
-								<select id="year_mortality" name="year_mortality" class="browser-default" onclick="filterMortality()">
-									<option disabled selected>Choose year</option>
-									@foreach($years as $year)
-										<option value="{{ $year }}">{{ $year }}</option>
-									@endforeach
-								</select>
-							</div>
-							<div id="month_div_mortality" class="col s4" style="display:none;">
-								<select id="month_mortality" name="month_mortality" class="browser-default">
-									<option disabled selected>Choose month</option>
-									<option value="January">January</option>
-									<option value="February">February</option>
-									<option value="March">March</option>
-									<option value="April">April</option>
-									<option value="May">May</option>
-									<option value="June">June</option>
-									<option value="July">July</option>
-									<option value="August">August</option>
-									<option value="September">September</option>
-									<option value="October">October</option>
-									<option value="November">November</option>
-									<option value="December">December</option>
-								</select>
-							</div>
-						</div>
 						{!! Form::open(['route' => 'farm.pig.get_mortality_record', 'method' => 'post']) !!}
 						<div class="row">
 							<div class="col s10 offset-s1">
@@ -123,33 +96,6 @@
 						</div>
           </div>
 					<div id="sales_tab" class="col s12" style="padding-top: 10px;">
-						<div class="row">
-							<div class="col s4">
-								<select id="year_sales" name="year_sales" class="browser-default" onclick="filterSales()">
-									<option disabled selected>Choose year</option>
-									@foreach($years as $year)
-										<option value="{{ $year }}">{{ $year }}</option>
-									@endforeach
-								</select>
-							</div>
-							<div id="month_div_sales" class="col s4" style="display:none;">
-								<select id="month_sales" name="month_sales" class="browser-default">
-									<option disabled selected>Choose month</option>
-									<option value="January">January</option>
-									<option value="February">February</option>
-									<option value="March">March</option>
-									<option value="April">April</option>
-									<option value="May">May</option>
-									<option value="June">June</option>
-									<option value="July">July</option>
-									<option value="August">August</option>
-									<option value="September">September</option>
-									<option value="October">October</option>
-									<option value="November">November</option>
-									<option value="December">December</option>
-								</select>
-							</div>
-						</div>
 						{!! Form::open(['route' => 'farm.pig.get_sales_record', 'method' => 'post']) !!}
 						<div class="row">
 							<div class="col s10 offset-s1">
@@ -232,33 +178,6 @@
 						</div>
           </div>
           <div id="others_tab" class="col s12" style="padding-top: 10px;">
-						<div class="row">
-							<div class="col s4">
-								<select id="year_removed" name="year_removed" class="browser-default" onclick="filterRemoved()">
-									<option disabled selected>Choose year</option>
-									@foreach($years as $year)
-										<option value="{{ $year }}">{{ $year }}</option>
-									@endforeach
-								</select>
-							</div>
-							<div id="month_div_removed" class="col s4" style="display:none;">
-								<select id="month_removed" name="month_removed" class="browser-default">
-									<option disabled selected>Choose month</option>
-									<option value="January">January</option>
-									<option value="February">February</option>
-									<option value="March">March</option>
-									<option value="April">April</option>
-									<option value="May">May</option>
-									<option value="June">June</option>
-									<option value="July">July</option>
-									<option value="August">August</option>
-									<option value="September">September</option>
-									<option value="October">October</option>
-									<option value="November">November</option>
-									<option value="December">December</option>
-								</select>
-							</div>
-						</div>
 						{!! Form::open(['route' => 'farm.pig.get_removed_animal_record', 'method' => 'post']) !!}
 						<div class="row">
 							<div class="col s10 offset-s1">

@@ -96,6 +96,7 @@
                 <li><a href="{{route('farm.pig.morpho_chars_report')}}">Morphometric Characteristics</a></li>
                 <li><a href="{{route('farm.pig.growth_performance_report')}}">Growth Performance</a></li>
                 <li><a href="{{route('farm.pig.production_performance_report')}}">Production Performance</a></li>
+                <li><a href="{{route('farm.pig.cumulative_report')}}">Cumulative</a></li>
                 <li><a href="{{route('farm.pig.monthly_performance_report')}}">Monthly Performance</a></li>
                	<li><a href="{{route('farm.pig.breeder_inventory_report')}}">Breeder Inventory</a></li>
                	<li><a href="{{route('farm.pig.grower_inventory_report')}}">Grower Inventory</a></li>
@@ -134,9 +135,9 @@
 		<script type="text/javascript" src="{{asset('thirdparty/jquery-3.2.1.js')}}"></script>
 		<script type="text/javascript" src="{{asset('thirdparty/materialize/js/materialize.min.js')}}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
-    @yield('scripts')
 		<script type="text/javascript" src="{{asset('js/global.js')}}"></script>
 		<script type="text/javascript" src="{{asset('js/pig.js')}}"></script>
+    @yield('scripts')
 		{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-alpha.1/js/materialize.min.js"></script> --}}
 	</body>
 </html>

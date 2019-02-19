@@ -1317,7 +1317,7 @@ class FarmController extends Controller
 				}
 			}
 
-			$temp = [];
+			/*$temp = [];
 			foreach ($family as $fam) {
 				foreach ($sows as $sow) {
 					if($fam->mother_id == $sow->id){
@@ -1362,7 +1362,7 @@ class FarmController extends Controller
 				}
 			}
 
-			$available = array_unique($available_temp);
+			$available = array_unique($available_temp);*/
 
 			// automatically updates mother's parity
 			foreach ($family as $group) {
@@ -5129,6 +5129,10 @@ class FarmController extends Controller
 			}
 		}
 
+		public function getCumulativeReportPage(){
+			return view('pigs.cumulative');
+		}
+
 		public function getMonthlyPerformanceReportPage(){
 			$farm = $this->user->getFarm();
 			$breed = $farm->getBreed();
@@ -6638,9 +6642,14 @@ class FarmController extends Controller
 			$dateweanedprop = $properties->where("property_id", 6)->first();
 
 			if(!is_null($datefarrowedprop) && !is_null($dateweanedprop)){
-				$datefarrowed = Carbon::parse($datefarrowedprop->value);
-				$dateweaned = Carbon::parse($dateweanedprop->value);
-				$age_weaned = $dateweaned->diffInDays($datefarrowed);
+				if($datefarrowedprop->value != "Not specified" && $dateweanedprop->value != "Not specified"){
+					$datefarrowed = Carbon::parse($datefarrowedprop->value);
+					$dateweaned = Carbon::parse($dateweanedprop->value);
+					$age_weaned = $dateweaned->diffInDays($datefarrowed);
+				}
+				else{
+					$age_weaned = "";
+				}
 			}
 			else{
 				$age_weaned = "";
@@ -6667,9 +6676,14 @@ class FarmController extends Controller
 			$dc180dprop = $properties->where("property_id", 41)->first();
 
 			if(!is_null($datefarrowedprop) && !is_null($dateweanedprop)){
-				$datefarrowed = Carbon::parse($datefarrowedprop->value);
-				$dateweaned = Carbon::parse($dateweanedprop->value);
-				$age_weaned = $dateweaned->diffInDays($datefarrowed);
+				if($datefarrowedprop->value != "Not specified" && $dateweanedprop->value != "Not specified"){
+					$datefarrowed = Carbon::parse($datefarrowedprop->value);
+					$dateweaned = Carbon::parse($dateweanedprop->value);
+					$age_weaned = $dateweaned->diffInDays($datefarrowed);
+				}
+				else{
+					$age_weaned = "";
+				}
 			}
 			else{
 				$age_weaned = "";
@@ -6677,9 +6691,14 @@ class FarmController extends Controller
 
 			if(!is_null($bw45dprop)){
 				if($bw45dprop->value != ""){
-					$datefarrowed = Carbon::parse($datefarrowedprop->value);
-					$dc45d = Carbon::parse($dc45dprop->value);
-					$actual45d = $dc45d->diffInDays($datefarrowed);
+					if($datefarrowedprop->value != "Not specified"){
+						$datefarrowed = Carbon::parse($datefarrowedprop->value);
+						$dc45d = Carbon::parse($dc45dprop->value);
+						$actual45d = $dc45d->diffInDays($datefarrowed);
+					}
+					else{
+						$actual45d = "";
+					}
 				}
 				else{
 					$actual45d = "";
@@ -6691,9 +6710,14 @@ class FarmController extends Controller
 
 			if(!is_null($bw60dprop)){
 				if($bw60dprop->value != ""){
-					$datefarrowed = Carbon::parse($datefarrowedprop->value);
-					$dc60d = Carbon::parse($dc60dprop->value);
-					$actual60d = $dc60d->diffInDays($datefarrowed);
+					if($datefarrowedprop->value != "Not specified"){
+						$datefarrowed = Carbon::parse($datefarrowedprop->value);
+						$dc60d = Carbon::parse($dc60dprop->value);
+						$actual60d = $dc60d->diffInDays($datefarrowed);
+					}
+					else{
+						$actual60d = "";
+					}
 				}
 				else{
 					$actual60d = "";
@@ -6705,9 +6729,14 @@ class FarmController extends Controller
 
 			if(!is_null($bw90dprop)){
 				if($bw90dprop->value != ""){
-					$datefarrowed = Carbon::parse($datefarrowedprop->value);
-					$dc90d = Carbon::parse($dc90dprop->value);
-					$actual90d = $dc90d->diffInDays($datefarrowed);
+					if($datefarrowedprop->value != "Not specified"){
+						$datefarrowed = Carbon::parse($datefarrowedprop->value);
+						$dc90d = Carbon::parse($dc90dprop->value);
+						$actual90d = $dc90d->diffInDays($datefarrowed);
+					}
+					else{
+						$actual90d = "";
+					}
 				}
 				else{
 					$actual90d = "";
@@ -6719,9 +6748,14 @@ class FarmController extends Controller
 
 			if(!is_null($bw150dprop)){
 				if($bw150dprop->value != ""){
-					$datefarrowed = Carbon::parse($datefarrowedprop->value);
-					$dc150d = Carbon::parse($dc150dprop->value);
-					$actual150d = $dc150d->diffInDays($datefarrowed);
+					if($datefarrowedprop->value != "Not specified"){
+						$datefarrowed = Carbon::parse($datefarrowedprop->value);
+						$dc150d = Carbon::parse($dc150dprop->value);
+						$actual150d = $dc150d->diffInDays($datefarrowed);
+					}
+					else{
+						$actual150d = "";
+					}
 				}
 				else{
 					$actual150d = "";
@@ -6733,9 +6767,14 @@ class FarmController extends Controller
 
 			if(!is_null($bw180dprop)){
 				if($bw180dprop->value != ""){
-					$datefarrowed = Carbon::parse($datefarrowedprop->value);
-					$dc180d = Carbon::parse($dc180dprop->value);
-					$actual180d = $dc180d->diffInDays($datefarrowed);
+					if($datefarrowedprop->value != "Not specified"){
+						$datefarrowed = Carbon::parse($datefarrowedprop->value);
+						$dc180d = Carbon::parse($dc180dprop->value);
+						$actual180d = $dc180d->diffInDays($datefarrowed);
+					}
+					else{
+						$actual180d = "";
+					}
 				}
 				else{
 					$actual180d = "";
@@ -8501,9 +8540,14 @@ class FarmController extends Controller
 			$dateweanedprop = $properties->where("property_id", 6)->first();
 
 			if(!is_null($datefarrowedprop) && !is_null($dateweanedprop)){
-				$datefarrowed = Carbon::parse($datefarrowedprop->value);
-				$dateweaned = Carbon::parse($dateweanedprop->value);
-				$age_weaned = $dateweaned->diffInDays($datefarrowed);
+				if($datefarrowedprop->value != "Not specified" && $dateweanedprop->value != "Not specified"){
+					$datefarrowed = Carbon::parse($datefarrowedprop->value);
+					$dateweaned = Carbon::parse($dateweanedprop->value);
+					$age_weaned = $dateweaned->diffInDays($datefarrowed);
+				}
+				else{
+					$age_weaned = "";
+				}
 			}
 			else{
 				$age_weaned = "";

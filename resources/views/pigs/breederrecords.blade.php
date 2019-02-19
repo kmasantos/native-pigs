@@ -10,16 +10,6 @@
     <div class="divider"></div>
     <div class="row" style="padding-top: 10px;">
       <div class="col s12">
-        {{-- TRY THIS --}}
-        <div class="row">
-          <div class="col s12">
-            <div class="input-field">
-              <input id="search" type="search">
-              <label for="search"><i class="material-icons left">search</i>Search Record</label>
-              <i class="material-icons">close</i>
-            </div>
-          </div>
-        </div>
         <div class="row">
           <div class="col s12">
             <ul class="tabs tabs-fixed-width green lighten-1">

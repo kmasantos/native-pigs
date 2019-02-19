@@ -109,7 +109,7 @@
         close: 'Ok',
         closeOnSelect: false, // Close upon selecting a date,
         format: 'yyyy-mm-dd',
-        min: new Date(<?php echo Carbon\Carbon::parse($properties->where("property_id", 3)->first()->value)->addDays(1)->format('Y') ?>, <?php echo Carbon\Carbon::parse($properties->where("property_id", 3)->first()->value)->addDays(1)->format('m')-1 ?>, <?php echo Carbon\Carbon::parse($properties->where("property_id", 3)->first()->value)->addDays(1)->format('d') ?>),
+        // min: new Date(<?php echo Carbon\Carbon::parse($properties->where("property_id", 3)->first()->value)->addDays(1)->format('Y') ?>, <?php echo Carbon\Carbon::parse($properties->where("property_id", 3)->first()->value)->addDays(1)->format('m')-1 ?>, <?php echo Carbon\Carbon::parse($properties->where("property_id", 3)->first()->value)->addDays(1)->format('d') ?>),
         max: new Date()
       });
   </script>
