@@ -5130,7 +5130,68 @@ class FarmController extends Controller
 		}
 
 		public function getCumulativeReportPage(){
-			return view('pigs.cumulative');
+			$farm = $this->user->getFarm();
+			$breed = $farm->getBreed();
+			$groups = Grouping::whereNotNull("mother_id")->where("breed_id", $breed->id)->get();
+
+			$months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+			// default filter is the current year
+			$now = Carbon::now();
+			$current_year = $now->year;
+			$range = range($current_year-10, $current_year+10);
+			$years = array_combine($range, $range);
+
+			$filter = $now->year;
+
+			//gets all the last days of the month
+			$dates = [];
+			foreach ($months as $month) {
+				$date = new Carbon('last day of '.$month.' '.$filter);
+				array_push($dates, $date);
+			}
+
+			//gets all the months that are finished
+			$headings = [];
+			foreach ($dates as $date) {
+				if($now->gte($date)){
+					$month = $date->format('F');
+					array_push($headings, $month);
+				}
+			}
+
+			foreach ($groups as $group) {
+				$datefarrowedprop = $group->getGroupingProperties()->where("property_id", 3)->first();
+				if(!is_null($datefarrowedprop) && $datefarrowedprop->value != "Not specified"){
+					$datefarrowed = Carbon::parse($datefarrowedprop->value);
+					foreach ($headings as $heading) {
+						if($datefarrowed->format('F') == $heading && $datefarrowed->year == $filter){
+							//do smth
+						}
+					}
+				}			
+			}
+	
+
+			return view('pigs.cumulative', compact('months', 'now', 'years', 'filter', 'dates', 'headings'));
+		}
+
+		public function filterCumulativeReport(Request $request){
+			$farm = $this->user->getFarm();
+			$breed = $farm->getBreed();
+			$groups = Grouping::whereNotNull("mother_id")->where("breed_id", $breed->id)->get();
+
+			$months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+			// default filter is the current year
+			$now = Carbon::now();
+			$current_year = $now->year;
+			$range = range($current_year-10, $current_year+10);
+			$years = array_combine($range, $range);
+
+			$filter = $now->year;
+
+			return view('pigs.cumulative', compact('months', 'now', 'years', 'filter'));
 		}
 
 		public function getMonthlyPerformanceReportPage(){

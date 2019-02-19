@@ -88,8 +88,8 @@
 				</div>
 			</div>
 			<div id="summary" class="col s12" style="padding-top:10px;">
-      	<div class="row center">
-      		<table style="overflow-x: scroll;">
+      	<div class="row center" style="overflow-x: auto;">
+      		<table>
       			<thead>
       				<tr>
       					<th>Parameters</th>

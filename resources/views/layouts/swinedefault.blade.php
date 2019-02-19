@@ -96,7 +96,7 @@
                 <li><a href="{{route('farm.pig.morpho_chars_report')}}">Morphometric Characteristics</a></li>
                 <li><a href="{{route('farm.pig.growth_performance_report')}}">Growth Performance</a></li>
                 <li><a href="{{route('farm.pig.production_performance_report')}}">Production Performance</a></li>
-                <li><a href="{{route('farm.pig.cumulative_report')}}">Cumulative</a></li>
+                <li><a href="{{route('farm.pig.cumulative_report')}}">Cumulative Performance</a></li>
                 <li><a href="{{route('farm.pig.monthly_performance_report')}}">Monthly Performance</a></li>
                	<li><a href="{{route('farm.pig.breeder_inventory_report')}}">Breeder Inventory</a></li>
                	<li><a href="{{route('farm.pig.grower_inventory_report')}}">Grower Inventory</a></li>
