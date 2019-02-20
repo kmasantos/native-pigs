@@ -256,8 +256,9 @@ class FarmController extends Controller
 			$mother_grandmother_greatgrandmother_registryid = "";
 			$mother_grandmother_greatgrandmother_birthday = "";
 			$mother_grandmother_greatgrandmother_birthweight = 0;
+			$found_pigs = [];
 
-			return view('pigs.pedigree', compact('animal', 'registrationid', 'user', 'breed', 'sex', 'birthday', 'birthweight', 'group', 'malelitters', 'femalelitters', 'groupingmembers', 'parity', 'father_registryid', 'father_birthday', 'father_birthweight', 'father_group', 'father_malelitters', 'father_femalelitters', 'father_groupingmembers', 'father_parity', 'father_grandfather_registryid', 'father_grandfather_birthday', 'father_grandfather_birthweight', 'father_grandfather_group', 'father_grandfather_malelitters', 'father_grandfather_femalelitters', 'father_grandfather_groupingmembers', 'father_grandfather_parity', 'father_grandfather_greatgrandfather_registryid', 'father_grandfather_greatgrandfather_birthday', 'father_grandfather_greatgrandfather_birthweight', 'father_grandfather_greatgrandmother_registryid', 'father_grandfather_greatgrandmother_birthday', 'father_grandfather_greatgrandmother_birthweight', 'father_grandmother_registryid', 'father_grandmother_birthday', 'father_grandmother_birthweight', 'father_grandmother_group', 'father_grandmother_malelitters', 'father_grandmother_femalelitters', 'father_grandmother_groupingmembers', 'father_grandmother_parity', 'father_grandmother_greatgrandfather_registryid', 'father_grandmother_greatgrandfather_birthday', 'father_grandmother_greatgrandfather_birthweight', 'father_grandmother_greatgrandmother_registryid', 'father_grandmother_greatgrandmother_birthday', 'father_grandmother_greatgrandmother_birthweight', 'mother_registryid', 'mother_birthday', 'mother_birthweight', 'mother_group', 'mother_malelitters', 'mother_femalelitters', 'mother_groupingmembers', 'mother_parity', 'mother_grandfather_registryid', 'mother_grandfather_birthday', 'mother_grandfather_birthweight', 'mother_grandfather_group', 'mother_grandfather_malelitters', 'mother_grandfather_femalelitters', 'mother_grandfather_groupingmembers', 'mother_grandfather_parity', 'mother_grandfather_greatgrandfather_registryid', 'mother_grandfather_greatgrandfather_birthday', 'mother_grandfather_greatgrandfather_birthweight', 'mother_grandfather_greatgrandmother_registryid', 'mother_grandfather_greatgrandmother_birthday', 'mother_grandfather_greatgrandmother_birthweight', 'mother_grandmother_registryid', 'mother_grandmother_birthday', 'mother_grandmother_birthweight', 'mother_grandmother_group', 'mother_grandmother_malelitters', 'mother_grandmother_femalelitters', 'mother_grandmother_groupingmembers', 'mother_grandmother_parity', 'mother_grandmother_greatgrandfather_registryid', 'mother_grandmother_greatgrandfather_birthday', 'mother_grandmother_greatgrandfather_birthweight', 'mother_grandmother_greatgrandmother_registryid', 'mother_grandmother_greatgrandmother_birthday', 'mother_grandmother_greatgrandmother_birthweight'));
+			return view('pigs.pedigree', compact('animal', 'registrationid', 'user', 'breed', 'sex', 'birthday', 'birthweight', 'group', 'malelitters', 'femalelitters', 'groupingmembers', 'parity', 'father_registryid', 'father_birthday', 'father_birthweight', 'father_group', 'father_malelitters', 'father_femalelitters', 'father_groupingmembers', 'father_parity', 'father_grandfather_registryid', 'father_grandfather_birthday', 'father_grandfather_birthweight', 'father_grandfather_group', 'father_grandfather_malelitters', 'father_grandfather_femalelitters', 'father_grandfather_groupingmembers', 'father_grandfather_parity', 'father_grandfather_greatgrandfather_registryid', 'father_grandfather_greatgrandfather_birthday', 'father_grandfather_greatgrandfather_birthweight', 'father_grandfather_greatgrandmother_registryid', 'father_grandfather_greatgrandmother_birthday', 'father_grandfather_greatgrandmother_birthweight', 'father_grandmother_registryid', 'father_grandmother_birthday', 'father_grandmother_birthweight', 'father_grandmother_group', 'father_grandmother_malelitters', 'father_grandmother_femalelitters', 'father_grandmother_groupingmembers', 'father_grandmother_parity', 'father_grandmother_greatgrandfather_registryid', 'father_grandmother_greatgrandfather_birthday', 'father_grandmother_greatgrandfather_birthweight', 'father_grandmother_greatgrandmother_registryid', 'father_grandmother_greatgrandmother_birthday', 'father_grandmother_greatgrandmother_birthweight', 'mother_registryid', 'mother_birthday', 'mother_birthweight', 'mother_group', 'mother_malelitters', 'mother_femalelitters', 'mother_groupingmembers', 'mother_parity', 'mother_grandfather_registryid', 'mother_grandfather_birthday', 'mother_grandfather_birthweight', 'mother_grandfather_group', 'mother_grandfather_malelitters', 'mother_grandfather_femalelitters', 'mother_grandfather_groupingmembers', 'mother_grandfather_parity', 'mother_grandfather_greatgrandfather_registryid', 'mother_grandfather_greatgrandfather_birthday', 'mother_grandfather_greatgrandfather_birthweight', 'mother_grandfather_greatgrandmother_registryid', 'mother_grandfather_greatgrandmother_birthday', 'mother_grandfather_greatgrandmother_birthweight', 'mother_grandmother_registryid', 'mother_grandmother_birthday', 'mother_grandmother_birthweight', 'mother_grandmother_group', 'mother_grandmother_malelitters', 'mother_grandmother_femalelitters', 'mother_grandmother_groupingmembers', 'mother_grandmother_parity', 'mother_grandmother_greatgrandfather_registryid', 'mother_grandmother_greatgrandfather_birthday', 'mother_grandmother_greatgrandfather_birthweight', 'mother_grandmother_greatgrandmother_registryid', 'mother_grandmother_greatgrandmother_birthday', 'mother_grandmother_greatgrandmother_birthweight', 'found_pigs'));
 		}
 
 		public static function findPig(Request $request){
@@ -278,15 +279,109 @@ class FarmController extends Controller
 				$earnotch = str_pad($temp_earnotch, 6, "0", STR_PAD_LEFT);
 			}
 
+			$found_pigs = [];
 			foreach ($pigs as $pig) {
 				if(substr($pig->registryid, -6, 6) == $earnotch){
-					$registrationid = $pig->registryid;
-					$animalid = $pig->id;
+					array_push($found_pigs, $pig);
 				}
 			}
 
-			$animal = Animal::find($animalid);
-	
+					$animal = collect([]);
+					$sex = null;
+					$birthday = null;
+					$birthweight = 0;
+					$group = collect([]);
+					$groupingmembers = [];
+					$femalelitters = [];
+					$malelitters = [];
+					$parity = 0;
+					$father_registryid = null;
+					$father_birthday = null;
+					$father_birthweight = 0;
+					$father_group = collect([]);
+					$father_malelitters = [];
+					$father_femalelitters = [];
+					$father_groupingmembers = [];
+					$father_parity = 0;
+					$father_grandfather_registryid = null;
+					$father_grandfather_birthday = null;
+					$father_grandfather_birthweight = 0;
+					$father_grandfather_group = collect([]);
+					$father_grandfather_malelitters = [];
+					$father_grandfather_femalelitters = [];
+					$father_grandfather_groupingmembers = [];
+					$father_grandfather_parity = 0;
+					$father_grandfather_greatgrandfather_registryid = null;
+					$father_grandfather_greatgrandfather_birthday = null;
+					$father_grandfather_greatgrandfather_birthweight = 0;
+					$father_grandfather_greatgrandmother_registryid = null;
+					$father_grandfather_greatgrandmother_birthday = null;
+					$father_grandfather_greatgrandmother_birthweight = 0;
+					$father_grandmother_registryid = null;
+					$father_grandmother_birthday = null;
+					$father_grandmother_birthweight = 0;
+					$father_grandmother_group = collect([]);
+					$father_grandmother_malelitters = [];
+					$father_grandmother_femalelitters = [];
+					$father_grandmother_groupingmembers = [];
+					$father_grandmother_parity = 0;
+					$father_grandmother_greatgrandfather_registryid = null;
+					$father_grandmother_greatgrandfather_birthday = null;
+					$father_grandmother_greatgrandfather_birthweight = 0;
+					$father_grandmother_greatgrandmother_registryid = null;
+					$father_grandmother_greatgrandmother_birthday = null;
+					$father_grandmother_greatgrandmother_birthweight = 0;
+					$mother_registryid = null;
+					$mother_birthday = null;
+					$mother_birthweight = 0;
+					$mother_group = collect([]);
+					$mother_malelitters = [];
+					$mother_femalelitters = [];
+					$mother_groupingmembers = [];
+					$mother_parity = 0;
+					$mother_grandfather_registryid = null;
+					$mother_grandfather_birthday = null;
+					$mother_grandfather_birthweight = 0;
+					$mother_grandfather_group = collect([]);
+					$mother_grandfather_malelitters = [];
+					$mother_grandfather_femalelitters = [];
+					$mother_grandfather_groupingmembers = [];
+					$mother_grandfather_parity = 0;
+					$mother_grandfather_greatgrandfather_registryid = null;
+					$mother_grandfather_greatgrandfather_birthday = null;
+					$mother_grandfather_greatgrandfather_birthweight = 0;
+					$mother_grandfather_greatgrandmother_registryid = null;
+					$mother_grandfather_greatgrandmother_birthday = null;
+					$mother_grandfather_greatgrandmother_birthweight = 0;
+					$mother_grandmother_registryid = null;
+					$mother_grandmother_birthday = null;
+					$mother_grandmother_birthweight = 0;
+					$mother_grandmother_group = collect([]);
+					$mother_grandmother_malelitters = [];
+					$mother_grandmother_femalelitters = [];
+					$mother_grandmother_groupingmembers = [];
+					$mother_grandmother_parity = 0;
+					$mother_grandmother_greatgrandfather_registryid = null;
+					$mother_grandmother_greatgrandfather_birthday = null;
+					$mother_grandmother_greatgrandfather_birthweight = 0;
+					$mother_grandmother_greatgrandmother_registryid = null;
+					$mother_grandmother_greatgrandmother_birthday = null;
+					$mother_grandmother_greatgrandmother_birthweight = 0;
+				
+
+			return view('pigs.pedigree', compact('animal', 'registrationid', 'user', 'breed', 'sex', 'birthday', 'birthweight', 'group', 'malelitters', 'femalelitters', 'groupingmembers', 'parity', 'father_registryid', 'father_birthday', 'father_birthweight', 'father_group', 'father_malelitters', 'father_femalelitters', 'father_groupingmembers', 'father_parity', 'father_grandfather_registryid', 'father_grandfather_birthday', 'father_grandfather_birthweight', 'father_grandfather_group', 'father_grandfather_malelitters', 'father_grandfather_femalelitters', 'father_grandfather_groupingmembers', 'father_grandfather_parity', 'father_grandfather_greatgrandfather_registryid', 'father_grandfather_greatgrandfather_birthday', 'father_grandfather_greatgrandfather_birthweight', 'father_grandfather_greatgrandmother_registryid', 'father_grandfather_greatgrandmother_birthday', 'father_grandfather_greatgrandmother_birthweight', 'father_grandmother_registryid', 'father_grandmother_birthday', 'father_grandmother_birthweight', 'father_grandmother_group', 'father_grandmother_malelitters', 'father_grandmother_femalelitters', 'father_grandmother_groupingmembers', 'father_grandmother_parity', 'father_grandmother_greatgrandfather_registryid', 'father_grandmother_greatgrandfather_birthday', 'father_grandmother_greatgrandfather_birthweight', 'father_grandmother_greatgrandmother_registryid', 'father_grandmother_greatgrandmother_birthday', 'father_grandmother_greatgrandmother_birthweight', 'mother_registryid', 'mother_birthday', 'mother_birthweight', 'mother_group', 'mother_malelitters', 'mother_femalelitters', 'mother_groupingmembers', 'mother_parity', 'mother_grandfather_registryid', 'mother_grandfather_birthday', 'mother_grandfather_birthweight', 'mother_grandfather_group', 'mother_grandfather_malelitters', 'mother_grandfather_femalelitters', 'mother_grandfather_groupingmembers', 'mother_grandfather_parity', 'mother_grandfather_greatgrandfather_registryid', 'mother_grandfather_greatgrandfather_birthday', 'mother_grandfather_greatgrandfather_birthweight', 'mother_grandfather_greatgrandmother_registryid', 'mother_grandfather_greatgrandmother_birthday', 'mother_grandfather_greatgrandmother_birthweight', 'mother_grandmother_registryid', 'mother_grandmother_birthday', 'mother_grandmother_birthweight', 'mother_grandmother_group', 'mother_grandmother_malelitters', 'mother_grandmother_femalelitters', 'mother_grandmother_groupingmembers', 'mother_grandmother_parity', 'mother_grandmother_greatgrandfather_registryid', 'mother_grandmother_greatgrandfather_birthday', 'mother_grandmother_greatgrandfather_birthweight', 'mother_grandmother_greatgrandmother_registryid', 'mother_grandmother_greatgrandmother_birthday', 'mother_grandmother_greatgrandmother_birthweight', 'found_pigs'));
+		}
+
+		public function selectPig(Request $request){
+			$user = Auth::User();
+			$farm = Auth::User()->getFarm();
+			$breed = $farm->getBreed();
+			$id = (int)$request->select_pig;
+			$animal = Animal::find($id);
+			$found_pigs = [];
+			array_push($found_pigs, $animal);
+			$registrationid = $animal->registryid;
+
 			if(!is_null($animal)){
 				if(substr($registrationid, -7, 1) == 'F'){
 					$sex = "Female";
@@ -959,7 +1054,8 @@ class FarmController extends Controller
 				$mother_grandmother_greatgrandmother_birthweight = 0;
 			}
 
-			return view('pigs.pedigree', compact('animal', 'registrationid', 'user', 'breed', 'sex', 'birthday', 'birthweight', 'group', 'malelitters', 'femalelitters', 'groupingmembers', 'parity', 'father_registryid', 'father_birthday', 'father_birthweight', 'father_group', 'father_malelitters', 'father_femalelitters', 'father_groupingmembers', 'father_parity', 'father_grandfather_registryid', 'father_grandfather_birthday', 'father_grandfather_birthweight', 'father_grandfather_group', 'father_grandfather_malelitters', 'father_grandfather_femalelitters', 'father_grandfather_groupingmembers', 'father_grandfather_parity', 'father_grandfather_greatgrandfather_registryid', 'father_grandfather_greatgrandfather_birthday', 'father_grandfather_greatgrandfather_birthweight', 'father_grandfather_greatgrandmother_registryid', 'father_grandfather_greatgrandmother_birthday', 'father_grandfather_greatgrandmother_birthweight', 'father_grandmother_registryid', 'father_grandmother_birthday', 'father_grandmother_birthweight', 'father_grandmother_group', 'father_grandmother_malelitters', 'father_grandmother_femalelitters', 'father_grandmother_groupingmembers', 'father_grandmother_parity', 'father_grandmother_greatgrandfather_registryid', 'father_grandmother_greatgrandfather_birthday', 'father_grandmother_greatgrandfather_birthweight', 'father_grandmother_greatgrandmother_registryid', 'father_grandmother_greatgrandmother_birthday', 'father_grandmother_greatgrandmother_birthweight', 'mother_registryid', 'mother_birthday', 'mother_birthweight', 'mother_group', 'mother_malelitters', 'mother_femalelitters', 'mother_groupingmembers', 'mother_parity', 'mother_grandfather_registryid', 'mother_grandfather_birthday', 'mother_grandfather_birthweight', 'mother_grandfather_group', 'mother_grandfather_malelitters', 'mother_grandfather_femalelitters', 'mother_grandfather_groupingmembers', 'mother_grandfather_parity', 'mother_grandfather_greatgrandfather_registryid', 'mother_grandfather_greatgrandfather_birthday', 'mother_grandfather_greatgrandfather_birthweight', 'mother_grandfather_greatgrandmother_registryid', 'mother_grandfather_greatgrandmother_birthday', 'mother_grandfather_greatgrandmother_birthweight', 'mother_grandmother_registryid', 'mother_grandmother_birthday', 'mother_grandmother_birthweight', 'mother_grandmother_group', 'mother_grandmother_malelitters', 'mother_grandmother_femalelitters', 'mother_grandmother_groupingmembers', 'mother_grandmother_parity', 'mother_grandmother_greatgrandfather_registryid', 'mother_grandmother_greatgrandfather_birthday', 'mother_grandmother_greatgrandfather_birthweight', 'mother_grandmother_greatgrandmother_registryid', 'mother_grandmother_greatgrandmother_birthday', 'mother_grandmother_greatgrandmother_birthweight'));
+
+			return view('pigs.pedigree', compact('animal', 'registrationid', 'user', 'breed', 'sex', 'birthday', 'birthweight', 'group', 'malelitters', 'femalelitters', 'groupingmembers', 'parity', 'father_registryid', 'father_birthday', 'father_birthweight', 'father_group', 'father_malelitters', 'father_femalelitters', 'father_groupingmembers', 'father_parity', 'father_grandfather_registryid', 'father_grandfather_birthday', 'father_grandfather_birthweight', 'father_grandfather_group', 'father_grandfather_malelitters', 'father_grandfather_femalelitters', 'father_grandfather_groupingmembers', 'father_grandfather_parity', 'father_grandfather_greatgrandfather_registryid', 'father_grandfather_greatgrandfather_birthday', 'father_grandfather_greatgrandfather_birthweight', 'father_grandfather_greatgrandmother_registryid', 'father_grandfather_greatgrandmother_birthday', 'father_grandfather_greatgrandmother_birthweight', 'father_grandmother_registryid', 'father_grandmother_birthday', 'father_grandmother_birthweight', 'father_grandmother_group', 'father_grandmother_malelitters', 'father_grandmother_femalelitters', 'father_grandmother_groupingmembers', 'father_grandmother_parity', 'father_grandmother_greatgrandfather_registryid', 'father_grandmother_greatgrandfather_birthday', 'father_grandmother_greatgrandfather_birthweight', 'father_grandmother_greatgrandmother_registryid', 'father_grandmother_greatgrandmother_birthday', 'father_grandmother_greatgrandmother_birthweight', 'mother_registryid', 'mother_birthday', 'mother_birthweight', 'mother_group', 'mother_malelitters', 'mother_femalelitters', 'mother_groupingmembers', 'mother_parity', 'mother_grandfather_registryid', 'mother_grandfather_birthday', 'mother_grandfather_birthweight', 'mother_grandfather_group', 'mother_grandfather_malelitters', 'mother_grandfather_femalelitters', 'mother_grandfather_groupingmembers', 'mother_grandfather_parity', 'mother_grandfather_greatgrandfather_registryid', 'mother_grandfather_greatgrandfather_birthday', 'mother_grandfather_greatgrandfather_birthweight', 'mother_grandfather_greatgrandmother_registryid', 'mother_grandfather_greatgrandmother_birthday', 'mother_grandfather_greatgrandmother_birthweight', 'mother_grandmother_registryid', 'mother_grandmother_birthday', 'mother_grandmother_birthweight', 'mother_grandmother_group', 'mother_grandmother_malelitters', 'mother_grandmother_femalelitters', 'mother_grandmother_groupingmembers', 'mother_grandmother_parity', 'mother_grandmother_greatgrandfather_registryid', 'mother_grandmother_greatgrandfather_birthday', 'mother_grandmother_greatgrandfather_birthweight', 'mother_grandmother_greatgrandmother_registryid', 'mother_grandmother_greatgrandmother_birthday', 'mother_grandmother_greatgrandmother_birthweight', 'found_pigs'));
 		}
 
 		public function fetchParityAjax($familyidvalue, $parityvalue){ // function to save parity onchange

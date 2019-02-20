@@ -26,6 +26,7 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::get('pedigree', ['as' => 'farm.pig.pedigree', 'uses' => 'FarmController@getPedigreePage']);
     Route::post('find_pig', ['as' => 'farm.pig.find_pig', 'uses' => 'FarmController@findPig']);
+    Route::post('get_selected_pig', ['as' => 'farm.pig.get_selected_pig', 'uses' => 'FarmController@selectPig']);
     Route::get('breeding_record', ['as' => 'farm.pig.breeding_record', 'uses' => 'FarmController@getBreedingRecordPage']);
     Route::post('get_breeding_record', ['as' => 'farm.pig.get_breeding_record', 'uses' => 'FarmController@addBreedingRecord']);
     Route::get('edit_breeding_record/{id}', ['as' => 'farm.pig.edit_breeding_record', 'uses' => 'FarmController@getEditBreedingRecordPage']);
