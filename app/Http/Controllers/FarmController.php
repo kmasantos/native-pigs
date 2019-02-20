@@ -281,7 +281,7 @@ class FarmController extends Controller
 
 			$found_pigs = [];
 			foreach ($pigs as $pig) {
-				if(substr($pig->registryid, -6, 6) == $earnotch){
+				if(strcasecmp(substr($pig->registryid, -6, 6),$earnotch) == 0){
 					array_push($found_pigs, $pig);
 				}
 			}

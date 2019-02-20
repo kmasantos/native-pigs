@@ -29,19 +29,19 @@
 			@if($registrationid == "temp")
 				<h4 class="center" style="padding-left: 100px;">Found pigs:</h4>
 				{!! Form::open(['route' => 'farm.pig.get_selected_pig', 'method' => 'post', 'id' => 'select_pig_id']) !!}
-	        <select id="select_pig" name="select_pig" class="browser-default" style="width: 53.3333333333%; margin-left: 350px;" onchange="document.getElementById('select_pig_id').submit();">
-	          <option disabled selected>Select pig</option>
-	          @foreach($found_pigs as $pig)
-	            <option value="{{ $pig->id }}">{{ $pig->registryid }} (Born: {{ $pig->getAnimalProperties()->where("property_id", 3)->first()->value }})</option>
-	          @endforeach
-	        </select>
-	      {!! Form::close() !!}
-	    @endif
-      @if($registrationid != "temp" && $group->count() == 0)
-      	<h4 class="center" style="padding-left: 150px;">{{ $registrationid }}: No results available</h4>
+					<select id="select_pig" name="select_pig" class="browser-default" style="width: 53.3333333333%; margin-left: 350px;" onchange="document.getElementById('select_pig_id').submit();">
+						<option disabled selected>Select pig</option>
+						@foreach($found_pigs as $pig)
+							<option value="{{ $pig->id }}">{{ $pig->registryid }} (Born: {{ $pig->getAnimalProperties()->where("property_id", 3)->first()->value }})</option>
+						@endforeach
+					</select>
+				{!! Form::close() !!}
 			@endif
-    @elseif(count($found_pigs) == 0)
-    	@if($animal->count() == 0)
+			@if($registrationid != "temp" && $group->count() == 0)
+				<h4 class="center" style="padding-left: 150px;">{{ $registrationid }}: No parent data</h4>
+			@endif
+		@elseif(count($found_pigs) == 0)
+			@if($animal->count() == 0)
 				<h4 class="center" style="padding-left: 150px;">No results available</h4>
 			@endif
 		@endif
