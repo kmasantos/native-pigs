@@ -1413,7 +1413,7 @@ class FarmController extends Controller
 				}
 			}
 
-			/*$temp = [];
+			$temp = [];
 			foreach ($family as $fam) {
 				foreach ($sows as $sow) {
 					if($fam->mother_id == $sow->id){
@@ -1458,7 +1458,7 @@ class FarmController extends Controller
 				}
 			}
 
-			$available = array_unique($available_temp);*/
+			$available = array_unique($available_temp);
 
 			// automatically updates mother's parity
 			foreach ($family as $group) {
@@ -1481,6 +1481,7 @@ class FarmController extends Controller
 			$breed = $farm->getBreed();
 			$breeders = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "breeder")->get();
 			$family = Grouping::find($id);
+			$groups = Grouping::whereNotNull("mother_id")->where("breed_id", $breed->id)->get();
 			$properties = GroupingProperty::where("grouping_id", $id)->get();
 
 			// sorts breeders per sex
@@ -1495,9 +1496,56 @@ class FarmController extends Controller
 				}
 			}
 
+			$temp = [];
+			foreach ($groups as $fam) {
+				foreach ($sows as $sow) {
+					if($fam->mother_id == $sow->id){
+						$values = [];
+						array_push($values, $fam->registryid);
+						array_push($values, $fam->getGroupingProperties()->where("property_id", 60)->first()->value); //status
+						array_push($values, $fam->id);
+						array_push($values, $fam->getGroupingProperties()->where("property_id", 42)->first()->value); //date bred
+						if(!is_null($fam->getGroupingProperties()->where("property_id", 6)->first())){
+							array_push($values, $fam->getGroupingProperties()->where("property_id", 6)->first()->value);
+						}
+						array_push($temp, $values);
+					}
+				}
+			}
+
+			$available_temp = [];
+			$available = [];
+			foreach ($temp as $value) {
+				if($value[1] == "Farrowed"){
+					if(array_map('count', $temp) == 5){
+						array_push($available_temp, $value[0]);
+					}
+				}
+				elseif($value[1] == "Recycled"){
+					array_push($available_temp, $value[0]);
+				}
+				elseif($value[1] == "Aborted"){
+					array_push($available_temp, $value[0]);
+				}
+			}
+
+			foreach ($sows as $sow) {
+				$parity = $sow->getAnimalProperties()->where("property_id", 48)->first();
+				if(!is_null($parity)){
+					if($parity->value == 0){
+						array_push($available_temp, $sow->registryid);
+					}
+				}
+				else{
+					array_push($available_temp, $sow->registryid);
+				}
+			}
+
+			$available = array_unique($available_temp);
+
 			$now = Carbon::now();
 
-			return view('pigs.editbreedingrecord', compact('pigs', 'sows', 'boars', 'family', 'properties', 'now'));
+			return view('pigs.editbreedingrecord', compact('pigs', 'sows', 'boars', 'family', 'properties', 'now', 'available'));
 		}
 
 		public function editBreedingRecord(Request $request){ //function to update breeding record
@@ -6981,7 +7029,7 @@ class FarmController extends Controller
 									if(!is_null($date_bred) && $date_bred->value != "Not specified"){
 										if(!is_null($sow->getAnimalProperties()->where("property_id", 3)->first()) && $sow->getAnimalProperties()->where("property_id", 3)->first()->value != "Not specified"){
 											$bday = $sow->getAnimalProperties()->where("property_id", 3)->first()->value;
-											$ageAtFirstMating = Carbon::parse($date_bred)->diffInMonths(Carbon::parse($bday));
+											$ageAtFirstMating = Carbon::parse($date_bred->value)->diffInMonths(Carbon::parse($bday));
 										}
 										else{
 											$ageAtFirstMating = "";
@@ -7037,7 +7085,32 @@ class FarmController extends Controller
 				$parity_born = "";
 			}
 
-			return view('pigs.viewsow', compact('sow', 'properties', 'age', 'ageAtWeaning', 'ageAtFirstMating', 'males', 'females', 'parity_born'));
+			$grossmorphotakenprop = $properties->where("property_id", 10)->first();
+			$morphocharstakenprop = $properties->where("property_id", 21)->first();
+			$bday = $properties->where("property_id", 3)->first();
+			if(!is_null($bday) && $bday->value != "Not specified"){
+				$bdayValue = Carbon::parse($bday->value);
+			}
+			else{
+				$age_morphochars = "";
+				$age_grossmorpho = "";
+			}
+			if(!is_null($grossmorphotakenprop)){
+				$grossmorphotaken = Carbon::parse($grossmorphotakenprop->value);
+				$age_grossmorpho = $grossmorphotaken->diffInDays($bdayValue);
+			}
+			else{
+				$age_grossmorpho = "";
+			}
+			if(!is_null($morphocharstakenprop)){
+				$morphocharstaken = Carbon::parse($morphocharstakenprop->value);
+				$age_morphochars = $morphocharstaken->diffInDays($bdayValue);
+			}
+			else{
+				$age_morphochars = "";
+			}
+
+			return view('pigs.viewsow', compact('sow', 'properties', 'age', 'ageAtWeaning', 'ageAtFirstMating', 'males', 'females', 'parity_born', 'age_grossmorpho', 'age_morphochars'));
 		}
 
 		public function getViewBoarPage($id){ // function to display View Boar page
@@ -7145,7 +7218,32 @@ class FarmController extends Controller
 				$parity_born = "";
 			}
 
-			return view('pigs.viewboar', compact('boar', 'properties', 'age', 'ageAtWeaning', 'ageAtFirstMating', 'males', 'females', 'parity_born'));
+			$grossmorphotakenprop = $properties->where("property_id", 10)->first();
+			$morphocharstakenprop = $properties->where("property_id", 21)->first();
+			$bday = $properties->where("property_id", 3)->first();
+			if(!is_null($bday) && $bday->value != "Not specified"){
+				$bdayValue = Carbon::parse($bday->value);
+			}
+			else{
+				$age_morphochars = "";
+				$age_grossmorpho = "";
+			}
+			if(!is_null($grossmorphotakenprop)){
+				$grossmorphotaken = Carbon::parse($grossmorphotakenprop->value);
+				$age_grossmorpho = $grossmorphotaken->diffInDays($bdayValue);
+			}
+			else{
+				$age_grossmorpho = "";
+			}
+			if(!is_null($morphocharstakenprop)){
+				$morphocharstaken = Carbon::parse($morphocharstakenprop->value);
+				$age_morphochars = $morphocharstaken->diffInDays($bdayValue);
+			}
+			else{
+				$age_morphochars = "";
+			}
+
+			return view('pigs.viewboar', compact('boar', 'properties', 'age', 'ageAtWeaning', 'ageAtFirstMating', 'males', 'females', 'parity_born', 'age_grossmorpho', 'age_morphochars'));
 		}
 
 		public function getGrossMorphologyPage($id){ // function to display Add Gross Morphology page
@@ -8650,6 +8748,8 @@ class FarmController extends Controller
 			$weaningweight->save();
 
 			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->get();
+			$founddam = 0;
+			$foundsire = 0;
 
 			if(!is_null($request->dam) && !is_null($request->sire)){
 				$grouping = new Grouping;
@@ -8687,9 +8787,6 @@ class FarmController extends Controller
 					$dam->property_id = 8;
 					$dam->value = $farm->code.$breed->breed."-"."F".$earnotch_dam;
 					$dam->save();
-
-					$grouping->registryid = $damanimal->value;
-					$grouping->mother_id = null;
 				}
 				if($foundsire != 1){
 					$sire = new AnimalProperty;
@@ -8697,7 +8794,6 @@ class FarmController extends Controller
 					$sire->property_id = 9;
 					$sire->value = $farm->code.$breed->breed."-"."M".$earnotch_sire;
 					$sire->save();
-					$grouping->father_id = null;
 				}
 				// if parents are found, this will create a new breeding record available for viewing in the Breeding Records page
 				if($founddam == 1 || $foundsire == 1){
