@@ -156,7 +156,11 @@
         <div class="row">
           @if($boar->grossmorpho == 1)
             <div class="col s6 card-panel">
-              <h6>GROSS MORPHOLOGY AT 180 DAYS</h6>
+              @if($age_grossmorpho == "")
+                <h6>GROSS MORPHOLOGY</h6>
+              @else
+                <h6>GROSS MORPHOLOGY AT {{ $age_grossmorpho }} DAYS</h6>
+              @endif
               <table>
                 <tbody>
                   <tr>
@@ -205,7 +209,11 @@
           @endif
           @if($boar->morphochars == 1)
             <div class="col s6 card-panel">
-              <h6>MORPHOMETRIC CHARACTERISTICS AT 180 DAYS</h6>
+              @if($age_morphochars == "")
+                <h6>MORPHOMETRIC CHARACTERISTICS</h6>
+              @else
+                <h6>MORPHOMETRIC CHARACTERISTICS AT {{ $age_morphochars }} DAYS</h6>
+              @endif
               <table>
                 <tbody>
                   <tr>
