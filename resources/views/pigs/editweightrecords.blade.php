@@ -15,9 +15,9 @@
           <div class="row">
             <div class="col s4">
               @if($age_weaned != "")
-                Weaning Weight <i class="material-icons tooltipped" data-position="top" data-tooltip="Age weaned: {{ $age_weaned }} days" style="vertical-align: middle;">info_outline</i>
+                Body Weight at Weaning <i class="material-icons tooltipped" data-position="top" data-tooltip="Age weaned: {{ $age_weaned }} days" style="vertical-align: middle;">info_outline</i>
               @else
-                Weaning Weight
+                Body Weight at Weaning
               @endif
             </div>
             <div class="col s4">
