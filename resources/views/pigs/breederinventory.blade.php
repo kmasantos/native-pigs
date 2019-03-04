@@ -21,7 +21,7 @@
 				@if($noage_sows == [])
 					<p>Number of female breeders in the herd: <strong>{{ count($sows) }}</strong>, Average age: <strong>{{ round(array_sum($age_sows)/(count($sows)-count($noage_sows)), 2) }} months</strong></p>
 				@else
-					<p>Number of female breeders in the herd: <strong>{{ count($sows) }}</strong>, Average age: <strong>{{ round(array_sum($age_sows)/(count($sows)-count($noage_sows)), 2) }} months</strong> *female breeders without age data: {{ $count($noage_sows) }}</p>
+					<p>Number of female breeders in the herd: <strong>{{ count($sows) }}</strong>, Average age: <strong>{{ round(array_sum($age_sows)/(count($sows)-count($noage_sows)), 2) }} months</strong> *female breeders without age data: {{ count($noage_sows) }}</p>
 				@endif
 				<div class="row">
 					<div class="col s12 m12 l6">
