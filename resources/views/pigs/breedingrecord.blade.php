@@ -28,22 +28,22 @@
 								{!! Form::open(['route' => 'farm.pig.get_breeding_record', 'method' => 'post']) !!}
 								<tr>
 									{{-- sow used --}}
-									{{-- <td> 
+									<td> 
 										<select name="sow_id" class="browser-default">
 											<option disabled selected>Choose sow</option>
 												@foreach($available as $sow)	
 													<option value="{{ $sow }}">{{ $sow }}</option>
 												@endforeach
 										</select>
-									</td> --}}
-									<td> 
+									</td>
+									{{-- <td> 
 										<select name="sow_id" class="browser-default">
 											<option disabled selected>Choose sow</option>
 												@foreach($sows as $sow)	
 													<option value="{{ $sow->registryid }}">{{ $sow->registryid }}</option>
 												@endforeach
 										</select>
-									</td>
+									</td> --}}
 									{{-- boar used --}}
 									<td>
 										<select id="boar_id" name="boar_id" class="browser-default">

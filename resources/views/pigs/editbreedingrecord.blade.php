@@ -17,8 +17,11 @@
 			<div class="col s6">
 				<select name="sow_id" class="browser-default">
 					<option selected value="{{ $family->getMother()->registryid }}">{{ $family->getMother()->registryid }}</option>
-						@foreach($sows as $sow)	
+						{{-- @foreach($sows as $sow)	
 							<option value="{{ $sow->registryid }}">{{ $sow->registryid }}</option>
+						@endforeach --}}
+						@foreach($available as $sow)
+							<option value="{{ $sow }}">{{ $sow }}</option>
 						@endforeach
 				</select>
 			</div>
