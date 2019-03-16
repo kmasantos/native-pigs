@@ -24,8 +24,8 @@
 							<div class="col s10 offset-s1">
 								{{ csrf_field() }}
 								<div class="col s4">
-									<select name="registrationid_dead" class="browser-default">
-										<option disabled selected>Choose pig</option>
+									<select name="registrationid_dead" class="browser-default" required>
+										<option value=""></option>
 										<optgroup label="Breeders">
 											@foreach($breeders as $breeder)
 												<option value="{{ $breeder->registryid }}">{{ $breeder->registryid }}</option>
@@ -37,6 +37,7 @@
 											@endforeach
 										</optgroup>
 									</select>
+									<label for="registrationid_dead">Choose pig</label>
 								</div>
 								<div class="col s4">
 									<input id="date_died" type="text" placeholder="Date Died" name="date_died" class="datepicker">
@@ -47,7 +48,7 @@
 							</div>
 						</div>
 						<div class="row center">
-							<button id="add_dead" class="btn waves-effect waves-light green darken-3" type="submit" onclick="Materialize.toast('Successfully addded!', 4000)">Add
+							<button id="add_dead" class="btn waves-effect waves-light green darken-3" type="submit">Add
 		            <i class="material-icons right">add</i>
 		          </button>
 						</div>
@@ -101,8 +102,8 @@
 							<div class="col s10 offset-s1">
 								{{ csrf_field() }}
 								<div class="col s3">
-									<select name="registrationid_sold" class="browser-default">
-										<option disabled selected>Choose pig</option>
+									<select name="registrationid_sold" class="browser-default" required>
+										<option value=""></option>
 										<optgroup label="Breeders">
 											@foreach($breeders as $breeder)
 												<option value="{{ $breeder->registryid }}">{{ $breeder->registryid }}</option>
@@ -114,6 +115,7 @@
 											@endforeach
 										</optgroup>
 									</select>
+									<label for="registrationid_sold">Choose pig</label>
 								</div>
 								<div class="col s3">
 									<input id="date_sold" type="text" placeholder="Date Sold" name="date_sold" class="datepicker">
@@ -127,7 +129,7 @@
 							</div>
 						</div>
 						<div class="row center">
-              <button id="add_sold" class="btn waves-effect waves-light green darken-3" type="submit" onclick="Materialize.toast('Successfully addded!', 4000)">Add
+              <button id="add_sold" class="btn waves-effect waves-light green darken-3" type="submit">Add
 		            <i class="material-icons right">add</i>
 		          </button>
 						</div>
@@ -183,8 +185,8 @@
 							<div class="col s10 offset-s1">
 								{{ csrf_field() }}
 								<div class="col s4">
-									<select name="registrationid_removed" class="browser-default">
-										<option disabled selected>Choose pig</option>
+									<select name="registrationid_removed" class="browser-default" required>
+										<option value=""></option>
 										<optgroup label="Breeders">
 											@foreach($breeders as $breeder)
 												<option value="{{ $breeder->registryid }}">{{ $breeder->registryid }}</option>
@@ -196,6 +198,7 @@
 											@endforeach
 										</optgroup>
 									</select>
+									<label for="registrationid_removed">Choose pig</label>
 								</div>
 								<div class="col s4">
 									<input id="date_removed" type="text" placeholder="Date Removed" name="date_removed" class="datepicker">
@@ -206,7 +209,7 @@
 							</div>
 						</div>
 						<div class="row center">
-							<button id="add_dead" class="btn waves-effect waves-light green darken-3" type="submit" onclick="Materialize.toast('Successfully addded!', 4000)">Add
+							<button id="add_dead" class="btn waves-effect waves-light green darken-3" type="submit">Add
 		            <i class="material-icons right">add</i>
 		          </button>
 						</div>
