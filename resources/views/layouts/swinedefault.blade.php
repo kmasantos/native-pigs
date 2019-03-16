@@ -4,6 +4,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" charset="utf-8" />
 		<meta name="csrf-token" content="{{ csrf_token() }}">
 		<title>Native Pigs: @yield('title')</title>
+    <link rel="shortcut icon" href="{{asset('images/logo-swine-square.png')}}" />
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 		<link rel="stylesheet" href="{{asset('thirdparty/materialize/css/materialize.min.css')}}">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-alpha.1/css/materialize.min.css">
@@ -17,7 +18,7 @@
 		<div class="navbar-fixed">
 			<nav class="green lighten-1" role="navigation">
 				<div class="nav-wrapper">
-					<a href="{{route('farm.index')}}" class="brand-logo"><img src="{{asset('images/logo-default.png')}}" alt="Native Animals" height="65" / ></a>
+					<a href="{{route('farm.index')}}" class="brand-logo"><img src="{{asset('images/logo-swine.png')}}" alt="Native Animals" height="65" / ></a>
 					<ul id="nav-mobile" class="right hide-on-med-and-down">
 						<li><a href="{{route('farm.index')}}">{{ Auth::user()->name }}</a></li>
 						<li><a href="logout" id="logoutbutton" onclick="window.location='https://accounts.google.com/Logout?&continue=http://www.google.com/';">Logout</a></li>
@@ -31,7 +32,11 @@
 			<li>
 				<div class="user-view">
 					<div class="background green lighten-1"></div>
-					<a href="#!"><img class="circle" src="{{asset('images/farmer.png')}}" alt="Farm User"></a>
+          @if(!is_null(App\Uploads::whereNull("animal_id")->whereNull("animaltype_id")->where("breed_id", Auth::user()->getFarm()->getBreed()->id)->first()))
+            <a href="#!"><img class="circle" src="{{asset('images/'.App\Uploads::whereNull("animal_id")->whereNull("animaltype_id")->where("breed_id", Auth::user()->getFarm()->getBreed()->id)->first()->filename)}}" alt="Farm User"></a>
+          @else
+            <a href="#!"><img class="circle" src="{{asset('images/farmer.png')}}" alt="Farm User"></a>
+          @endif
 					<a href="#!"><span class="black-text name">{{ Auth::user()->name }}</span></a>
 					<a href="#!"><span class="black-text email">{{ Auth::user()->email }}</span></a>
 				</div>
