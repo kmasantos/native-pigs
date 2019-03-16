@@ -70,6 +70,46 @@
                 @endforelse
               </tbody>
             </table>
+            @if($archived_sows == [])
+            @else
+              <div class="row">
+                <div class="col s12">
+                  <ul class="collapsible popout">
+                    <li>
+                      <div class="collapsible-header grey lighten-2">Archive</div>
+                      <div class="collapsible-body">
+                        <table class="fixed-width">
+                          <thead>
+                            <tr>
+                              <th>Registration ID</th>
+                              <th>Status</th>
+                              <th>View Record</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            @foreach($archived_sows as $archived_sow)
+                              <tr>
+                                <td>{{ $archived_sow->registryid }}</td>
+                                @if($archived_sow->status == "dead breeder")
+                                  <td>Dead</td>
+                                @elseif($archived_sow->status == "sold breeder")
+                                  <td>Sold</td>
+                                @elseif($archived_sow->status == "removed breeder")
+                                  <td>Removed from herd</td>
+                                @endif
+                                <td class="center">
+                                  <a href="{{ URL::route('farm.pig.view_sow', [$archived_sow->id]) }}"><i class="material-icons">visibility_on</i></a>
+                                </td>
+                              </tr>
+                            @endforeach
+                          </tbody>
+                        </table>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            @endif
           </div>
           <div id="boarrecords" class="col s12" style="padding-top: 10px;">
             <table class="centered striped">
@@ -124,6 +164,46 @@
                 @endforelse
               </tbody>
             </table>
+            @if($archived_boars == [])
+            @else
+              <div class="row">
+                <div class="col s12">
+                  <ul class="collapsible popout">
+                    <li>
+                      <div class="collapsible-header grey lighten-2">Archive</div>
+                      <div class="collapsible-body">
+                        <table class="fixed-width">
+                          <thead>
+                            <tr>
+                              <th>Registration ID</th>
+                              <th>Status</th>
+                              <th>View Record</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            @foreach($archived_boars as $archived_boar)
+                              <tr>
+                                <td>{{ $archived_boar->registryid }}</td>
+                                @if($archived_boar->status == "dead breeder")
+                                  <td>Dead</td>
+                                @elseif($archived_boar->status == "sold breeder")
+                                  <td>Sold</td>
+                                @elseif($archived_boar->status == "removed breeder")
+                                  <td>Removed from herd</td>
+                                @endif
+                                <td class="center">
+                                  <a href="{{ URL::route('farm.pig.view_boar', [$archived_boar->id]) }}"><i class="material-icons">visibility_on</i></a>
+                                </td>
+                              </tr>
+                            @endforeach
+                          </tbody>
+                        </table>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            @endif
           </div>
         </div>
       </div>
