@@ -11,7 +11,11 @@
       <div class="col s12">
         <div class="row">
           <div class="col s4">
-            <img src="{{asset('images/sow.jpg')}}" width="95%">
+            @if(!is_null($photo))
+              <img src="{{asset('images/'.$photo->filename)}}" width="95%">
+            @else
+              <img src="{{asset('images/sow.jpg')}}" width="95%">
+            @endif
           </div>
           <div class="col s8">
             <div class="white black-text">
