@@ -9,7 +9,7 @@
     <h4>Farm Profile</h4>
     <div class="divider"></div>
     <div class="row" style="padding-top: 10px;"> 
-      {!! Form::open(['route' => 'farm.pig.get_farm_profile', 'method' => 'post']) !!}
+      {!! Form::open(['route' => 'farm.pig.get_farm_profile', 'method' => 'post', 'enctype' => 'multipart/form-data']) !!}
       <div class="col s12">
         <div class="row">
           <div class="input-field col s10 offset-s1">
