@@ -8,7 +8,7 @@
   <h4 class="headline"><a href="{{route('farm.pig.breeder_records')}}"><img src="{{asset('images/back.png')}}" width="3%"></a> Gross Morphology: <strong>{{ $animal->registryid }}</strong></h4>
   <div class="container">
     <div class="row">
-      {!! Form::open(['route' => 'farm.pig.fetch_gross_morphology', 'method' => 'post']) !!}
+      {!! Form::open(['route' => 'farm.pig.fetch_gross_morphology', 'method' => 'post', 'enctype' => 'multipart/form-data']) !!}
       <div class="col s12">
         <input type="hidden" name="animal_id" value="{{ $animal->id }}">
         <div class="row card-panel">

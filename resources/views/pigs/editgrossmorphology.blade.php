@@ -8,7 +8,7 @@
   <h4 class="headline"><a href="{{route('farm.pig.breeder_records')}}"><img src="{{asset('images/back.png')}}" width="3%"></a> Edit Gross Morphology: <strong>{{ $animal->registryid }}</strong></h4>
   <div class="container">
     <div class="row">
-      {!! Form::open(['route' => 'farm.pig.update_gross_morphology', 'method' => 'post']) !!}
+      {!! Form::open(['route' => 'farm.pig.update_gross_morphology', 'method' => 'post', 'enctype' => 'multipart/form-data']) !!}
       <div class="col s12">
         <input type="hidden" name="animal_id" value="{{ $animal->id }}">
         <div class="row card-panel">
@@ -365,7 +365,7 @@
             </div>
           </div>
           <div class="row center">
-            <button class="btn waves-effect waves-light green darken-3" type="submit" onclick="Materialize.toast('Successfully updated!', 4000)">Update
+            <button class="btn waves-effect waves-light green darken-3" type="submit" onclick="Materialize.toast('Saved successfully!', 4000)">Update
               <i class="material-icons right">done</i>
             </button>
           </div>
