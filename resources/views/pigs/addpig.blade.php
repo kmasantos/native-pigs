@@ -15,7 +15,7 @@
         <div class="row">
           <div class="col s6 push-s4">
             Add as
-            <input class="with-gap"name="status_setter" type="radio" id="as_breeder" value="breeder" />
+            <input class="with-gap"name="status_setter" type="radio" id="as_breeder" checked="checked" value="breeder" />
             <label for="as_breeder">Breeder</label>
             <input class="with-gap" name="status_setter" type="radio" id="as_grower" value="active" />
             <label for="as_grower">Grower</label>
@@ -28,7 +28,7 @@
       		</div>
       		<div class="col s4">
       			<select id="select_sex" name="sex" class="browser-default" required>
-							<option disabled selected>Choose sex</option>
+							<option value=""></option>
 							<option value="M">Male</option>
 							<option value="F">Female</option>
 						</select>
@@ -66,7 +66,7 @@
         <div class="divider"></div>
       	<div class="row center">
           <br><sup class="red-text">*required</sup><br>
-      		<button class="btn waves-effect waves-light green darken-3" type="submit" onclick="Materialize.toast('Successfully added!', 4000)">Add
+      		<button class="btn waves-effect waves-light green darken-3" type="submit">Add
             <i class="material-icons right">add</i>
           </button>
       	</div>
