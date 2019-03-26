@@ -95,9 +95,15 @@ class FarmController extends Controller
 						}
 					}
 
+					$months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+					// default filter is the current year
+					$current_year = $now->year;
+					$filter = $current_year;
+
 					// static::addFrequency();
 					
-					return view('pigs.dashboard', compact('user', 'farm', 'pigs', 'breeders', 'femalegrowers', 'malegrowers', 'femalebreeders', 'malebreeders', 'now', 'sows', 'gilts'));
+					return view('pigs.dashboard', compact('user', 'farm', 'pigs', 'breeders', 'femalegrowers', 'malegrowers', 'femalebreeders', 'malebreeders', 'now', 'sows', 'gilts', 'months', 'filter'));
 			}else{
 					return view('poultry.dashboard', compact('user', 'farm'));
 			}
@@ -1918,7 +1924,9 @@ class FarmController extends Controller
 			$notailtypes = (count($alive)-(count($curlytails)+count($straighttails)));
 			$nobacklines = (count($alive)-(count($swaybacks)+count($straightbacks)));
 
-			return view('pigs.grossmorphoreport', compact('pigs', 'filter', 'sows', 'boars', 'curlyhairs', 'straighthairs', 'shorthairs', 'longhairs', 'blackcoats', 'nonblackcoats', 'plains', 'socks', 'concaves', 'straightheads', 'smooths', 'wrinkleds', 'droopingears', 'semilops', 'erectears', 'curlytails', 'straighttails', 'swaybacks', 'straightbacks', 'nohairtypes', 'nohairlengths', 'nocoats', 'nopatterns', 'noheadshapes', 'noskintypes', 'noeartypes', 'notailtypes', 'nobacklines', 'years', 'alive', 'sold', 'dead', 'removed', 'sowsalive', 'soldsows', 'deadsows', 'removedsows', 'boarsalive', 'soldboars', 'deadboars', 'removedboars'));
+			$now = new Carbon();
+
+			return view('pigs.grossmorphoreport', compact('pigs', 'filter', 'sows', 'boars', 'curlyhairs', 'straighthairs', 'shorthairs', 'longhairs', 'blackcoats', 'nonblackcoats', 'plains', 'socks', 'concaves', 'straightheads', 'smooths', 'wrinkleds', 'droopingears', 'semilops', 'erectears', 'curlytails', 'straighttails', 'swaybacks', 'straightbacks', 'nohairtypes', 'nohairlengths', 'nocoats', 'nopatterns', 'noheadshapes', 'noskintypes', 'noeartypes', 'notailtypes', 'nobacklines', 'years', 'alive', 'sold', 'dead', 'removed', 'sowsalive', 'soldsows', 'deadsows', 'removedsows', 'boarsalive', 'soldboars', 'deadboars', 'removedboars', 'now'));
 		}
 
 		public function filterGrossMorphologyReport(Request $request){ // function to filter Gross Morphology Report onclick
@@ -2304,8 +2312,10 @@ class FarmController extends Controller
 				$nobacklines = (count($alive)-(count($swaybacks)+count($straightbacks)));
 			}
 
+			$now = new Carbon();
+
 			// return Redirect::back()->with('message','Operation Successful!');
-			return view('pigs.grossmorphoreport', compact('pigs', 'filter', 'sows', 'boars', 'curlyhairs', 'straighthairs', 'shorthairs', 'longhairs', 'blackcoats', 'nonblackcoats', 'plains', 'socks', 'concaves', 'straightheads', 'smooths', 'wrinkleds', 'droopingears', 'semilops', 'erectears', 'curlytails', 'straighttails', 'swaybacks', 'straightbacks', 'nohairtypes', 'nohairlengths', 'nocoats', 'nopatterns', 'noheadshapes', 'noskintypes', 'noeartypes', 'notailtypes', 'nobacklines', 'years', 'alive', 'sold', 'dead', 'removed', 'sowsalive', 'soldsows', 'deadsows', 'removedsows', 'boarsalive', 'soldboars', 'deadboars', 'removedboars'));
+			return view('pigs.grossmorphoreport', compact('pigs', 'filter', 'sows', 'boars', 'curlyhairs', 'straighthairs', 'shorthairs', 'longhairs', 'blackcoats', 'nonblackcoats', 'plains', 'socks', 'concaves', 'straightheads', 'smooths', 'wrinkleds', 'droopingears', 'semilops', 'erectears', 'curlytails', 'straighttails', 'swaybacks', 'straightbacks', 'nohairtypes', 'nohairlengths', 'nocoats', 'nopatterns', 'noheadshapes', 'noskintypes', 'noeartypes', 'notailtypes', 'nobacklines', 'years', 'alive', 'sold', 'dead', 'removed', 'sowsalive', 'soldsows', 'deadsows', 'removedsows', 'boarsalive', 'soldboars', 'deadboars', 'removedboars', 'now'));
 		}
 
 		static function standardDeviation($arr, $samp = false){ // function to compute standard deviation
@@ -2596,7 +2606,9 @@ class FarmController extends Controller
 				$normalteats_sd = static::standardDeviation($normalteats, false);
 			}
 
-			return view('pigs.morphocharsreport', compact('pigs', 'filter', 'sows', 'boars', 'earlengths', 'headlengths', 'snoutlengths', 'bodylengths', 'heartgirths', 'pelvicwidths', 'ponderalindices', 'taillengths', 'heightsatwithers', 'normalteats', 'earlengths_sd', 'headlengths_sd', 'snoutlengths_sd', 'bodylengths_sd', 'heartgirths_sd', 'pelvicwidths_sd', 'ponderalindices_sd', 'taillengths_sd', 'heightsatwithers_sd', 'normalteats_sd', 'years', 'ages_collected', 'ages_collected_all', 'alive', 'sold', 'dead', 'removed', 'sowsalive', 'soldsows', 'deadsows', 'removedsows', 'boarsalive', 'soldboars', 'deadboars', 'removedboars'));
+			$now = new Carbon();
+
+			return view('pigs.morphocharsreport', compact('pigs', 'filter', 'sows', 'boars', 'earlengths', 'headlengths', 'snoutlengths', 'bodylengths', 'heartgirths', 'pelvicwidths', 'ponderalindices', 'taillengths', 'heightsatwithers', 'normalteats', 'earlengths_sd', 'headlengths_sd', 'snoutlengths_sd', 'bodylengths_sd', 'heartgirths_sd', 'pelvicwidths_sd', 'ponderalindices_sd', 'taillengths_sd', 'heightsatwithers_sd', 'normalteats_sd', 'years', 'ages_collected', 'ages_collected_all', 'alive', 'sold', 'dead', 'removed', 'sowsalive', 'soldsows', 'deadsows', 'removedsows', 'boarsalive', 'soldboars', 'deadboars', 'removedboars', 'now'));
 		}
 
 		public function filterMorphometricCharacteristicsReport(Request $request){ // function to filter Morphometric Characteristics Report
@@ -3043,7 +3055,9 @@ class FarmController extends Controller
 				}
 			}
 
-			return view('pigs.morphocharsreport', compact('pigs', 'filter', 'sows', 'boars', 'earlengths', 'headlengths', 'snoutlengths', 'bodylengths', 'heartgirths', 'pelvicwidths', 'ponderalindices', 'taillengths', 'heightsatwithers', 'normalteats', 'earlengths_sd', 'headlengths_sd', 'snoutlengths_sd', 'bodylengths_sd', 'heartgirths_sd', 'pelvicwidths_sd', 'ponderalindices_sd', 'taillengths_sd', 'heightsatwithers_sd', 'normalteats_sd', 'years', 'ages_collected', 'ages_collected_all', 'alive', 'sold', 'dead', 'removed', 'sowsalive', 'soldsows', 'deadsows', 'removedsows', 'boarsalive', 'soldboars', 'deadboars', 'removedboars'));
+			$now = new Carbon();
+
+			return view('pigs.morphocharsreport', compact('pigs', 'filter', 'sows', 'boars', 'earlengths', 'headlengths', 'snoutlengths', 'bodylengths', 'heartgirths', 'pelvicwidths', 'ponderalindices', 'taillengths', 'heightsatwithers', 'normalteats', 'earlengths_sd', 'headlengths_sd', 'snoutlengths_sd', 'bodylengths_sd', 'heartgirths_sd', 'pelvicwidths_sd', 'ponderalindices_sd', 'taillengths_sd', 'heightsatwithers_sd', 'normalteats_sd', 'years', 'ages_collected', 'ages_collected_all', 'alive', 'sold', 'dead', 'removed', 'sowsalive', 'soldsows', 'deadsows', 'removedsows', 'boarsalive', 'soldboars', 'deadboars', 'removedboars', 'now'));
 		}
 
 		public static function getWeightsPerYearOfBirth($year, $property_id){ // function to get weights per year of birth
@@ -3943,7 +3957,7 @@ class FarmController extends Controller
 						$age = Carbon::parse($dateweanedprop->value)->diffInDays(Carbon::parse($bday));
 						array_push($ageweaned, $age);
 						$wwprop = $thisoffspring->getAnimalProperties()->where("property_id", 7)->first();
-						if(!is_null($wwprop) && $wwprp->value != ""){
+						if(!is_null($wwprop) && $wwprop->value != ""){
 							$adjww = ((float)$wwprop->value*45)/$age;
 							array_push($adjweaningweight, $adjww);
 						}
@@ -4056,7 +4070,7 @@ class FarmController extends Controller
 						$age = Carbon::parse($dateweanedprop->value)->diffInDays(Carbon::parse($bday));
 						array_push($ageweaned, $age);
 						$wwprop = $thisoffspring->getAnimalProperties()->where("property_id", 7)->first();
-						if(!is_null($wwprop) && $wwprp->value != ""){
+						if(!is_null($wwprop) && $wwprop->value != ""){
 							$adjww = ((float)$wwprop->value*45)/$age;
 							array_push($adjweaningweight, $adjww);
 						}
@@ -4241,7 +4255,7 @@ class FarmController extends Controller
 									$age = Carbon::parse($dateweanedprop->value)->diffInDays(Carbon::parse($bday));
 									array_push($ageweaned, $age);
 									$wwprop = $thisoffspring->getAnimalProperties()->where("property_id", 7)->first();
-									if(!is_null($wwprop) && $wwprp->value != ""){
+									if(!is_null($wwprop) && $wwprop->value != ""){
 										$adjww = ((float)$wwprop->value*45)/$age;
 										array_push($adjweaningweight, $adjww);
 									}
@@ -4442,7 +4456,7 @@ class FarmController extends Controller
 									$age = Carbon::parse($dateweanedprop->value)->diffInDays(Carbon::parse($bday));
 									array_push($ageweaned, $age);
 									$wwprop = $thisoffspring->getAnimalProperties()->where("property_id", 7)->first();
-									if(!is_null($wwprop) && $wwprp->value != ""){
+									if(!is_null($wwprop) && $wwprop->value != ""){
 										$adjww = ((float)$wwprop->value*45)/$age;
 										array_push($adjweaningweight, $adjww);
 									}
@@ -4569,6 +4583,11 @@ class FarmController extends Controller
 			$farm = $this->user->getFarm();
 			$breed = $farm->getBreed();
 			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "breeder")->get();
+			$archived_pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where(function ($query) {
+										$query->where("status", "dead breeder")
+													->orWhere("status", "sold breeder")
+													->orWhere("status", "removed breeder");
+													})->get();
 
 			// sorts pigs by sex
 			$sows = [];
@@ -4604,6 +4623,31 @@ class FarmController extends Controller
 							array_push($boarbreeders, $boar);
 						}
 					}
+				}
+			}
+
+			$archived_sows = [];
+			$archived_boars = [];
+			$temp_archived_sows = [];
+			$temp_archived_boars = [];
+			foreach ($archived_pigs as $archived_pig) {
+				if(substr($archived_pig->registryid, -7, 1) == 'F'){
+					array_push($temp_archived_sows, $archived_pig);
+				}
+				if(substr($archived_pig->registryid, -7, 1) == 'M'){
+					array_push($temp_archived_boars, $archived_pig);
+				}
+			}
+
+			foreach ($temp_archived_sows as $temp_archived_sow) {
+				if($temp_archived_sow->getAnimalProperties()->where("property_id", 61)->first()->value > 0){
+					array_push($archived_sows, $temp_archived_sow);
+				}
+			}
+
+			foreach ($temp_archived_boars as $temp_archived_boar) {
+				if($temp_archived_boar->getAnimalProperties()->where("property_id", 61)->first()->value > 0){
+					array_push($archived_boars, $temp_archived_boar);
 				}
 			}
 
@@ -4720,7 +4764,7 @@ class FarmController extends Controller
 						$age = Carbon::parse($dateweanedprop->value)->diffInDays(Carbon::parse($bday));
 						array_push($ageweaned, $age);
 						$wwprop = $thisoffspring->getAnimalProperties()->where("property_id", 7)->first();
-						if(!is_null($wwprop) && $wwprp->value != ""){
+						if(!is_null($wwprop) && $wwprop->value != ""){
 							$adjww = ((float)$wwprop->value*45)/$age;
 							array_push($adjweaningweight, $adjww);
 						}
@@ -4735,7 +4779,7 @@ class FarmController extends Controller
 			}
 
 
-			return view('pigs.productionperformance', compact('sowbreeders', 'boarbreeders', 'parity', 'groupswiththisparity', 'filter', 'lsba', 'numbermales', 'numberfemales', 'stillborn', 'mummified', 'litterbirthweights', 'avebirthweights', 'litterweaningweights', 'aveweaningweights', 'adjweaningweights', 'numberweaned', 'agesweaned', 'preweaningmortality'));
+			return view('pigs.productionperformance', compact('sowbreeders', 'boarbreeders', 'parity', 'groupswiththisparity', 'filter', 'lsba', 'numbermales', 'numberfemales', 'stillborn', 'mummified', 'litterbirthweights', 'avebirthweights', 'litterweaningweights', 'aveweaningweights', 'adjweaningweights', 'numberweaned', 'agesweaned', 'preweaningmortality', 'archived_sows', 'archived_boars'));
 		}
 
 		public function getSowProductionPerformancePage($id){ // function to display Sow Production Performance page
@@ -4881,7 +4925,7 @@ class FarmController extends Controller
 						$age = Carbon::parse($dateweanedprop->value)->diffInDays(Carbon::parse($bday));
 						array_push($ageweaned, $age);
 						$wwprop = $thisoffspring->getAnimalProperties()->where("property_id", 7)->first();
-						if(!is_null($wwprop) && $wwprp->value != ""){
+						if(!is_null($wwprop) && $wwprop->value != ""){
 							$adjww = ((float)$wwprop->value*45)/$age;
 							array_push($adjweaningweight, $adjww);
 						}
@@ -5243,7 +5287,7 @@ class FarmController extends Controller
 						$age = Carbon::parse($dateweanedprop->value)->diffInDays(Carbon::parse($bday));
 						array_push($ageweaned, $age);
 						$wwprop = $thisoffspring->getAnimalProperties()->where("property_id", 7)->first();
-						if(!is_null($wwprop) && $wwprp->value != ""){
+						if(!is_null($wwprop) && $wwprop->value != ""){
 							$adjww = ((float)$wwprop->value*45)/$age;
 							array_push($adjweaningweight, $adjww);
 						}
@@ -5393,7 +5437,7 @@ class FarmController extends Controller
 									$age = Carbon::parse($dateweanedprop->value)->diffInDays(Carbon::parse($bday));
 									array_push($ageweaned, $age);
 									$wwprop = $thisoffspring->getAnimalProperties()->where("property_id", 7)->first();
-									if(!is_null($wwprop) && $wwprp->value != ""){
+									if(!is_null($wwprop) && $wwprop->value != ""){
 										$adjww = ((float)$wwprop->value*45)/$age;
 										array_push($adjweaningweight, $adjww);
 									}
@@ -5620,7 +5664,7 @@ class FarmController extends Controller
 									$age = Carbon::parse($dateweanedprop->value)->diffInDays(Carbon::parse($bday));
 									array_push($ageweaned, $age);
 									$wwprop = $thisoffspring->getAnimalProperties()->where("property_id", 7)->first();
-									if(!is_null($wwprop) && $wwprp->value != ""){
+									if(!is_null($wwprop) && $wwprop->value != ""){
 										$adjww = ((float)$wwprop->value*45)/$age;
 										array_push($adjweaningweight, $adjww);
 									}
