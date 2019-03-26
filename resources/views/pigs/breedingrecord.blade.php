@@ -37,8 +37,8 @@
 										</select>
 									</td> --}}
 									<td> 
-										<select name="sow_id" class="browser-default">
-											<option disabled selected>Choose sow</option>
+										<select name="sow_id" class="browser-default" required>
+											<option value=""></option>
 												@foreach($sows as $sow)	
 													<option value="{{ $sow->registryid }}">{{ $sow->registryid }}</option>
 												@endforeach
@@ -46,8 +46,8 @@
 									</td>
 									{{-- boar used --}}
 									<td>
-										<select id="boar_id" name="boar_id" class="browser-default">
-											<option disabled selected>Choose boar</option>
+										<select id="boar_id" name="boar_id" class="browser-default" required>
+											<option value=""></option>
 												@foreach($boars as $boar)
 													<option value="{{ $boar->registryid }}">{{ $boar->registryid }}</option>
 												@endforeach
