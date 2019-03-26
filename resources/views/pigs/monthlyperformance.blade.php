@@ -176,7 +176,7 @@
 	    options: chartOptions2
 		});
 		var monthlynumberweaned = {
-      label: 'Number Weaned',
+      label: 'Total Littersize Weaned',
       data: [
       	@foreach($months as $month) {{ App\Http\Controllers\FarmController::getMonthlyNumberWeaned($filter, $month) }}, @endforeach, 
       ],
