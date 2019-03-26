@@ -11,6 +11,9 @@
 		<div class="row center" style="padding-top: 10px;">
 			{!! Form::open(['route' => 'farm.pig.filter_gross_morphology_report', 'method' => 'post', 'id' => 'report_filter']) !!}
 	  	<div class="row">
+	  		<div class="col s12">
+	  			<h5 class="center">Data as of <strong>{{ Carbon\Carbon::parse($now)->format('F j, Y') }}</strong></h5>
+	  		</div>
 	  		<div class="col s4 offset-s1">
 	  			<p>Generate Reports by:</p>
 	  		</div>
