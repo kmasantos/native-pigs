@@ -176,7 +176,34 @@
 	    				</li>
 	    			</ul>
 	    		</div>
-	    	</div>
+	    		@if($archived_sows != [])
+		    		<div class="col s12">
+		    			<ul class="collapsible popout">
+		    				<li>
+		    					<div class="collapsible-header grey lighten-2">Archive</div>
+		              <div class="collapsible-body">
+		              	<table>
+							    		<thead>
+							    			<tr>
+							    				<th>Registration ID</th>
+							    				<th class="center">View Production Performance</th>
+							    			</tr>
+							    		</thead>
+							    		<tbody>
+							    			@foreach($archived_sows as $archived_sow)
+								    			<tr>
+								    				<td>{{ $archived_sow->registryid }}</td>
+								    				<td class="center"><a href="{{ URL::route('farm.pig.sow_production_performance', [$archived_sow->id]) }}"><i class="material-icons">visibility</i></a></td>
+								    			</tr>
+								    		@endforeach
+							    		</tbody>
+							    	</table>
+		              </div>
+		            </li>
+		          </ul>
+		        </div>
+		      @endif
+	      </div>
 	    </div>
 	    <!-- PER BOAR -->
 	    <div id="perboarview" class="col s12">
@@ -338,6 +365,33 @@
 	    				</li>
 	    			</ul>
 	    		</div>
+	    		@if($archived_boars != [])
+		    		<div class="col s12">
+		    			<ul class="collapsible popout">
+		    				<li>
+		    					<div class="collapsible-header grey lighten-2">Archive</div>
+		              <div class="collapsible-body">
+		              	<table>
+							    		<thead>
+							    			<tr>
+							    				<th>Registration ID</th>
+							    				<th class="center">View Production Performance</th>
+							    			</tr>
+							    		</thead>
+							    		<tbody>
+							    			@foreach($archived_boars as $archived_boar)
+								    			<tr>
+								    				<td>{{ $archived_boar->registryid }}</td>
+								    				<td class="center"><a href="{{ URL::route('farm.pig.boar_production_performance', [$archived_boar->id]) }}"><i class="material-icons">visibility</i></a></td>
+								    			</tr>
+								    		@endforeach
+							    		</tbody>
+							    	</table>
+		              </div>
+		            </li>
+		          </ul>
+		        </div>
+		      @endif
 	    	</div>
 	    </div>
 	    <!-- PER PARITY -->
