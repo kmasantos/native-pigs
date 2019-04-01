@@ -51,6 +51,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('make_candidate_breeder/{id}/{status}', ['as' => 'farm.pig.make_candidate_breeder', 'uses' => 'FarmController@makeCandidateBreederAjax']);
     Route::get('view_adg/{id}', ['as' => 'farm.pig.view_adg', 'uses' => 'FarmController@getViewADGPage']);
     Route::get('breeder_records', ['as' => 'farm.pig.breeder_records', 'uses' => 'FarmController@getBreederRecordsPage']);
+    Route::post('search_breeders', ['as' => 'farm.pig.search_breeders', 'uses' => 'FarmController@searchBreeders']);
     Route::get('add_pig', ['as' => 'farm.pig.add_pig', 'uses' => 'FarmController@getAddPigPage']);
     Route::post('fetch_new_pig', ['as' => 'farm.pig.fetch_new_pig', 'uses' => 'FarmController@fetchNewPigRecord']);
     Route::get('view_sow/{id}', ['as' => 'farm.pig.view_sow', 'uses' => 'FarmController@getViewSowPage']);
