@@ -1531,7 +1531,7 @@
 		});
 		$("#date_weaned").pickadate({
 			format: 'yyyy-mm-dd',
-			min: new Date(<?php echo Carbon\Carbon::parse($family->getGroupingProperties()->where("property_id", 42)->first()->value)->addDays(144)->format('Y') ?>, <?php echo Carbon\Carbon::parse($family->getGroupingProperties()->where("property_id", 42)->first()->value)->addDays(144)->format('m')-1 ?>, <?php echo Carbon\Carbon::parse($family->getGroupingProperties()->where("property_id", 42)->first()->value)->addDays(144)->format('d') ?>),
+			min: new Date(<?php echo Carbon\Carbon::parse($family->getGroupingProperties()->where("property_id", 42)->first()->value)->addDays(130)->format('Y') ?>, <?php echo Carbon\Carbon::parse($family->getGroupingProperties()->where("property_id", 42)->first()->value)->addDays(130)->format('m')-1 ?>, <?php echo Carbon\Carbon::parse($family->getGroupingProperties()->where("property_id", 42)->first()->value)->addDays(130)->format('d') ?>),
 			max: new Date()
 		});
 		$('.datepicker').pickadate({
