@@ -7012,6 +7012,50 @@ class FarmController extends Controller
 			}
 		}
 
+		public function searchBreeders(Request $request){
+			$farm = $this->user->getFarm();
+			$breed = $farm->getBreed();
+			$q = $request->q;
+			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "breeder")->get();
+			$archived_pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where(function ($query) {
+										$query->where("status", "dead breeder")
+													->orWhere("status", "sold breeder")
+													->orWhere("status", "removed breeder");
+													})->get();
+
+			// sorts pigs by sex
+			$sows = [];
+			$boars = [];
+			foreach($pigs as $pig){
+				if(substr($pig->registryid, -7, 1) == 'F'){
+					array_push($sows, $pig);
+				}
+				if(substr($pig->registryid, -7, 1) == 'M'){
+					array_push($boars, $pig);
+				}
+			}
+
+			$archived_sows = [];
+			$archived_boars = [];
+			foreach ($archived_pigs as $archived_pig) {
+				if(substr($archived_pig->registryid, -7, 1) == 'F'){
+					array_push($archived_sows, $archived_pig);
+				}
+				if(substr($archived_pig->registryid, -7, 1) == 'M'){
+					array_push($archived_boars, $archived_pig);
+				}
+			}
+
+			if($q != ' '){
+				$breeders = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "breeder")->where('registryid', 'LIKE', '%'.$q.'%')->get();
+				// dd($breeders);
+				if(count($breeders) > 0){
+					return view('pigs.breederrecords', compact('pigs', 'sows', 'boars', 'archived_sows', 'archived_boars'))->withDetails($breeders)->withQuery($q);
+				}
+			}
+			return view('pigs.breederrecords', compact('pigs', 'sows', 'boars', 'archived_sows', 'archived_boars'))->withMessage("No breeders found!");
+		}
+
 		public function getBreederRecordsPage(){ // function to display Breeder Records page
 			$farm = $this->user->getFarm();
 			$breed = $farm->getBreed();
@@ -7165,23 +7209,23 @@ class FarmController extends Controller
 			$bday = $properties->where("property_id", 3)->first();
 			if(!is_null($bday) && $bday->value != "Not specified"){
 				$bdayValue = Carbon::parse($bday->value);
+				if(!is_null($grossmorphotakenprop)){
+					$grossmorphotaken = Carbon::parse($grossmorphotakenprop->value);
+					$age_grossmorpho = $grossmorphotaken->diffInDays($bdayValue);
+				}
+				else{
+					$age_grossmorpho = "";
+				}
+				if(!is_null($morphocharstakenprop)){
+					$morphocharstaken = Carbon::parse($morphocharstakenprop->value);
+					$age_morphochars = $morphocharstaken->diffInDays($bdayValue);
+				}
+				else{
+					$age_morphochars = "";
+				}
 			}
 			else{
-				$age_morphochars = "";
 				$age_grossmorpho = "";
-			}
-			if(!is_null($grossmorphotakenprop)){
-				$grossmorphotaken = Carbon::parse($grossmorphotakenprop->value);
-				$age_grossmorpho = $grossmorphotaken->diffInDays($bdayValue);
-			}
-			else{
-				$age_grossmorpho = "";
-			}
-			if(!is_null($morphocharstakenprop)){
-				$morphocharstaken = Carbon::parse($morphocharstakenprop->value);
-				$age_morphochars = $morphocharstaken->diffInDays($bdayValue);
-			}
-			else{
 				$age_morphochars = "";
 			}
 
@@ -7299,23 +7343,23 @@ class FarmController extends Controller
 			$bday = $properties->where("property_id", 3)->first();
 			if(!is_null($bday) && $bday->value != "Not specified"){
 				$bdayValue = Carbon::parse($bday->value);
+				if(!is_null($grossmorphotakenprop)){
+					$grossmorphotaken = Carbon::parse($grossmorphotakenprop->value);
+					$age_grossmorpho = $grossmorphotaken->diffInDays($bdayValue);
+				}
+				else{
+					$age_grossmorpho = "";
+				}
+				if(!is_null($morphocharstakenprop)){
+					$morphocharstaken = Carbon::parse($morphocharstakenprop->value);
+					$age_morphochars = $morphocharstaken->diffInDays($bdayValue);
+				}
+				else{
+					$age_morphochars = "";
+				}
 			}
 			else{
-				$age_morphochars = "";
 				$age_grossmorpho = "";
-			}
-			if(!is_null($grossmorphotakenprop)){
-				$grossmorphotaken = Carbon::parse($grossmorphotakenprop->value);
-				$age_grossmorpho = $grossmorphotaken->diffInDays($bdayValue);
-			}
-			else{
-				$age_grossmorpho = "";
-			}
-			if(!is_null($morphocharstakenprop)){
-				$morphocharstaken = Carbon::parse($morphocharstakenprop->value);
-				$age_morphochars = $morphocharstaken->diffInDays($bdayValue);
-			}
-			else{
 				$age_morphochars = "";
 			}
 
@@ -8731,9 +8775,8 @@ class FarmController extends Controller
 			$temp_earnotch = $request->earnotch;
 			$registrationid = "";
 			if(strlen($temp_earnotch) > 6){
-				$message = "Earnotch is up to 6 characters only";
-				echo "<script type='text/javascript'>alert('$message');</script>";
-				return view('pigs.addpig');
+				$message = "Earnotch is up to 6 characters only!";
+				return view('pigs.addpig')->withError($message);
 			}
 			else{
 				if(strlen($temp_earnotch) == 6){
@@ -8949,13 +8992,11 @@ class FarmController extends Controller
 					}
 				}
 				$message = "Successfully added new pig!";
-				echo "<script type='text/javascript'>alert('$message');</script>";
-				return view('pigs.addpig');
+				return view('pigs.addpig')->withMessage($message);
 			}
 			else{
 				$message = "Registration ID already exists!";
-				echo "<script type='text/javascript'>alert('$message');</script>";
-				return view('pigs.addpig');
+				return view('pigs.addpig')->withError($message);
 			}
 
 
