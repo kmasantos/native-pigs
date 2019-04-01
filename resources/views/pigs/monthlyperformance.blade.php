@@ -35,6 +35,15 @@
 				<canvas id="monthlyaverageweightscanvas"></canvas>
 			</div>
     </div>
+    <div class="fixed-action-btn">
+		  <a class="btn-floating btn-large green darken-4">
+		    <i class="large material-icons">cloud_download</i>
+		  </a>
+		  <ul>
+		    <li><a class="btn-floating green lighten-1 tooltipped" data-position="left" data-tooltip="Download as Excel File"><i class="material-icons">table_chart</i></a></li>
+		    <li><a class="btn-floating green darken-1 tooltipped" data-position="left" data-tooltip="Download as PDF"><i class="material-icons">file_copy</i></a></li>
+		  </ul>
+		</div>
   </div>
 @endsection
 
@@ -50,6 +59,9 @@
 		  format: 'yyyy-mm-dd', 
 		  max: new Date()
 		});
+		$(document).ready(function(){
+	    $('.fixed-action-btn').floatingActionButton();
+	  });
 		var monthlybred = {
       label: 'Monthly Bred',
       data: [

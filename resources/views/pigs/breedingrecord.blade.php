@@ -198,6 +198,38 @@
 				</div>
 			</div>
 		</div>
+		{{-- @if($archived_records == [])
+    @else --}}
+      <div class="row">
+        <div class="col s12">
+          <ul class="collapsible popout">
+            <li>
+              <div class="collapsible-header grey lighten-2">Archive</div>
+              <div class="collapsible-body">
+                <table class="fixed-width">
+                  <thead>
+                    <tr>
+                      <th>Sow Used</th>
+                      <th>Boar Used</th>
+                      <th>Date Bred</th>
+                      <th>View</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                    	<td></td>
+                    	<td></td>
+                    	<td></td>
+                    	<td><a href="#!"><i class="material-icons">visibility_on</i></a></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    {{-- @endif --}}
   </div>
 @endsection
 
