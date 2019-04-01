@@ -1,15 +1,28 @@
 @extends('layouts.swinedefault')
 
 @section('title')
-  Add Pig
+  Add New Pig
 @endsection
 
 
 @section('content')
   <div class="container">
-    <h4>Add Pig</h4>
+    <h4>Add New Pig</h4>
     <div class="divider"></div>
     <div class="row" style="padding-top: 10px;">
+      @if(isset($error))
+        <div class="row red lighten-3">
+          <div class="col s12">
+            <h5 class="center">{{ $error }}</h5>
+          </div>
+        </div>
+      @elseif(isset($message))
+        <div class="row light-green lighten-3">
+          <div class="col s12">
+            <h5 class="center">{{ $message }}</h5> 
+          </div>
+        </div>
+      @endif
     	{!! Form::open(['route' => 'farm.pig.fetch_new_pig', 'method' => 'post']) !!}
       <div class="col s12">
         <div class="row">
