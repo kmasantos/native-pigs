@@ -9,6 +9,97 @@
 		<h4>Grower Records <a class="tooltipped" data-position="right" data-tooltip="All pigs except breeders"><i class="material-icons">info_outline</i></a></h4>
 		<div class="divider"></div>
 		<div class="row" style="padding-top: 10px;">
+			{!! Form::open(['route' => 'farm.pig.search_growers', 'method' => 'post', 'role' => 'search']) !!}
+      {{ csrf_field() }}
+      <div class="input-field col s12">
+        <input type="text" name="q" placeholder="Search grower" class="col s9">
+        <button type="submit" class="btn green darken-4">Search <i class="material-icons right">search</i></button>
+      </div>
+      {!! Form::close() !!}
+      @if(isset($details))
+        <div class="row">
+          <div class="col s12">
+            <h5 class="center">Search results for <strong>{{ $query }}</strong>:</h5>
+            <table class="centered">
+							<thead class="green lighten-1">
+								<tr>
+									<th>Registration ID</th>
+									<th>Weight Record</th>
+									<th>Average Daily Gain</th>
+									<th>Add as Candidate Breeder</th>
+									<th>Add as Breeder</th>
+								</tr>
+							</thead>
+							<tbody>
+								@foreach($details as $grower)
+									<tr id="{{ $grower->registryid }}">
+										<td>{{ $grower->registryid }}</td>
+										@if($grower->weightrecord == 0)
+		                  <td>
+		                    <a href="{{ URL::route('farm.pig.weight_records_page', [$grower->id]) }}" class="tooltipped" data-position="top" data-tooltip="Add"><i class="material-icons">add_circle_outline</i></a>
+		                  </td>
+		                @elseif($grower->weightrecord == 1)
+		                  <td>
+		                    <a href="{{ URL::route('farm.pig.edit_weight_records_page', [$grower->id]) }}" class="tooltipped" data-position="top" data-tooltip="Edit"><i class="material-icons">edit</i></a>
+		                  </td>
+		                @endif
+		                <td><a href="{{ URL::route('farm.pig.view_adg', [$grower->id]) }}" class="tooltipped" data-position="top" data-tooltip="View ADG"><i class="material-icons">insert_chart_outlined</i></a></td>
+		                @if(is_null($grower->getAnimalProperties()->where("property_id", 60)->first()))
+			                <td>
+			                	<div class="switch">
+			                		<label>
+			                			<input type="checkbox" class="sow_make_candidate_breeder" value="{{ $grower->registryid }}" />
+			                			<span class="lever"></span>
+			                		</label>
+			                	</div>
+			                </td>
+			              @else
+			              	@if($grower->getAnimalProperties()->where("property_id", 60)->first()->value == 1)
+			              		<td>
+				                	<div class="switch">
+				                		<label>
+				                			<input checked type="checkbox" class="sow_make_candidate_breeder" value="{{ $grower->registryid }}" />
+				                			<span class="lever"></span>
+				                		</label>
+				                	</div>
+				                </td>
+			              	@elseif($grower->getAnimalProperties()->where("property_id", 60)->first()->value == 0)
+			              		<td>
+				                	<div class="switch">
+				                		<label>
+				                			<input type="checkbox" class="sow_make_candidate_breeder" value="{{ $grower->registryid }}" />
+				                			<span class="lever"></span>
+				                		</label>
+				                	</div>
+				                </td>
+			              	@endif
+			              @endif
+										<td>
+											@if((!is_null($grower->getAnimalProperties()->where("property_id", 35)->first()) && $grower->getAnimalProperties()->where("property_id", 35)->first()->value != "") || (!is_null($grower->getAnimalProperties()->where("property_id", 36)->first()) && $grower->getAnimalProperties()->where("property_id", 36)->first()->value != ""))
+												<p>
+										      <label>
+										        <input type="checkbox" class="filled-in add_sow_breeder" value="{{ $grower->registryid }}" />
+										        <span></span>
+										      </label>
+										    </p>
+										  @else
+										  	<p>
+										      <label>
+										        <input disabled type="checkbox" class="filled-in add_sow_breeder" value="{{ $grower->registryid }}" />
+										        <span></span>
+										      </label>
+										    </p>
+										  @endif
+										</td>
+									</tr>
+								@endforeach
+							</tbody>
+						</table>
+          </div>
+        </div>
+      @elseif(isset($message))
+        <h5 class="center">{{ $message }}</h5>
+      @endif
 			<div class="col s12">
         <ul class="tabs tabs-fixed-width green lighten-1">
           <li class="tab"><a href="#femalegrowersview">Female Growers</a></li>
