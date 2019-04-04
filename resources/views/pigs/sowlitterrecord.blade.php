@@ -379,7 +379,7 @@
 						</select>
 					</div>
 					<div class="col s4">
-						<input id="birth_weight" type="text" name="birth_weight">
+						<input id="birth_weight" type="number" name="birth_weight" min="0.000" max="1.599" step="0.001">
 						<label for="birth_weight">Birth Weight, kg</label>
 					</div>
 				</div>
@@ -450,8 +450,27 @@
 												</div>
 											</div>
 										{!! Form::close() !!}
+										{!! Form::open(['route' => 'farm.pig.edit_birth_weight', 'method' => 'post']) !!}
 										{{-- BIRTH WEIGHT --}}
-										<td>{{ $offspring->getAnimalProperties()->where("property_id", 5)->first()->value }}</td>
+										<td>{{ $offspring->getAnimalProperties()->where("property_id", 5)->first()->value }} <a href="#edit_birth_weight{{$offspring->getChild()->id}}" class="modal-trigger"><i class="material-icons right">edit</i></td>
+											{{-- MODAL STRUCTURE --}}
+											<div id="edit_birth_weight{{$offspring->getChild()->id}}" class="modal">
+												<div class="modal-content">
+													<h5 class="center">Edit Birth Weight of <br><strong>{{ $offspring->getChild()->registryid }}</strong></h5>
+													<input type="hidden" name="animalid" value="{{ $offspring->getChild()->id }}">
+													<div class="row center">
+														<div class="col s8 offset-s2">
+															<input id="new_birth_weight" type="number" name="new_birth_weight" min="0.000" max="1.599" step="0.001">
+														</div>
+													</div>
+												</div>
+												<div class="row center">
+													<button class="btn waves-effect waves-light green darken-3" type="submit">
+								            Submit <i class="material-icons right">send</i>
+								          </button>
+												</div>
+											</div>
+										{!! Form::close() !!}
 										{!! Form::open(['route' => 'farm.pig.get_weaning_weights', 'method' => 'post']) !!}
 										{{-- WEANING WEIGHT --}}
 										@if(is_null($family->getGroupingProperties()->where("property_id", 6)->first()))
@@ -505,7 +524,7 @@
 													<div class="col s8 offset-s2 center">
 														Weaning Weight, kg:
 														<div class="input-field inline">
-															<input id="weaning_weight" type="text" name="weaning_weight">
+															<input id="weaning_weight" type="number" name="weaning_weight" min="0" max="15.99" step="0.01">
 														</div>
 													</div>
 												</div>
@@ -552,11 +571,11 @@
 							Litter Birth Weight, kg
 							@if(!is_null($family->getGroupingProperties()->where("property_id", 55)->first()))
 								<div class="input-field inline">
-									<input id="litter_birth_weight" type="text" name="litter_birth_weight" value="{{ $family->getGroupingProperties()->where("property_id", 55)->first()->value }}">
+									<input id="litter_birth_weight" type="number" name="litter_birth_weight" value="{{ $family->getGroupingProperties()->where("property_id", 55)->first()->value }}" min="0.000" step="0.001">
 								</div>
 							@else
 								<div class="input-field inline">
-									<input id="litter_birth_weight" type="text" name="litter_birth_weight">
+									<input id="litter_birth_weight" type="number" name="litter_birth_weight" min="0.000" step="0.001">
 								</div>
 							@endif
 						</div>
@@ -714,7 +733,7 @@
 														<div class="col s8 offset-s2 center">
 															Weaning Weight, kg:
 															<div class="input-field inline">
-																<input id="weaning_weight" type="text" name="weaning_weight">
+																<input id="weaning_weight" type="number" name="weaning_weight" min="0" max="15.99" step="0.01">
 															</div>
 														</div>
 													</div>
@@ -773,7 +792,7 @@
 							</select>
 						</div>
 						<div class="col s4">
-							<input id="birth_weight" type="text" name="birth_weight">
+							<input id="birth_weight" type="number" name="birth_weight" min="0.000" max="1.599" step="0.001">
 							<label for="birth_weight">Birth Weight, kg</label>
 						</div>
 					</div>
@@ -842,7 +861,27 @@
 													</div>
 												</div>
 											{!! Form::close() !!}
-											<td>{{ $offspring->getAnimalProperties()->where("property_id", 5)->first()->value }}</td>
+											{!! Form::open(['route' => 'farm.pig.edit_birth_weight', 'method' => 'post']) !!}
+											{{-- BIRTH WEIGHT --}}
+											<td>{{ $offspring->getAnimalProperties()->where("property_id", 5)->first()->value }} <a href="#edit_birth_weight{{$offspring->getChild()->id}}" class="modal-trigger"><i class="material-icons right">edit</i></td>
+												{{-- MODAL STRUCTURE --}}
+												<div id="edit_birth_weight{{$offspring->getChild()->id}}" class="modal">
+													<div class="modal-content">
+														<h5 class="center">Edit Birth Weight of <br><strong>{{ $offspring->getChild()->registryid }}</strong></h5>
+														<input type="hidden" name="animalid" value="{{ $offspring->getChild()->id }}">
+														<div class="row center">
+															<div class="col s8 offset-s2">
+																<input id="new_birth_weight" type="number" name="new_birth_weight" min="0.000" max="1.599" step="0.001">
+															</div>
+														</div>
+													</div>
+													<div class="row center">
+														<button class="btn waves-effect waves-light green darken-3" type="submit">
+									            Submit <i class="material-icons right">send</i>
+									          </button>
+													</div>
+												</div>
+											{!! Form::close() !!}
 											{!! Form::open(['route' => 'farm.pig.get_weaning_weights', 'method' => 'post']) !!}
 											@if(is_null($family->getGroupingProperties()->where("property_id", 6)->first()))
 												@if(is_null($offspring->getAnimalProperties()->where("property_id", 7)->first()))
@@ -895,7 +934,7 @@
 														<div class="col s8 offset-s2 center">
 															Weaning Weight, kg:
 															<div class="input-field inline">
-																<input id="weaning_weight" type="text" name="weaning_weight">
+																<input id="weaning_weight" type="number" name="weaning_weight" min="0" max="15.99" step="0.01">
 															</div>
 														</div>
 													</div>
@@ -942,11 +981,11 @@
 								Litter Birth Weight, kg
 								@if(!is_null($family->getGroupingProperties()->where("property_id", 55)->first()))
 									<div class="input-field inline">
-										<input id="litter_birth_weight" type="text" name="litter_birth_weight" value="{{ $family->getGroupingProperties()->where("property_id", 55)->first()->value }}">
+										<input id="litter_birth_weight" type="number" name="litter_birth_weight" value="{{ $family->getGroupingProperties()->where("property_id", 55)->first()->value }}" min="0.000" step="0.001">
 									</div>
 								@else
 									<div class="input-field inline">
-										<input id="litter_birth_weight" type="text" name="litter_birth_weight">
+										<input id="litter_birth_weight" type="number" name="litter_birth_weight" min="0.000" step="0.001">
 									</div>
 								@endif
 							</div>
@@ -1104,7 +1143,7 @@
 															<div class="col s8 offset-s2 center">
 																Weaning Weight, kg:
 																<div class="input-field inline">
-																	<input id="weaning_weight" type="text" name="weaning_weight">
+																	<input id="weaning_weight" type="number" name="weaning_weight" min="0" max="15.99" step="0.01">
 																</div>
 															</div>
 														</div>
@@ -1162,7 +1201,7 @@
 							</select>
 						</div>
 						<div class="col s4">
-							<input id="birth_weight" type="text" name="birth_weight">
+							<input id="birth_weight" type="number" name="birth_weight" min="0.000" max="1.599" step="0.001">
 							<label for="birth_weight">Birth Weight, kg</label>
 						</div>
 					</div>
@@ -1284,7 +1323,7 @@
 														<div class="col s8 offset-s2 center">
 															Weaning Weight, kg:
 															<div class="input-field inline">
-																<input id="weaning_weight" type="text" name="weaning_weight">
+																<input id="weaning_weight" type="number" name="weaning_weight" min="0" max="15.99" step="0.01">
 															</div>
 														</div>
 													</div>
@@ -1331,11 +1370,11 @@
 								Litter Birth Weight, kg
 								@if(!is_null($family->getGroupingProperties()->where("property_id", 55)->first()))
 									<div class="input-field inline">
-										<input id="litter_birth_weight" type="text" name="litter_birth_weight" value="{{ $family->getGroupingProperties()->where("property_id", 55)->first()->value }}">
+										<input id="litter_birth_weight" type="number" name="litter_birth_weight" value="{{ $family->getGroupingProperties()->where("property_id", 55)->first()->value }}" min="0.000" step="0.001">
 									</div>
 								@else
 									<div class="input-field inline">
-										<input id="litter_birth_weight" type="text" name="litter_birth_weight">
+										<input id="litter_birth_weight" type="number" name="litter_birth_weight" min="0.000" step="0.001">
 									</div>
 								@endif
 							</div>
@@ -1493,7 +1532,7 @@
 															<div class="col s8 offset-s2 center">
 																Weaning Weight, kg:
 																<div class="input-field inline">
-																	<input id="weaning_weight" type="text" name="weaning_weight">
+																	<input id="weaning_weight" type="number" name="weaning_weight" min="0" max="15.99" step="0.01">
 																</div>
 															</div>
 														</div>

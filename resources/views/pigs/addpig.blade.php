@@ -54,7 +54,7 @@
       	</div>
       	<div class="row">
       		<div class="col s4">
-      			<input id="birth_weight" type="text" name="birth_weight" class="validate">
+      			<input id="birth_weight" type="number" name="birth_weight" class="validate" min="0.000" max="1.599" step="0.001">
       			<label for="birth_weight">Birth weight, kg</label>
       		</div>
     			<div class="col s4">
@@ -62,7 +62,7 @@
       			<label for="date_weaned">Date Weaned</label>
     			</div>
   				<div class="col s4">
-  					<input id="weaning_weight" type="text" name="weaning_weight" class="validate">
+  					<input id="weaning_weight" type="number" name="weaning_weight" class="validate" min="0" max="15.99" step="0.01">
       			<label for="weaning_weight">Weaning weight, kg</label>
   				</div>
       	</div>

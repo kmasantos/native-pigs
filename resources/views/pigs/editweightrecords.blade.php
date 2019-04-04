@@ -14,6 +14,25 @@
         <div class="row card-panel">
           <div class="row">
             <div class="col s4">
+              Body Weight at Birth
+            </div>
+            <div class="col s4">
+              @if(!is_null($properties->where("property_id", 5)->first()))
+                <input id="birth_weight" type="number" placeholder="Weight" name="birth_weight" value="{{ $properties->where("property_id", 5)->first()->value }}" class="validate" min="0" max="1.599" step="0.001">
+              @else
+                <input id="birth_weight" type="number" placeholder="Weight" name="birth_weight" class="validate" min="0" max="1.599" step="0.001">
+              @endif
+            </div>
+            <div class="col s4">
+              @if(!is_null($properties->where("property_id", 3)->first()))
+                <input disabled id="date_farrowed" type="text" placeholder="Date Collected" name="date_farrowed" value="{{ $properties->where("property_id", 3)->first()->value }}" class="datepicker">
+              @else
+                <input disabled id="date_farrowed" type="text" placeholder="Date Collected" name="date_farrowed" class="datepicker">
+              @endif
+            </div>
+          </div>
+          <div class="row">
+            <div class="col s4">
               @if($age_weaned != "")
                 Body Weight at Weaning <i class="material-icons tooltipped" data-position="top" data-tooltip="Age weaned: {{ $age_weaned }} days" style="vertical-align: middle;">info_outline</i>
               @else
@@ -22,9 +41,9 @@
             </div>
             <div class="col s4">
               @if(!is_null($properties->where("property_id", 7)->first()))
-                <input id="weaning_weight" type="text" placeholder="Weight" name="weaning_weight" value="{{ $properties->where("property_id", 7)->first()->value }}" class="validate">
+                <input id="weaning_weight" type="number" placeholder="Weight" name="weaning_weight" value="{{ $properties->where("property_id", 7)->first()->value }}" class="validate" min="0" max="15.99" step="0.01">
               @else
-                <input id="weaning_weight" type="text" placeholder="Weight" name="weaning_weight" class="validate">
+                <input id="weaning_weight" type="text" placeholder="Weight" name="weaning_weight" class="validate" min="0" max="15.99" step="0.01">
               @endif
             </div>
             <div class="col s4">
@@ -49,9 +68,9 @@
             </div>
             <div class="col s4">
               @if(!is_null($properties->where("property_id", 32)->first()))
-                <input id="body_weight_at_45_days" type="text" placeholder="Weight" name="body_weight_at_45_days" value="{{ $properties->where("property_id", 32)->first()->value }}" class="validate">
+                <input id="body_weight_at_45_days" type="text" placeholder="Weight" name="body_weight_at_45_days" value="{{ $properties->where("property_id", 32)->first()->value }}" class="validate" min="0" step="0.001">
               @else
-                <input id="body_weight_at_45_days" type="text" placeholder="Weight" name="body_weight_at_45_days" class="validate">
+                <input id="body_weight_at_45_days" type="number" placeholder="Weight" name="body_weight_at_45_days" class="validate" min="0" step="0.001">
               @endif
             </div>
             <div class="col s4">
@@ -76,9 +95,9 @@
             </div>
             <div class="col s4">
               @if(!is_null($properties->where("property_id", 33)->first()))
-                <input id="body_weight_at_60_days" type="text" placeholder="Weight" name="body_weight_at_60_days" value="{{ $properties->where("property_id", 33)->first()->value }}" class="validate">
+                <input id="body_weight_at_60_days" type="number" placeholder="Weight" name="body_weight_at_60_days" value="{{ $properties->where("property_id", 33)->first()->value }}" class="validate" min="0" step="0.001">
               @else
-                <input id="body_weight_at_60_days" type="text" placeholder="Weight" name="body_weight_at_60_days" class="validate">
+                <input id="body_weight_at_60_days" type="number" placeholder="Weight" name="body_weight_at_60_days" class="validate" min="0" step="0.001">
               @endif
             </div>
             <div class="col s4">
@@ -103,9 +122,9 @@
             </div>
             <div class="col s4">
               @if(!is_null($properties->where("property_id", 34)->first()))
-                <input id="body_weight_at_90_days" type="text" placeholder="Weight" name="body_weight_at_90_days" value="{{ $properties->where("property_id", 34)->first()->value }}" class="validate">
+                <input id="body_weight_at_90_days" type="number" placeholder="Weight" name="body_weight_at_90_days" value="{{ $properties->where("property_id", 34)->first()->value }}" class="validate" min="0" step="0.001">
               @else
-                <input id="body_weight_at_90_days" type="text" placeholder="Weight" name="body_weight_at_90_days" class="validate">
+                <input id="body_weight_at_90_days" type="number" placeholder="Weight" name="body_weight_at_90_days" class="validate" min="0" step="0.001">
               @endif
             </div>
             <div class="col s4">
@@ -130,9 +149,9 @@
             </div>
             <div class="col s4">
               @if(!is_null($properties->where("property_id", 35)->first()))
-                <input id="body_weight_at_150_days" type="text" placeholder="Weight" name="body_weight_at_150_days" value="{{ $properties->where("property_id", 35)->first()->value }}" class="validate">
+                <input id="body_weight_at_150_days" type="number" placeholder="Weight" name="body_weight_at_150_days" value="{{ $properties->where("property_id", 35)->first()->value }}" class="validate" min="0" max="50.999" step="0.001">
               @else
-                <input id="body_weight_at_150_days" type="text" placeholder="Weight" name="body_weight_at_150_days" class="validate">
+                <input id="body_weight_at_150_days" type="number" placeholder="Weight" name="body_weight_at_150_days" class="validate" min="0" max="50.999" step="0.001">
               @endif
             </div>
             <div class="col s4">
@@ -157,9 +176,9 @@
             </div>
             <div class="col s4">
               @if(!is_null($properties->where("property_id", 36)->first()))
-                <input id="body_weight_at_180_days" type="text" placeholder="Weight" name="body_weight_at_180_days" value="{{ $properties->where("property_id", 36)->first()->value }}" class="validate">
+                <input id="body_weight_at_180_days" type="number" placeholder="Weight" name="body_weight_at_180_days" value="{{ $properties->where("property_id", 36)->first()->value }}" class="validate" min="0" max="50.999" step="0.001">
               @else
-                <input id="body_weight_at_180_days" type="text" placeholder="Weight" name="body_weight_at_180_days" class="validate">
+                <input id="body_weight_at_180_days" type="number" placeholder="Weight" name="body_weight_at_180_days" class="validate" min="0" max="50.999" step="0.001">
               @endif
             </div>
             <div class="col s4">
@@ -172,7 +191,7 @@
           </div>
         </div>
         <div class="row center">
-          <button class="btn waves-effect waves-light green darken-3" type="submit" onclick="Materialize.toast('Successfully updated!', 4000)">Update
+          <button class="btn waves-effect waves-light green darken-3" type="submit">Update
             <i class="material-icons right">done</i>
           </button>
         </div>

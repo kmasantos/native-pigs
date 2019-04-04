@@ -18,7 +18,7 @@
             </div>
             @if($age_weaned == 45)
               <div class="col s4">
-                <input id="body_weight_at_45_days" type="text" placeholder="Weight" name="body_weight_at_45_days" value="{{ $properties->where("property_id", 7)->first()->value }}" class="validate">
+                <input id="body_weight_at_45_days" type="number" placeholder="Weight" name="body_weight_at_45_days" value="{{ $properties->where("property_id", 7)->first()->value }}" class="validate" min="0" step="0.001">
                 <input type="hidden" name="body_weight_at_45_days" value="{{ $properties->where("property_id", 7)->first()->value }}">
               </div>
               <div class="col s4">
@@ -26,7 +26,7 @@
               </div>
             @else
               <div class="col s4">
-                <input id="body_weight_at_45_days" type="text" placeholder="Weight" name="body_weight_at_45_days" class="validate">
+                <input id="body_weight_at_45_days" type="number" placeholder="Weight" name="body_weight_at_45_days" class="validate" min="0" step="0.001">
               </div>
               <div class="col s4">
                 <input id="date_collected_45_days" type="text" placeholder="Date Collected" name="date_collected_45_days" class="datepicker">
@@ -39,7 +39,7 @@
             </div>
             @if($age_weaned == 60)
               <div class="col s4">
-                <input id="body_weight_at_60_days" type="text" placeholder="Weight" name="body_weight_at_60_days" value="{{ $properties->where("property_id", 7)->first()->value }}" class="validate">
+                <input id="body_weight_at_60_days" type="number" placeholder="Weight" name="body_weight_at_60_days" value="{{ $properties->where("property_id", 7)->first()->value }}" class="validate" min="0" step="0.001">
                 <input type="hidden" name="body_weight_at_60_days" value="{{ $properties->where("property_id", 7)->first()->value }}">
               </div>
               <div class="col s4">
@@ -47,7 +47,7 @@
               </div>
             @else
               <div class="col s4">
-                <input id="body_weight_at_60_days" type="text" placeholder="Weight" name="body_weight_at_60_days" class="validate">
+                <input id="body_weight_at_60_days" type="number" placeholder="Weight" name="body_weight_at_60_days" class="validate" min="0" step="0.001">
               </div>
               <div class="col s4">
                 <input id="date_collected_60_days" type="text" placeholder="Date Collected" name="date_collected_60_days" class="datepicker">
@@ -59,7 +59,7 @@
               Body Weight at 90 Days
             </div>
             <div class="col s4">
-              <input id="body_weight_at_90_days" type="text" placeholder="Weight" name="body_weight_at_90_days" class="validate">
+              <input id="body_weight_at_90_days" type="number" placeholder="Weight" name="body_weight_at_90_days" class="validate" min="0" step="0.001">
             </div>
             <div class="col s4">
               <input id="date_collected_90_days" type="text" placeholder="Date Collected" name="date_collected_90_days" class="datepicker">
@@ -70,7 +70,7 @@
               Body Weight at 150 Days
             </div>
             <div class="col s4">
-              <input id="body_weight_at_150_days" type="text" placeholder="Weight" name="body_weight_at_150_days" class="validate">
+              <input id="body_weight_at_150_days" type="number" placeholder="Weight" name="body_weight_at_150_days" class="validate" min="0" max="50.999" step="0.001">
             </div>
             <div class="col s4">
               <input id="date_collected_150_days" type="text" placeholder="Date Collected" name="date_collected_150_days" class="datepicker">
@@ -81,7 +81,7 @@
               Body Weight at 180 Days
             </div>
             <div class="col s4">
-              <input id="body_weight_at_180_days" type="text" placeholder="Weight" name="body_weight_at_180_days" class="validate">
+              <input id="body_weight_at_180_days" type="number" placeholder="Weight" name="body_weight_at_180_days" class="validate" min="0" max="50.999" step="0.001">
             </div>
             <div class="col s4">
               <input id="date_collected_180_days" type="text" placeholder="Date Collected" name="date_collected_180_days" class="datepicker">
@@ -89,7 +89,7 @@
           </div>
         </div>
         <div class="row center">
-          <button class="btn waves-effect waves-light green darken-3" type="submit" onclick="Materialize.toast('Saved successfully!', 4000)">Save
+          <button class="btn waves-effect waves-light green darken-3" type="submit">Save
             <i class="material-icons right">save</i>
           </button>
         </div>
