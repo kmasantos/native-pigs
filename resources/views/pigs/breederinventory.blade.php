@@ -65,7 +65,7 @@
 									<h2>{{ count($pregnantsows) }}</h2>
 								</div>
 								<div class="row">
-									<p><a class="tooltipped" data-position="bottom" data-tooltip="Pregnant sows for the month as of today">Pregnant</a></p>
+									<p><a class="tooltipped" data-position="bottom" data-tooltip="Pregnant sows and gilts for the month as of today">Pregnant</a></p>
 								</div>
 							</div>
 						</div>
