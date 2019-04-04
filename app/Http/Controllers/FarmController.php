@@ -23,6 +23,7 @@ use Illuminate\Support\Facades\Redirect;
 use DB;
 use App\Http\Controllers\HelperController;
 use Input;
+use PDF;
 
 class FarmController extends Controller
 {
@@ -1759,6 +1760,177 @@ class FarmController extends Controller
 			}
 		}
 
+		public function grossMorphoDownloadPDF(){
+			$farm = $this->user->getFarm();
+			$breed = $farm->getBreed();
+			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where(function ($query) {
+										$query->where("status", "breeder")
+													->orWhere("status", "sold breeder")
+													->orWhere("status", "dead breeder")
+													->orWhere("status", "removed breeder");
+													})->get();
+
+			$alive = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "breeder")->get();
+			$sold = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "sold breeder")->get();
+			$dead = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "dead breeder")->get();
+			$removed = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "removed breeder")->get();
+			$sowsalive = [];
+			$soldsows = [];
+			$deadsows = [];
+			$removedsows = [];
+			$boarsalive = [];
+			$soldboars = [];
+			$deadboars = [];
+			$removedboars = [];
+
+			// default filter
+			$filter = "All";
+
+			// sorts pigs per sex
+			$sows = [];
+			$boars = [];
+			foreach ($alive as $pig) {
+				if(substr($pig->registryid, -7, 1) == 'F'){
+					array_push($sows, $pig);
+				}
+				if(substr($pig->registryid, -7, 1) == 'M'){
+					array_push($boars, $pig);
+				}
+			}
+
+			// gets the unique years of birth
+			$years = [];
+			$tempyears = [];
+			foreach ($alive as $pig) {
+				$pigproperties = $pig->getAnimalProperties();
+				foreach ($pigproperties as $pigproperty) {
+					if($pigproperty->property_id == 3){ //date farrowed
+						if(!is_null($pigproperty->value) && $pigproperty->value != "Not specified"){
+							$year = Carbon::parse($pigproperty->value)->year;
+							array_push($tempyears, $year);
+							$years = array_reverse(array_sort(array_unique($tempyears)));
+						}
+					}
+				}
+			}
+
+			$curlyhairs = [];
+			$straighthairs = [];
+			$shorthairs = [];
+			$longhairs = [];
+			$blackcoats = [];
+			$nonblackcoats = [];
+			$plains = [];
+			$socks = [];
+			$concaves = [];
+			$straightheads = [];
+			$smooths = [];
+			$wrinkleds = [];
+			$droopingears = [];
+			$semilops = [];
+			$erectears = [];
+			$curlytails = [];
+			$straighttails = [];
+			$swaybacks = [];
+			$straightbacks = [];
+			foreach ($alive as $pig) {
+				$properties = $pig->getAnimalProperties();
+				foreach ($properties as $property) {
+					if($property->property_id == 11){ //hairtype
+						if($property->value == "Curly"){
+							array_push($curlyhairs, $property);
+						}
+						elseif($property->value == "Straight"){
+							array_push($straighthairs, $property);
+						}
+					}
+					if($property->property_id == 12){ //hairlength
+						if($property->value == "Short"){
+							array_push($shorthairs, $property);
+						}
+						elseif($property->value == "Long"){
+							array_push($longhairs, $property);
+						}
+					}
+					if($property->property_id == 13){ //coatcolor
+						if($property->value == "Black"){
+							array_push($blackcoats, $property);
+						}
+						elseif($property->value == "Others"){
+							array_push($nonblackcoats, $property);
+						}
+					}
+					if($property->property_id == 14){ //colorpattern
+						if($property->value == "Plain"){
+							array_push($plains, $property);
+						}
+						elseif($property->value == "Socks"){
+							array_push($socks, $property);
+						}
+					}
+					if($property->property_id == 15){ //headshape
+						if($property->value == "Concave"){
+							array_push($concaves, $property);
+						}
+						elseif($property->value == "Straight"){
+							array_push($straightheads, $property);
+						}
+					}
+					if($property->property_id == 16){ //skintype
+						if($property->value == "Smooth"){
+							array_push($smooths, $property);
+						}
+						elseif($property->value == "Wrinkled"){
+							array_push($wrinkleds, $property);
+						}
+					}
+					if($property->property_id == 17){ //eartype
+						if($property->value == "Drooping"){
+							array_push($droopingears, $property);
+						}
+						elseif($property->value == "Semi-lop"){
+							array_push($semilops, $property);
+						}
+						elseif($property->value == "Erect"){
+							array_push($erectears, $property);
+						}
+					}
+					if($property->property_id == 18){ //tailtype
+						if($property->value == "Curly"){
+							array_push($curlytails, $property);
+						}
+						elseif($property->value == "Straight"){
+							array_push($straighttails, $property);
+						}
+					}
+					if($property->property_id == 19){ //backline
+						if($property->value == "Swayback"){
+							array_push($swaybacks, $property);
+						}
+						elseif($property->value == "Straight"){
+							array_push($straightbacks, $property);
+						}
+					}
+				}
+			}  
+
+			// counts the pigs without records
+			$nohairtypes = (count($alive)-(count($curlyhairs)+count($straighthairs)));
+			$nohairlengths = (count($alive)-(count($shorthairs)+count($longhairs)));
+			$nocoats = (count($alive)-(count($blackcoats)+count($nonblackcoats)));
+			$nopatterns = (count($alive)-(count($plains)+count($socks)));
+			$noheadshapes = (count($alive)-(count($concaves)+count($straightheads)));
+			$noskintypes = (count($alive)-(count($smooths)+count($wrinkleds)));
+			$noeartypes = (count($alive)-(count($droopingears)+count($semilops)+count($erectears)));
+			$notailtypes = (count($alive)-(count($curlytails)+count($straighttails)));
+			$nobacklines = (count($alive)-(count($swaybacks)+count($straightbacks)));
+
+			$now = new Carbon();
+
+			$pdf = PDF::loadView('pigs.grossmorphopdf', compact('pigs', 'filter', 'sows', 'boars', 'curlyhairs', 'straighthairs', 'shorthairs', 'longhairs', 'blackcoats', 'nonblackcoats', 'plains', 'socks', 'concaves', 'straightheads', 'smooths', 'wrinkleds', 'droopingears', 'semilops', 'erectears', 'curlytails', 'straighttails', 'swaybacks', 'straightbacks', 'nohairtypes', 'nohairlengths', 'nocoats', 'nopatterns', 'noheadshapes', 'noskintypes', 'noeartypes', 'notailtypes', 'nobacklines', 'years', 'alive', 'sold', 'dead', 'removed', 'sowsalive', 'soldsows', 'deadsows', 'removedsows', 'boarsalive', 'soldboars', 'deadboars', 'removedboars', 'now'));
+			return $pdf->download('grossmorphoreport.pdf');
+		}
+
 		public function getGrossMorphologyReportPage(){ // function to display Gross Morphology Report page
 			$farm = $this->user->getFarm();
 			$breed = $farm->getBreed();
@@ -2420,6 +2592,196 @@ class FarmController extends Controller
 
 				return $morphochars;
 			}
+		}
+
+		public function morphoCharsDownloadPDF(){
+			$farm = $this->user->getFarm();
+			$breed = $farm->getBreed();
+			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where(function ($query) {
+										$query->where("status", "breeder")
+													->orWhere("status", "sold breeder")
+													->orWhere("status", "dead breeder")
+													->orWhere("status", "removed breeder");
+													})->get();
+
+			$alive = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "breeder")->get();
+			$sold = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "sold breeder")->get();
+			$dead = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "dead breeder")->get();
+			$removed = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "removed breeder")->get();
+			$sowsalive = [];
+			$soldsows = [];
+			$deadsows = [];
+			$removedsows = [];
+			$boarsalive = [];
+			$soldboars = [];
+			$deadboars = [];
+			$removedboars = [];
+
+			// default filter
+			$filter = "All";
+
+			// sorts pigs per sex
+			$sows = [];
+			$boars = [];
+			foreach ($alive as $pig) {
+				if(substr($pig->registryid, -7, 1) == 'F'){
+					array_push($sows, $pig);
+				}
+				if(substr($pig->registryid, -7, 1) == 'M'){
+					array_push($boars, $pig);
+				}
+			}
+
+			// gets unique years of birth
+			$years = [];
+			$tempyears = [];
+			foreach ($alive as $pig) {
+				$pigproperties = $pig->getAnimalProperties();
+				foreach ($pigproperties as $pigproperty) {
+					if($pigproperty->property_id == 3){ //date farrowed
+						if(!is_null($pigproperty->value) && $pigproperty->value != "Not specified"){
+							$year = Carbon::parse($pigproperty->value)->year;
+							array_push($tempyears, $year);
+							$years = array_reverse(array_sort(array_unique($tempyears)));
+						}
+					}
+				}
+			}
+
+			$earlengths = [];
+			$headlengths = [];
+			$snoutlengths = [];
+			$bodylengths = [];
+			$heartgirths = [];
+			$pelvicwidths = [];
+			$ponderalindices = [];
+			$taillengths = [];
+			$heightsatwithers = [];
+			$normalteats = [];
+			$ages_collected = [];
+			$ages_collected_all = [];
+			foreach ($pigs as $pig) {
+				$dc = $pig->getAnimalProperties()->where("property_id", 21)->first();
+				if(!is_null($dc) && $dc->value != ""){
+					$date_collected = Carbon::parse($dc->value);
+					$bday = $pig->getAnimalProperties()->where("property_id", 3)->first();
+					if(!is_null($bday) && $bday->value != "Not specified"){
+						$age = $date_collected->diffInMonths(Carbon::parse($bday->value));
+						array_push($ages_collected_all, $age);
+					}
+				}
+			}
+			foreach ($alive as $pig) {
+				$properties = $pig->getAnimalProperties();
+				foreach ($properties as $property) {
+					if($property->property_id == 21){ // date collected for morpho chars
+						if($property->value != ""){
+							$date_collected = $property->value;
+							$bday = $pig->getAnimalProperties()->where("property_id", 3)->first();
+							if(!is_null($bday) && $bday->value != "Not specified"){
+								$age = Carbon::parse($date_collected)->diffInMonths(Carbon::parse($bday->value));
+								array_push($ages_collected, $age);
+							}
+						}
+					}
+					if($property->property_id == 22){ //earlength
+						if($property->value != ""){
+							$earlength = $property->value;
+							array_push($earlengths, $earlength);
+						}
+					}
+					if($property->property_id == 23){ //headlength
+						if($property->value != ""){
+							$headlength = $property->value;
+							array_push($headlengths, $headlength);
+						}
+					}
+					if($property->property_id == 24){ //snoutlength
+						if($property->value != ""){
+							$snoutlength = $property->value;
+							array_push($snoutlengths, $snoutlength);
+						}
+					}
+					if($property->property_id == 25){ //bodylength
+						if($property->value != ""){
+							$bodylength = $property->value;
+							array_push($bodylengths, $bodylength);
+						}
+					}
+					if($property->property_id == 26){ //heartgirth
+						if($property->value != ""){
+							$heartgirth = $property->value;
+							array_push($heartgirths, $heartgirth);
+						}
+					}
+					if($property->property_id == 27){ //pelvicwidth
+						if($property->value != ""){
+							$pelvicwidth = $property->value;
+							array_push($pelvicwidths, $pelvicwidth);
+						}
+					}
+					if($property->property_id == 28){ //taillength
+						if($property->value != ""){
+							$taillength = $property->value;
+							array_push($taillengths, $taillength);
+						}
+					}
+					if($property->property_id == 29){ //heightatwithers
+						if($property->value != ""){
+							$heightatwithers = $property->value;
+							array_push($heightsatwithers, $heightatwithers);
+						}
+					}
+					if($property->property_id == 30){ //numberofnormalteats
+						if($property->value != ""){
+							$numberofnormalteats = $property->value;
+							array_push($normalteats, $numberofnormalteats);
+						}
+					}
+					if($property->property_id == 31){ //ponderalindex
+						if($property->value != ""){
+							$ponderalindex = $property->value;
+							array_push($ponderalindices, $ponderalindex);
+						}
+					}
+				}
+			}
+
+			if($earlengths != []){
+				$earlengths_sd = static::standardDeviation($earlengths, false);
+			}
+			if($headlengths != []){
+				$headlengths_sd = static::standardDeviation($headlengths, false);
+			}
+			if($snoutlengths != []){
+				$snoutlengths_sd = static::standardDeviation($snoutlengths, false);
+			}
+			if($bodylengths != []){
+				$bodylengths_sd = static::standardDeviation($bodylengths, false);
+			}
+			if($heartgirths != []){
+				$heartgirths_sd = static::standardDeviation($heartgirths, false);
+			}
+			if($pelvicwidths != []){
+				$pelvicwidths_sd = static::standardDeviation($pelvicwidths, false);
+			}
+			if($ponderalindices != []){
+				$ponderalindices_sd = static::standardDeviation($ponderalindices, false);
+			}
+			if($taillengths != []){
+				$taillengths_sd = static::standardDeviation($taillengths, false);
+			}
+			if($heightsatwithers != []){
+				$heightsatwithers_sd = static::standardDeviation($heightsatwithers, false);
+			}
+			if($normalteats != []){
+				$normalteats_sd = static::standardDeviation($normalteats, false);
+			}
+
+			$now = new Carbon();
+
+			$pdf = PDF::loadView('pigs.morphocharspdf', compact('pigs', 'filter', 'sows', 'boars', 'earlengths', 'headlengths', 'snoutlengths', 'bodylengths', 'heartgirths', 'pelvicwidths', 'ponderalindices', 'taillengths', 'heightsatwithers', 'normalteats', 'earlengths_sd', 'headlengths_sd', 'snoutlengths_sd', 'bodylengths_sd', 'heartgirths_sd', 'pelvicwidths_sd', 'ponderalindices_sd', 'taillengths_sd', 'heightsatwithers_sd', 'normalteats_sd', 'years', 'ages_collected', 'ages_collected_all', 'alive', 'sold', 'dead', 'removed', 'sowsalive', 'soldsows', 'deadsows', 'removedsows', 'boarsalive', 'soldboars', 'deadboars', 'removedboars', 'now'));
+			return $pdf->download('morphocharsreport.pdf');
 		}
 
 		public function getMorphometricCharacteristicsReportPage(){ // function to display Morphometric Characteristics Report page
@@ -3088,6 +3450,266 @@ class FarmController extends Controller
 			}
 
 			return $weights;
+		}
+
+		public function growthPerfDownloadPDF(){
+			$farm = $this->user->getFarm();
+			$breed = $farm->getBreed();
+			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->get();
+			$breeders = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "breeder")->get();
+			$growers = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "active")->get();
+			$now = Carbon::now();
+
+			//year of birth
+			$years = [];
+			$tempyears = [];
+			foreach ($pigs as $pig) {
+				$pigproperties = $pig->getAnimalProperties();
+				foreach ($pigproperties as $pigproperty) {
+					if($pigproperty->property_id == 3){ //date farrowed
+						if(!is_null($pigproperty->value) && $pigproperty->value != "Not specified"){
+							$year = Carbon::parse($pigproperty->value)->year;
+							array_push($tempyears, $year);
+							$years = array_reverse(array_sort(array_unique($tempyears)));
+						}
+					}
+				}
+			}
+
+			// weights for all pigs
+			$bweights = [];
+			$wweights = [];
+			$weights45d = [];
+			$weights60d = [];
+			$weights90d = [];
+			$weights150d = [];
+			$weights180d = [];
+			foreach ($pigs as $pig) {
+				$properties = $pig->getAnimalProperties();
+				foreach ($properties as $property) {
+					if($property->property_id == 5){ //birth weights
+						if(!is_null($property) && $property->value != ""){
+							$bweight = $property->value;
+							array_push($bweights, $bweight);
+						}
+					}
+					if($property->property_id == 7){ //weaning weights
+						if(!is_null($property) && $property->value != ""){
+							$wweight = $property->value;
+							array_push($wweights, $wweight);
+						}
+					}
+					if($property->property_id == 32){ //45d
+						if(!is_null($property) && $property->value != ""){
+							$weight45d = $property->value;
+							array_push($weights45d, $weight45d);
+						}
+					}
+					if($property->property_id == 33){ //60d
+						if(!is_null($property) && $property->value != ""){
+							$weight60d = $property->value;
+							array_push($weights60d, $weight60d);
+						}
+					}
+					if($property->property_id == 34){ //90d
+						if(!is_null($property) && $property->value != ""){
+							$weight90d = $property->value;
+							array_push($weights90d, $weight90d);
+						}
+					}
+					if($property->property_id == 35){ //150d
+						if(!is_null($property) && $property->value != ""){
+							$weight150d = $property->value;
+							array_push($weights150d, $weight150d);
+						}
+					}
+					if($property->property_id == 36){ //180d
+						if(!is_null($property) && $property->value != ""){
+							$weight180d = $property->value;
+							array_push($weights180d, $weight180d);
+						}
+					}
+				}
+			}
+			
+			if($bweights != []){
+				$bweights_sd = static::standardDeviation($bweights, false);
+			}
+			if($wweights != []){
+				$wweights_sd = static::standardDeviation($wweights, false);
+			}
+			if($weights45d != []){
+				$weights45d_sd = static::standardDeviation($weights45d, false);
+			}
+			if($weights60d != []){
+				$weights60d_sd = static::standardDeviation($weights60d, false);
+			}
+			if($weights90d != []){
+				$weights90d_sd = static::standardDeviation($weights90d, false);
+			}
+			if($weights150d != []){
+				$weights150d_sd = static::standardDeviation($weights150d, false); 
+			}
+			if($weights180d != []){
+				$weights180d_sd = static::standardDeviation($weights180d, false); 
+			}
+
+			// weights for breeders
+			$bweights_breeders = [];
+			$wweights_breeders = [];
+			$weights45d_breeders = [];
+			$weights60d_breeders = [];
+			$weights90d_breeders = [];
+			$weights150d_breeders = [];
+			$weights180d_breeders = [];
+			foreach ($breeders as $breeder) {
+				$breederproperties = $breeder->getAnimalProperties();
+				foreach ($breederproperties as $breederproperty) {
+					if($breederproperty->property_id == 5){ //birth weights
+						if(!is_null($breederproperty) && $breederproperty->value != ""){
+							$bweight_breeders = $breederproperty->value;
+							array_push($bweights_breeders, $bweight_breeders);
+						}
+					}
+					if($breederproperty->property_id == 7){ //weaning weights
+						if(!is_null($breederproperty) && $breederproperty->value != ""){
+							$wweight_breeders = $breederproperty->value;
+							array_push($wweights_breeders, $wweight_breeders);
+						}
+					}
+					if($breederproperty->property_id == 32){ //45d
+						if(!is_null($breederproperty) && $breederproperty->value != ""){
+							$weight45d_breeders = $breederproperty->value;
+							array_push($weights45d_breeders, $weight45d_breeders);
+						}
+					}
+					if($breederproperty->property_id == 33){ //60d
+						if(!is_null($breederproperty) && $breederproperty->value != ""){
+							$weight60d_breeders = $breederproperty->value;
+							array_push($weights60d_breeders, $weight60d_breeders);
+						}
+					}
+					if($breederproperty->property_id == 34){ //90d
+						if(!is_null($breederproperty) && $breederproperty->value != ""){
+							$weight90d_breeders = $breederproperty->value;
+							array_push($weights90d_breeders, $weight90d_breeders);
+						}
+					}
+					if($breederproperty->property_id == 35){ //150d
+						if(!is_null($breederproperty) && $breederproperty->value != ""){
+							$weight150d_breeders = $breederproperty->value;
+							array_push($weights150d_breeders, $weight150d_breeders);
+						}
+					}
+					if($breederproperty->property_id == 36){ //180d
+						if(!is_null($breederproperty) && $breederproperty->value != ""){
+							$weight180d_breeders = $breederproperty->value;
+							array_push($weights180d_breeders, $weight180d_breeders);
+						}
+					}
+				}
+			}
+			if($bweights_breeders != []){
+				$bweights_breeders_sd = static::standardDeviation($bweights_breeders, false);
+			}
+			if($wweights_breeders != []){
+				$wweights_breeders_sd = static::standardDeviation($wweights_breeders, false);
+			}
+			if($weights45d_breeders != []){
+				$weights45d_breeders_sd = static::standardDeviation($weights45d_breeders, false);
+			}
+			if($weights60d_breeders != []){
+				$weights60d_breeders_sd = static::standardDeviation($weights60d_breeders, false);
+			}
+			if($weights90d_breeders != []){
+				$weights90d_breeders_sd = static::standardDeviation($weights90d_breeders, false);
+			}
+			if($weights150d_breeders != []){
+				$weights150d_breeders_sd = static::standardDeviation($weights150d_breeders, false); 
+			}
+			if($weights180d_breeders != []){
+				$weights180d_breeders_sd = static::standardDeviation($weights180d_breeders, false); 
+			}
+
+			// weights for growers
+			$bweights_growers = [];
+			$wweights_growers = [];
+			$weights45d_growers = [];
+			$weights60d_growers = [];
+			$weights90d_growers = [];
+			$weights150d_growers = [];
+			$weights180d_growers = [];
+			foreach ($growers as $grower) {
+				$growerproperties = $grower->getAnimalProperties();
+				foreach ($growerproperties as $growerproperty) {
+					if($growerproperty->property_id == 5){ //birth weights
+						if(!is_null($growerproperty) && $growerproperty->value != ""){
+							$bweight_growers = $growerproperty->value;
+							array_push($bweights_growers, $bweight_growers);
+						}
+					}
+					if($growerproperty->property_id == 7){ //weaning weights
+						if(!is_null($growerproperty) && $growerproperty->value != ""){
+							$wweight_growers = $growerproperty->value;
+							array_push($wweights_growers, $wweight_growers);
+						}
+					}
+					if($growerproperty->property_id == 32){ //45d
+						if(!is_null($growerproperty) && $growerproperty->value != ""){
+							$weight45d_growers = $growerproperty->value;
+							array_push($weights45d_growers, $weight45d_growers);
+						}
+					}
+					if($growerproperty->property_id == 33){ //60d
+						if(!is_null($growerproperty) && $growerproperty->value != ""){
+							$weight60d_growers = $growerproperty->value;
+							array_push($weights60d_growers, $weight60d_growers);
+						}
+					}
+					if($growerproperty->property_id == 34){ //90d
+						if(!is_null($growerproperty) && $growerproperty->value != ""){
+							$weight90d_growers = $growerproperty->value;
+							array_push($weights90d_growers, $weight90d_growers);
+						}
+					}
+					if($growerproperty->property_id == 35){ //150d
+						if(!is_null($growerproperty) && $growerproperty->value != ""){
+							$weight150d_growers = $growerproperty->value;
+							array_push($weights150d_growers, $weight150d_growers);
+						}
+					}
+					if($growerproperty->property_id == 36){ //180d
+						if(!is_null($growerproperty) && $growerproperty->value != ""){
+							$weight180d_growers = $growerproperty->value;
+							array_push($weights180d_growers, $weight180d_growers);
+						}
+					}
+				}
+			}
+			if($bweights_growers != []){
+				$bweights_growers_sd = static::standardDeviation($bweights_growers, false);
+			}
+			if($wweights_growers != []){
+				$wweights_growers_sd = static::standardDeviation($wweights_growers, false);
+			}
+			if($weights45d_growers != []){
+				$weights45d_growers_sd = static::standardDeviation($weights45d_growers, false);
+			}
+			if($weights60d_growers != []){
+				$weights60d_growers_sd = static::standardDeviation($weights60d_growers, false);
+			}
+			if($weights90d_growers != []){
+				$weights90d_growers_sd = static::standardDeviation($weights90d_growers, false);
+			}
+			if($weights150d_growers != []){
+				$weights150d_growers_sd = static::standardDeviation($weights150d_growers, false); 
+			}
+			if($weights180d_growers != []){
+				$weights180d_growers_sd = static::standardDeviation($weights180d_growers, false); 
+			}
+
+			$pdf = PDF::loadView('pigs.growthperfpdf', compact('pigs', 'breeders', 'growers', 'bweights', 'wweights', 'weights45d', 'weights60d', 'weights90d', 'weights150d', 'weights180d', 'bweights_sd', 'wweights_sd', 'weights45d_sd', 'weights60d_sd', 'weights90d_sd', 'weights150d_sd', 'weights180d_sd', 'bweights_breeders', 'wweights_breeders', 'weights45d_breeders', 'weights60d_breeders', 'weights90d_breeders', 'weights150d_breeders', 'weights180d_breeders', 'bweights_breeders_sd', 'wweights_breeders_sd', 'weights45d_breeders_sd', 'weights60d_breeders_sd', 'weights90d_breeders_sd', 'weights150d_breeders_sd', 'weights180d_breeders_sd', 'bweights_growers', 'wweights_growers', 'weights45d_growers', 'weights60d_growers', 'weights90d_growers', 'weights150d_growers', 'weights180d_growers', 'bweights_growers_sd', 'wweights_growers_sd', 'weights45d_growers_sd', 'weights60d_growers_sd', 'weights90d_growers_sd', 'weights150d_growers_sd', 'weights180d_growers_sd', 'years', 'now'));
+			return $pdf->download('growthperfreport.pdf');
 		}
 
 		public function getGrowthPerformanceReportPage(){
@@ -5327,6 +5949,233 @@ class FarmController extends Controller
 			}
 		}
 
+		public function cumulativeDownloadPDF(){
+			$farm = $this->user->getFarm();
+			$breed = $farm->getBreed();
+			$groups = Grouping::whereNotNull("mother_id")->where("breed_id", $breed->id)->get();
+
+			$months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+			// default filter is the current year
+			$now = Carbon::now();
+			$current_year = $now->year;
+			$range = range($current_year-10, $current_year+10);
+			$years = array_combine($range, $range);
+
+			$filter = $now->year;
+
+			//gets all the last days of the month
+			$dates = [];
+			foreach ($months as $month) {
+				$date = new Carbon('last day of '.$month.' '.$filter);
+				array_push($dates, $date);
+			}
+
+			//gets all the months that are finished
+			$headings = [];
+			foreach ($dates as $date) {
+				if($now->gte($date)){
+					// $month = $date->month;
+					array_push($headings, $date);
+				}
+			}
+
+			$monthlyperformances = [];
+			$datesfarrowed = [];
+			foreach ($headings as $heading) {
+				$lsba = [];
+				$numbermales = [];
+				$numberfemales = [];
+				$stillborn = [];
+				$mummified = [];
+				$litterbirthweights = [];
+				$avebirthweights = [];
+				$litterweaningweights = [];
+				$aveweaningweights = [];
+				$adjweaningweights = [];
+				$numberweaned = [];
+				$agesweaned = [];
+				$preweaningmortality = [];
+				foreach ($groups as $group) {
+					$datefarrowedprop = $group->getGroupingProperties()->where("property_id", 3)->first();
+					if(!is_null($datefarrowedprop) && $datefarrowedprop->value != "Not specified"){
+						$datefarrowed = Carbon::parse($datefarrowedprop->value);
+						if($datefarrowed->format('F') == $heading->format('F') && $datefarrowed->year == $filter){
+							array_push($datesfarrowed, $datefarrowed);
+							$lsbaprop = $group->getGroupingProperties()->where("property_id", 50)->first();
+							if(!is_null($lsbaprop)){
+								array_push($lsba, $lsbaprop->value);
+							}
+							$numbermalesprop = $group->getGroupingProperties()->where("property_id", 51)->first();
+							if(!is_null($numbermalesprop)){
+								array_push($numbermales, $numbermalesprop->value);
+							}
+							$numberfemalesprop = $group->getGroupingProperties()->where("property_id", 52)->first();
+							if(!is_null($numberfemalesprop)){
+								array_push($numberfemales, $numberfemalesprop->value);
+							}
+							$stillbornprop = $group->getGroupingProperties()->where("property_id", 45)->first();
+							if(!is_null($stillbornprop)){
+								array_push($stillborn, $stillbornprop->value);
+							}
+							$mummifiedprop = $group->getGroupingProperties()->where("property_id", 46)->first();
+							if(!is_null($mummifiedprop)){
+								array_push($mummified, $mummifiedprop->value);
+							}
+							$litterbwprop = $group->getGroupingProperties()->where("property_id", 55)->first();
+							if(!is_null($litterbwprop)){
+								array_push($litterbirthweights, $litterbwprop->value);
+							}
+							$avebwprop = $group->getGroupingProperties()->where("property_id", 56)->first();
+							if(!is_null($avebwprop)){
+								array_push($avebirthweights, $avebwprop->value);
+							}
+							$litterwwprop = $group->getGroupingProperties()->where("property_id", 62)->first();
+							if(!is_null($litterwwprop)){
+								array_push($litterweaningweights, $litterwwprop->value);	
+							}
+							$avewwprop = $group->getGroupingProperties()->where("property_id", 58)->first();
+							if(!is_null($avewwprop)){
+								array_push($aveweaningweights, $avewwprop->value);
+							}
+							$numberweanedprop = $group->getGroupingProperties()->where("property_id", 57)->first();
+							if(!is_null($numberweanedprop)){
+								array_push($numberweaned, $numberweanedprop->value);
+							}
+							$pwmprop = $group->getGroupingProperties()->where("property_id", 59)->first();
+							if(!is_null($pwmprop)){
+								array_push($preweaningmortality, $pwmprop->value);
+							}
+							$thisoffsprings = $group->getGroupingMembers();
+							$ageweaned = [];
+							$adjweaningweight = [];
+							foreach ($thisoffsprings as $thisoffspring) {
+								if(!is_null($thisoffspring->getAnimalProperties()->where("property_id", 6)->first())){
+									$dateweanedprop = $thisoffspring->getAnimalProperties()->where("property_id", 6)->first();
+									$bdayprop = $thisoffspring->getAnimalProperties()->where("property_id", 3)->first();
+									if(!is_null($bdayprop) && $bdayprop->value != "Not specified"){
+										$bday = $bdayprop->value;
+									}
+									$age = Carbon::parse($dateweanedprop->value)->diffInDays(Carbon::parse($bday));
+									array_push($ageweaned, $age);
+									$wwprop = $thisoffspring->getAnimalProperties()->where("property_id", 7)->first();
+									if(!is_null($wwprop) && $wwprop->value != ""){
+										$adjww = ((float)$wwprop->value*45)/$age;
+										array_push($adjweaningweight, $adjww);
+									}
+								}
+							}
+							if($ageweaned != []){
+								array_push($agesweaned, (array_sum($ageweaned)/count($ageweaned)));
+							}
+							if($adjweaningweight != []){
+								array_push($adjweaningweights, (array_sum($adjweaningweight)/count($adjweaningweight)));
+							}
+							$monthlyperformances[$datefarrowed->month -1] = [$lsba, $numbermales, $numberfemales, $stillborn, $mummified, $litterbirthweights, $avebirthweights, $litterweaningweights, $aveweaningweights, $adjweaningweights, $numberweaned, $agesweaned, $preweaningmortality];
+						}
+					}
+				}
+			}
+			// dd($datesfarrowed, $monthlyperformances);
+
+			$all_lsba = [];
+			$all_numbermales = [];
+			$all_numberfemales = [];
+			$all_stillborn = [];
+			$all_mummified = [];
+			$all_litterbirthweights = [];
+			$all_avebirthweights = [];
+			$all_litterweaningweights = [];
+			$all_aveweaningweights = [];
+			$all_adjweaningweights = [];
+			$all_numberweaned = [];
+			$all_agesweaned = [];
+			$all_preweaningmortality = [];
+			foreach ($monthlyperformances as $monthlyperformance) {
+				if($monthlyperformance[0] != []){
+					array_push($all_lsba, array_sum($monthlyperformance[0])/count($monthlyperformance[0]));
+				}
+				else{
+					array_push($all_lsba, 0);
+				}
+				if($monthlyperformance[1] != []){
+					array_push($all_numbermales, array_sum($monthlyperformance[1])/count($monthlyperformance[1]));
+				}
+				else{
+					array_push($all_numbermales, 0);
+				}
+				if($monthlyperformance[2] != []){
+					array_push($all_numberfemales, array_sum($monthlyperformance[2])/count($monthlyperformance[2]));
+				}
+				else{
+					array_push($all_numberfemales, 0);
+				}
+				if($monthlyperformance[3] != []){
+					array_push($all_stillborn, array_sum($monthlyperformance[3])/count($monthlyperformance[3]));
+				}
+				else{
+					array_push($all_stillborn, 0);
+				}
+				if($monthlyperformance[4] != []){
+					array_push($all_mummified, array_sum($monthlyperformance[4])/count($monthlyperformance[4]));
+				}
+				else{
+					array_push($all_mummified, 0);
+				}
+				if($monthlyperformance[5] != []){
+					array_push($all_litterbirthweights, array_sum($monthlyperformance[5])/count($monthlyperformance[5]));
+				}
+				else{
+					array_push($all_litterbirthweights, 0);
+				}
+				if($monthlyperformance[6] != []){
+					array_push($all_avebirthweights, array_sum($monthlyperformance[6])/count($monthlyperformance[6]));
+				}
+				else{
+					array_push($all_avebirthweights, 0);
+				}
+				if($monthlyperformance[7] != []){
+					array_push($all_litterweaningweights, array_sum($monthlyperformance[7])/count($monthlyperformance[7]));
+				}
+				else{
+					array_push($all_litterweaningweights, 0);
+				}
+				if($monthlyperformance[8] != []){
+					array_push($all_aveweaningweights, array_sum($monthlyperformance[8])/count($monthlyperformance[8]));
+				}
+				else{
+					array_push($all_aveweaningweights, 0);
+				}
+				if($monthlyperformance[9] != []){
+					array_push($all_adjweaningweights, array_sum($monthlyperformance[9])/count($monthlyperformance[9]));
+				}
+				else{
+					array_push($all_adjweaningweights, 0);
+				}
+				if($monthlyperformance[10] != []){
+					array_push($all_numberweaned, array_sum($monthlyperformance[10])/count($monthlyperformance[10]));
+				}
+				else{
+					array_push($all_numberweaned, 0);
+				}
+				if($monthlyperformance[11] != []){
+					array_push($all_agesweaned, array_sum($monthlyperformance[11])/count($monthlyperformance[11]));
+				}
+				else{
+					array_push($all_agesweaned, 0);
+				}
+				if($monthlyperformance[12] != []){
+					array_push($all_preweaningmortality, array_sum($monthlyperformance[12])/count($monthlyperformance[12]));
+				}
+				else{
+					array_push($all_preweaningmortality, 0);
+				}
+			}
+
+			$pdf = PDF::loadView('pigs.cumulativepdf', compact('months', 'now', 'years', 'filter', 'dates', 'headings', 'monthlyperformances', 'all_lsba', 'all_numbermales', 'all_numberfemales', 'all_stillborn', 'all_mummified', 'all_litterbirthweights', 'all_avebirthweights', 'all_litterweaningweights', 'all_aveweaningweights', 'all_adjweaningweights', 'all_numberweaned','all_agesweaned', 'all_preweaningmortality'));
+			return $pdf->download('cumulativereport.pdf');
+		}
+
 		public function getCumulativeReportPage(){
 			$farm = $this->user->getFarm();
 			$breed = $farm->getBreed();
@@ -7056,6 +7905,34 @@ class FarmController extends Controller
 			return view('pigs.breederrecords', compact('pigs', 'sows', 'boars', 'archived_sows', 'archived_boars'))->withMessage("No breeders found!");
 		}
 
+		public function searchGrowers(Request $request){
+			$farm = $this->user->getFarm();
+			$breed = $farm->getBreed();
+			$q = $request->q;
+			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "active")->get();
+
+			// sorts pigs by sex
+			$sows = [];
+			$boars = [];
+			foreach($pigs as $pig){
+				if(substr($pig->registryid, -7, 1) == 'F'){
+					array_push($sows, $pig);
+				}
+				if(substr($pig->registryid, -7, 1) == 'M'){
+					array_push($boars, $pig);
+				}
+			}
+
+			if($q != ' '){
+				$growers = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "active")->where('registryid', 'LIKE', '%'.$q.'%')->get();
+				// dd($growers);
+				if(count($growers) > 0){
+					return view('pigs.growerrecords', compact('pigs', 'sows', 'boars'))->withDetails($growers)->withQuery($q);
+				}
+			}
+			return view('pigs.growerrecords', compact('pigs', 'sows', 'boars'))->withMessage("No growers found!");
+		}
+
 		public function getBreederRecordsPage(){ // function to display Breeder Records page
 			$farm = $this->user->getFarm();
 			$breed = $farm->getBreed();
@@ -8670,6 +9547,18 @@ class FarmController extends Controller
 			return Redirect::back()->with('message', 'Operation Successful!');
 		}
 
+		public function editBirthWeight(Request $request){
+			$offspring = Animal::find($request->animalid);
+
+			$bweight = $offspring->getAnimalProperties()->where("property_id", 5)->first();
+			$bweightValue = $request->new_birth_weight;
+
+			$bweight->value = $bweightValue;
+			$bweight->save();
+
+			return Redirect::back()->with('message', 'Operation Successful!');
+		}
+
 		public function editTemporaryRegistryId(Request $request){
 			$offspring = Animal::find($request->old_earnotch);
 			$family = $offspring->getGrouping();
@@ -9765,6 +10654,30 @@ class FarmController extends Controller
 			$animal = Animal::find($request->animal_id);
 			$properties = $animal->getAnimalProperties();
 
+			$bweight = $properties->where("property_id", 5)->first();
+			if(is_null($bweight)){
+				if(is_null($request->birth_weight)){
+					$bweightValue = "";
+				}
+				else{
+					$bweightValue = $request->birth_weight;
+				}
+				$bweight_new = new AnimalProperty;
+				$bweight_new->animal_id = $animal->id;
+				$bweight_new->property_id = 5;
+				$bweight_new->value = $bweightValue;
+				$bweight_new->save();
+			}
+			else{
+				if(is_null($request->birth_weight)){
+					$bweightValue = "";
+				}
+				else{
+					$bweightValue = $request->birth_weight;
+				}
+				$bweight->value = $bweightValue;
+			}
+
 			$wweight = $properties->where("property_id", 7)->first();
 			if(is_null($wweight)){
 				if(is_null($request->weaning_weight)){
@@ -10115,6 +11028,7 @@ class FarmController extends Controller
 				$dc180d->value = $dc180dValue;
 			}
 
+			$bweight->save();
 			$wweight->save();
 			$bw45d->save();
 			$bw60d->save();
