@@ -6,8 +6,10 @@
 		<title>Native Pigs: @yield('title')</title>
     <link rel="shortcut icon" href="{{asset('images/logo-swine-square.png')}}" />
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 		<link rel="stylesheet" href="{{asset('thirdparty/materialize/css/materialize.min.css')}}">
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-alpha.1/css/materialize.min.css">
+		{{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-alpha.1/css/materialize.min.css"> --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 		<link rel="stylesheet" href="{{asset('css/global.css')}}">
 		<link type="text/css" rel="stylesheet" href="{{asset('css/pig.css')}}"  media="screen,projection"/>
 		@yield('initScriptsAndStyles')
@@ -115,14 +117,14 @@
 			<li class="no-padding">
         <ul>
           <li>
-            <a href="{{route('farm.pig.farm_profile')}}" class="collapsible-header"><i class="material-icons">contact_mail</i>Farm Profile</a>
+            <a href="{{route('farm.pig.farm_profile')}}" class="collapsible-header"><i class="fas fa-archway"></i>Farm Profile</a>
           </li>
         </ul>
       </li>
       <li class="no-padding">
       	<ul>
       		<li>
-      			<a href="logout" id="logoutbutton" onclick="window.location='https://accounts.google.com/Logout?&continue=http://www.google.com/';" class="collapsible-header"><i class="material-icons">exit_to_app</i>Logout</a>
+      			<a href="logout" id="logoutbutton" onclick="window.location='https://accounts.google.com/Logout?&continue=http://www.google.com/';" class="collapsible-header"><i class="material-icons">power_settings_new</i>Logout</a>
       		</li>
       	</ul>
       </li>
@@ -142,6 +144,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
 		<script type="text/javascript" src="{{asset('js/global.js')}}"></script>
 		<script type="text/javascript" src="{{asset('js/pig.js')}}"></script>
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script> --}}
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> --}}
     @yield('scripts')
 		{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-alpha.1/js/materialize.min.js"></script> --}}
 	</body>
