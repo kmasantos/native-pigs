@@ -29,7 +29,7 @@
 								<tr>
 									{{-- sow used --}}
 									{{-- <td> 
-										<select name="sow_id" class="browser-default">
+										<select id="sow_id" name="sow_id" class="browser-default">
 											<option disabled selected>Choose sow</option>
 												@foreach($available as $sow)	
 													<option value="{{ $sow }}">{{ $sow }}</option>
@@ -37,12 +37,13 @@
 										</select>
 									</td> --}}
 									<td> 
-										<select name="sow_id" class="browser-default" required>
+										<select id="sow_id" name="sow_id" class="browser-default" required>
 											<option value=""></option>
 												@foreach($sows as $sow)	
 													<option value="{{ $sow->registryid }}">{{ $sow->registryid }}</option>
 												@endforeach
 										</select>
+										<label for="sow_id">Choose sow</label>
 									</td>
 									{{-- boar used --}}
 									<td>
@@ -52,14 +53,15 @@
 													<option value="{{ $boar->registryid }}">{{ $boar->registryid }}</option>
 												@endforeach
 										</select>
+										<label for="boar_id">Choose boar</label>
 									</td>
 									{{-- date bred --}}
 									<td class="input-field">
-										<input id="date_bred" type="text" placeholder="Pick date" name="date_bred" class="datepicker">
+										<input id="date_bred" type="text" placeholder="Pick date" name="date_bred" class="datepicker" required>
 									</td>
 									{{-- submit button --}}
 									<td colspan="4" class="center">
-										<button class="btn waves-effect waves-light green darken-3 tooltipped" data-position="top" data-tooltip="Add breeding record" type="submit" onclick="Materialize.toast('Successfully added!', 4000)">
+										<button class="btn waves-effect waves-light green darken-3 tooltipped" data-position="top" data-tooltip="Add breeding record" type="submit">
 											Add <i class="material-icons right">add</i>
 					          </button>
 									</td>
@@ -74,7 +76,7 @@
 											</td>
 										@elseif($breedingRecord->getMother()->status == "dead grower" || $breedingRecord->getMother()->status == "dead breeder")
 											<td>
-												<strong>{{ $breedingRecord->getMother()->registryid }}</strong> <p><sup>(Died)</sup></p>
+												<strong>{{ $breedingRecord->getMother()->registryid }}</strong> <p><sup>(Dead)</sup></p>
 											</td>
 										@elseif($breedingRecord->getMother()->status == "sold grower" || $breedingRecord->getMother()->status == "sold breeder")
 											<td>
@@ -98,7 +100,7 @@
 											</td>
 										@elseif($breedingRecord->getFather()->status == "dead grower" || $breedingRecord->getFather()->status == "dead breeder")
 											<td>
-												<strong>{{ $breedingRecord->getFather()->registryid }}</strong> <p><sup>(Died)</sup></p>
+												<strong>{{ $breedingRecord->getFather()->registryid }}</strong> <p><sup>(Dead)</sup></p>
 											</td>
 										@elseif($breedingRecord->getFather()->status == "sold grower" || $breedingRecord->getFather()->status == "sold breeder")
 											<td>
