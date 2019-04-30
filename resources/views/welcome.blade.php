@@ -22,7 +22,7 @@
         <div class="navbar-fixed">
             <nav class="green lighten-1" role="navigation">
                 <div class="nav-wrapper">
-                    <a href={{ url('/') }} class="brand-logo"><img src="{{asset('images/logo-swine.png')}}" alt="Native Animals" height="65" / ></a>
+                    <a href={{ url('/') }} class="brand-logo"><img src="{{asset('images/logo-swine.png')}}" alt="Native Pigs" height="65" / ></a>
                     <ul class="right hide-on-med-and-down">
                         <li><a href="#home">Home</a></li>
                         <li><a href="#breeds">Breeds</a></li>
@@ -64,25 +64,17 @@
                                       <img class="activator" src="{{asset('images/q-black.jpg')}}">
                                     </div>
                                     <div class="card-content">
-                                      <span class="card-title activator grey-text text-darken-4">Q-Black<i class="material-icons right">more_vert</i></span>
-                                    </div>
-                                    <div class="card-reveal">
-                                      <span class="card-title grey-text text-darken-4">Q-Black<i class="material-icons right">close</i></span>
-                                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Amet consectetur adipiscing elit ut aliquam purus sit. Mi in nulla posuere sollicitudin aliquam ultrices sagittis. Eget felis eget nunc lobortis mattis aliquam. Volutpat commodo sed egestas egestas fringilla. Ultricies integer quis auctor elit sed vulputate mi. Mauris ultrices eros in cursus turpis massa tincidunt dui ut. A arcu cursus vitae congue mauris rhoncus aenean. Id cursus metus aliquam eleifend mi.</p>
+                                      <span class="card-title activator grey-text text-darken-4">Q-Black<a href="{{url('/breed/q-black')}}"><i class="material-icons right">play_arrow</i></a></span>
                                     </div>
                                 </div>
                             </div>
                             <div class="col s6">
                                 <div class="card">
                                     <div class="card-image waves-effect waves-block waves-light">
-                                      <img class="activator" src="{{asset('images/sinirangan.jpg')}}">
+                                      <img class="activator" src="{{asset('images/benguet.jpg')}}" height="290">
                                     </div>
                                     <div class="card-content">
-                                      <span class="card-title activator grey-text text-darken-4">Sinirangan<i class="material-icons right">more_vert</i></span>
-                                    </div>
-                                    <div class="card-reveal">
-                                      <span class="card-title grey-text text-darken-4">Sinirangan<i class="material-icons right">close</i></span>
-                                      <p>Sit amet venenatis urna cursus eget nunc scelerisque viverra mauris. Malesuada proin libero nunc consequat interdum varius sit amet mattis. Et pharetra pharetra massa massa ultricies. Ultrices sagittis orci a scelerisque. Amet massa vitae tortor condimentum lacinia. Sit amet dictum sit amet justo donec. Non diam phasellus vestibulum lorem sed risus ultricies tristique. Eu non diam phasellus vestibulum lorem.</p>
+                                      <span class="card-title activator grey-text text-darken-4">Benguet<a href="{{url('/breed/benguet')}}"><i class="material-icons right">play_arrow</i></a></span>
                                     </div>
                                 </div>
                             </div>
@@ -91,14 +83,10 @@
                             <div class="col s6">
                                 <div class="card">
                                     <div class="card-image waves-effect waves-block waves-light">
-                                      <img class="activator" src="{{asset('images/benguet.jpg')}}">
+                                      <img class="activator" src="{{asset('images/sinirangan.jpg')}}">
                                     </div>
                                     <div class="card-content">
-                                      <span class="card-title activator grey-text text-darken-4">Benguet<i class="material-icons right">more_vert</i></span>
-                                    </div>
-                                    <div class="card-reveal">
-                                      <span class="card-title grey-text text-darken-4">Benguet<i class="material-icons right">close</i></span>
-                                      <p>Et malesuada fames ac turpis egestas sed tempus. Mauris nunc congue nisi vitae suscipit tellus mauris. Molestie ac feugiat sed lectus vestibulum mattis ullamcorper velit. Ridiculus mus mauris vitae ultricies leo integer malesuada. Tellus cras adipiscing enim eu turpis egestas. Vitae justo eget magna fermentum iaculis eu non. Tristique senectus et netus et malesuada fames ac turpis. Mauris ultrices eros in cursus turpis massa. Tortor vitae purus faucibus ornare suspendisse sed nisi lacus sed. Facilisis leo vel fringilla est ullamcorper eget. Curabitur vitae nunc sed velit.</p>
+                                      <span class="card-title activator grey-text text-darken-4">Sinirangan<a href="{{url('/breed/sinirangan')}}"><i class="material-icons right">play_arrow</i></a></span>
                                     </div>
                                 </div>
                             </div>
@@ -108,11 +96,7 @@
                                       <img class="activator" src="{{asset('images/isubela.jpg')}}">
                                     </div>
                                     <div class="card-content">
-                                      <span class="card-title activator grey-text text-darken-4">ISUbela<i class="material-icons right">more_vert</i></span>
-                                    </div>
-                                    <div class="card-reveal">
-                                      <span class="card-title grey-text text-darken-4">ISUbela<i class="material-icons right">close</i></span>
-                                      <p>Arcu risus quis varius quam quisque id diam vel. Vel pharetra vel turpis nunc eget. Quis commodo odio aenean sed adipiscing diam donec adipiscing tristique. Risus at ultrices mi tempus imperdiet nulla. Lacus sed turpis tincidunt id aliquet risus. Parturient montes nascetur ridiculus mus mauris vitae ultricies leo integer. Elit eget gravida cum sociis natoque. Placerat in egestas erat imperdiet sed.</p>
+                                      <span class="card-title activator grey-text text-darken-4">ISUbela<a href="{{url('/breed/isubela')}}"><i class="material-icons right">play_arrow</i></a></span>
                                     </div>
                                 </div>
                             </div>
@@ -124,25 +108,17 @@
                                       <img class="activator" src="{{asset('images/yookah.jpg')}}">
                                     </div>
                                     <div class="card-content">
-                                      <span class="card-title activator grey-text text-darken-4">Yookah<i class="material-icons right">more_vert</i></span>
-                                    </div>
-                                    <div class="card-reveal">
-                                      <span class="card-title grey-text text-darken-4">Yookah<i class="material-icons right">close</i></span>
-                                      <p>Bibendum neque egestas congue quisque egestas diam in arcu. Vivamus arcu felis bibendum ut tristique. Blandit turpis cursus in hac. Mauris commodo quis imperdiet massa. Ultrices mi tempus imperdiet nulla malesuada pellentesque elit eget. In nibh mauris cursus mattis molestie a iaculis at erat. Vel facilisis volutpat est velit egestas dui.</p>
+                                      <span class="card-title activator grey-text text-darken-4">Yookah<a href="{{url('/breed/yookah')}}"><i class="material-icons right">play_arrow</i></a></span>
                                     </div>
                                 </div>
                             </div>
                             <div class="col s6">
                                 <div class="card">
                                     <div class="card-image waves-effect waves-block waves-light">
-                                      <img class="activator" src="{{asset('images/marinduke.jpg')}}">
+                                      <img class="activator" src="{{asset('images/marinduke.jpg')}}" height="290">
                                     </div>
                                     <div class="card-content">
-                                      <span class="card-title activator grey-text text-darken-4">Native Pig of Marinduque<i class="material-icons right">more_vert</i></span>
-                                    </div>
-                                    <div class="card-reveal">
-                                      <span class="card-title grey-text text-darken-4">Native Pig of Marinduque<i class="material-icons right">close</i></span>
-                                      <p>Hendrerit dolor magna eget est lorem ipsum dolor sit amet. Faucibus in ornare quam viverra orci sagittis eu volutpat odio. Vitae suscipit tellus mauris a diam maecenas sed enim. Sem integer vitae justo eget magna fermentum iaculis. Ultricies mi quis hendrerit dolor magna eget est lorem ipsum. Fermentum et sollicitudin ac orci phasellus egestas tellus rutrum. Scelerisque mauris pellentesque pulvinar pellentesque habitant morbi tristique senectus et. Sed sed risus pretium quam vulputate dignissim suspendisse in est.</p>
+                                      <span class="card-title activator grey-text text-darken-4">Native Pig of Marinduque<a href="{{url('/breed/marinduke')}}"><i class="material-icons right">play_arrow</i></a></span>
                                     </div>
                                 </div>
                             </div>
@@ -154,7 +130,7 @@
                             <div class="col s6">
                                 <div class="card grey lighten-1">
                                     <div class="card-content">
-                                        <span class="card-title">BAI-NSPRDC</span>
+                                        <span class="card-title"><strong>BAI-NSPRDC</strong></span>
                                         <table>
                                             <tbody>
                                                 <tr>
@@ -163,7 +139,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td>Phone number</td>
-                                                    <td>(042) 585-7727</td>
+                                                    <td>(042) 585-7727 / 0997 693 2766</td>
                                                 </tr>
                                                 <tr>
                                                     <td>Email address</td>
@@ -177,51 +153,7 @@
                             <div class="col s6">
                                 <div class="card grey lighten-1">
                                     <div class="card-content">
-                                        <span class="card-title">Benguet State University</span>
-                                        <table>
-                                            <tbody>
-                                                <tr>
-                                                    <td>Contact Person</td>
-                                                    <td>Dr. Franklin Balanban</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Phone number</td>
-                                                    <td>0912 855 9997</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Email address</td>
-                                                    <td>balanban.franklin@gmail.com</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col s6">
-                                <div class="card grey lighten-1">
-                                    <div class="card-content">
-                                        <span class="card-title">Eastern Samar State University</span>
-                                        <table>
-                                            <tbody>
-                                                <tr>
-                                                    <td>Contact Person</td>
-                                                    <td>Dr. Felix A. Afable</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Email address</td>
-                                                    <td>essuphilnativepig@gmail.com</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col s6">
-                                <div class="card grey lighten-1">
-                                    <div class="card-content">
-                                        <span class="card-title">Isabela State University</span>
+                                        <span class="card-title"><strong>Isabela State University</strong></span>
                                         <table>
                                             <tbody>
                                                 <tr>
@@ -246,16 +178,56 @@
                             <div class="col s6">
                                 <div class="card grey lighten-1">
                                     <div class="card-content">
-                                        <span class="card-title">Kalinga State University</span>
+                                        <span class="card-title"><strong>Eastern Samar State University</strong></span>
                                         <table>
                                             <tbody>
                                                 <tr>
                                                     <td>Contact Person</td>
-                                                    <td>Dr. Eduardo T. Bagtang</td>
+                                                    <td>Dr. Felix A. Afable</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Email address</td>
+                                                    <td>essuphilnativepig@gmail.com</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col s6">
+                                <div class="card grey lighten-1">
+                                    <div class="card-content">
+                                        <span class="card-title"><strong>Benguet State University</strong></span>
+                                        <table>
+                                            <tbody>
+                                                <tr>
+                                                    <td>Contact Person</td>
+                                                    <td>Dr. Sonwright B. Maddul</td>
                                                 </tr>
                                                 <tr>
                                                     <td>Phone number</td>
-                                                    <td>0917 568 0617</td>
+                                                    <td>0929 316 3996 / 0916 364 2039</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s6">
+                                <div class="card grey lighten-1">
+                                    <div class="card-content">
+                                        <span class="card-title"><strong>Kalinga State University</strong></span>
+                                        <table>
+                                            <tbody>
+                                                <tr>
+                                                    <td>Contact Person</td>
+                                                    <td>Sharmaine D. Codiam</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Phone number</td>
+                                                    <td>0927 722 4383</td>
                                                 </tr>
                                                 <tr>
                                                     <td>Email address</td>
@@ -269,7 +241,7 @@
                             <div class="col s6">
                                 <div class="card grey lighten-1">
                                     <div class="card-content">
-                                        <span class="card-title">Marinduque State College</span>
+                                        <span class="card-title"><strong>Marinduque State College</strong></span>
                                         <table>
                                             <tbody>
                                                 <tr>
@@ -293,7 +265,7 @@
                     </div>
                     <div id="news" class="section scrollspy">
                         <h4 class="center">News</h4>
-                        <ul class="collection">
+                        {{-- <ul class="collection">
                             <li class="collection-item avatar">
                               <i class="material-icons circle blue">done</i>
                               <span class="title">Title</span>
@@ -326,12 +298,17 @@
                               </p>
                               <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
                             </li>
-                        </ul>
+                        </ul> --}}
+                        <div class="center">
+                            <img src="{{asset('images/news.gif')}}" height="40%">
+                            <h5>Articles coming soon!</h5>
+                        </div>
                     </div>
                     <div id="about" class="section scrollspy">
                         <h4 class="center">About Us</h4>
-                        <p style="text-align: justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Proin sagittis nisl rhoncus mattis rhoncus. Integer vitae justo eget magna fermentum iaculis eu. Egestas diam in arcu cursus euismod. Vehicula ipsum a arcu cursus vitae congue mauris rhoncus aenean. Dui accumsan sit amet nulla facilisi morbi tempus iaculis. Id volutpat lacus laoreet non curabitur gravida. Nec ullamcorper sit amet risus nullam. Nulla facilisi nullam vehicula ipsum a arcu cursus vitae. Aliquet nibh praesent tristique magna sit. Aliquam eleifend mi in nulla posuere sollicitudin aliquam ultrices. Amet consectetur adipiscing elit duis tristique sollicitudin nibh.</p>
-                        <p style="text-align: justify">Blandit cursus risus at ultrices mi tempus imperdiet. Interdum velit laoreet id donec. Ultrices dui sapien eget mi proin sed libero enim sed. Id consectetur purus ut faucibus pulvinar elementum. Id porta nibh venenatis cras sed felis eget velit aliquet. Facilisis magna etiam tempor orci eu lobortis elementum. Morbi quis commodo odio aenean sed adipiscing diam donec adipiscing. Posuere morbi leo urna molestie at elementum eu. Integer feugiat scelerisque varius morbi enim nunc faucibus a pellentesque. Luctus accumsan tortor posuere ac ut consequat semper. Tortor dignissim convallis aenean et tortor at risus viverra. Mollis nunc sed id semper risus. Ut diam quam nulla porttitor massa. Pellentesque elit ullamcorper dignissim cras tincidunt lobortis feugiat vivamus at. Lobortis mattis aliquam faucibus purus in.</p>
+                        <p style="text-align: justify">The Philippine native pig is a source of food and additional livelihood in rural farming communities. Native pigs thrive in harsh environmental conditions with limited feeds and minimal management interventions resulting to lower production and maintenance costs than raising animals under an intensive production system. Albeit growing slowly and reaching market weight at a later time, the distinct taste and flavor of meat from native pigs are preferred especially for Philippine signature dishes such as "Lechon".</p>
+                        <p style="text-align: justify">Sustainable management of these animal genetic resources can increase a farmer's income as well as lead to a stable supply of native pork quality products attuned to growing local demands. Characterization, monitoring, and inventory of native pig breeds are necessary for their sustainable management (FAO, 2015). In line with this, phenotypic characterization studies under the program BAI-DA are being conducted in key institutional farms.</p>
+                        <p style="text-align: justify">The present project intends to complement and highlight these efforts through the development of a web-based information system which will focus on describing the predominant morphological characteristics distinct in each native pig breed and include information on their average performance to show their strength or advantage. Information accessible to a wide range of stakeholders including policy makers, community development practitioners, researchers, livestock keepers, and entrepreneurs can support decision-making processes regarding sustainable management and utilization of different native pig breeds. This information system may also serve as future platform for e-commerce and breed registry for native pigs which can be linked with other native animals as well.</p>
                     </div>
                 </div>
             </div>
