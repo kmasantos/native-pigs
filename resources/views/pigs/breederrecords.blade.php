@@ -33,7 +33,11 @@
                 @foreach($details as $breeder)
                   <tr>
                     @if($breeder->grossmorpho == 1 || $breeder->morphochars == 1 || $breeder->weightrecord == 1)
-                      <td><a href="{{ URL::route('farm.pig.view_sow', [$breeder->id]) }}" class="tooltipped" data-position="top" data-tooltip="View breeder">{{ $breeder->registryid }}</a></td>
+                      @if($breeder->getAnimalProperties()->where("property_id", 2)->first()->value == 'F')
+                        <td><a href="{{ URL::route('farm.pig.view_sow', [$breeder->id]) }}" class="tooltipped" data-position="top" data-tooltip="View breeder">{{ $breeder->registryid }}</a></td>
+                      @elseif($breeder->getAnimalProperties()->where("property_id", 2)->first()->value == 'M')
+                        <td><a href="{{ URL::route('farm.pig.view_boar', [$breeder->id]) }}" class="tooltipped" data-position="top" data-tooltip="View breeder">{{ $breeder->registryid }}</a></td>
+                      @endif
                     @elseif($breeder->grossmorpho == 0 && $breeder->morphochars == 0 && $breeder->weightrecord == 0)
                       <td>{{ $breeder->registryid }}</td>
                     @endif
