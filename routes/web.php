@@ -14,10 +14,28 @@
 Route::get('/', function () {
     return view('welcome');
 })->middleware('guest');
+Route::get('/breed/q-black', function(){
+    return view('qblack');
+});
+Route::get('/breed/benguet', function(){
+    return view('benguet');
+});
+Route::get('/breed/sinirangan', function(){
+    return view('sinirangan');
+});
+Route::get('/breed/isubela', function(){
+    return view('isubela');
+});
+Route::get('/breed/yookah', function(){
+    return view('yookah');
+});
+Route::get('breed/marinduke', function(){
+    return view('marinduke');
+});
 
 Route::group(['middleware' => ['web']], function () {
   Auth::routes();
-  Route::get('/home', 'HomeController@index')->name('home');
+  Route::get('/home', 'FarmController@index')->name('home');
 
   Route::group(['prefix' => 'farm'], function(){
     Route::get('/',['as' => 'farm.index', 'uses' => 'FarmController@index']);
