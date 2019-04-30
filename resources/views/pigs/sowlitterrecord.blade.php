@@ -379,7 +379,7 @@
 						</select>
 					</div>
 					<div class="col s4">
-						<input id="birth_weight" type="number" name="birth_weight" min="0.000" max="1.599" step="0.001">
+						<input id="birth_weight" type="number" name="birth_weight" min="0.001" max="1.599" step="0.001">
 						<label for="birth_weight">Birth Weight, kg</label>
 					</div>
 				</div>
@@ -460,7 +460,7 @@
 													<input type="hidden" name="animalid" value="{{ $offspring->getChild()->id }}">
 													<div class="row center">
 														<div class="col s8 offset-s2">
-															<input id="new_birth_weight" type="number" name="new_birth_weight" min="0.000" max="1.599" step="0.001">
+															<input id="new_birth_weight" type="number" name="new_birth_weight" min="0.001" max="1.599" step="0.001">
 														</div>
 													</div>
 												</div>
@@ -524,7 +524,7 @@
 													<div class="col s8 offset-s2 center">
 														Weaning Weight, kg:
 														<div class="input-field inline">
-															<input id="weaning_weight" type="number" name="weaning_weight" min="0" max="15.99" step="0.01">
+															<input id="weaning_weight" type="number" name="weaning_weight" min="0.001" max="15.999" step="0.001">
 														</div>
 													</div>
 												</div>
@@ -733,7 +733,7 @@
 														<div class="col s8 offset-s2 center">
 															Weaning Weight, kg:
 															<div class="input-field inline">
-																<input id="weaning_weight" type="number" name="weaning_weight" min="0" max="15.99" step="0.01">
+																<input id="weaning_weight" type="number" name="weaning_weight" min="0.001" max="15.999" step="0.001">
 															</div>
 														</div>
 													</div>
@@ -792,7 +792,7 @@
 							</select>
 						</div>
 						<div class="col s4">
-							<input id="birth_weight" type="number" name="birth_weight" min="0.000" max="1.599" step="0.001">
+							<input id="birth_weight" type="number" name="birth_weight" min="0.001" max="1.599" step="0.001">
 							<label for="birth_weight">Birth Weight, kg</label>
 						</div>
 					</div>
@@ -871,7 +871,7 @@
 														<input type="hidden" name="animalid" value="{{ $offspring->getChild()->id }}">
 														<div class="row center">
 															<div class="col s8 offset-s2">
-																<input id="new_birth_weight" type="number" name="new_birth_weight" min="0.000" max="1.599" step="0.001">
+																<input id="new_birth_weight" type="number" name="new_birth_weight" min="0.001" max="1.599" step="0.001">
 															</div>
 														</div>
 													</div>
@@ -934,7 +934,7 @@
 														<div class="col s8 offset-s2 center">
 															Weaning Weight, kg:
 															<div class="input-field inline">
-																<input id="weaning_weight" type="number" name="weaning_weight" min="0" max="15.99" step="0.01">
+																<input id="weaning_weight" type="number" name="weaning_weight" min="0.001" max="15.999" step="0.001">
 															</div>
 														</div>
 													</div>
@@ -1143,7 +1143,7 @@
 															<div class="col s8 offset-s2 center">
 																Weaning Weight, kg:
 																<div class="input-field inline">
-																	<input id="weaning_weight" type="number" name="weaning_weight" min="0" max="15.99" step="0.01">
+																	<input id="weaning_weight" type="number" name="weaning_weight" min="0.001" max="15.909" step="0.001">
 																</div>
 															</div>
 														</div>
@@ -1201,7 +1201,7 @@
 							</select>
 						</div>
 						<div class="col s4">
-							<input id="birth_weight" type="number" name="birth_weight" min="0.000" max="1.599" step="0.001">
+							<input id="birth_weight" type="number" name="birth_weight" min="0.001" max="1.599" step="0.001">
 							<label for="birth_weight">Birth Weight, kg</label>
 						</div>
 					</div>
@@ -1323,7 +1323,7 @@
 														<div class="col s8 offset-s2 center">
 															Weaning Weight, kg:
 															<div class="input-field inline">
-																<input id="weaning_weight" type="number" name="weaning_weight" min="0" max="15.99" step="0.01">
+																<input id="weaning_weight" type="number" name="weaning_weight" min="0.001" max="15.999" step="0.001">
 															</div>
 														</div>
 													</div>
@@ -1532,7 +1532,7 @@
 															<div class="col s8 offset-s2 center">
 																Weaning Weight, kg:
 																<div class="input-field inline">
-																	<input id="weaning_weight" type="number" name="weaning_weight" min="0" max="15.99" step="0.01">
+																	<input id="weaning_weight" type="number" name="weaning_weight" min="0.001" max="15.999" step="0.001">
 																</div>
 															</div>
 														</div>

@@ -18,14 +18,17 @@
             </div>
             <div class="col s4">
               @if(!is_null($properties->where("property_id", 5)->first()))
-                <input id="birth_weight" type="number" placeholder="Weight" name="birth_weight" value="{{ $properties->where("property_id", 5)->first()->value }}" class="validate" min="0" max="1.599" step="0.001">
+                <input id="birth_weight" type="number" placeholder="Weight" name="birth_weight" value="{{ $properties->where("property_id", 5)->first()->value }}" class="validate" min="0.001" max="1.599" step="0.001">
               @else
-                <input id="birth_weight" type="number" placeholder="Weight" name="birth_weight" class="validate" min="0" max="1.599" step="0.001">
+                <input id="birth_weight" type="number" placeholder="Weight" name="birth_weight" class="validate" min="0.001" max="1.599" step="0.001">
               @endif
             </div>
             <div class="col s4">
               @if(!is_null($properties->where("property_id", 3)->first()))
                 <input disabled id="date_farrowed" type="text" placeholder="Date Collected" name="date_farrowed" value="{{ $properties->where("property_id", 3)->first()->value }}" class="datepicker">
+                @if($properties->where("property_id", 3)->first()->value != "Not specified")
+                  <label for="date_farrowed">{{ Carbon\Carbon::parse($properties->where("property_id", 3)->first()->value)->format('j F, Y') }}</label>
+                @endif
               @else
                 <input disabled id="date_farrowed" type="text" placeholder="Date Collected" name="date_farrowed" class="datepicker">
               @endif
@@ -41,14 +44,17 @@
             </div>
             <div class="col s4">
               @if(!is_null($properties->where("property_id", 7)->first()))
-                <input id="weaning_weight" type="number" placeholder="Weight" name="weaning_weight" value="{{ $properties->where("property_id", 7)->first()->value }}" class="validate" min="0" max="15.99" step="0.01">
+                <input id="weaning_weight" type="number" placeholder="Weight" name="weaning_weight" value="{{ $properties->where("property_id", 7)->first()->value }}" class="validate" min="0.001" max="15.999" step="0.001">
               @else
-                <input id="weaning_weight" type="text" placeholder="Weight" name="weaning_weight" class="validate" min="0" max="15.99" step="0.01">
+                <input id="weaning_weight" type="text" placeholder="Weight" name="weaning_weight" class="validate" min="0.001" max="15.999" step="0.001">
               @endif
             </div>
             <div class="col s4">
               @if(!is_null($properties->where("property_id", 6)->first()))
                 <input id="date_weaned" type="text" placeholder="Date Collected" name="date_weaned" value="{{ $properties->where("property_id", 6)->first()->value }}" class="datepicker">
+                @if($properties->where("property_id", 6)->first()->value != "Not specified")
+                  <label for="date_weaned">{{ Carbon\Carbon::parse($properties->where("property_id", 6)->first()->value)->format('j F, Y') }}</label>
+                @endif
               @else
                 <input id="date_weaned" type="text" placeholder="Date Collected" name="date_weaned" class="datepicker">
               @endif
@@ -68,14 +74,15 @@
             </div>
             <div class="col s4">
               @if(!is_null($properties->where("property_id", 32)->first()))
-                <input id="body_weight_at_45_days" type="text" placeholder="Weight" name="body_weight_at_45_days" value="{{ $properties->where("property_id", 32)->first()->value }}" class="validate" min="0" step="0.001">
+                <input id="body_weight_at_45_days" type="text" placeholder="Weight" name="body_weight_at_45_days" value="{{ $properties->where("property_id", 32)->first()->value }}" class="validate" min="0.001" step="0.001">
               @else
-                <input id="body_weight_at_45_days" type="number" placeholder="Weight" name="body_weight_at_45_days" class="validate" min="0" step="0.001">
+                <input id="body_weight_at_45_days" type="number" placeholder="Weight" name="body_weight_at_45_days" class="validate" min="0.001" step="0.001">
               @endif
             </div>
             <div class="col s4">
               @if(!is_null($properties->where("property_id", 37)->first()))
                 <input id="date_collected_45_days" type="text" placeholder="Date Collected" name="date_collected_45_days" value="{{ $properties->where("property_id", 37)->first()->value }}" class="datepicker">
+                <label for="date_collected_45_days">{{ Carbon\Carbon::parse($properties->where("property_id", 37)->first()->value)->format('j F, Y') }}</label>
               @else
                 <input id="date_collected_45_days" type="text" placeholder="Date Collected" name="date_collected_45_days" class="datepicker">
               @endif
@@ -95,14 +102,15 @@
             </div>
             <div class="col s4">
               @if(!is_null($properties->where("property_id", 33)->first()))
-                <input id="body_weight_at_60_days" type="number" placeholder="Weight" name="body_weight_at_60_days" value="{{ $properties->where("property_id", 33)->first()->value }}" class="validate" min="0" step="0.001">
+                <input id="body_weight_at_60_days" type="number" placeholder="Weight" name="body_weight_at_60_days" value="{{ $properties->where("property_id", 33)->first()->value }}" class="validate" min="0.001" step="0.001">
               @else
-                <input id="body_weight_at_60_days" type="number" placeholder="Weight" name="body_weight_at_60_days" class="validate" min="0" step="0.001">
+                <input id="body_weight_at_60_days" type="number" placeholder="Weight" name="body_weight_at_60_days" class="validate" min="0.001" step="0.001">
               @endif
             </div>
             <div class="col s4">
               @if(!is_null($properties->where("property_id", 38)->first()))
                 <input id="date_collected_60_days" type="text" placeholder="Date Collected" name="date_collected_60_days" value="{{ $properties->where("property_id", 38)->first()->value }}" class="datepicker">
+                <label for="date_collected_60_days">{{ Carbon\Carbon::parse($properties->where("property_id", 38)->first()->value)->format('j F, Y') }}</label>
               @else
                 <input id="date_collected_60_days" type="text" placeholder="Date Collected" name="date_collected_60_days" class="datepicker">
               @endif
@@ -122,14 +130,15 @@
             </div>
             <div class="col s4">
               @if(!is_null($properties->where("property_id", 34)->first()))
-                <input id="body_weight_at_90_days" type="number" placeholder="Weight" name="body_weight_at_90_days" value="{{ $properties->where("property_id", 34)->first()->value }}" class="validate" min="0" step="0.001">
+                <input id="body_weight_at_90_days" type="number" placeholder="Weight" name="body_weight_at_90_days" value="{{ $properties->where("property_id", 34)->first()->value }}" class="validate" min="0.001" step="0.001">
               @else
-                <input id="body_weight_at_90_days" type="number" placeholder="Weight" name="body_weight_at_90_days" class="validate" min="0" step="0.001">
+                <input id="body_weight_at_90_days" type="number" placeholder="Weight" name="body_weight_at_90_days" class="validate" min="0.001" step="0.001">
               @endif
             </div>
             <div class="col s4">
               @if(!is_null($properties->where("property_id", 39)->first()))
                 <input id="date_collected_90_days" type="text" placeholder="Date Collected" name="date_collected_90_days" value="{{ $properties->where("property_id", 39)->first()->value }}" class="datepicker">
+                <label for="date_collected_90_days">{{ Carbon\Carbon::parse($properties->where("property_id", 39)->first()->value)->format('j F, Y') }}</label>
               @else
                 <input id="date_collected_90_days" type="text" placeholder="Date Collected" name="date_collected_90_days" class="datepicker">
               @endif
@@ -149,14 +158,15 @@
             </div>
             <div class="col s4">
               @if(!is_null($properties->where("property_id", 35)->first()))
-                <input id="body_weight_at_150_days" type="number" placeholder="Weight" name="body_weight_at_150_days" value="{{ $properties->where("property_id", 35)->first()->value }}" class="validate" min="0" max="50.999" step="0.001">
+                <input id="body_weight_at_150_days" type="number" placeholder="Weight" name="body_weight_at_150_days" value="{{ $properties->where("property_id", 35)->first()->value }}" class="validate" min="0.001" max="50.999" step="0.001">
               @else
-                <input id="body_weight_at_150_days" type="number" placeholder="Weight" name="body_weight_at_150_days" class="validate" min="0" max="50.999" step="0.001">
+                <input id="body_weight_at_150_days" type="number" placeholder="Weight" name="body_weight_at_150_days" class="validate" min="0.001" max="50.999" step="0.001">
               @endif
             </div>
             <div class="col s4">
               @if(!is_null($properties->where("property_id", 40)->first()))
                 <input id="date_collected_150_days" type="text" placeholder="Date Collected" name="date_collected_150_days" value="{{ $properties->where("property_id", 40)->first()->value }}" class="datepicker">
+                <label for="date_collected_150_days">{{ Carbon\Carbon::parse($properties->where("property_id", 40)->first()->value)->format('j F, Y') }}</label>
               @else
                 <input id="date_collected_150_days" type="text" placeholder="Date Collected" name="date_collected_150_days" class="datepicker">
               @endif
@@ -176,14 +186,15 @@
             </div>
             <div class="col s4">
               @if(!is_null($properties->where("property_id", 36)->first()))
-                <input id="body_weight_at_180_days" type="number" placeholder="Weight" name="body_weight_at_180_days" value="{{ $properties->where("property_id", 36)->first()->value }}" class="validate" min="0" max="50.999" step="0.001">
+                <input id="body_weight_at_180_days" type="number" placeholder="Weight" name="body_weight_at_180_days" value="{{ $properties->where("property_id", 36)->first()->value }}" class="validate" min="0.001" max="50.999" step="0.001">
               @else
-                <input id="body_weight_at_180_days" type="number" placeholder="Weight" name="body_weight_at_180_days" class="validate" min="0" max="50.999" step="0.001">
+                <input id="body_weight_at_180_days" type="number" placeholder="Weight" name="body_weight_at_180_days" class="validate" min="0.001" max="50.999" step="0.001">
               @endif
             </div>
             <div class="col s4">
               @if(!is_null($properties->where("property_id", 41)->first()))
                 <input id="date_collected_180_days" type="text" placeholder="Date Collected" name="date_collected_180_days" value="{{ $properties->where("property_id", 41)->first()->value }}" class="datepicker">
+                <label for="date_collected_180_days">{{ Carbon\Carbon::parse($properties->where("property_id", 41)->first()->value)->format('j F, Y') }}</label>
               @else
                 <input id="date_collected_180_days" type="text" placeholder="Date Collected" name="date_collected_180_days" class="datepicker">
               @endif
