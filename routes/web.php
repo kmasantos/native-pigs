@@ -29,8 +29,11 @@ Route::get('/breed/isubela', function(){
 Route::get('/breed/yookah', function(){
     return view('yookah');
 });
-Route::get('breed/marinduke', function(){
+Route::get('/breed/marinduke', function(){
     return view('marinduke');
+});
+Route::get('/coming_soon', function(){
+    return view('comingsoon');
 });
 
 Route::group(['middleware' => ['web']], function () {
