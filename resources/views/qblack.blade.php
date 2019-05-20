@@ -216,7 +216,7 @@
                 </div>
             </div>
             <div class="row">
-                <h5 style="text-decoration: underline;">Reproductive Traits</h5>
+                <h5 style="text-decoration: underline;">Reproductive Performance</h5>
                 <div class="col s12">
                     <ul class="tabs smalltabs">
                         <li class="tab col s2 offset-s4"><a href="#narrative2"><i class="material-icons">format_align_justify</i></a></li>

@@ -2014,36 +2014,29 @@ class FarmController extends Controller
 			}
 		}
 
-		/*public function grossMorphoDownloadPDF(){
+		public function grossMorphoAllDownloadPDF(){
 			$farm = $this->user->getFarm();
 			$breed = $farm->getBreed();
 			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where(function ($query) {
 										$query->where("status", "breeder")
 													->orWhere("status", "sold breeder")
-													->orWhere("status", "dead breeder")
-													->orWhere("status", "removed breeder");
+													->orWhere("status", "dead breeder");
 													})->get();
 
 			$alive = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "breeder")->get();
 			$sold = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "sold breeder")->get();
 			$dead = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "dead breeder")->get();
 			$removed = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "removed breeder")->get();
-			$sowsalive = [];
-			$soldsows = [];
-			$deadsows = [];
-			$removedsows = [];
-			$boarsalive = [];
-			$soldboars = [];
-			$deadboars = [];
-			$removedboars = [];
 
-			// default filter
 			$filter = "All";
+
+			$sowwithdata = 0;
+			$boarwithdata = 0;
 
 			// sorts pigs per sex
 			$sows = [];
 			$boars = [];
-			foreach ($alive as $pig) {
+			foreach ($pigs as $pig) {
 				if(substr($pig->registryid, -7, 1) == 'F'){
 					array_push($sows, $pig);
 				}
@@ -2055,7 +2048,7 @@ class FarmController extends Controller
 			// gets the unique years of birth
 			$years = [];
 			$tempyears = [];
-			foreach ($alive as $pig) {
+			foreach ($pigs as $pig) {
 				$pigproperties = $pig->getAnimalProperties();
 				foreach ($pigproperties as $pigproperty) {
 					if($pigproperty->property_id == 3){ //date farrowed
@@ -2087,6 +2080,8 @@ class FarmController extends Controller
 			$straighttails = [];
 			$swaybacks = [];
 			$straightbacks = [];
+
+			
 			foreach ($alive as $pig) {
 				$properties = $pig->getAnimalProperties();
 				foreach ($properties as $property) {
@@ -2166,9 +2161,9 @@ class FarmController extends Controller
 						}
 					}
 				}
-			}  
+			}
 
-			// counts the pigs without records
+			// count of pigs without records
 			$nohairtypes = (count($alive)-(count($curlyhairs)+count($straighthairs)));
 			$nohairlengths = (count($alive)-(count($shorthairs)+count($longhairs)));
 			$nocoats = (count($alive)-(count($blackcoats)+count($nonblackcoats)));
@@ -2181,9 +2176,376 @@ class FarmController extends Controller
 
 			$now = new Carbon();
 
-			$pdf = PDF::loadView('pigs.grossmorphopdf', compact('pigs', 'filter', 'sows', 'boars', 'curlyhairs', 'straighthairs', 'shorthairs', 'longhairs', 'blackcoats', 'nonblackcoats', 'plains', 'socks', 'concaves', 'straightheads', 'smooths', 'wrinkleds', 'droopingears', 'semilops', 'erectears', 'curlytails', 'straighttails', 'swaybacks', 'straightbacks', 'nohairtypes', 'nohairlengths', 'nocoats', 'nopatterns', 'noheadshapes', 'noskintypes', 'noeartypes', 'notailtypes', 'nobacklines', 'years', 'alive', 'sold', 'dead', 'removed', 'sowsalive', 'soldsows', 'deadsows', 'removedsows', 'boarsalive', 'soldboars', 'deadboars', 'removedboars', 'now'));
-			return $pdf->download('grossmorphoreport.pdf');
-		}*/
+			$pdf = PDF::loadView('pigs.grossmorphoallpdf', compact('pigs', 'filter', 'sows', 'boars', 'curlyhairs', 'straighthairs', 'shorthairs', 'longhairs', 'blackcoats', 'nonblackcoats', 'plains', 'socks', 'concaves', 'straightheads', 'smooths', 'wrinkleds', 'droopingears', 'semilops', 'erectears', 'curlytails', 'straighttails', 'swaybacks', 'straightbacks', 'nohairtypes', 'nohairlengths', 'nocoats', 'nopatterns', 'noheadshapes', 'noskintypes', 'noeartypes', 'notailtypes', 'nobacklines', 'years', 'alive', 'sold', 'dead', 'removed', 'sowsalive', 'soldsows', 'deadsows', 'removedsows', 'boarsalive', 'soldboars', 'deadboars', 'removedboars', 'now'));
+			return $pdf->download('grossmorphoreport_all_'.$now.'.pdf');
+		}
+
+		public function grossMorphoSowDownloadPDF(){
+			$farm = $this->user->getFarm();
+			$breed = $farm->getBreed();
+			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where(function ($query) {
+										$query->where("status", "breeder")
+													->orWhere("status", "sold breeder")
+													->orWhere("status", "dead breeder");
+													})->get();
+
+			$alive = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "breeder")->get();
+			$sold = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "sold breeder")->get();
+			$dead = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "dead breeder")->get();
+			$removed = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "removed breeder")->get();
+
+			$filter = "Sow";
+
+			$sowwithdata = 0;
+			$boarwithdata = 0;
+
+			// sorts pigs per sex
+			$sows = [];
+			$boars = [];
+			foreach ($pigs as $pig) {
+				if(substr($pig->registryid, -7, 1) == 'F'){
+					array_push($sows, $pig);
+				}
+				if(substr($pig->registryid, -7, 1) == 'M'){
+					array_push($boars, $pig);
+				}
+			}
+
+			// gets the unique years of birth
+			$years = [];
+			$tempyears = [];
+			foreach ($pigs as $pig) {
+				$pigproperties = $pig->getAnimalProperties();
+				foreach ($pigproperties as $pigproperty) {
+					if($pigproperty->property_id == 3){ //date farrowed
+						if(!is_null($pigproperty->value) && $pigproperty->value != "Not specified"){
+							$year = Carbon::parse($pigproperty->value)->year;
+							array_push($tempyears, $year);
+							$years = array_reverse(array_sort(array_unique($tempyears)));
+						}
+					}
+				}
+			}
+
+			$curlyhairs = [];
+			$straighthairs = [];
+			$shorthairs = [];
+			$longhairs = [];
+			$blackcoats = [];
+			$nonblackcoats = [];
+			$plains = [];
+			$socks = [];
+			$concaves = [];
+			$straightheads = [];
+			$smooths = [];
+			$wrinkleds = [];
+			$droopingears = [];
+			$semilops = [];
+			$erectears = [];
+			$curlytails = [];
+			$straighttails = [];
+			$swaybacks = [];
+			$straightbacks = [];
+
+			$sowsalive = [];
+			$soldsows = [];
+			$deadsows = [];
+			$removedsows = [];
+			foreach ($sows as $sow) {
+				if($sow->status == "breeder"){
+					array_push($sowsalive, $sow);
+				}
+				elseif($sow->status == "sold breeder"){
+					array_push($soldsows, $sow);
+				}
+				elseif($sow->status == "dead breeder"){
+					array_push($deadsows, $sow);
+				}
+				elseif($sow->status == "removed breeder"){
+					array_push($removedsows, $sow);
+				}
+			}
+			foreach ($sowsalive as $sowalive) {
+				$properties = $sowalive->getAnimalProperties();
+				foreach ($properties as $property) {
+					if($property->property_id == 11){ //hairtype
+						if($property->value == "Curly"){
+							array_push($curlyhairs, $property);
+						}
+						elseif($property->value == "Straight"){
+							array_push($straighthairs, $property);
+						}
+					}
+					if($property->property_id == 12){ //hairlength
+						if($property->value == "Short"){
+							array_push($shorthairs, $property);
+						}
+						elseif($property->value == "Long"){
+							array_push($longhairs, $property);
+						}
+					}
+					if($property->property_id == 13){ //coatcolor
+						if($property->value == "Black"){
+							array_push($blackcoats, $property);
+						}
+						elseif($property->value == "Others"){
+							array_push($nonblackcoats, $property);
+						}
+					}
+					if($property->property_id == 14){ //colorpattern
+						if($property->value == "Plain"){
+							array_push($plains, $property);
+						}
+						elseif($property->value == "Socks"){
+							array_push($socks, $property);
+						}
+					}
+					if($property->property_id == 15){ //headshape
+						if($property->value == "Concave"){
+							array_push($concaves, $property);
+						}
+						elseif($property->value == "Straight"){
+							array_push($straightheads, $property);
+						}
+					}
+					if($property->property_id == 16){ //skintype
+						if($property->value == "Smooth"){
+							array_push($smooths, $property);
+						}
+						elseif($property->value == "Wrinkled"){
+							array_push($wrinkleds, $property);
+						}
+					}
+					if($property->property_id == 17){ //eartype
+						if($property->value == "Drooping"){
+							array_push($droopingears, $property);
+						}
+						elseif($property->value == "Semi-lop"){
+							array_push($semilops, $property);
+						}
+						elseif($property->value == "Erect"){
+							array_push($erectears, $property);
+						}
+					}
+					if($property->property_id == 18){ //tailtype
+						if($property->value == "Curly"){
+							array_push($curlytails, $property);
+						}
+						elseif($property->value == "Straight"){
+							array_push($straighttails, $property);
+						}
+					}
+					if($property->property_id == 19){ //backline
+						if($property->value == "Swayback"){
+							array_push($swaybacks, $property);
+						}
+						elseif($property->value == "Straight"){
+							array_push($straightbacks, $property);
+						}
+					}
+				}
+			}
+
+			// count of sows without records
+			$nohairtypes = (count($sowsalive)-(count($curlyhairs)+count($straighthairs)));
+			$nohairlengths = (count($sowsalive)-(count($shorthairs)+count($longhairs)));
+			$nocoats = (count($sowsalive)-(count($blackcoats)+count($nonblackcoats)));
+			$nopatterns = (count($sowsalive)-(count($plains)+count($socks)));
+			$noheadshapes = (count($sowsalive)-(count($concaves)+count($straightheads)));
+			$noskintypes = (count($sowsalive)-(count($smooths)+count($wrinkleds)));
+			$noeartypes = (count($sowsalive)-(count($droopingears)+count($semilops)+count($erectears)));
+			$notailtypes = (count($sowsalive)-(count($curlytails)+count($straighttails)));
+			$nobacklines = (count($sowsalive)-(count($swaybacks)+count($straightbacks)));
+
+			$now = new Carbon();
+
+			$pdf = PDF::loadView('pigs.grossmorphosowpdf', compact('pigs', 'filter', 'sows', 'boars', 'curlyhairs', 'straighthairs', 'shorthairs', 'longhairs', 'blackcoats', 'nonblackcoats', 'plains', 'socks', 'concaves', 'straightheads', 'smooths', 'wrinkleds', 'droopingears', 'semilops', 'erectears', 'curlytails', 'straighttails', 'swaybacks', 'straightbacks', 'nohairtypes', 'nohairlengths', 'nocoats', 'nopatterns', 'noheadshapes', 'noskintypes', 'noeartypes', 'notailtypes', 'nobacklines', 'years', 'alive', 'sold', 'dead', 'removed', 'sowsalive', 'soldsows', 'deadsows', 'removedsows', 'boarsalive', 'soldboars', 'deadboars', 'removedboars', 'now'));
+			return $pdf->download('grossmorphoreport_sow_'.$now.'.pdf');
+		}
+
+		public function grossMorphoBoarDownloadPDF(){
+			$farm = $this->user->getFarm();
+			$breed = $farm->getBreed();
+			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where(function ($query) {
+										$query->where("status", "breeder")
+													->orWhere("status", "sold breeder")
+													->orWhere("status", "dead breeder");
+													})->get();
+
+			$alive = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "breeder")->get();
+			$sold = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "sold breeder")->get();
+			$dead = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "dead breeder")->get();
+			$removed = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "removed breeder")->get();
+
+			$filter = "Boar";
+
+			$sowwithdata = 0;
+			$boarwithdata = 0;
+
+			// sorts pigs per sex
+			$sows = [];
+			$boars = [];
+			foreach ($pigs as $pig) {
+				if(substr($pig->registryid, -7, 1) == 'F'){
+					array_push($sows, $pig);
+				}
+				if(substr($pig->registryid, -7, 1) == 'M'){
+					array_push($boars, $pig);
+				}
+			}
+
+			// gets the unique years of birth
+			$years = [];
+			$tempyears = [];
+			foreach ($pigs as $pig) {
+				$pigproperties = $pig->getAnimalProperties();
+				foreach ($pigproperties as $pigproperty) {
+					if($pigproperty->property_id == 3){ //date farrowed
+						if(!is_null($pigproperty->value) && $pigproperty->value != "Not specified"){
+							$year = Carbon::parse($pigproperty->value)->year;
+							array_push($tempyears, $year);
+							$years = array_reverse(array_sort(array_unique($tempyears)));
+						}
+					}
+				}
+			}
+
+			$curlyhairs = [];
+			$straighthairs = [];
+			$shorthairs = [];
+			$longhairs = [];
+			$blackcoats = [];
+			$nonblackcoats = [];
+			$plains = [];
+			$socks = [];
+			$concaves = [];
+			$straightheads = [];
+			$smooths = [];
+			$wrinkleds = [];
+			$droopingears = [];
+			$semilops = [];
+			$erectears = [];
+			$curlytails = [];
+			$straighttails = [];
+			$swaybacks = [];
+			$straightbacks = [];
+
+			
+			$boarsalive = [];
+			$soldboars = [];
+			$deadboars = [];
+			$removedboars = [];
+			foreach ($boars as $boar) {
+				if($boar->status == "breeder"){
+					array_push($boarsalive, $boar);
+				}
+				elseif($boar->status == "sold breeder"){
+					array_push($soldboars, $boar);
+				}
+				elseif($boar->status == "dead breeder"){
+					array_push($deadboars, $boar);
+				}
+				elseif($boar->status == "removed breeder"){
+					array_push($removedboars, $boar);
+				}
+			}
+			foreach ($boarsalive as $boaralive){
+				$properties = $boaralive->getAnimalProperties();
+				foreach ($properties as $property) {
+					if($property->property_id == 11){ //hairtype
+						if($property->value == "Curly"){
+							array_push($curlyhairs, $property);
+						}
+						elseif($property->value == "Straight"){
+							array_push($straighthairs, $property);
+						}
+					}
+					if($property->property_id == 12){ //hairlength
+						if($property->value == "Short"){
+							array_push($shorthairs, $property);
+						}
+						elseif($property->value == "Long"){
+							array_push($longhairs, $property);
+						}
+					}
+					if($property->property_id == 13){ //coatcolor
+						if($property->value == "Black"){
+							array_push($blackcoats, $property);
+						}
+						elseif($property->value == "Others"){
+							array_push($nonblackcoats, $property);
+						}
+					}
+					if($property->property_id == 14){ //colorpattern
+						if($property->value == "Plain"){
+							array_push($plains, $property);
+						}
+						elseif($property->value == "Socks"){
+							array_push($socks, $property);
+						}
+					}
+					if($property->property_id == 15){ //headshape
+						if($property->value == "Concave"){
+							array_push($concaves, $property);
+						}
+						elseif($property->value == "Straight"){
+							array_push($straightheads, $property);
+						}
+					}
+					if($property->property_id == 16){ //skintype
+						if($property->value == "Smooth"){
+							array_push($smooths, $property);
+						}
+						elseif($property->value == "Wrinkled"){
+							array_push($wrinkleds, $property);
+						}
+					}
+					if($property->property_id == 17){ //eartype
+						if($property->value == "Drooping"){
+							array_push($droopingears, $property);
+						}
+						elseif($property->value == "Semi-lop"){
+							array_push($semilops, $property);
+						}
+						elseif($property->value == "Erect"){
+							array_push($erectears, $property);
+						}
+					}
+					if($property->property_id == 18){ //tailtype
+						if($property->value == "Curly"){
+							array_push($curlytails, $property);
+						}
+						elseif($property->value == "Straight"){
+							array_push($straighttails, $property);
+						}
+					}
+					if($property->property_id == 19){ //backline
+						if($property->value == "Swayback"){
+							array_push($swaybacks, $property);
+						}
+						elseif($property->value == "Straight"){
+							array_push($straightbacks, $property);
+						}
+					}
+				}
+			}
+
+			// count of boars without records
+			$nohairtypes = (count($boarsalive)-(count($curlyhairs)+count($straighthairs)));
+			$nohairlengths = (count($boarsalive)-(count($shorthairs)+count($longhairs)));
+			$nocoats = (count($boarsalive)-(count($blackcoats)+count($nonblackcoats)));
+			$nopatterns = (count($boarsalive)-(count($plains)+count($socks)));
+			$noheadshapes = (count($boarsalive)-(count($concaves)+count($straightheads)));
+			$noskintypes = (count($boarsalive)-(count($smooths)+count($wrinkleds)));
+			$noeartypes = (count($boarsalive)-(count($droopingears)+count($semilops)+count($erectears)));
+			$notailtypes = (count($boarsalive)-(count($curlytails)+count($straighttails)));
+			$nobacklines = (count($boarsalive)-(count($swaybacks)+count($straightbacks)));
+			
+			$now = new Carbon();
+
+			$pdf = PDF::loadView('pigs.grossmorphoboarpdf', compact('pigs', 'filter', 'sows', 'boars', 'curlyhairs', 'straighthairs', 'shorthairs', 'longhairs', 'blackcoats', 'nonblackcoats', 'plains', 'socks', 'concaves', 'straightheads', 'smooths', 'wrinkleds', 'droopingears', 'semilops', 'erectears', 'curlytails', 'straighttails', 'swaybacks', 'straightbacks', 'nohairtypes', 'nohairlengths', 'nocoats', 'nopatterns', 'noheadshapes', 'noskintypes', 'noeartypes', 'notailtypes', 'nobacklines', 'years', 'alive', 'sold', 'dead', 'removed', 'sowsalive', 'soldsows', 'deadsows', 'removedsows', 'boarsalive', 'soldboars', 'deadboars', 'removedboars', 'now'));
+			return $pdf->download('grossmorphoreport_boar_'.$now.'.pdf');
+		}
 
 		public function getGrossMorphologyReportPage(){ // function to display Gross Morphology Report page
 			$farm = $this->user->getFarm();
@@ -2848,30 +3210,16 @@ class FarmController extends Controller
 			}
 		}
 
-		/*public function morphoCharsDownloadPDF(){
+		public function morphoCharsAllDownloadPDF(){
 			$farm = $this->user->getFarm();
 			$breed = $farm->getBreed();
-			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where(function ($query) {
-										$query->where("status", "breeder")
-													->orWhere("status", "sold breeder")
-													->orWhere("status", "dead breeder")
-													->orWhere("status", "removed breeder");
-													})->get();
+			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "breeder")->orWhere("status", "dead breeder")->orWhere("status", "sold breeder")->get();
 
 			$alive = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "breeder")->get();
 			$sold = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "sold breeder")->get();
 			$dead = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "dead breeder")->get();
 			$removed = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "removed breeder")->get();
-			$sowsalive = [];
-			$soldsows = [];
-			$deadsows = [];
-			$removedsows = [];
-			$boarsalive = [];
-			$soldboars = [];
-			$deadboars = [];
-			$removedboars = [];
 
-			// default filter
 			$filter = "All";
 
 			// sorts pigs per sex
@@ -2902,6 +3250,7 @@ class FarmController extends Controller
 				}
 			}
 
+
 			$earlengths = [];
 			$headlengths = [];
 			$snoutlengths = [];
@@ -2914,6 +3263,7 @@ class FarmController extends Controller
 			$normalteats = [];
 			$ages_collected = [];
 			$ages_collected_all = [];
+			
 			foreach ($pigs as $pig) {
 				$dc = $pig->getAnimalProperties()->where("property_id", 21)->first();
 				if(!is_null($dc) && $dc->value != ""){
@@ -3034,9 +3384,399 @@ class FarmController extends Controller
 
 			$now = new Carbon();
 
-			$pdf = PDF::loadView('pigs.morphocharspdf', compact('pigs', 'filter', 'sows', 'boars', 'earlengths', 'headlengths', 'snoutlengths', 'bodylengths', 'heartgirths', 'pelvicwidths', 'ponderalindices', 'taillengths', 'heightsatwithers', 'normalteats', 'earlengths_sd', 'headlengths_sd', 'snoutlengths_sd', 'bodylengths_sd', 'heartgirths_sd', 'pelvicwidths_sd', 'ponderalindices_sd', 'taillengths_sd', 'heightsatwithers_sd', 'normalteats_sd', 'years', 'ages_collected', 'ages_collected_all', 'alive', 'sold', 'dead', 'removed', 'sowsalive', 'soldsows', 'deadsows', 'removedsows', 'boarsalive', 'soldboars', 'deadboars', 'removedboars', 'now'));
-			return $pdf->download('morphocharsreport.pdf');
-		}*/
+			$pdf = PDF::loadView('pigs.morphocharsallpdf', compact('pigs', 'filter', 'sows', 'boars', 'earlengths', 'headlengths', 'snoutlengths', 'bodylengths', 'heartgirths', 'pelvicwidths', 'ponderalindices', 'taillengths', 'heightsatwithers', 'normalteats', 'earlengths_sd', 'headlengths_sd', 'snoutlengths_sd', 'bodylengths_sd', 'heartgirths_sd', 'pelvicwidths_sd', 'ponderalindices_sd', 'taillengths_sd', 'heightsatwithers_sd', 'normalteats_sd', 'years', 'ages_collected', 'ages_collected_all', 'alive', 'sold', 'dead', 'removed', 'sowsalive', 'soldsows', 'deadsows', 'removedsows', 'boarsalive', 'soldboars', 'deadboars', 'removedboars', 'now'));
+			return $pdf->download('morphocharsreport_all_'.$now.'.pdf');
+		}
+
+		public function morphoCharsSowDownloadPDF(){
+			$farm = $this->user->getFarm();
+			$breed = $farm->getBreed();
+			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "breeder")->orWhere("status", "dead breeder")->orWhere("status", "sold breeder")->get();
+
+			$alive = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "breeder")->get();
+			$sold = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "sold breeder")->get();
+			$dead = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "dead breeder")->get();
+			$removed = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "removed breeder")->get();
+
+			$filter = "Sow";
+
+			// sorts pigs per sex
+			$sows = [];
+			$boars = [];
+			foreach ($alive as $pig) {
+				if(substr($pig->registryid, -7, 1) == 'F'){
+					array_push($sows, $pig);
+				}
+				if(substr($pig->registryid, -7, 1) == 'M'){
+					array_push($boars, $pig);
+				}
+			}
+
+			// gets unique years of birth
+			$years = [];
+			$tempyears = [];
+			foreach ($alive as $pig) {
+				$pigproperties = $pig->getAnimalProperties();
+				foreach ($pigproperties as $pigproperty) {
+					if($pigproperty->property_id == 3){ //date farrowed
+						if(!is_null($pigproperty->value) && $pigproperty->value != "Not specified"){
+							$year = Carbon::parse($pigproperty->value)->year;
+							array_push($tempyears, $year);
+							$years = array_reverse(array_sort(array_unique($tempyears)));
+						}
+					}
+				}
+			}
+
+
+			$earlengths = [];
+			$headlengths = [];
+			$snoutlengths = [];
+			$bodylengths = [];
+			$heartgirths = [];
+			$pelvicwidths = [];
+			$ponderalindices = [];
+			$taillengths = [];
+			$heightsatwithers = [];
+			$normalteats = [];
+			$ages_collected = [];
+			$ages_collected_all = [];
+			
+			$sowsalive = [];
+			$soldsows = [];
+			$deadsows = [];
+			$removedsows = [];
+			foreach ($sows as $sow) {
+				if($sow->status == "breeder"){
+					array_push($sowsalive, $sow);
+				}
+				elseif($sow->status == "sold breeder"){
+					array_push($soldsows, $sow);
+				}
+				elseif($sow->status == "dead breeder"){
+					array_push($deadsows, $sow);
+				}
+				elseif($sow->status == "removed breeder"){
+					array_push($removedsows, $sow);
+				}
+				$dc = $sow->getAnimalProperties()->where("property_id", 21)->first();
+				if(!is_null($dc) && $dc->value != ""){
+					$date_collected = Carbon::parse($dc->value);
+					$bday = $sow->getAnimalProperties()->where("property_id", 3)->first();
+					if(!is_null($bday) && $bday->value != "Not specified"){
+						$age = $date_collected->diffInMonths(Carbon::parse($bday->value));
+						array_push($ages_collected_all, $age);
+					}
+				}
+			}
+			foreach ($sowsalive as $sowalive) {
+				$properties = $sowalive->getAnimalProperties();
+				foreach ($properties as $property) {
+					if($property->property_id == 21){ // date collected for morpho chars
+						if($property->value != ""){
+							$date_collected = $property->value;
+							$bday = $sowalive->getAnimalProperties()->where("property_id", 3)->first();
+							if(!is_null($bday) && $bday->value != "Not specified"){
+								$age = Carbon::parse($date_collected)->diffInMonths(Carbon::parse($bday->value));
+								array_push($ages_collected, $age);
+							}
+						}
+					}
+					if($property->property_id == 22){ //earlength
+						if($property->value != ""){
+							$earlength = $property->value;
+							array_push($earlengths, $earlength);
+						}
+					}
+					if($property->property_id == 23){ //headlength
+						if($property->value != ""){
+							$headlength = $property->value;
+							array_push($headlengths, $headlength);
+						}
+					}
+					if($property->property_id == 24){ //snoutlength
+						if($property->value != ""){
+							$snoutlength = $property->value;
+							array_push($snoutlengths, $snoutlength);
+						}
+					}
+					if($property->property_id == 25){ //bodylength
+						if($property->value != ""){
+							$bodylength = $property->value;
+							array_push($bodylengths, $bodylength);
+						}
+					}
+					if($property->property_id == 26){ //heartgirth
+						if($property->value != ""){
+							$heartgirth = $property->value;
+							array_push($heartgirths, $heartgirth);
+						}
+					}
+					if($property->property_id == 27){ //pelvicwidth
+						if($property->value != ""){
+							$pelvicwidth = $property->value;
+							array_push($pelvicwidths, $pelvicwidth);
+						}
+					}
+					if($property->property_id == 28){ //taillength
+						if($property->value != ""){
+							$taillength = $property->value;
+							array_push($taillengths, $taillength);
+						}
+					}
+					if($property->property_id == 29){ //heightatwithers
+						if($property->value != ""){
+							$heightatwithers = $property->value;
+							array_push($heightsatwithers, $heightatwithers);
+						}
+					}
+					if($property->property_id == 30){ //numberofnormalteats
+						if($property->value != ""){
+							$numberofnormalteats = $property->value;
+							array_push($normalteats, $numberofnormalteats);
+						}
+					}
+					if($property->property_id == 31){ //ponderalindex
+						if($property->value != ""){
+							$ponderalindex = $property->value;
+							array_push($ponderalindices, $ponderalindex);
+						}
+					}
+				}
+			}
+
+			if($earlengths != []){
+				$earlengths_sd = static::standardDeviation($earlengths, false);
+			}
+			if($headlengths != []){
+				$headlengths_sd = static::standardDeviation($headlengths, false);
+			}
+			if($snoutlengths != []){
+				$snoutlengths_sd = static::standardDeviation($snoutlengths, false);
+			}
+			if($bodylengths != []){
+				$bodylengths_sd = static::standardDeviation($bodylengths, false);
+			}
+			if($heartgirths != []){
+				$heartgirths_sd = static::standardDeviation($heartgirths, false);
+			}
+			if($pelvicwidths != []){
+				$pelvicwidths_sd = static::standardDeviation($pelvicwidths, false);
+			}
+			if($ponderalindices != []){
+				$ponderalindices_sd = static::standardDeviation($ponderalindices, false);
+			}
+			if($taillengths != []){
+				$taillengths_sd = static::standardDeviation($taillengths, false);
+			}
+			if($heightsatwithers != []){
+				$heightsatwithers_sd = static::standardDeviation($heightsatwithers, false);
+			}
+			if($normalteats != []){
+				$normalteats_sd = static::standardDeviation($normalteats, false);
+			}
+			
+
+			$now = new Carbon();
+
+			$pdf = PDF::loadView('pigs.morphocharssowpdf', compact('pigs', 'filter', 'sows', 'boars', 'earlengths', 'headlengths', 'snoutlengths', 'bodylengths', 'heartgirths', 'pelvicwidths', 'ponderalindices', 'taillengths', 'heightsatwithers', 'normalteats', 'earlengths_sd', 'headlengths_sd', 'snoutlengths_sd', 'bodylengths_sd', 'heartgirths_sd', 'pelvicwidths_sd', 'ponderalindices_sd', 'taillengths_sd', 'heightsatwithers_sd', 'normalteats_sd', 'years', 'ages_collected', 'ages_collected_all', 'alive', 'sold', 'dead', 'removed', 'sowsalive', 'soldsows', 'deadsows', 'removedsows', 'boarsalive', 'soldboars', 'deadboars', 'removedboars', 'now'));
+			return $pdf->download('morphocharsreport_sow_'.$now.'.pdf');
+		}
+
+		public function morphoCharsBoarDownloadPDF(){
+			$farm = $this->user->getFarm();
+			$breed = $farm->getBreed();
+			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "breeder")->orWhere("status", "dead breeder")->orWhere("status", "sold breeder")->get();
+
+			$alive = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "breeder")->get();
+			$sold = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "sold breeder")->get();
+			$dead = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "dead breeder")->get();
+			$removed = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "removed breeder")->get();
+
+			$filter = "Boar";
+
+			// sorts pigs per sex
+			$sows = [];
+			$boars = [];
+			foreach ($alive as $pig) {
+				if(substr($pig->registryid, -7, 1) == 'F'){
+					array_push($sows, $pig);
+				}
+				if(substr($pig->registryid, -7, 1) == 'M'){
+					array_push($boars, $pig);
+				}
+			}
+
+			// gets unique years of birth
+			$years = [];
+			$tempyears = [];
+			foreach ($alive as $pig) {
+				$pigproperties = $pig->getAnimalProperties();
+				foreach ($pigproperties as $pigproperty) {
+					if($pigproperty->property_id == 3){ //date farrowed
+						if(!is_null($pigproperty->value) && $pigproperty->value != "Not specified"){
+							$year = Carbon::parse($pigproperty->value)->year;
+							array_push($tempyears, $year);
+							$years = array_reverse(array_sort(array_unique($tempyears)));
+						}
+					}
+				}
+			}
+
+
+			$earlengths = [];
+			$headlengths = [];
+			$snoutlengths = [];
+			$bodylengths = [];
+			$heartgirths = [];
+			$pelvicwidths = [];
+			$ponderalindices = [];
+			$taillengths = [];
+			$heightsatwithers = [];
+			$normalteats = [];
+			$ages_collected = [];
+			$ages_collected_all = [];
+			
+			$boarsalive = [];
+			$soldboars = [];
+			$deadboars = [];
+			$removedboars = [];
+			foreach ($boars as $boar) {
+				if($boar->status == "breeder"){
+					array_push($boarsalive, $boar);
+				}
+				elseif($boar->status == "sold breeder"){
+					array_push($soldboars, $boar);
+				}
+				elseif($boar->status == "dead breeder"){
+					array_push($deadboars, $boar);
+				}
+				elseif($boar->status == "removed breeder"){
+					array_push($removedboars, $boar);
+				}
+				$dc = $boar->getAnimalProperties()->where("property_id", 21)->first();
+				if(!is_null($dc) && $dc->value != ""){
+					$date_collected = Carbon::parse($dc->value);
+					$bday = $boar->getAnimalProperties()->where("property_id", 3)->first();
+					if(!is_null($bday) && $bday->value != "Not specified"){
+						$age = $date_collected->diffInMonths(Carbon::parse($bday->value));
+						array_push($ages_collected_all, $age);
+					}
+				}
+			}
+			foreach ($boarsalive as $boaralive) {
+				$properties = $boaralive->getAnimalProperties();
+				foreach ($properties as $property) {
+					if($property->property_id == 21){ // date collected for morpho chars
+						if($property->value != ""){
+							$date_collected = $property->value;
+							$bday = $boaralive->getAnimalProperties()->where("property_id", 3)->first();
+							if(!is_null($bday) && $bday->value != "Not specified"){
+								$age = Carbon::parse($date_collected)->diffInMonths(Carbon::parse($bday->value));
+								array_push($ages_collected, $age);
+							}
+						}
+					}
+					if($property->property_id == 22){ //earlength
+						if($property->value != ""){
+							$earlength = $property->value;
+							array_push($earlengths, $earlength);
+						}
+					}
+					if($property->property_id == 23){ //headlength
+						if($property->value != ""){
+							$headlength = $property->value;
+							array_push($headlengths, $headlength);
+						}
+					}
+					if($property->property_id == 24){ //snoutlength
+						if($property->value != ""){
+							$snoutlength = $property->value;
+							array_push($snoutlengths, $snoutlength);
+						}
+					}
+					if($property->property_id == 25){ //bodylength
+						if($property->value != ""){
+							$bodylength = $property->value;
+							array_push($bodylengths, $bodylength);
+						}
+					}
+					if($property->property_id == 26){ //heartgirth
+						if($property->value != ""){
+							$heartgirth = $property->value;
+							array_push($heartgirths, $heartgirth);
+						}
+					}
+					if($property->property_id == 27){ //pelvicwidth
+						if($property->value != ""){
+							$pelvicwidth = $property->value;
+							array_push($pelvicwidths, $pelvicwidth);
+						}
+					}
+					if($property->property_id == 28){ //taillength
+						if($property->value != ""){
+							$taillength = $property->value;
+							array_push($taillengths, $taillength);
+						}
+					}
+					if($property->property_id == 29){ //heightatwithers
+						if($property->value != ""){
+							$heightatwithers = $property->value;
+							array_push($heightsatwithers, $heightatwithers);
+						}
+					}
+					if($property->property_id == 30){ //numberofnormalteats
+						if($property->value != ""){
+							$numberofnormalteats = $property->value;
+							array_push($normalteats, $numberofnormalteats);
+						}
+					}
+					if($property->property_id == 31){ //ponderalindex
+						if($property->value != ""){
+							$ponderalindex = $property->value;
+							array_push($ponderalindices, $ponderalindex);
+						}
+					}
+				}
+			}
+				
+
+			if($earlengths != []){
+				$earlengths_sd = static::standardDeviation($earlengths, false);
+			}
+			if($headlengths != []){
+				$headlengths_sd = static::standardDeviation($headlengths, false);
+			}
+			if($snoutlengths != []){
+				$snoutlengths_sd = static::standardDeviation($snoutlengths, false);
+			}
+			if($bodylengths != []){
+				$bodylengths_sd = static::standardDeviation($bodylengths, false);
+			}
+			if($heartgirths != []){
+				$heartgirths_sd = static::standardDeviation($heartgirths, false);
+			}
+			if($pelvicwidths != []){
+				$pelvicwidths_sd = static::standardDeviation($pelvicwidths, false);
+			}
+			if($ponderalindices != []){
+				$ponderalindices_sd = static::standardDeviation($ponderalindices, false);
+			}
+			if($taillengths != []){
+				$taillengths_sd = static::standardDeviation($taillengths, false);
+			}
+			if($heightsatwithers != []){
+				$heightsatwithers_sd = static::standardDeviation($heightsatwithers, false);
+			}
+			if($normalteats != []){
+				$normalteats_sd = static::standardDeviation($normalteats, false);
+			}
+			
+			$now = new Carbon();
+
+			$pdf = PDF::loadView('pigs.morphocharsboarpdf', compact('pigs', 'filter', 'sows', 'boars', 'earlengths', 'headlengths', 'snoutlengths', 'bodylengths', 'heartgirths', 'pelvicwidths', 'ponderalindices', 'taillengths', 'heightsatwithers', 'normalteats', 'earlengths_sd', 'headlengths_sd', 'snoutlengths_sd', 'bodylengths_sd', 'heartgirths_sd', 'pelvicwidths_sd', 'ponderalindices_sd', 'taillengths_sd', 'heightsatwithers_sd', 'normalteats_sd', 'years', 'ages_collected', 'ages_collected_all', 'alive', 'sold', 'dead', 'removed', 'sowsalive', 'soldsows', 'deadsows', 'removedsows', 'boarsalive', 'soldboars', 'deadboars', 'removedboars', 'now'));
+			return $pdf->download('morphocharsreport_boar_'.$now.'.pdf');
+		}
 
 		public function getMorphometricCharacteristicsReportPage(){ // function to display Morphometric Characteristics Report page
 			$farm = $this->user->getFarm();
@@ -8184,7 +8924,12 @@ class FarmController extends Controller
 			}
 
 			if($q != ' '){
-				$breeders = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "breeder")->where('registryid', 'LIKE', '%'.$q.'%')->get();
+				$breeders = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where(function ($query) {
+										$query->where("status", "breeder")
+													->orWhere("status", "dead breeder")
+													->orWhere("status", "sold breeder")
+													->orWhere("status", "removed breeder");
+													})->where('registryid', 'LIKE', '%'.$q.'%')->get();
 				// dd($breeders);
 				if(count($breeders) > 0){
 					return view('pigs.breederrecords', compact('pigs', 'sows', 'boars', 'archived_sows', 'archived_boars'))->withDetails($breeders)->withQuery($q);

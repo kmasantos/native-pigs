@@ -32,41 +32,50 @@
               <tbody>
                 @foreach($details as $breeder)
                   <tr>
-                    @if($breeder->grossmorpho == 1 || $breeder->morphochars == 1 || $breeder->weightrecord == 1)
+                    @if($breeder->status == "dead breeder" || $breeder->status == "sold breeder" || $breeder->status == "removed breeder")
                       @if($breeder->getAnimalProperties()->where("property_id", 2)->first()->value == 'F')
                         <td><a href="{{ URL::route('farm.pig.view_sow', [$breeder->id]) }}" class="tooltipped" data-position="top" data-tooltip="View breeder">{{ $breeder->registryid }}</a></td>
                       @elseif($breeder->getAnimalProperties()->where("property_id", 2)->first()->value == 'M')
                         <td><a href="{{ URL::route('farm.pig.view_boar', [$breeder->id]) }}" class="tooltipped" data-position="top" data-tooltip="View breeder">{{ $breeder->registryid }}</a></td>
                       @endif
-                    @elseif($breeder->grossmorpho == 0 && $breeder->morphochars == 0 && $breeder->weightrecord == 0)
-                      <td>{{ $breeder->registryid }}</td>
-                    @endif
-                    @if($breeder->grossmorpho == 0)
-                      <td>
-                        <a href="{{ URL::route('farm.pig.gross_morphology_page', [$breeder->id]) }}" class="tooltipped" data-position="top" data-tooltip="Add"><i class="material-icons">add_circle_outline</i></a>
-                      </td>
-                    @elseif($breeder->grossmorpho == 1)
-                      <td>
-                        <a href="{{ URL::route('farm.pig.edit_gross_morphology_page', [$breeder->id]) }}" class="tooltipped" data-position="top" data-tooltip="Edit"><i class="material-icons">edit</i></a>
-                      </td>
-                    @endif
-                    @if($breeder->morphochars == 0)
-                      <td>
-                        <a href="{{ URL::route('farm.pig.pig_morphometric_characteristics_page', [$breeder->id]) }}" class="tooltipped" data-position="top" data-tooltip="Add"><i class="material-icons">add_circle_outline</i></a>
-                      </td>
-                    @elseif($breeder->morphochars == 1)
-                      <td>
-                        <a href="{{ URL::route('farm.pig.edit_pig_morphometric_characteristics_page', [$breeder->id]) }}" class="tooltipped" data-position="top" data-tooltip="Edit"><i class="material-icons">edit</i></a>
-                      </td>
-                    @endif
-                    @if($breeder->weightrecord == 0)
-                      <td>
-                        <a href="{{ URL::route('farm.pig.weight_records_page', [$breeder->id]) }}" class="tooltipped" data-position="top" data-tooltip="Add"><i class="material-icons">add_circle_outline</i></a>
-                      </td>
-                    @elseif($breeder->weightrecord == 1)
-                      <td>
-                        <a href="{{ URL::route('farm.pig.edit_weight_records_page', [$breeder->id]) }}" class="tooltipped" data-position="top" data-tooltip="Edit"><i class="material-icons">edit</i></a>
-                      </td>
+                      <td colspan="3">{{$breeder->status}}, cannot add or edit records</td>
+                    @else
+                      @if($breeder->grossmorpho == 1 || $breeder->morphochars == 1 || $breeder->weightrecord == 1)
+                        @if($breeder->getAnimalProperties()->where("property_id", 2)->first()->value == 'F')
+                          <td><a href="{{ URL::route('farm.pig.view_sow', [$breeder->id]) }}" class="tooltipped" data-position="top" data-tooltip="View breeder">{{ $breeder->registryid }}</a></td>
+                        @elseif($breeder->getAnimalProperties()->where("property_id", 2)->first()->value == 'M')
+                          <td><a href="{{ URL::route('farm.pig.view_boar', [$breeder->id]) }}" class="tooltipped" data-position="top" data-tooltip="View breeder">{{ $breeder->registryid }}</a></td>
+                        @endif
+                      @elseif($breeder->grossmorpho == 0 && $breeder->morphochars == 0 && $breeder->weightrecord == 0)
+                        <td>{{ $breeder->registryid }}</td>
+                      @endif
+                      @if($breeder->grossmorpho == 0)
+                        <td>
+                          <a href="{{ URL::route('farm.pig.gross_morphology_page', [$breeder->id]) }}" class="tooltipped" data-position="top" data-tooltip="Add"><i class="material-icons">add_circle_outline</i></a>
+                        </td>
+                      @elseif($breeder->grossmorpho == 1)
+                        <td>
+                          <a href="{{ URL::route('farm.pig.edit_gross_morphology_page', [$breeder->id]) }}" class="tooltipped" data-position="top" data-tooltip="Edit"><i class="material-icons">edit</i></a>
+                        </td>
+                      @endif
+                      @if($breeder->morphochars == 0)
+                        <td>
+                          <a href="{{ URL::route('farm.pig.pig_morphometric_characteristics_page', [$breeder->id]) }}" class="tooltipped" data-position="top" data-tooltip="Add"><i class="material-icons">add_circle_outline</i></a>
+                        </td>
+                      @elseif($breeder->morphochars == 1)
+                        <td>
+                          <a href="{{ URL::route('farm.pig.edit_pig_morphometric_characteristics_page', [$breeder->id]) }}" class="tooltipped" data-position="top" data-tooltip="Edit"><i class="material-icons">edit</i></a>
+                        </td>
+                      @endif
+                      @if($breeder->weightrecord == 0)
+                        <td>
+                          <a href="{{ URL::route('farm.pig.weight_records_page', [$breeder->id]) }}" class="tooltipped" data-position="top" data-tooltip="Add"><i class="material-icons">add_circle_outline</i></a>
+                        </td>
+                      @elseif($breeder->weightrecord == 1)
+                        <td>
+                          <a href="{{ URL::route('farm.pig.edit_weight_records_page', [$breeder->id]) }}" class="tooltipped" data-position="top" data-tooltip="Edit"><i class="material-icons">edit</i></a>
+                        </td>
+                      @endif
                     @endif
                   </tr>
                 @endforeach

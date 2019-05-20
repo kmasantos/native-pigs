@@ -94,7 +94,7 @@
                                       <span class="card-title black-text">Gilt at 6 months</span>
                                     </div>
                                     <div class="card-content">
-                                      <span class="card-title activator grey-text text-darken-4">Q-Black<a href="{{url('/breed/q-black')}}"><i class="material-icons right">play_arrow</i></a></span>
+                                      <span class="card-title activator grey-text text-darken-4">Q-Black<a href="{{url('/breed/q-black')}}"><i class="material-icons right">launch</i></a></span>
                                     </div>
                                 </div>
                             </div>
@@ -105,7 +105,7 @@
                                       <span class="card-title black-text">Boar at 15 months</span>
                                     </div>
                                     <div class="card-content">
-                                      <span class="card-title activator grey-text text-darken-4">Benguet<a href="{{url('/breed/benguet')}}"><i class="material-icons right">play_arrow</i></a></span>
+                                      <span class="card-title activator grey-text text-darken-4">Benguet<a href="{{url('/breed/benguet')}}"><i class="material-icons right">launch</i></a></span>
                                     </div>
                                 </div>
                             </div>
@@ -118,7 +118,7 @@
                                       <span class="card-title black-text">Gilt at 6 months</span>
                                     </div>
                                     <div class="card-content">
-                                      <span class="card-title activator grey-text text-darken-4">Sinirangan<sup>&reg;</sup><a href="{{url('/breed/sinirangan')}}"><i class="material-icons right">play_arrow</i></a></span>
+                                      <span class="card-title activator grey-text text-darken-4">Sinirangan<sup>&reg;</sup><a href="{{url('/breed/sinirangan')}}"><i class="material-icons right">launch</i></a></span>
                                     </div>
                                 </div>
                             </div>
@@ -129,7 +129,7 @@
                                       <span class="card-title black-text">Boar at 6 months</span>
                                     </div>
                                     <div class="card-content">
-                                      <span class="card-title activator grey-text text-darken-4">ISUbela<a href="{{url('/breed/isubela')}}"><i class="material-icons right">play_arrow</i></a></span>
+                                      <span class="card-title activator grey-text text-darken-4">ISUbela<a href="{{url('/breed/isubela')}}"><i class="material-icons right">launch</i></a></span>
                                     </div>
                                 </div>
                             </div>
@@ -142,7 +142,7 @@
                                       <span class="card-title black-text">Gilt at 6 months</span>
                                     </div>
                                     <div class="card-content">
-                                      <span class="card-title activator grey-text text-darken-4">Yookah<a href="{{url('/breed/yookah')}}"><i class="material-icons right">play_arrow</i></a></span>
+                                      <span class="card-title activator grey-text text-darken-4">Yookah<a href="{{url('/breed/yookah')}}"><i class="material-icons right">launch</i></a></span>
                                     </div>
                                 </div>
                             </div>
@@ -153,7 +153,7 @@
                                       <span class="card-title black-text">Boar at 7 months</span>
                                     </div>
                                     <div class="card-content">
-                                      <span class="card-title activator grey-text text-darken-4">Native Pig of MSC<a href="{{url('/breed/marinduke')}}"><i class="material-icons right">play_arrow</i></a></span>
+                                      <span class="card-title activator grey-text text-darken-4">Native Pig of MSC<a href="{{url('/breed/marinduke')}}"><i class="material-icons right">launch</i></a></span>
                                     </div>
                                 </div>
                             </div>

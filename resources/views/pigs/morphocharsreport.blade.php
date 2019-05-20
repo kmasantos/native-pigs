@@ -565,6 +565,13 @@
       </a>
       <ul>
         <li><a class="btn-floating green lighten-1 tooltipped" data-position="left" data-tooltip="Download as CSV File"><i class="material-icons">table_chart</i></a></li>
+        @if($filter == "All")
+          <li><a href="{{ URL::route('farm.pig.morpho_chars_all_download_pdf') }}" class="btn-floating green darken-1 tooltipped" data-position="left" data-tooltip="Download as PDF"><i class="material-icons">file_copy</i></a></li>
+        @elseif($filter == "Sow")
+          <li><a href="{{ URL::route('farm.pig.morpho_chars_sow_download_pdf') }}" class="btn-floating green darken-1 tooltipped" data-position="left" data-tooltip="Download as PDF"><i class="material-icons">file_copy</i></a></li>
+        @elseif($filter == "Boar")
+          <li><a href="{{ URL::route('farm.pig.morpho_chars_boar_download_pdf') }}" class="btn-floating green darken-1 tooltipped" data-position="left" data-tooltip="Download as PDF"><i class="material-icons">file_copy</i></a></li>
+        @endif
       </ul>
     </div>
   </div>
