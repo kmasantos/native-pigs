@@ -564,8 +564,7 @@
         <i class="large material-icons">cloud_download</i>
       </a>
       <ul>
-        <li><a class="btn-floating green lighten-1 tooltipped" data-position="left" data-tooltip="Download as Excel File"><i class="material-icons">table_chart</i></a></li>
-        <li><a href="{{route('farm.pig.morpho_chars_download_pdf')}}"class="btn-floating green darken-1 tooltipped" data-position="left" data-tooltip="Download as PDF"><i class="material-icons">file_copy</i></a></li>
+        <li><a class="btn-floating green lighten-1 tooltipped" data-position="left" data-tooltip="Download as CSV File"><i class="material-icons">table_chart</i></a></li>
       </ul>
     </div>
   </div>

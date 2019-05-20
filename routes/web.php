@@ -95,10 +95,11 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('get_mortality_record', ['as' => 'farm.pig.get_mortality_record', 'uses' => 'FarmController@addMortalityRecord']);
     Route::post('get_sales_record', ['as' => 'farm.pig.get_sales_record', 'uses' => 'FarmController@addSalesRecord']);
     Route::post('get_removed_animal_record', ['as' => 'farm.pig.get_removed_animal_record', 'uses' => 'FarmController@addRemovedAnimalRecord']);
-    Route::get('gross_morpho_download_pdf', ['as' => 'farm.pig.gross_morpho_download_pdf', 'uses' => 'FarmController@grossMorphoDownloadPDF']);
+   /* Route::get('gross_morpho_download_pdf', ['as' => 'farm.pig.gross_morpho_download_pdf', 'uses' => 'FarmController@grossMorphoDownloadPDF']);
     Route::get('morpho_chars_download_pdf', ['as' => 'farm.pig.morpho_chars_download_pdf', 'uses' => 'FarmController@morphoCharsDownloadPDF']);
     Route::get('cumulative_download_pdf', ['as' => 'farm.pig.cumulative_download_pdf', 'uses' => 'FarmController@cumulativeDownloadPDF']);
-    Route::get('growth_perf_download_pdf', ['as' => 'farm.pig.growth_perf_download_pdf', 'uses' => 'FarmController@growthPerfDownloadPDF']);
+    Route::get('growth_perf_download_pdf', ['as' => 'farm.pig.growth_perf_download_pdf', 'uses' => 'FarmController@growthPerfDownloadPDF']);*/
+    Route::get('sowlitter_record_download_pdf/{id}', ['as' => 'farm.pig.sowlitter_record_download_pdf', 'uses' => 'FarmController@sowLitterRecordDownloadPDF']);
     Route::get('gross_morphology_report', ['as' => 'farm.pig.gross_morphology_report', 'uses' => 'FarmController@getGrossMorphologyReportPage']);
     Route::get('morpho_chars_report', ['as' => 'farm.pig.morpho_chars_report', 'uses' => 'FarmController@getMorphometricCharacteristicsReportPage']);
     Route::get('growth_performance_report', ['as' => 'farm.pig.growth_performance_report', 'uses' => 'FarmController@getGrowthPerformanceReportPage']);

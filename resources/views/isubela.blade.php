@@ -148,6 +148,7 @@
                         <a class="carousel-item" href="#one!"><img src="{{asset('images/isubela.jpg')}}"></a>
                         <a class="carousel-item" href="#two!"><img src="{{asset('images/isubela-logo.jpg')}}"></a>
                         <a class="carousel-item" href="#three!"><img src="{{asset('images/isu.png')}}"></a>
+                        <a class="carousel-item" href="#four!"><img src="{{asset('images/isubela_grid.jpg')}}"></a>
                     </div>
                 </div>
                 <h5 style="text-decoration: underline;">History</h5>

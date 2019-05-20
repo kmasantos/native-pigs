@@ -147,6 +147,9 @@
                     <div class="carousel">
                         <a class="carousel-item" href="#one!"><img src="{{asset('images/marinduke.jpg')}}"></a>
                         <a class="carousel-item" href="#two!"><img src="{{asset('images/msc.png')}}" height="95%" width="95%"></a>
+                        <a class="carousel-item" href="#three!"><img src="{{asset('images/marinduke_grid.jpg')}}"></a>
+                        <a class="carousel-item" href="#four!"><img src="{{asset('images/marinduke_grid2.jpg')}}"></a>
+                        <a class="carousel-item" href="#five!"><img src="{{asset('images/marinduke3.jpg')}}"></a>
                     </div>
                 </div>
                 <h5 style="text-decoration: underline;">History</h5>

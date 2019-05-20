@@ -148,6 +148,8 @@
                         <a class="carousel-item" href="#one!"><img src="{{asset('images/q-black.jpg')}}"></a>
                         <a class="carousel-item" href="#two!"><img src="{{asset('images/q-black-logo.png')}}"></a>
                         <a class="carousel-item" href="#three!"><img src="{{asset('images/bai.png')}}"></a>
+                        <a class="carousel-item" href="#four!"><img src="{{asset('images/q-black2.jpg')}}"></a>
+                        <a class="carousel-item" href="#five!"><img src="{{asset('images/q-black4.JPG')}}"></a>
                     </div>
                 </div>
                 <h5 style="text-decoration: underline;">History</h5>

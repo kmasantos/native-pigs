@@ -149,6 +149,8 @@
                         <a class="carousel-item" href="#one!"><img src="{{asset('images/sinirangan.jpg')}}"></a>
                         <a class="carousel-item" href="#two!"><img src="{{asset('images/sinirangan-logo.png')}}"></a>
                         <a class="carousel-item" href="#three!"><img src="{{asset('images/essu.png')}}"></a>
+                        <a class="carousel-item" href="#four!"><img src="{{asset('images/sinirangan2.jpg')}}"></a>
+                        <a class="carousel-item" href="#five!"><img src="{{asset('images/sinirangan3.jpg')}}"></a>
                     </div>
                 </div>
                 <h5 style="text-decoration: underline;">History</h5>

@@ -1558,6 +1558,15 @@
 				@endif
 			@endif
 		</div>
+		<div class="fixed-action-btn">
+      <a class="btn-floating btn-large green darken-4">
+        <i class="large material-icons">cloud_download</i>
+      </a>
+      <ul>
+        <li><a class="btn-floating green lighten-1 tooltipped" data-position="left" data-tooltip="Download as CSV File"><i class="material-icons">table_chart</i></a></li>
+        <li><a href="{{ URL::route('farm.pig.sowlitter_record_download_pdf', [$family->id]) }}" class="btn-floating green darken-1 tooltipped" data-position="left" data-tooltip="Download as PDF"><i class="material-icons">file_copy</i></a></li>
+      </ul>
+    </div>
 	</div>
 @endsection
 
@@ -1583,6 +1592,9 @@
 		  format: 'yyyy-mm-dd', 
 		  max: new Date()
 		});
+		$(document).ready(function(){
+      $('.fixed-action-btn').floatingActionButton();
+    });
 		$(document).ready(function(){
 		  $("#paritytext").change(function (event) {
 		    event.preventDefault();

@@ -145,9 +145,11 @@
                 </div>
                 <div class="col s6 m6 l6">
                     <div class="carousel">
-                        <a class="carousel-item" href="#one!"><img src="{{asset('images/benguet.jpg')}}"></a>
+                        <a class="carousel-item" href="#one!"><img src="{{asset('images/benguet2.JPG')}}"></a>
                         <a class="carousel-item" href="#two!"><img src="{{asset('images/benguet-logo.png')}}"></a>
                         <a class="carousel-item" href="#three!"><img src="{{asset('images/bsu.png')}}"></a>
+                        <a class="carousel-item" href="#four!"><img src="{{asset('images/benguet_grid.jpg')}}"></a>
+                        <a class="carousel-item" href="#five!"><img src="{{asset('images/benguet_grid2.jpg')}}"></a>
                     </div>
                 </div>
                 <h5 style="text-decoration: underline;">History</h5>

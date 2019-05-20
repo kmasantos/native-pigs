@@ -46,10 +46,11 @@
 							@endif		    				
 	    			</tr>
 	    			<tr>
-	    				<td>Weaning, kg</td>
 	    				@if($wweights == [])
+	    					<td>Weaning, kg</td>
 		            <td colspan="5" class="center">No data available</td>
 		          @else
+		          	<td>Weaning, kg<br><sup>at {{ round((array_sum($agesweaned_all)/count($agesweaned_all)), 2) }} days</sup></td>
 		          	<td>{{ count($wweights) }}</td>
 		    				<td>{{ min($wweights) }}</td>
 		    				<td>{{ max($wweights) }}</td>
@@ -148,10 +149,11 @@
 							@endif		    				
 	    			</tr>
 	    			<tr>
-	    				<td>Weaning, kg</td>
 	    				@if($wweights_breeders == [])
+	    					<td>Weaning, kg</td>
 		            <td colspan="5" class="center">No data available</td>
 		          @else
+		          	<td>Weaning, kg<br><sup>at {{ round((array_sum($agesweaned_breeders)/count($agesweaned_breeders)), 2) }} days</sup></td>
 		          	<td>{{ count($wweights_breeders) }}</td>
 		    				<td>{{ min($wweights_breeders) }}</td>
 		    				<td>{{ max($wweights_breeders) }}</td>
@@ -250,10 +252,11 @@
 							@endif		    				
 	    			</tr>
 	    			<tr>
-	    				<td>Weaning, kg</td>
 	    				@if($wweights_growers == [])
+	    					<td>Weaning, kg</td>
 		            <td colspan="5" class="center">No data available</td>
 		          @else
+		          	<td>Weaning, kg<br><sup>at {{ round((array_sum($agesweaned_growers)/count($agesweaned_growers)), 2) }} days</sup></td>
 		          	<td>{{ count($wweights_growers) }}</td>
 		    				<td>{{ min($wweights_growers) }}</td>
 		    				<td>{{ max($wweights_growers) }}</td>
@@ -363,7 +366,11 @@
 	    		</table>
 	    	</div>
 	    	<div class="row center">
-	    		<p>Weaning Weight, kg</p>
+	    		@if($years == [])
+	    			<p>Weaning Weight, kg</p>
+	    		@else
+	    			<p>Weaning Weight at {{ round((array_sum($agesweaned_all)/count($agesweaned_all)), 2) }} days, kg</p>
+	    		@endif
 	    		<table class="centered">
 	    			<thead>
 	    				<tr>
@@ -579,8 +586,7 @@
 		    <i class="large material-icons">cloud_download</i>
 		  </a>
 		  <ul>
-		    <li><a class="btn-floating green lighten-1 tooltipped" data-position="left" data-tooltip="Download as Excel File"><i class="material-icons">table_chart</i></a></li>
-		    <li><a href="{{route('farm.pig.growth_perf_download_pdf')}}" class="btn-floating green darken-1 tooltipped" data-position="left" data-tooltip="Download as PDF"><i class="material-icons">file_copy</i></a></li>
+		    <li><a class="btn-floating green lighten-1 tooltipped" data-position="left" data-tooltip="Download as CSV File"><i class="material-icons">table_chart</i></a></li>
 		  </ul>
 		</div>
 	</div>

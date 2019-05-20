@@ -148,6 +148,8 @@
                         <a class="carousel-item" href="#one!"><img src="{{asset('images/yookah.jpg')}}"></a>
                         <a class="carousel-item" href="#two!"><img src="{{asset('images/yookah-logo.png')}}"></a>
                         <a class="carousel-item" href="#three!"><img src="{{asset('images/ksu.png')}}"></a>
+                        <a class="carousel-item" href="#four!"><img src="{{asset('images/yookah2.jpg')}}"></a>
+                        <a class="carousel-item" href="#five!"><img src="{{asset('images/yookah3.jpg')}}"></a>
                     </div>
                 </div>
                 <h5 style="text-decoration: underline;">History</h5>
