@@ -24,6 +24,7 @@ use DB;
 use App\Http\Controllers\HelperController;
 use Input;
 use PDF;
+use Excel;
 
 class FarmController extends Controller
 {
@@ -1404,6 +1405,125 @@ class FarmController extends Controller
 			$pdf = PDF::loadView('pigs.sowlitterpdf', compact('family', 'offsprings', 'properties', 'countMales', 'countFemales', 'aveBirthWeight', 'weaned', 'aveWeaningWeight', 'gestationperiod', 'lactationperiod', 'now'));
 
 			return $pdf->download('sowlitterrecord_'.$id.'_'.$now.'.pdf');
+		}
+
+		public function sowLitterRecordDownloadCSV($id){
+			$family = Grouping::find($id);
+			$properties = $family->getGroupingProperties();
+			$offsprings = $family->getGroupingMembers();
+
+			$now = Carbon::now();
+
+			return Excel::create('sowlitterrecord_'.$id.'_'.$now, function($excel) use ($family, $offsprings, $properties, $now) {
+				$excel->setTitle('Sow and Litter Record of '.$family->getMother()->registryid.' and '.$family->getFather()->registryid);
+				$excel->sheet('SowAndLitterRecord', function($sheet) use ($family, $offsprings, $properties, $now) {
+					$sheet->setOrientation('landscape');
+					$sheet->row(1, array(
+						'Sow Used', $family->getMother()->registryid, 'Date Bred', Carbon::parse($properties->where("property_id", 42)->first()->value)->format('F j, Y')
+					));
+					if(!is_null($properties->where("property_id", 3)->first()) && $properties->where("property_id", 3)->first()->value != "Not specified"){
+						$sheet->row(2, array(
+							'Boar Used', $family->getFather()->registryid, 'Date Farrowed', Carbon::parse($properties->where("property_id", 3)->first()->value)->format('F j, Y')
+						));
+					}
+					else{
+						$sheet->row(2, array(
+							'Boar Used', $family->getFather()->registryid, 'Date Farrowed', 'No data available yet'
+						));
+					}
+					if(!is_null($properties->where("property_id", 48)->first()) && (!is_null($properties->where("property_id", 6)->first()) && $properties->where("property_id", 6)->first()->value != "Not specified")){
+						$sheet->row(3, array(
+							'Parity', $properties->where("property_id", 48)->first()->value, 'Date Weaned', Carbon::parse($properties->where("property_id", 6)->first()->value)->format('F j, Y')
+						));
+					}
+					elseif(!is_null($properties->where("property_id", 48)->first()) && is_null($properties->where("property_id", 6)->first())){
+						$sheet->row(3, array(
+							'Parity', $properties->where("property_id", 48)->first()->value, 'Date Weaned', 'No data available yet'
+						));
+					}
+					elseif(is_null($properties->where("property_id", 48)->first()) && (!is_null($properties->where("property_id", 6)->first()) && $properties->where("property_id", 6)->first()->value != "Not specified")){
+						$sheet->row(3, array(
+							'Parity', 'Not specified', 'Date Weaned', Carbon::parse($properties->where("property_id", 6)->first()->value)->format('F j, Y')
+						));
+					}
+					elseif(is_null($properties->where("property_id", 48)->first()) && is_null($properties->where("property_id", 6)->first())){
+						$sheet->row(3, array(
+							'Parity', 'Not specified', 'Date Weaned', 'No data available yet'
+						));
+					}
+					if(is_null($properties->where("property_id", 45)->first()) && is_null($properties->where("property_id", 46)->first())){
+						$sheet->row(4, array(
+							'Number Stillborn', 'No data available yet', 'Number mummified', 'No data available yet'
+						));
+					}
+					elseif(!is_null($properties->where("property_id", 45)->first()) && !is_null($properties->where("property_id", 46)->first())){
+						$sheet->row(4, array(
+							'Number Stillborn', $properties->where("property_id", 45)->first()->value, 'Number mummified', $properties->where("property_id", 46)->first()->value
+						));
+					}
+					if(is_null($properties->where("property_id", 49)->first()) && is_null($properties->where("property_id", 50)->first())){
+						$sheet->row(5, array(
+							'Total Littersize Born', 'No data available yet', 'Total Littersize Born Alive', 'No data available yet'
+						));
+					}
+					elseif(!is_null($properties->where("property_id", 49)->first()) && !is_null($properties->where("property_id", 50)->first())){
+						$sheet->row(5, array(
+							'Total Littersize Born', $properties->where("property_id", 49)->first()->value, 'Total Littersize Born Alive', $properties->where("property_id", 50)->first()->value
+						));
+					}
+					if(is_null($properties->where("property_id", 51)->first()) && is_null($properties->where("property_id", 52)->first())){
+						$sheet->row(6, array(
+							'Number of Males Born', 'No data available yet', 'Number of Females Born', 'No data available yet'
+						));
+					}
+					elseif(!is_null($properties->where("property_id", 51)->first()) && !is_null($properties->where("property_id", 52)->first())){
+						$sheet->row(6, array(
+							'Number of Males Born', $properties->where("property_id", 51)->first()->value, 'Number of Females Born', $properties->where("property_id", 52)->first()->value
+						));
+					}
+					if(is_null($properties->where("property_id", 53)->first()) && is_null($properties->where("property_id", 56)->first())){
+						$sheet->row(7, array(
+							'Sex Ratio (Male to Female)', 'No data available yet', 'Average Birth Weight', 'No data available yet'
+						));
+					}
+					elseif(!is_null($properties->where("property_id", 53)->first()) && !is_null($properties->where("property_id", 56)->first())){
+						$sheet->row(7, array(
+							'Sex Ratio (Male to Female)', $properties->where("property_id", 53)->first()->value, 'Average Birth Weight', round($properties->where("property_id", 56)->first()->value, 3)
+						));
+					}
+					if(is_null($properties->where("property_id", 57)->first()) && is_null($properties->where("property_id", 58)->first())){
+						$sheet->row(8, array(
+							'Number Weaned', 'No data available yet', 'Average Weaning Weight', 'No data available yet'
+						));
+					}
+					elseif(!is_null($properties->where("property_id", 57)->first()) && !is_null($properties->where("property_id", 58)->first())){
+						$sheet->row(8, array(
+							'Number Weaned', $properties->where("property_id", 57)->first()->value, 'Average Weaning Weight', round($properties->where("property_id", 58)->first()->value, 3)
+						));
+					}
+					$sheet->row(9, array(' '));
+					$sheet->row(10, array('Offspring Record'));
+					$sheet->row(11, array(
+						'Offspring ID', 'Sex', 'Birth Weight', 'Weaning Weight'
+					));
+					
+					$i = 12;
+					foreach ($offsprings as $offspring) {
+						if(!is_null($offspring->getAnimalProperties()->where("property_id", 7)->first())){
+							$sheet->row($i, array(
+								$offspring->getChild()->registryid, $offspring->getAnimalProperties()->where("property_id", 2)->first()->value, $offspring->getAnimalProperties()->where("property_id", 5)->first()->value, $offspring->getAnimalProperties()->where("property_id", 7)->first()->value
+							));
+							$i++;
+						}
+						else{
+							$sheet->row($i, array(
+								$offspring->getChild()->registryid, $offspring->getAnimalProperties()->where("property_id", 2)->first()->value, $offspring->getAnimalProperties()->where("property_id", 5)->first()->value, 'No data available yet'
+							));
+							$i++;
+						}
+					}
+				});
+			})->download('csv');
 		}
 
 		public function getAddSowLitterRecordPage($id){ // function to display Sow-Litter Record page

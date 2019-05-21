@@ -104,6 +104,7 @@ Route::group(['middleware' => ['web']], function () {
     // Route::get('cumulative_download_pdf', ['as' => 'farm.pig.cumulative_download_pdf', 'uses' => 'FarmController@cumulativeDownloadPDF']);
     // Route::get('growth_perf_download_pdf', ['as' => 'farm.pig.growth_perf_download_pdf', 'uses' => 'FarmController@growthPerfDownloadPDF']);
     Route::get('sowlitter_record_download_pdf/{id}', ['as' => 'farm.pig.sowlitter_record_download_pdf', 'uses' => 'FarmController@sowLitterRecordDownloadPDF']);
+    Route::get('sowlitter_record_download_csv/{id}', ['as'=> 'farm.pig.sowlitter_record_download_csv', 'uses' => 'FarmController@sowLitterRecordDownloadCSV']);
     Route::get('gross_morphology_report', ['as' => 'farm.pig.gross_morphology_report', 'uses' => 'FarmController@getGrossMorphologyReportPage']);
     Route::get('morpho_chars_report', ['as' => 'farm.pig.morpho_chars_report', 'uses' => 'FarmController@getMorphometricCharacteristicsReportPage']);
     Route::get('growth_performance_report', ['as' => 'farm.pig.growth_performance_report', 'uses' => 'FarmController@getGrowthPerformanceReportPage']);
