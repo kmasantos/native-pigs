@@ -38,16 +38,17 @@
 			@endif		    				
 		</tr>
 		<tr>
-			<td>Weaning, kg</td>
 			@if($wweights == [])
+				<td>Weaning, kg</td>
         <td colspan="5" class="center">No data available</td>
       @else
+      	<td>Weaning at {{ round((array_sum($agesweaned_all)/count($agesweaned_all)), 2) }} days, kg</td>
       	<td>{{ count($wweights) }}</td>
 				<td>{{ min($wweights) }}</td>
 				<td>{{ max($wweights) }}</td>
 				<td>{{ round((array_sum($wweights)/count($wweights)), 2) }}</td>
 				<td>{{ round($wweights_sd, 2) }}</td>
-			@endif		    				
+			@endif	    				
 		</tr>
 		<tr>
 			<td>45 days, kg</td>
@@ -139,10 +140,11 @@
 			@endif		    				
 		</tr>
 		<tr>
-			<td>Weaning, kg</td>
 			@if($wweights_breeders == [])
+				<td>Weaning, kg</td>
         <td colspan="5" class="center">No data available</td>
       @else
+      	<td>Weaning at {{ round((array_sum($agesweaned_breeders)/count($agesweaned_breeders)), 2) }} days, kg</td>
       	<td>{{ count($wweights_breeders) }}</td>
 				<td>{{ min($wweights_breeders) }}</td>
 				<td>{{ max($wweights_breeders) }}</td>
@@ -240,16 +242,17 @@
 			@endif		    				
 		</tr>
 		<tr>
-			<td>Weaning, kg</td>
 			@if($wweights_growers == [])
+				<td>Weaning, kg</td>
         <td colspan="5" class="center">No data available</td>
       @else
+      	<td>Weaning at {{ round((array_sum($agesweaned_growers)/count($agesweaned_growers)), 2) }} days, kg</td>
       	<td>{{ count($wweights_growers) }}</td>
 				<td>{{ min($wweights_growers) }}</td>
 				<td>{{ max($wweights_growers) }}</td>
 				<td>{{ round((array_sum($wweights_growers)/count($wweights_growers)), 2) }}</td>
 				<td>{{ round($wweights_growers_sd, 2) }}</td>
-			@endif		    				
+			@endif    				
 		</tr>
 		<tr>
 			<td>45 days, kg</td>
@@ -349,7 +352,11 @@
 		@endforelse
 	</tbody>
 </table>
-<p class="green-text text-lighten-1">Weaning Weight, kg</p>
+@if($years == [])
+	<p class="green-text text-lighten-1">Weaning Weight, kg</p>
+@else
+	<p class="green-text text-lighten-1">Weaning Weight at {{ round((array_sum($agesweaned_all)/count($agesweaned_all)), 2) }} days, kg</p>
+@endif
 <table class="centered">
 	<thead>
 		<tr>

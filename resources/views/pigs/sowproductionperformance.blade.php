@@ -32,7 +32,7 @@
 			<div class="col s12 m12 l6">
 				<div class="card">
 					<div class="card-content grey lighten-2">
-						@if(count($parities) <= 1)
+						@if(count($parities) <= 2)
 							<h3>No data available</h3>
 						@else
 							<h2>{{ round($farrowing_index, 2) }}</h2>
@@ -79,8 +79,8 @@
 											@elseif(App\Http\Controllers\FarmController::getGroupingPerParity($sow->id, $sow_usage, "Status") == "Farrowed")
 												<td><a href="{{ URL::route('farm.pig.sow_production_performance_per_parity', [App\Http\Controllers\FarmController::getGroupingPerParity($sow->id, $sow_usage, "Group ID")]) }}"><i class="material-icons">visibility</i></a></td>
 											@endif
-										@endforeach
-									</tr>
+										</tr>
+									@endforeach
 								</tbody>
 							</table>
 						</div>
@@ -253,6 +253,15 @@
       	</div>
       </div>
 	  </div>
+	  <div class="fixed-action-btn">
+		  <a class="btn-floating btn-large green darken-4">
+		    <i class="large material-icons">cloud_download</i>
+		  </a>
+		  <ul>
+		    <li><a href="{{ URL::route('farm.pig.sow_production_perf_download_csv', [$sow->id]) }}" class="btn-floating green lighten-1 tooltipped" data-position="left" data-tooltip="Download as CSV File"><i class="material-icons">table_chart</i></a></li>
+		    <li><a href="{{ URL::route('farm.pig.sow_production_perf_download_pdf', [$sow->id]) }}" class="btn-floating green darken-1 tooltipped" data-position="left" data-tooltip="Download as PDF"><i class="material-icons">file_copy</i></a></li>
+		  </ul>
+		</div>
 	</div>
 @endsection
 
@@ -268,5 +277,8 @@
 			  format: 'yyyy-mm-dd', 
 			  max: new Date()
 			});
+			$(document).ready(function(){
+		    $('.fixed-action-btn').floatingActionButton();
+		  });
 	</script>
 @endsection

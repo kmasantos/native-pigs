@@ -37,7 +37,7 @@
       	<div class="row">
       		<div class="col s4">
       			<input id="earnotch" type="text" name="earnotch" class="validate" data-length="6" required>
-      			<label for="earnotch">Animal Earnotch *</label>
+      			<label for="earnotch">Animal ID *</label>
       		</div>
       		<div class="col s4">
       			<select id="select_sex" name="sex" class="browser-default" required>
@@ -69,11 +69,11 @@
         <div class="row">
           <div class="col s3 offset-s2">
             <input id="dam" type="text" name="dam" class="validate" data-length="6">
-            <label for="dam">Dam's Earnotch</label>
+            <label for="dam">Dam's ID</label>
           </div>
           <div class="col s3 push-s2">
             <input id="sire" type="text" name="sire" class="validate" data-length="6">
-            <label for="sire">Sire's Earnotch</label>
+            <label for="sire">Sire's ID</label>
           </div>
         </div>
         <div class="divider"></div>
