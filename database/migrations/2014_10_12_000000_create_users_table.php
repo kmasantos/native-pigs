@@ -22,7 +22,7 @@ class CreateUsersTable extends Migration
             $table->date('lastseen')->nullable();
             $table->string('photo')->nullable();
             $table->boolean('isadmin')->default(false);
-            $table->integer('farmable_id')->unsigned();
+            $table->integer('farmable_id')->unsigned()->nullable();
             $table->softDeletes();
             $table->rememberToken();
             $table->timestamps();
