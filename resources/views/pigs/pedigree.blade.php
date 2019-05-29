@@ -16,7 +16,7 @@
     	{!! Form::open(['route' => 'farm.pig.find_pig', 'method' => 'post']) !!}
 			<div class="col s8 offset-s1">
 				<input type="text" id="earnotch" name="earnotch" class="validate">
-				<label for="earnotch">Earnotch</label>
+				<label for="earnotch">Animal ID</label>
 			</div>
 			<div class="col s2">
 				<button class="btn waves-effect waves-light green darken-3" type="submit">Search <i class="material-icons right">search</i></button>

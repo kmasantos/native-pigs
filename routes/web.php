@@ -105,6 +105,9 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('production_perf_summary_download_pdf', ['as' => 'farm.pig.production_perf_summary_download_pdf', 'uses' => 'FarmController@productionPerfSummaryDownloadPDF']);
     Route::get('sow_production_perf_download_pdf/{id}', ['as' => 'farm.pig.sow_production_perf_download_pdf', 'uses' => 'FarmController@sowProductionPerfDownloadPDF']);
     Route::get('boar_production_perf_download_pdf/{id}', ['as' => 'farm.pig.boar_production_perf_download_pdf', 'uses' => 'FarmController@boarProductionPerfDownloadPDF']);
+    Route::get('cumulative_download_pdf/{filter}', ['as' => 'farm.pig.cumulative_download_pdf', 'uses' => 'FarmController@cumulativeDownloadPDF']);
+    Route::get('monthly_download_pdf/{filter}', ['as' => 'farm.pig.monthly_download_pdf', 'uses' => 'FarmController@monthlyPerfDownloadPDF']);
+    Route::get('grower_inventory_download_pdf/{filter}', ['as' => 'farm.pig.grower_inventory_download_pdf', 'uses' => 'FarmController@growerInventoryDownloadPDF']);
     Route::get('mortality_and_sales_download_pdf', ['as' => 'farm.pig.mortality_and_sales_download_pdf', 'uses' => 'FarmController@mortalityAndSalesDownloadPDF']);
     Route::get('sowlitter_record_download_pdf/{id}', ['as' => 'farm.pig.sowlitter_record_download_pdf', 'uses' => 'FarmController@sowLitterRecordDownloadPDF']);
     Route::get('gross_morpho_all_download_csv', ['as' => 'farm.pig.gross_morpho_all_download_csv', 'uses' => 'FarmController@grossMorphoAllDownloadCSV']);
@@ -132,12 +135,12 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('sow_production_performance_per_parity/{id}', ['as' => 'farm.pig.sow_production_performance_per_parity', 'uses' => 'FarmController@getSowProductionPerformancePerParityPage']);
     Route::get('boar_production_performance/{id}', ['as' => 'farm.pig.boar_production_performance', 'uses' => 'FarmController@getBoarProductionPerformancePage']);
     Route::get('boar_production_performance_per_service/{id}', ['as' => 'farm.pig.boar_production_performance_per_service', 'uses' => 'FarmController@getBoarProductionPerformancePerServicePage']);
-    Route::get('cumulative_report', ['as' => 'farm.pig.cumulative_report', 'uses' => 'FarmController@getCumulativeReportPage']);
+    Route::get('cumulative_report/{year}', ['as' => 'farm.pig.cumulative_report', 'uses' => 'FarmController@getCumulativeReportPage']);
     Route::post('filter_cumulative_report', ['as' => 'farm.pig.filter_cumulative_report', 'uses' => 'FarmController@filterCumulativeReport']);
-    Route::get('monthly_performance_report', ['as' => 'farm.pig.monthly_performance_report', 'uses' => 'FarmController@getMonthlyPerformanceReportPage']);
+    Route::get('monthly_performance_report/{filter}', ['as' => 'farm.pig.monthly_performance_report', 'uses' => 'FarmController@getMonthlyPerformanceReportPage']);
     Route::post('filter_monthly_performance', ['as' => 'farm.pig.filter_monthly_performance', 'uses' => 'FarmController@filterMonthlyPerformance']);
     Route::get('breeder_inventory_report', ['as' => 'farm.pig.breeder_inventory_report', 'uses' => 'FarmController@getBreederInventoryPage']);
-    Route::get('grower_inventory_report', ['as' => 'farm.pig.grower_inventory_report', 'uses' => 'FarmController@getGrowerInventoryPage']);
+    Route::get('grower_inventory_report/{filter}', ['as' => 'farm.pig.grower_inventory_report', 'uses' => 'FarmController@getGrowerInventoryPage']);
     Route::post('filter_grower_inventory', ['as' => 'farm.pig.filter_grower_inventory', 'uses' => 'FarmController@filterGrowerInventory']);
     Route::get('mortality_and_sales_report', ['as' => 'farm.pig.mortality_and_sales_report', 'uses' => 'FarmController@getMortalityAndSalesReportPage']);
     Route::get('farm_profile', ['as' => 'farm.pig.farm_profile', 'uses' => 'FarmController@getFarmProfilePage']);
@@ -172,9 +175,9 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('fetch_family_record', ['as' => 'farm.chicken.submit_family_record', 'uses' => 'FarmController@getFamilyRecord']);
   });
 
-  // Route::group(['prefix' => 'admin'], function(){
-  //   Route::get('/',['as' => 'admin.index', 'uses' => 'AdminController@index']);
-  // });
+  Route::group(['prefix' => 'admin'], function(){
+    Route::get('/',['as' => 'admin.index', 'uses' => 'AdminController@index']);
+  });
 
 });
 

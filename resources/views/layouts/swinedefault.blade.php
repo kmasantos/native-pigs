@@ -103,10 +103,10 @@
                 <li><a href="{{route('farm.pig.morpho_chars_report')}}">Morphometric Characteristics</a></li>
                 <li><a href="{{route('farm.pig.growth_performance_report')}}">Growth Performance</a></li>
                 <li><a href="{{route('farm.pig.production_performance_report')}}">Production Performance</a></li>
-                <li><a href="{{route('farm.pig.cumulative_report')}}">Cumulative Performance</a></li>
-                <li><a href="{{route('farm.pig.monthly_performance_report')}}">Monthly Performance</a></li>
+                <li><a href="{{ URL::route('farm.pig.cumulative_report', [Carbon\Carbon::now('Asia/Manila')->year]) }}">Cumulative Performance</a></li>
+                <li><a href="{{ URL::route('farm.pig.monthly_performance_report', [Carbon\Carbon::now('Asia/Manila')->year]) }}">Monthly Performance</a></li>
                	<li><a href="{{route('farm.pig.breeder_inventory_report')}}">Breeder Inventory</a></li>
-               	<li><a href="{{route('farm.pig.grower_inventory_report')}}">Grower Inventory</a></li>
+               	<li><a href="{{ URL::route('farm.pig.grower_inventory_report', [Carbon\Carbon::now('Asia/Manila')->year]) }}">Grower Inventory</a></li>
                	<li><a href="{{route('farm.pig.mortality_and_sales_report')}}">Mortality &amp; Sales</a></li>
               </ul>
             </div>
