@@ -236,6 +236,7 @@ return [
         'FarmController' => App\Http\Controllers\FarmController::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+        'ApiController' => App\Http\Controllers\ApiController::class,
     ],
 
 ];
