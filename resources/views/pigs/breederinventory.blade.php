@@ -19,41 +19,42 @@
 			<div id="sowinventory" class="col s12">
 				<h5>Inventory for <strong>{{ Carbon\Carbon::parse($now)->format('F, Y') }}</strong> as of <strong>{{ Carbon\Carbon::parse($now)->format('F j, Y') }}</strong></h5>	
 				@if($noage_sows == [])
-					<p>Number of female breeders in the herd: <strong>{{ count($sows) }}</strong>, Average age: <strong>{{ round(array_sum($age_sows)/(count($sows)-count($noage_sows)), 2) }} months</strong></p>
+					<p>Number of female breeders in the herd: <strong>{{ count($sows) }}</strong> (sows: {{ count($bredsows)+count($bredgilts)+count($pregnantsows)+count($lactatingsows)+$drysows }}, gilts: {{ count($gilts) }})</p>
+					<p>Average age: <strong>{{ round(array_sum($age_sows)/(count($sows)-count($noage_sows)), 2) }} months</strong></p>
 				@else
-					<p>Number of female breeders in the herd: <strong>{{ count($sows) }}</strong>, Average age: <strong>{{ round(array_sum($age_sows)/(count($sows)-count($noage_sows)), 2) }} months</strong> *female breeders without age data: {{ count($noage_sows) }}</p>
+					<p>Number of female breeders in the herd: <strong>{{ count($sows) }}</strong> (sows: {{ count($bredsows)+count($bredgilts)+count($pregnantsows)+count($lactatingsows)+$drysows }}, gilts: {{ count($gilts) }})</p>
+					<p>Average age: <strong>{{ round(array_sum($age_sows)/(count($sows)-count($noage_sows)), 2) }} months</strong> (female breeders without age data: {{ count($noage_sows) }})</p>
 				@endif
 				<div class="row">
-					<div class="col s12 m12 l6">
+					<div class="col s12 m12 l12">
 						<div class="card">
 							<div class="card-content grey lighten-2">
 								<div class="row">
-									<div class="col s6">
+									<div class="col s4">
 										<h2>{{ count($bredsows) }}</h2>
 									</div>
-									<div class="col s6">
+									<div class="col s4">
 										<h2>{{ count($bredgilts) }}</h2>
 									</div>
+									<div class="col s4">
+										<h2>{{ count($pregnantsows) }}</h2>
+									</div>
 								</div>
 								<div class="row">
-									<div class="col s6">
+									<div class="col s4">
 										<p><a class="tooltipped" data-position="bottom" data-tooltip="Bred sows for the month as of today">Bred Sows</a></p>
 									</div>
-									<div class="col s6">
+									<div class="col s4">
 										<p><a class="tooltipped" data-position="bottom" data-tooltip="Bred gilts for the month as of today">Bred Gilts</a></p>
 									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col s12 m12 l6">
-						<div class="card">
-							<div class="card-content grey lighten-2">
-								<div class="row">
-									<h2>{{ count($gilts) }}</h2>
+									<div class="col s4">
+										<p><a class="tooltipped" data-position="bottom" data-tooltip="Confirmed pregnant sows for the month as of today">Confirmed</a></p>
+									</div>
 								</div>
 								<div class="row">
-									<p><a class="tooltipped" data-position="bottom" data-tooltip="Not yet bred">Gilts</a></p>
+									<div class="col s12">
+										<p>Pregnant<a class="tooltipped" data-position="bottom" data-tooltip="Bred sows and gilts are considered pregnant">*</a></p>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -62,10 +63,10 @@
 						<div class="card">
 							<div class="card-content grey lighten-2">
 								<div class="row">
-									<h2>{{ count($pregnantsows) }}</h2>
+									<h2>{{ count($gilts) }}</h2>
 								</div>
 								<div class="row">
-									<p><a class="tooltipped" data-position="bottom" data-tooltip="Pregnant sows and gilts for the month as of today">Pregnant</a></p>
+									<p><a class="tooltipped" data-position="bottom" data-tooltip="Not yet bred">Gilts</a></p>
 								</div>
 							</div>
 						</div>
@@ -137,7 +138,8 @@
 			<!-- BOAR INVENTORY -->
 			<div id="boarinventory" class="col s12">
 				<h5>Inventory for <strong>{{ Carbon\Carbon::parse($now)->format('F, Y') }}</strong> as of <strong>{{ Carbon\Carbon::parse($now)->format('F j, Y') }}</strong></h5>
-				<p>Number of boars in the herd: <strong>{{ count($boars) }}</strong>, Average age: <strong>{{ round(array_sum($age_boars)/(count($srboars)+count($jrboars)), 2) }} months</strong></p>
+				<p>Number of boars in the herd: <strong>{{ count($boars) }}</strong></p>
+				<p>Average age: <strong>{{ round(array_sum($age_boars)/(count($srboars)+count($jrboars)), 2) }} months</strong>*</p>
 				<div class="row">
 					<div class="col s12 m12 l6">
 						<div class="card">
@@ -174,7 +176,7 @@
 		    <i class="large material-icons">cloud_download</i>
 		  </a>
 		  <ul>
-		    <li><a class="btn-floating green lighten-1 tooltipped" data-position="left" data-tooltip="Download as CSV File"><i class="material-icons">table_chart</i></a></li>
+		    <li><a href="{{ URL::route('farm.pig.breeder_inventory_download_pdf') }}" class="btn-floating green darken-1 tooltipped" data-position="left" data-tooltip="Download as PDF"><i class="material-icons">file_copy</i></a></li>
 		  </ul>
 		</div>
 	</div>
