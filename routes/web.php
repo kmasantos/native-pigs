@@ -70,11 +70,14 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('get_weaning_weights', ['as' => 'farm.pig.get_weaning_weights', 'uses' => 'FarmController@addWeaningWeights']);
     Route::get('grower_records', ['as' => 'farm.pig.grower_records', 'uses' => 'FarmController@getGrowerRecordsPage']);
     Route::post('fetch_breeders/{id}', ['as' => 'farm.pig.fetch_breeders', 'uses' => 'FarmController@fetchBreedersAjax']);
+    Route::post('change_earnotch_sow', ['as' => 'farm.pig.change_earnotch_sow', 'uses' => 'FarmController@changeEarnotchSow']);
+    Route::post('change_earnotch_boar', ['as' => 'farm.pig.change_earnotch_boar', 'uses' => 'FarmController@changeEarnotchBoar']);
     Route::post('make_candidate_breeder/{id}/{status}', ['as' => 'farm.pig.make_candidate_breeder', 'uses' => 'FarmController@makeCandidateBreederAjax']);
     Route::get('view_adg/{id}', ['as' => 'farm.pig.view_adg', 'uses' => 'FarmController@getViewADGPage']);
     Route::get('breeder_records', ['as' => 'farm.pig.breeder_records', 'uses' => 'FarmController@getBreederRecordsPage']);
     Route::post('search_breeders', ['as' => 'farm.pig.search_breeders', 'uses' => 'FarmController@searchBreeders']);
     Route::post('search_growers', ['as' => 'farm.pig.search_growers', 'uses' => 'FarmController@searchGrowers']);
+    Route::post('search_breeding_record', ['as' => 'farm.pig.search_breeding_record', 'uses' => 'FarmController@searchBreedingRecord']);
     Route::get('add_pig', ['as' => 'farm.pig.add_pig', 'uses' => 'FarmController@getAddPigPage']);
     Route::post('fetch_new_pig', ['as' => 'farm.pig.fetch_new_pig', 'uses' => 'FarmController@fetchNewPigRecord']);
     Route::get('view_sow/{id}', ['as' => 'farm.pig.view_sow', 'uses' => 'FarmController@getViewSowPage']);
@@ -107,6 +110,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('boar_production_perf_download_pdf/{id}', ['as' => 'farm.pig.boar_production_perf_download_pdf', 'uses' => 'FarmController@boarProductionPerfDownloadPDF']);
     Route::get('cumulative_download_pdf/{filter}', ['as' => 'farm.pig.cumulative_download_pdf', 'uses' => 'FarmController@cumulativeDownloadPDF']);
     Route::get('monthly_download_pdf/{filter}', ['as' => 'farm.pig.monthly_download_pdf', 'uses' => 'FarmController@monthlyPerfDownloadPDF']);
+    Route::get('breeder_inventory_download_pdf', ['as' => 'farm.pig.breeder_inventory_download_pdf', 'uses' => 'FarmController@breederInventoryDownloadPDF']);
     Route::get('grower_inventory_download_pdf/{filter}', ['as' => 'farm.pig.grower_inventory_download_pdf', 'uses' => 'FarmController@growerInventoryDownloadPDF']);
     Route::get('mortality_and_sales_download_pdf', ['as' => 'farm.pig.mortality_and_sales_download_pdf', 'uses' => 'FarmController@mortalityAndSalesDownloadPDF']);
     Route::get('sowlitter_record_download_pdf/{id}', ['as' => 'farm.pig.sowlitter_record_download_pdf', 'uses' => 'FarmController@sowLitterRecordDownloadPDF']);
