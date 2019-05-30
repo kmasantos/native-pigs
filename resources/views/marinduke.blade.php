@@ -67,7 +67,7 @@
             <div class="col s12 m2">
                 <div class="card">
                     <div class="card-image">
-                        <img src="{{asset('images/marinduke_grid.jpg')}}" height=130">
+                        <img src="{{asset('images/MSC-grid.jpg')}}" height=130">
                     </div>
                     <div class="card-content">
                         Native Pig of MSC
@@ -88,7 +88,7 @@
             <div class="col s12 m2">
                 <div class="card">
                     <div class="card-image">
-                        <img src="{{asset('images/benguet_grid.jpg')}}" height="130">
+                        <img src="{{asset('images/BSU-grid.jpg')}}" height="130">
                         <span class="card-title">Benguet</span>
                     </div>
                     <div class="card-content">
@@ -110,7 +110,7 @@
             <div class="col s12 m2">
                 <div class="card">
                     <div class="card-image">
-                        <img src="{{asset('images/isubela_grid.jpg')}}" height=130">
+                        <img src="{{asset('images/ISU-grid.JPG')}}" height=130">
                         <span class="card-title">ISUbela</span>
                     </div>
                     <div class="card-content">
@@ -121,7 +121,7 @@
             <div class="col s12 m2">
                 <div class="card">
                     <div class="card-image">
-                        <img src="{{asset('images/yookah_grid.jpg')}}" height=130">
+                        <img src="{{asset('images/KSU-grid.JPG')}}" height=130">
                         <span class="card-title">Yookah</span>
                     </div>
                     <div class="card-content">

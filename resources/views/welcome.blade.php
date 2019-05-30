@@ -15,15 +15,6 @@
         <!-- Styles -->
         {{-- <link rel="stylesheet" href="{{asset('thirdparty/materialize/css/materialize.min.css')}}"> --}}
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-alpha.1/css/materialize.min.css">
-        <style>
-            .card .card-image .card-title {
-                color: #fff;
-                position: absolute;
-                max-width: 100%;
-                padding-left: 50px;
-                padding-bottom: 230px;
-            }
-        </style>
         {{-- <link rel="stylesheet" href="{{asset('css/global.css')}}"> --}}
         {{-- <link type="text/css" rel="stylesheet" href="{{asset('css/pig.css')}}"  media="screen,projection"/> --}}
     </head>
@@ -86,12 +77,12 @@
                             <p style="text-align: justify;">In terms of birth weight, Q-Black is usually the heaviest at 0.84 kilogram on average, followed by ISUbela and Benguet at 0.77 kilogram.</p>
                             <p style="text-align: justify;">Q-Black and MSC native piglets are weaned at forty-two (42) to forty-five (45) days. Piglets of ISUbela were weaned as early as thirty-four (34) days with an average weight of 3.00 kilograms.</p>
                         </div>
+                        <h5 class="center">Gilts at 6 months</h5>
                         <div class="row">
                             <div class="col s6">
                                 <div class="card">
                                     <div class="card-image waves-effect waves-block waves-light">
-                                      <img class="activator" src="{{asset('images/q-black_grid.jpg')}}" height="290">
-                                      <span class="card-title black-text">Gilt at 6 months</span>
+                                      <img class="activator" src="{{asset('images/q-black_grid.jpg')}}">
                                     </div>
                                     <div class="card-content">
                                       <span class="card-title activator grey-text text-darken-4">Q-Black<a href="{{url('/breed/q-black')}}"><i class="material-icons right">launch</i></a></span>
@@ -101,8 +92,7 @@
                             <div class="col s6">
                                 <div class="card">
                                     <div class="card-image waves-effect waves-block waves-light">
-                                      <img class="activator" src="{{asset('images/benguet_grid.jpg')}}" height="290">
-                                      <span class="card-title black-text">Boar at 15 months</span>
+                                      <img class="activator" src="{{asset('images/BSU-grid.jpg')}}">
                                     </div>
                                     <div class="card-content">
                                       <span class="card-title activator grey-text text-darken-4">Benguet<a href="{{url('/breed/benguet')}}"><i class="material-icons right">launch</i></a></span>
@@ -114,8 +104,7 @@
                             <div class="col s6">
                                 <div class="card">
                                     <div class="card-image waves-effect waves-block waves-light">
-                                      <img class="activator" src="{{asset('images/sinirangan_grid.jpg')}}" height="290">
-                                      <span class="card-title black-text">Gilt at 6 months</span>
+                                      <img class="activator" src="{{asset('images/sinirangan_grid.jpg')}}">
                                     </div>
                                     <div class="card-content">
                                       <span class="card-title activator grey-text text-darken-4">Sinirangan<sup>&reg;</sup><a href="{{url('/breed/sinirangan')}}"><i class="material-icons right">launch</i></a></span>
@@ -125,8 +114,7 @@
                             <div class="col s6">
                                 <div class="card">
                                     <div class="card-image waves-effect waves-block waves-light">
-                                      <img class="activator" src="{{asset('images/isubela_grid.jpg')}}" height="290">
-                                      <span class="card-title black-text">Boar at 6 months</span>
+                                      <img class="activator" src="{{asset('images/ISU-grid.JPG')}}">
                                     </div>
                                     <div class="card-content">
                                       <span class="card-title activator grey-text text-darken-4">ISUbela<a href="{{url('/breed/isubela')}}"><i class="material-icons right">launch</i></a></span>
@@ -138,8 +126,7 @@
                             <div class="col s6">
                                 <div class="card">
                                     <div class="card-image waves-effect waves-block waves-light">
-                                      <img class="activator" src="{{asset('images/yookah_grid.jpg')}}" height="290">
-                                      <span class="card-title black-text">Gilt at 6 months</span>
+                                      <img class="activator" src="{{asset('images/KSU-grid.JPG')}}">
                                     </div>
                                     <div class="card-content">
                                       <span class="card-title activator grey-text text-darken-4">Yookah<a href="{{url('/breed/yookah')}}"><i class="material-icons right">launch</i></a></span>
@@ -149,8 +136,7 @@
                             <div class="col s6">
                                 <div class="card">
                                     <div class="card-image waves-effect waves-block waves-light">
-                                      <img class="activator" src="{{asset('images/marinduke_grid.jpg')}}" height="290">
-                                      <span class="card-title black-text">Boar at 7 months</span>
+                                      <img class="activator" src="{{asset('images/MSC-grid.jpg')}}">
                                     </div>
                                     <div class="card-content">
                                       <span class="card-title activator grey-text text-darken-4">Native Pig of MSC<a href="{{url('/breed/marinduke')}}"><i class="material-icons right">launch</i></a></span>
@@ -314,7 +300,7 @@
                             </li>
                         </ul> --}}
                         <div class="center">
-                            <img src="{{asset('images/news.gif')}}" height="40%">
+                            <img src="{{asset('images/news-icon.png')}}" height="400">
                             <h5>Articles coming soon!</h5>
                         </div>
                     </div>

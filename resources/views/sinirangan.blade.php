@@ -88,7 +88,7 @@
             <div class="col s12 m2">
                 <div class="card">
                     <div class="card-image">
-                        <img src="{{asset('images/benguet_grid.jpg')}}" height="130">
+                        <img src="{{asset('images/BSU-grid.jpg')}}" height="130">
                         <span class="card-title">Benguet</span>
                     </div>
                     <div class="card-content">
@@ -99,7 +99,7 @@
             <div class="col s12 m2">
                 <div class="card">
                     <div class="card-image">
-                        <img src="{{asset('images/isubela_grid.jpg')}}" height="130">
+                        <img src="{{asset('images/ISU-grid.JPG')}}" height="130">
                         <span class="card-title">ISUbela</span>
                     </div>
                     <div class="card-content">
@@ -110,7 +110,7 @@
             <div class="col s12 m2">
                 <div class="card">
                     <div class="card-image">
-                        <img src="{{asset('images/yookah_grid.jpg')}}" height="130">
+                        <img src="{{asset('images/KSU-grid.JPG')}}" height="130">
                         <span class="card-title">Yookah</span>
                     </div>
                     <div class="card-content">
@@ -121,7 +121,7 @@
             <div class="col s12 m2">
                 <div class="card">
                     <div class="card-image">
-                        <img src="{{asset('images/marinduke_grid.jpg')}}" height="130">
+                        <img src="{{asset('images/MSC-grid.jpg')}}" height="130">
                         <span class="card-title">Native Pig of MSC</span>
                     </div>
                     <div class="card-content">
@@ -154,8 +154,8 @@
                     </div>
                 </div>
                 <h5 style="text-decoration: underline;">History</h5>
-                <p style="text-align: justify;">More than 10 years ago, native pigs were introduced into the Eastern Samar State University's farm in Sitio Diyo, Brgy. Tabunan. The farm used to be an orchard which had yearly typhoons destroying many of its fruit trees. Thus, it became transformed into a cogon dominated area where native pig breeds thrived.</p>
-                <p style="text-align: justify;">The pigs were raised under an extensive management system. They were free-range pigs roaming the grasslands and areas under fruit trees. Even with minimal human intervention, they grew and survived. Native pigs are prefered in Borongan as lechon during special occasions.</p>
+                <p style="text-align: justify;">More than 10 years ago, native pigs were introduced into the Eastern Samar State University's farm in Sitio Diyo of Brgy. Tabunan in Borongan City. The farm used to be an orchard which had yearly typhoons destroying many of its fruit trees. Thus, it became transformed into a cogon dominated area where native pig breeds thrived.</p>
+                <p style="text-align: justify;">The pigs were raised under an extensive management system. They were free-range pigs roaming the grasslands and areas under the fruit trees. Even with minimal human intervention, they grew and survived. Native pigs are prefered in Borongan as lechon during special occasions.</p>
                 <p style="text-align: justify;">In 2015, DOST-PCAARRD funded a native pig conservation and improvement project, where native pigs from various locations in Region 8 were bought and mated with the original stocks. Afterwhich, selection and breeding were done to produce the Sinirangan<sup>&reg;</sup> native pig.</p>
             </div>
             <div class="row">

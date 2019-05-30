@@ -67,7 +67,7 @@
             <div class="col s12 m2">
                 <div class="card">
                     <div class="card-image">
-                        <img src="{{asset('images/benguet_grid.jpg')}}" height="130">
+                        <img src="{{asset('images/BSU-grid.jpg')}}" height="130">
                     </div>
                     <div class="card-content">
                         Benguet
@@ -99,7 +99,7 @@
             <div class="col s12 m2">
                 <div class="card">
                     <div class="card-image">
-                        <img src="{{asset('images/isubela_grid.jpg')}}" height="130">
+                        <img src="{{asset('images/ISU-grid.JPG')}}" height="130">
                         <span class="card-title">ISUbela</span>
                     </div>
                     <div class="card-content">
@@ -110,7 +110,7 @@
             <div class="col s12 m2">
                 <div class="card">
                     <div class="card-image">
-                        <img src="{{asset('images/yookah_grid.jpg')}}" height="130">
+                        <img src="{{asset('images/KSU-grid.JPG')}}" height="130">
                         <span class="card-title">Yookah</span>
                     </div>
                     <div class="card-content">
@@ -121,7 +121,7 @@
             <div class="col s12 m2">
                 <div class="card">
                     <div class="card-image">
-                        <img src="{{asset('images/marinduke_grid.jpg')}}" height="130">
+                        <img src="{{asset('images/MSC-grid.jpg')}}" height="130">
                         <span class="card-title">Native Pig of MSC</span>
                     </div>
                     <div class="card-content">
@@ -145,10 +145,10 @@
                 </div>
                 <div class="col s6 m6 l6">
                     <div class="carousel">
-                        <a class="carousel-item" href="#one!"><img src="{{asset('images/benguet2.JPG')}}"></a>
+                        <a class="carousel-item" href="#one!"><img src="{{asset('images/benguet_grid.jpg')}}"></a>
                         <a class="carousel-item" href="#two!"><img src="{{asset('images/benguet-logo.png')}}"></a>
                         <a class="carousel-item" href="#three!"><img src="{{asset('images/bsu.png')}}"></a>
-                        <a class="carousel-item" href="#four!"><img src="{{asset('images/benguet_grid.jpg')}}"></a>
+                <a class="carousel-item" href="#four!"><img src="{{asset('images/benguet2.JPG')}}"></a>
                         <a class="carousel-item" href="#five!"><img src="{{asset('images/benguet_grid2.jpg')}}"></a>
                     </div>
                 </div>
