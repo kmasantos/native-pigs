@@ -23,7 +23,7 @@ class GroupingProperty extends Model
 
   public function groupings()
   {
-    return $this->hasMany('App\Models\Grouping');
+    return $this->belongsTo('App\Models\Grouping');
   }
 
 }
