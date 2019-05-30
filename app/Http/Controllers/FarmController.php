@@ -83,12 +83,12 @@ class FarmController extends Controller
 					$sows = [];
 					$gilts = [];
 					foreach ($femalebreeders as $female) {
-						$parity = $female->getAnimalProperties()->where("property_id", 48)->first();
-						if(!is_null($parity)){
-							if($parity->value == 0){
+						$frequency = $female->getAnimalProperties()->where("property_id", 61)->first();
+						if(!is_null($frequency)){
+							if($frequency->value == 0){
 								array_push($gilts, $female);
 							}
-							elseif($parity->value > 0){
+							elseif($frequency->value > 0){
 								array_push($sows, $female);
 							}
 						}
@@ -1774,6 +1774,15 @@ class FarmController extends Controller
 			$breeders = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "breeder")->get();
 			$family = Grouping::whereNotNull("mother_id")->where("breed_id", $breed->id)->get();
 
+			$groups = Grouping::where("breed_id", $breed->id)
+								->join('grouping_properties', 'groupings.id', 'grouping_properties.grouping_id')
+								->where("grouping_properties.property_id", 42)
+								->select('groupings.*', 'grouping_properties.*', 'groupings.id as id', 'grouping_properties.id as gp_id')
+								->orderBy('grouping_properties.value', 'desc')
+								->get();
+			// dd($groups);
+
+
 			// sorts breeders per sex
 			$sows = [];
 			$boars = [];
@@ -1846,7 +1855,7 @@ class FarmController extends Controller
 			$range = range($current_year-10, $current_year+10);
 			$years = array_combine($range, $range);
 
-			return view('pigs.breedingrecord', compact('pigs', 'sows', 'boars', 'femalegrowers', 'malegrowers', 'family', 'years', 'available'));
+			return view('pigs.breedingrecord', compact('pigs', 'sows', 'boars', 'femalegrowers', 'malegrowers', 'family', 'years', 'available', 'groups'));
 		}
 
 		public function getEditBreedingRecordPage($id){ //function to display edit breeding record page
@@ -12490,6 +12499,182 @@ class FarmController extends Controller
 			return $averageweaningweight;
 		}
 
+		public function breederInventoryDownloadPDF(){
+			set_time_limit(5000);
+			$farm = $this->user->getFarm();
+			$breed = $farm->getBreed();
+			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "breeder")->get();
+			$now = Carbon::now('Asia/Manila');
+
+			// sorts pigs by sex
+			$sows = [];
+			$boars = [];
+			foreach($pigs as $pig){
+				if(substr($pig->registryid, -7, 1) == 'F'){
+					array_push($sows, $pig);
+				}
+				if(substr($pig->registryid, -7, 1) == 'M'){
+					array_push($boars, $pig);
+				}
+			}
+
+			// gets all groups available
+			$groups = Grouping::whereNotNull("mother_id")->where("breed_id", $breed->id)->get();
+
+			// BOAR INVENTORY
+			
+			// sorts male pigs into jr and sr boars
+			$jrboars = []; // less than 1 year old
+			$srboars = []; // at least 1 year old
+			$noage_boars = [];
+			$age_boars = [];
+			foreach ($boars as $boar) {
+				$iproperties = $boar->getAnimalProperties();
+				foreach ($iproperties as $iproperty) {
+					if($iproperty->property_id == 3){ // date farrowed
+						if(!is_null($iproperty->value) && $iproperty->value != "Not specified"){
+							$end_date = Carbon::parse($iproperty->value);
+							$age = $now->diffInMonths($end_date);
+							if($age < 12){
+								array_push($jrboars, $boar);
+								array_push($age_boars, $age);
+							}
+							else{
+								array_push($srboars, $boar);
+								array_push($age_boars, $age);
+							}
+						}
+						else{
+							array_push($noage_boars, $boar);
+						}
+					}
+				}
+			}
+
+			// SOW INVENTORY
+			$breds = [];
+			$pregnantsows = [];
+			$lactatingsows = [];
+			$templactating = [];
+			foreach ($groups as $group) {
+				$datebredprop = $group->getGroupingProperties()->where("property_id", 42)->first();
+				$status = $group->getGroupingProperties()->where("property_id", 60)->first()->value;
+				$datefarrowedprop = $group->getGroupingProperties()->where("property_id", 3)->first();
+				if(!is_null($datebredprop)){
+					$datebred = Carbon::parse($datebredprop->value);
+					if($datebred->month == $now->month && $datebred->year == $now->year){
+						if($datebred->gte($now)){
+							if($status == "Bred"){
+								$bred = $group->getMother();
+								if($bred->status == "breeder"){
+									array_push($breds, $bred);
+								}
+							}
+						}
+					}
+				}
+				if($status == "Pregnant"){
+					$pregnant = $group->getMother();
+					if($pregnant->status == "breeder"){
+						array_push($pregnantsows, $pregnant);
+					}
+				}
+				if(!is_null($datefarrowedprop) && $datefarrowedprop->value != "Not specified"){
+					$datefarrowed = Carbon::parse($datefarrowedprop->value);
+					if($now->gte($datefarrowed)){
+						$dateweanedprop = $group->getGroupingProperties()->where("property_id", 6)->first();
+						if(is_null($dateweanedprop)){
+							$lactating = $group->getMother();
+							if($lactating->status == "breeder"){
+								array_push($templactating, $lactating);
+							}
+						}
+					}
+				}
+			}
+			$intersection = array_intersect($pregnantsows, array_unique($templactating));
+			$lactatingsows = array_diff(array_unique($templactating), $intersection);
+			// dd($breds, $pregnantsows, $lactatingsows);
+
+			$bredsows = [];
+			$bredgilts = [];
+			foreach ($breds as $bred) {
+				$parity = $bred->getAnimalProperties()->where("property_id", 48)->first();
+				$frequency = $bred->getAnimalProperties()->where("property_id", 61)->first();
+				if(!is_null($parity)){
+					if($parity->value >= 1 || $frequency->value > 1){
+						array_push($bredsows, $bred);
+					}
+					elseif(($parity->value == 0 && $frequency->value == 1) || (is_null($parity) && $frequency->value == 1)){
+						array_push($bredgilts, $bred);
+					}
+				}
+				else{
+					array_push($bredgilts, $bred);
+				}
+			}
+
+			$gilts = [];
+			$temp_gilts = [];
+			foreach ($sows as $sow) {
+				$frequency = $sow->getAnimalProperties()->where("property_id", 61)->first();
+				if(!is_null($frequency)){
+					if($frequency->value == 0){
+						array_push($temp_gilts, $sow);
+					}
+				}
+				else{
+					array_push($temp_gilts, $sow);
+				}
+			}
+			$gilts = array_diff($temp_gilts, $bredgilts);
+
+
+			$noage_sows = [];
+			$age_sows = [];
+			foreach ($sows as $sow) {
+				$iproperties = $sow->getAnimalProperties();
+				foreach ($iproperties as $iproperty) {
+					if($iproperty->property_id == 3){ // date farrowed
+						if(!is_null($iproperty->value) && $iproperty->value != "Not specified"){
+							$end_date = Carbon::parse($iproperty->value);
+							$age = $now->diffInMonths($end_date);
+							array_push($age_sows, $age);
+						}
+						else{
+							array_push($noage_sows, $sow);
+						}
+					}
+				}
+			}
+
+			// static::addFrequency();
+
+			$drysows = count($sows) - (count($bredsows) + count($pregnantsows) + count($lactatingsows) + count($gilts) + count($bredgilts));
+			
+			// gets unique years of age at weaning
+			$years = [];
+			$tempyears = [];
+			foreach ($groups as $group) {
+				$properties = $group->getGroupingProperties();
+				foreach ($properties as $property) {
+					if($property->property_id == 6){ //date weaned
+						if(!is_null($property) && $property->value != "Not specified"){
+							$year = Carbon::parse($property->value)->year;
+							array_push($tempyears, $year);
+							$years = array_reverse(array_sort(array_unique($tempyears)));
+						}
+					}
+				}
+			}
+
+			$months = ["December", "November", "October", "September", "August", "July", "June", "May", "April", "March", "February", "January"];
+
+
+			$pdf = PDF::loadView('pigs.breederinventorypdf', compact('pigs', 'sows', 'boars', 'groups', 'frequency', 'breds', 'pregnantsows', 'lactatingsows', 'drysows', 'gilts', 'jrboars', 'srboars', 'now', 'noage_boars', 'years', 'months', 'age_boars', 'age_sows', 'noage_sows', 'bredsows', 'bredgilts'));
+
+			return $pdf->download('breederinventory_'.$now->format('FY').'_'.$now.'.pdf');
+		}
 
 		public function getBreederInventoryPage(){ // function to display Breeder Inventory page
 			set_time_limit(5000);
@@ -12549,37 +12734,36 @@ class FarmController extends Controller
 			$lactatingsows = [];
 			$templactating = [];
 			foreach ($groups as $group) {
-				$gproperties = $group->getGroupingProperties();
-				foreach ($gproperties as $gproperty) {
-					if($gproperty->property_id == 42){ // date bred
-						if(Carbon::parse($gproperty->value)->month == $now->month && Carbon::parse($gproperty->value)->year == $now->year){
-							if(Carbon::parse($gproperty->value)->lte($now)){
-								if($group->getGroupingProperties()->where("property_id", 60)->first()->value == "Bred"){
-									$bred = $group->getMother();
-									if($bred->status == "breeder"){
-										array_push($breds, $bred);
-									}
+				$datebredprop = $group->getGroupingProperties()->where("property_id", 42)->first();
+				$status = $group->getGroupingProperties()->where("property_id", 60)->first()->value;
+				$datefarrowedprop = $group->getGroupingProperties()->where("property_id", 3)->first();
+				if(!is_null($datebredprop)){
+					$datebred = Carbon::parse($datebredprop->value);
+					if($datebred->month == $now->month && $datebred->year == $now->year){
+						if($datebred->gte($now)){
+							if($status == "Bred"){
+								$bred = $group->getMother();
+								if($bred->status == "breeder"){
+									array_push($breds, $bred);
 								}
 							}
 						}
 					}
-					if($gproperty->property_id == 60){ //status
-						if($gproperty->value == "Pregnant"){
-							$pregnant = $group->getMother();
-							if($pregnant->status == "breeder"){
-								array_push($pregnantsows, $pregnant);
-							}
-						}
+				}
+				if($status == "Pregnant"){
+					$pregnant = $group->getMother();
+					if($pregnant->status == "breeder"){
+						array_push($pregnantsows, $pregnant);
 					}
-					if($gproperty->property_id == 3){ // date farrowed
-						if(!is_null($gproperty) && $gproperty->value != "Not specified"){
-							if($now->gte(Carbon::parse($gproperty->value))){
-								if(is_null($group->getGroupingProperties()->where("property_id", 6)->first())){
-									$lactating = $group->getMother();
-									if($lactating->status == "breeder"){
-										array_push($templactating, $lactating);
-									}
-								}
+				}
+				if(!is_null($datefarrowedprop) && $datefarrowedprop->value != "Not specified"){
+					$datefarrowed = Carbon::parse($datefarrowedprop->value);
+					if($now->gte($datefarrowed)){
+						$dateweanedprop = $group->getGroupingProperties()->where("property_id", 6)->first();
+						if(is_null($dateweanedprop)){
+							$lactating = $group->getMother();
+							if($lactating->status == "breeder"){
+								array_push($templactating, $lactating);
 							}
 						}
 					}
@@ -12587,16 +12771,18 @@ class FarmController extends Controller
 			}
 			$intersection = array_intersect($pregnantsows, array_unique($templactating));
 			$lactatingsows = array_diff(array_unique($templactating), $intersection);
+			// dd($breds, $pregnantsows, $lactatingsows);
 
 			$bredsows = [];
 			$bredgilts = [];
 			foreach ($breds as $bred) {
 				$parity = $bred->getAnimalProperties()->where("property_id", 48)->first();
+				$frequency = $bred->getAnimalProperties()->where("property_id", 61)->first();
 				if(!is_null($parity)){
-					if($parity->value >= 1){
+					if($parity->value >= 1 || $frequency->value > 1){
 						array_push($bredsows, $bred);
 					}
-					elseif($parity->value == 0){
+					elseif(($parity->value == 0 && $frequency->value == 1) || (is_null($parity) && $frequency->value == 1)){
 						array_push($bredgilts, $bred);
 					}
 				}
@@ -12605,14 +12791,12 @@ class FarmController extends Controller
 				}
 			}
 
-
-			// sorts female pigs into gilts and sows which were bred at least once
 			$gilts = [];
 			$temp_gilts = [];
 			foreach ($sows as $sow) {
-				$parity = $sow->getAnimalProperties()->where("property_id", 48)->first();
-				if(!is_null($parity)){
-					if($parity->value == 0){
+				$frequency = $sow->getAnimalProperties()->where("property_id", 61)->first();
+				if(!is_null($frequency)){
+					if($frequency->value == 0){
 						array_push($temp_gilts, $sow);
 					}
 				}
@@ -13694,6 +13878,109 @@ class FarmController extends Controller
 			return view('pigs.growerrecords', compact('pigs', 'sows', 'boars'))->withMessage("No growers found!");
 		}
 
+		public function searchBreedingRecord(Request $request){	
+			$q = $request->q;
+			$farm = $this->user->getFarm();
+			$breed = $farm->getBreed();
+			$breeders = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "breeder")->get();
+			$family = Grouping::whereNotNull("mother_id")->where("breed_id", $breed->id)->get();
+
+			$groups = Grouping::where("breed_id", $breed->id)
+								->join('grouping_properties', 'groupings.id', 'grouping_properties.grouping_id')
+								->where("grouping_properties.property_id", 42)
+								->select('groupings.*', 'grouping_properties.*', 'groupings.id as id', 'grouping_properties.id as gp_id')
+								->orderBy('grouping_properties.value', 'desc')
+								->get();
+
+			// sorts breeders per sex
+			$sows = [];
+			$boars = [];
+			foreach($breeders as $breeder){
+				if(substr($breeder->registryid, -7, 1) == 'F'){
+					array_push($sows, $breeder);
+				}
+				if(substr($breeder->registryid, -7, 1) == 'M'){
+					array_push($boars, $breeder);
+				}
+			}
+
+			/*$temp = [];
+			foreach ($family as $fam) {
+				foreach ($sows as $sow) {
+					if($fam->mother_id == $sow->id){
+						$values = [];
+						array_push($values, $fam->registryid);
+						array_push($values, $fam->getGroupingProperties()->where("property_id", 60)->first()->value); //status
+						array_push($values, $fam->id);
+						array_push($values, $fam->getGroupingProperties()->where("property_id", 42)->first()->value); //date bred
+						if(!is_null($fam->getGroupingProperties()->where("property_id", 6)->first())){
+							array_push($values, $fam->getGroupingProperties()->where("property_id", 6)->first()->value);
+						}
+						array_push($temp, $values);
+					}
+				}
+			}
+
+			$available_temp = [];
+			$available = [];
+			foreach ($temp as $value) {
+				if($value[1] == "Farrowed"){
+					if(array_map('count', $temp) == 5){
+						array_push($available_temp, $value[0]);
+					}
+				}
+				elseif($value[1] == "Recycled"){
+					array_push($available_temp, $value[0]);
+				}
+				elseif($value[1] == "Aborted"){
+					array_push($available_temp, $value[0]);
+				}
+			}
+
+			foreach ($sows as $sow) {
+				$parity = $sow->getAnimalProperties()->where("property_id", 48)->first();
+				if(!is_null($parity)){
+					if($parity->value == 0){
+						array_push($available_temp, $sow->registryid);
+					}
+				}
+				else{
+					array_push($available_temp, $sow->registryid);
+				}
+			}
+
+			$available = array_unique($available_temp);*/
+
+			// automatically updates mother's parity
+			foreach ($family as $group) {
+				static::addParityMother($group->id);
+			}
+
+			static::addFrequency();
+
+			// TO FOLLOW: this will be used for filtering results
+			$now = Carbon::now('Asia/Manila');
+			$current_year = $now->year;
+			$range = range($current_year-10, $current_year+10);
+			$years = array_combine($range, $range);
+
+			if($q != ' '){
+				$searchable = [];
+				foreach ($groups as $group) {
+					if(stripos($group->getMother()->registryid, $q) !== false || stripos($group->getFather()->registryid, $q) !== false || stripos(Carbon::parse($group->value)->format('j F, Y'), $q) !== false){
+						array_push($searchable, $group);
+					}
+				}
+
+				if(count($searchable) > 0){
+					return view('pigs.breedingrecord', compact('pigs', 'sows', 'boars', 'family', 'years', 'available', 'groups'))->withDetails($searchable)->withQuery($q);
+				}
+			}
+
+			return view('pigs.breedingrecord', compact('pigs', 'sows', 'boars', 'family', 'years', 'available', 'groups'))->withMessage("No breeding record found!");
+
+		}
+
 		public function getBreederRecordsPage(){ // function to display Breeder Records page
 			$farm = $this->user->getFarm();
 			$breed = $farm->getBreed();
@@ -14188,8 +14475,156 @@ class FarmController extends Controller
 			return view('pigs.editweightrecords', compact('animal', 'properties', 'age_weaned', 'actual45d', 'actual60d', 'actual90d', 'actual150d', 'actual180d'));
 		}
 
+		public function changeEarnotchSow(Request $request){
+			$farm = $this->user->getFarm();
+			$breed = $farm->getBreed();
+			$sow = Animal::find($request->sow_id);
+			$dob = $sow->getAnimalProperties()->where("property_id", 3)->first();
+			$sex = $sow->getAnimalProperties()->where("property_id", 2)->first()->value;
+
+			$choice = $request->change;
+			if($choice == "yes"){
+				if(!is_null($request->sow_new_id)){
+					$temp_earnotch = $request->sow_new_id;
+					if(strlen($temp_earnotch) == 6){
+						$earnotch = $temp_earnotch;
+					}
+					else{
+						$earnotch = str_pad($temp_earnotch, 6, "0", STR_PAD_LEFT);
+					}
+					if(!is_null($dob) && $dob->value != "Not specified"){
+						$birthdayValue = Carbon::parse($dob->value);
+						$registryid = $farm->code.$breed->breed."-".$birthdayValue->year.$sex.$earnotch;
+
+						$new_id = new AnimalProperty;
+						$new_id->animal_id = $sow->id;
+						$new_id->property_id = 63;
+						$new_id->value = $registryid;
+						$new_id->save();
+
+						$old_id = new AnimalProperty;
+						$old_id->animal_id = $sow->id;
+						$old_id->property_id = 64;
+						$old_id->value = $sow->registryid;
+						$old_id->save();
+
+						$sow->registryid = $registryid;
+						$sow->save();
+					}
+					else{
+						$registryid = $farm->code.$breed->breed."-".$sex.$earnotch;
+
+						$new_id = new AnimalProperty;
+						$new_id->animal_id = $sow->id;
+						$new_id->property_id = 63;
+						$new_id->value = $registryid;
+						$new_id->save();
+
+						$old_id = new AnimalProperty;
+						$old_id->animal_id = $sow->id;
+						$old_id->property_id = 64;
+						$old_id->value = $sow->registryid;
+						$old_id->save();
+
+						$sow->registryid = $registryid;
+						$sow->save();
+					}
+				}
+				else{
+					$new_id = new AnimalProperty;
+					$new_id->animal_id = $sow->id;
+					$new_id->property_id = 63;
+					$new_id->value = $sow->registryid;
+					$new_id->save();
+
+					$old_id = new AnimalProperty;
+					$old_id->animal_id = $sow->id;
+					$old_id->property_id = 64;
+					$old_id->value = $sow->registryid;
+					$old_id->save();
+				}
+			}
+			
+
+			return Redirect::back()->with('message','Operation Successful!');			
+		}
+
+		public function changeEarnotchBoar(Request $request){
+			$farm = $this->user->getFarm();
+			$breed = $farm->getBreed();
+			$boar = Animal::find($request->boar_id);
+			$dob = $boar->getAnimalProperties()->where("property_id", 3)->first();
+			$sex = $boar->getAnimalProperties()->where("property_id", 2)->first()->value;
+
+			$choice = $request->choice;
+			if($choice == "yes"){
+				if(!is_null($request->boar_new_id)){
+					$temp_earnotch = $request->boar_new_id;
+					if(strlen($temp_earnotch) == 6){
+						$earnotch = $temp_earnotch;
+					}
+					else{
+						$earnotch = str_pad($temp_earnotch, 6, "0", STR_PAD_LEFT);
+					}
+					if(!is_null($dob) && $dob->value != "Not specified"){
+						$birthdayValue = Carbon::parse($dob->value);
+						$registryid = $farm->code.$breed->breed."-".$birthdayValue->year.$sex.$earnotch;
+
+						$new_id = new AnimalProperty;
+						$new_id->animal_id = $boar->id;
+						$new_id->property_id = 63;
+						$new_id->value = $registryid;
+						$new_id->save();
+
+						$old_id = new AnimalProperty;
+						$old_id->animal_id = $boar->id;
+						$old_id->property_id = 64;
+						$old_id->value = $boar->registryid;
+						$old_id->save();
+
+						$boar->registryid = $registryid;
+						$boar->save();
+					}
+					else{
+						$registryid = $farm->code.$breed->breed."-".$sex.$earnotch;
+
+						$new_id = new AnimalProperty;
+						$new_id->animal_id = $boar->id;
+						$new_id->property_id = 63;
+						$new_id->value = $registryid;
+						$new_id->save();
+
+						$old_id = new AnimalProperty;
+						$old_id->animal_id = $boar->id;
+						$old_id->property_id = 64;
+						$old_id->value = $boar->registryid;
+						$old_id->save();
+
+						$boar->registryid = $registryid;
+						$boar->save();
+					}
+				}
+				else{
+					$new_id = new AnimalProperty;
+					$new_id->animal_id = $boar->id;
+					$new_id->property_id = 63;
+					$new_id->value = $boar->registryid;
+					$new_id->save();
+
+					$old_id = new AnimalProperty;
+					$old_id->animal_id = $boar->id;
+					$old_id->property_id = 63;
+					$old_id->value = $boar->registryid;
+					$old_id->save();
+				}
+			}
+			
+
+			return Redirect::back()->with('message','Operation Successful!');			
+		}
+
 		public function fetchBreedersAjax($breederid){ // function to add pigs as breeders onclick
-			$pig = Animal::where("registryid", $breederid)->first();
+			$pig = Animal::find($breederid);
 
 			$pig->status = "breeder";
 			$pig->save();
