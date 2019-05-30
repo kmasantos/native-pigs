@@ -119,7 +119,7 @@
 					</thead>
 					<tbody>
 						@forelse($sows as $sow)
-							<tr id="{{ $sow->registryid }}">
+							<tr id="{{ $sow->id }}">
 								<td>{{ $sow->registryid }}</td>
 								@if($sow->weightrecord == 0)
                   <td>
@@ -165,20 +165,49 @@
 									@if((!is_null($sow->getAnimalProperties()->where("property_id", 35)->first()) && $sow->getAnimalProperties()->where("property_id", 35)->first()->value != "") || (!is_null($sow->getAnimalProperties()->where("property_id", 36)->first()) && $sow->getAnimalProperties()->where("property_id", 36)->first()->value != ""))
 										<p>
 								      <label>
-								        <input type="checkbox" class="filled-in add_sow_breeder" value="{{ $sow->registryid }}" />
+								        <input type="checkbox" class="filled-in add_sow_breeder" value="{{ $sow->id }}" />
 								        <span></span>
 								      </label>
 								    </p>
 								  @else
 								  	<p>
 								      <label>
-								        <input disabled type="checkbox" class="filled-in add_sow_breeder" value="{{ $sow->registryid }}" />
+								        <input disabled type="checkbox" class="filled-in add_sow_breeder" value="{{ $sow->id }}" />
 								        <span></span>
 								      </label>
 								    </p>
 								  @endif
 								</td>
 							</tr>
+							<!-- Modal Structure -->
+						  <div id="sowmodal{{$sow->id}}" class="modal">
+						  	{!! Form::open(['route' => 'farm.pig.change_earnotch_sow', 'method' => 'post']) !!}
+						    <div class="modal-content">
+						      <h5 class="center">Change animal ID of {{ $sow->registryid }}?</h5>
+						      <div class="row">
+						      	<div class="col s6 push-s4">
+						      		Change ID?
+						      		<input class="with-gap" name="change" type="radio" id="choose_yes{{$sow->id}}" value="yes" />
+					            <label for="choose_yes{{$sow->id}}">Yes</label>
+					            <input class="with-gap" name="change" type="radio" id="choose_no{{$sow->id}}" value="no" />
+					            <label for="choose_no{{$sow->id}}">No</label>
+						      	</div>
+						      </div>
+						      <div class="row">
+						      	<div class="col s8 offset-s2">
+						      		<input type="hidden" name="sow_id" value="{{ $sow->id }}">
+							      	<input type="text" class="validate" name="sow_new_id" id="sow_new_id_field{{$sow->id}}" placeholder="Enter new Animal ID (6 characters" data-length="6" />
+							      	<label for="sow_new_id_field{{$sow->id}}">New Animal ID</label>
+						      	</div>
+						      </div>
+						      <div class="row center">
+						      	<button class="btn waves-effect waves-light green darken-3" type="submit" onclick="Materialize.toast('Successfully added as breeder!', 4000)">Submit
+					            <i class="material-icons right">done</i>
+					          </button>
+						      </div>
+						    </div>
+						    {!! Form::close() !!}
+						  </div>
 						@empty
               <tr>
                 <td colspan="5">No female grower data found</td>
@@ -200,7 +229,7 @@
 					</thead>
 					<tbody>
 						@forelse($boars as $boar)
-							<tr id="{{ $boar->registryid }}">
+							<tr id="{{ $boar->id }}">
 								<td>{{ $boar->registryid }}</td>
 								@if($boar->weightrecord == 0)
                   <td>
@@ -246,20 +275,49 @@
 									@if((!is_null($boar->getAnimalProperties()->where("property_id", 35)->first()) && $boar->getAnimalProperties()->where("property_id", 35)->first()->value != "") || (!is_null($boar->getAnimalProperties()->where("property_id", 36)->first()) && $boar->getAnimalProperties()->where("property_id", 36)->first()->value != ""))
 										<p>
 								      <label>
-								        <input type="checkbox" class="filled-in add_boar_breeder" value="{{ $boar->registryid }}" />
+								        <input type="checkbox" class="filled-in add_boar_breeder" value="{{ $boar->id }}" />
 								        <span></span>
 								      </label>
 								    </p>
 								  @else
 								  	<p>
 								      <label>
-								        <input disabled type="checkbox" class="filled-in add_boar_breeder" value="{{ $boar->registryid }}" />
+								        <input disabled type="checkbox" class="filled-in add_boar_breeder" value="{{ $boar->id }}" />
 								        <span></span>
 								      </label>
 								    </p>
 								  @endif
 								</td>
 							</tr>
+							<!-- Modal Structure -->
+						  <div id="boarmodal{{$boar->id}}" class="modal">
+						  	{!! Form::open(['route' => 'farm.pig.change_earnotch_boar', 'method' => 'post']) !!}
+						    <div class="modal-content">
+						      <h5 class="center">Change animal ID of {{ $boar->registryid }}?</h5>
+						      <div class="row">
+						      	<div class="col s6 push-s4">
+						      		Change ID?
+						      		<input class="with-gap" name="choice" type="radio" id="chose_yes{{$boar->id}}" value="yes" />
+					            <label for="chose_yes{{$boar->id}}">Yes</label>
+					            <input class="with-gap" name="choice" type="radio" id="chose_no{{$boar->id}}" value="no" />
+					            <label for="chose_no{{$boar->id}}">No</label>
+						      	</div>
+						      </div>
+						      <div class="row">
+						      	<div class="col s8 offset-s2">
+						      		<input type="hidden" name="boar_id" value="{{ $boar->id }}">
+							      	<input type="text" class="validate" name="boar_new_id" id="boar_new_id_field{{$boar->id}}" placeholder="Enter new Animal ID (6 characters" data-length="6" />
+							      	<label for="boar_new_id_field{{$boar->id}}">New Animal ID</label>
+						      	</div>
+						      </div>
+						      <div class="row center">
+						      	<button class="btn waves-effect waves-light green darken-3" type="submit" onclick="Materialize.toast('Successfully added as breeder!', 4000)">Submit
+					            <i class="material-icons right">done</i>
+					          </button>
+						      </div>
+						    </div>
+						    {!! Form::close() !!}
+						  </div>
 						@empty
               <tr>
                 <td colspan="5">No male grower data found</td>
@@ -299,7 +357,8 @@
 						data: {breederid},
 						success: function(data)
 						{
-							Materialize.toast(breederid+' added as breeder!', 4000);
+							$("#sowmodal"+breederid).modal('open');
+							document.getElementById("choose_no"+breederid).checked = true;
 							$("#"+breederid).remove();
 						}
 					});
@@ -319,7 +378,8 @@
 						data: {breederid},
 						success: function(data)
 						{
-							Materialize.toast(breederid+' added as breeder!', 4000);
+							$("#boarmodal"+breederid).modal('open');
+							document.getElementById("chose_no"+breederid).checked = true;
 							$("#"+breederid).remove();
 						}
 					});

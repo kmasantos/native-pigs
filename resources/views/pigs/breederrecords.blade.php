@@ -34,20 +34,40 @@
                   <tr>
                     @if($breeder->status == "dead breeder" || $breeder->status == "sold breeder" || $breeder->status == "removed breeder")
                       @if($breeder->getAnimalProperties()->where("property_id", 2)->first()->value == 'F')
-                        <td><a href="{{ URL::route('farm.pig.view_sow', [$breeder->id]) }}" class="tooltipped" data-position="top" data-tooltip="View breeder">{{ $breeder->registryid }}</a></td>
+                        @if(is_null($breeder->getAnimalProperties()->where("property_id", 64)->first()))
+                          <td><a href="{{ URL::route('farm.pig.view_sow', [$breeder->id]) }}" class="tooltipped" data-position="top" data-tooltip="View breeder">{{ $breeder->registryid }}</a></td>
+                        @else
+                          <td><a href="{{ URL::route('farm.pig.view_sow', [$breeder->id]) }}" class="tooltipped" data-position="top" data-tooltip="View breeder">{{ $breeder->registryid }}</a> (Old ID: {{ $breeder->getAnimalProperties()->where("property_id", 64)->first()->value }})</td>
+                        @endif
                       @elseif($breeder->getAnimalProperties()->where("property_id", 2)->first()->value == 'M')
-                        <td><a href="{{ URL::route('farm.pig.view_boar', [$breeder->id]) }}" class="tooltipped" data-position="top" data-tooltip="View breeder">{{ $breeder->registryid }}</a></td>
+                        @if(is_null($breeder->getAnimalProperties()->where("property_id", 64)->first()))
+                          <td><a href="{{ URL::route('farm.pig.view_boar', [$breeder->id]) }}" class="tooltipped" data-position="top" data-tooltip="View breeder">{{ $breeder->registryid }}</a></td>
+                        @else
+                          <td><a href="{{ URL::route('farm.pig.view_boar', [$breeder->id]) }}" class="tooltipped" data-position="top" data-tooltip="View breeder">{{ $breeder->registryid }}</a> (Old ID: {{ $breeder->getAnimalProperties()->where("property_id", 64)->first()->value }})</td>
+                        @endif
                       @endif
                       <td colspan="3">{{$breeder->status}}, cannot add or edit records</td>
                     @else
                       @if($breeder->grossmorpho == 1 || $breeder->morphochars == 1 || $breeder->weightrecord == 1)
                         @if($breeder->getAnimalProperties()->where("property_id", 2)->first()->value == 'F')
-                          <td><a href="{{ URL::route('farm.pig.view_sow', [$breeder->id]) }}" class="tooltipped" data-position="top" data-tooltip="View breeder">{{ $breeder->registryid }}</a></td>
+                          @if(is_null($breeder->getAnimalProperties()->where("property_id", 64)->first()))
+                            <td><a href="{{ URL::route('farm.pig.view_sow', [$breeder->id]) }}" class="tooltipped" data-position="top" data-tooltip="View breeder">{{ $breeder->registryid }}</a></td>
+                          @else
+                            <td><a href="{{ URL::route('farm.pig.view_sow', [$breeder->id]) }}" class="tooltipped" data-position="top" data-tooltip="View breeder">{{ $breeder->registryid }}</a> (Old ID: {{ $breeder->getAnimalProperties()->where("property_id", 64)->first()->value }})</td>
+                          @endif
                         @elseif($breeder->getAnimalProperties()->where("property_id", 2)->first()->value == 'M')
-                          <td><a href="{{ URL::route('farm.pig.view_boar', [$breeder->id]) }}" class="tooltipped" data-position="top" data-tooltip="View breeder">{{ $breeder->registryid }}</a></td>
+                          @if(is_null($breeder->getAnimalProperties()->where("property_id", 64)->first()))
+                            <td><a href="{{ URL::route('farm.pig.view_boar', [$breeder->id]) }}" class="tooltipped" data-position="top" data-tooltip="View breeder">{{ $breeder->registryid }}</a></td>
+                          @else
+                            <td><a href="{{ URL::route('farm.pig.view_boar', [$breeder->id]) }}" class="tooltipped" data-position="top" data-tooltip="View breeder">{{ $breeder->registryid }}</a> (Old ID: {{ $breeder->getAnimalProperties()->where("property_id", 64)->first()->value }})</td>
+                          @endif
                         @endif
                       @elseif($breeder->grossmorpho == 0 && $breeder->morphochars == 0 && $breeder->weightrecord == 0)
-                        <td>{{ $breeder->registryid }}</td>
+                        @if(is_null($breeder->getAnimalProperties()->where("property_id", 64)->first()))
+                          <td>{{ $breeder->registryid }}</td>
+                        @else
+                          <td>{{ $breeder->registryid }} (Old ID: {{ $breeder->getAnimalProperties()->where("property_id", 64)->first()->value }})</td>
+                        @endif
                       @endif
                       @if($breeder->grossmorpho == 0)
                         <td>
@@ -108,9 +128,17 @@
                 @forelse($sows as $sow)
                   <tr>
                     @if($sow->grossmorpho == 1 || $sow->morphochars == 1 || $sow->weightrecord == 1)
-                      <td><a href="{{ URL::route('farm.pig.view_sow', [$sow->id]) }}" class="tooltipped" data-position="top" data-tooltip="View sow">{{ $sow->registryid }}</a></td>
+                      @if(is_null($sow->getAnimalProperties()->where("property_id", 64)->first()))
+                        <td><a href="{{ URL::route('farm.pig.view_sow', [$sow->id]) }}" class="tooltipped" data-position="top" data-tooltip="View sow">{{ $sow->registryid }}</a></td>
+                      @else
+                        <td><a href="{{ URL::route('farm.pig.view_sow', [$sow->id]) }}" class="tooltipped" data-position="top" data-tooltip="View sow">{{ $sow->registryid }}</a> (Old ID: {{ $sow->getAnimalProperties()->where("property_id", 64)->first()->value }})</td>
+                      @endif
                     @elseif($sow->grossmorpho == 0 && $sow->morphochars == 0 && $sow->weightrecord == 0)
-                      <td>{{ $sow->registryid }}</td>
+                      @if(is_null($sow->getAnimalProperties()->where("property_id", 64)->first()))
+                        <td>{{ $sow->registryid }}</td>
+                      @else
+                        <td>{{ $sow->registryid }} (Old ID: {{ $sow->getAnimalProperties()->where("property_id", 64)->first()->value }})</td>
+                      @endif
                     @endif
                     @if($sow->grossmorpho == 0)
                       <td>
@@ -166,7 +194,11 @@
                           <tbody>
                             @foreach($archived_sows as $archived_sow)
                               <tr>
-                                <td>{{ $archived_sow->registryid }}</td>
+                                @if(is_null($archived_sow->getAnimalProperties()->where("property_id", 64)->first()))
+                                  <td>{{ $archived_sow->registryid }}</td>
+                                @else
+                                  <td>{{ $archived_sow->registryid }} (Old ID: {{ $archived_sow->getAnimalProperties()->where("property_id", 64)->first()->value }})</td>
+                                @endif
                                 @if($archived_sow->status == "dead breeder")
                                   <td>Dead</td>
                                 @elseif($archived_sow->status == "sold breeder")
@@ -202,9 +234,17 @@
                 @forelse($boars as $boar)
                   <tr>
                     @if($boar->grossmorpho == 1 || $boar->morphochars == 1 || $boar->weightrecord == 1)
-                      <td><a href="{{ URL::route('farm.pig.view_boar', [$boar->id]) }}" class="tooltipped" data-position="top" data-tooltip="View boar"> {{ $boar->registryid }}</a></td>
+                      @if(is_null($boar->getAnimalProperties()->where("property_id", 64)->first()))
+                        <td><a href="{{ URL::route('farm.pig.view_boar', [$boar->id]) }}" class="tooltipped" data-position="top" data-tooltip="View boar"> {{ $boar->registryid }}</a></td>
+                      @else
+                        <td><a href="{{ URL::route('farm.pig.view_boar', [$boar->id]) }}" class="tooltipped" data-position="top" data-tooltip="View boar"> {{ $boar->registryid }}</a> (Old ID: {{$boar->getAnimalProperties()->where("property_id", 64)->first()->value }})</td>
+                      @endif
                     @elseif($boar->grossmorpho == 0 && $boar->morphochars == 0 && $boar->weightrecord == 0)
-                      <td>{{ $boar->registryid }}</td>
+                      @if(is_null($boar->getAnimalProperties()->where("property_id", 64)->first()))
+                        <td>{{ $boar->registryid }}</td>
+                      @else
+                        <td>{{ $boar->registryid }} (Old ID: {{ $boar->getAnimalProperties()->where("property_id", 64)->first()->value }})</td>
+                      @endif
                     @endif
                     @if($boar->grossmorpho == 0)
                       <td>
@@ -260,7 +300,11 @@
                           <tbody>
                             @foreach($archived_boars as $archived_boar)
                               <tr>
-                                <td>{{ $archived_boar->registryid }}</td>
+                                @if(is_null($archived_boar->getAnimalProperties()->where("property_id", 64)->first()))
+                                  <td>{{ $archived_boar->registryid }}</td>
+                                @else
+                                  <td>{{ $archived_boar->registryid }} (Old ID: {{ $archived_boar->getAnimalProperties()->where("property_id", 64)->first()->value }})</td>
+                                @endif
                                 @if($archived_boar->status == "dead breeder")
                                   <td>Dead</td>
                                 @elseif($archived_boar->status == "sold breeder")
