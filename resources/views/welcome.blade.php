@@ -70,12 +70,12 @@
                     <div id="breeds" class="section scrollspy">
                         <h4 class="center">Philippine Native Pigs</h4>
                         <div class="row">
-                            <p style="text-align: justify;">The Q-Black, MSC's breed, Sinirangan, ISUbela, and Benguet native pigs tend to have the same physical features. They all have the same straight hair type, plain black coat, and smooth skin. On the other hand, the Yookah native pigs have the unique pattern of black coat with "white socks" but similar straight hair and smooth skin.</p>
-                            <p style="text-align: justify;">Among the six genetic groups, at 180 days of age, the smallest is Yookah with a weight of 15 kilograms, while the bigger ones are Q-Black and native pigs of MSC, with weights between 30-40 kilograms.</p>
+                            <p style="text-align: justify;">The Q-Black, Markaduke, Sinirangan<sup>&reg;</sup>, ISUbela, and Benguet native pigs tend to have the same physical features. They all have the same straight hair type, plain black coat, and smooth skin. On the other hand, the Yooka<sup>&reg;</sup>h native pigs have the unique pattern of black coat with "white socks" but similar straight hair and smooth skin.</p>
+                            <p style="text-align: justify;">Among the six genetic groups, at 180 days of age, the smallest is Yookah<sup>&reg;</sup> with a weight of 15 kilograms, while the bigger ones are Q-Black and Markaduke, with weights between 30-40 kilograms.</p>
                             <p><strong>Reproductive Performance</strong></p>
-                            <p style="text-align: justify;">The MSC and ISUbela native pigs farrow seven (7) piglets per litter, while Yookah on average has four (4) piglets.</p>
+                            <p style="text-align: justify;">The Markaduke and ISUbela native pigs farrow seven (7) piglets per litter, while Yookah<sup>&reg;</sup> on average has four (4) piglets.</p>
                             <p style="text-align: justify;">In terms of birth weight, Q-Black is usually the heaviest at 0.84 kilogram on average, followed by ISUbela and Benguet at 0.77 kilogram.</p>
-                            <p style="text-align: justify;">Q-Black and MSC native piglets are weaned at forty-two (42) to forty-five (45) days. Piglets of ISUbela were weaned as early as thirty-four (34) days with an average weight of 3.00 kilograms.</p>
+                            <p style="text-align: justify;">Q-Black and Markaduke are weaned at forty-two (42) to forty-five (45) days. Piglets of ISUbela were weaned as early as thirty-four (34) days with an average weight of 3.00 kilograms.</p>
                         </div>
                         <h5 class="center">Gilts at 6 months</h5>
                         <div class="row">
@@ -95,7 +95,7 @@
                                       <img class="activator" src="{{asset('images/BSU-grid.jpg')}}">
                                     </div>
                                     <div class="card-content">
-                                      <span class="card-title activator grey-text text-darken-4">Benguet<a href="{{url('/breed/benguet')}}"><i class="material-icons right">launch</i></a></span>
+                                      <span class="card-title activator grey-text text-darken-4">Benguet Native Pig<a href="{{url('/breed/benguet')}}"><i class="material-icons right">launch</i></a></span>
                                     </div>
                                 </div>
                             </div>
@@ -129,7 +129,7 @@
                                       <img class="activator" src="{{asset('images/KSU-grid.JPG')}}">
                                     </div>
                                     <div class="card-content">
-                                      <span class="card-title activator grey-text text-darken-4">Yookah<a href="{{url('/breed/yookah')}}"><i class="material-icons right">launch</i></a></span>
+                                      <span class="card-title activator grey-text text-darken-4">Yookah<sup>&reg;</sup><a href="{{url('/breed/yookah')}}"><i class="material-icons right">launch</i></a></span>
                                     </div>
                                 </div>
                             </div>
@@ -139,7 +139,7 @@
                                       <img class="activator" src="{{asset('images/MSC-grid.jpg')}}">
                                     </div>
                                     <div class="card-content">
-                                      <span class="card-title activator grey-text text-darken-4">Native Pig of MSC<a href="{{url('/breed/marinduke')}}"><i class="material-icons right">launch</i></a></span>
+                                      <span class="card-title activator grey-text text-darken-4">Markaduke<a href="{{url('/breed/marinduke')}}"><i class="material-icons right">launch</i></a></span>
                                     </div>
                                 </div>
                             </div>
@@ -150,7 +150,7 @@
                         <div class="row">
                             <div class="col s6 m6 l6">
                                 <div class="card-panel grey lighten-1">
-                                    <h5>Benguet</h5>
+                                    <h5>Benguet Native Pig</h5>
                                     <ul class="collection with-header">
                                         <li class="collection-header grey">The Animal Genetic Resource Project - Benguet State University</li>
                                         <li class="collection-item grey lighten-1">Dr. Sonwright B. Maddul</li>
@@ -182,7 +182,7 @@
                             </div>
                             <div class="col s6 m6 l6">
                                 <div class="card-panel grey lighten-1">
-                                    <h5>Yookah</h5>
+                                    <h5>Yookah<sup>&reg;</sup></h5>
                                     <ul class="collection with-header">
                                         <li class="collection-header grey">Kalinga State University Native Pig R&D Project</li>
                                         <li class="collection-item grey lighten-1">Sharmaine D. Codiam</li>
@@ -229,7 +229,7 @@
                             </div>
                             <div class="col s6 m6 l6">
                                 <div class="card-panel grey lighten-1">
-                                    <h5>Native Pig of MSC</h5>
+                                    <h5>Markaduke</h5>
                                     <ul class="collection with-header">
                                         <li class="collection-header grey">Marinduque State College Torrijos Campus</li>
                                         <li class="collection-item grey lighten-1">Randell R. Reginio</li>

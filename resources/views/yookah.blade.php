@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Native Pigs: Yookah</title>
+        <title>Native Pigs: Yookah&reg;</title>
         <link rel="shortcut icon" href="{{asset('images/logo-swine-square.png')}}" />
 
         <!-- Fonts -->
@@ -58,7 +58,7 @@
                     <div class="col s12">
                         <a href="{{url('/')}}" class="breadcrumb">Home</a>
                         <a href="{{url('/#breeds')}}" class="breadcrumb">Breeds</a>
-                        <a href="{{url('/breed/yookah')}}" class="breadcrumb">Yookah</a>
+                        <a href="{{url('/breed/yookah')}}" class="breadcrumb">Yookah<sup>&reg;</sup></a>
                     </div>
                 </div>
             </nav>
@@ -70,7 +70,7 @@
                         <img src="{{asset('images/KSU-grid.JPG')}}" height="130">
                     </div>
                     <div class="card-content">
-                        Yookah
+                        Yookah<sup>&reg;</sup>
                     </div>
                 </div>
             </div>
@@ -89,7 +89,7 @@
                 <div class="card">
                     <div class="card-image">
                         <img src="{{asset('images/BSU-grid.jpg')}}" height="130">
-                        <span class="card-title">Benguet</span>
+                        <span class="card-title">Benguet Native Pig</span>
                     </div>
                     <div class="card-content">
                         <a href="{{url('/breed/benguet')}}">View</a>
@@ -122,7 +122,7 @@
                 <div class="card">
                     <div class="card-image">
                         <img src="{{asset('images/MSC-grid.jpg')}}" height="130">
-                        <span class="card-title">Native Pig of MSC</span>
+                        <span class="card-title">Markaduke</span>
                     </div>
                     <div class="card-content">
                         <a href="{{url('/breed/marinduke')}}">View</a>
@@ -138,7 +138,7 @@
         <div class="container">
             <div class="row">
                 <div class="col s6 m6 l6">
-                    <h3>Yookah</h3>
+                    <h3>Yookah<sup>&reg;</sup></h3>
                     <p><strong>Location:</strong> Kalinga State University (Bulanao, Tabuk City, Kalinga)</p>
                     <p><strong>Contact Person:</strong> Sharmaine D. Codiam</p>
                     <p>Contact at <strong>0927 722 4283</strong></p>
@@ -168,7 +168,7 @@
                 </div>
                 <div id="narrative" class="col s12">
                     <div class="row">
-                        <p style="text-align: justify;">Both male and female Yookah native pigs have straight and long hair type, black coat with white socks, smooth skin type, and erect ears. They have straight head shape, tail type, and backline.</p>
+                        <p style="text-align: justify;">Both male and female Yookah<sup>&reg;</sup> native pigs have straight and long hair type, black coat with white socks, smooth skin type, and erect ears. They have straight head shape, tail type, and backline.</p>
                         <p style="text-align: justify;">On average, the mature pig grows to 58 centimeters in length for males and 55 centimeters for females, with head length of 27 centimeters for males and 23 centimeters for females.</p>
                         <p style="text-align: justify;">Pelvic width is 13 centimeters for both males and females. Likewise, both have an average of 10 teats.</p>
                     </div>
@@ -227,7 +227,7 @@
                 </div>
                 <div id="narrative2" class="col s12">
                     <div class="row">
-                        <p style="text-align: justify;">Yookah sows farrow 4 piglets, weighing 0.5 kilogram on average. The male and female piglets at birth are usually of the same number. The average weaning weight is 4.75 kilograms at 67 days of age.</p>
+                        <p style="text-align: justify;">Yookah<sup>&reg;</sup> sows farrow 4 piglets, weighing 0.5 kilogram on average. The male and female piglets at birth are usually of the same number. The average weaning weight is 4.75 kilograms at 67 days of age.</p>
                     </div>
                 </div>
                 <div id="figures2" class="col s12">

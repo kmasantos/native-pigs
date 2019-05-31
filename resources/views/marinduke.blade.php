@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Native Pigs: Native Pig of MSC</title>
+        <title>Native Pigs: Markaduke</title>
         <link rel="shortcut icon" href="{{asset('images/logo-swine-square.png')}}" />
 
         <!-- Fonts -->
@@ -58,7 +58,7 @@
                     <div class="col s12">
                         <a href="{{url('/')}}" class="breadcrumb">Home</a>
                         <a href="{{url('/#breeds')}}" class="breadcrumb">Breeds</a>
-                        <a href="{{url('/breed/marinduke')}}" class="breadcrumb">Native Pig of MSC</a>
+                        <a href="{{url('/breed/marinduke')}}" class="breadcrumb">Markaduke</a>
                     </div>
                 </div>
             </nav>
@@ -70,7 +70,7 @@
                         <img src="{{asset('images/MSC-grid.jpg')}}" height=130">
                     </div>
                     <div class="card-content">
-                        Native Pig of MSC
+                        Markaduke
                     </div>
                 </div>
             </div>
@@ -89,7 +89,7 @@
                 <div class="card">
                     <div class="card-image">
                         <img src="{{asset('images/BSU-grid.jpg')}}" height="130">
-                        <span class="card-title">Benguet</span>
+                        <span class="card-title">Benguet Native Pig</span>
                     </div>
                     <div class="card-content">
                         <a href="{{url('/breed/benguet')}}">View</a>
@@ -122,7 +122,7 @@
                 <div class="card">
                     <div class="card-image">
                         <img src="{{asset('images/KSU-grid.JPG')}}" height=130">
-                        <span class="card-title">Yookah</span>
+                        <span class="card-title">Yookah<sup>&reg;</sup></span>
                     </div>
                     <div class="card-content">
                         <a href="{{url('/breed/yookah')}}">View</a>
@@ -138,7 +138,7 @@
         <div class="container">
             <div class="row">
                 <div class="col s6 m6 l6">
-                    <h3>Native Pig of MSC</h3>
+                    <h3>Markaduke</h3>
                     <p><strong>Location:</strong> Marinduque State College (Poctoy, Torrijos, Marinduque)</p>
                     <p><strong>Contact Person:</strong> Randell R. Reginio</p>
                     <p>Contact at <strong>0999 924 5638</strong> or <strong>randell_reginio@yahoo.com</strong></p>
@@ -166,7 +166,7 @@
                 </div>
                 <div id="narrative" class="col s12">
                     <div class="row">
-                        <p style="text-align: justify;">Both male and female native pigs from MSC have straight hair type, plain black color and pattern, smooth skin type, and semi-lop ears. They have straight head shape, tail type, and backline.</p>
+                        <p style="text-align: justify;">Both male and female Markaduke have straight hair type, plain black color and pattern, smooth skin type, and semi-lop ears. They have straight head shape, tail type, and backline.</p>
                         <p style="text-align: justify;">On average, the mature pig grows to 67 centimeters in length for both males and females with head length of 28 centimeters for males and 27 centimeters for females.</p>
                         <p style="text-align: justify;">Pelvic width is 13 centimeters for both males and females. Both males and females also have an average of 13 teats.</p>
                     </div>
@@ -225,7 +225,7 @@
                 </div>
                 <div id="narrative2" class="col s12">
                     <div class="row">
-                        <p style="text-align: justify;">Native sows of MSC farrow 7 piglets, weighing 0.74 kilogram on average. The average weaning weight is 3.65 kilograms at 43 days old.</p>
+                        <p style="text-align: justify;">Markaduke sows farrow 7 piglets, weighing 0.74 kilogram on average. The average weaning weight is 3.65 kilograms at 43 days old.</p>
                     </div>
                 </div>
                 <div id="figures2" class="col s12">

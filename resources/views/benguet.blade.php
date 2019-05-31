@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Native Pigs: Benguet</title>
+        <title>Native Pigs: Benguet Native Pig</title>
         <link rel="shortcut icon" href="{{asset('images/logo-swine-square.png')}}" />
 
         <!-- Fonts -->
@@ -58,7 +58,7 @@
                     <div class="col s12">
                         <a href="{{url('/')}}" class="breadcrumb">Home</a>
                         <a href="{{url('/#breeds')}}" class="breadcrumb">Breeds</a>
-                        <a href="{{url('/breed/benguet')}}" class="breadcrumb">Benguet</a>
+                        <a href="{{url('/breed/benguet')}}" class="breadcrumb">Benguet Native Pig</a>
                     </div>
                 </div>
             </nav>
@@ -70,7 +70,7 @@
                         <img src="{{asset('images/BSU-grid.jpg')}}" height="130">
                     </div>
                     <div class="card-content">
-                        Benguet
+                        Benguet Native Pig
                     </div>
                 </div>
             </div>
@@ -111,7 +111,7 @@
                 <div class="card">
                     <div class="card-image">
                         <img src="{{asset('images/KSU-grid.JPG')}}" height="130">
-                        <span class="card-title">Yookah</span>
+                        <span class="card-title">Yookah<sup>&reg;</sup></span>
                     </div>
                     <div class="card-content">
                         <a href="{{url('/breed/yookah')}}">View</a>
@@ -122,7 +122,7 @@
                 <div class="card">
                     <div class="card-image">
                         <img src="{{asset('images/MSC-grid.jpg')}}" height="130">
-                        <span class="card-title">Native Pig of MSC</span>
+                        <span class="card-title">Markaduke</span>
                     </div>
                     <div class="card-content">
                         <a href="{{url('/breed/marinduke')}}">View</a>
@@ -138,7 +138,7 @@
         <div class="container">
             <div class="row">
                 <div class="col s6 m6 l6">
-                    <h3>Benguet</h3>
+                    <h3>Benguet Native Pig</h3>
                     <p><strong>Location:</strong>The Animal Genetic Resource Project - Benguet State University (La Trinidad, Benguet)</p>
                     <p><strong>Contact Person:</strong> Dr. Sonwright B. Maddul</p>
                     <p>Contact at <strong>0929 316 3996</strong> / <strong>0916 364 2039</strong></p>
@@ -223,7 +223,7 @@
                 </div>
                 <div id="narrative2" class="col s12">
                     <div class="row">
-                        <p style="text-align: justify;">Benguet sow farrow 8 piglets, weighing 0.77 kilogram on average. The average weaning weight is 4.9 kilograms at 60 days of age.</p>
+                        <p style="text-align: justify;">Benguet Native Pig sow farrow 8 piglets, weighing 0.77 kilogram on average. The average weaning weight is 4.9 kilograms at 60 days of age.</p>
                     </div>
                 </div>
                 <div id="figures2" class="col s12">

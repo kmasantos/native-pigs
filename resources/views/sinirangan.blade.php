@@ -89,7 +89,7 @@
                 <div class="card">
                     <div class="card-image">
                         <img src="{{asset('images/BSU-grid.jpg')}}" height="130">
-                        <span class="card-title">Benguet</span>
+                        <span class="card-title">Benguet Native Pig</span>
                     </div>
                     <div class="card-content">
                         <a href="{{url('/breed/benguet')}}">View</a>
@@ -111,7 +111,7 @@
                 <div class="card">
                     <div class="card-image">
                         <img src="{{asset('images/KSU-grid.JPG')}}" height="130">
-                        <span class="card-title">Yookah</span>
+                        <span class="card-title">Yookah<sup>&reg;</sup></span>
                     </div>
                     <div class="card-content">
                         <a href="{{url('/breed/yookah')}}">View</a>
@@ -122,7 +122,7 @@
                 <div class="card">
                     <div class="card-image">
                         <img src="{{asset('images/MSC-grid.jpg')}}" height="130">
-                        <span class="card-title">Native Pig of MSC</span>
+                        <span class="card-title">Markaduke</span>
                     </div>
                     <div class="card-content">
                         <a href="{{url('/breed/marinduke')}}">View</a>
