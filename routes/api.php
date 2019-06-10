@@ -18,6 +18,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('getAllFarms', "ApiController@getAllFarms");
+Route::post('addSowLitterRecord', "ApiController@addSowLitterRecord");
+Route::get('getSowLitterRecord', "ApiController@getSowLitterRecord");
 Route::post('fetchNewPigRecord', "ApiController@fetchNewPigRecord");
 Route::get('getViewSowPage', "ApiController@getViewSowPage");
 Route::get('getAllSows', "ApiController@getAllSows");
@@ -41,6 +43,7 @@ Route::get('searchPig',"ApiController@searchPig");
 Route::get('searchSows',"ApiController@searchSows");
 Route::get('searchBoars',"ApiController@searchBoars");
 Route::post('addBreedingRecord',"ApiController@addBreedingRecord");
+Route::post('updateStatus',"ApiController@updateStatus");
 Route::get('getBreedingRecord',"ApiController@getBreedingRecord");
 Route::get('findGroupingId', "ApiController@findGroupingId");
 Route::get('getAddSowLitterRecordPage', "ApiController@getAddSowLitterRecordPage");
@@ -53,6 +56,7 @@ Route::post('editRegistryId', "ApiController@editRegistryId");
 Route::post('editSex', "ApiController@editSex");
 Route::post('updateOffspringRecord', "ApiController@updateOffspringRecord");
 Route::post('editBirthWeight', "ApiController@editBirthWeight");
+
 
 // api functions for adding from local to server
 Route::post('addToAnimalDb', "ApiController@addToAnimalDb");
