@@ -11,7 +11,13 @@
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+        <script src="https://use.fontawesome.com/8958a6d4d1.js"></script>
+        <style>
+            .facebook {
+                background-color: #3C5A99 !important;
+            }
+        </style>
         <!-- Styles -->
         {{-- <link rel="stylesheet" href="{{asset('thirdparty/materialize/css/materialize.min.css')}}"> --}}
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-alpha.1/css/materialize.min.css">
@@ -234,49 +240,51 @@
                         </div>
                     </div>
                     <div id="news" class="section scrollspy">
-                        <h3 class="center">News</h3>
-                        {{-- <ul class="collection">
-                            <li class="collection-item avatar">
-                              <i class="material-icons circle blue">done</i>
-                              <span class="title">Title</span>
-                              <h5>First Line <br>
-                                 Second Line
-                              </h5>
-                              <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
-                            </li>
-                            <li class="collection-item avatar">
-                              <i class="material-icons circle">folder</i>
-                              <span class="title">Title</span>
-                              <h5>First Line <br>
-                                 Second Line
-                              </h5>
-                              <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
-                            </li>
-                            <li class="collection-item avatar">
-                              <i class="material-icons circle green">insert_chart</i>
-                              <span class="title">Title</span>
-                              <h5>First Line <br>
-                                 Second Line
-                              </h5>
-                              <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
-                            </li>
-                            <li class="collection-item avatar">
-                              <i class="material-icons circle red">play_arrow</i>
-                              <span class="title">Title</span>
-                              <h5>First Line <br>
-                                 Second Line
-                              </h5>
-                              <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
-                            </li>
-                        </ul> --}}
-                        <div class="center">
+                        <h3 class="center">News and Events</h3>
+                        <div class="row">
+                            <div class="col s6 m6 l6">
+                              <div class="card">
+                                <div class="card-image">
+                                    <img src="{{asset('images/news1-4.png')}}">
+                                    <span class="card-title">News</span>
+                                </div>
+                                <div class="card-content">
+                                    <h5>Increasing Demand of Marinduque Native Pigs, An appeal to the Nucleus Farm to prepare for Possible Shortage of Supply this Year</h5>
+                                    <p><i>by Thon Roma (18 February, 2019)</i></p>
+                                </div>
+                                <div class="card-action">
+                                    <a class="green-text text-lighten-1" href="{{url('/news/increasing_demand_of_marinduque_native_pigs')}}">Read more..</a>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col s6 m6 l6">
+                                <div class="card">
+                                    <div class="card-image waves-effect waves-block waves-light">
+                                        <img class="activator" src="{{asset('images/event1-1.jpeg')}}">
+                                    </div>
+                                    <div class="card-content">
+                                        <span class="card-title activator" style="color: #F6008A;"><h5>Yookah (Native Pig) Fiesta<i class="material-icons right grey-text text-darken-4">more_vert</i></h5></span>
+                                        <br>
+                                        <h6>For more information:</h6>
+                                        <a href="https://www.facebook.com/Kalinga-State-University-Yookah-Fiesta-431988890688960" class="btn facebook"><i class="fa fa-facebook-square left" aria-hidden="true"></i>Visit event page</a>
+                                    </div>
+                                    <div class="card-reveal">
+                                        <span class="card-title" style="color: #F6008A;"><h4>Yookah (Native Pig) Fiesta<i class="material-icons right grey-text text-darken-4">close</i></h4></span>
+                                        <h5><strong>Theme:</strong> "Black Pigs Living Astray&mdash;The Kalinga Way"</p>
+                                        <h5><strong>When:</strong> June 27-28, 2019</h5>
+                                        <h5><strong>Where:</strong> Kalinga State University Bulanao Campus, Tabuk City, Kalinga</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {{-- <div class="center">
                             <img src="{{asset('images/news-icon.png')}}" height="400">
                             <h4>Articles coming soon!</h4>
-                        </div>
+                        </div> --}}
                     </div>
                     <div id="about" class="section scrollspy">
                         <h3 class="center">About Us</h3>
-                        <h5 class="center"><strong>What do you need to know about the data available in the Philippine Native Pig Breed Information System?</strong></h5>
+                        <h5 class="center"><strong>What do you need to know about the data available in the<br>Philippine Native Pig Breed Information System?</strong></h5>
                         <h4 style="text-decoration: underline;">The Project</h4>
                         <h5 style="text-align: justify;">The "Development of Philippine Native Pig Breed Information System" is a DOST-PCAARRD funded project of the Institute of Animal Science in cooperation with the Institute of Computer Science, University of the Philippines Los Ba&ntilde;os. The project aims to provide an accessible information source regarding selected Philippine Native Pig Breeds.</h5>
                         <h4 style="text-decoration: underline;">The Goal</h4>
@@ -306,7 +314,6 @@
                                     <li class="collection-item"><h5>Body length</h5></li>
                                     <li class="collection-item"><h5>Pelvic width</h5></li>
                                     <li class="collection-item"><h5>Total teat number</h5></li>
-                                    <li class="collection-header"><h4>Information at birth:</h4></li>
                                     <li class="collection-item"><h5>Birth weight</h5></li>
                                     <li class="collection-item"><h5>Litter size</h5></li>
                                     <li class="collection-item"><h5>Number of males born</h5></li>
@@ -360,7 +367,7 @@
                     <div class="col l4 offset-l2 s12">
                         <img src="{{asset('images/dost.png')}}" height="70">
                         <img src="{{asset('images/pcaarrd.png')}}" height="70">
-                        <img src="{{asset('images/uplb.png')}}" height="70">
+                        <img src="{{asset('images/uplb.png')}}" height="70"><br>
                         <img src="{{asset('images/ias.png')}}" height="80">
                         <img src="{{asset('images/ics.png')}}" height="70">
                         <img src="{{asset('images/logo-default.png')}}" height="70">

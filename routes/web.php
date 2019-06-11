@@ -35,6 +35,9 @@ Route::get('/breed/marinduke', function(){
 Route::get('/coming_soon', function(){
     return view('comingsoon');
 });
+Route::get('/news/increasing_demand_of_marinduque_native_pigs', function(){
+    return view('mscnews1');
+});
 
 Route::group(['middleware' => ['web']], function () {
   Auth::routes();

@@ -1903,12 +1903,20 @@ class ApiController extends Controller
         $sowRegId = Animal::where("registryid", $request->sow_id)->where("breed_id", $breed->id)->first();
         $boarRegId = Animal::where("registryid", $request->boar_id)->where("breed_id", $breed->id)->first();
 
-        $pair = new Grouping;
-        $pair->registryid = $sowRegId->registryid;
-        $pair->father_id = $boarRegId->id;
-        $pair->mother_id = $sowRegId->id;
-        $pair->breed_id = $request->breedable_id;
-        $pair->save();
+        //check if grouping already exists
+        $pair = Grouping::where("mother_id", $sowRegId->id)
+            ->where("father_id", $boarRegId->id)
+            ->where("breed_id", $breed->id)
+            ->first();
+
+        if($pair == null){
+            $pair = new Grouping;
+            $pair->registryid = $sowRegId->registryid;
+            $pair->father_id = $boarRegId->id;
+            $pair->mother_id = $sowRegId->id;
+            $pair->breed_id = $request->breedable_id;
+            $pair->save();
+        }
 
         if(is_null($request->date_bred)){
             $dateBredValue = new Carbon();
@@ -1917,26 +1925,64 @@ class ApiController extends Controller
             $dateBredValue = $request->date_bred;
         }
 
-        $date_bred = new GroupingProperty;
-        $date_bred->grouping_id = $pair->id;
-        $date_bred->property_id = 42;
-        $date_bred->value = $dateBredValue;
-        $date_bred->save();
+        $date_bred = GroupingProperty::where("grouping_id", $pair->id)
+            ->where("property_id", 42)
+            ->first();
+        if($date_bred == null){
+            $date_bred = new GroupingProperty;
+            $date_bred->grouping_id = $pair->id;
+            $date_bred->property_id = 42;
+            $date_bred->value = $dateBredValue;
+            $date_bred->save();
+        }else{
+            $date_bred->value = $dateBredValue;
+            $date_bred->save();
+        }
 
         $edfValue = Carbon::parse($dateBredValue)->addDays(114);
         $edfValue = $edfValue->format('Y-m-d');
 
-        $edf = new GroupingProperty;
-        $edf->grouping_id = $pair->id;
-        $edf->property_id = 43;
-        $edf->value = $edfValue;
-        $edf->save();
+        $edf = GroupingProperty::where("grouping_id", $pair->id)
+            ->where("property_id", 43)
+            ->first();
+        if($edf == null){
+            $edf = new GroupingProperty;
+            $edf->grouping_id = $pair->id;
+            $edf->property_id = 43;
+            $edf->value = $edfValue;
+            $edf->save();
+        }else{
+            $edf->value = $edfValue;
+            $edf->save();
+        }
 
-        $status = new GroupingProperty;
-        $status->grouping_id = $pair->id;
-        $status->property_id = 60;
-        $status->value = "Bred";
-        $status->save();
+        $status = GroupingProperty::where("grouping_id", $pair->id)
+            ->where("property_id", 60)
+            ->first();
+        if($status == null){
+            $status = new GroupingProperty;
+            $status->grouping_id = $pair->id;
+            $status->property_id = 60;
+            $status->value = "Bred";
+            $status->save();
+        }else{
+            $status->value = "Bred";
+            $status->save(); 
+        }
+
+        $freqency = GroupingProperty::where("grouping_id", $pair->id)
+            ->where("property_id", 61)
+            ->first();
+        if($freqency == null){
+            $freqency = new GroupingProperty();
+            $status->grouping_id = $pair->id;
+            $status->property_id = 61;
+            $status->value = "1";
+            $status->save();
+        } else{
+            $freqency->value = number_format($freqency->value) + 1;
+            $freqency->save();
+        }
     }
 
     public function updateStatus(Request $request){
