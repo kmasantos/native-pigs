@@ -1743,7 +1743,7 @@ class FarmController extends Controller
 			}
 			else{
 				if(!is_null($properties->where("property_id", 3)->first())){
-					if(count($offsprings) == 0 && ($stillbornprop->value > 0 || $mummifiedprop->value > 0)){
+					if(count($offsprings) == 0 && ($stillbornprop->value >= 0 || $mummifiedprop->value >= 0)){
 						$dateweaned = new GroupingProperty;
 						$dateweaned->grouping_id = $family->id;
 						$dateweaned->property_id = 6;
