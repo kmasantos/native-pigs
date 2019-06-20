@@ -100,7 +100,7 @@
 						</div>
 					</div>
 				</div>
-				<h5>Summary</h5>
+				{{-- <h5>Summary</h5>
 				<div class="col s12">
         	<ul class="collapsible popout">
         		@foreach($years as $year)
@@ -134,7 +134,7 @@
 	          @endforeach
 	        </ul>
 	      </div>
-			</div>
+			</div> --}}
 			<!-- BOAR INVENTORY -->
 			<div id="boarinventory" class="col s12">
 				<h5>Inventory for <strong>{{ Carbon\Carbon::parse($now)->format('F, Y') }}</strong> as of <strong>{{ Carbon\Carbon::parse($now)->format('F j, Y') }}</strong></h5>

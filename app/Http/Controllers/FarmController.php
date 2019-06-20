@@ -12553,7 +12553,6 @@ class FarmController extends Controller
 
 			// gets all groups available
 			$groups = Grouping::whereNotNull("mother_id")->where("breed_id", $breed->id)->get();
-
 			// BOAR INVENTORY
 			
 			// sorts male pigs into jr and sr boars
@@ -12596,7 +12595,7 @@ class FarmController extends Controller
 				if(!is_null($datebredprop)){
 					$datebred = Carbon::parse($datebredprop->value);
 					if($datebred->month == $now->month && $datebred->year == $now->year){
-						if($datebred->gte($now)){
+						if($now->gte($datebred)){
 							if($status == "Bred"){
 								$bred = $group->getMother();
 								if($bred->status == "breeder"){
@@ -12628,7 +12627,7 @@ class FarmController extends Controller
 			$intersection = array_intersect($pregnantsows, array_unique($templactating));
 			$lactatingsows = array_diff(array_unique($templactating), $intersection);
 			// dd($breds, $pregnantsows, $lactatingsows);
-
+			
 			$bredsows = [];
 			$bredgilts = [];
 			foreach ($breds as $bred) {
@@ -12638,12 +12637,14 @@ class FarmController extends Controller
 					if($parity->value >= 1 || $frequency->value > 1){
 						array_push($bredsows, $bred);
 					}
-					elseif(($parity->value == 0 && $frequency->value == 1) || (is_null($parity) && $frequency->value == 1)){
+					elseif(($parity->value == 0 && $frequency->value == 1) || $frequency->value == 1){
 						array_push($bredgilts, $bred);
 					}
 				}
 				else{
-					array_push($bredgilts, $bred);
+					if($frequency->value == 1){
+						array_push($bredgilts, $bred);
+					}
 				}
 			}
 
@@ -12773,7 +12774,7 @@ class FarmController extends Controller
 				if(!is_null($datebredprop)){
 					$datebred = Carbon::parse($datebredprop->value);
 					if($datebred->month == $now->month && $datebred->year == $now->year){
-						if($datebred->gte($now)){
+						if($now->gte($datebred)){
 							if($status == "Bred"){
 								$bred = $group->getMother();
 								if($bred->status == "breeder"){
@@ -12815,15 +12816,17 @@ class FarmController extends Controller
 					if($parity->value >= 1 || $frequency->value > 1){
 						array_push($bredsows, $bred);
 					}
-					elseif(($parity->value == 0 && $frequency->value == 1) || (is_null($parity) && $frequency->value == 1)){
+					elseif(($parity->value == 0 && $frequency->value == 1) || $frequency->value == 1){
 						array_push($bredgilts, $bred);
 					}
 				}
 				else{
-					array_push($bredgilts, $bred);
+					if($frequency->value == 1){
+						array_push($bredgilts, $bred);
+					}
 				}
 			}
-
+			
 			$gilts = [];
 			$temp_gilts = [];
 			foreach ($sows as $sow) {
@@ -12883,7 +12886,7 @@ class FarmController extends Controller
 			return view('pigs.breederinventory', compact('pigs', 'sows', 'boars', 'groups', 'frequency', 'breds', 'pregnantsows', 'lactatingsows', 'drysows', 'gilts', 'jrboars', 'srboars', 'now', 'noage_boars', 'years', 'months', 'age_boars', 'age_sows', 'noage_sows', 'bredsows', 'bredgilts'));
 		}
 
-		static function getMonthlyBredSows($year, $month){
+		/*static function getMonthlyBredSows($year, $month){
 			$farm = Auth::User()->getFarm();
 			$breed = $farm->getBreed();
 			$groups = Grouping::whereNotNull("mother_id")->where("breed_id", $breed->id)->get();
@@ -12946,10 +12949,15 @@ class FarmController extends Controller
 							$date = new Carbon('last day of '.$month.' '.$year);
 							$datefarrowed = Carbon::parse($property->value);
 							$dateweanedprop = $group->getGroupingProperties()->where("property_id", 6)->first();
-							if(!is_null($dateweanedprop)){
-								$dateweaned = Carbon::parse($dateweanedprop->value);
-								if($date->between($datefarrowed, $dateweaned)){
-									array_push($monthlylactatingsows, $group->getMother()->registryid);
+							if(!is_null($dateweanedprop) && $dateweanedprop->value != "Not specified"){
+								if($dateweanedprop->value != "Not specified"){
+									$dateweaned = Carbon::parse($dateweanedprop->value);
+									if($date->between($datefarrowed, $dateweaned)){
+										array_push($monthlylactatingsows, $group->getMother()->registryid);
+									}
+								}
+								else{
+									$dateweaned = $dateweanedprop->value;
 								}
 							}
 							else{
@@ -12976,7 +12984,7 @@ class FarmController extends Controller
 			}
 
 			return $drysows;
-		}
+		}*/
 
 		public function growerInventoryDownloadPDF($filter){
 			$farm = $this->user->getFarm();
