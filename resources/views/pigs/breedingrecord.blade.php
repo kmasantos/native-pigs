@@ -272,8 +272,8 @@
 										</td>
 									</tr>
 								@empty
-									<tr>
-										<td colspan="6">No breeding record found</td>
+									<tr style="text-align: center; background: #fff;">
+										<td colspan="7">No breeding record found</td>
 									</tr>
 								@endforelse
               </tbody>

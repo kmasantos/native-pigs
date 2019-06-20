@@ -7990,7 +7990,7 @@ class FarmController extends Controller
 				$ageweaned = [];
 				$adjweaningweight = [];
 				foreach ($thisoffsprings as $thisoffspring) {
-					if(!is_null($thisoffspring->getAnimalProperties()->where("property_id", 6)->first())){
+					if(!is_null($thisoffspring->getAnimalProperties()->where("property_id", 6)->first()) && $thisoffspring->getAnimalProperties()->where("property_id", 6)->first()->value != "Not specified"){
 						$dateweanedprop = $thisoffspring->getAnimalProperties()->where("property_id", 6)->first();
 						$bdayprop = $thisoffspring->getAnimalProperties()->where("property_id", 3)->first();
 						if(!is_null($bdayprop) && $bdayprop->value != "Not specified"){
@@ -8175,7 +8175,7 @@ class FarmController extends Controller
 							$ageweaned = [];
 							$adjweaningweight = [];
 							foreach ($thisoffsprings as $thisoffspring) {
-								if(!is_null($thisoffspring->getAnimalProperties()->where("property_id", 6)->first())){
+								if(!is_null($thisoffspring->getAnimalProperties()->where("property_id", 6)->first()) && $thisoffspring->getAnimalProperties()->where("property_id", 6)->first()->value != "Not specified"){
 									$dateweanedprop = $thisoffspring->getAnimalProperties()->where("property_id", 6)->first();
 									$bdayprop = $thisoffspring->getAnimalProperties()->where("property_id", 3)->first();
 									if(!is_null($bdayprop) && $bdayprop->value != "Not specified"){
@@ -8376,7 +8376,7 @@ class FarmController extends Controller
 							$ageweaned = [];
 							$adjweaningweight = [];
 							foreach ($thisoffsprings as $thisoffspring) {
-								if(!is_null($thisoffspring->getAnimalProperties()->where("property_id", 6)->first())){
+								if(!is_null($thisoffspring->getAnimalProperties()->where("property_id", 6)->first()) && $thisoffspring->getAnimalProperties()->where("property_id", 6)->first()->value != "Not specified"){
 									$dateweanedprop = $thisoffspring->getAnimalProperties()->where("property_id", 6)->first();
 									$bdayprop = $thisoffspring->getAnimalProperties()->where("property_id", 3)->first();
 									if(!is_null($bdayprop) && $bdayprop->value != "Not specified"){
@@ -8623,7 +8623,7 @@ class FarmController extends Controller
 						$ageweaned_sow = [];
 						$adjweaningweight_sow = [];
 						foreach ($thisoffsprings as $thisoffspring) {
-							if(!is_null($thisoffspring->getAnimalProperties()->where("property_id", 6)->first())){
+							if(!is_null($thisoffspring->getAnimalProperties()->where("property_id", 6)->first()) && $thisoffspring->getAnimalProperties()->where("property_id", 6)->first()->value != "Not specified"){
 								$dateweanedprop = $thisoffspring->getAnimalProperties()->where("property_id", 6)->first();
 								$bdayprop = $thisoffspring->getAnimalProperties()->where("property_id", 3)->first();
 								if(!is_null($bdayprop) && $bdayprop->value != "Not specified"){
@@ -8759,7 +8759,7 @@ class FarmController extends Controller
 						$ageweaned_boar = [];
 						$adjweaningweight_boar = [];
 						foreach ($thisoffsprings as $thisoffspring) {
-							if(!is_null($thisoffspring->getAnimalProperties()->where("property_id", 6)->first())){
+							if(!is_null($thisoffspring->getAnimalProperties()->where("property_id", 6)->first()) && $thisoffspring->getAnimalProperties()->where("property_id", 6)->first()->value != "Not specified"){
 								$dateweanedprop = $thisoffspring->getAnimalProperties()->where("property_id", 6)->first();
 								$bdayprop = $thisoffspring->getAnimalProperties()->where("property_id", 3)->first();
 								if(!is_null($bdayprop) && $bdayprop->value != "Not specified"){
@@ -8949,7 +8949,7 @@ class FarmController extends Controller
 						$ageweaned_sow = [];
 						$adjweaningweight_sow = [];
 						foreach ($thisoffsprings as $thisoffspring) {
-							if(!is_null($thisoffspring->getAnimalProperties()->where("property_id", 6)->first())){
+							if(!is_null($thisoffspring->getAnimalProperties()->where("property_id", 6)->first()) && $thisoffspring->getAnimalProperties()->where("property_id", 6)->first()->value != "Not specified"){
 								$dateweanedprop = $thisoffspring->getAnimalProperties()->where("property_id", 6)->first();
 								$bdayprop = $thisoffspring->getAnimalProperties()->where("property_id", 3)->first();
 								if(!is_null($bdayprop) && $bdayprop->value != "Not specified"){
@@ -9124,7 +9124,7 @@ class FarmController extends Controller
 						$ageweaned_boar = [];
 						$adjweaningweight_boar = [];
 						foreach ($thisoffsprings as $thisoffspring) {
-							if(!is_null($thisoffspring->getAnimalProperties()->where("property_id", 6)->first())){
+							if(!is_null($thisoffspring->getAnimalProperties()->where("property_id", 6)->first()) && $thisoffspring->getAnimalProperties()->where("property_id", 6)->first()->value != "Not specified"){
 								$dateweanedprop = $thisoffspring->getAnimalProperties()->where("property_id", 6)->first();
 								$bdayprop = $thisoffspring->getAnimalProperties()->where("property_id", 3)->first();
 								if(!is_null($bdayprop) && $bdayprop->value != "Not specified"){
@@ -9690,7 +9690,7 @@ class FarmController extends Controller
 				$ageweaned = [];
 				$adjweaningweight = [];
 				foreach ($thisoffsprings as $thisoffspring) {
-					if(!is_null($thisoffspring->getAnimalProperties()->where("property_id", 6)->first())){
+					if(!is_null($thisoffspring->getAnimalProperties()->where("property_id", 6)->first()) && $thisoffspring->getAnimalProperties()->where("property_id", 6)->first()->value != "Not specified"){
 						$dateweanedprop = $thisoffspring->getAnimalProperties()->where("property_id", 6)->first();
 						$bdayprop = $thisoffspring->getAnimalProperties()->where("property_id", 3)->first();
 						if(!is_null($bdayprop) && $bdayprop->value != "Not specified"){
@@ -9850,7 +9850,7 @@ class FarmController extends Controller
 				$ageweaned_sow = [];
 				$adjweaningweight_sow = [];
 				foreach ($thisoffsprings as $thisoffspring) {
-					if(!is_null($thisoffspring->getAnimalProperties()->where("property_id", 6)->first())){
+					if(!is_null($thisoffspring->getAnimalProperties()->where("property_id", 6)->first()) && $thisoffspring->getAnimalProperties()->where("property_id", 6)->first()->value != "Not specified"){
 						$dateweanedprop = $thisoffspring->getAnimalProperties()->where("property_id", 6)->first();
 						$bdayprop = $thisoffspring->getAnimalProperties()->where("property_id", 3)->first();
 						if(!is_null($bdayprop) && $bdayprop->value != "Not specified"){
@@ -10059,7 +10059,7 @@ class FarmController extends Controller
 				$ageweaned_sow = [];
 				$adjweaningweight_sow = [];
 				foreach ($thisoffsprings as $thisoffspring) {
-					if(!is_null($thisoffspring->getAnimalProperties()->where("property_id", 6)->first())){
+					if(!is_null($thisoffspring->getAnimalProperties()->where("property_id", 6)->first()) && $thisoffspring->getAnimalProperties()->where("property_id", 6)->first()->value != "Not specified"){
 						$dateweanedprop = $thisoffspring->getAnimalProperties()->where("property_id", 6)->first();
 						$bdayprop = $thisoffspring->getAnimalProperties()->where("property_id", 3)->first();
 						if(!is_null($bdayprop) && $bdayprop->value != "Not specified"){
@@ -10557,7 +10557,7 @@ class FarmController extends Controller
 				$ageweaned = [];
 				$adjweaningweight = [];
 				foreach ($thisoffsprings as $thisoffspring) {
-					if(!is_null($thisoffspring->getAnimalProperties()->where("property_id", 6)->first())){
+					if(!is_null($thisoffspring->getAnimalProperties()->where("property_id", 6)->first()) && $thisoffspring->getAnimalProperties()->where("property_id", 6)->first()->value != "Not specified"){
 						$dateweanedprop = $thisoffspring->getAnimalProperties()->where("property_id", 6)->first();
 						$bdayprop = $thisoffspring->getAnimalProperties()->where("property_id", 3)->first();
 						if(!is_null($bdayprop) && $bdayprop->value != "Not specified"){
@@ -10918,7 +10918,7 @@ class FarmController extends Controller
 				$ageweaned = [];
 				$adjweaningweight = [];
 				foreach ($thisoffsprings as $thisoffspring) {
-					if(!is_null($thisoffspring->getAnimalProperties()->where("property_id", 6)->first())){
+					if(!is_null($thisoffspring->getAnimalProperties()->where("property_id", 6)->first()) && $thisoffspring->getAnimalProperties()->where("property_id", 6)->first()->value != "Not specified"){
 						$dateweanedprop = $thisoffspring->getAnimalProperties()->where("property_id", 6)->first();
 						$bdayprop = $thisoffspring->getAnimalProperties()->where("property_id", 3)->first();
 						if(!is_null($bdayprop) && $bdayprop->value != "Not specified"){
@@ -11043,7 +11043,7 @@ class FarmController extends Controller
 				$ageweaned = [];
 				$adjweaningweight = [];
 				foreach ($thisoffsprings as $thisoffspring) {
-					if(!is_null($thisoffspring->getAnimalProperties()->where("property_id", 6)->first())){
+					if(!is_null($thisoffspring->getAnimalProperties()->where("property_id", 6)->first()) && $thisoffspring->getAnimalProperties()->where("property_id", 6)->first()->value != "Not specified"){
 						$dateweanedprop = $thisoffspring->getAnimalProperties()->where("property_id", 6)->first();
 						$bdayprop = $thisoffspring->getAnimalProperties()->where("property_id", 3)->first();
 						if(!is_null($bdayprop) && $bdayprop->value != "Not specified"){
@@ -11450,7 +11450,7 @@ class FarmController extends Controller
 				$ageweaned = [];
 				$adjweaningweight = [];
 				foreach ($thisoffsprings as $thisoffspring) {
-					if(!is_null($thisoffspring->getAnimalProperties()->where("property_id", 6)->first())){
+					if(!is_null($thisoffspring->getAnimalProperties()->where("property_id", 6)->first()) && $thisoffspring->getAnimalProperties()->where("property_id", 6)->first()->value != "Not specified"){
 						$dateweanedprop = $thisoffspring->getAnimalProperties()->where("property_id", 6)->first();
 						$bdayprop = $thisoffspring->getAnimalProperties()->where("property_id", 3)->first();
 						if(!is_null($bdayprop) && $bdayprop->value != "Not specified"){
@@ -11600,7 +11600,7 @@ class FarmController extends Controller
 							$ageweaned = [];
 							$adjweaningweight = [];
 							foreach ($thisoffsprings as $thisoffspring) {
-								if(!is_null($thisoffspring->getAnimalProperties()->where("property_id", 6)->first())){
+								if(!is_null($thisoffspring->getAnimalProperties()->where("property_id", 6)->first()) && $thisoffspring->getAnimalProperties()->where("property_id", 6)->first()->value != "Not specified"){
 									$dateweanedprop = $thisoffspring->getAnimalProperties()->where("property_id", 6)->first();
 									$bdayprop = $thisoffspring->getAnimalProperties()->where("property_id", 3)->first();
 									if(!is_null($bdayprop) && $bdayprop->value != "Not specified"){
@@ -11830,7 +11830,7 @@ class FarmController extends Controller
 							$ageweaned = [];
 							$adjweaningweight = [];
 							foreach ($thisoffsprings as $thisoffspring) {
-								if(!is_null($thisoffspring->getAnimalProperties()->where("property_id", 6)->first())){
+								if(!is_null($thisoffspring->getAnimalProperties()->where("property_id", 6)->first()) && $thisoffspring->getAnimalProperties()->where("property_id", 6)->first()->value != "Not specified"){
 									$dateweanedprop = $thisoffspring->getAnimalProperties()->where("property_id", 6)->first();
 									$bdayprop = $thisoffspring->getAnimalProperties()->where("property_id", 3)->first();
 									if(!is_null($bdayprop) && $bdayprop->value != "Not specified"){
@@ -12057,7 +12057,7 @@ class FarmController extends Controller
 							$ageweaned = [];
 							$adjweaningweight = [];
 							foreach ($thisoffsprings as $thisoffspring) {
-								if(!is_null($thisoffspring->getAnimalProperties()->where("property_id", 6)->first())){
+								if(!is_null($thisoffspring->getAnimalProperties()->where("property_id", 6)->first()) && $thisoffspring->getAnimalProperties()->where("property_id", 6)->first()->value != "Not specified"){
 									$dateweanedprop = $thisoffspring->getAnimalProperties()->where("property_id", 6)->first();
 									$bdayprop = $thisoffspring->getAnimalProperties()->where("property_id", 3)->first();
 									if(!is_null($bdayprop) && $bdayprop->value != "Not specified"){
@@ -12826,7 +12826,7 @@ class FarmController extends Controller
 					}
 				}
 			}
-			
+
 			$gilts = [];
 			$temp_gilts = [];
 			foreach ($sows as $sow) {
