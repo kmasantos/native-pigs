@@ -41,7 +41,11 @@
 			@if(is_null($family->getGroupingProperties()->where("property_id", 6)->first()))
 				<td>Date Weaned: </td>
 			@else
-				<td>Date Weaned: <b>{{ Carbon\Carbon::parse($family->getGroupingProperties()->where("property_id", 6)->first()->value)->format('j F, Y') }}</b></td>
+				@if(!is_null($family->getGroupingProperties()->where("property_id", 6)->first()) && $family->getGroupingProperties()->where("property_id", 6)->first()->value != "Not specified")
+					<td>Date Weaned: <b>{{ Carbon\Carbon::parse($family->getGroupingProperties()->where("property_id", 6)->first()->value)->format('j F, Y') }}</b></td>
+				@elseif(!is_null($family->getGroupingProperties()->where("property_id", 6)->first()) && $family->getGroupingProperties()->where("property_id", 6)->first()->value == "Not specified")
+					<td>Date Weaned: No offsprings to wean</td>
+				@endif
 			@endif
 		</tr>
 	</tbody>

@@ -133,8 +133,8 @@
 	            </li>
 	          @endforeach
 	        </ul>
-	      </div>
-			</div> --}}
+	      </div> --}}
+			</div>
 			<!-- BOAR INVENTORY -->
 			<div id="boarinventory" class="col s12">
 				<h5>Inventory for <strong>{{ Carbon\Carbon::parse($now)->format('F, Y') }}</strong> as of <strong>{{ Carbon\Carbon::parse($now)->format('F j, Y') }}</strong></h5>

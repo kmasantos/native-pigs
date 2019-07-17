@@ -398,6 +398,7 @@
             $(document).ready(function(){
                 $('.scrollspy').scrollSpy();
             });
+            $(".dropdown-trigger").dropdown();
         </script>
     </body>
 

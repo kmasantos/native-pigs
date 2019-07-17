@@ -122,6 +122,13 @@
         </ul>
       </li>
       <li class="no-padding">
+        <ul>
+          <li>
+            <a href="{{route('farm.pig.downloadable_files')}}" class="collapsible-header"><i class="fas fa-download"></i>Downloadable Files</a>
+          </li>
+        </ul>
+      </li>
+      <li class="no-padding">
       	<ul>
       		<li>
       			<a href="logout" id="logoutbutton" onclick="window.location='https://accounts.google.com/Logout?&continue=http://www.google.com/';" class="collapsible-header"><i class="material-icons">power_settings_new</i>Logout</a>

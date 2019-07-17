@@ -504,9 +504,13 @@
 												</td>
 											@else
 												@if($offspring->getChild()->status == "dead grower" || $offspring->getChild()->status == "sold grower" || $offspring->getChild()->status == "removed grower")
-													<td>
-														<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Inactive grower (dead/sold/removed)" style="vertical-align: middle;">info_outline</i>
-													</td>
+													@if(is_null($offspring->getAnimalProperties()->where("property_id", 7)->first()))
+														<td>
+															<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Inactive grower (dead/sold/removed)" style="vertical-align: middle;">info_outline</i>
+														</td>
+													@else
+														<td>{{ $offspring->getAnimalProperties()->where("property_id", 7)->first()->value }}</td>
+													@endif
 												@else
 													@if(is_null($offspring->getAnimalProperties()->where("property_id", 7)->first()))
 														<td>
@@ -731,9 +735,13 @@
 													</td>
 												@else
 													@if($offspring->getChild()->status == "dead grower" || $offspring->getChild()->status == "sold grower" || $offspring->getChild()->status == "removed grower")
-														<td>
-															<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Inactive grower (dead/sold/removed)" style="vertical-align: middle;">info_outline</i>
-														</td>
+														@if(is_null($offspring->getAnimalProperties()->where("property_id", 7)->first()))
+															<td>
+																<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Inactive grower (dead/sold/removed)" style="vertical-align: middle;">info_outline</i>
+															</td>
+														@else
+															<td>{{ $offspring->getAnimalProperties()->where("property_id", 7)->first()->value }}</td>
+														@endif
 													@else
 														@if(is_null($offspring->getAnimalProperties()->where("property_id", 7)->first()))
 															<td>
@@ -950,9 +958,13 @@
 													</td>
 												@else
 													@if($offspring->getChild()->status == "dead grower" || $offspring->getChild()->status == "sold grower" || $offspring->getChild()->status == "removed grower")
-														<td>
-															<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Inactive grower (dead/sold/removed)" style="vertical-align: middle;">info_outline</i>
-														</td>
+														@if(is_null($offspring->getAnimalProperties()->where("property_id", 7)->first()))
+															<td>
+																<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Inactive grower (dead/sold/removed)" style="vertical-align: middle;">info_outline</i>
+															</td>
+														@else
+															<td>{{ $offspring->getAnimalProperties()->where("property_id", 7)->first()->value }}</td>
+														@endif
 													@else
 														@if(is_null($offspring->getAnimalProperties()->where("property_id", 7)->first()))
 															<td>
@@ -1177,9 +1189,13 @@
 														</td>
 													@else
 														@if($offspring->getChild()->status == "dead grower" || $offspring->getChild()->status == "sold grower" || $offspring->getChild()->status == "removed grower")
-															<td>
-																<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Inactive grower (dead/sold/removed)" style="vertical-align: middle;">info_outline</i>
-															</td>
+															@if(is_null($offspring->getAnimalProperties()->where("property_id", 7)->first()))
+																<td>
+																	<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Inactive grower (dead/sold/removed)" style="vertical-align: middle;">info_outline</i>
+																</td>
+															@else
+																<td>{{ $offspring->getAnimalProperties()->where("property_id", 7)->first()->value }}</td>
+															@endif
 														@else
 															@if(is_null($offspring->getAnimalProperties()->where("property_id", 7)->first()))
 																<td>
@@ -1375,9 +1391,13 @@
 													</td>
 												@else
 													@if($offspring->getChild()->status == "dead grower" || $offspring->getChild()->status == "sold grower" || $offspring->getChild()->status == "removed grower")
-														<td>
-															<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Inactive grower (dead/sold/removed)" style="vertical-align: middle;">info_outline</i>
-														</td>
+														@if(is_null($offspring->getAnimalProperties()->where("property_id", 7)->first()))
+															<td>
+																<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Inactive grower (dead/sold/removed)" style="vertical-align: middle;">info_outline</i>
+															</td>
+														@else
+															<td>{{ $offspring->getAnimalProperties()->where("property_id", 7)->first()->value }}</td>
+														@endif
 													@else
 														@if(is_null($offspring->getAnimalProperties()->where("property_id", 7)->first()))
 															<td>
@@ -1602,9 +1622,13 @@
 														</td>
 													@else
 														@if($offspring->getChild()->status == "dead grower" || $offspring->getChild()->status == "sold grower" || $offspring->getChild()->status == "removed grower")
-															<td>
-																<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Inactive grower (dead/sold/removed)" style="vertical-align: middle;">info_outline</i>
-															</td>
+															@if(is_null($offspring->getAnimalProperties()->where("property_id", 7)->first()))
+																<td>
+																	<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Inactive grower (dead/sold/removed)" style="vertical-align: middle;">info_outline</i>
+																</td>
+															@else
+																<td>{{ $offspring->getAnimalProperties()->where("property_id", 7)->first()->value }}</td>
+															@endif
 														@else
 															@if(is_null($offspring->getAnimalProperties()->where("property_id", 7)->first()))
 																<td>
