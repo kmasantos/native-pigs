@@ -78,6 +78,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('make_candidate_breeder/{id}/{status}', ['as' => 'farm.pig.make_candidate_breeder', 'uses' => 'FarmController@makeCandidateBreederAjax']);
     Route::get('view_adg/{id}', ['as' => 'farm.pig.view_adg', 'uses' => 'FarmController@getViewADGPage']);
     Route::get('breeder_records', ['as' => 'farm.pig.breeder_records', 'uses' => 'FarmController@getBreederRecordsPage']);
+    Route::post('search_mortality_and_sales', ['as' => 'farm.pig.search_mortality_and_sales', 'uses' => 'FarmController@searchForMortalityAndSales']);
     Route::post('search_breeders', ['as' => 'farm.pig.search_breeders', 'uses' => 'FarmController@searchBreeders']);
     Route::post('search_growers', ['as' => 'farm.pig.search_growers', 'uses' => 'FarmController@searchGrowers']);
     Route::post('search_breeding_record', ['as' => 'farm.pig.search_breeding_record', 'uses' => 'FarmController@searchBreedingRecord']);
@@ -151,6 +152,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('filter_grower_inventory', ['as' => 'farm.pig.filter_grower_inventory', 'uses' => 'FarmController@filterGrowerInventory']);
     Route::get('mortality_and_sales_report', ['as' => 'farm.pig.mortality_and_sales_report', 'uses' => 'FarmController@getMortalityAndSalesReportPage']);
     Route::get('farm_profile', ['as' => 'farm.pig.farm_profile', 'uses' => 'FarmController@getFarmProfilePage']);
+    Route::get('downloadable_files', ['as' => 'farm.pig.downloadable_files', 'uses' => 'FarmController@getDownloadableFilesPage']);
     Route::post('get_farm_profile', ['as' => 'farm.pig.get_farm_profile', 'uses' => 'FarmController@addFarmProfile']);
     
     // Chicken and Duck Routes
