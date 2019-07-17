@@ -1346,8 +1346,11 @@ class FarmController extends Controller
 			}
 
 			$dateweanedprop = $properties->where("property_id", 6)->first();
+			$stillbornprop = $properties->where("property_id", 45)->first();
+			$mummifiedprop = $properties->where("property_id", 46)->first();
 			$preweaningmortprop = $properties->where("property_id", 59)->first();
-			if(!is_null($dateweanedprop)){
+			$dead = [];
+			if(!is_null($dateweanedprop) && $dateweanedprop->value != "Not specified"){
 				if(is_null($preweaningmortprop)){
 					$preweaningmortality = new GroupingProperty;
 					$preweaningmortality->grouping_id = $family->id;
@@ -1363,6 +1366,35 @@ class FarmController extends Controller
 	          $preweaningmortprop->value = 100;
 	        }
 					$preweaningmortprop->save();
+				}
+			}
+			elseif(is_null($dateweanedprop)){
+				if(!is_null($properties->where("property_id", 3)->first())){
+					if(count($offsprings) == 0 && ($stillbornprop->value >= 0 || $mummifiedprop->value >= 0)){
+						$dateweaned = new GroupingProperty;
+						$dateweaned->grouping_id = $family->id;
+						$dateweaned->property_id = 6;
+						$dateweaned->value = "Not specified";
+						$dateweaned->save();
+					}
+					elseif(count($offsprings) > 0){
+						foreach ($offsprings as $offspring) {
+							if($offspring->getChild()->status == "dead grower" || $offspring->getChild()->status == "sold grower" || $offspring->getChild()->status == "removed grower"){
+								array_push($dead, "1");
+							}
+							else{
+								array_push($dead, "0");
+							}
+						}
+
+						if(!in_array("0", $dead, false)){
+							$dateweaned = new GroupingProperty;
+							$dateweaned->grouping_id = $family->id;
+							$dateweaned->property_id = 6;
+							$dateweaned->value = "Not specified";
+							$dateweaned->save();
+						}
+					}
 				}
 			}
 
@@ -1381,7 +1413,7 @@ class FarmController extends Controller
 				$gestationperiod = "";
 			}
 
-			if(!is_null($datefarrowedprop) && !is_null($dateweanedprop)){
+			if(!is_null($datefarrowedprop) && (!is_null($dateweanedprop) && $dateweanedprop->value != "Not specified") ){
 				$datefarrowed = Carbon::parse($datefarrowedprop->value);
 				$dateweaned = Carbon::parse($dateweanedprop->value);
 				$lactationperiod = $dateweaned->diffInDays($datefarrowed);
@@ -1741,7 +1773,7 @@ class FarmController extends Controller
 					$preweaningmortprop->save();
 				}
 			}
-			else{
+			elseif(is_null($dateweanedprop)){
 				if(!is_null($properties->where("property_id", 3)->first())){
 					if(count($offsprings) == 0 && ($stillbornprop->value >= 0 || $mummifiedprop->value >= 0)){
 						$dateweaned = new GroupingProperty;
@@ -2006,16 +2038,8 @@ class FarmController extends Controller
 			$deadpigs = Mortality::where("animaltype_id", 3)->where("breed_id", $breed->id)->get();
 			$soldpigs = Sale::where("animaltype_id", 3)->where("breed_id", $breed->id)->get();
 			$removedpigs = RemovedAnimal::where("animaltype_id", 3)->where("breed_id", $breed->id)->get();
-			$growers = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "active")->get();
-			$breeders = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "breeder")->get();
 
-			// TO FOLLOW: this will be used for filtering results
-			$now = Carbon::now('Asia/Manila');
-			$current_year = $now->year;
-			$range = range($current_year-10, $current_year+10);
-			$years = array_combine($range, $range);
-
-			return view('pigs.mortalityandsales', compact('pigs', 'growers', 'breeders', 'soldpigs', 'deadpigs', 'removedpigs', 'years'));
+			return view('pigs.mortalityandsales', compact('soldpigs', 'deadpigs', 'removedpigs', 'years'));
 		}
 
 		public static function getNumPigsBornOnYear($year, $filter){ // function to get number of pigs born on specific year
@@ -13703,6 +13727,12 @@ class FarmController extends Controller
 			return view('pigs.farmprofile', compact('farm', 'breed', 'user'));
 		}
 
+		public function getDownloadableFilesPage(){
+			$files = DB::table('downloadable_files')->get();
+
+			return view('pigs.downloadables', compact('files'));
+		}
+
 		public function getGrowerRecordsPage(){ // function to display Grower Records page
 			$farm = $this->user->getFarm();
 			$breed = $farm->getBreed();
@@ -13840,6 +13870,33 @@ class FarmController extends Controller
 					}
 				}
 			}
+		}
+
+		public function searchForMortalityAndSales(Request $request){
+			$farm = $this->user->getFarm();
+			$breed = $farm->getBreed();
+			$q = $request->q;
+			$deadpigs = Mortality::where("animaltype_id", 3)->where("breed_id", $breed->id)->get();
+			$soldpigs = Sale::where("animaltype_id", 3)->where("breed_id", $breed->id)->get();
+			$removedpigs = RemovedAnimal::where("animaltype_id", 3)->where("breed_id", $breed->id)->get();
+
+			if($q != ' '){
+				$mortalitysearch = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where(function ($query) {
+										$query->where("status", "breeder")
+													->orWhere("status", "active")
+													->orWhere("status", "dead breeder")
+													->orWhere("status", "sold breeder")
+													->orWhere("status", "removed breeder")
+													->orWhere("status", "dead grower")
+													->orWhere("status", "sold grower")
+													->orWhere("status", "removed grower");
+													})->where('registryid', 'LIKE', '%'.$q.'%')->get();
+
+				if(count($mortalitysearch) > 0){
+					return view('pigs.mortalityandsales', compact('soldpigs', 'deadpigs', 'removedpigs', 'years'))->withDetails($mortalitysearch)->withQuery($q);
+				}
+			}
+			return view('pigs.mortalityandsales', compact('soldpigs', 'deadpigs', 'removedpigs', 'years'))->withMessage("No results found!");
 		}
 
 		public function searchBreeders(Request $request){
@@ -16288,6 +16345,7 @@ class FarmController extends Controller
 				$image = $request->file('display_photo');
 				$input['image_name'] = $animal->id.'-'.$animal->registryid.'-display-photo'.'.'.$image->getClientOriginalExtension();
 				$destination = public_path('/images');
+				// $destination = base_path()."/images";
 				$image->move($destination, $input['image_name']);
 
 				DB::table('uploads')->insert(['animal_id' => $animal->id, 'animaltype_id' => 3, 'breed_id' => $animal->breed_id, 'filename' => $input['image_name']]);
@@ -16762,6 +16820,7 @@ class FarmController extends Controller
 					$image = $request->file('display_photo');
 					$input['image_name'] = $animal->id.'-'.$animal->registryid.'-display-photo'.'.'.$image->getClientOriginalExtension();
 					$destination = public_path('/images');
+					// $destination = base_path()."/images";
 					$image->move($destination, $input['image_name']);
 
 					$photo->filename = $input['image_name'];
@@ -16773,6 +16832,7 @@ class FarmController extends Controller
 					$image = $request->file('display_photo');
 					$input['image_name'] = $animal->id.'-'.$animal->registryid.'display-photo'.'.'.$image->getClientOriginalExtension();
 					$destination = public_path('/images');
+					// $destination = base_path()."/images";
 					$image->move($destination, $input['image_name']);
 
 					DB::table('uploads')->insert(['animal_id' => $animal->id, 'animaltype_id' => 3, 'breed_id' => $animal->breed_id, 'filename' => $input['image_name']]);
@@ -17288,7 +17348,7 @@ class FarmController extends Controller
 		public function addMortalityRecord(Request $request){ // function to add mortality record
 			$farm = $this->user->getFarm();
 			$breed = $farm->getBreed();
-			$dead = Animal::where("registryid", $request->registrationid_dead)->first();
+			$dead = Animal::find($request->animal_id);
 
 			// pig which died was a grower
 			if($dead->status == "active"){
@@ -17330,13 +17390,13 @@ class FarmController extends Controller
 
 			DB::table('mortalities')->insert(['animal_id' => $dead->id, 'animaltype_id' => 3, 'breed_id' => $breed->id, 'datedied' => $dateDiedValue, 'cause' => $causeDeathValue, 'age' => $age]);
 
-			return Redirect::back()->with('message', 'Operation Successful!');
+			return redirect()->route('farm.pig.mortality_and_sales');
 		}
 
 		public function addSalesRecord(Request $request){ // function to add sales record
 			$farm = $this->user->getFarm();
 			$breed = $farm->getBreed();
-			$sold = Animal::where("registryid", $request->registrationid_sold)->first();
+			$sold = Animal::find($request->animal_id);
 
 			// pig sold was a grower
 			if($sold->status == "active"){
@@ -17385,13 +17445,13 @@ class FarmController extends Controller
 
 			DB::table('sales')->insert(['animal_id' => $sold->id, 'animaltype_id' => 3, 'breed_id' => $breed->id, 'datesold' => $dateSoldValue, 'weight' => $weightSoldValue, 'price' => $priceValue, 'age' => $age]);
 
-			return Redirect::back()->with('message','Operation Successful!');
+			return redirect()->route('farm.pig.mortality_and_sales');
 		}
 
 		public function addRemovedAnimalRecord(Request $request){ // function to add removed (culled/donated) animal records
 			$farm = $this->user->getFarm();
 			$breed = $farm->getBreed();
-			$removed =  Animal::where("registryid", $request->registrationid_removed)->first();
+			$removed =  Animal::find($request->animal_id);
 
 			// pig removed was a grower
 			if($removed->status == "active"){
@@ -17433,7 +17493,7 @@ class FarmController extends Controller
 			DB::table('removed_animals')->insert(['animal_id' => $removed->id, 'animaltype_id' => 3, 'breed_id' => $breed->id, 'dateremoved' => $dateRemovedValue, 'reason' => $reasonRemovedValue, 'age' => $age]);
 
 
-			return Redirect::back()->with('message','Operation Successful!');
+			return redirect()->route('farm.pig.mortality_and_sales');
 		}
 
 		public function addFarmProfile(Request $request){ // function to add farm profile
@@ -17454,6 +17514,7 @@ class FarmController extends Controller
 					$image = $request->file('farm_picture');
 					$input['image_name'] = $farm->code.'-'.$user->name.'-display-photo'.'.'.$image->getClientOriginalExtension();
 					$destination = public_path('/images');
+					// $destination = base_path()."/images";
 					$image->move($destination, $input['image_name']);
 
 					$photo->filename = $input['image_name'];
@@ -17465,6 +17526,7 @@ class FarmController extends Controller
 					$image = $request->file('farm_picture');
 					$input['image_name'] = $farm->code.'-'.$user->name.'-display-photo'.'.'.$image->getClientOriginalExtension();
 					$destination = public_path('/images');
+					// $destination = base_path()."/images";
 					$image->move($destination, $input['image_name']);
 
 					DB::table('uploads')->insert(['breed_id' => $breed->id, 'filename' => $input['image_name']]);
