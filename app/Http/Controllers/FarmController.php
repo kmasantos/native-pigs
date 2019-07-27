@@ -1719,8 +1719,11 @@ class FarmController extends Controller
 			}
 
 			$dateweanedprop = $properties->where("property_id", 6)->first();
+			$stillbornprop = $properties->where("property_id", 45)->first();
+			$mummifiedprop = $properties->where("property_id", 46)->first();
 			$preweaningmortprop = $properties->where("property_id", 59)->first();
-			if(!is_null($dateweanedprop)){
+			$dead = [];
+			if(!is_null($dateweanedprop) && $dateweanedprop->value != "Not specified"){
 				if(is_null($preweaningmortprop)){
 					$preweaningmortality = new GroupingProperty;
 					$preweaningmortality->grouping_id = $family->id;
@@ -1738,6 +1741,36 @@ class FarmController extends Controller
 					$preweaningmortprop->save();
 				}
 			}
+			else{
+				if(!is_null($properties->where("property_id", 3)->first())){
+					if(count($offsprings) == 0 && ($stillbornprop->value > 0 || $mummifiedprop->value > 0)){
+						$dateweaned = new GroupingProperty;
+						$dateweaned->grouping_id = $family->id;
+						$dateweaned->property_id = 6;
+						$dateweaned->value = "Not specified";
+						$dateweaned->save();
+					}
+					elseif(count($offsprings) > 0){
+						foreach ($offsprings as $offspring) {
+							if($offspring->getChild()->status == "dead grower" || $offspring->getChild()->status == "sold grower" || $offspring->getChild()->status == "removed grower"){
+								array_push($dead, "1");
+							}
+							else{
+								array_push($dead, "0");
+							}
+						}
+
+						if(!in_array("0", $dead, false)){
+							$dateweaned = new GroupingProperty;
+							$dateweaned->grouping_id = $family->id;
+							$dateweaned->property_id = 6;
+							$dateweaned->value = "Not specified";
+							$dateweaned->save();
+						}
+					}
+				}
+			}
+
 
 			static::addParityMother($family->id);
 
@@ -1754,7 +1787,7 @@ class FarmController extends Controller
 				$gestationperiod = "";
 			}
 
-			if(!is_null($datefarrowedprop) && !is_null($dateweanedprop)){
+			if(!is_null($datefarrowedprop) && (!is_null($dateweanedprop) && $dateweanedprop->value != "Not specified")){
 				$datefarrowed = Carbon::parse($datefarrowedprop->value);
 				$dateweaned = Carbon::parse($dateweanedprop->value);
 				$lactationperiod = $dateweaned->diffInDays($datefarrowed);

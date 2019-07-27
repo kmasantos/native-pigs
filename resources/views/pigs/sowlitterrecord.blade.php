@@ -103,8 +103,12 @@
 											Date Weaned
 										</div>
 										<div class="col s6">
-											{{ Carbon\Carbon::parse($family->getGroupingProperties()->where("property_id", 6)->first()->value)->format('j F, Y') }}
-											<input id="hidden_weaned" type="hidden" name="date_weaned" value="{{ $family->getGroupingProperties()->where("property_id", 6)->first()->value }}">
+											@if($family->getGroupingProperties()->where("property_id", 6)->first()->value != "Not specified")
+												{{ Carbon\Carbon::parse($family->getGroupingProperties()->where("property_id", 6)->first()->value)->format('j F, Y') }}
+												<input id="hidden_weaned" type="hidden" name="date_weaned" value="{{ $family->getGroupingProperties()->where("property_id", 6)->first()->value }}">
+											@else
+												No offsprings to wean
+											@endif
 										</div>
 									@endif
 								@else
@@ -474,32 +478,50 @@
 										{!! Form::open(['route' => 'farm.pig.get_weaning_weights', 'method' => 'post']) !!}
 										{{-- WEANING WEIGHT --}}
 										@if(is_null($family->getGroupingProperties()->where("property_id", 6)->first()))
-											@if(is_null($offspring->getAnimalProperties()->where("property_id", 7)->first()))
+											@if($offspring->getChild()->status == "dead grower" || $offspring->getChild()->status == "sold grower" || $offspring->getChild()->status == "removed grower")
 												<td>
-													@if($now->gte(Carbon\Carbon::parse($properties->where("property_id", 3)->first()->value)->addDays(21)))
-														<a class="btn waves-effect waves-light green darken-3 modal-trigger" href="#weaning_weight_modal{{$offspring->getChild()->id}}">
-									            Add <i class="material-icons right">add</i>
-									          </a>
-									        @else
-									        	<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Disabled until 21 days after date farrowed" style="vertical-align: middle;">info_outline</i>
-									        @endif
+													<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Inactive grower (dead/sold/removed)" style="vertical-align: middle;">info_outline</i>
 												</td>
 											@else
-												<td>{{ $offspring->getAnimalProperties()->where("property_id", 7)->first()->value }}</td>
+												@if(is_null($offspring->getAnimalProperties()->where("property_id", 7)->first()))
+													<td>
+														@if($now->gte(Carbon\Carbon::parse($properties->where("property_id", 3)->first()->value)->addDays(21)))
+															<a class="btn waves-effect waves-light green darken-3 modal-trigger" href="#weaning_weight_modal{{$offspring->getChild()->id}}">
+										            Add <i class="material-icons right">add</i>
+										          </a>
+										        @else
+										        	<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Disabled until 21 days after date farrowed" style="vertical-align: middle;">info_outline</i>
+										        @endif
+													</td>
+												@else
+													<td>{{ $offspring->getAnimalProperties()->where("property_id", 7)->first()->value }}</td>
+												@endif
 											@endif
 										@else
-											@if(is_null($offspring->getAnimalProperties()->where("property_id", 7)->first()))
+											@if($family->getGroupingProperties()->where("property_id", 6)->first()->value == "Not specified")
 												<td>
-													@if($now->gte(Carbon\Carbon::parse($properties->where("property_id", 3)->first()->value)->addDays(21)))
-														<a class="btn waves-effect waves-light green darken-3 modal-trigger" href="#weaning_weight_modal{{$offspring->getChild()->id}}">
-									            Add <i class="material-icons right">add</i>
-									          </a>
-									        @else
-									        	<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Disabled until 21 days after date farrowed" style="vertical-align: middle;">info_outline</i>
-									        @endif
+													<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Inactive grower (dead/sold/removed)" style="vertical-align: middle;">info_outline</i>
 												</td>
 											@else
-												<td>{{ $offspring->getAnimalProperties()->where("property_id", 7)->first()->value }}</td>
+												@if($offspring->getChild()->status == "dead grower" || $offspring->getChild()->status == "sold grower" || $offspring->getChild()->status == "removed grower")
+													<td>
+														<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Inactive grower (dead/sold/removed)" style="vertical-align: middle;">info_outline</i>
+													</td>
+												@else
+													@if(is_null($offspring->getAnimalProperties()->where("property_id", 7)->first()))
+														<td>
+															@if($now->gte(Carbon\Carbon::parse($properties->where("property_id", 3)->first()->value)->addDays(21)))
+																<a class="btn waves-effect waves-light green darken-3 modal-trigger" href="#weaning_weight_modal{{$offspring->getChild()->id}}">
+											            Add <i class="material-icons right">add</i>
+											          </a>
+											        @else
+											        	<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Disabled until 21 days after date farrowed" style="vertical-align: middle;">info_outline</i>
+											        @endif
+														</td>
+													@else
+														<td>{{ $offspring->getAnimalProperties()->where("property_id", 7)->first()->value }}</td>
+													@endif
+												@endif
 											@endif
 										@endif
 										{{-- MODAL STRUCTURE --}}
@@ -683,32 +705,50 @@
 											<td>{{ round($offspring->getAnimalProperties()->where("property_id", 5)->first()->value, 4) }}</td>
 											{!! Form::open(['route' => 'farm.pig.get_weaning_weights', 'method' => 'post']) !!}
 											@if(is_null($family->getGroupingProperties()->where("property_id", 6)->first()))
-												@if(is_null($offspring->getAnimalProperties()->where("property_id", 7)->first()))
+												@if($offspring->getChild()->status == "dead grower" || $offspring->getChild()->status == "sold grower" || $offspring->getChild()->status == "removed grower")
 													<td>
-														@if($now->gte(Carbon\Carbon::parse($properties->where("property_id", 3)->first()->value)->addDays(21)))
-															<a class="btn waves-effect waves-light green darken-3 modal-trigger" href="#weaning_weight_modal{{$offspring->getChild()->id}}">
-										            Add <i class="material-icons right">add</i>
-										          </a>
-										        @else
-										        	<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Disabled until 21 days after date farrowed" style="vertical-align: middle;">info_outline</i>
-										        @endif
+														<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Inactive grower (dead/sold/removed)" style="vertical-align: middle;">info_outline</i>
 													</td>
 												@else
-													<td>{{ $offspring->getAnimalProperties()->where("property_id", 7)->first()->value }}</td>
+													@if(is_null($offspring->getAnimalProperties()->where("property_id", 7)->first()))
+														<td>
+															@if($now->gte(Carbon\Carbon::parse($properties->where("property_id", 3)->first()->value)->addDays(21)))
+																<a class="btn waves-effect waves-light green darken-3 modal-trigger" href="#weaning_weight_modal{{$offspring->getChild()->id}}">
+											            Add <i class="material-icons right">add</i>
+											          </a>
+											        @else
+											        	<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Disabled until 21 days after date farrowed" style="vertical-align: middle;">info_outline</i>
+											        @endif
+														</td>
+													@else
+														<td>{{ $offspring->getAnimalProperties()->where("property_id", 7)->first()->value }}</td>
+													@endif
 												@endif
 											@else
-												@if(is_null($offspring->getAnimalProperties()->where("property_id", 7)->first()))
+												@if($family->getGroupingProperties()->where("property_id", 6)->first()->value == "Not specified")
 													<td>
-														@if($now->gte(Carbon\Carbon::parse($properties->where("property_id", 3)->first()->value)->addDays(21)))
-															<a class="btn waves-effect waves-light green darken-3 modal-trigger" href="#weaning_weight_modal{{$offspring->getChild()->id}}">
-										            Add <i class="material-icons right">add</i>
-										          </a>
-										        @else
-										        	<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Disabled until 21 days after date farrowed" style="vertical-align: middle;">info_outline</i>
-										        @endif
+														<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Inactive grower (dead/sold/removed)" style="vertical-align: middle;">info_outline</i>
 													</td>
 												@else
-													<td>{{ $offspring->getAnimalProperties()->where("property_id", 7)->first()->value }}</td>
+													@if($offspring->getChild()->status == "dead grower" || $offspring->getChild()->status == "sold grower" || $offspring->getChild()->status == "removed grower")
+														<td>
+															<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Inactive grower (dead/sold/removed)" style="vertical-align: middle;">info_outline</i>
+														</td>
+													@else
+														@if(is_null($offspring->getAnimalProperties()->where("property_id", 7)->first()))
+															<td>
+																@if($now->gte(Carbon\Carbon::parse($properties->where("property_id", 3)->first()->value)->addDays(21)))
+																	<a class="btn waves-effect waves-light green darken-3 modal-trigger" href="#weaning_weight_modal{{$offspring->getChild()->id}}">
+												            Add <i class="material-icons right">add</i>
+												          </a>
+												        @else
+												        	<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Disabled until 21 days after date farrowed" style="vertical-align: middle;">info_outline</i>
+												        @endif
+															</td>
+														@else
+															<td>{{ $offspring->getAnimalProperties()->where("property_id", 7)->first()->value }}</td>
+														@endif
+													@endif
 												@endif
 											@endif
 											{{-- MODAL STRUCTURE --}}
@@ -884,32 +924,50 @@
 											{!! Form::close() !!}
 											{!! Form::open(['route' => 'farm.pig.get_weaning_weights', 'method' => 'post']) !!}
 											@if(is_null($family->getGroupingProperties()->where("property_id", 6)->first()))
-												@if(is_null($offspring->getAnimalProperties()->where("property_id", 7)->first()))
+												@if($offspring->getChild()->status == "dead grower" || $offspring->getChild()->status == "sold grower" || $offspring->getChild()->status == "removed grower")
 													<td>
-														@if($now->gte(Carbon\Carbon::parse($properties->where("property_id", 3)->first()->value)->addDays(21)))
-															<a class="btn waves-effect waves-light green darken-3 modal-trigger" href="#weaning_weight_modal{{$offspring->getChild()->id}}">
-										            Add <i class="material-icons right">add</i>
-										          </a>
-										        @else
-										        	<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Disabled until 21 days after date farrowed" style="vertical-align: middle;">info_outline</i>
-										        @endif
+														<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Inactive grower (dead/sold/removed)" style="vertical-align: middle;">info_outline</i>
 													</td>
 												@else
-													<td>{{ $offspring->getAnimalProperties()->where("property_id", 7)->first()->value }}</td>
+													@if(is_null($offspring->getAnimalProperties()->where("property_id", 7)->first()))
+														<td>
+															@if($now->gte(Carbon\Carbon::parse($properties->where("property_id", 3)->first()->value)->addDays(21)))
+																<a class="btn waves-effect waves-light green darken-3 modal-trigger" href="#weaning_weight_modal{{$offspring->getChild()->id}}">
+											            Add <i class="material-icons right">add</i>
+											          </a>
+											        @else
+											        	<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Disabled until 21 days after date farrowed" style="vertical-align: middle;">info_outline</i>
+											        @endif
+														</td>
+													@else
+														<td>{{ $offspring->getAnimalProperties()->where("property_id", 7)->first()->value }}</td>
+													@endif
 												@endif
 											@else
-												@if(is_null($offspring->getAnimalProperties()->where("property_id", 7)->first()))
+												@if($family->getGroupingProperties()->where("property_id", 6)->first()->value == "Not specified")
 													<td>
-														@if($now->gte(Carbon\Carbon::parse($properties->where("property_id", 3)->first()->value)->addDays(21)))
-															<a class="btn waves-effect waves-light green darken-3 modal-trigger" href="#weaning_weight_modal{{$offspring->getChild()->id}}">
-										            Add <i class="material-icons right">add</i>
-										          </a>
-										        @else
-										        	<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Disabled until 21 days after date farrowed" style="vertical-align: middle;">info_outline</i>
-										        @endif
+														<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Inactive grower (dead/sold/removed)" style="vertical-align: middle;">info_outline</i>
 													</td>
 												@else
-													<td>{{ $offspring->getAnimalProperties()->where("property_id", 7)->first()->value }}</td>
+													@if($offspring->getChild()->status == "dead grower" || $offspring->getChild()->status == "sold grower" || $offspring->getChild()->status == "removed grower")
+														<td>
+															<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Inactive grower (dead/sold/removed)" style="vertical-align: middle;">info_outline</i>
+														</td>
+													@else
+														@if(is_null($offspring->getAnimalProperties()->where("property_id", 7)->first()))
+															<td>
+																@if($now->gte(Carbon\Carbon::parse($properties->where("property_id", 3)->first()->value)->addDays(21)))
+																	<a class="btn waves-effect waves-light green darken-3 modal-trigger" href="#weaning_weight_modal{{$offspring->getChild()->id}}">
+												            Add <i class="material-icons right">add</i>
+												          </a>
+												        @else
+												        	<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Disabled until 21 days after date farrowed" style="vertical-align: middle;">info_outline</i>
+												        @endif
+															</td>
+														@else
+															<td>{{ $offspring->getAnimalProperties()->where("property_id", 7)->first()->value }}</td>
+														@endif
+													@endif
 												@endif
 											@endif
 											{{-- MODAL STRUCTURE --}}
@@ -1093,32 +1151,50 @@
 												<td>{{ round($offspring->getAnimalProperties()->where("property_id", 5)->first()->value, 4) }}</td>
 												{!! Form::open(['route' => 'farm.pig.get_weaning_weights', 'method' => 'post']) !!}
 												@if(is_null($family->getGroupingProperties()->where("property_id", 6)->first()))
-													@if(is_null($offspring->getAnimalProperties()->where("property_id", 7)->first()))
+													@if($offspring->getChild()->status == "dead grower" || $offspring->getChild()->status == "sold grower" || $offspring->getChild()->status == "removed grower")
 														<td>
-															@if($now->gte(Carbon\Carbon::parse($properties->where("property_id", 3)->first()->value)->addDays(21)))
-																<a class="btn waves-effect waves-light green darken-3 modal-trigger" href="#weaning_weight_modal{{$offspring->getChild()->id}}">
-											            Add <i class="material-icons right">add</i>
-											          </a>
-											        @else
-											        	<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Disabled until 21 days after date farrowed" style="vertical-align: middle;">info_outline</i>
-											        @endif
+															<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Inactive grower (dead/sold/removed)" style="vertical-align: middle;">info_outline</i>
 														</td>
 													@else
-														<td>{{ $offspring->getAnimalProperties()->where("property_id", 7)->first()->value }}</td>
+														@if(is_null($offspring->getAnimalProperties()->where("property_id", 7)->first()))
+															<td>
+																@if($now->gte(Carbon\Carbon::parse($properties->where("property_id", 3)->first()->value)->addDays(21)))
+																	<a class="btn waves-effect waves-light green darken-3 modal-trigger" href="#weaning_weight_modal{{$offspring->getChild()->id}}">
+												            Add <i class="material-icons right">add</i>
+												          </a>
+												        @else
+												        	<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Disabled until 21 days after date farrowed" style="vertical-align: middle;">info_outline</i>
+												        @endif
+															</td>
+														@else
+															<td>{{ $offspring->getAnimalProperties()->where("property_id", 7)->first()->value }}</td>
+														@endif
 													@endif
 												@else
-													@if(is_null($offspring->getAnimalProperties()->where("property_id", 7)->first()))
+													@if($family->getGroupingProperties()->where("property_id", 6)->first()->value == "Not specified")
 														<td>
-															@if($now->gte(Carbon\Carbon::parse($properties->where("property_id", 3)->first()->value)->addDays(21)))
-																<a class="btn waves-effect waves-light green darken-3 modal-trigger" href="#weaning_weight_modal{{$offspring->getChild()->id}}">
-											            Add <i class="material-icons right">add</i>
-											          </a>
-											        @else
-											        	<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Disabled until 21 days after date farrowed" style="vertical-align: middle;">info_outline</i>
-											        @endif
+															<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Inactive grower (dead/sold/removed)" style="vertical-align: middle;">info_outline</i>
 														</td>
 													@else
-														<td>{{ $offspring->getAnimalProperties()->where("property_id", 7)->first()->value }}</td>
+														@if($offspring->getChild()->status == "dead grower" || $offspring->getChild()->status == "sold grower" || $offspring->getChild()->status == "removed grower")
+															<td>
+																<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Inactive grower (dead/sold/removed)" style="vertical-align: middle;">info_outline</i>
+															</td>
+														@else
+															@if(is_null($offspring->getAnimalProperties()->where("property_id", 7)->first()))
+																<td>
+																	@if($now->gte(Carbon\Carbon::parse($properties->where("property_id", 3)->first()->value)->addDays(21)))
+																		<a class="btn waves-effect waves-light green darken-3 modal-trigger" href="#weaning_weight_modal{{$offspring->getChild()->id}}">
+													            Add <i class="material-icons right">add</i>
+													          </a>
+													        @else
+													        	<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Disabled until 21 days after date farrowed" style="vertical-align: middle;">info_outline</i>
+													        @endif
+																</td>
+															@else
+																<td>{{ $offspring->getAnimalProperties()->where("property_id", 7)->first()->value }}</td>
+															@endif
+														@endif
 													@endif
 												@endif
 												{{-- MODAL STRUCTURE --}}
@@ -1273,32 +1349,50 @@
 											<td>{{ $offspring->getAnimalProperties()->where("property_id", 5)->first()->value }}</td>
 											{!! Form::open(['route' => 'farm.pig.get_weaning_weights', 'method' => 'post']) !!}
 											@if(is_null($family->getGroupingProperties()->where("property_id", 6)->first()))
-												@if(is_null($offspring->getAnimalProperties()->where("property_id", 7)->first()))
+												@if($offspring->getChild()->status == "dead grower" || $offspring->getChild()->status == "sold grower" || $offspring->getChild()->status == "removed grower")
 													<td>
-														@if($now->gte(Carbon\Carbon::parse($properties->where("property_id", 3)->first()->value)->addDays(21)))
-															<a class="btn waves-effect waves-light green darken-3 modal-trigger" href="#weaning_weight_modal{{$offspring->getChild()->id}}">
-										            Add <i class="material-icons right">add</i>
-										          </a>
-										        @else
-										        	<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Disabled until 21 days after date farrowed" style="vertical-align: middle;">info_outline</i>
-										        @endif
+														<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Inactive grower (dead/sold/removed)" style="vertical-align: middle;">info_outline</i>
 													</td>
 												@else
-													<td>{{ $offspring->getAnimalProperties()->where("property_id", 7)->first()->value }}</td>
+													@if(is_null($offspring->getAnimalProperties()->where("property_id", 7)->first()))
+														<td>
+															@if($now->gte(Carbon\Carbon::parse($properties->where("property_id", 3)->first()->value)->addDays(21)))
+																<a class="btn waves-effect waves-light green darken-3 modal-trigger" href="#weaning_weight_modal{{$offspring->getChild()->id}}">
+											            Add <i class="material-icons right">add</i>
+											          </a>
+											        @else
+											        	<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Disabled until 21 days after date farrowed" style="vertical-align: middle;">info_outline</i>
+											        @endif
+														</td>
+													@else
+														<td>{{ $offspring->getAnimalProperties()->where("property_id", 7)->first()->value }}</td>
+													@endif
 												@endif
 											@else
-												@if(is_null($offspring->getAnimalProperties()->where("property_id", 7)->first()))
+												@if($family->getGroupingProperties()->where("property_id", 6)->first()->value == "Not specified")
 													<td>
-														@if($now->gte(Carbon\Carbon::parse($properties->where("property_id", 3)->first()->value)->addDays(21)))
-															<a class="btn waves-effect waves-light green darken-3 modal-trigger" href="#weaning_weight_modal{{$offspring->getChild()->id}}">
-										            Add <i class="material-icons right">add</i>
-										          </a>
-										        @else
-										        	<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Disabled until 21 days after date farrowed" style="vertical-align: middle;">info_outline</i>
-										        @endif
+														<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Inactive grower (dead/sold/removed)" style="vertical-align: middle;">info_outline</i>
 													</td>
 												@else
-													<td>{{ $offspring->getAnimalProperties()->where("property_id", 7)->first()->value }}</td>
+													@if($offspring->getChild()->status == "dead grower" || $offspring->getChild()->status == "sold grower" || $offspring->getChild()->status == "removed grower")
+														<td>
+															<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Inactive grower (dead/sold/removed)" style="vertical-align: middle;">info_outline</i>
+														</td>
+													@else
+														@if(is_null($offspring->getAnimalProperties()->where("property_id", 7)->first()))
+															<td>
+																@if($now->gte(Carbon\Carbon::parse($properties->where("property_id", 3)->first()->value)->addDays(21)))
+																	<a class="btn waves-effect waves-light green darken-3 modal-trigger" href="#weaning_weight_modal{{$offspring->getChild()->id}}">
+												            Add <i class="material-icons right">add</i>
+												          </a>
+												        @else
+												        	<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Disabled until 21 days after date farrowed" style="vertical-align: middle;">info_outline</i>
+												        @endif
+															</td>
+														@else
+															<td>{{ $offspring->getAnimalProperties()->where("property_id", 7)->first()->value }}</td>
+														@endif
+													@endif
 												@endif
 											@endif
 											{{-- MODAL STRUCTURE --}}
@@ -1482,32 +1576,50 @@
 												<td>{{ round($offspring->getAnimalProperties()->where("property_id", 5)->first()->value, 4) }}</td>
 												{!! Form::open(['route' => 'farm.pig.get_weaning_weights', 'method' => 'post']) !!}
 												@if(is_null($family->getGroupingProperties()->where("property_id", 6)->first()))
-													@if(is_null($offspring->getAnimalProperties()->where("property_id", 7)->first()))
+													@if($offspring->getChild()->status == "dead grower" || $offspring->getChild()->status == "sold grower" || $offspring->getChild()->status == "removed grower")
 														<td>
-															@if($now->gte(Carbon\Carbon::parse($properties->where("property_id", 3)->first()->value)->addDays(21)))
-																<a class="btn waves-effect waves-light green darken-3 modal-trigger" href="#weaning_weight_modal{{$offspring->getChild()->id}}">
-											            Add <i class="material-icons right">add</i>
-											          </a>
-											        @else
-											        	<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Disabled until 21 days after date farrowed" style="vertical-align: middle;">info_outline</i>
-											        @endif
+															<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Inactive grower (dead/sold/removed)" style="vertical-align: middle;">info_outline</i>
 														</td>
 													@else
-														<td>{{ $offspring->getAnimalProperties()->where("property_id", 7)->first()->value }}</td>
+														@if(is_null($offspring->getAnimalProperties()->where("property_id", 7)->first()))
+															<td>
+																@if($now->gte(Carbon\Carbon::parse($properties->where("property_id", 3)->first()->value)->addDays(21)))
+																	<a class="btn waves-effect waves-light green darken-3 modal-trigger" href="#weaning_weight_modal{{$offspring->getChild()->id}}">
+												            Add <i class="material-icons right">add</i>
+												          </a>
+												        @else
+												        	<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Disabled until 21 days after date farrowed" style="vertical-align: middle;">info_outline</i>
+												        @endif
+															</td>
+														@else
+															<td>{{ $offspring->getAnimalProperties()->where("property_id", 7)->first()->value }}</td>
+														@endif
 													@endif
 												@else
-													@if(is_null($offspring->getAnimalProperties()->where("property_id", 7)->first()))
+													@if($family->getGroupingProperties()->where("property_id", 6)->first()->value == "Not specified")
 														<td>
-															@if($now->gte(Carbon\Carbon::parse($properties->where("property_id", 3)->first()->value)->addDays(21)))
-																<a class="btn waves-effect waves-light green darken-3 modal-trigger" href="#weaning_weight_modal{{$offspring->getChild()->id}}">
-											            Add <i class="material-icons right">add</i>
-											          </a>
-											        @else
-											        	<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Disabled until 21 days after date farrowed" style="vertical-align: middle;">info_outline</i>
-											        @endif
+															<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Inactive grower (dead/sold/removed)" style="vertical-align: middle;">info_outline</i>
 														</td>
 													@else
-														<td>{{ $offspring->getAnimalProperties()->where("property_id", 7)->first()->value }}</td>
+														@if($offspring->getChild()->status == "dead grower" || $offspring->getChild()->status == "sold grower" || $offspring->getChild()->status == "removed grower")
+															<td>
+																<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Inactive grower (dead/sold/removed)" style="vertical-align: middle;">info_outline</i>
+															</td>
+														@else
+															@if(is_null($offspring->getAnimalProperties()->where("property_id", 7)->first()))
+																<td>
+																	@if($now->gte(Carbon\Carbon::parse($properties->where("property_id", 3)->first()->value)->addDays(21)))
+																		<a class="btn waves-effect waves-light green darken-3 modal-trigger" href="#weaning_weight_modal{{$offspring->getChild()->id}}">
+													            Add <i class="material-icons right">add</i>
+													          </a>
+													        @else
+													        	<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Disabled until 21 days after date farrowed" style="vertical-align: middle;">info_outline</i>
+													        @endif
+																</td>
+															@else
+																<td>{{ $offspring->getAnimalProperties()->where("property_id", 7)->first()->value }}</td>
+															@endif
+														@endif
 													@endif
 												@endif
 												{{-- MODAL STRUCTURE --}}
