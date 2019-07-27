@@ -206,6 +206,7 @@
                                 </tr>
                             </tbody>
                         </table>
+                        <h6 class="center">*data as of March, 2019</h6>
                     </div>
                 </div>
             </div>
@@ -252,6 +253,7 @@
                                 </tr>
                             </tbody>
                         </table>
+                        <h6 class="center">*data as of March, 2019</h6>
                     </div>
                 </div>
             </div>

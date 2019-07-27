@@ -168,7 +168,7 @@
                     <div class="row">
                         <h5 style="text-align: justify;">Both male and female Markaduke have straight hair type, plain black color and pattern, smooth skin type, and semi-lop ears. They have straight head shape, tail type, and backline.</h5>
                         <h5 style="text-align: justify;">On average, the mature pig grows to 67 centimeters in length for both males and females with head length of 28 centimeters for males and 27 centimeters for females.</h5>
-                        <h5 style="text-align: justify;">Pelvic width is 13 centimeters for both males and females. Both males and females also have an average of 13 teats.</h5>
+                        <h5 style="text-align: justify;">On an average, both males and females have pelvic width of 13 centimeters and 13 teats.</h5>
                     </div>
                 </div>
                 <div id="figures" class="col s12">
@@ -198,7 +198,7 @@
                                 <tr>
                                     <td><h5>Body Length, cm</h5></td>
                                     <td class="center"><h5>67.57 &plusmn; 9.83</h5></td>
-                                    <td class="center"><h5>67.02 &plusmn; 10.4</9</td>
+                                    <td class="center"><h5>67.02 &plusmn; 10.49</td>
                                 </tr>
                                 <tr>
                                     <td><h5>Pelvic Width, cm</h5></td>
@@ -212,6 +212,7 @@
                                 </tr>
                             </tbody>
                         </table>
+                        <h6 class="center">*data as of March, 2019</h6>
                     </div>
                 </div>
             </div>
@@ -258,6 +259,7 @@
                                 </tr>
                             </tbody>
                         </table>
+                        <h6 class="center">*data as of March, 2019</h6>
                     </div>
                 </div>
             </div>
