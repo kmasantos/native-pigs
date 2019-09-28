@@ -40,18 +40,18 @@
 			<td>Number Mummified</td>
 			<td>{{ round(array_sum($mummified_sow)/count($mummified_sow), 2) }} &plusmn; {{ round($mummified_sow_sd, 2) }}</td>
 		</tr>
-		<tr>
+		{{-- <tr>
 			<td>Litter Birth Weight, kg</td>
 			<td>{{ round(array_sum($litterbirthweights_sow)/count($litterbirthweights_sow), 2) }} &plusmn; {{ round($litterbirthweights_sow_sd, 2) }}</td>
-		</tr>
+		</tr> --}}
 		<tr>
 			<td>Average Birth Weight, kg</td>
 			<td>{{ round(array_sum($avebirthweights_sow)/count($avebirthweights_sow), 2) }} &plusmn; {{ round($avebirthweights_sow_sd, 2) }}</td>
 		</tr>
-		<tr>
+		{{-- <tr>
 			<td>Litter Weaning Weight, kg</td>
 			<td>{{ round(array_sum($litterweaningweights_sow)/count($litterweaningweights_sow), 2) }} &plusmn; {{ round($litterweaningweights_sow_sd, 2) }}</td>
-		</tr>
+		</tr> --}}
 		<tr>
 			<td>Average Weaning Weight, kg</td>
 			<td>{{ round(array_sum($aveweaningweights_sow)/count($aveweaningweights_sow), 2) }} &plusmn; {{ round($aveweaningweights_sow_sd, 2) }}</td>
@@ -68,10 +68,10 @@
 			<td>Age Weaned, days</td>
 			<td>{{ round(array_sum($agesweaned_sow)/count($agesweaned_sow), 2) }} &plusmn; {{ round($agesweaned_sow_sd, 2) }}</td>
 		</tr>
-		<tr>
+		{{-- <tr>
 			<td>Pre-weaning Mortality, %</td>
 			<td>{{ round(array_sum($preweaningmortality_sow)/count($preweaningmortality_sow), 2) }} &plusmn; {{ round($preweaningmortality_sow_sd, 2) }}</td>
-		</tr>
+		</tr> --}}
 	</tbody>
 </table>
 <br>
@@ -104,18 +104,18 @@
 			<td>Number Mummified</td>
 			<td>{{ round(array_sum($mummified_boar)/count($mummified_boar), 2) }} &plusmn; {{ round($mummified_boar_sd, 2) }}</td>
 		</tr>
-		<tr>
+		{{-- <tr>
 			<td>Litter Birth Weight, kg</td>
 			<td>{{ round(array_sum($litterbirthweights_boar)/count($litterbirthweights_boar), 2) }} &plusmn; {{ round($litterbirthweights_boar_sd, 2) }}</td>
-		</tr>
+		</tr> --}}
 		<tr>
 			<td>Average Birth Weight, kg</td>
 			<td>{{ round(array_sum($avebirthweights_boar)/count($avebirthweights_boar), 2) }} &plusmn; {{ round($avebirthweights_boar_sd, 2) }}</td>
 		</tr>
-		<tr>
+		{{-- <tr>
 			<td>Litter Weaning Weight, kg</td>
 			<td>{{ round(array_sum($litterweaningweights_boar)/count($litterweaningweights_boar), 2) }} &plusmn; {{ round($litterweaningweights_boar_sd, 2) }}</td>
-		</tr>
+		</tr> --}}
 		<tr>
 			<td>Average Weaning Weight, kg</td>
 			<td>{{ round(array_sum($aveweaningweights_boar)/count($aveweaningweights_boar), 2) }} &plusmn; {{ round($aveweaningweights_boar_sd, 2) }}</td>
@@ -132,9 +132,9 @@
 			<td>Age Weaned, days</td>
 			<td>{{ round(array_sum($agesweaned_boar)/count($agesweaned_boar), 2) }} &plusmn; {{ round($agesweaned_boar_sd, 2) }}</td>
 		</tr>
-		<tr>
+		{{-- <tr>
 			<td>Pre-weaning Mortality, %</td>
 			<td>{{ round(array_sum($preweaningmortality_boar)/count($preweaningmortality_boar), 2) }} &plusmn; {{ round($preweaningmortality_boar_sd, 2) }}</td>
-		</tr>
+		</tr> --}}
 	</tbody>
 </table>

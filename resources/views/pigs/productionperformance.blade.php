@@ -98,7 +98,7 @@
 		                			<td class="center">{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getProductionPerformanceSummary("sow", "mummified"), false), 2) }}</td>
 		                		@endif
 	                		</tr>
-	                		<tr>
+	                		{{-- <tr>
 	                			<td>Litter Birth Weight, kg</td>
 	                			@if(App\Http\Controllers\FarmController::getProductionPerformanceSummary("sow", "litter bw") == "")
 		         							<td class="center" colspan="2">No data available</td>
@@ -106,7 +106,7 @@
 		                			<td class="center">{{ round(array_sum(App\Http\Controllers\FarmController::getProductionPerformanceSummary("sow", "litter bw"))/count(App\Http\Controllers\FarmController::getProductionPerformanceSummary("sow", "litter bw")), 2) }}</td>
 		                			<td class="center">{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getProductionPerformanceSummary("sow", "litter bw"), false), 2) }}</td>
 		                		@endif
-	                		</tr>
+	                		</tr> --}}
 	                		<tr>
 	                			<td>Average Birth Weight, kg</td>
 	                			@if(App\Http\Controllers\FarmController::getProductionPerformanceSummary("sow", "ave bw") == "")
@@ -116,7 +116,7 @@
 		                			<td class="center">{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getProductionPerformanceSummary("sow", "ave bw"), false), 2) }}</td>
 		                		@endif
 	                		</tr>
-	                		<tr>
+	                		{{-- <tr>
 	                			<td>Litter Weaning Weight, kg</td>
 	                			@if(App\Http\Controllers\FarmController::getProductionPerformanceSummary("sow", "litter ww") == "")
 		         							<td class="center" colspan="2">No data available</td>
@@ -124,7 +124,7 @@
 		                			<td class="center">{{ round(array_sum(App\Http\Controllers\FarmController::getProductionPerformanceSummary("sow", "litter ww"))/count(App\Http\Controllers\FarmController::getProductionPerformanceSummary("sow", "litter ww")), 2) }}</td>
 		                			<td class="center">{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getProductionPerformanceSummary("sow", "litter ww"), false), 2) }}</td>
 		                		@endif
-	                		</tr>
+	                		</tr> --}}
 	                		<tr>
 	                			<td>Average Weaning Weight, kg</td>
 	                			@if(App\Http\Controllers\FarmController::getProductionPerformanceSummary("sow", "ave ww") == "")
@@ -161,7 +161,7 @@
 		                			<td class="center">{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getProductionPerformanceSummary("sow", "age weaned"), false), 2) }}</td>
 		                		@endif
 	                		</tr>
-	                		<tr>
+	                		{{-- <tr>
 	                			<td>Pre-weaning Mortality, %</td>
 	                			@if(App\Http\Controllers\FarmController::getProductionPerformanceSummary("sow", "preweaning mortality") == "")
 		         							<td class="center" colspan="2">No data available</td>
@@ -169,7 +169,7 @@
 		                			<td class="center">{{ round(array_sum(App\Http\Controllers\FarmController::getProductionPerformanceSummary("sow", "preweaning mortality"))/count(App\Http\Controllers\FarmController::getProductionPerformanceSummary("sow", "preweaning mortality")), 2) }}</td>
 		                			<td class="center">{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getProductionPerformanceSummary("sow", "preweaning mortality"), false), 2) }}</td>
 		                		@endif
-	                		</tr>
+	                		</tr> --}}
 	                	</tbody>
 	                </table>
 	              </div>
@@ -287,7 +287,7 @@
 		                			<td class="center">{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getProductionPerformanceSummary("boar", "mummified"), false), 2) }}</td>
 		                		@endif
 	                		</tr>
-	                		<tr>
+	                		{{-- <tr>
 	                			<td>Litter Birth Weight, kg</td>
 	                			@if(App\Http\Controllers\FarmController::getProductionPerformanceSummary("boar", "litter bw") == "")
 		         							<td class="center" colspan="2">No data available</td>
@@ -295,7 +295,7 @@
 		                			<td class="center">{{ round(array_sum(App\Http\Controllers\FarmController::getProductionPerformanceSummary("boar", "litter bw"))/count(App\Http\Controllers\FarmController::getProductionPerformanceSummary("boar", "litter bw")), 2) }}</td>
 		                			<td class="center">{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getProductionPerformanceSummary("boar", "litter bw"), false), 2) }}</td>
 		                		@endif
-	                		</tr>
+	                		</tr> --}}
 	                		<tr>
 	                			<td>Average Birth Weight, kg</td>
 	                			@if(App\Http\Controllers\FarmController::getProductionPerformanceSummary("boar", "ave bw") == "")
@@ -305,7 +305,7 @@
 		                			<td class="center">{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getProductionPerformanceSummary("boar", "ave bw"), false), 2) }}</td>
 		                		@endif
 	                		</tr>
-	                		<tr>
+	                		{{-- <tr>
 	                			<td>Litter Weaning Weight, kg</td>
 	                			@if(App\Http\Controllers\FarmController::getProductionPerformanceSummary("boar", "litter ww") == "")
 		         							<td class="center" colspan="2">No data available</td>
@@ -313,7 +313,7 @@
 		                			<td class="center">{{ round(array_sum(App\Http\Controllers\FarmController::getProductionPerformanceSummary("boar", "litter ww"))/count(App\Http\Controllers\FarmController::getProductionPerformanceSummary("boar", "litter ww")), 2) }}</td>
 		                			<td class="center">{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getProductionPerformanceSummary("boar", "litter ww"), false), 2) }}</td>
 		                		@endif
-	                		</tr>
+	                		</tr> --}}
 	                		<tr>
 	                			<td>Average Weaning Weight, kg</td>
 	                			@if(App\Http\Controllers\FarmController::getProductionPerformanceSummary("boar", "ave ww") == "")
@@ -350,7 +350,7 @@
 		                			<td class="center">{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getProductionPerformanceSummary("boar", "age weaned"), false), 2) }}</td>
 		                		@endif
 	                		</tr>
-	                		<tr>
+	                		{{-- <tr>
 	                			<td>Pre-weaning Mortality, %</td>
 	                			@if(App\Http\Controllers\FarmController::getProductionPerformanceSummary("boar", "preweaning mortality") == "")
 		         							<td class="center" colspan="2">No data available</td>
@@ -358,7 +358,7 @@
 		                			<td class="center">{{ round(array_sum(App\Http\Controllers\FarmController::getProductionPerformanceSummary("boar", "preweaning mortality"))/count(App\Http\Controllers\FarmController::getProductionPerformanceSummary("boar", "preweaning mortality")), 2) }}</td>
 		                			<td class="center">{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getProductionPerformanceSummary("boar", "preweaning mortality"), false), 2) }}</td>
 		                		@endif
-	                		</tr>
+	                		</tr> --}}
 	                	</tbody>
 	                </table>
 	              </div>
@@ -480,7 +480,7 @@
 										<td class="center">{{ round(App\Http\Controllers\FarmController::standardDeviation($mummified, false), 2) }}</td>
 									@endif
 			    			</tr>
-			    			<tr>
+			    			{{-- <tr>
 			    				<td>Litter Birth Weight, kg</td>
 			    				@if($litterbirthweights == [])
 				    				<td class="center">No data available</td>
@@ -489,7 +489,7 @@
 				    				<td class="center">{{ round(array_sum($litterbirthweights)/count($litterbirthweights), 2) }}</td>
 										<td class="center">{{ round(App\Http\Controllers\FarmController::standardDeviation($litterbirthweights, false), 2) }}</td>
 									@endif
-			    			</tr>
+			    			</tr> --}}
 			    			<tr>
 			    				<td>Average Birth Weight, kg</td>
 			    				@if($avebirthweights == [])
@@ -500,7 +500,7 @@
 										<td class="center">{{ round(App\Http\Controllers\FarmController::standardDeviation($avebirthweights, false), 2) }}</td>
 									@endif
 			    			</tr>
-			    			<tr>
+			    			{{-- <tr>
 			    				<td>Litter Weaning Weight, kg</td>
 			    				@if($litterweaningweights == [])
 				    				<td class="center">No data available</td>
@@ -509,7 +509,7 @@
 				    				<td class="center">{{ round(array_sum($litterweaningweights)/count($litterweaningweights), 2) }}</td>
 										<td class="center">{{ round(App\Http\Controllers\FarmController::standardDeviation($litterweaningweights, false), 2) }}</td>
 									@endif
-			    			</tr>
+			    			</tr> --}}
 			    			<tr>
 			    				<td>Average Weaning Weight, kg</td>
 			    				@if($aveweaningweights == [])
@@ -550,7 +550,7 @@
 										<td class="center">{{ round(App\Http\Controllers\FarmController::standardDeviation($agesweaned, false), 2) }}</td>
 									@endif
 			    			</tr>
-			    			<tr>
+			    			{{-- <tr>
 			    				<td>Pre-weaning Mortality, %</td>
 			    				@if($preweaningmortality == [])
 				    				<td class="center">No data available</td>
@@ -559,7 +559,7 @@
 				    				<td class="center">{{ round(array_sum($preweaningmortality)/count($preweaningmortality), 2) }}</td>
 										<td class="center">{{ round(App\Http\Controllers\FarmController::standardDeviation($preweaningmortality, false), 2) }}</td>
 									@endif
-			    			</tr>
+			    			</tr> --}}
 			    		</tbody>
 			    	</table>
 			    </div>
@@ -595,19 +595,17 @@
 			    			</div>
 			    		</div>
 			    		<div class="row">
-			    			<div class="col s6">
+			    			{{-- <div class="col s6">
 			    				<p>Litter Birth Weight, kg</p>
 					    		<canvas id="bweightcanvas"></canvas>
-			    			</div>
-			    			<div class="col s6">
-			    				<p>Average Birth Weight, kg</p>
-					    		<canvas id="avebweightcanvas"></canvas>
-			    			</div>
-			    		</div>
-			    		<div class="row">
+			    			</div> 
 			    			<div class="col s6">
 			    				<p>Litter Weaning Weight, kg</p>
 					    		<canvas id="wweightcanvas"></canvas>
+			    			</div> --}}
+			    			<div class="col s6">
+			    				<p>Average Birth Weight, kg</p>
+					    		<canvas id="avebweightcanvas"></canvas>
 			    			</div>
 			    			<div class="col s6">
 			    				<p>Average Weaning Weight, kg</p>
@@ -625,14 +623,14 @@
 			    			</div>
 			    		</div>
 			    		<div class="row">
-			    			<div class="col s6">
+			    			<div class="col s6 offset-s3">
 			    				<p>Age Weaned, days</p>
 					    		<canvas id="ageweanedcanvas"></canvas>
 			    			</div>
-			    			<div class="col s6">
+			    			{{-- <div class="col s6">
 			    				<p>Pre-weaning Mortality, %</p>
 					    		<canvas id="preweaningmortalitycanvas"></canvas>
-			    			</div>
+			    			</div> --}}
 			    		</div>
 			    	</div>
 			    </div>
@@ -845,38 +843,6 @@
 				}
 	    }
 		});
-		var ctx6 = document.getElementById("bweightcanvas").getContext('2d');
-		var bweightchart = new Chart(ctx6, {
-	    type: 'line',
-	    data: {
-        labels: [@foreach($parity as $parity_number) "Parity "+"{{ $parity_number }}", @endforeach],
-        datasets: [{
-          label: 'Litter Birth Weight',
-          data: [@foreach($parity as $parity_number) {{ App\Http\Controllers\FarmController::getPropertyAveragePerParity($parity_number, "birth weight") }}, @endforeach],
-          borderColor: 'rgba(255, 99, 132, 0.8)',
-          backgroundColor: 'transparent'
-        }],
-        options: {
-					responsive: true,
-					scales: {
-						xAxes: [{
-							display: true,
-							scaleLabel: {
-								display: true,
-								labelString: 'Parity'
-							}
-						}],
-						yAxes: [{
-							display: true,
-							scaleLabel: {
-								display: true,
-								labelString: 'Value'
-							}
-						}]
-					}
-				}
-	    }
-		});
 		var ctx7 = document.getElementById("avebweightcanvas").getContext('2d');
 		var avebweightchart = new Chart(ctx7, {
 	    type: 'line',
@@ -885,38 +851,6 @@
         datasets: [{
           label: 'Average Birth Weight',
           data: [@foreach($parity as $parity_number) {{ App\Http\Controllers\FarmController::getPropertyAveragePerParity($parity_number, "ave birth weight") }}, @endforeach],
-          borderColor: 'rgba(255, 99, 132, 0.8)',
-          backgroundColor: 'transparent'
-        }],
-        options: {
-					responsive: true,
-					scales: {
-						xAxes: [{
-							display: true,
-							scaleLabel: {
-								display: true,
-								labelString: 'Parity'
-							}
-						}],
-						yAxes: [{
-							display: true,
-							scaleLabel: {
-								display: true,
-								labelString: 'Value'
-							}
-						}]
-					}
-				}
-	    }
-		});
-		var ctx8 = document.getElementById("wweightcanvas").getContext('2d');
-		var wweightchart = new Chart(ctx8, {
-	    type: 'line',
-	    data: {
-        labels: [@foreach($parity as $parity_number) "Parity "+"{{ $parity_number }}", @endforeach],
-        datasets: [{
-          label: 'Litter Weaning Weight',
-          data: [@foreach($parity as $parity_number) {{ App\Http\Controllers\FarmController::getPropertyAveragePerParity($parity_number, "weaning weight") }}, @endforeach],
           borderColor: 'rgba(255, 99, 132, 0.8)',
           backgroundColor: 'transparent'
         }],
@@ -1045,38 +979,6 @@
         datasets: [{
           label: 'Age Weaned',
           data: [@foreach($parity as $parity_number) {{ App\Http\Controllers\FarmController::getPropertyAveragePerParity($parity_number, "age weaned") }}, @endforeach],
-          borderColor: 'rgba(255, 99, 132, 0.8)',
-          backgroundColor: 'transparent'
-        }],
-        options: {
-					responsive: true,
-					scales: {
-						xAxes: [{
-							display: true,
-							scaleLabel: {
-								display: true,
-								labelString: 'Parity'
-							}
-						}],
-						yAxes: [{
-							display: true,
-							scaleLabel: {
-								display: true,
-								labelString: 'Value'
-							}
-						}]
-					}
-				}
-	    }
-		});
-		var ctx13 = document.getElementById("preweaningmortalitycanvas").getContext('2d');
-		var preweaningmortalitycanvas = new Chart(ctx13, {
-	    type: 'line',
-	    data: {
-        labels: [@foreach($parity as $parity_number) "Parity "+"{{ $parity_number }}", @endforeach],
-        datasets: [{
-          label: 'Pre-weaning Mortality',
-          data: [@foreach($parity as $parity_number) {{ App\Http\Controllers\FarmController::getPropertyAveragePerParity($parity_number, "preweaning mortality") }}, @endforeach],
           borderColor: 'rgba(255, 99, 132, 0.8)',
           backgroundColor: 'transparent'
         }],

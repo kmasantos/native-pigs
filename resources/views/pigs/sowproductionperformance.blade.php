@@ -160,7 +160,7 @@
 									<td class="center">No data available</td>
 								@endif
 			  			</tr>
-			  			<tr>
+			  			{{-- <tr>
 			  				<td>Litter Birth Weight, kg</td>
 			  				@foreach($parities as $parity)
 		  						<td class="center">{{ App\Http\Controllers\FarmController::getSowProductionPerformanceSummary($sow->id, $parity, "litter birth weight") }}</td>
@@ -170,7 +170,7 @@
 								@else
 									<td class="center">No data available</td>
 								@endif
-			  			</tr>
+			  			</tr> --}}
 			  			<tr>
 			  				<td>Average Birth Weight, kg</td>
 		  					@foreach($parities as $parity)
@@ -182,7 +182,7 @@
 									<td class="center">No data available</td>
 								@endif
 			  			</tr>
-			  			<tr>
+			  			{{-- <tr>
 			  				<td>Litter Weaning Weight, kg</td>
 								@foreach($parities as $parity)
 		  						<td class="center">{{ App\Http\Controllers\FarmController::getSowProductionPerformanceSummary($sow->id, $parity, "litter weaning weight") }}</td>
@@ -192,7 +192,7 @@
 								@else
 									<td class="center">No data available</td>
 								@endif
-			  			</tr>
+			  			</tr> --}}
 			  			<tr>
 			  				<td>Average Weaning Weight, kg</td>
 		  					@foreach($parities as $parity)
@@ -237,7 +237,7 @@
 									<td class="center">No data available</td>
 								@endif
 			  			</tr>
-			  			<tr>
+			  			{{-- <tr>
 			  				<td>Pre-weaning Mortality, %</td>
 			  				@foreach($parities as $parity)
 		  						<td class="center">{{ App\Http\Controllers\FarmController::getSowProductionPerformanceSummary($sow->id, $parity, "preweaning mortality") }}</td>
@@ -247,7 +247,7 @@
 								@else
 									<td class="center">No data available</td>
 								@endif
-			  			</tr>
+			  			</tr> --}}
       			</tbody>
       		</table>
       	</div>

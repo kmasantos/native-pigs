@@ -113,7 +113,7 @@
 											<td class="center">No data available</td>
 										@endif
 									</tr>
-									<tr>
+									{{-- <tr>
 										<td>Litter Birth Weight, kg</td>
 										@if($litterbirthweights != [])
 											<td class="center">{{ round(array_sum($litterbirthweights)/count($litterbirthweights), 2) }}</td>
@@ -122,7 +122,7 @@
 											<td class="center">No data available</td>
 											<td class="center">No data available</td>
 										@endif
-									</tr>
+									</tr> --}}
 									<tr>
 										<td>Average Birth Weight, kg</td>
 										@if($avebirthweights != [])
@@ -133,7 +133,7 @@
 											<td class="center">No data available</td>
 										@endif
 									</tr>
-									<tr>
+									{{-- <tr>
 										<td>Litter Weaning Weight, kg</td>
 										@if($litterweaningweights != [])
 											<td class="center">{{ round(array_sum($litterweaningweights)/count($litterweaningweights), 2) }}</td>
@@ -142,7 +142,7 @@
 											<td class="center">No data available</td>
 											<td class="center">No data available</td>
 										@endif
-									</tr>
+									</tr> --}}
 									<tr>
 										<td>Average Weaning Weight, kg</td>
 										@if($aveweaningweights != [])
@@ -183,7 +183,7 @@
 											<td class="center">No data available</td>
 										@endif
 									</tr>
-									<tr>
+									{{-- <tr>
 										<td>Pre-weaning Mortality, %</td>
 										@if($preweaningmortality != [])
 											<td class="center">{{ round(array_sum($preweaningmortality)/count($preweaningmortality), 2) }}</td>
@@ -192,7 +192,7 @@
 											<td class="center">No data available</td>
 											<td class="center">No data available</td>
 										@endif
-									</tr>
+									</tr> --}}
 								</tbody>
 							</table>
 						</div>

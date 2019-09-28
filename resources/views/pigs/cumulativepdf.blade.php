@@ -120,7 +120,7 @@
         <td>No data available</td>
       @endif
     </tr>
-    <tr>
+    {{-- <tr>
       <td>Litter Birth Weight, kg</td>
       @foreach($headings as $heading)
         @if(!array_key_exists($heading->month - 1, $monthlyperformances))
@@ -138,7 +138,7 @@
       @else
         <td>No data available</td>
       @endif
-    </tr>
+    </tr> --}}
     <tr>
       <td>Average Birth Weight, kg</td>
       @foreach($headings as $heading)
@@ -158,7 +158,7 @@
         <td>No data available</td>
       @endif
     </tr>
-    <tr>
+    {{-- <tr>
       <td>Litter Weaning Weight, kg</td>
       @foreach($headings as $heading)
         @if(!array_key_exists($heading->month - 1, $monthlyperformances))
@@ -176,7 +176,7 @@
       @else
         <td>No data available</td>
       @endif
-    </tr>
+    </tr> --}}
     <tr>
       <td>Average Weaning Weight, kg</td>
       @foreach($headings as $heading)

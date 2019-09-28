@@ -38,18 +38,18 @@
 		  				<td>Number Mummified</td>
 	  					<td class="center">{{ $mummified }}</td>
 		  			</tr>
-		  			<tr>
+		  			{{-- <tr>
 		  				<td>Litter Birth Weight, kg</td>
 		  				<td class="center">{{ array_sum($litterbirthweights) }}</td>
-		  			</tr>
+		  			</tr> --}}
 		  			<tr>
 		  				<td>Average Birth Weight, kg</td>
 	  					<td class="center">{{ $avebirthweight }}</td>
 		  			</tr>
-		  			<tr>
+		  			{{-- <tr>
 		  				<td>Litter Weaning Weight, kg</td>
 							<td class="center">{{ array_sum($litterweaningweights) }}</td>
-		  			</tr>
+		  			</tr> --}}
 		  			<tr>
 		  				<td>Average Weaning Weight, kg</td>
 	  					<td class="center">{{ $aveweaningweight }}</td>
@@ -66,10 +66,10 @@
 		  				<td>Age Weaned, days</td>
 	  					<td class="center">{{ $aveageweaned }}</td>
 		  			</tr>
-		  			<tr>
+		  			{{-- <tr>
 		  				<td>Pre-weaning Mortality</td>
 		  				<td class="center">{{ $preweaningmortality }}</td>
-		  			</tr>
+		  			</tr> --}}
 		  		</tbody>
 		  	</table>
 		  </div>

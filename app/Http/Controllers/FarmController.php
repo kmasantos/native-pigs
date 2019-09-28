@@ -1819,11 +1819,11 @@ class FarmController extends Controller
 				}
 				else{
 					if(count($offsprings) != 0){
-	          $preweaningmortprop->value = round(((count($offsprings)-$weaned)/count($offsprings))*100, 4);
-	        }
-	        else{
-	          $preweaningmortprop->value = 100;
-	        }
+			          $preweaningmortprop->value = round(((count($offsprings)-$weaned)/count($offsprings))*100, 4);
+			        }
+			        else{
+			          $preweaningmortprop->value = 100;
+			        }
 					$preweaningmortprop->save();
 				}
 			}

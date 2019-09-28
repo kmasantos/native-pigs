@@ -42,19 +42,19 @@
 		  				<td>Number Mummified</td>
 	  					<td class="center">{{ $groupingproperties->where("property_id", 46)->first()->value }}</td>
 		  			</tr>
-		  			<tr>
+		  			{{-- <tr>
 		  				<td>Litter Birth Weight, kg</td>
 		  				<td class="center">{{ round($groupingproperties->where("property_id", 55)->first()->value, 2) }}</td>
-		  			</tr>
+		  			</tr> --}}
 		  			<tr>
 		  				<td>Average Birth Weight, kg</td>
 	  					<td class="center">{{ round($groupingproperties->where("property_id", 56)->first()->value, 2) }}</td>
 		  			</tr>
 		  			@if(!is_null($groupingproperties->where("property_id", 6)->first()))
-			  			<tr>
+			  			{{-- <tr>
 			  				<td>Litter Weaning Weight, kg</td>
 								<td class="center">{{ round($groupingproperties->where("property_id", 62)->first()->value, 2) }}</td>
-			  			</tr>
+			  			</tr> --}}
 			  			<tr>
 			  				<td>Average Weaning Weight, kg</td>
 		  					<td class="center">{{ round($groupingproperties->where("property_id", 58)->first()->value, 2) }}</td>
@@ -71,15 +71,15 @@
 			  				<td>Age Weaned, days</td>
 		  					<td class="center">{{ $aveageweaned }}</td>
 			  			</tr>
-			  			<tr>
+			  			{{-- <tr>
 			  				<td>Pre-weaning Mortality, %</td>
 			  				<td class="center">{{ round($groupingproperties->where("property_id", 59)->first()->value, 2) }}</td>
-			  			</tr>
+			  			</tr> --}}
 			  		@else
-			  			<tr>
+			  			{{-- <tr>
 			  				<td>Litter Weaning Weight, kg</td>
 								<td class="center">No data available</td>
-			  			</tr>
+			  			</tr> --}}
 			  			<tr>
 			  				<td>Average Weaning Weight, kg</td>
 		  					<td class="center">No data available</td>
@@ -96,10 +96,10 @@
 			  				<td>Age Weaned, days</td>
 		  					<td class="center">No data available</td>
 			  			</tr>
-			  			<tr>
+			  			{{-- <tr>
 			  				<td>Pre-weaning Mortality, %</td>
 			  				<td class="center">No data available</td>
-			  			</tr>
+			  			</tr> --}}
 			  		@endif
 		  		</tbody>
 		  	</table>
