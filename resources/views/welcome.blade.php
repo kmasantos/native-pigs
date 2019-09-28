@@ -44,7 +44,7 @@
         <div id="home" class="slider scrollspy">
             <ul class="slides">
                 <li>
-                    <img src="{{asset('images/header1.JPG')}}">
+                    <img src="{{asset('images/header1.jpeg')}}">
                 </li>
                 <li>
                     <img src="{{asset('images/header2.jpg')}}">
@@ -119,7 +119,7 @@
                             <div class="col s6">
                                 <div class="card">
                                     <div class="card-image waves-effect waves-block waves-light">
-                                      <img class="activator" src="{{asset('images/ISU-grid.JPG')}}">
+                                      <img class="activator" src="{{asset('images/ISU-grid.jpeg')}}">
                                     </div>
                                     <div class="card-content">
                                       <span class="card-title activator grey-text text-darken-4">ISUbela<a href="{{url('/breed/isubela')}}"><i class="material-icons right">launch</i></a></span>
@@ -131,7 +131,7 @@
                             <div class="col s6">
                                 <div class="card">
                                     <div class="card-image waves-effect waves-block waves-light">
-                                      <img class="activator" src="{{asset('images/KSU-grid.JPG')}}">
+                                      <img class="activator" src="{{asset('images/KSU-grid.jpeg')}}">
                                     </div>
                                     <div class="card-content">
                                       <span class="card-title activator grey-text text-darken-4">Yookah<sup>&reg;</sup><a href="{{url('/breed/yookah')}}"><i class="material-icons right">launch</i></a></span>

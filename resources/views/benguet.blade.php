@@ -99,7 +99,7 @@
             <div class="col s12 m2">
                 <div class="card">
                     <div class="card-image">
-                        <img src="{{asset('images/ISU-grid.JPG')}}" height="130">
+                        <img src="{{asset('images/ISU-grid.jpeg')}}" height="130">
                         <span class="card-title">ISUbela</span>
                     </div>
                     <div class="card-content">
@@ -110,7 +110,7 @@
             <div class="col s12 m2">
                 <div class="card">
                     <div class="card-image">
-                        <img src="{{asset('images/KSU-grid.JPG')}}" height="130">
+                        <img src="{{asset('images/KSU-grid.jpeg')}}" height="130">
                         <span class="card-title">Yookah<sup>&reg;</sup></span>
                     </div>
                     <div class="card-content">
@@ -148,7 +148,7 @@
                         <a class="carousel-item" href="#one!"><img src="{{asset('images/benguet_grid.jpg')}}"></a>
                         <a class="carousel-item" href="#two!"><img src="{{asset('images/benguet-logo.png')}}"></a>
                         <a class="carousel-item" href="#three!"><img src="{{asset('images/bsu.png')}}"></a>
-                <a class="carousel-item" href="#four!"><img src="{{asset('images/benguet2.JPG')}}"></a>
+                <a class="carousel-item" href="#four!"><img src="{{asset('images/benguet2.jpeg')}}"></a>
                     </div>
                 </div>
                 <h4 style="text-decoration: underline;">History</h4>

@@ -67,7 +67,7 @@
             <div class="col s12 m2">
                 <div class="card">
                     <div class="card-image">
-                        <img src="{{asset('images/ISU-grid.JPG')}}" height="130">
+                        <img src="{{asset('images/ISU-grid.jpeg')}}" height="130">
                     </div>
                     <div class="card-content">
                         ISUbela
@@ -110,7 +110,7 @@
             <div class="col s12 m2">
                 <div class="card">
                     <div class="card-image">
-                        <img src="{{asset('images/KSU-grid.JPG')}}" height="130">
+                        <img src="{{asset('images/KSU-grid.jpeg')}}" height="130">
                         <span class="card-title">Yookah<sup>&reg;</sup></span>
                     </div>
                     <div class="card-content">

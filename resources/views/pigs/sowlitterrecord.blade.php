@@ -75,8 +75,7 @@
 										Date Farrowed
 									</div>
 									<div class="col s6">
-										{{ Carbon\Carbon::parse($family->getGroupingProperties()->where("property_id", 3)->first()->value)->format('j F, Y') }}
-										<input id="hidden_date" type="hidden" name="date_farrowed" value="{{ $family->getGroupingProperties()->where("property_id", 3)->first()->value }}">
+										<input id="datefarrowed" type="text" name="date_farrowed" class="datepicker" value="{{ Carbon\Carbon::parse($family->getGroupingProperties()->where("property_id", 3)->first()->value)->format('j F, Y') }}">
 									</div>
 								@endif
 							</div>
@@ -104,8 +103,7 @@
 										</div>
 										<div class="col s6">
 											@if($family->getGroupingProperties()->where("property_id", 6)->first()->value != "Not specified")
-												{{ Carbon\Carbon::parse($family->getGroupingProperties()->where("property_id", 6)->first()->value)->format('j F, Y') }}
-												<input id="hidden_weaned" type="hidden" name="date_weaned" value="{{ $family->getGroupingProperties()->where("property_id", 6)->first()->value }}">
+												<input id="dateweaned" type="text" name="date_weaned" class="datepicker" value="{{ Carbon\Carbon::parse($family->getGroupingProperties()->where("property_id", 6)->first()->value)->format('j F, Y') }}">
 											@else
 												No offsprings to wean
 											@endif
@@ -456,7 +454,7 @@
 										{!! Form::close() !!}
 										{!! Form::open(['route' => 'farm.pig.edit_birth_weight', 'method' => 'post']) !!}
 										{{-- BIRTH WEIGHT --}}
-										<td>{{ $offspring->getAnimalProperties()->where("property_id", 5)->first()->value }} <a href="#edit_birth_weight{{$offspring->getChild()->id}}" class="modal-trigger"><i class="material-icons right">edit</i></td>
+										<td>{{ $offspring->getAnimalProperties()->where("property_id", 5)->first()->value }} <a href="#edit_birth_weight{{$offspring->getChild()->id}}" class="modal-trigger"><i class="material-icons right">edit</i></a></td>
 											{{-- MODAL STRUCTURE --}}
 											<div id="edit_birth_weight{{$offspring->getChild()->id}}" class="modal">
 												<div class="modal-content">
@@ -469,99 +467,198 @@
 													</div>
 												</div>
 												<div class="row center">
-													<button class="btn waves-effect waves-light green darken-3" type="submit">
-								            Submit <i class="material-icons right">send</i>
-								          </button>
+													<button class="btn waves-effect waves-light green darken-3" type="submit">Submit <i class="material-icons right">send</i>
+								          			</button>
 												</div>
 											</div>
 										{!! Form::close() !!}
-										{!! Form::open(['route' => 'farm.pig.get_weaning_weights', 'method' => 'post']) !!}
 										{{-- WEANING WEIGHT --}}
 										@if(is_null($family->getGroupingProperties()->where("property_id", 6)->first()))
+										{{-- no weaning data --}}
 											@if($offspring->getChild()->status == "dead grower" || $offspring->getChild()->status == "sold grower" || $offspring->getChild()->status == "removed grower")
+												{{-- inactive grower --}}
 												<td>
 													<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Inactive grower (dead/sold/removed)" style="vertical-align: middle;">info_outline</i>
 												</td>
 											@else
 												@if(is_null($offspring->getAnimalProperties()->where("property_id", 7)->first()))
+													{{-- no weaning weight yet --}}
 													<td>
+														{{-- 21d+ --}}
+														{!! Form::open(['route' => 'farm.pig.get_weaning_weights', 'method' => 'post']) !!}
 														@if($now->gte(Carbon\Carbon::parse($properties->where("property_id", 3)->first()->value)->addDays(21)))
-															<a class="btn waves-effect waves-light green darken-3 modal-trigger" href="#weaning_weight_modal{{$offspring->getChild()->id}}">
-										            Add <i class="material-icons right">add</i>
-										          </a>
-										        @else
-										        	<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Disabled until 21 days after date farrowed" style="vertical-align: middle;">info_outline</i>
-										        @endif
+															<a class="btn waves-effect waves-light green darken-3 modal-trigger" href="#weaning_weight_modal{{$offspring->getChild()->id}}">Add <i class="material-icons right">add</i>
+										          			</a>
+										          		{{-- <21d --}}
+										        		@else
+										        			<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Disabled until 21 days after date farrowed" style="vertical-align: middle;">info_outline</i>
+										        		@endif
+										        		{{-- MODAL STRUCTURE --}}
+														<div id="weaning_weight_modal{{$offspring->getChild()->id}}" class="modal">
+															<div class="modal-content">
+																<h5 class="center">Weaning Record: <strong>{{ $offspring->getChild()->registryid }}</strong></h5>
+																<input type="hidden" name="offspring_id" value="{{ $offspring->getChild()->id }}">
+																<input type="hidden" name="family_id" value="{{ $family->id }}">
+																<div class="row center">
+																	<div class="col s8 offset-s2 center">
+																		Date Weaned:
+																		@if(is_null($family->getGroupingProperties()->where("property_id", 6)->first()))
+																			<div class="input-field inline">
+																				<input id="date_weaned" type="text" name="date_weaned" placeholder="Pick date" class="datepicker">
+																			</div>
+																		@else
+																			<div class="input-field inline">
+																				<input id="date_weaned" type="text" name="date_weaned" class="datepicker" value="{{ $family->getGroupingProperties()->where("property_id", 6)->first()->value }}">
+																			</div>
+																		@endif
+																	</div>
+																	<div class="col s8 offset-s2 center">
+																		Weaning Weight, kg:
+																		<div class="input-field inline">
+																			<input id="weaning_weight" type="number" name="weaning_weight" min="0.001" max="15.999" step="0.001">
+																		</div>
+																	</div>
+																</div>
+															</div>
+															<div class="row center">
+																<button class="btn waves-effect waves-light green darken-3" type="submit">Submit <i class="material-icons right">send</i>
+											          			</button>
+															</div>
+														</div>
+										        		{!! Form::close() !!}
 													</td>
 												@else
-													<td>{{ $offspring->getAnimalProperties()->where("property_id", 7)->first()->value }}</td>
+													{{-- with weaning weight --}}
+													{!! Form::open(['route' => 'farm.pig.edit_weaning_weight', 'method' => 'post']) !!}
+													<td>{{ $offspring->getAnimalProperties()->where("property_id", 7)->first()->value }} <a href="#edit_weaning_weight{{$offspring->getChild()->id}}" class="modal-trigger"><i class="material-icons right">edit</i></a></td>
+													{{-- MODAL STRUCTURE --}}
+													<div id="edit_weaning_weight{{$offspring->getChild()->id}}" class="modal">
+														<div class="modal-content">
+															<h5 class="center">Edit Weaning Weight of <br><strong>{{ $offspring->getChild()->registryid }}</strong></h5>
+															<input type="hidden" name="animalid" value="{{ $offspring->getChild()->id }}">
+															<div class="row center">
+																<div class="col s8 offset-s2">
+																	<input id="new_weaning_weight" type="number" name="new_weaning_weight" min="0.001" max="15.999" step="0.001">
+																</div>
+															</div>
+														</div>
+														<div class="row center">
+															<button class="btn waves-effect waves-light green darken-3" type="submit">Submit <i class="material-icons right">send</i>
+										          			</button>
+														</div>
+													</div>
+													{!! Form::close() !!}
 												@endif
 											@endif
 										@else
+										{{-- with weaning data --}}
 											@if($family->getGroupingProperties()->where("property_id", 6)->first()->value == "Not specified")
+											{{-- all offsprings dead/sold before weaning --}}
 												<td>
 													<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Inactive grower (dead/sold/removed)" style="vertical-align: middle;">info_outline</i>
 												</td>
 											@else
+											{{-- if at least 1 offspring is alive --}}
 												@if($offspring->getChild()->status == "dead grower" || $offspring->getChild()->status == "sold grower" || $offspring->getChild()->status == "removed grower")
+													{{-- inactive grower --}}
 													@if(is_null($offspring->getAnimalProperties()->where("property_id", 7)->first()))
 														<td>
 															<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Inactive grower (dead/sold/removed)" style="vertical-align: middle;">info_outline</i>
 														</td>
 													@else
-														<td>{{ $offspring->getAnimalProperties()->where("property_id", 7)->first()->value }}</td>
+													{{-- active with weaning weight--}}
+														{!! Form::open(['route' => 'farm.pig.edit_weaning_weight', 'method' => 'post']) !!}
+														<td>{{ $offspring->getAnimalProperties()->where("property_id", 7)->first()->value }} <a href="#edit_weaning_weight{{$offspring->getChild()->id}}" class="modal-trigger"><i class="material-icons right">edit</i></a></td>
+														{{-- MODAL STRUCTURE --}}
+														<div id="edit_weaning_weight{{$offspring->getChild()->id}}" class="modal">
+															<div class="modal-content">
+																<h5 class="center">Edit Weaning Weight of <br><strong>{{ $offspring->getChild()->registryid }}</strong></h5>
+																<input type="hidden" name="animalid" value="{{ $offspring->getChild()->id }}">
+																<div class="row center">
+																	<div class="col s8 offset-s2">
+																		<input id="new_weaning_weight" type="number" name="new_weaning_weight" min="0.001" max="15.999" step="0.001">
+																	</div>
+																</div>
+															</div>
+															<div class="row center">
+																<button class="btn waves-effect waves-light green darken-3" type="submit">Submit <i class="material-icons right">send</i>
+											          			</button>
+															</div>
+														</div>
+														{!! Form::close() !!}
 													@endif
 												@else
+													{{-- no weaning weight yet --}}
 													@if(is_null($offspring->getAnimalProperties()->where("property_id", 7)->first()))
 														<td>
+															{{-- 21d+ --}}
+															{!! Form::open(['route' => 'farm.pig.get_weaning_weights', 'method' => 'post']) !!}
 															@if($now->gte(Carbon\Carbon::parse($properties->where("property_id", 3)->first()->value)->addDays(21)))
-																<a class="btn waves-effect waves-light green darken-3 modal-trigger" href="#weaning_weight_modal{{$offspring->getChild()->id}}">
-											            Add <i class="material-icons right">add</i>
-											          </a>
-											        @else
-											        	<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Disabled until 21 days after date farrowed" style="vertical-align: middle;">info_outline</i>
-											        @endif
+																<a class="btn waves-effect waves-light green darken-3 modal-trigger" href="#weaning_weight_modal{{$offspring->getChild()->id}}">Add <i class="material-icons right">add</i>
+											          			</a>
+											          		{{-- <21d --}}
+											        		@else
+											        			<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Disabled until 21 days after date farrowed" style="vertical-align: middle;">info_outline</i>
+											        		@endif
+											        		{{-- MODAL STRUCTURE --}}
+															<div id="weaning_weight_modal{{$offspring->getChild()->id}}" class="modal">
+																<div class="modal-content">
+																	<h5 class="center">Weaning Record: <strong>{{ $offspring->getChild()->registryid }}</strong></h5>
+																	<input type="hidden" name="offspring_id" value="{{ $offspring->getChild()->id }}">
+																	<input type="hidden" name="family_id" value="{{ $family->id }}">
+																	<div class="row center">
+																		<div class="col s8 offset-s2 center">
+																			Date Weaned:
+																			@if(is_null($family->getGroupingProperties()->where("property_id", 6)->first()))
+																				<div class="input-field inline">
+																					<input id="date_weaned" type="text" name="date_weaned" placeholder="Pick date" class="datepicker">
+																				</div>
+																			@else
+																				<div class="input-field inline">
+																					<input id="date_weaned" type="text" name="date_weaned" class="datepicker" value="{{ $family->getGroupingProperties()->where("property_id", 6)->first()->value }}">
+																				</div>
+																			@endif
+																		</div>
+																		<div class="col s8 offset-s2 center">
+																			Weaning Weight, kg:
+																			<div class="input-field inline">
+																				<input id="weaning_weight" type="number" name="weaning_weight" min="0.001" max="15.999" step="0.001">
+																			</div>
+																		</div>
+																	</div>
+																</div>
+																<div class="row center">
+																	<button class="btn waves-effect waves-light green darken-3" type="submit">Submit <i class="material-icons right">send</i>
+												          			</button>
+																</div>
+															</div>
+											        		{!! Form::close() !!}
 														</td>
 													@else
-														<td>{{ $offspring->getAnimalProperties()->where("property_id", 7)->first()->value }}</td>
+													{{-- with weaning weight --}}
+														{!! Form::open(['route' => 'farm.pig.edit_weaning_weight', 'method' => 'post']) !!}
+														<td>{{ $offspring->getAnimalProperties()->where("property_id", 7)->first()->value }} <a href="#edit_weaning_weight{{$offspring->getChild()->id}}" class="modal-trigger"><i class="material-icons right">edit</i></a></td>
+														{{-- MODAL STRUCTURE --}}
+														<div id="edit_weaning_weight{{$offspring->getChild()->id}}" class="modal">
+															<div class="modal-content">
+																<h5 class="center">Edit Weaning Weight of <br><strong>{{ $offspring->getChild()->registryid }}</strong></h5>
+																<input type="hidden" name="animalid" value="{{ $offspring->getChild()->id }}">
+																<div class="row center">
+																	<div class="col s8 offset-s2">
+																		<input id="new_weaning_weight" type="number" name="new_weaning_weight" min="0.001" max="15.999" step="0.001">
+																	</div>
+																</div>
+															</div>
+															<div class="row center">
+																<button class="btn waves-effect waves-light green darken-3" type="submit">Submit <i class="material-icons right">send</i>
+											          			</button>
+															</div>
+														</div>
+														{!! Form::close() !!}
 													@endif
 												@endif
 											@endif
 										@endif
-										{{-- MODAL STRUCTURE --}}
-										<div id="weaning_weight_modal{{$offspring->getChild()->id}}" class="modal">
-											<div class="modal-content">
-												<h5 class="center">Weaning Record: <strong>{{ $offspring->getChild()->registryid }}</strong></h5>
-												<input type="hidden" name="offspring_id" value="{{ $offspring->getChild()->id }}">
-												<input type="hidden" name="family_id" value="{{ $family->id }}">
-												<div class="row center">
-													<div class="col s8 offset-s2 center">
-														Date Weaned:
-														@if(is_null($family->getGroupingProperties()->where("property_id", 6)->first()))
-															<div class="input-field inline">
-																<input id="date_weaned" type="text" name="date_weaned" placeholder="Pick date" class="datepicker">
-															</div>
-														@else
-															<div class="input-field inline">
-																<input id="date_weaned" type="text" name="date_weaned" class="datepicker" value="{{ $family->getGroupingProperties()->where("property_id", 6)->first()->value }}">
-															</div>
-														@endif
-													</div>
-													<div class="col s8 offset-s2 center">
-														Weaning Weight, kg:
-														<div class="input-field inline">
-															<input id="weaning_weight" type="number" name="weaning_weight" min="0.001" max="15.999" step="0.001">
-														</div>
-													</div>
-												</div>
-											</div>
-											<div class="row center">
-												<button class="btn waves-effect waves-light green darken-3" type="submit">
-							            Submit <i class="material-icons right">send</i>
-							          </button>
-											</div>
-										</div>
-										{!! Form::close() !!}
 									</tr>
 								@empty
 									<tr>
@@ -707,92 +804,193 @@
 												</div> --}}
 											{!! Form::close() !!}
 											<td>{{ round($offspring->getAnimalProperties()->where("property_id", 5)->first()->value, 4) }}</td>
-											{!! Form::open(['route' => 'farm.pig.get_weaning_weights', 'method' => 'post']) !!}
+											{{-- WEANING WEIGHT --}}
 											@if(is_null($family->getGroupingProperties()->where("property_id", 6)->first()))
+											{{-- no weaning data --}}
 												@if($offspring->getChild()->status == "dead grower" || $offspring->getChild()->status == "sold grower" || $offspring->getChild()->status == "removed grower")
+													{{-- inactive grower --}}
 													<td>
 														<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Inactive grower (dead/sold/removed)" style="vertical-align: middle;">info_outline</i>
 													</td>
 												@else
 													@if(is_null($offspring->getAnimalProperties()->where("property_id", 7)->first()))
+														{{-- no weaning weight yet --}}
 														<td>
+															{{-- 21d+ --}}
+															{!! Form::open(['route' => 'farm.pig.get_weaning_weights', 'method' => 'post']) !!}
 															@if($now->gte(Carbon\Carbon::parse($properties->where("property_id", 3)->first()->value)->addDays(21)))
-																<a class="btn waves-effect waves-light green darken-3 modal-trigger" href="#weaning_weight_modal{{$offspring->getChild()->id}}">
-											            Add <i class="material-icons right">add</i>
-											          </a>
-											        @else
-											        	<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Disabled until 21 days after date farrowed" style="vertical-align: middle;">info_outline</i>
-											        @endif
+																<a class="btn waves-effect waves-light green darken-3 modal-trigger" href="#weaning_weight_modal{{$offspring->getChild()->id}}">Add <i class="material-icons right">add</i>
+											          			</a>
+											          		{{-- <21d --}}
+											        		@else
+											        			<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Disabled until 21 days after date farrowed" style="vertical-align: middle;">info_outline</i>
+											        		@endif
+											        		{{-- MODAL STRUCTURE --}}
+															{{-- <div id="weaning_weight_modal{{$offspring->getChild()->id}}" class="modal">
+																<div class="modal-content">
+																	<h5 class="center">Weaning Record: <strong>{{ $offspring->getChild()->registryid }}</strong></h5>
+																	<input type="hidden" name="offspring_id" value="{{ $offspring->getChild()->id }}">
+																	<input type="hidden" name="family_id" value="{{ $family->id }}">
+																	<div class="row center">
+																		<div class="col s8 offset-s2 center">
+																			Date Weaned:
+																			@if(is_null($family->getGroupingProperties()->where("property_id", 6)->first()))
+																				<div class="input-field inline">
+																					<input id="date_weaned" type="text" name="date_weaned" placeholder="Pick date" class="datepicker">
+																				</div>
+																			@else
+																				<div class="input-field inline">
+																					<input id="date_weaned" type="text" name="date_weaned" class="datepicker" value="{{ $family->getGroupingProperties()->where("property_id", 6)->first()->value }}">
+																				</div>
+																			@endif
+																		</div>
+																		<div class="col s8 offset-s2 center">
+																			Weaning Weight, kg:
+																			<div class="input-field inline">
+																				<input id="weaning_weight" type="number" name="weaning_weight" min="0.001" max="15.999" step="0.001">
+																			</div>
+																		</div>
+																	</div>
+																</div>
+																<div class="row center">
+																	<button class="btn waves-effect waves-light green darken-3" type="submit">Submit <i class="material-icons right">send</i>
+												          			</button>
+																</div>
+															</div> --}}
+											        		{!! Form::close() !!}
 														</td>
 													@else
-														<td>{{ $offspring->getAnimalProperties()->where("property_id", 7)->first()->value }}</td>
+														{{-- with weaning weight --}}
+														{!! Form::open(['route' => 'farm.pig.edit_weaning_weight', 'method' => 'post']) !!}
+														<td>{{ $offspring->getAnimalProperties()->where("property_id", 7)->first()->value }} <a href="#edit_weaning_weight{{$offspring->getChild()->id}}" class="modal-trigger"><i class="material-icons right">edit</i></a></td>
+														{{-- MODAL STRUCTURE --}}
+{{-- 														<div id="edit_weaning_weight{{$offspring->getChild()->id}}" class="modal">
+															<div class="modal-content">
+																<h5 class="center">Edit Weaning Weight of <br><strong>{{ $offspring->getChild()->registryid }}</strong></h5>
+																<input type="hidden" name="animalid" value="{{ $offspring->getChild()->id }}">
+																<div class="row center">
+																	<div class="col s8 offset-s2">
+																		<input id="new_weaning_weight" type="number" name="new_weaning_weight" min="0.001" max="15.999" step="0.001">
+																	</div>
+																</div>
+															</div>
+															<div class="row center">
+																<button class="btn waves-effect waves-light green darken-3" type="submit">Submit <i class="material-icons right">send</i>
+											          			</button>
+															</div>
+														</div> --}}
+														{!! Form::close() !!}
 													@endif
 												@endif
 											@else
+											{{-- with weaning data --}}
 												@if($family->getGroupingProperties()->where("property_id", 6)->first()->value == "Not specified")
+												{{-- all offsprings dead/sold before weaning --}}
 													<td>
 														<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Inactive grower (dead/sold/removed)" style="vertical-align: middle;">info_outline</i>
 													</td>
 												@else
+												{{-- if at least 1 offspring is alive --}}
 													@if($offspring->getChild()->status == "dead grower" || $offspring->getChild()->status == "sold grower" || $offspring->getChild()->status == "removed grower")
+														{{-- inactive grower --}}
 														@if(is_null($offspring->getAnimalProperties()->where("property_id", 7)->first()))
 															<td>
 																<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Inactive grower (dead/sold/removed)" style="vertical-align: middle;">info_outline</i>
 															</td>
 														@else
-															<td>{{ $offspring->getAnimalProperties()->where("property_id", 7)->first()->value }}</td>
+														{{-- active with weaning weight--}}
+															{!! Form::open(['route' => 'farm.pig.edit_weaning_weight', 'method' => 'post']) !!}
+															<td>{{ $offspring->getAnimalProperties()->where("property_id", 7)->first()->value }} <a href="#edit_weaning_weight{{$offspring->getChild()->id}}" class="modal-trigger"><i class="material-icons right">edit</i></a></td>
+															{{-- MODAL STRUCTURE --}}
+{{-- 															<div id="edit_weaning_weight{{$offspring->getChild()->id}}" class="modal">
+																<div class="modal-content">
+																	<h5 class="center">Edit Weaning Weight of <br><strong>{{ $offspring->getChild()->registryid }}</strong></h5>
+																	<input type="hidden" name="animalid" value="{{ $offspring->getChild()->id }}">
+																	<div class="row center">
+																		<div class="col s8 offset-s2">
+																			<input id="new_weaning_weight" type="number" name="new_weaning_weight" min="0.001" max="15.999" step="0.001">
+																		</div>
+																	</div>
+																</div>
+																<div class="row center">
+																	<button class="btn waves-effect waves-light green darken-3" type="submit">Submit <i class="material-icons right">send</i>
+												          			</button>
+																</div>
+															</div> --}}
+															{!! Form::close() !!}
 														@endif
 													@else
+														{{-- no weaning weight yet --}}
 														@if(is_null($offspring->getAnimalProperties()->where("property_id", 7)->first()))
 															<td>
+																{{-- 21d+ --}}
+																{!! Form::open(['route' => 'farm.pig.get_weaning_weights', 'method' => 'post']) !!}
 																@if($now->gte(Carbon\Carbon::parse($properties->where("property_id", 3)->first()->value)->addDays(21)))
-																	<a class="btn waves-effect waves-light green darken-3 modal-trigger" href="#weaning_weight_modal{{$offspring->getChild()->id}}">
-												            Add <i class="material-icons right">add</i>
-												          </a>
-												        @else
-												        	<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Disabled until 21 days after date farrowed" style="vertical-align: middle;">info_outline</i>
-												        @endif
+																	<a class="btn waves-effect waves-light green darken-3 modal-trigger" href="#weaning_weight_modal{{$offspring->getChild()->id}}">Add <i class="material-icons right">add</i>
+												          			</a>
+												          		{{-- <21d --}}
+												        		@else
+												        			<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Disabled until 21 days after date farrowed" style="vertical-align: middle;">info_outline</i>
+												        		@endif
+												        		{{-- MODAL STRUCTURE --}}
+																{{-- <div id="weaning_weight_modal{{$offspring->getChild()->id}}" class="modal">
+																	<div class="modal-content">
+																		<h5 class="center">Weaning Record: <strong>{{ $offspring->getChild()->registryid }}</strong></h5>
+																		<input type="hidden" name="offspring_id" value="{{ $offspring->getChild()->id }}">
+																		<input type="hidden" name="family_id" value="{{ $family->id }}">
+																		<div class="row center">
+																			<div class="col s8 offset-s2 center">
+																				Date Weaned:
+																				@if(is_null($family->getGroupingProperties()->where("property_id", 6)->first()))
+																					<div class="input-field inline">
+																						<input id="date_weaned" type="text" name="date_weaned" placeholder="Pick date" class="datepicker">
+																					</div>
+																				@else
+																					<div class="input-field inline">
+																						<input id="date_weaned" type="text" name="date_weaned" class="datepicker" value="{{ $family->getGroupingProperties()->where("property_id", 6)->first()->value }}">
+																					</div>
+																				@endif
+																			</div>
+																			<div class="col s8 offset-s2 center">
+																				Weaning Weight, kg:
+																				<div class="input-field inline">
+																					<input id="weaning_weight" type="number" name="weaning_weight" min="0.001" max="15.999" step="0.001">
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																	<div class="row center">
+																		<button class="btn waves-effect waves-light green darken-3" type="submit">Submit <i class="material-icons right">send</i>
+													          			</button>
+																	</div>
+																</div> --}}
+												        		{!! Form::close() !!}
 															</td>
 														@else
-															<td>{{ $offspring->getAnimalProperties()->where("property_id", 7)->first()->value }}</td>
+														{{-- with weaning weight --}}
+															{!! Form::open(['route' => 'farm.pig.edit_weaning_weight', 'method' => 'post']) !!}
+															<td>{{ $offspring->getAnimalProperties()->where("property_id", 7)->first()->value }} <a href="#edit_weaning_weight{{$offspring->getChild()->id}}" class="modal-trigger"><i class="material-icons right">edit</i></a></td>
+															{{-- MODAL STRUCTURE --}}
+															{{-- <div id="edit_weaning_weight{{$offspring->getChild()->id}}" class="modal">
+																<div class="modal-content">
+																	<h5 class="center">Edit Weaning Weight of <br><strong>{{ $offspring->getChild()->registryid }}</strong></h5>
+																	<input type="hidden" name="animalid" value="{{ $offspring->getChild()->id }}">
+																	<div class="row center">
+																		<div class="col s8 offset-s2">
+																			<input id="new_weaning_weight" type="number" name="new_weaning_weight" min="0.001" max="15.999" step="0.001">
+																		</div>
+																	</div>
+																</div>
+																<div class="row center">
+																	<button class="btn waves-effect waves-light green darken-3" type="submit">Submit <i class="material-icons right">send</i>
+												          			</button>
+																</div>
+															</div> --}}
+															{!! Form::close() !!}
 														@endif
 													@endif
 												@endif
 											@endif
-											{{-- MODAL STRUCTURE --}}
-											{{-- <div id="weaning_weight_modal{{$offspring->getChild()->id}}" class="modal">
-												<div class="modal-content">
-													<h5 class="center">Weaning Record: <strong>{{ $offspring->getChild()->registryid }}</strong></h5>
-													<input type="hidden" name="offspring_id" value="{{ $offspring->getChild()->id }}">
-													<input type="hidden" name="family_id" value="{{ $family->id }}">
-													<div class="row center">
-														<div class="col s8 offset-s2 center">
-															Date Weaned:
-															@if(is_null($family->getGroupingProperties()->where("property_id", 6)->first()))
-																<div class="input-field inline">
-																	<input id="date_weaned" type="text" name="date_weaned" placeholder="Pick date" class="datepicker">
-																</div>
-															@else
-																<div class="input-field inline">
-																	<input id="date_weaned" type="text" name="date_weaned" class="datepicker" value="{{ $family->getGroupingProperties()->where("property_id", 6)->first()->value }}">
-																</div>
-															@endif
-														</div>
-														<div class="col s8 offset-s2 center">
-															Weaning Weight, kg:
-															<div class="input-field inline">
-																<input id="weaning_weight" type="number" name="weaning_weight" min="0.001" max="15.999" step="0.001">
-															</div>
-														</div>
-													</div>
-												</div>
-												<div class="row center">
-													<button class="btn waves-effect waves-light green darken-3" type="submit">
-								            Submit <i class="material-icons right">send</i>
-								          </button>
-												</div>
-											</div> --}}
-											{!! Form::close() !!}
 										</tr>
 									@empty
 										<tr>
@@ -828,9 +1026,9 @@
 							<input type="hidden" name="abnomalities" value="{{ $family->getGroupingProperties()->where("property_id", 47)->first()->value }}">
 						@endif
 						<div class="col s4">
-              <input id="offspring_earnotch" type="text" name="offspring_earnotch" class="validate" data-length="6">
-              <label for="offspring_earnotch">Offspring Earnotch</label>
-              <input type="hidden" name="option" value="1">
+							<input id="offspring_earnotch" type="text" name="offspring_earnotch" class="validate" data-length="6">
+							<label for="offspring_earnotch">Offspring Earnotch</label>
+							<input type="hidden" name="option" value="1">
 						</div>
 						<div class="col s4">
 							<select id="select_sex" name="sex" class="browser-default">
@@ -930,92 +1128,192 @@
 													</div>
 												</div>
 											{!! Form::close() !!}
-											{!! Form::open(['route' => 'farm.pig.get_weaning_weights', 'method' => 'post']) !!}
 											@if(is_null($family->getGroupingProperties()->where("property_id", 6)->first()))
+											{{-- no weaning data --}}
 												@if($offspring->getChild()->status == "dead grower" || $offspring->getChild()->status == "sold grower" || $offspring->getChild()->status == "removed grower")
+													{{-- inactive grower --}}
 													<td>
 														<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Inactive grower (dead/sold/removed)" style="vertical-align: middle;">info_outline</i>
 													</td>
 												@else
 													@if(is_null($offspring->getAnimalProperties()->where("property_id", 7)->first()))
+														{{-- no weaning weight yet --}}
 														<td>
+															{{-- 21d+ --}}
+															{!! Form::open(['route' => 'farm.pig.get_weaning_weights', 'method' => 'post']) !!}
 															@if($now->gte(Carbon\Carbon::parse($properties->where("property_id", 3)->first()->value)->addDays(21)))
-																<a class="btn waves-effect waves-light green darken-3 modal-trigger" href="#weaning_weight_modal{{$offspring->getChild()->id}}">
-											            Add <i class="material-icons right">add</i>
-											          </a>
-											        @else
-											        	<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Disabled until 21 days after date farrowed" style="vertical-align: middle;">info_outline</i>
-											        @endif
+																<a class="btn waves-effect waves-light green darken-3 modal-trigger" href="#weaning_weight_modal{{$offspring->getChild()->id}}">Add <i class="material-icons right">add</i>
+											          			</a>
+											          		{{-- <21d --}}
+											        		@else
+											        			<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Disabled until 21 days after date farrowed" style="vertical-align: middle;">info_outline</i>
+											        		@endif
+											        		{{-- MODAL STRUCTURE --}}
+															<div id="weaning_weight_modal{{$offspring->getChild()->id}}" class="modal">
+																<div class="modal-content">
+																	<h5 class="center">Weaning Record: <strong>{{ $offspring->getChild()->registryid }}</strong></h5>
+																	<input type="hidden" name="offspring_id" value="{{ $offspring->getChild()->id }}">
+																	<input type="hidden" name="family_id" value="{{ $family->id }}">
+																	<div class="row center">
+																		<div class="col s8 offset-s2 center">
+																			Date Weaned:
+																			@if(is_null($family->getGroupingProperties()->where("property_id", 6)->first()))
+																				<div class="input-field inline">
+																					<input id="date_weaned" type="text" name="date_weaned" placeholder="Pick date" class="datepicker">
+																				</div>
+																			@else
+																				<div class="input-field inline">
+																					<input id="date_weaned" type="text" name="date_weaned" class="datepicker" value="{{ $family->getGroupingProperties()->where("property_id", 6)->first()->value }}">
+																				</div>
+																			@endif
+																		</div>
+																		<div class="col s8 offset-s2 center">
+																			Weaning Weight, kg:
+																			<div class="input-field inline">
+																				<input id="weaning_weight" type="number" name="weaning_weight" min="0.001" max="15.999" step="0.001">
+																			</div>
+																		</div>
+																	</div>
+																</div>
+																<div class="row center">
+																	<button class="btn waves-effect waves-light green darken-3" type="submit">Submit <i class="material-icons right">send</i>
+												          			</button>
+																</div>
+															</div>
+											        		{!! Form::close() !!}
 														</td>
 													@else
-														<td>{{ $offspring->getAnimalProperties()->where("property_id", 7)->first()->value }}</td>
+														{{-- with weaning weight --}}
+														{!! Form::open(['route' => 'farm.pig.edit_weaning_weight', 'method' => 'post']) !!}
+														<td>{{ $offspring->getAnimalProperties()->where("property_id", 7)->first()->value }} <a href="#edit_weaning_weight{{$offspring->getChild()->id}}" class="modal-trigger"><i class="material-icons right">edit</i></a></td>
+														{{-- MODAL STRUCTURE --}}
+														<div id="edit_weaning_weight{{$offspring->getChild()->id}}" class="modal">
+															<div class="modal-content">
+																<h5 class="center">Edit Weaning Weight of <br><strong>{{ $offspring->getChild()->registryid }}</strong></h5>
+																<input type="hidden" name="animalid" value="{{ $offspring->getChild()->id }}">
+																<div class="row center">
+																	<div class="col s8 offset-s2">
+																		<input id="new_weaning_weight" type="number" name="new_weaning_weight" min="0.001" max="15.999" step="0.001">
+																	</div>
+																</div>
+															</div>
+															<div class="row center">
+																<button class="btn waves-effect waves-light green darken-3" type="submit">Submit <i class="material-icons right">send</i>
+											          			</button>
+															</div>
+														</div>
+														{!! Form::close() !!}
 													@endif
 												@endif
 											@else
+											{{-- with weaning data --}}
 												@if($family->getGroupingProperties()->where("property_id", 6)->first()->value == "Not specified")
+												{{-- all offsprings dead/sold before weaning --}}
 													<td>
 														<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Inactive grower (dead/sold/removed)" style="vertical-align: middle;">info_outline</i>
 													</td>
 												@else
+												{{-- if at least 1 offspring is alive --}}
 													@if($offspring->getChild()->status == "dead grower" || $offspring->getChild()->status == "sold grower" || $offspring->getChild()->status == "removed grower")
+														{{-- inactive grower --}}
 														@if(is_null($offspring->getAnimalProperties()->where("property_id", 7)->first()))
 															<td>
 																<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Inactive grower (dead/sold/removed)" style="vertical-align: middle;">info_outline</i>
 															</td>
 														@else
-															<td>{{ $offspring->getAnimalProperties()->where("property_id", 7)->first()->value }}</td>
+														{{-- active with weaning weight--}}
+															{!! Form::open(['route' => 'farm.pig.edit_weaning_weight', 'method' => 'post']) !!}
+															<td>{{ $offspring->getAnimalProperties()->where("property_id", 7)->first()->value }} <a href="#edit_weaning_weight{{$offspring->getChild()->id}}" class="modal-trigger"><i class="material-icons right">edit</i></a></td>
+															{{-- MODAL STRUCTURE --}}
+															<div id="edit_weaning_weight{{$offspring->getChild()->id}}" class="modal">
+																<div class="modal-content">
+																	<h5 class="center">Edit Weaning Weight of <br><strong>{{ $offspring->getChild()->registryid }}</strong></h5>
+																	<input type="hidden" name="animalid" value="{{ $offspring->getChild()->id }}">
+																	<div class="row center">
+																		<div class="col s8 offset-s2">
+																			<input id="new_weaning_weight" type="number" name="new_weaning_weight" min="0.001" max="15.999" step="0.001">
+																		</div>
+																	</div>
+																</div>
+																<div class="row center">
+																	<button class="btn waves-effect waves-light green darken-3" type="submit">Submit <i class="material-icons right">send</i>
+												          			</button>
+																</div>
+															</div>
+															{!! Form::close() !!}
 														@endif
 													@else
+														{{-- no weaning weight yet --}}
 														@if(is_null($offspring->getAnimalProperties()->where("property_id", 7)->first()))
 															<td>
+																{{-- 21d+ --}}
+																{!! Form::open(['route' => 'farm.pig.get_weaning_weights', 'method' => 'post']) !!}
 																@if($now->gte(Carbon\Carbon::parse($properties->where("property_id", 3)->first()->value)->addDays(21)))
-																	<a class="btn waves-effect waves-light green darken-3 modal-trigger" href="#weaning_weight_modal{{$offspring->getChild()->id}}">
-												            Add <i class="material-icons right">add</i>
-												          </a>
-												        @else
-												        	<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Disabled until 21 days after date farrowed" style="vertical-align: middle;">info_outline</i>
-												        @endif
+																	<a class="btn waves-effect waves-light green darken-3 modal-trigger" href="#weaning_weight_modal{{$offspring->getChild()->id}}">Add <i class="material-icons right">add</i>
+												          			</a>
+												          		{{-- <21d --}}
+												        		@else
+												        			<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Disabled until 21 days after date farrowed" style="vertical-align: middle;">info_outline</i>
+												        		@endif
+												        		{{-- MODAL STRUCTURE --}}
+																<div id="weaning_weight_modal{{$offspring->getChild()->id}}" class="modal">
+																	<div class="modal-content">
+																		<h5 class="center">Weaning Record: <strong>{{ $offspring->getChild()->registryid }}</strong></h5>
+																		<input type="hidden" name="offspring_id" value="{{ $offspring->getChild()->id }}">
+																		<input type="hidden" name="family_id" value="{{ $family->id }}">
+																		<div class="row center">
+																			<div class="col s8 offset-s2 center">
+																				Date Weaned:
+																				@if(is_null($family->getGroupingProperties()->where("property_id", 6)->first()))
+																					<div class="input-field inline">
+																						<input id="date_weaned" type="text" name="date_weaned" placeholder="Pick date" class="datepicker">
+																					</div>
+																				@else
+																					<div class="input-field inline">
+																						<input id="date_weaned" type="text" name="date_weaned" class="datepicker" value="{{ $family->getGroupingProperties()->where("property_id", 6)->first()->value }}">
+																					</div>
+																				@endif
+																			</div>
+																			<div class="col s8 offset-s2 center">
+																				Weaning Weight, kg:
+																				<div class="input-field inline">
+																					<input id="weaning_weight" type="number" name="weaning_weight" min="0.001" max="15.999" step="0.001">
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																	<div class="row center">
+																		<button class="btn waves-effect waves-light green darken-3" type="submit">Submit <i class="material-icons right">send</i>
+													          			</button>
+																	</div>
+																</div>
+												        		{!! Form::close() !!}
 															</td>
 														@else
-															<td>{{ $offspring->getAnimalProperties()->where("property_id", 7)->first()->value }}</td>
+														{{-- with weaning weight --}}
+															{!! Form::open(['route' => 'farm.pig.edit_weaning_weight', 'method' => 'post']) !!}
+															<td>{{ $offspring->getAnimalProperties()->where("property_id", 7)->first()->value }} <a href="#edit_weaning_weight{{$offspring->getChild()->id}}" class="modal-trigger"><i class="material-icons right">edit</i></a></td>
+															{{-- MODAL STRUCTURE --}}
+															<div id="edit_weaning_weight{{$offspring->getChild()->id}}" class="modal">
+																<div class="modal-content">
+																	<h5 class="center">Edit Weaning Weight of <br><strong>{{ $offspring->getChild()->registryid }}</strong></h5>
+																	<input type="hidden" name="animalid" value="{{ $offspring->getChild()->id }}">
+																	<div class="row center">
+																		<div class="col s8 offset-s2">
+																			<input id="new_weaning_weight" type="number" name="new_weaning_weight" min="0.001" max="15.999" step="0.001">
+																		</div>
+																	</div>
+																</div>
+																<div class="row center">
+																	<button class="btn waves-effect waves-light green darken-3" type="submit">Submit <i class="material-icons right">send</i>
+												          			</button>
+																</div>
+															</div>
+															{!! Form::close() !!}
 														@endif
 													@endif
 												@endif
 											@endif
-											{{-- MODAL STRUCTURE --}}
-											<div id="weaning_weight_modal{{$offspring->getChild()->id}}" class="modal">
-												<div class="modal-content">
-													<h5 class="center">Weaning Record: <strong>{{ $offspring->getChild()->registryid }}</strong></h5>
-													<input type="hidden" name="offspring_id" value="{{ $offspring->getChild()->id }}">
-													<input type="hidden" name="family_id" value="{{ $family->id }}">
-													<div class="row center">
-														<div class="col s8 offset-s2 center">
-															Date Weaned:
-															@if(is_null($family->getGroupingProperties()->where("property_id", 6)->first()))
-																<div class="input-field inline">
-																	<input id="date_weaned" type="text" name="date_weaned" placeholder="Pick date" class="datepicker">
-																</div>
-															@else
-																<div class="input-field inline">
-																	<input id="date_weaned" type="text" name="date_weaned" class="datepicker" value="{{ $family->getGroupingProperties()->where("property_id", 6)->first()->value }}">
-																</div>
-															@endif
-														</div>
-														<div class="col s8 offset-s2 center">
-															Weaning Weight, kg:
-															<div class="input-field inline">
-																<input id="weaning_weight" type="number" name="weaning_weight" min="0.001" max="15.999" step="0.001">
-															</div>
-														</div>
-													</div>
-												</div>
-												<div class="row center">
-													<button class="btn waves-effect waves-light green darken-3" type="submit">
-								            Submit <i class="material-icons right">send</i>
-								          </button>
-												</div>
-											</div>
-											{!! Form::close() !!}
 										</tr>
 									@empty
 										<tr>
@@ -1075,9 +1373,9 @@
 						<h5 class="green lighten-1">Add offspring</h5>
 						<div class="row">
 							<div class="col s4 push-s2">
-	              <input id="offspring_earnotch" type="text" name="offspring_earnotch" class="validate" data-length="6">
-	              <label for="offspring_earnotch">Offspring Earnotch</label>
-	              <input type="hidden" name="option" value="0">
+								<input id="offspring_earnotch" type="text" name="offspring_earnotch" class="validate" data-length="6">
+								<label for="offspring_earnotch">Offspring Earnotch</label>
+								<input type="hidden" name="option" value="0">
 							</div>
 							<div class="col s4 push-s2">
 								<select id="select_sex" name="sex" class="browser-default">
@@ -1161,92 +1459,192 @@
 													</div> --}}
 												{!! Form::close() !!}
 												<td>{{ round($offspring->getAnimalProperties()->where("property_id", 5)->first()->value, 4) }}</td>
-												{!! Form::open(['route' => 'farm.pig.get_weaning_weights', 'method' => 'post']) !!}
 												@if(is_null($family->getGroupingProperties()->where("property_id", 6)->first()))
+												{{-- no weaning data --}}
 													@if($offspring->getChild()->status == "dead grower" || $offspring->getChild()->status == "sold grower" || $offspring->getChild()->status == "removed grower")
+														{{-- inactive grower --}}
 														<td>
 															<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Inactive grower (dead/sold/removed)" style="vertical-align: middle;">info_outline</i>
 														</td>
 													@else
 														@if(is_null($offspring->getAnimalProperties()->where("property_id", 7)->first()))
+															{{-- no weaning weight yet --}}
 															<td>
+																{{-- 21d+ --}}
+																{!! Form::open(['route' => 'farm.pig.get_weaning_weights', 'method' => 'post']) !!}
 																@if($now->gte(Carbon\Carbon::parse($properties->where("property_id", 3)->first()->value)->addDays(21)))
-																	<a class="btn waves-effect waves-light green darken-3 modal-trigger" href="#weaning_weight_modal{{$offspring->getChild()->id}}">
-												            Add <i class="material-icons right">add</i>
-												          </a>
-												        @else
-												        	<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Disabled until 21 days after date farrowed" style="vertical-align: middle;">info_outline</i>
-												        @endif
+																	<a class="btn waves-effect waves-light green darken-3 modal-trigger" href="#weaning_weight_modal{{$offspring->getChild()->id}}">Add <i class="material-icons right">add</i>
+												          			</a>
+												          		{{-- <21d --}}
+												        		@else
+												        			<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Disabled until 21 days after date farrowed" style="vertical-align: middle;">info_outline</i>
+												        		@endif
+												        		{{-- MODAL STRUCTURE --}}
+																{{-- <div id="weaning_weight_modal{{$offspring->getChild()->id}}" class="modal">
+																	<div class="modal-content">
+																		<h5 class="center">Weaning Record: <strong>{{ $offspring->getChild()->registryid }}</strong></h5>
+																		<input type="hidden" name="offspring_id" value="{{ $offspring->getChild()->id }}">
+																		<input type="hidden" name="family_id" value="{{ $family->id }}">
+																		<div class="row center">
+																			<div class="col s8 offset-s2 center">
+																				Date Weaned:
+																				@if(is_null($family->getGroupingProperties()->where("property_id", 6)->first()))
+																					<div class="input-field inline">
+																						<input id="date_weaned" type="text" name="date_weaned" placeholder="Pick date" class="datepicker">
+																					</div>
+																				@else
+																					<div class="input-field inline">
+																						<input id="date_weaned" type="text" name="date_weaned" class="datepicker" value="{{ $family->getGroupingProperties()->where("property_id", 6)->first()->value }}">
+																					</div>
+																				@endif
+																			</div>
+																			<div class="col s8 offset-s2 center">
+																				Weaning Weight, kg:
+																				<div class="input-field inline">
+																					<input id="weaning_weight" type="number" name="weaning_weight" min="0.001" max="15.999" step="0.001">
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																	<div class="row center">
+																		<button class="btn waves-effect waves-light green darken-3" type="submit">Submit <i class="material-icons right">send</i>
+													          			</button>
+																	</div>
+																</div> --}}
+												        		{!! Form::close() !!}
 															</td>
 														@else
-															<td>{{ $offspring->getAnimalProperties()->where("property_id", 7)->first()->value }}</td>
+															{{-- with weaning weight --}}
+															{!! Form::open(['route' => 'farm.pig.edit_weaning_weight', 'method' => 'post']) !!}
+															<td>{{ $offspring->getAnimalProperties()->where("property_id", 7)->first()->value }} <a href="#edit_weaning_weight{{$offspring->getChild()->id}}" class="modal-trigger"><i class="material-icons right">edit</i></a></td>
+															{{-- MODAL STRUCTURE --}}
+															{{-- <div id="edit_weaning_weight{{$offspring->getChild()->id}}" class="modal">
+																<div class="modal-content">
+																	<h5 class="center">Edit Weaning Weight of <br><strong>{{ $offspring->getChild()->registryid }}</strong></h5>
+																	<input type="hidden" name="animalid" value="{{ $offspring->getChild()->id }}">
+																	<div class="row center">
+																		<div class="col s8 offset-s2">
+																			<input id="new_weaning_weight" type="number" name="new_weaning_weight" min="0.001" max="15.999" step="0.001">
+																		</div>
+																	</div>
+																</div>
+																<div class="row center">
+																	<button class="btn waves-effect waves-light green darken-3" type="submit">Submit <i class="material-icons right">send</i>
+												          			</button>
+																</div>
+															</div> --}}
+															{!! Form::close() !!}
 														@endif
 													@endif
 												@else
+												{{-- with weaning data --}}
 													@if($family->getGroupingProperties()->where("property_id", 6)->first()->value == "Not specified")
+													{{-- all offsprings dead/sold before weaning --}}
 														<td>
 															<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Inactive grower (dead/sold/removed)" style="vertical-align: middle;">info_outline</i>
 														</td>
 													@else
+													{{-- if at least 1 offspring is alive --}}
 														@if($offspring->getChild()->status == "dead grower" || $offspring->getChild()->status == "sold grower" || $offspring->getChild()->status == "removed grower")
+															{{-- inactive grower --}}
 															@if(is_null($offspring->getAnimalProperties()->where("property_id", 7)->first()))
 																<td>
 																	<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Inactive grower (dead/sold/removed)" style="vertical-align: middle;">info_outline</i>
 																</td>
 															@else
-																<td>{{ $offspring->getAnimalProperties()->where("property_id", 7)->first()->value }}</td>
+															{{-- active with weaning weight--}}
+																{!! Form::open(['route' => 'farm.pig.edit_weaning_weight', 'method' => 'post']) !!}
+																<td>{{ $offspring->getAnimalProperties()->where("property_id", 7)->first()->value }} <a href="#edit_weaning_weight{{$offspring->getChild()->id}}" class="modal-trigger"><i class="material-icons right">edit</i></a></td>
+																{{-- MODAL STRUCTURE --}}
+																{{-- <div id="edit_weaning_weight{{$offspring->getChild()->id}}" class="modal">
+																	<div class="modal-content">
+																		<h5 class="center">Edit Weaning Weight of <br><strong>{{ $offspring->getChild()->registryid }}</strong></h5>
+																		<input type="hidden" name="animalid" value="{{ $offspring->getChild()->id }}">
+																		<div class="row center">
+																			<div class="col s8 offset-s2">
+																				<input id="new_weaning_weight" type="number" name="new_weaning_weight" min="0.001" max="15.999" step="0.001">
+																			</div>
+																		</div>
+																	</div>
+																	<div class="row center">
+																		<button class="btn waves-effect waves-light green darken-3" type="submit">Submit <i class="material-icons right">send</i>
+													          			</button>
+																	</div>
+																</div> --}}
+																{!! Form::close() !!}
 															@endif
 														@else
+															{{-- no weaning weight yet --}}
 															@if(is_null($offspring->getAnimalProperties()->where("property_id", 7)->first()))
 																<td>
+																	{{-- 21d+ --}}
+																	{!! Form::open(['route' => 'farm.pig.get_weaning_weights', 'method' => 'post']) !!}
 																	@if($now->gte(Carbon\Carbon::parse($properties->where("property_id", 3)->first()->value)->addDays(21)))
-																		<a class="btn waves-effect waves-light green darken-3 modal-trigger" href="#weaning_weight_modal{{$offspring->getChild()->id}}">
-													            Add <i class="material-icons right">add</i>
-													          </a>
-													        @else
-													        	<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Disabled until 21 days after date farrowed" style="vertical-align: middle;">info_outline</i>
-													        @endif
+																		<a class="btn waves-effect waves-light green darken-3 modal-trigger" href="#weaning_weight_modal{{$offspring->getChild()->id}}">Add <i class="material-icons right">add</i>
+													          			</a>
+													          		{{-- <21d --}}
+													        		@else
+													        			<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Disabled until 21 days after date farrowed" style="vertical-align: middle;">info_outline</i>
+													        		@endif
+													        		{{-- MODAL STRUCTURE --}}
+																	{{-- <div id="weaning_weight_modal{{$offspring->getChild()->id}}" class="modal">
+																		<div class="modal-content">
+																			<h5 class="center">Weaning Record: <strong>{{ $offspring->getChild()->registryid }}</strong></h5>
+																			<input type="hidden" name="offspring_id" value="{{ $offspring->getChild()->id }}">
+																			<input type="hidden" name="family_id" value="{{ $family->id }}">
+																			<div class="row center">
+																				<div class="col s8 offset-s2 center">
+																					Date Weaned:
+																					@if(is_null($family->getGroupingProperties()->where("property_id", 6)->first()))
+																						<div class="input-field inline">
+																							<input id="date_weaned" type="text" name="date_weaned" placeholder="Pick date" class="datepicker">
+																						</div>
+																					@else
+																						<div class="input-field inline">
+																							<input id="date_weaned" type="text" name="date_weaned" class="datepicker" value="{{ $family->getGroupingProperties()->where("property_id", 6)->first()->value }}">
+																						</div>
+																					@endif
+																				</div>
+																				<div class="col s8 offset-s2 center">
+																					Weaning Weight, kg:
+																					<div class="input-field inline">
+																						<input id="weaning_weight" type="number" name="weaning_weight" min="0.001" max="15.999" step="0.001">
+																					</div>
+																				</div>
+																			</div>
+																		</div>
+																		<div class="row center">
+																			<button class="btn waves-effect waves-light green darken-3" type="submit">Submit <i class="material-icons right">send</i>
+														          			</button>
+																		</div>
+																	</div> --}}
+													        		{!! Form::close() !!}
 																</td>
 															@else
-																<td>{{ $offspring->getAnimalProperties()->where("property_id", 7)->first()->value }}</td>
+															{{-- with weaning weight --}}
+																{!! Form::open(['route' => 'farm.pig.edit_weaning_weight', 'method' => 'post']) !!}
+																<td>{{ $offspring->getAnimalProperties()->where("property_id", 7)->first()->value }} <a href="#edit_weaning_weight{{$offspring->getChild()->id}}" class="modal-trigger"><i class="material-icons right">edit</i></a></td>
+																{{-- MODAL STRUCTURE --}}
+																{{-- <div id="edit_weaning_weight{{$offspring->getChild()->id}}" class="modal">
+																	<div class="modal-content">
+																		<h5 class="center">Edit Weaning Weight of <br><strong>{{ $offspring->getChild()->registryid }}</strong></h5>
+																		<input type="hidden" name="animalid" value="{{ $offspring->getChild()->id }}">
+																		<div class="row center">
+																			<div class="col s8 offset-s2">
+																				<input id="new_weaning_weight" type="number" name="new_weaning_weight" min="0.001" max="15.999" step="0.001">
+																			</div>
+																		</div>
+																	</div>
+																	<div class="row center">
+																		<button class="btn waves-effect waves-light green darken-3" type="submit">Submit <i class="material-icons right">send</i>
+													          			</button>
+																	</div>
+																</div> --}}
+																{!! Form::close() !!}
 															@endif
 														@endif
 													@endif
 												@endif
-												{{-- MODAL STRUCTURE --}}
-												{{-- <div id="weaning_weight_modal{{$offspring->getChild()->id}}" class="modal">
-													<div class="modal-content">
-														<h5 class="center">Weaning Record: <strong>{{ $offspring->getChild()->registryid }}</strong></h5>
-														<input type="hidden" name="offspring_id" value="{{ $offspring->getChild()->id }}">
-														<input type="hidden" name="family_id" value="{{ $family->id }}">
-														<div class="row center">
-															<div class="col s8 offset-s2 center">
-																Date Weaned:
-																@if(is_null($family->getGroupingProperties()->where("property_id", 6)->first()))
-																	<div class="input-field inline">
-																		<input id="date_weaned" type="text" name="date_weaned" placeholder="Pick date" class="datepicker">
-																	</div>
-																@else
-																	<div class="input-field inline">
-																		<input id="date_weaned" type="text" name="date_weaned" class="datepicker" value="{{ $family->getGroupingProperties()->where("property_id", 6)->first()->value }}">
-																	</div>
-																@endif
-															</div>
-															<div class="col s8 offset-s2 center">
-																Weaning Weight, kg:
-																<div class="input-field inline">
-																	<input id="weaning_weight" type="number" name="weaning_weight" min="0.001" max="15.909" step="0.001">
-																</div>
-															</div>
-														</div>
-													</div>
-													<div class="row center">
-														<button class="btn waves-effect waves-light green darken-3" type="submit">
-									            Submit <i class="material-icons right">send</i>
-									          </button>
-													</div>
-												</div> --}}
-												{!! Form::close() !!}
 											</tr>
 										@empty
 											<tr>
@@ -1281,9 +1679,9 @@
 							<input type="hidden" name="abnomalities" value="{{ $family->getGroupingProperties()->where("property_id", 47)->first()->value }}">
 						@endif
 						<div class="col s4">
-              <input id="offspring_earnotch" type="text" name="offspring_earnotch" class="validate" data-length="6">
-              <label for="offspring_earnotch">Offspring Earnotch</label>
-              <input type="hidden" name="option" value="1">
+							<input id="offspring_earnotch" type="text" name="offspring_earnotch" class="validate" data-length="6">
+							<label for="offspring_earnotch">Offspring Earnotch</label>
+							<input type="hidden" name="option" value="1">
 						</div>
 						<div class="col s4">
 							<select id="select_sex" name="sex" class="browser-default">
@@ -1363,92 +1761,192 @@
 												</div> --}}
 											{!! Form::close() !!}
 											<td>{{ $offspring->getAnimalProperties()->where("property_id", 5)->first()->value }}</td>
-											{!! Form::open(['route' => 'farm.pig.get_weaning_weights', 'method' => 'post']) !!}
 											@if(is_null($family->getGroupingProperties()->where("property_id", 6)->first()))
+											{{-- no weaning data --}}
 												@if($offspring->getChild()->status == "dead grower" || $offspring->getChild()->status == "sold grower" || $offspring->getChild()->status == "removed grower")
+													{{-- inactive grower --}}
 													<td>
 														<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Inactive grower (dead/sold/removed)" style="vertical-align: middle;">info_outline</i>
 													</td>
 												@else
 													@if(is_null($offspring->getAnimalProperties()->where("property_id", 7)->first()))
+														{{-- no weaning weight yet --}}
 														<td>
+															{{-- 21d+ --}}
+															{!! Form::open(['route' => 'farm.pig.get_weaning_weights', 'method' => 'post']) !!}
 															@if($now->gte(Carbon\Carbon::parse($properties->where("property_id", 3)->first()->value)->addDays(21)))
-																<a class="btn waves-effect waves-light green darken-3 modal-trigger" href="#weaning_weight_modal{{$offspring->getChild()->id}}">
-											            Add <i class="material-icons right">add</i>
-											          </a>
-											        @else
-											        	<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Disabled until 21 days after date farrowed" style="vertical-align: middle;">info_outline</i>
-											        @endif
+																<a class="btn waves-effect waves-light green darken-3 modal-trigger" href="#weaning_weight_modal{{$offspring->getChild()->id}}">Add <i class="material-icons right">add</i>
+											          			</a>
+											          		{{-- <21d --}}
+											        		@else
+											        			<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Disabled until 21 days after date farrowed" style="vertical-align: middle;">info_outline</i>
+											        		@endif
+											        		{{-- MODAL STRUCTURE --}}
+															{{-- <div id="weaning_weight_modal{{$offspring->getChild()->id}}" class="modal">
+																<div class="modal-content">
+																	<h5 class="center">Weaning Record: <strong>{{ $offspring->getChild()->registryid }}</strong></h5>
+																	<input type="hidden" name="offspring_id" value="{{ $offspring->getChild()->id }}">
+																	<input type="hidden" name="family_id" value="{{ $family->id }}">
+																	<div class="row center">
+																		<div class="col s8 offset-s2 center">
+																			Date Weaned:
+																			@if(is_null($family->getGroupingProperties()->where("property_id", 6)->first()))
+																				<div class="input-field inline">
+																					<input id="date_weaned" type="text" name="date_weaned" placeholder="Pick date" class="datepicker">
+																				</div>
+																			@else
+																				<div class="input-field inline">
+																					<input id="date_weaned" type="text" name="date_weaned" class="datepicker" value="{{ $family->getGroupingProperties()->where("property_id", 6)->first()->value }}">
+																				</div>
+																			@endif
+																		</div>
+																		<div class="col s8 offset-s2 center">
+																			Weaning Weight, kg:
+																			<div class="input-field inline">
+																				<input id="weaning_weight" type="number" name="weaning_weight" min="0.001" max="15.999" step="0.001">
+																			</div>
+																		</div>
+																	</div>
+																</div>
+																<div class="row center">
+																	<button class="btn waves-effect waves-light green darken-3" type="submit">Submit <i class="material-icons right">send</i>
+												          			</button>
+																</div>
+															</div> --}}
+											        		{!! Form::close() !!}
 														</td>
 													@else
-														<td>{{ $offspring->getAnimalProperties()->where("property_id", 7)->first()->value }}</td>
+														{{-- with weaning weight --}}
+														{!! Form::open(['route' => 'farm.pig.edit_weaning_weight', 'method' => 'post']) !!}
+														<td>{{ $offspring->getAnimalProperties()->where("property_id", 7)->first()->value }} <a href="#edit_weaning_weight{{$offspring->getChild()->id}}" class="modal-trigger"><i class="material-icons right">edit</i></a></td>
+														{{-- MODAL STRUCTURE --}}
+														{{-- <div id="edit_weaning_weight{{$offspring->getChild()->id}}" class="modal">
+															<div class="modal-content">
+																<h5 class="center">Edit Weaning Weight of <br><strong>{{ $offspring->getChild()->registryid }}</strong></h5>
+																<input type="hidden" name="animalid" value="{{ $offspring->getChild()->id }}">
+																<div class="row center">
+																	<div class="col s8 offset-s2">
+																		<input id="new_weaning_weight" type="number" name="new_weaning_weight" min="0.001" max="15.999" step="0.001">
+																	</div>
+																</div>
+															</div>
+															<div class="row center">
+																<button class="btn waves-effect waves-light green darken-3" type="submit">Submit <i class="material-icons right">send</i>
+											          			</button>
+															</div>
+														</div> --}}
+														{!! Form::close() !!}
 													@endif
 												@endif
 											@else
+											{{-- with weaning data --}}
 												@if($family->getGroupingProperties()->where("property_id", 6)->first()->value == "Not specified")
+												{{-- all offsprings dead/sold before weaning --}}
 													<td>
 														<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Inactive grower (dead/sold/removed)" style="vertical-align: middle;">info_outline</i>
 													</td>
 												@else
+												{{-- if at least 1 offspring is alive --}}
 													@if($offspring->getChild()->status == "dead grower" || $offspring->getChild()->status == "sold grower" || $offspring->getChild()->status == "removed grower")
+														{{-- inactive grower --}}
 														@if(is_null($offspring->getAnimalProperties()->where("property_id", 7)->first()))
 															<td>
 																<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Inactive grower (dead/sold/removed)" style="vertical-align: middle;">info_outline</i>
 															</td>
 														@else
-															<td>{{ $offspring->getAnimalProperties()->where("property_id", 7)->first()->value }}</td>
+														{{-- active with weaning weight--}}
+															{!! Form::open(['route' => 'farm.pig.edit_weaning_weight', 'method' => 'post']) !!}
+															<td>{{ $offspring->getAnimalProperties()->where("property_id", 7)->first()->value }} <a href="#edit_weaning_weight{{$offspring->getChild()->id}}" class="modal-trigger"><i class="material-icons right">edit</i></a></td>
+															{{-- MODAL STRUCTURE --}}
+															{{-- <div id="edit_weaning_weight{{$offspring->getChild()->id}}" class="modal">
+																<div class="modal-content">
+																	<h5 class="center">Edit Weaning Weight of <br><strong>{{ $offspring->getChild()->registryid }}</strong></h5>
+																	<input type="hidden" name="animalid" value="{{ $offspring->getChild()->id }}">
+																	<div class="row center">
+																		<div class="col s8 offset-s2">
+																			<input id="new_weaning_weight" type="number" name="new_weaning_weight" min="0.001" max="15.999" step="0.001">
+																		</div>
+																	</div>
+																</div>
+																<div class="row center">
+																	<button class="btn waves-effect waves-light green darken-3" type="submit">Submit <i class="material-icons right">send</i>
+												          			</button>
+																</div> --}}
+															</div>
+															{!! Form::close() !!}
 														@endif
 													@else
+														{{-- no weaning weight yet --}}
 														@if(is_null($offspring->getAnimalProperties()->where("property_id", 7)->first()))
 															<td>
+																{{-- 21d+ --}}
+																{!! Form::open(['route' => 'farm.pig.get_weaning_weights', 'method' => 'post']) !!}
 																@if($now->gte(Carbon\Carbon::parse($properties->where("property_id", 3)->first()->value)->addDays(21)))
-																	<a class="btn waves-effect waves-light green darken-3 modal-trigger" href="#weaning_weight_modal{{$offspring->getChild()->id}}">
-												            Add <i class="material-icons right">add</i>
-												          </a>
-												        @else
-												        	<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Disabled until 21 days after date farrowed" style="vertical-align: middle;">info_outline</i>
-												        @endif
+																	<a class="btn waves-effect waves-light green darken-3 modal-trigger" href="#weaning_weight_modal{{$offspring->getChild()->id}}">Add <i class="material-icons right">add</i>
+												          			</a>
+												          		{{-- <21d --}}
+												        		@else
+												        			<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Disabled until 21 days after date farrowed" style="vertical-align: middle;">info_outline</i>
+												        		@endif
+												        		{{-- MODAL STRUCTURE --}}
+																{{-- <div id="weaning_weight_modal{{$offspring->getChild()->id}}" class="modal">
+																	<div class="modal-content">
+																		<h5 class="center">Weaning Record: <strong>{{ $offspring->getChild()->registryid }}</strong></h5>
+																		<input type="hidden" name="offspring_id" value="{{ $offspring->getChild()->id }}">
+																		<input type="hidden" name="family_id" value="{{ $family->id }}">
+																		<div class="row center">
+																			<div class="col s8 offset-s2 center">
+																				Date Weaned:
+																				@if(is_null($family->getGroupingProperties()->where("property_id", 6)->first()))
+																					<div class="input-field inline">
+																						<input id="date_weaned" type="text" name="date_weaned" placeholder="Pick date" class="datepicker">
+																					</div>
+																				@else
+																					<div class="input-field inline">
+																						<input id="date_weaned" type="text" name="date_weaned" class="datepicker" value="{{ $family->getGroupingProperties()->where("property_id", 6)->first()->value }}">
+																					</div>
+																				@endif
+																			</div>
+																			<div class="col s8 offset-s2 center">
+																				Weaning Weight, kg:
+																				<div class="input-field inline">
+																					<input id="weaning_weight" type="number" name="weaning_weight" min="0.001" max="15.999" step="0.001">
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																	<div class="row center">
+																		<button class="btn waves-effect waves-light green darken-3" type="submit">Submit <i class="material-icons right">send</i>
+													          			</button>
+																	</div>
+																</div> --}}
+												        		{!! Form::close() !!}
 															</td>
 														@else
-															<td>{{ $offspring->getAnimalProperties()->where("property_id", 7)->first()->value }}</td>
+														{{-- with weaning weight --}}
+															{!! Form::open(['route' => 'farm.pig.edit_weaning_weight', 'method' => 'post']) !!}
+															<td>{{ $offspring->getAnimalProperties()->where("property_id", 7)->first()->value }} <a href="#edit_weaning_weight{{$offspring->getChild()->id}}" class="modal-trigger"><i class="material-icons right">edit</i></a></td>
+															{{-- MODAL STRUCTURE --}}
+															{{-- <div id="edit_weaning_weight{{$offspring->getChild()->id}}" class="modal">
+																<div class="modal-content">
+																	<h5 class="center">Edit Weaning Weight of <br><strong>{{ $offspring->getChild()->registryid }}</strong></h5>
+																	<input type="hidden" name="animalid" value="{{ $offspring->getChild()->id }}">
+																	<div class="row center">
+																		<div class="col s8 offset-s2">
+																			<input id="new_weaning_weight" type="number" name="new_weaning_weight" min="0.001" max="15.999" step="0.001">
+																		</div>
+																	</div>
+																</div>
+																<div class="row center">
+																	<button class="btn waves-effect waves-light green darken-3" type="submit">Submit <i class="material-icons right">send</i>
+												          			</button>
+																</div>
+															</div> --}}
+															{!! Form::close() !!}
 														@endif
 													@endif
 												@endif
 											@endif
-											{{-- MODAL STRUCTURE --}}
-											{{-- <div id="weaning_weight_modal{{$offspring->getChild()->id}}" class="modal">
-												<div class="modal-content">
-													<h5 class="center">Weaning Record: <strong>{{ $offspring->getChild()->registryid }}</strong></h5>
-													<input type="hidden" name="offspring_id" value="{{ $offspring->getChild()->id }}">
-													<input type="hidden" name="family_id" value="{{ $family->id }}">
-													<div class="row center">
-														<div class="col s8 offset-s2 center">
-															Date Weaned:
-															@if(is_null($family->getGroupingProperties()->where("property_id", 6)->first()))
-																<div class="input-field inline">
-																	<input id="date_weaned" type="text" name="date_weaned" placeholder="Pick date" class="datepicker">
-																</div>
-															@else
-																<div class="input-field inline">
-																	<input id="date_weaned" type="text" name="date_weaned" class="datepicker" value="{{ $family->getGroupingProperties()->where("property_id", 6)->first()->value }}">
-																</div>
-															@endif
-														</div>
-														<div class="col s8 offset-s2 center">
-															Weaning Weight, kg:
-															<div class="input-field inline">
-																<input id="weaning_weight" type="number" name="weaning_weight" min="0.001" max="15.999" step="0.001">
-															</div>
-														</div>
-													</div>
-												</div>
-												<div class="row center">
-													<button class="btn waves-effect waves-light green darken-3" type="submit">
-								            Submit <i class="material-icons right">send</i>
-								          </button>
-												</div>
-											</div> --}}
-											{!! Form::close() !!}
 										</tr>
 									@empty
 										<tr>
@@ -1508,9 +2006,9 @@
 						<h5 class="green lighten-1">Add offspring</h5>
 						<div class="row">
 							<div class="col s4 push-s2">
-	              <input id="offspring_earnotch" type="text" name="offspring_earnotch" class="validate" data-length="6">
-	              <label for="offspring_earnotch">Offspring Earnotch</label>
-	              <input type="hidden" name="option" value="0">
+								<input id="offspring_earnotch" type="text" name="offspring_earnotch" class="validate" data-length="6">
+								<label for="offspring_earnotch">Offspring Earnotch</label>
+								<input type="hidden" name="option" value="0">
 							</div>
 							<div class="col s4 push-s2">
 								<select id="select_sex" name="sex" class="browser-default">
@@ -1594,92 +2092,192 @@
 													</div>
 												{!! Form::close() !!}
 												<td>{{ round($offspring->getAnimalProperties()->where("property_id", 5)->first()->value, 4) }}</td>
-												{!! Form::open(['route' => 'farm.pig.get_weaning_weights', 'method' => 'post']) !!}
 												@if(is_null($family->getGroupingProperties()->where("property_id", 6)->first()))
+												{{-- no weaning data --}}
 													@if($offspring->getChild()->status == "dead grower" || $offspring->getChild()->status == "sold grower" || $offspring->getChild()->status == "removed grower")
+														{{-- inactive grower --}}
 														<td>
 															<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Inactive grower (dead/sold/removed)" style="vertical-align: middle;">info_outline</i>
 														</td>
 													@else
 														@if(is_null($offspring->getAnimalProperties()->where("property_id", 7)->first()))
+															{{-- no weaning weight yet --}}
 															<td>
+																{{-- 21d+ --}}
+																{!! Form::open(['route' => 'farm.pig.get_weaning_weights', 'method' => 'post']) !!}
 																@if($now->gte(Carbon\Carbon::parse($properties->where("property_id", 3)->first()->value)->addDays(21)))
-																	<a class="btn waves-effect waves-light green darken-3 modal-trigger" href="#weaning_weight_modal{{$offspring->getChild()->id}}">
-												            Add <i class="material-icons right">add</i>
-												          </a>
-												        @else
-												        	<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Disabled until 21 days after date farrowed" style="vertical-align: middle;">info_outline</i>
-												        @endif
+																	<a class="btn waves-effect waves-light green darken-3 modal-trigger" href="#weaning_weight_modal{{$offspring->getChild()->id}}">Add <i class="material-icons right">add</i>
+												          			</a>
+												          		{{-- <21d --}}
+												        		@else
+												        			<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Disabled until 21 days after date farrowed" style="vertical-align: middle;">info_outline</i>
+												        		@endif
+												        		{{-- MODAL STRUCTURE --}}
+																<div id="weaning_weight_modal{{$offspring->getChild()->id}}" class="modal">
+																	<div class="modal-content">
+																		<h5 class="center">Weaning Record: <strong>{{ $offspring->getChild()->registryid }}</strong></h5>
+																		<input type="hidden" name="offspring_id" value="{{ $offspring->getChild()->id }}">
+																		<input type="hidden" name="family_id" value="{{ $family->id }}">
+																		<div class="row center">
+																			<div class="col s8 offset-s2 center">
+																				Date Weaned:
+																				@if(is_null($family->getGroupingProperties()->where("property_id", 6)->first()))
+																					<div class="input-field inline">
+																						<input id="date_weaned" type="text" name="date_weaned" placeholder="Pick date" class="datepicker">
+																					</div>
+																				@else
+																					<div class="input-field inline">
+																						<input id="date_weaned" type="text" name="date_weaned" class="datepicker" value="{{ $family->getGroupingProperties()->where("property_id", 6)->first()->value }}">
+																					</div>
+																				@endif
+																			</div>
+																			<div class="col s8 offset-s2 center">
+																				Weaning Weight, kg:
+																				<div class="input-field inline">
+																					<input id="weaning_weight" type="number" name="weaning_weight" min="0.001" max="15.999" step="0.001">
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																	<div class="row center">
+																		<button class="btn waves-effect waves-light green darken-3" type="submit">Submit <i class="material-icons right">send</i>
+													          			</button>
+																	</div>
+																</div>
+												        		{!! Form::close() !!}
 															</td>
 														@else
-															<td>{{ $offspring->getAnimalProperties()->where("property_id", 7)->first()->value }}</td>
+															{{-- with weaning weight --}}
+															{!! Form::open(['route' => 'farm.pig.edit_weaning_weight', 'method' => 'post']) !!}
+															<td>{{ $offspring->getAnimalProperties()->where("property_id", 7)->first()->value }} <a href="#edit_weaning_weight{{$offspring->getChild()->id}}" class="modal-trigger"><i class="material-icons right">edit</i></a></td>
+															{{-- MODAL STRUCTURE --}}
+															<div id="edit_weaning_weight{{$offspring->getChild()->id}}" class="modal">
+																<div class="modal-content">
+																	<h5 class="center">Edit Weaning Weight of <br><strong>{{ $offspring->getChild()->registryid }}</strong></h5>
+																	<input type="hidden" name="animalid" value="{{ $offspring->getChild()->id }}">
+																	<div class="row center">
+																		<div class="col s8 offset-s2">
+																			<input id="new_weaning_weight" type="number" name="new_weaning_weight" min="0.001" max="15.999" step="0.001">
+																		</div>
+																	</div>
+																</div>
+																<div class="row center">
+																	<button class="btn waves-effect waves-light green darken-3" type="submit">Submit <i class="material-icons right">send</i>
+												          			</button>
+																</div>
+															</div>
+															{!! Form::close() !!}
 														@endif
 													@endif
 												@else
+												{{-- with weaning data --}}
 													@if($family->getGroupingProperties()->where("property_id", 6)->first()->value == "Not specified")
+													{{-- all offsprings dead/sold before weaning --}}
 														<td>
 															<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Inactive grower (dead/sold/removed)" style="vertical-align: middle;">info_outline</i>
 														</td>
 													@else
+													{{-- if at least 1 offspring is alive --}}
 														@if($offspring->getChild()->status == "dead grower" || $offspring->getChild()->status == "sold grower" || $offspring->getChild()->status == "removed grower")
+															{{-- inactive grower --}}
 															@if(is_null($offspring->getAnimalProperties()->where("property_id", 7)->first()))
 																<td>
 																	<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Inactive grower (dead/sold/removed)" style="vertical-align: middle;">info_outline</i>
 																</td>
 															@else
-																<td>{{ $offspring->getAnimalProperties()->where("property_id", 7)->first()->value }}</td>
+															{{-- active with weaning weight--}}
+																{!! Form::open(['route' => 'farm.pig.edit_weaning_weight', 'method' => 'post']) !!}
+																<td>{{ $offspring->getAnimalProperties()->where("property_id", 7)->first()->value }} <a href="#edit_weaning_weight{{$offspring->getChild()->id}}" class="modal-trigger"><i class="material-icons right">edit</i></a></td>
+																{{-- MODAL STRUCTURE --}}
+																<div id="edit_weaning_weight{{$offspring->getChild()->id}}" class="modal">
+																	<div class="modal-content">
+																		<h5 class="center">Edit Weaning Weight of <br><strong>{{ $offspring->getChild()->registryid }}</strong></h5>
+																		<input type="hidden" name="animalid" value="{{ $offspring->getChild()->id }}">
+																		<div class="row center">
+																			<div class="col s8 offset-s2">
+																				<input id="new_weaning_weight" type="number" name="new_weaning_weight" min="0.001" max="15.999" step="0.001">
+																			</div>
+																		</div>
+																	</div>
+																	<div class="row center">
+																		<button class="btn waves-effect waves-light green darken-3" type="submit">Submit <i class="material-icons right">send</i>
+													          			</button>
+																	</div>
+																</div>
+																{!! Form::close() !!}
 															@endif
 														@else
+															{{-- no weaning weight yet --}}
 															@if(is_null($offspring->getAnimalProperties()->where("property_id", 7)->first()))
 																<td>
+																	{{-- 21d+ --}}
+																	{!! Form::open(['route' => 'farm.pig.get_weaning_weights', 'method' => 'post']) !!}
 																	@if($now->gte(Carbon\Carbon::parse($properties->where("property_id", 3)->first()->value)->addDays(21)))
-																		<a class="btn waves-effect waves-light green darken-3 modal-trigger" href="#weaning_weight_modal{{$offspring->getChild()->id}}">
-													            Add <i class="material-icons right">add</i>
-													          </a>
-													        @else
-													        	<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Disabled until 21 days after date farrowed" style="vertical-align: middle;">info_outline</i>
-													        @endif
+																		<a class="btn waves-effect waves-light green darken-3 modal-trigger" href="#weaning_weight_modal{{$offspring->getChild()->id}}">Add <i class="material-icons right">add</i>
+													          			</a>
+													          		{{-- <21d --}}
+													        		@else
+													        			<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Disabled until 21 days after date farrowed" style="vertical-align: middle;">info_outline</i>
+													        		@endif
+													        		{{-- MODAL STRUCTURE --}}
+																	<div id="weaning_weight_modal{{$offspring->getChild()->id}}" class="modal">
+																		<div class="modal-content">
+																			<h5 class="center">Weaning Record: <strong>{{ $offspring->getChild()->registryid }}</strong></h5>
+																			<input type="hidden" name="offspring_id" value="{{ $offspring->getChild()->id }}">
+																			<input type="hidden" name="family_id" value="{{ $family->id }}">
+																			<div class="row center">
+																				<div class="col s8 offset-s2 center">
+																					Date Weaned:
+																					@if(is_null($family->getGroupingProperties()->where("property_id", 6)->first()))
+																						<div class="input-field inline">
+																							<input id="date_weaned" type="text" name="date_weaned" placeholder="Pick date" class="datepicker">
+																						</div>
+																					@else
+																						<div class="input-field inline">
+																							<input id="date_weaned" type="text" name="date_weaned" class="datepicker" value="{{ $family->getGroupingProperties()->where("property_id", 6)->first()->value }}">
+																						</div>
+																					@endif
+																				</div>
+																				<div class="col s8 offset-s2 center">
+																					Weaning Weight, kg:
+																					<div class="input-field inline">
+																						<input id="weaning_weight" type="number" name="weaning_weight" min="0.001" max="15.999" step="0.001">
+																					</div>
+																				</div>
+																			</div>
+																		</div>
+																		<div class="row center">
+																			<button class="btn waves-effect waves-light green darken-3" type="submit">Submit <i class="material-icons right">send</i>
+														          			</button>
+																		</div>
+																	</div>
+													        		{!! Form::close() !!}
 																</td>
 															@else
-																<td>{{ $offspring->getAnimalProperties()->where("property_id", 7)->first()->value }}</td>
+															{{-- with weaning weight --}}
+																{!! Form::open(['route' => 'farm.pig.edit_weaning_weight', 'method' => 'post']) !!}
+																<td>{{ $offspring->getAnimalProperties()->where("property_id", 7)->first()->value }} <a href="#edit_weaning_weight{{$offspring->getChild()->id}}" class="modal-trigger"><i class="material-icons right">edit</i></a></td>
+																{{-- MODAL STRUCTURE --}}
+																<div id="edit_weaning_weight{{$offspring->getChild()->id}}" class="modal">
+																	<div class="modal-content">
+																		<h5 class="center">Edit Weaning Weight of <br><strong>{{ $offspring->getChild()->registryid }}</strong></h5>
+																		<input type="hidden" name="animalid" value="{{ $offspring->getChild()->id }}">
+																		<div class="row center">
+																			<div class="col s8 offset-s2">
+																				<input id="new_weaning_weight" type="number" name="new_weaning_weight" min="0.001" max="15.999" step="0.001">
+																			</div>
+																		</div>
+																	</div>
+																	<div class="row center">
+																		<button class="btn waves-effect waves-light green darken-3" type="submit">Submit <i class="material-icons right">send</i>
+													          			</button>
+																	</div>
+																</div>
+																{!! Form::close() !!}
 															@endif
 														@endif
 													@endif
 												@endif
-												{{-- MODAL STRUCTURE --}}
-												<div id="weaning_weight_modal{{$offspring->getChild()->id}}" class="modal">
-													<div class="modal-content">
-														<h5 class="center">Weaning Record: <strong>{{ $offspring->getChild()->registryid }}</strong></h5>
-														<input type="hidden" name="offspring_id" value="{{ $offspring->getChild()->id }}">
-														<input type="hidden" name="family_id" value="{{ $family->id }}">
-														<div class="row center">
-															<div class="col s8 offset-s2 center">
-																Date Weaned:
-																@if(is_null($family->getGroupingProperties()->where("property_id", 6)->first()))
-																	<div class="input-field inline">
-																		<input id="date_weaned" type="text" name="date_weaned" placeholder="Pick date" class="datepicker">
-																	</div>
-																@else
-																	<div class="input-field inline">
-																		<input id="date_weaned" type="text" name="date_weaned" class="datepicker" value="{{ $family->getGroupingProperties()->where("property_id", 6)->first()->value }}">
-																	</div>
-																@endif
-															</div>
-															<div class="col s8 offset-s2 center">
-																Weaning Weight, kg:
-																<div class="input-field inline">
-																	<input id="weaning_weight" type="number" name="weaning_weight" min="0.001" max="15.999" step="0.001">
-																</div>
-															</div>
-														</div>
-													</div>
-													<div class="row center">
-														<button class="btn waves-effect waves-light green darken-3" type="submit">
-									            Submit <i class="material-icons right">send</i>
-									          </button>
-													</div>
-												</div>
-												{!! Form::close() !!}
 											</tr>
 										@empty
 											<tr>
@@ -1713,7 +2311,17 @@
 			min: new Date(<?php echo Carbon\Carbon::parse($family->getGroupingProperties()->where("property_id", 42)->first()->value)->addDays(109)->format('Y') ?>, <?php echo Carbon\Carbon::parse($family->getGroupingProperties()->where("property_id", 42)->first()->value)->addDays(109)->format('m')-1 ?>, <?php echo Carbon\Carbon::parse($family->getGroupingProperties()->where("property_id", 42)->first()->value)->addDays(109)->format('d') ?>),
 			max: new Date()
 		});
+		$("#datefarrowed").pickadate({
+			format: 'yyyy-mm-dd',
+			min: new Date(<?php echo Carbon\Carbon::parse($family->getGroupingProperties()->where("property_id", 42)->first()->value)->addDays(109)->format('Y') ?>, <?php echo Carbon\Carbon::parse($family->getGroupingProperties()->where("property_id", 42)->first()->value)->addDays(109)->format('m')-1 ?>, <?php echo Carbon\Carbon::parse($family->getGroupingProperties()->where("property_id", 42)->first()->value)->addDays(109)->format('d') ?>),
+			max: new Date()
+		});
 		$("#date_weaned").pickadate({
+			format: 'yyyy-mm-dd',
+			min: new Date(<?php echo Carbon\Carbon::parse($family->getGroupingProperties()->where("property_id", 42)->first()->value)->addDays(130)->format('Y') ?>, <?php echo Carbon\Carbon::parse($family->getGroupingProperties()->where("property_id", 42)->first()->value)->addDays(130)->format('m')-1 ?>, <?php echo Carbon\Carbon::parse($family->getGroupingProperties()->where("property_id", 42)->first()->value)->addDays(130)->format('d') ?>),
+			max: new Date()
+		});
+		$("#dateweaned").pickadate({
 			format: 'yyyy-mm-dd',
 			min: new Date(<?php echo Carbon\Carbon::parse($family->getGroupingProperties()->where("property_id", 42)->first()->value)->addDays(130)->format('Y') ?>, <?php echo Carbon\Carbon::parse($family->getGroupingProperties()->where("property_id", 42)->first()->value)->addDays(130)->format('m')-1 ?>, <?php echo Carbon\Carbon::parse($family->getGroupingProperties()->where("property_id", 42)->first()->value)->addDays(130)->format('d') ?>),
 			max: new Date()
@@ -1729,9 +2337,45 @@
 		  max: new Date()
 		});
 		$(document).ready(function(){
-      $('.fixed-action-btn').floatingActionButton();
-    });
+	      $('.fixed-action-btn').floatingActionButton();
+	    });
 		$(document).ready(function(){
+		  $("#datefarrowed").change(function (event) {
+		    event.preventDefault();
+		    var familyidvalue = $('input[name=grouping_id]').val();
+		    var datefarrowedvalue = $('input[name=date_farrowed]').val();
+		    $.ajax({
+		    	headers: {
+          	'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+		      url: '../fetch_date_farrowed/'+familyidvalue+'/'+datefarrowedvalue,
+		      type: 'POST',
+		      cache: false,
+		      data: {familyidvalue, datefarrowedvalue},
+		      success: function(data)
+		      {
+		        Materialize.toast('Date Farrowed successfully added!', 4000);
+		      }
+		    });
+		  });
+		  $("#dateweaned").change(function (event) {
+		    event.preventDefault();
+		    var familyidvalue = $('input[name=grouping_id]').val();
+		    var dateweanedvalue = $('input[name=date_weaned]').val();
+		    $.ajax({
+		    	headers: {
+          	'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+		      url: '../fetch_date_weaned/'+familyidvalue+'/'+dateweanedvalue,
+		      type: 'POST',
+		      cache: false,
+		      data: {familyidvalue, dateweanedvalue},
+		      success: function(data)
+		      {
+		        Materialize.toast('Date Weaned successfully added!', 4000);
+		      }
+		    });
+		  });
 		  $("#paritytext").change(function (event) {
 		    event.preventDefault();
 		    var familyidvalue = $('input[name=grouping_id]').val();

@@ -59,6 +59,8 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('change_status_pregnant/{id}', ['as' => 'farm.pig.change_status_pregnant', 'uses' => 'FarmController@changeStatusFromPregnant']);
     Route::post('add_date_aborted', ['as' => 'farm.pig.add_date_aborted', 'uses' => 'FarmController@addDateAborted']);
     Route::get('sowlitter_record/{id}', ['as' => 'farm.pig.sowlitter_record', 'uses' => 'FarmController@getAddSowLitterRecordPage']);
+    Route::post('fetch_date_farrowed/{id}/{datefarrowed}', ['as' => 'farm.pig.fetch_date_farrowed', 'uses' => 'FarmController@fetchDateFarrowedAjax']);
+    Route::post('fetch_date_weaned/{id}/{dateweaned}', ['as' => 'farm.pig.fetch_date_weaned', 'uses' => 'FarmController@fetchDateWeanedAjax']);
     Route::post('fetch_parity/{id}/{parity}', ['as' => 'farm.pig.fetch_parity', 'uses' => 'FarmController@fetchParityAjax']);
     Route::post('fetch_stillborn/{id}/{stillborn}', ['as' => 'farm.pig.fetch_stillborn', 'uses' => 'FarmController@fetchStillbornAjax']);
     Route::post('fetch_mummified/{id}/{mummified}', ['as' => 'farm.pig.fetch_mummified', 'uses' => 'FarmController@fetchMummifiedAjax']);
@@ -71,6 +73,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('edit_birth_weight', ['as' => 'farm.pig.edit_birth_weight', 'uses' => 'FarmController@editBirthWeight']);
     Route::post('edit_temporary_registryid', ['as' => 'farm.pig.edit_temporary_registryid', 'uses' => 'FarmController@editTemporaryRegistryId']);
     Route::post('get_weaning_weights', ['as' => 'farm.pig.get_weaning_weights', 'uses' => 'FarmController@addWeaningWeights']);
+    Route::post('edit_weaning_weight', ['as' => 'farm.pig.edit_weaning_weight', 'uses' => 'FarmController@editWeaningWeight']);
     Route::get('grower_records', ['as' => 'farm.pig.grower_records', 'uses' => 'FarmController@getGrowerRecordsPage']);
     Route::post('fetch_breeders/{id}', ['as' => 'farm.pig.fetch_breeders', 'uses' => 'FarmController@fetchBreedersAjax']);
     Route::post('change_earnotch_sow', ['as' => 'farm.pig.change_earnotch_sow', 'uses' => 'FarmController@changeEarnotchSow']);

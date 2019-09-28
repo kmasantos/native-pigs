@@ -1058,6 +1058,60 @@ class FarmController extends Controller
 			return view('pigs.pedigree', compact('animal', 'registrationid', 'user', 'breed', 'sex', 'birthday', 'birthweight', 'group', 'malelitters', 'femalelitters', 'groupingmembers', 'parity', 'father_registryid', 'father_birthday', 'father_birthweight', 'father_group', 'father_malelitters', 'father_femalelitters', 'father_groupingmembers', 'father_parity', 'father_grandfather_registryid', 'father_grandfather_birthday', 'father_grandfather_birthweight', 'father_grandfather_group', 'father_grandfather_malelitters', 'father_grandfather_femalelitters', 'father_grandfather_groupingmembers', 'father_grandfather_parity', 'father_grandfather_greatgrandfather_registryid', 'father_grandfather_greatgrandfather_birthday', 'father_grandfather_greatgrandfather_birthweight', 'father_grandfather_greatgrandmother_registryid', 'father_grandfather_greatgrandmother_birthday', 'father_grandfather_greatgrandmother_birthweight', 'father_grandmother_registryid', 'father_grandmother_birthday', 'father_grandmother_birthweight', 'father_grandmother_group', 'father_grandmother_malelitters', 'father_grandmother_femalelitters', 'father_grandmother_groupingmembers', 'father_grandmother_parity', 'father_grandmother_greatgrandfather_registryid', 'father_grandmother_greatgrandfather_birthday', 'father_grandmother_greatgrandfather_birthweight', 'father_grandmother_greatgrandmother_registryid', 'father_grandmother_greatgrandmother_birthday', 'father_grandmother_greatgrandmother_birthweight', 'mother_registryid', 'mother_birthday', 'mother_birthweight', 'mother_group', 'mother_malelitters', 'mother_femalelitters', 'mother_groupingmembers', 'mother_parity', 'mother_grandfather_registryid', 'mother_grandfather_birthday', 'mother_grandfather_birthweight', 'mother_grandfather_group', 'mother_grandfather_malelitters', 'mother_grandfather_femalelitters', 'mother_grandfather_groupingmembers', 'mother_grandfather_parity', 'mother_grandfather_greatgrandfather_registryid', 'mother_grandfather_greatgrandfather_birthday', 'mother_grandfather_greatgrandfather_birthweight', 'mother_grandfather_greatgrandmother_registryid', 'mother_grandfather_greatgrandmother_birthday', 'mother_grandfather_greatgrandmother_birthweight', 'mother_grandmother_registryid', 'mother_grandmother_birthday', 'mother_grandmother_birthweight', 'mother_grandmother_group', 'mother_grandmother_malelitters', 'mother_grandmother_femalelitters', 'mother_grandmother_groupingmembers', 'mother_grandmother_parity', 'mother_grandmother_greatgrandfather_registryid', 'mother_grandmother_greatgrandfather_birthday', 'mother_grandmother_greatgrandfather_birthweight', 'mother_grandmother_greatgrandmother_registryid', 'mother_grandmother_greatgrandmother_birthday', 'mother_grandmother_greatgrandmother_birthweight', 'found_pigs'));
 		}
 
+		public function fetchDateFarrowedAjax($familyidvalue, $datefarrowedvalue){
+			$farm = $this->user->getFarm();
+			$breed = $farm->getBreed();
+			$grouping = Grouping::find($familyidvalue);
+			$datefarrowedgroupprop = $grouping->getGroupingProperties()->where("property_id", 3)->first();
+
+			$formatted_date = Carbon::parse($datefarrowedvalue)->format('Y-m-d');
+
+			$datefarrowedgroupprop->value = $formatted_date;
+			$datefarrowedgroupprop->save();
+
+			$offsprings = $grouping->getGroupingMembers();
+
+			foreach ($offsprings as $offspring) {
+				$datefarrowedindprop = $offspring->getAnimalProperties()->where("property_id", 3)->first();
+
+				$datefarrowedindprop->value = $formatted_date;
+				$datefarrowedindprop->save();
+
+				$earnotchprop = $offspring->getAnimalProperties()->where("property_id", 1)->first();
+				$sexprop = $offspring->getAnimalProperties()->where("property_id", 2)->first();
+				$registryidprop = $offspring->getAnimalProperties()->where("property_id", 4)->first();
+
+				$year = Carbon::parse($datefarrowedvalue)->format('Y');
+				$registryid = $farm->code.$breed->breed."-".$year.$sexprop->value.$earnotchprop->value;
+
+				$registryidprop->value = $registryid;
+				$registryidprop->save();
+				
+				$actual_offspring = $offspring->getChild();
+				$actual_offspring->registryid = $registryid;
+				$actual_offspring->save();
+			}
+		}
+
+		public function fetchDateWeanedAjax($familyidvalue, $dateweanedvalue){
+			$grouping = Grouping::find($familyidvalue);
+			$dateweanedgroupprop = $grouping->getGroupingProperties()->where("property_id", 6)->first();
+
+			$formatted_date = Carbon::parse($dateweanedvalue)->format('Y-m-d');
+
+			$dateweanedgroupprop->value = $formatted_date;
+			$dateweanedgroupprop->save();
+
+			$offsprings = $grouping->getGroupingMembers();
+
+			foreach ($offsprings as $offspring) {
+				$dateweanedindprop = $offspring->getAnimalProperties()->where("property_id", 6)->first();
+
+				$dateweanedindprop->value = $formatted_date;
+				$dateweanedindprop->save();
+			}
+		}
+
 		public function fetchParityAjax($familyidvalue, $parityvalue){ // function to save parity onchange
 			$grouping = Grouping::find($familyidvalue);
 			$paritypropgroup = $grouping->getGroupingProperties()->where("property_id", 48)->first();
@@ -15111,7 +15165,7 @@ class FarmController extends Controller
 
 			if(!in_array("1", $conflict, false)){
 				// adds new offspring
-				$birthdayValue = new Carbon($request->date_farrowed);
+				$birthdayValue = Carbon::parse($request->date_farrowed)->format('Y-m-d');
 				if(!is_null($request->offspring_earnotch) && !is_null($request->sex) && !is_null($request->birth_weight)){
 					$offspring = new Animal;
 					$farm = $this->user->getFarm();
@@ -15120,7 +15174,7 @@ class FarmController extends Controller
 					$offspring->farm_id = $farm->id;
 					$offspring->breed_id = $breed->id;
 					$offspring->status = "active";
-					$registryid = $farm->code.$breed->breed."-".$birthdayValue->year.$request->sex.$earnotch;
+					$registryid = $farm->code.$breed->breed."-".Carbon::parse($request->date_farrowed)->format('Y').$request->sex.$earnotch;
 					$offspring->registryid = $registryid;
 					$offspring->save();
 
@@ -15139,7 +15193,7 @@ class FarmController extends Controller
 					$birthday = new AnimalProperty;
 					$birthday->animal_id = $offspring->id;
 					$birthday->property_id = 3;
-					$birthday->value = $request->date_farrowed;
+					$birthday->value = Carbon::parse($request->date_farrowed)->format('Y-m-d');
 					$birthday->save();
 
 					$registrationidproperty = new AnimalProperty;
@@ -15167,11 +15221,11 @@ class FarmController extends Controller
 				$date_farrowed = new GroupingProperty;
 				$date_farrowed->grouping_id = $grouping->id;
 				$date_farrowed->property_id = 3;
-				$date_farrowed->value = $request->date_farrowed;
+				$date_farrowed->value = Carbon::parse($request->date_farrowed)->format('Y-m-d');
 				$date_farrowed->save();
 			}
 			else{
-				$datefarrowedgroupprop->value = $request->date_farrowed;
+				$datefarrowedgroupprop->value = Carbon::parse($request->date_farrowed)->format('Y-m-d');
 				$datefarrowedgroupprop->save();
 			}
 
@@ -15332,7 +15386,7 @@ class FarmController extends Controller
 				$earnotch = str_pad($temp_earnotch, 6, "0", STR_PAD_LEFT);
 			}
 			// adds new offspring
-			$birthdayValue = new Carbon($request->date_farrowed);
+			$birthdayValue = Carbon::parse($request->date_farrowed)->format('Y-m-d');
 			if(!is_null($request->offspring_earnotch) && !is_null($request->sex) && !is_null($request->birth_weight)){
 				$offspring = new Animal;
 				$farm = $this->user->getFarm();
@@ -15341,7 +15395,7 @@ class FarmController extends Controller
 				$offspring->farm_id = $farm->id;
 				$offspring->breed_id = $breed->id;
 				$offspring->status = "active";
-				$registryid = $farm->code.$breed->breed."-".$birthdayValue->year.$request->sex.$earnotch;
+				$registryid = $farm->code.$breed->breed."-".Carbon::parse($request->date_farrowed)->format('Y').$request->sex.$earnotch;
 				$offspring->registryid = $registryid;
 				$offspring->save();
 
@@ -15360,7 +15414,7 @@ class FarmController extends Controller
 				$birthday = new AnimalProperty;
 				$birthday->animal_id = $offspring->id;
 				$birthday->property_id = 3;
-				$birthday->value = $request->date_farrowed;
+				$birthday->value = Carbon::parse($request->date_farrowed)->format('Y-m-d');
 				$birthday->save();
 
 				$registrationidproperty = new AnimalProperty;
@@ -15387,7 +15441,7 @@ class FarmController extends Controller
 				$date_farrowed = new GroupingProperty;
 				$date_farrowed->grouping_id = $grouping->id;
 				$date_farrowed->property_id = 3;
-				$date_farrowed->value = $request->date_farrowed;
+				$date_farrowed->value = Carbon::parse($request->date_farrowed)->format('Y-m-d');
 				$date_farrowed->save();
 			}
 			else{
@@ -15546,7 +15600,7 @@ class FarmController extends Controller
 			$members = $grouping->getGroupingMembers();
 
 			// adds new offspring
-			$birthdayValue = new Carbon($request->date_farrowed);
+			$birthdayValue = Carbon::parse($request->date_farrowed)->format('Y-m-d');
 			$litterbirthweightprop = $grouping->getGroupingProperties()->where("property_id", 55)->first();
 			if(is_null($litterbirthweightprop)){
 				$litter_birth_weight = new GroupingProperty;
@@ -15581,13 +15635,13 @@ class FarmController extends Controller
 				$offspring->farm_id = $farm->id;
 				$offspring->breed_id = $breed->id;
 				$offspring->status = "temporary";
-				$offspring->registryid = $farm->code.$breed->breed."-".$birthdayValue->year.$request->sex.$request->offspring_earnotch;
+				$offspring->registryid = $farm->code.$breed->breed."-".Carbon::parse($request->date_farrowed)->format('Y').$request->sex.$request->offspring_earnotch;
 				$offspring->save();
 
 				$birthday = new AnimalProperty;
 				$birthday->animal_id = $offspring->id;
 				$birthday->property_id = 3;
-				$birthday->value = $request->date_farrowed;
+				$birthday->value = Carbon::parse($request->date_farrowed)->format('Y-m-d');
 				$birthday->save();
 
 				$sex = new AnimalProperty;
@@ -15617,11 +15671,11 @@ class FarmController extends Controller
 				$date_farrowed = new GroupingProperty;
 				$date_farrowed->grouping_id = $grouping->id;
 				$date_farrowed->property_id = 3;
-				$date_farrowed->value = $request->date_farrowed;
+				$date_farrowed->value = Carbon::parse($request->date_farrowed)->format('Y-m-d');
 				$date_farrowed->save();
 			}
 			else{
-				$datefarrowedgroupprop->value = $request->date_farrowed;
+				$datefarrowedgroupprop->value = Carbon::parse($request->date_farrowed)->format('Y-m-d');
 				$datefarrowedgroupprop->save();
 			}
 
@@ -15852,6 +15906,18 @@ class FarmController extends Controller
 
 			$bweight->value = $bweightValue;
 			$bweight->save();
+
+			return Redirect::back()->with('message', 'Operation Successful!');
+		}
+
+		public function editWeaningWeight(Request $request){
+			$offspring = Animal::find($request->animalid);
+
+			$wweight = $offspring->getAnimalProperties()->where("property_id", 7)->first();
+			$wweightValue = $request->new_weaning_weight;
+
+			$wweight->value = $wweightValue;
+			$wweight->save();
 
 			return Redirect::back()->with('message', 'Operation Successful!');
 		}

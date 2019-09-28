@@ -121,13 +121,13 @@
           </li>
         </ul>
       </li>
-      <li class="no-padding">
+      {{-- <li class="no-padding">
         <ul>
           <li>
             <a href="{{route('farm.pig.downloadable_files')}}" class="collapsible-header"><i class="fas fa-download"></i>Downloadable Files</a>
           </li>
         </ul>
-      </li>
+      </li> --}}
       <li class="no-padding">
       	<ul>
       		<li>

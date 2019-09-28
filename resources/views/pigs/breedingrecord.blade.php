@@ -42,14 +42,26 @@
 			      				<td width="120">{{ $group->getGroupingProperties()->where("property_id", 60)->first()->value }}</td>
 		      					{{-- bred --}}
 										@if($group->getGroupingProperties()->where("property_id", 60)->first()->value == "Bred")
-											<td>
-												<i class="material-icons">favorite_border</i>
-											</td>
+											@if($group->getMother()->status == "dead breeder" || $group->getMother()->status == "sold breeder" || $group->getMother()->status == "removed breeder")
+												<td>
+													<i class="material-icons tooltipped" data-position="top" data-tooltip="Sow inactive">clear</i>
+												</td>
+											@else
+												<td>
+													<i class="material-icons">favorite_border</i>
+												</td>
+											@endif
 										{{-- pregnant --}}
 										@elseif($group->getGroupingProperties()->where("property_id", 60)->first()->value == "Pregnant")
-											<td>
-												<a href="{{ URL::route('farm.pig.sowlitter_record', [$group->id]) }}" class="tooltipped" data-position="top" data-tooltip="Add Sow & Litter Record"><i class="material-icons">add_circle_outline</i></a>
-											</td>
+											@if($group->getMother()->status == "dead breeder" || $group->getMother()->status == "sold breeder" || $group->getMother()->status == "removed breeder")
+												<td>
+													<i class="material-icons tooltipped" data-position="top" data-tooltip="Sow inactive">clear</i>
+												</td>
+											@else
+												<td>
+													<a href="{{ URL::route('farm.pig.sowlitter_record', [$group->id]) }}" class="tooltipped" data-position="top" data-tooltip="Add Sow & Litter Record"><i class="material-icons">add_circle_outline</i></a>
+												</td>
+											@endif
 										{{-- farrowed --}}
 										@elseif($group->getGroupingProperties()->where("property_id", 60)->first()->value == "Farrowed")
 											<td>
@@ -228,14 +240,26 @@
 										@else
 											{{-- bred --}}
 											@if($breedingRecord->getGroupingProperties()->where("property_id", 60)->first()->value == "Bred")
-												<td>
-													<i class="material-icons">favorite_border</i>
-												</td>
+												@if($breedingRecord->getMother()->status == "dead breeder" || $breedingRecord->getMother()->status == "sold breeder" || $breedingRecord->getMother()->status == "removed breeder")
+													<td>
+														<i class="material-icons tooltipped" data-position="top" data-tooltip="Sow inactive">clear</i>
+													</td>
+												@else
+													<td>
+														<i class="material-icons">favorite_border</i>
+													</td>
+												@endif
 											{{-- pregnant --}}
 											@elseif($breedingRecord->getGroupingProperties()->where("property_id", 60)->first()->value == "Pregnant")
-												<td>
-													<a href="{{ URL::route('farm.pig.sowlitter_record', [$breedingRecord->id]) }}" class="tooltipped" data-position="top" data-tooltip="Add Sow & Litter Record"><i class="material-icons">add_circle_outline</i></a>
-												</td>
+												@if($breedingRecord->getMother()->status == "dead breeder" || $breedingRecord->getMother()->status == "sold breeder" || $breedingRecord->getMother()->status == "removed breeder")
+													<td>
+														<i class="material-icons tooltipped" data-position="top" data-tooltip="Sow inactive">clear</i>
+													</td>
+												@else
+													<td>
+														<a href="{{ URL::route('farm.pig.sowlitter_record', [$breedingRecord->id]) }}" class="tooltipped" data-position="top" data-tooltip="Add Sow & Litter Record"><i class="material-icons">add_circle_outline</i></a>
+													</td>
+												@endif
 											{{-- farrowed --}}
 											@elseif($breedingRecord->getGroupingProperties()->where("property_id", 60)->first()->value == "Farrowed")
 												<td>
