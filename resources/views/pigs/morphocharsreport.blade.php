@@ -239,6 +239,18 @@
                   <td colspan="6">No data available</td>
                 </tr>
               @endforelse
+              <tr>
+                <td>No Year</td>
+                <td>{{ count(App\Http\Controllers\FarmController::getMorphometricCharacteristicsWithoutYearOfBirth(22, $filter)) }}</td>
+                  @if(App\Http\Controllers\FarmController::getMorphometricCharacteristicsWithoutYearOfBirth(22, $filter) == [])
+                    <td colspan="4" class="center">No data available</td>
+                  @else
+                    <td>{{ min(App\Http\Controllers\FarmController::getMorphometricCharacteristicsWithoutYearOfBirth(22, $filter)) }}</td>
+                    <td>{{ max(App\Http\Controllers\FarmController::getMorphometricCharacteristicsWithoutYearOfBirth(22, $filter)) }}</td>
+                    <td>{{ round(array_sum(App\Http\Controllers\FarmController::getMorphometricCharacteristicsWithoutYearOfBirth(22, $filter))/count(App\Http\Controllers\FarmController::getMorphometricCharacteristicsWithoutYearOfBirth(22, $filter)), 2) }}</td>
+                    <td>{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getMorphometricCharacteristicsWithoutYearOfBirth(22, $filter), false), 2) }}</td>
+                  @endif
+              </tr>
             </tbody>
           </table>
         </div>
@@ -274,6 +286,18 @@
                   <td colspan="6">No data available</td>
                 </tr>
               @endforelse
+              <tr>
+                <td>No Year</td>
+                <td>{{ count(App\Http\Controllers\FarmController::getMorphometricCharacteristicsWithoutYearOfBirth(23, $filter)) }}</td>
+                  @if(App\Http\Controllers\FarmController::getMorphometricCharacteristicsWithoutYearOfBirth(23, $filter) == [])
+                    <td colspan="4" class="center">No data available</td>
+                  @else
+                    <td>{{ min(App\Http\Controllers\FarmController::getMorphometricCharacteristicsWithoutYearOfBirth(23, $filter)) }}</td>
+                    <td>{{ max(App\Http\Controllers\FarmController::getMorphometricCharacteristicsWithoutYearOfBirth(23, $filter)) }}</td>
+                    <td>{{ round(array_sum(App\Http\Controllers\FarmController::getMorphometricCharacteristicsWithoutYearOfBirth(23, $filter))/count(App\Http\Controllers\FarmController::getMorphometricCharacteristicsWithoutYearOfBirth(23, $filter)), 2) }}</td>
+                    <td>{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getMorphometricCharacteristicsWithoutYearOfBirth(23, $filter), false), 2) }}</td>
+                  @endif
+              </tr>
             </tbody>
           </table>
         </div>
@@ -309,6 +333,18 @@
                   <td colspan="6">No data available</td>
                 </tr>
               @endforelse
+              <tr>
+                <td>No Year</td>
+                <td>{{ count(App\Http\Controllers\FarmController::getMorphometricCharacteristicsWithoutYearOfBirth(24, $filter)) }}</td>
+                  @if(App\Http\Controllers\FarmController::getMorphometricCharacteristicsWithoutYearOfBirth(24, $filter) == [])
+                    <td colspan="4" class="center">No data available</td>
+                  @else
+                    <td>{{ min(App\Http\Controllers\FarmController::getMorphometricCharacteristicsWithoutYearOfBirth(24, $filter)) }}</td>
+                    <td>{{ max(App\Http\Controllers\FarmController::getMorphometricCharacteristicsWithoutYearOfBirth(24, $filter)) }}</td>
+                    <td>{{ round(array_sum(App\Http\Controllers\FarmController::getMorphometricCharacteristicsWithoutYearOfBirth(24, $filter))/count(App\Http\Controllers\FarmController::getMorphometricCharacteristicsWithoutYearOfBirth(24, $filter)), 2) }}</td>
+                    <td>{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getMorphometricCharacteristicsWithoutYearOfBirth(24, $filter), false), 2) }}</td>
+                  @endif
+              </tr>
             </tbody>
           </table>
         </div>
@@ -344,6 +380,18 @@
                   <td colspan="6">No data available</td>
                 </tr>
               @endforelse
+              <tr>
+                <td>No Year</td>
+                <td>{{ count(App\Http\Controllers\FarmController::getMorphometricCharacteristicsWithoutYearOfBirth(25, $filter)) }}</td>
+                  @if(App\Http\Controllers\FarmController::getMorphometricCharacteristicsWithoutYearOfBirth(25, $filter) == [])
+                    <td colspan="4" class="center">No data available</td>
+                  @else
+                    <td>{{ min(App\Http\Controllers\FarmController::getMorphometricCharacteristicsWithoutYearOfBirth(25, $filter)) }}</td>
+                    <td>{{ max(App\Http\Controllers\FarmController::getMorphometricCharacteristicsWithoutYearOfBirth(25, $filter)) }}</td>
+                    <td>{{ round(array_sum(App\Http\Controllers\FarmController::getMorphometricCharacteristicsWithoutYearOfBirth(25, $filter))/count(App\Http\Controllers\FarmController::getMorphometricCharacteristicsWithoutYearOfBirth(25, $filter)), 2) }}</td>
+                    <td>{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getMorphometricCharacteristicsWithoutYearOfBirth(25, $filter), false), 2) }}</td>
+                  @endif
+              </tr>
             </tbody>
           </table>
         </div>
@@ -379,6 +427,18 @@
                   <td colspan="6">No data available</td>
                 </tr>
               @endforelse
+              <tr>
+                <td>No Year</td>
+                <td>{{ count(App\Http\Controllers\FarmController::getMorphometricCharacteristicsWithoutYearOfBirth(26, $filter)) }}</td>
+                  @if(App\Http\Controllers\FarmController::getMorphometricCharacteristicsWithoutYearOfBirth(26, $filter) == [])
+                    <td colspan="4" class="center">No data available</td>
+                  @else
+                    <td>{{ min(App\Http\Controllers\FarmController::getMorphometricCharacteristicsWithoutYearOfBirth(26, $filter)) }}</td>
+                    <td>{{ max(App\Http\Controllers\FarmController::getMorphometricCharacteristicsWithoutYearOfBirth(26, $filter)) }}</td>
+                    <td>{{ round(array_sum(App\Http\Controllers\FarmController::getMorphometricCharacteristicsWithoutYearOfBirth(26, $filter))/count(App\Http\Controllers\FarmController::getMorphometricCharacteristicsWithoutYearOfBirth(26, $filter)), 2) }}</td>
+                    <td>{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getMorphometricCharacteristicsWithoutYearOfBirth(26, $filter), false), 2) }}</td>
+                  @endif
+              </tr>
             </tbody>
           </table>
         </div>
@@ -414,6 +474,18 @@
                   <td colspan="6">No data available</td>
                 </tr>
               @endforelse
+              <tr>
+                <td>No Year</td>
+                <td>{{ count(App\Http\Controllers\FarmController::getMorphometricCharacteristicsWithoutYearOfBirth(27, $filter)) }}</td>
+                  @if(App\Http\Controllers\FarmController::getMorphometricCharacteristicsWithoutYearOfBirth(27, $filter) == [])
+                    <td colspan="4" class="center">No data available</td>
+                  @else
+                    <td>{{ min(App\Http\Controllers\FarmController::getMorphometricCharacteristicsWithoutYearOfBirth(27, $filter)) }}</td>
+                    <td>{{ max(App\Http\Controllers\FarmController::getMorphometricCharacteristicsWithoutYearOfBirth(27, $filter)) }}</td>
+                    <td>{{ round(array_sum(App\Http\Controllers\FarmController::getMorphometricCharacteristicsWithoutYearOfBirth(27, $filter))/count(App\Http\Controllers\FarmController::getMorphometricCharacteristicsWithoutYearOfBirth(27, $filter)), 2) }}</td>
+                    <td>{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getMorphometricCharacteristicsWithoutYearOfBirth(27, $filter), false), 2) }}</td>
+                  @endif
+              </tr>
             </tbody>
           </table>
         </div>
@@ -449,6 +521,18 @@
                   <td colspan="6">No data available</td>
                 </tr>
               @endforelse
+              <tr>
+                <td>No Year</td>
+                <td>{{ count(App\Http\Controllers\FarmController::getMorphometricCharacteristicsWithoutYearOfBirth(28, $filter)) }}</td>
+                  @if(App\Http\Controllers\FarmController::getMorphometricCharacteristicsWithoutYearOfBirth(28, $filter) == [])
+                    <td colspan="4" class="center">No data available</td>
+                  @else
+                    <td>{{ min(App\Http\Controllers\FarmController::getMorphometricCharacteristicsWithoutYearOfBirth(28, $filter)) }}</td>
+                    <td>{{ max(App\Http\Controllers\FarmController::getMorphometricCharacteristicsWithoutYearOfBirth(28, $filter)) }}</td>
+                    <td>{{ round(array_sum(App\Http\Controllers\FarmController::getMorphometricCharacteristicsWithoutYearOfBirth(28, $filter))/count(App\Http\Controllers\FarmController::getMorphometricCharacteristicsWithoutYearOfBirth(28, $filter)), 2) }}</td>
+                    <td>{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getMorphometricCharacteristicsWithoutYearOfBirth(28, $filter), false), 2) }}</td>
+                  @endif
+              </tr>
             </tbody>
           </table>
         </div>
@@ -484,6 +568,18 @@
                   <td colspan="6">No data available</td>
                 </tr>
               @endforelse
+              <tr>
+                <td>No Year</td>
+                <td>{{ count(App\Http\Controllers\FarmController::getMorphometricCharacteristicsWithoutYearOfBirth(29, $filter)) }}</td>
+                  @if(App\Http\Controllers\FarmController::getMorphometricCharacteristicsWithoutYearOfBirth(29, $filter) == [])
+                    <td colspan="4" class="center">No data available</td>
+                  @else
+                    <td>{{ min(App\Http\Controllers\FarmController::getMorphometricCharacteristicsWithoutYearOfBirth(29, $filter)) }}</td>
+                    <td>{{ max(App\Http\Controllers\FarmController::getMorphometricCharacteristicsWithoutYearOfBirth(29, $filter)) }}</td>
+                    <td>{{ round(array_sum(App\Http\Controllers\FarmController::getMorphometricCharacteristicsWithoutYearOfBirth(29, $filter))/count(App\Http\Controllers\FarmController::getMorphometricCharacteristicsWithoutYearOfBirth(29, $filter)), 2) }}</td>
+                    <td>{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getMorphometricCharacteristicsWithoutYearOfBirth(29, $filter), false), 2) }}</td>
+                  @endif
+              </tr>
             </tbody>
           </table>
         </div>
@@ -519,6 +615,18 @@
                   <td colspan="6">No data available</td>
                 </tr>
               @endforelse
+              <tr>
+                <td>No Year</td>
+                <td>{{ count(App\Http\Controllers\FarmController::getMorphometricCharacteristicsWithoutYearOfBirth(30, $filter)) }}</td>
+                  @if(App\Http\Controllers\FarmController::getMorphometricCharacteristicsWithoutYearOfBirth(30, $filter) == [])
+                    <td colspan="4" class="center">No data available</td>
+                  @else
+                    <td>{{ min(App\Http\Controllers\FarmController::getMorphometricCharacteristicsWithoutYearOfBirth(30, $filter)) }}</td>
+                    <td>{{ max(App\Http\Controllers\FarmController::getMorphometricCharacteristicsWithoutYearOfBirth(30, $filter)) }}</td>
+                    <td>{{ round(array_sum(App\Http\Controllers\FarmController::getMorphometricCharacteristicsWithoutYearOfBirth(30, $filter))/count(App\Http\Controllers\FarmController::getMorphometricCharacteristicsWithoutYearOfBirth(30, $filter)), 2) }}</td>
+                    <td>{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getMorphometricCharacteristicsWithoutYearOfBirth(30, $filter), false), 2) }}</td>
+                  @endif
+              </tr>
             </tbody>
           </table>
         </div>
@@ -554,6 +662,18 @@
                   <td colspan="6">No data available</td>
                 </tr>
               @endforelse
+              <tr>
+                <td>No Year</td>
+                <td>{{ count(App\Http\Controllers\FarmController::getMorphometricCharacteristicsWithoutYearOfBirth(31, $filter)) }}</td>
+                  @if(App\Http\Controllers\FarmController::getMorphometricCharacteristicsWithoutYearOfBirth(31, $filter) == [])
+                    <td colspan="4" class="center">No data available</td>
+                  @else
+                    <td>{{ round(min(App\Http\Controllers\FarmController::getMorphometricCharacteristicsWithoutYearOfBirth(31, $filter)), 4) }}</td>
+                    <td>{{ round(max(App\Http\Controllers\FarmController::getMorphometricCharacteristicsWithoutYearOfBirth(31, $filter)), 4) }}</td>
+                    <td>{{ round(array_sum(App\Http\Controllers\FarmController::getMorphometricCharacteristicsWithoutYearOfBirth(31, $filter))/count(App\Http\Controllers\FarmController::getMorphometricCharacteristicsWithoutYearOfBirth(31, $filter)), 2) }}</td>
+                    <td>{{ round(App\Http\Controllers\FarmController::standardDeviation(App\Http\Controllers\FarmController::getMorphometricCharacteristicsWithoutYearOfBirth(31, $filter), false), 2) }}</td>
+                  @endif
+              </tr>
             </tbody>
           </table>
         </div>

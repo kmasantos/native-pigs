@@ -2096,6 +2096,46 @@ class FarmController extends Controller
 			return view('pigs.mortalityandsales', compact('soldpigs', 'deadpigs', 'removedpigs', 'years'));
 		}
 
+		public static function getNumPigsBornWithoutYear($filter){
+			$farm = Auth::User()->getFarm();
+			$breed = $farm->getBreed();
+			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where(function ($query) {
+										$query->where("status", "breeder")
+													->orWhere("status", "sold breeder")
+													->orWhere("status", "dead breeder")
+													->orWhere("status", "removed breeder");
+													})->get();
+
+			$noyearofbirth = [];
+
+			foreach ($pigs as $pig) {
+				if(substr($pig->registryid, -8, 1) == '-'){
+					array_push($noyearofbirth, $pig);
+				}
+			}
+
+			$sows = [];
+			$boars = [];
+			foreach ($noyearofbirth as $pig) {
+				if(substr($pig->registryid, -7, 1) == 'F'){
+					array_push($sows, $pig);
+				}
+				if(substr($pig->registryid, -7, 1) == 'M'){
+					array_push($boars, $pig);
+				}
+			}
+
+			if($filter == "All"){
+				return $noyearofbirth;
+			}
+			elseif($filter == "Sow"){
+				return $sows;
+			}
+			elseif($filter == "Boar"){
+				return $boars;
+			}
+		}
+
 		public static function getNumPigsBornOnYear($year, $filter){ // function to get number of pigs born on specific year
 			$farm = Auth::User()->getFarm();
 			$breed = $farm->getBreed();
@@ -2150,6 +2190,84 @@ class FarmController extends Controller
 			elseif($filter == "Boar"){
 				return $boarsbornonyear;
 			}
+		}
+
+		public static function getGrossMorphologyWithoutYearOfBirth($property_id, $filter, $value){
+			$farm = Auth::User()->getFarm();
+			$breed = $farm->getBreed();
+			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where(function ($query) {
+										$query->where("status", "breeder")
+													->orWhere("status", "sold breeder")
+													->orWhere("status", "dead breeder")
+													->orWhere("status", "removed breeder");
+													})->get();
+
+			$noyearofbirth = [];
+
+			foreach ($pigs as $pig) {
+				if(substr($pig->registryid, -8, 1) == '-'){
+					array_push($noyearofbirth, $pig);
+				}
+			}
+
+			$sows = [];
+			$boars = [];
+			foreach ($noyearofbirth as $pig) {
+				if(substr($pig->registryid, -7, 1) == 'F'){
+					array_push($sows, $pig);
+				}
+				if(substr($pig->registryid, -7, 1) == 'M'){
+					array_push($boars, $pig);
+				}
+			}
+
+			if($filter == "All"){ // data returned are for all pigs in the herd
+				$grossmorpho = [];
+				foreach ($noyearofbirth as $pig) { // traversing all pigs born on specified year
+					$properties = $pig->getAnimalProperties();
+					foreach ($properties as $property) {
+						if($property->property_id == $property_id){
+							if($property->value == $value){
+								$gmorpho = $property->value;
+								array_push($grossmorpho, $property);
+							}
+						}
+					}
+				}
+
+				return $grossmorpho;
+			}
+			elseif($filter == "Sow"){ // data returned are for all sows
+				$grossmorpho = [];
+				foreach ($sows as $sow) {
+					$properties = $sow->getAnimalProperties();
+					foreach ($properties as $property) {
+						if($property->property_id == $property_id){
+							if($property->value == $value){
+								array_push($grossmorpho, $property);
+							}
+						}
+					}
+				}
+
+				return $grossmorpho;
+			}
+			elseif($filter == "Boar"){ // data returned are for all boars
+				$grossmorpho = [];
+				foreach ($boars as $boar) {
+					$properties = $boar->getAnimalProperties();
+					foreach ($properties as $property) {
+						if($property->property_id == $property_id){
+							if($property->value == $value){
+								array_push($grossmorpho, $property);
+							}
+						}
+					}
+				}
+
+				return $grossmorpho;
+			}
+
 		}
 
 		public static function getGrossMorphologyPerYearOfBirth($year, $property_id, $filter, $value){ // function to get summarized gross morphology report per year of birth
@@ -3339,7 +3457,7 @@ class FarmController extends Controller
 			// gets the unique years of birth
 			$years = [];
 			$tempyears = [];
-			foreach ($alive as $pig) {
+			foreach ($pigs as $pig) {
 				$pigproperties = $pig->getAnimalProperties();
 				foreach ($pigproperties as $pigproperty) {
 					if($pigproperty->property_id == 3){ //date farrowed
@@ -3865,6 +3983,85 @@ class FarmController extends Controller
 			}
 			$variance /= ( $samp ? count($arr) - 1 : count($arr) );
 			return (float) sqrt($variance);
+		}
+
+		public static function getMorphometricCharacteristicsWithoutYearOfBirth($property_id, $filter){
+			$farm = Auth::User()->getFarm();
+			$breed = $farm->getBreed();
+			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where(function ($query) {
+										$query->where("status", "breeder")
+													->orWhere("status", "sold breeder")
+													->orWhere("status", "dead breeder")
+													->orWhere("status", "removed breeder");
+													})->get();
+
+			$noyearofbirth = [];
+
+			foreach ($pigs as $pig) {
+				if(substr($pig->registryid, -8, 1) == '-'){
+					array_push($noyearofbirth, $pig);
+				}
+			}
+
+			$sows = [];
+			$boars = [];
+			foreach ($noyearofbirth as $pig) {
+				if(substr($pig->registryid, -7, 1) == 'F'){
+					array_push($sows, $pig);
+				}
+				if(substr($pig->registryid, -7, 1) == 'M'){
+					array_push($boars, $pig);
+				}
+			}
+
+			if($filter == "All"){ // data returned are for all pigs
+				$morphochars = [];
+				foreach ($noyearofbirth as $pig) {
+					$properties = $pig->getAnimalProperties();
+					foreach ($properties as $property) {
+						if($property->property_id == $property_id){
+							if($property->value != ""){
+								$morphochar = $property->value;
+								array_push($morphochars, $morphochar);
+							}
+						}
+					}
+				}
+
+				return $morphochars;
+			}
+			elseif($filter == "Sow"){ // data returned are for all sows
+				$morphochars = [];
+				foreach ($sows as $sow) {
+					$properties = $sow->getAnimalProperties();
+					foreach ($properties as $property) {
+						if($property->property_id == $property_id){
+							if($property->value != ""){
+								$morphochar = $property->value;
+								array_push($morphochars, $morphochar);
+							}
+						}
+					}
+				}
+
+				return $morphochars;
+			}
+			elseif($filter == "Boar"){ // data returned are all boars
+				$morphochars = [];
+				foreach ($boars as $boars) {
+					$properties = $boars->getAnimalProperties();
+					foreach ($properties as $property) {
+						if($property->property_id == $property_id){
+							if($property->value != ""){
+								$morphochar = $property->value;
+								array_push($morphochars, $morphochar);
+							}
+						}
+					}
+				}
+
+				return $morphochars;
+			}
 		}
 
 		public static function getMorphometricCharacteristicsPerYearOfBirth($year, $property_id, $filter){ // function to display Morphometric Characteristics Report per year of birth
@@ -5548,7 +5745,7 @@ class FarmController extends Controller
 			// gets unique years of birth
 			$years = [];
 			$tempyears = [];
-			foreach ($alive as $pig) {
+			foreach ($pigs as $pig) {
 				$pigproperties = $pig->getAnimalProperties();
 				foreach ($pigproperties as $pigproperty) {
 					if($pigproperty->property_id == 3){ //date farrowed
