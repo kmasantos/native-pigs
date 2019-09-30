@@ -189,6 +189,16 @@ Route::group(['middleware' => ['web']], function () {
 
   Route::group(['prefix' => 'admin'], function(){
     Route::get('/',['as' => 'admin.index', 'uses' => 'AdminController@index']);
+
+    Route::get('breed_mgt', ['as' => 'admin.breed_mgt', 'uses' => 'AdminController@getBreedMgtPage']);
+    Route::post('fetch_breed', ['as' => 'admin.fetch_breed', 'uses' => 'AdminController@fetchNewBreed']);
+    Route::post('edit', ['as' => 'admin.edit_breed', 'uses' => 'AdminController@editBreed']);
+    Route::get('farm_mgt', ['as' => 'admin.farm_mgt', 'uses' => 'AdminController@getFarmMgtPage']);
+    Route::post('fetch_farm', ['as' => 'admin.fetch_farm', 'uses' => 'AdminController@fetchNewFarm']);
+    Route::post('edit_farm', ['as' => 'admin.edit_farm', 'uses' => 'AdminController@editFarm']);
+    Route::get('user_mgt', ['as' => 'admin.user_mgt', 'uses' => 'AdminController@getUserMgtPage']);
+    Route::post('fetch_user', ['as' => 'admin.fetch_user', 'uses' => 'AdminController@fetchNewUser']);
+    Route::post('edit_user', ['as' => 'admin.edit_user', 'uses' => 'AdminController@editUser']);
   });
 
 });
@@ -198,3 +208,4 @@ Route::group(['middleware' => ['web']], function () {
 Route::get('login/google', 'Auth\LoginController@redirectToProvider');
 Route::get('login/google/callback', 'Auth\LoginController@handleProviderCallback');
 Route::get('farm/logout', 'Auth\LoginController@logout');
+Route::get('admin/logout', 'Auth\LoginController@logout');

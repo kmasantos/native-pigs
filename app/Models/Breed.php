@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class Breed extends Model
 {
     protected $table = 'breeds';
+    protected $fillable = [
+        'breed',
+        'animaltype_id'
+    ];
     public $timestamps = false;
     public function animaltypes()
     {

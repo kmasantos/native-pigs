@@ -1,80 +1,58 @@
 @extends('layouts.default')
 
 @section('title')
-	Native Animals PH | Administrator
+	Administrator
 @endsection
 
 @section('content')
-	<div class="row">
-        <div class="col s10 offset-s1 center" style="padding-bottom:20px;">
-          <h3>Welcome, {{ Auth::user()->name }}!</h3>
-          <div class="imgoverlay">
-            <img src="images/farm.png" height="40%" width="40%"/>
-            <div class="overlay"></div>
-            <div class="buttons">
-              <a onclick="addDetails()" class="btn teal waves-effect">Add farm</a><br>
-            </div>
-
-            <div>
-              <a href="{{route('admin.farmList')}}" class="btn teal waves-effect">View Farms</a><br>
-            </div>
-          </div>
-        </div>
-        <div id="farmdetails" style="display:none;">
-          <form class="row" method="POST" action="{{route('admin.addFarm')}}">
-          	{{ csrf_field() }}
-            <div class="col s8 offset-s2">
-              <h5 class="center">Farm details</h5>
-              <div class="col s8 offset-s2 card-panel">
-                <div class="col s10 offset-s1 input-field">
-                  <i class="material-icons prefix">account_circle</i>
-                  <input id="farmname" type="text" class="validate" name="name">
-                  <label for="farmname">Farm name</label>
+	<div class="container">
+    <div class="row">
+      <h4>Dashboard</h4>
+      <div class="divider"></div>
+      <div class="row center">
+        <h5>Data as of <strong>{{ Carbon\Carbon::parse($now)->format('F j, Y') }}</strong></h5>
+        <div class="col s12 m10 l12">
+          <div class="card">
+            <div class="card-content grey lighten-2">
+              <h5>User Statistics</h5>
+              <div class="row">
+                <div class="col s6">
+                  <h2>{{ count($users) }}</h2>
+                  <p>Users</p>
                 </div>
-                <div class="col s10 offset-s1 input-field">
-                  <i class="material-icons prefix">email</i>
-                  <input id="emailadd" type="email" class="validate" name="email">
-                  <label for="emailadd">Email address</label>
-                </div>
-                <div class="col s10 offset-s1 input-field">
-                  <i class="material-icons prefix">phone_iphone</i>
-                  <input id="mobileno" type="text" class="validate" name="mobile">
-                  <label for="mobileno">Mobile number</label>
-                </div>
-                <div class="col s10 offset-s1 input-field">
-                  <i class="material-icons prefix">account_balance</i>
-                  <input id="farm_id" type="text" class="validate" name="farm_id">
-                  <label for="farm_id">Farm ID</label>
-                </div>
-                <div class="col s10 offset-s1">
-                  <p class="center">Type of farm</p>
-                  <div class="row">
-                    <div class="col s4">
-                      <input id="pig" type="checkbox" class="filled-in" name="farmtype[]" value="pig"/><label for="pig" >Pigs</label>
-                    </div>
-                    <div class="col s4">
-                      <input id="chicken" type="checkbox" class="filled-in" name="farmtype[]" value="chicken"/><label for="chicken" >Chicken</label>
-                    </div>
-                    <div class="col s4">
-                      <input id="duck" type="checkbox" class="filled-in" name="farmtype[]" value="duck"/><label for="duck" >Ducks</label>
-                    </div>
+                <div class="col s6">
+                  <div class="col s6">
+                    <h3>{{ count($farms) }}</h3>
+                    <p>Farms</p>
                   </div>
-                </div>
-                <div class="col s6 offset-s3 center">
-					<button class="btn waves-effect waves-light teal" type="submit" name="action">Add<i class="material-icons right">add</i>
-					</button>
+                  <div class="col s6">
+                    <h3>{{ count($breeds) }}</h3>
+                    <p>Breeds</p>
+                  </div>
+                  <p>Farms and Breeds</p>
                 </div>
               </div>
             </div>
-          </form>
+          </div>
+        </div>
+        <div class="col s12 m10 l12">
+          <div class="card">
+            <div class="card-content grey lighten-2">
+              <h5>User Activity</h5>
+              <div class="row">
+                <div class="col s6">
+                  <h5>{{ Carbon\Carbon::parse($latest_login)->format('j F, Y h:i A') }}</h5>
+                  <p>Users' Latest Login</p>
+                </div>
+                <div class="col s6">
+                  <h5>{{ $latest_user->getFarm()->name }}</h5>
+                  <p>Recently Active Farm</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-@endsection
-
-@section('scripts')
-  @if(Session::has('alert-added'))
-      <script type="text/javascript">
-           Materialize.toast('Farm Added', 4000)
-      </script>
-  @endif
+    </div>
+  </div>
 @endsection

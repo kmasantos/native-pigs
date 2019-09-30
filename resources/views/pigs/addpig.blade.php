@@ -10,7 +10,7 @@
     <h4>Add New Pig</h4>
     <div class="divider"></div>
     <div class="row" style="padding-top: 10px;">
-      @if(isset($error))
+      @if($errors->any())
         <div class="row red lighten-3">
           <div class="col s12">
             <h5 class="center">{{ $error }}</h5>
