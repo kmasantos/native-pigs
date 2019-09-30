@@ -1,7 +1,7 @@
 @extends('layouts.default')
 
 @section('title')
-	Administrator
+	Dashboard
 @endsection
 
 @section('content')

@@ -5,7 +5,7 @@
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1">
 
-      <title>Native Pigs: @yield('title')</title>
+      <title>Native Pigs Admin: @yield('title')</title>
 
       <!-- CSRF Token -->
       <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -103,7 +103,7 @@
     <li class="no-padding">
       <ul>
         <li>
-          <a href="logout" id="logoutbutton" onclick="window.location='https://accounts.google.com/Logout?&continue=http://www.google.com/';" class="collapsible-header"><i class="material-icons">power_settings_new</i>Logout</a>
+          <a href="{{url('admin/logout')}}" id="logoutbutton" onclick="window.location='https://accounts.google.com/Logout?&continue=http://www.google.com/';" class="collapsible-header"><i class="material-icons">power_settings_new</i>Logout</a>
         </li>
       </ul>
     </li>
