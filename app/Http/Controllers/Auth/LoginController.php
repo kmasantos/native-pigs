@@ -59,13 +59,17 @@ class LoginController extends Controller
     {
         $user = Socialite::driver('google')->stateless()->user();
         $findUser = User::where('email', $user->email)->first();
-        Auth::login($findUser, false);
+        // Auth::login($findUser, false);
         if(!is_null($findUser)){
           if($findUser->isadmin){
+            Auth::login($findUser, true);
             return redirect()->action('AdminController@index');
           }else{
+            Auth::login($findUser, true);
             return redirect()->action('FarmController@index');
           }
+        }else{
+            return redirect('/');
         }
         // if(!is_null($findUser)){
         //   if($findUser->isadmin){

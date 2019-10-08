@@ -27,9 +27,9 @@
 			@if($curlyhairs == [] && $straighthairs == [])
 				<td colspan="3" class="center">No data available</td>
 			@else
-				<td>{{ count($curlyhairs) }} ({{ round((count($curlyhairs)/count($boars))*100, 2) }}%)</td>
-				<td>{{ count($straighthairs) }} ({{ round((count($straighthairs)/count($boars))*100, 2) }}%)</td>
-				<td>{{ $nohairtypes }} ({{ round(($nohairtypes/count($boars))*100, 2) }}%)</td>
+				<td>{{ count($curlyhairs) }} ({{ round((count($curlyhairs)/count($boarsalive))*100, 2) }}%)</td>
+				<td>{{ count($straighthairs) }} ({{ round((count($straighthairs)/count($boarsalive))*100, 2) }}%)</td>
+				<td>{{ $nohairtypes }} ({{ round(($nohairtypes/count($boarsalive))*100, 2) }}%)</td>
   		@endif
 		</tr>
 	</tbody>
@@ -48,9 +48,9 @@
 			@if($shorthairs == [] && $longhairs == [])
 				<td colspan="3" class="center">No data available</td>
 			@else
-				<td>{{ count($shorthairs) }} ({{ round((count($shorthairs)/count($boars))*100, 2) }}%)</td>
-				<td>{{ count($longhairs) }} ({{ round((count($longhairs)/count($boars))*100, 2) }}%)</td>
-				<td>{{ $nohairlengths }} ({{ round(($nohairlengths/count($boars))*100, 2) }}%)</td>
+				<td>{{ count($shorthairs) }} ({{ round((count($shorthairs)/count($boarsalive))*100, 2) }}%)</td>
+				<td>{{ count($longhairs) }} ({{ round((count($longhairs)/count($boarsalive))*100, 2) }}%)</td>
+				<td>{{ $nohairlengths }} ({{ round(($nohairlengths/count($boarsalive))*100, 2) }}%)</td>
 			@endif
 		</tr>
 	</tbody>
@@ -69,9 +69,9 @@
 			@if($blackcoats == [] && $nonblackcoats == [])
 				<td colspan="3" class="center">No data available</td>
 			@else
-				<td>{{ count($blackcoats) }} ({{ round((count($blackcoats)/count($boars))*100, 2) }}%)</td>
-				<td>{{ count($nonblackcoats) }} ({{ round((count($nonblackcoats)/count($boars))*100, 2) }}%)</td>
-				<td>{{ $nocoats }} ({{ round(($nocoats/count($boars))*100, 2) }}%)</td>
+				<td>{{ count($blackcoats) }} ({{ round((count($blackcoats)/count($boarsalive))*100, 2) }}%)</td>
+				<td>{{ count($nonblackcoats) }} ({{ round((count($nonblackcoats)/count($boarsalive))*100, 2) }}%)</td>
+				<td>{{ $nocoats }} ({{ round(($nocoats/count($boarsalive))*100, 2) }}%)</td>
   		@endif
 		</tr>
 	</tbody>
@@ -90,9 +90,9 @@
 			@if($plains == [] && $socks == [])
 				<td colspan="3" class="center">No data available</td>
 			@else
-				<td>{{ count($plains) }} ({{ round((count($plains)/count($boars))*100, 2) }}%)</td>
-				<td>{{ count($socks) }} ({{ round((count($socks)/count($boars))*100, 2) }}%)</td>
-				<td>{{ $nopatterns }} ({{ round(($nopatterns/count($boars))*100, 2) }}%)</td>
+				<td>{{ count($plains) }} ({{ round((count($plains)/count($boarsalive))*100, 2) }}%)</td>
+				<td>{{ count($socks) }} ({{ round((count($socks)/count($boarsalive))*100, 2) }}%)</td>
+				<td>{{ $nopatterns }} ({{ round(($nopatterns/count($boarsalive))*100, 2) }}%)</td>
   		@endif
 		</tr>
 	</tbody>
@@ -111,9 +111,9 @@
 			@if($concaves == [] && $straightheads == [])
 				<td colspan="3" class="center">No data available</td>
 			@else
-				<td>{{ count($concaves) }} ({{ round((count($concaves)/count($boars))*100, 2) }}%)</td>
-				<td>{{ count($straightheads) }} ({{ round((count($straightheads)/count($boars))*100, 2) }}%)</td>
-				<td>{{ $noheadshapes }} ({{ round(($noheadshapes/count($boars))*100, 2) }}%)</td>
+				<td>{{ count($concaves) }} ({{ round((count($concaves)/count($boarsalive))*100, 2) }}%)</td>
+				<td>{{ count($straightheads) }} ({{ round((count($straightheads)/count($boarsalive))*100, 2) }}%)</td>
+				<td>{{ $noheadshapes }} ({{ round(($noheadshapes/count($boarsalive))*100, 2) }}%)</td>
   		@endif
 		</tr>
 	</tbody>
@@ -132,9 +132,9 @@
 			@if($smooths == [] && $wrinkleds == [])
 				<td colspan="3" class="center">No data available</td>
 			@else
-				<td>{{ count($smooths) }} ({{ round((count($smooths)/count($boars))*100, 2) }}%)</td>
-				<td>{{ count($wrinkleds) }} ({{ round((count($wrinkleds)/count($boars))*100, 2) }}%)</td>
-				<td>{{ $noskintypes }} ({{ round(($noskintypes/count($boars))*100, 2) }}%)</td>
+				<td>{{ count($smooths) }} ({{ round((count($smooths)/count($boarsalive))*100, 2) }}%)</td>
+				<td>{{ count($wrinkleds) }} ({{ round((count($wrinkleds)/count($boarsalive))*100, 2) }}%)</td>
+				<td>{{ $noskintypes }} ({{ round(($noskintypes/count($boarsalive))*100, 2) }}%)</td>
 			@endif
 		</tr>
 	</tbody>
@@ -154,10 +154,10 @@
 			@if($droopingears == [] && $semilops == [] && $erectears == [])
 				<td colspan="4" class="center">No data available</td>
 			@else
-				<td>{{ count($droopingears) }} ({{ round((count($droopingears)/count($boars))*100, 2) }}%)</td>
-				<td>{{ count($semilops) }} ({{ round((count($semilops)/count($boars))*100, 2) }}%)</td>
-				<td>{{ count($erectears) }} ({{ round((count($erectears)/count($boars))*100, 2) }}%)</td>
-				<td>{{ $noeartypes }} ({{ round(($noeartypes/count($boars))*100, 2) }}%)</td>
+				<td>{{ count($droopingears) }} ({{ round((count($droopingears)/count($boarsalive))*100, 2) }}%)</td>
+				<td>{{ count($semilops) }} ({{ round((count($semilops)/count($boarsalive))*100, 2) }}%)</td>
+				<td>{{ count($erectears) }} ({{ round((count($erectears)/count($boarsalive))*100, 2) }}%)</td>
+				<td>{{ $noeartypes }} ({{ round(($noeartypes/count($boarsalive))*100, 2) }}%)</td>
   		@endif
 		</tr>
 	</tbody>
@@ -176,9 +176,9 @@
 			@if($curlytails == [] && $straighttails == [])
 				<td colspan="3" class="center">No data available</td>
 			@else
-				<td>{{ count($curlytails) }} ({{ round((count($curlytails)/count($boars))*100, 2) }}%)</td>
-				<td>{{ count($straighttails) }} ({{ round((count($straighttails)/count($boars))*100, 2) }}%)</td>
-				<td>{{ $notailtypes }} ({{ round(($notailtypes/count($boars))*100, 2) }}%)</td>
+				<td>{{ count($curlytails) }} ({{ round((count($curlytails)/count($boarsalive))*100, 2) }}%)</td>
+				<td>{{ count($straighttails) }} ({{ round((count($straighttails)/count($boarsalive))*100, 2) }}%)</td>
+				<td>{{ $notailtypes }} ({{ round(($notailtypes/count($boarsalive))*100, 2) }}%)</td>
   		@endif
 		</tr>
 	</tbody>
@@ -197,9 +197,9 @@
 			@if($swaybacks == [] && $straightbacks == [])
 				<td colspan="3" class="center">No data available</td>
 			@else
-				<td>{{ count($swaybacks) }} ({{ round((count($swaybacks)/count($boars))*100, 2) }}%)</td>
-				<td>{{ count($straightbacks) }} ({{ round((count($straightbacks)/count($boars))*100, 2) }}%)</td>
-				<td>{{ $nobacklines }} ({{ round(($nobacklines/count($boars))*100, 2) }}%)</td>
+				<td>{{ count($swaybacks) }} ({{ round((count($swaybacks)/count($boarsalive))*100, 2) }}%)</td>
+				<td>{{ count($straightbacks) }} ({{ round((count($straightbacks)/count($boarsalive))*100, 2) }}%)</td>
+				<td>{{ $nobacklines }} ({{ round(($nobacklines/count($boarsalive))*100, 2) }}%)</td>
   		@endif
 		</tr>
 	</tbody>

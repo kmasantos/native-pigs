@@ -74,17 +74,17 @@
 							  					<td colspan="3" class="center">No data available</td>
 							  				@else
 					    						@if($filter == "Sow")
-							    					<td>{{ count($curlyhairs) }} ({{ round((count($curlyhairs)/count($sows))*100, 2) }}%)</td>
-								    				<td>{{ count($straighthairs) }} ({{ round((count($straighthairs)/count($sows))*100, 2) }}%)</td>
-								    				<td>{{ $nohairtypes }} ({{ round(($nohairtypes/count($sows))*100, 2) }}%)</td>
+							    					<td>{{ count($curlyhairs) }} ({{ round((count($curlyhairs)/count($sowsalive))*100, 2) }}%)</td>
+								    				<td>{{ count($straighthairs) }} ({{ round((count($straighthairs)/count($sowsalive))*100, 2) }}%)</td>
+								    				<td>{{ $nohairtypes }} ({{ round(($nohairtypes/count($sowsalive))*100, 2) }}%)</td>
 								    			@elseif($filter == "Boar")
-								    				<td>{{ count($curlyhairs) }} ({{ round((count($curlyhairs)/count($boars))*100, 2) }}%)</td>
-								    				<td>{{ count($straighthairs) }} ({{ round((count($straighthairs)/count($boars))*100, 2) }}%)</td>
-								    				<td>{{ $nohairtypes }} ({{ round(($nohairtypes/count($boars))*100, 2) }}%)</td>
+								    				<td>{{ count($curlyhairs) }} ({{ round((count($curlyhairs)/count($boarsalive))*100, 2) }}%)</td>
+								    				<td>{{ count($straighthairs) }} ({{ round((count($straighthairs)/count($boarsalive))*100, 2) }}%)</td>
+								    				<td>{{ $nohairtypes }} ({{ round(($nohairtypes/count($boarsalive))*100, 2) }}%)</td>
 								    			@elseif($filter == "All")
-								    				<td>{{ count($curlyhairs) }} ({{ round((count($curlyhairs)/count($pigs))*100, 2) }}%)</td>
-								    				<td>{{ count($straighthairs) }} ({{ round((count($straighthairs)/count($pigs))*100, 2) }}%)</td>
-								    				<td>{{ $nohairtypes }} ({{ round(($nohairtypes/count($pigs))*100, 2) }}%)</td>
+								    				<td>{{ count($curlyhairs) }} ({{ round((count($curlyhairs)/count($alive))*100, 2) }}%)</td>
+								    				<td>{{ count($straighthairs) }} ({{ round((count($straighthairs)/count($alive))*100, 2) }}%)</td>
+								    				<td>{{ $nohairtypes }} ({{ round(($nohairtypes/count($alive))*100, 2) }}%)</td>
 								    			@endif
 								    		@endif
 				    					</tr>
@@ -107,17 +107,17 @@
 							  					<td colspan="3" class="center">No data available</td>
 							  				@else
 							  					@if($filter == "Sow")
-								    				<td>{{ count($shorthairs) }} ({{ round((count($shorthairs)/count($sows))*100, 2) }}%)</td>
-								    				<td>{{ count($longhairs) }} ({{ round((count($longhairs)/count($sows))*100, 2) }}%)</td>
-								    				<td>{{ $nohairlengths }} ({{ round(($nohairlengths/count($sows))*100, 2) }}%)</td>
+								    				<td>{{ count($shorthairs) }} ({{ round((count($shorthairs)/count($sowsalive))*100, 2) }}%)</td>
+								    				<td>{{ count($longhairs) }} ({{ round((count($longhairs)/count($sowsalive))*100, 2) }}%)</td>
+								    				<td>{{ $nohairlengths }} ({{ round(($nohairlengths/count($sowsalive))*100, 2) }}%)</td>
 								    			@elseif($filter == "Boar")
-							    					<td>{{ count($shorthairs) }} ({{ round((count($shorthairs)/count($boars))*100, 2) }}%)</td>
-								    				<td>{{ count($longhairs) }} ({{ round((count($longhairs)/count($boars))*100, 2) }}%)</td>
-								    				<td>{{ $nohairlengths }} ({{ round(($nohairlengths/count($boars))*100, 2) }}%)</td>
+							    					<td>{{ count($shorthairs) }} ({{ round((count($shorthairs)/count($boarsalive))*100, 2) }}%)</td>
+								    				<td>{{ count($longhairs) }} ({{ round((count($longhairs)/count($boarsalive))*100, 2) }}%)</td>
+								    				<td>{{ $nohairlengths }} ({{ round(($nohairlengths/count($boarsalive))*100, 2) }}%)</td>
 								    			@elseif($filter == "All")
-							    					<td>{{ count($shorthairs) }} ({{ round((count($shorthairs)/count($pigs))*100, 2) }}%)</td>
-								    				<td>{{ count($longhairs) }} ({{ round((count($longhairs)/count($pigs))*100, 2) }}%)</td>
-								    				<td>{{ $nohairlengths }} ({{ round(($nohairlengths/count($pigs))*100, 2) }}%)</td>
+							    					<td>{{ count($shorthairs) }} ({{ round((count($shorthairs)/count($alive))*100, 2) }}%)</td>
+								    				<td>{{ count($longhairs) }} ({{ round((count($longhairs)/count($alive))*100, 2) }}%)</td>
+								    				<td>{{ $nohairlengths }} ({{ round(($nohairlengths/count($alive))*100, 2) }}%)</td>
 							    				@endif
 							    			@endif
 							    		</tr>
@@ -142,17 +142,17 @@
 							  					<td colspan="3" class="center">No data available</td>
 							  				@else
 							  					@if($filter == "Sow")
-								    				<td>{{ count($blackcoats) }} ({{ round((count($blackcoats)/count($sows))*100, 2) }}%)</td>
-								    				<td>{{ count($nonblackcoats) }} ({{ round((count($nonblackcoats)/count($sows))*100, 2) }}%)</td>
-								    				<td>{{ $nocoats }} ({{ round(($nocoats/count($sows))*100, 2) }}%)</td>
+								    				<td>{{ count($blackcoats) }} ({{ round((count($blackcoats)/count($sowsalive))*100, 2) }}%)</td>
+								    				<td>{{ count($nonblackcoats) }} ({{ round((count($nonblackcoats)/count($sowsalive))*100, 2) }}%)</td>
+								    				<td>{{ $nocoats }} ({{ round(($nocoats/count($sowsalive))*100, 2) }}%)</td>
 								    			@elseif($filter == "Boar")
-								    				<td>{{ count($blackcoats) }} ({{ round((count($blackcoats)/count($boars))*100, 2) }}%)</td>
-								    				<td>{{ count($nonblackcoats) }} ({{ round((count($nonblackcoats)/count($boars))*100, 2) }}%)</td>
-								    				<td>{{ $nocoats }} ({{ round(($nocoats/count($boars))*100, 2) }}%)</td>
+								    				<td>{{ count($blackcoats) }} ({{ round((count($blackcoats)/count($boarsalive))*100, 2) }}%)</td>
+								    				<td>{{ count($nonblackcoats) }} ({{ round((count($nonblackcoats)/count($boarsalive))*100, 2) }}%)</td>
+								    				<td>{{ $nocoats }} ({{ round(($nocoats/count($boarsalive))*100, 2) }}%)</td>
 								    			@elseif($filter == "All")
-								    				<td>{{ count($blackcoats) }} ({{ round((count($blackcoats)/count($pigs))*100, 2) }}%)</td>
-								    				<td>{{ count($nonblackcoats) }} ({{ round((count($nonblackcoats)/count($pigs))*100, 2) }}%)</td>
-								    				<td>{{ $nocoats }} ({{ round(($nocoats/count($pigs))*100, 2) }}%)</td>
+								    				<td>{{ count($blackcoats) }} ({{ round((count($blackcoats)/count($alive))*100, 2) }}%)</td>
+								    				<td>{{ count($nonblackcoats) }} ({{ round((count($nonblackcoats)/count($alive))*100, 2) }}%)</td>
+								    				<td>{{ $nocoats }} ({{ round(($nocoats/count($alive))*100, 2) }}%)</td>
 								    			@endif
 								    		@endif
 				    					</tr>
@@ -175,17 +175,17 @@
 							  					<td colspan="3" class="center">No data available</td>
 							  				@else
 							  					@if($filter == "Sow")
-								    				<td>{{ count($plains) }} ({{ round((count($plains)/count($sows))*100, 2) }}%)</td>
-								    				<td>{{ count($socks) }} ({{ round((count($socks)/count($sows))*100, 2) }}%)</td>
-								    				<td>{{ $nopatterns }} ({{ round(($nopatterns/count($sows))*100, 2) }}%)</td>
+								    				<td>{{ count($plains) }} ({{ round((count($plains)/count($sowsalive))*100, 2) }}%)</td>
+								    				<td>{{ count($socks) }} ({{ round((count($socks)/count($sowsalive))*100, 2) }}%)</td>
+								    				<td>{{ $nopatterns }} ({{ round(($nopatterns/count($sowsalive))*100, 2) }}%)</td>
 								    			@elseif($filter == "Boar")
-								    				<td>{{ count($plains) }} ({{ round((count($plains)/count($boars))*100, 2) }}%)</td>
-								    				<td>{{ count($socks) }} ({{ round((count($socks)/count($boars))*100, 2) }}%)</td>
-								    				<td>{{ $nopatterns }} ({{ round(($nopatterns/count($boars))*100, 2) }}%)</td>
+								    				<td>{{ count($plains) }} ({{ round((count($plains)/count($boarsalive))*100, 2) }}%)</td>
+								    				<td>{{ count($socks) }} ({{ round((count($socks)/count($boarsalive))*100, 2) }}%)</td>
+								    				<td>{{ $nopatterns }} ({{ round(($nopatterns/count($boarsalive))*100, 2) }}%)</td>
 								    			@elseif($filter == "All")
-								    				<td>{{ count($plains) }} ({{ round((count($plains)/count($pigs))*100, 2) }}%)</td>
-								    				<td>{{ count($socks) }} ({{ round((count($socks)/count($pigs))*100, 2) }}%)</td>
-								    				<td>{{ $nopatterns }} ({{ round(($nopatterns/count($pigs))*100, 2) }}%)</td>
+								    				<td>{{ count($plains) }} ({{ round((count($plains)/count($alive))*100, 2) }}%)</td>
+								    				<td>{{ count($socks) }} ({{ round((count($socks)/count($alive))*100, 2) }}%)</td>
+								    				<td>{{ $nopatterns }} ({{ round(($nopatterns/count($alive))*100, 2) }}%)</td>
 								    			@endif
 								    		@endif
 				    					</tr>
@@ -210,17 +210,17 @@
 							  					<td colspan="3" class="center">No data available</td>
 							  				@else
 							  					@if($filter == "Sow")
-								    				<td>{{ count($concaves) }} ({{ round((count($concaves)/count($sows))*100, 2) }}%)</td>
-								    				<td>{{ count($straightheads) }} ({{ round((count($straightheads)/count($sows))*100, 2) }}%)</td>
-								    				<td>{{ $noheadshapes }} ({{ round(($noheadshapes/count($sows))*100, 2) }}%)</td>
+								    				<td>{{ count($concaves) }} ({{ round((count($concaves)/count($sowsalive))*100, 2) }}%)</td>
+								    				<td>{{ count($straightheads) }} ({{ round((count($straightheads)/count($sowsalive))*100, 2) }}%)</td>
+								    				<td>{{ $noheadshapes }} ({{ round(($noheadshapes/count($sowsalive))*100, 2) }}%)</td>
 								    			@elseif($filter == "Boar")
-								    				<td>{{ count($concaves) }} ({{ round((count($concaves)/count($boars))*100, 2) }}%)</td>
-								    				<td>{{ count($straightheads) }} ({{ round((count($straightheads)/count($boars))*100, 2) }}%)</td>
-								    				<td>{{ $noheadshapes }} ({{ round(($noheadshapes/count($boars))*100, 2) }}%)</td>
+								    				<td>{{ count($concaves) }} ({{ round((count($concaves)/count($boarsalive))*100, 2) }}%)</td>
+								    				<td>{{ count($straightheads) }} ({{ round((count($straightheads)/count($boarsalive))*100, 2) }}%)</td>
+								    				<td>{{ $noheadshapes }} ({{ round(($noheadshapes/count($boarsalive))*100, 2) }}%)</td>
 								    			@elseif($filter == "All")
-								    				<td>{{ count($concaves) }} ({{ round((count($concaves)/count($pigs))*100, 2) }}%)</td>
-								    				<td>{{ count($straightheads) }} ({{ round((count($straightheads)/count($pigs))*100, 2) }}%)</td>
-								    				<td>{{ $noheadshapes }} ({{ round(($noheadshapes/count($pigs))*100, 2) }}%)</td>
+								    				<td>{{ count($concaves) }} ({{ round((count($concaves)/count($alive))*100, 2) }}%)</td>
+								    				<td>{{ count($straightheads) }} ({{ round((count($straightheads)/count($alive))*100, 2) }}%)</td>
+								    				<td>{{ $noheadshapes }} ({{ round(($noheadshapes/count($alive))*100, 2) }}%)</td>
 								    			@endif
 								    		@endif
 				    					</tr>
@@ -243,17 +243,17 @@
 							  					<td colspan="3" class="center">No data available</td>
 							  				@else
 							  					@if($filter == "Sow")
-								    				<td>{{ count($smooths) }} ({{ round((count($smooths)/count($sows))*100, 2) }}%)</td>
-								    				<td>{{ count($wrinkleds) }} ({{ round((count($wrinkleds)/count($sows))*100, 2) }}%)</td>
-								    				<td>{{ $noskintypes }} ({{ round(($noskintypes/count($sows))*100, 2) }}%)</td>
+								    				<td>{{ count($smooths) }} ({{ round((count($smooths)/count($sowsalive))*100, 2) }}%)</td>
+								    				<td>{{ count($wrinkleds) }} ({{ round((count($wrinkleds)/count($sowsalive))*100, 2) }}%)</td>
+								    				<td>{{ $noskintypes }} ({{ round(($noskintypes/count($sowsalive))*100, 2) }}%)</td>
 								    			@elseif($filter == "Boar")
-								    				<td>{{ count($smooths) }} ({{ round((count($smooths)/count($boars))*100, 2) }}%)</td>
-								    				<td>{{ count($wrinkleds) }} ({{ round((count($wrinkleds)/count($boars))*100, 2) }}%)</td>
-								    				<td>{{ $noskintypes }} ({{ round(($noskintypes/count($boars))*100, 2) }}%)</td>
+								    				<td>{{ count($smooths) }} ({{ round((count($smooths)/count($boarsalive))*100, 2) }}%)</td>
+								    				<td>{{ count($wrinkleds) }} ({{ round((count($wrinkleds)/count($boarsalive))*100, 2) }}%)</td>
+								    				<td>{{ $noskintypes }} ({{ round(($noskintypes/count($boarsalive))*100, 2) }}%)</td>
 								    			@elseif($filter == "All")
-								    				<td>{{ count($smooths) }} ({{ round((count($smooths)/count($pigs))*100, 2) }}%)</td>
-								    				<td>{{ count($wrinkleds) }} ({{ round((count($wrinkleds)/count($pigs))*100, 2) }}%)</td>
-								    				<td>{{ $noskintypes }} ({{ round(($noskintypes/count($pigs))*100, 2) }}%)</td>
+								    				<td>{{ count($smooths) }} ({{ round((count($smooths)/count($alive))*100, 2) }}%)</td>
+								    				<td>{{ count($wrinkleds) }} ({{ round((count($wrinkleds)/count($alive))*100, 2) }}%)</td>
+								    				<td>{{ $noskintypes }} ({{ round(($noskintypes/count($alive))*100, 2) }}%)</td>
 								    			@endif
 							  				@endif
 				    					</tr>
@@ -279,20 +279,20 @@
 							  					<td colspan="4" class="center">No data available</td>
 							  				@else
 							  					@if($filter == "Sow")
-								    				<td>{{ count($droopingears) }} ({{ round((count($droopingears)/count($sows))*100, 2) }}%)</td>
-								    				<td>{{ count($semilops) }} ({{ round((count($semilops)/count($sows))*100, 2) }}%)</td>
-								    				<td>{{ count($erectears) }} ({{ round((count($erectears)/count($sows))*100, 2) }}%)</td>
-								    				<td>{{ $noeartypes }} ({{ round(($noeartypes/count($sows))*100, 2) }}%)</td>
+								    				<td>{{ count($droopingears) }} ({{ round((count($droopingears)/count($sowsalive))*100, 2) }}%)</td>
+								    				<td>{{ count($semilops) }} ({{ round((count($semilops)/count($sowsalive))*100, 2) }}%)</td>
+								    				<td>{{ count($erectears) }} ({{ round((count($erectears)/count($sowsalive))*100, 2) }}%)</td>
+								    				<td>{{ $noeartypes }} ({{ round(($noeartypes/count($sowsalive))*100, 2) }}%)</td>
 								    			@elseif($filter == "Boar")
-								    				<td>{{ count($droopingears) }} ({{ round((count($droopingears)/count($boars))*100, 2) }}%)</td>
-								    				<td>{{ count($semilops) }} ({{ round((count($semilops)/count($boars))*100, 2) }}%)</td>
-								    				<td>{{ count($erectears) }} ({{ round((count($erectears)/count($boars))*100, 2) }}%)</td>
-								    				<td>{{ $noeartypes }} ({{ round(($noeartypes/count($boars))*100, 2) }}%)</td>
+								    				<td>{{ count($droopingears) }} ({{ round((count($droopingears)/count($boarsalive))*100, 2) }}%)</td>
+								    				<td>{{ count($semilops) }} ({{ round((count($semilops)/count($boarsalive))*100, 2) }}%)</td>
+								    				<td>{{ count($erectears) }} ({{ round((count($erectears)/count($boarsalive))*100, 2) }}%)</td>
+								    				<td>{{ $noeartypes }} ({{ round(($noeartypes/count($boarsalive))*100, 2) }}%)</td>
 								    			@elseif($filter == "All")
-								    				<td>{{ count($droopingears) }} ({{ round((count($droopingears)/count($pigs))*100, 2) }}%)</td>
-								    				<td>{{ count($semilops) }} ({{ round((count($semilops)/count($pigs))*100, 2) }}%)</td>
-								    				<td>{{ count($erectears) }} ({{ round((count($erectears)/count($pigs))*100, 2) }}%)</td>
-								    				<td>{{ $noeartypes }} ({{ round(($noeartypes/count($pigs))*100, 2) }}%)</td>
+								    				<td>{{ count($droopingears) }} ({{ round((count($droopingears)/count($alive))*100, 2) }}%)</td>
+								    				<td>{{ count($semilops) }} ({{ round((count($semilops)/count($alive))*100, 2) }}%)</td>
+								    				<td>{{ count($erectears) }} ({{ round((count($erectears)/count($alive))*100, 2) }}%)</td>
+								    				<td>{{ $noeartypes }} ({{ round(($noeartypes/count($alive))*100, 2) }}%)</td>
 								    			@endif
 								    		@endif
 				    					</tr>
@@ -315,17 +315,17 @@
 							  					<td colspan="3" class="center">No data available</td>
 							  				@else
 							  					@if($filter == "Sow")
-								    				<td>{{ count($curlytails) }} ({{ round((count($curlytails)/count($sows))*100, 2) }}%)</td>
-								    				<td>{{ count($straighttails) }} ({{ round((count($straighttails)/count($sows))*100, 2) }}%)</td>
-								    				<td>{{ $notailtypes }} ({{ round(($notailtypes/count($sows))*100, 2) }}%)</td>
+								    				<td>{{ count($curlytails) }} ({{ round((count($curlytails)/count($sowsalive))*100, 2) }}%)</td>
+								    				<td>{{ count($straighttails) }} ({{ round((count($straighttails)/count($sowsalive))*100, 2) }}%)</td>
+								    				<td>{{ $notailtypes }} ({{ round(($notailtypes/count($sowsalive))*100, 2) }}%)</td>
 								    			@elseif($filter == "Boar")
-								    				<td>{{ count($curlytails) }} ({{ round((count($curlytails)/count($boars))*100, 2) }}%)</td>
-								    				<td>{{ count($straighttails) }} ({{ round((count($straighttails)/count($boars))*100, 2) }}%)</td>
-								    				<td>{{ $notailtypes }} ({{ round(($notailtypes/count($boars))*100, 2) }}%)</td>
+								    				<td>{{ count($curlytails) }} ({{ round((count($curlytails)/count($boarsalive))*100, 2) }}%)</td>
+								    				<td>{{ count($straighttails) }} ({{ round((count($straighttails)/count($boarsalive))*100, 2) }}%)</td>
+								    				<td>{{ $notailtypes }} ({{ round(($notailtypes/count($boarsalive))*100, 2) }}%)</td>
 								    			@elseif($filter == "All")
-								    				<td>{{ count($curlytails) }} ({{ round((count($curlytails)/count($pigs))*100, 2) }}%)</td>
-								    				<td>{{ count($straighttails) }} ({{ round((count($straighttails)/count($pigs))*100, 2) }}%)</td>
-								    				<td>{{ $notailtypes }} ({{ round(($notailtypes/count($pigs))*100, 2) }}%)</td>
+								    				<td>{{ count($curlytails) }} ({{ round((count($curlytails)/count($alive))*100, 2) }}%)</td>
+								    				<td>{{ count($straighttails) }} ({{ round((count($straighttails)/count($alive))*100, 2) }}%)</td>
+								    				<td>{{ $notailtypes }} ({{ round(($notailtypes/count($alive))*100, 2) }}%)</td>
 								    			@endif
 								    		@endif
 				    					</tr>
@@ -350,17 +350,17 @@
 							  					<td colspan="3" class="center">No data available</td>
 							  				@else
 							  					@if($filter == "Sow")
-								    				<td>{{ count($swaybacks) }} ({{ round((count($swaybacks)/count($sows))*100, 2) }}%)</td>
-								    				<td>{{ count($straightbacks) }} ({{ round((count($straightbacks)/count($sows))*100, 2) }}%)</td>
-								    				<td>{{ $nobacklines }} ({{ round(($nobacklines/count($sows))*100, 2) }}%)</td>
+								    				<td>{{ count($swaybacks) }} ({{ round((count($swaybacks)/count($sowsalive))*100, 2) }}%)</td>
+								    				<td>{{ count($straightbacks) }} ({{ round((count($straightbacks)/count($sowsalive))*100, 2) }}%)</td>
+								    				<td>{{ $nobacklines }} ({{ round(($nobacklines/count($sowsalive))*100, 2) }}%)</td>
 								    			@elseif($filter == "Boar")
-								    				<td>{{ count($swaybacks) }} ({{ round((count($swaybacks)/count($boars))*100, 2) }}%)</td>
-								    				<td>{{ count($straightbacks) }} ({{ round((count($straightbacks)/count($boars))*100, 2) }}%)</td>
-								    				<td>{{ $nobacklines }} ({{ round(($nobacklines/count($boars))*100, 2) }}%)</td>
+								    				<td>{{ count($swaybacks) }} ({{ round((count($swaybacks)/count($boarsalive))*100, 2) }}%)</td>
+								    				<td>{{ count($straightbacks) }} ({{ round((count($straightbacks)/count($boarsalive))*100, 2) }}%)</td>
+								    				<td>{{ $nobacklines }} ({{ round(($nobacklines/count($boarsalive))*100, 2) }}%)</td>
 								    			@elseif($filter == "All")
-								    				<td>{{ count($swaybacks) }} ({{ round((count($swaybacks)/count($pigs))*100, 2) }}%)</td>
-								    				<td>{{ count($straightbacks) }} ({{ round((count($straightbacks)/count($pigs))*100, 2) }}%)</td>
-								    				<td>{{ $nobacklines }} ({{ round(($nobacklines/count($pigs))*100, 2) }}%)</td>
+								    				<td>{{ count($swaybacks) }} ({{ round((count($swaybacks)/count($alive))*100, 2) }}%)</td>
+								    				<td>{{ count($straightbacks) }} ({{ round((count($straightbacks)/count($alive))*100, 2) }}%)</td>
+								    				<td>{{ $nobacklines }} ({{ round(($nobacklines/count($alive))*100, 2) }}%)</td>
 								    			@endif
 								    		@endif
 				    					</tr>
