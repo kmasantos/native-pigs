@@ -742,7 +742,7 @@ class AdminController extends Controller
             $action = 'restored';
         }
  
-        return Redirect::back()->with('message', 'User '.$action.' successfully!');
+        return Redirect::back()->withMessage('User '.$action.' successfully!');
     }
 
     /**
