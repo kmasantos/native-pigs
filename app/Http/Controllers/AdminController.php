@@ -726,6 +726,25 @@ class AdminController extends Controller
         return Redirect::back()->with('message', 'User edited successfully!');
     }
 
+    public function deleteUser(Request $request){
+        $now = Carbon::now('Asia/Manila');
+        $users = User::all();
+        $farms = Farm::all();
+
+        $user = User::withTrashed()->find($request->user_id);
+
+        $action = '';
+        if (empty($user->deleted_at)) {
+            $user->delete();
+            $action = 'deleted';
+        } else {
+            $user->restore();
+            $action = 'restored';
+        }
+ 
+        return Redirect::back()->with('message', 'User '.$action.' successfully!');
+    }
+
     /**
      * Show the form for creating a new resource.
      *

@@ -44,7 +44,14 @@
 		        					<td>{{ $user->email }}</td>
 		        					<td>{{ $user->getFarm()->name }}</td>
 		        					<td>{{ Carbon\Carbon::parse($user->lastseen)->format('j F, Y h:i A') }}</td>
-		        					<td><a href="#edit_user{{$user->id}}" class="tooltipped modal-trigger" data-position="top" data-tooltip="Edit"><i class="fas fa-pencil-alt"></i></a></td>
+		        					<td>
+										<a href="#edit_user{{$user->id}}" class="tooltipped modal-trigger" data-position="top" data-tooltip="Edit"><i class="fas fa-pencil-alt"></i></a>
+										@if ($user->deleted_at)
+											<a href="#delete_user{{$user->id}}" class="tooltipped modal-trigger" data-position="top" data-tooltip="Delete user?"><i class="fas fa-trash-restore-alt"></i></a>
+										@else
+											<a href="#delete_user{{$user->id}}" class="tooltipped modal-trigger" data-position="top" data-tooltip="Restore user?"><i class="fas fa-trash-alt"></i></a>
+										@endif
+									</td>
 		        				</tr>
 		        				{{-- MODAL STRUCTURE --}}
 								<div id="edit_user{{$user->id}}" class="modal">
@@ -67,6 +74,19 @@
 									<div class="row center">
 										<button class="btn waves-effect waves-light green darken-3" type="submit">
 					            			Submit <i class="material-icons right">send</i>
+					          			</button>
+									</div>
+									{!! Form::close() !!}
+								</div>
+								<div id="delete_user{{$user->id}}" class="modal">
+									{!! Form::open(['route' => 'admin.delete_user', 'method' => 'post']) !!}
+									<div class="modal-content">
+										<h5 class="center">{{ $user->deleted_at ? 'Restore' : 'Delete'}} User {{ $user->name }}</h5>
+										<input type="hidden" name="user_id" value="{{ $user->id }}">
+									</div>
+									<div class="row center">
+										<button class="btn waves-effect waves-light green darken-3" type="submit">
+					            			{{ $user->deleted_at ? 'Restore' : 'Delete' }} <i class="material-icons right">send</i>
 					          			</button>
 									</div>
 									{!! Form::close() !!}

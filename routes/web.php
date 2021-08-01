@@ -199,6 +199,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('user_mgt', ['as' => 'admin.user_mgt', 'uses' => 'AdminController@getUserMgtPage']);
     Route::post('fetch_user', ['as' => 'admin.fetch_user', 'uses' => 'AdminController@fetchNewUser']);
     Route::post('edit_user', ['as' => 'admin.edit_user', 'uses' => 'AdminController@editUser']);
+    Route::post('delete_user', ['as' => 'admin.delete_user', 'uses' => 'AdminController@deleteUser']);
   });
 
 });
