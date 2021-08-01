@@ -9,6 +9,13 @@
 	    <div class="row">
 			<h4>Farm Management</h4>
 			<div class="divider"></div>
+			@if(isset($message))
+				<div class="row light-green lighten-3">
+					<div class="col s12">
+					<h5 class="center">{{ $message }}</h5> 
+					</div>
+				</div>
+			@endif
 			<div class="row center">
 	        	<h5>Data as of <strong>{{ Carbon\Carbon::parse($now)->format('F j, Y') }}</strong></h5>
 	        	<div class="col s12 m10 l12">
