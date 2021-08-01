@@ -9,6 +9,13 @@
 	    <div class="row">
 			<h4>User Management</h4>
 			<div class="divider"></div>
+			@if(\Session::has('success'))
+				<div class="row light-green lighten-3">
+					<div class="col s12">
+					<h5 class="center">{!! \Session::get('success') !!}</h5> 
+					</div>
+				</div>
+			@endif
 			<div class="row center">
 	        	<h5>Data as of <strong>{{ Carbon\Carbon::parse($now)->format('F j, Y') }}</strong></h5>
 	        	<div class="row center" style="padding-top: 10px;">
