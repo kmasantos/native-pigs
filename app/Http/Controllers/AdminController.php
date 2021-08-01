@@ -665,7 +665,7 @@ class AdminController extends Controller
 
     public function getUserMgtPage(){
         $now = Carbon::now('Asia/Manila');
-        $users = User::where("isadmin", 0)->get();
+        $users = User::withTrashed()->where("isadmin", 0)->orderBy('deleted_at','ASC')->orderBy('email','ASC')->get();
         $farms = Farm::all();
 
         return view('user.admin.usermanagement', compact('now', 'users', 'farms'));

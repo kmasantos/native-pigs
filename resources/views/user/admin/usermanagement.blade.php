@@ -46,7 +46,7 @@
 		        					<td>{{ Carbon\Carbon::parse($user->lastseen)->format('j F, Y h:i A') }}</td>
 		        					<td>
 										<a href="#edit_user{{$user->id}}" class="tooltipped modal-trigger" data-position="top" data-tooltip="Edit"><i class="fas fa-pencil-alt"></i></a>
-										@if ($user->deleted_at)
+										@if (empty($user->deleted_at))
 											<a href="#delete_user{{$user->id}}" class="tooltipped modal-trigger" data-position="top" data-tooltip="Delete user?"><i class="fas fa-trash-restore-alt"></i></a>
 										@else
 											<a href="#delete_user{{$user->id}}" class="tooltipped modal-trigger" data-position="top" data-tooltip="Restore user?"><i class="fas fa-trash-alt"></i></a>
