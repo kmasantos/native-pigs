@@ -700,6 +700,7 @@ class AdminController extends Controller
             $new_user->save();
 
             $message = "Successfully added new user!";
+            $users = User::where("isadmin", 0)->get();
             return view('user.admin.usermanagement', compact('now', 'users', 'farms'))->withMessage($message);
         }
         else{
