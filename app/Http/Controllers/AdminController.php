@@ -8,22 +8,25 @@ use App\Models\Farm;
 use App\Models\User;
 use App\Models\Admin;
 use App\Models\Breed;
-use Ramsey\Uuid\Uuid;
 use App\Models\Animal;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redirect;
+use Ramsey\Uuid\Uuid;
 
 class AdminController extends Controller
 {
-    protected $user;
     public function __construct()
     {
         $this->middleware(function ($request, $next) {
+
             $this->user = Auth::user();
+
+            if ($this->user->isadmin != 1) {
+                abort(403);
+            }
+            
             return $next($request);
         });
-        Log::debug('User Found: ' . $this->user);
     }
 
     /**
@@ -98,7 +101,7 @@ class AdminController extends Controller
         if (empty($breed->deleted_at)) {
             // is there any farm using this breed?
 
-            $animal = Animal::where('breed_id', $request->breed_id)->join('farms', 'farms.id', '=', 'animals.farmable_id')->whereNull('farms.deleted_at')->first();
+            $animal = Animal::where('breed_id', $request->breed_id)->join('farms','farms.id','=','animals.farmable_id')->whereNull('farms.deleted_at')->first();
             if (!empty($animal)) {
                 return Redirect::back()->with('success', 'Breed cannot be deleted. You need to delete the farm using this breed first.');
             }
