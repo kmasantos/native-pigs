@@ -17,16 +17,8 @@ class AdminController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(function ($request, $next) {
-
-            $this->user = Auth::user();
-
-            if ($this->user->isadmin != 1) {
-                abort(403);
-            }
-            
-            return $next($request);
-        })->except('logout');
+        $this->middleware('auth');
+        $this->user = Auth::user();
     }
 
     /**
