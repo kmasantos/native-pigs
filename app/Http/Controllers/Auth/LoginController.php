@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Auth;
 use Socialite;
 use App\Models\User;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -50,19 +51,19 @@ class LoginController extends Controller
         return Socialite::driver('google')->redirect();
     }
 
-    public function loginLink($loginToken, Request $request)
+    public function loginLink($token, Request $request)
     {
-      $user = User::where('login_token', $loginToken)->firstOrFail();
-      $expiration = explode('-', $loginToken);
-      $expiration = array_pop($expiration);
-      if ($expiration > time()) {
-        $user->login_token = '';
-        $user->save();
-        Auth::login($user);
-        return redirect()->action('FarmController@index');
-      } else {
-        abort(404);
-      }
+        $user = User::where('login_token', $token)->firstOrFail();
+        $expiration = explode('-', $token);
+        $expiration = array_pop($expiration);
+        if ($expiration > time()) {
+            $user->login_token = '';
+            $user->save();
+            Auth::login($user);
+            return redirect()->action('FarmController@index');
+        } else {
+            abort(404);
+        }
     }
 
     /**
@@ -75,15 +76,15 @@ class LoginController extends Controller
         $user = Socialite::driver('google')->stateless()->user();
         $findUser = User::where('email', $user->email)->first();
         // Auth::login($findUser, false);
-        if(!is_null($findUser)){
-          if($findUser->isadmin){
-            Auth::login($findUser, true);
-            return redirect()->action('AdminController@index');
-          }else{
-            Auth::login($findUser, true);
-            return redirect()->action('FarmController@index');
-          }
-        }else{
+        if (!is_null($findUser)) {
+            if ($findUser->isadmin) {
+                Auth::login($findUser, true);
+                return redirect()->action('AdminController@index');
+            } else {
+                Auth::login($findUser, true);
+                return redirect()->action('FarmController@index');
+            }
+        } else {
             return redirect('/');
         }
         // if(!is_null($findUser)){
@@ -102,9 +103,9 @@ class LoginController extends Controller
         // }
     }
 
-    public function logout() {
+    public function logout()
+    {
         Auth::logout();
         return redirect('/');
     }
-
 }

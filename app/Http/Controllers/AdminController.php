@@ -806,7 +806,7 @@ class AdminController extends Controller
         $user->login_token = $loginToken;
         $user->save();
  
-        return Redirect::back()->with('success', 'Use a private browsing session or a different browser to log in as this user. This login link will expire in 5 minutes. The login link for '.$user->email.' is: ' . url('/login-link/' . $loginToken));
+        return Redirect::back()->with('success', 'Use a private browsing session or a different browser to log in as this user. This login link will expire in 5 minutes. The login link for '.$user->email.' is: ' . url('/login/link/' . $loginToken));
     }
 
     /**
