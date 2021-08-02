@@ -57,7 +57,7 @@ class LoginController extends Controller
         $expiration = explode('-', $token);
         $expiration = array_pop($expiration);
         if ($expiration > time()) {
-            $user->login_token = '';
+            $user->login_token = null;
             $user->save();
             Auth::login($user);
             return redirect()->action('FarmController@index');

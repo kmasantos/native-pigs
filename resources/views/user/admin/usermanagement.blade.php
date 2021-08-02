@@ -55,7 +55,7 @@
                                         <a href="#edit_user{{ $user->id }}" class="tooltipped modal-trigger"
                                             data-position="top" data-tooltip="Edit"><i class="fas fa-pencil-alt"></i></a>
 										<a href="#mimic_user{{ $user->id }}" class="tooltipped modal-trigger"
-												data-position="top" data-tooltip="Mimic user?><i class="fas fa-people-arrows"></i></a>
+												data-position="top" data-tooltip="Mimic user?><i class="fas fa-sign-in-alt"></i></a>
 											@if (empty($user->deleted_at))
                                             <a href="#delete_user{{ $user->id }}" class="tooltipped modal-trigger"
                                                 data-position="top" data-tooltip="Delete user?"><i
