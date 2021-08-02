@@ -55,7 +55,7 @@ class LoginController extends Controller
       $user = User::where('login_token', $loginToken)->firstOrFail();
       $expiration = explode('-', $loginToken);
       $expiration = array_pop($expiration);
-      if (time() > $expiration) {
+      if ($expiration > time()) {
         $user->login_token = '';
         $user->save();
         Auth::login($user);
