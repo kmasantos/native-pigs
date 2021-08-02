@@ -19,6 +19,9 @@ class AdminController extends Controller
     {
         $this->middleware('auth');
         $this->user = Auth::user();
+        if ($this->user->isadmin != 1) {
+            abort(403);
+        }
     }
 
     /**
