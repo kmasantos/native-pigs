@@ -8,10 +8,11 @@ use App\Models\Farm;
 use App\Models\User;
 use App\Models\Admin;
 use App\Models\Breed;
+use Ramsey\Uuid\Uuid;
 use App\Models\Animal;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redirect;
-use Ramsey\Uuid\Uuid;
 
 class AdminController extends Controller
 {
