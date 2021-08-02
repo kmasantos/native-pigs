@@ -2,22 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Admin;
-use Illuminate\Http\Request;
-use App\Models\User;
-use App\Models\Farm;
-use App\Models\Breed;
 use Auth;
 use Carbon\Carbon;
+use App\Models\Farm;
+use App\Models\User;
+use App\Models\Admin;
+use App\Models\Breed;
+use App\Models\Animal;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 
 class AdminController extends Controller
 {
-
     public function __construct()
     {
-      $this->middleware('auth');
-      $this->user = Auth::user();
+        $this->middleware('auth');
+        $this->user = Auth::user();
     }
 
     /**
@@ -46,14 +46,16 @@ class AdminController extends Controller
         return view('user.admin.home', compact('admin', 'farms', 'breeds', 'users', 'now', 'latest_login', 'latest_user'));
     }
 
-    public function getBreedMgtPage(){
+    public function getBreedMgtPage()
+    {
         $now = Carbon::now('Asia/Manila');
         $breeds = Breed::all();
 
         return view('user.admin.breedmanagement', compact('now', 'breeds'));
     }
 
-    public function fetchNewBreed(Request $request){
+    public function fetchNewBreed(Request $request)
+    {
         $now = Carbon::now('Asia/Manila');
         $breeds = Breed::all();
 
@@ -61,15 +63,14 @@ class AdminController extends Controller
 
         $conflict = [];
         foreach ($breeds as $breed) {
-            if($breed->breed == $name){
+            if ($breed->breed == $name) {
                 array_push($conflict, "1");
-            }
-            else{
+            } else {
                 array_push($conflict, "0");
             }
         }
 
-        if(!in_array("1", $conflict, false)){
+        if (!in_array("1", $conflict, false)) {
             $new_breed = new Breed;
             $new_breed->breed = $name;
             $new_breed->animaltype_id = 3;
@@ -77,15 +78,36 @@ class AdminController extends Controller
 
             $message = "Successfully added new breed!";
             return view('user.admin.breedmanagement', compact('now', 'breeds'))->withMessage($message);
-        }
-        else{
+        } else {
             $message = "Breed name already exists!";
             return view('user.admin.breedmanagement', compact('now', 'breeds'))->withError($message);
         }
-
     }
 
-    public function editBreed(Request $request){
+    public function deleteBreed(Request $request)
+    {
+        $breed = Breed::withTrashed()->find($request->breed_id);
+
+        $action = '';
+        if (empty($breed->deleted_at)) {
+            // is there any farm using this breed?
+
+            $animal = Animal::where('breed_id', $request->breed_id)->join('farms','farms.id','=','animals.farmable_id')->whereNull('farms.deleted_at')->first();
+            if (!empty($animal)) {
+                return Redirect::back()->with('success', 'Breed cannot be deleted. You need to delete the farm using this breed first.');
+            }
+            $breed->delete();
+            $action = 'deleted';
+        } else {
+            $breed->restore();
+            $action = 'restored';
+        }
+ 
+        return Redirect::back()->with('success', 'Breed '.$action.' successfully!');
+    }
+
+    public function editBreed(Request $request)
+    {
         $now = Carbon::now('Asia/Manila');
         $breeds = Breed::all();
         $this_breed = Breed::find($request->breed_id);
@@ -94,29 +116,28 @@ class AdminController extends Controller
 
         $conflict = [];
         foreach ($breeds as $breed) {
-            if($breed->breed == $name){
+            if ($breed->breed == $name) {
                 array_push($conflict, "1");
-            }
-            else{
+            } else {
                 array_push($conflict, "0");
             }
         }
 
-        if(!in_array("1", $conflict, false)){
+        if (!in_array("1", $conflict, false)) {
             $message = "Successfully edited breed ".$this_breed->breed."!";
 
             $this_breed->breed = $name;
             $this_breed->save();
 
             return view('user.admin.breedmanagement', compact('now', 'breeds'))->withMessage($message);
-        }
-        else{
+        } else {
             $message = "Breed name already exists!";
             return view('user.admin.breedmanagement', compact('now', 'breeds'))->withError($message);
         }
     }
 
-    public function getFarmMgtPage(){
+    public function getFarmMgtPage()
+    {
         $now = Carbon::now('Asia/Manila');
         $farms = Farm::all();
         $breeds = Breed::all();
@@ -124,14 +145,15 @@ class AdminController extends Controller
         return view('user.admin.farmmanagement', compact('now', 'farms', 'breeds'));
     }
 
-    public function fetchNewFarm(Request $request){
+    public function fetchNewFarm(Request $request)
+    {
         $name = $request->new_name;
 
         $name_split = explode(" ", $name);
         $initials = "";
 
         foreach ($name_split as $n) {
-          $initials .= $n[0];
+            $initials .= $n[0];
         }
 
         $province = $request->new_province;
@@ -393,7 +415,8 @@ class AdminController extends Controller
         return Redirect::back()->with('message', 'Farm added successfully!');
     }
 
-    public function editFarm(Request $request){
+    public function editFarm(Request $request)
+    {
         $farm = Farm::find($request->farm_id);
 
         $name = $request->name;
@@ -402,7 +425,7 @@ class AdminController extends Controller
         $initials = "";
 
         foreach ($name_split as $n) {
-          $initials .= $n[0];
+            $initials .= $n[0];
         }
 
         $province = $request->province;
@@ -663,15 +686,44 @@ class AdminController extends Controller
         return Redirect::back()->with('message', 'Farm edited successfully!');
     }
 
-    public function getUserMgtPage(){
+    public function deleteFarm(Request $request)
+    {
         $now = Carbon::now('Asia/Manila');
-        $users = User::withTrashed()->where("isadmin", 0)->orderBy('deleted_at','ASC')->orderBy('name','ASC')->get();
+        $users = User::all();
+        $farms = Farm::all();
+
+        $farm = Farm::withTrashed()->find($request->farm_id);
+
+        $action = '';
+        if (empty($farm->deleted_at)) {
+            // is there any user using this farm?
+
+            $farmUser = User::where('farmable_id', $request->farm_id)->first();
+            if (!empty($farmUser)) {
+                return Redirect::back()->with('success', 'Farm '.$action.' cannot be deleted. You need to delete first the users of this farm.');
+            }
+
+            $farm->delete();
+            $action = 'deleted';
+        } else {
+            $farm->restore();
+            $action = 'restored';
+        }
+ 
+        return Redirect::back()->with('success', 'Farm '.$action.' successfully!');
+    }
+
+    public function getUserMgtPage()
+    {
+        $now = Carbon::now('Asia/Manila');
+        $users = User::withTrashed()->where("isadmin", 0)->orderBy('deleted_at', 'ASC')->orderBy('name', 'ASC')->get();
         $farms = Farm::all();
 
         return view('user.admin.usermanagement', compact('now', 'users', 'farms'));
     }
 
-    public function fetchNewUser(Request $request){
+    public function fetchNewUser(Request $request)
+    {
         $now = Carbon::now('Asia/Manila');
         $users = User::where("isadmin", 0)->get();
         $pool = User::all();
@@ -682,15 +734,14 @@ class AdminController extends Controller
 
         $conflict = [];
         foreach ($pool as $user) {
-            if($user->email == $email){
+            if ($user->email == $email) {
                 array_push($conflict, "1");
-            }
-            else{
+            } else {
                 array_push($conflict, "0");
             }
         }
 
-        if(!in_array("1", $conflict, false)){
+        if (!in_array("1", $conflict, false)) {
             $new_user = new User;
             $new_user->name = $request->new_username;
             $new_user->email = $email;
@@ -702,15 +753,14 @@ class AdminController extends Controller
             $message = "Successfully added new user!";
             $users = User::where("isadmin", 0)->get();
             return view('user.admin.usermanagement', compact('now', 'users', 'farms'))->withMessage($message);
-        }
-        else{
+        } else {
             $message = "Email already exists!";
             return view('user.admin.usermanagement', compact('now', 'users', 'farms'))->withError($message);
         }
-        
     }
 
-    public function editUser(Request $request){
+    public function editUser(Request $request)
+    {
         $now = Carbon::now('Asia/Manila');
         $users = User::all();
         $farms = Farm::all();
@@ -727,7 +777,8 @@ class AdminController extends Controller
         return Redirect::back()->with('message', 'User edited successfully!');
     }
 
-    public function deleteUser(Request $request){
+    public function deleteUser(Request $request)
+    {
         $now = Carbon::now('Asia/Manila');
         $users = User::all();
         $farms = Farm::all();
@@ -743,7 +794,7 @@ class AdminController extends Controller
             $action = 'restored';
         }
  
-        return Redirect::back()->with('success','User '.$action.' successfully!');
+        return Redirect::back()->with('success', 'User '.$action.' successfully!');
     }
 
     /**

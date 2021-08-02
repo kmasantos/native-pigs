@@ -193,9 +193,11 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('breed_mgt', ['as' => 'admin.breed_mgt', 'uses' => 'AdminController@getBreedMgtPage']);
     Route::post('fetch_breed', ['as' => 'admin.fetch_breed', 'uses' => 'AdminController@fetchNewBreed']);
     Route::post('edit', ['as' => 'admin.edit_breed', 'uses' => 'AdminController@editBreed']);
+    Route::post('delete_breed', ['as' => 'admin.delete_breed', 'uses' => 'AdminController@deleteBreed']);
     Route::get('farm_mgt', ['as' => 'admin.farm_mgt', 'uses' => 'AdminController@getFarmMgtPage']);
     Route::post('fetch_farm', ['as' => 'admin.fetch_farm', 'uses' => 'AdminController@fetchNewFarm']);
     Route::post('edit_farm', ['as' => 'admin.edit_farm', 'uses' => 'AdminController@editFarm']);
+    Route::post('delete_farm', ['as' => 'admin.delete_farm', 'uses' => 'AdminController@deleteFarm']);
     Route::get('user_mgt', ['as' => 'admin.user_mgt', 'uses' => 'AdminController@getUserMgtPage']);
     Route::post('fetch_user', ['as' => 'admin.fetch_user', 'uses' => 'AdminController@fetchNewUser']);
     Route::post('edit_user', ['as' => 'admin.edit_user', 'uses' => 'AdminController@editUser']);
