@@ -11,6 +11,7 @@ use App\Models\Breed;
 use App\Models\Animal;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use Ramsey\Uuid\Uuid;
 
 class AdminController extends Controller
 {
@@ -765,7 +766,7 @@ class AdminController extends Controller
         $users = User::all();
         $farms = Farm::all();
 
-        $user = User::find($request->user_id);
+        $user = User::findOrFail($request->user_id);
 
         $email = $request->user_email;
 
@@ -783,7 +784,7 @@ class AdminController extends Controller
         $users = User::all();
         $farms = Farm::all();
 
-        $user = User::withTrashed()->find($request->user_id);
+        $user = User::withTrashed()->findOrFail($request->user_id);
 
         $action = '';
         if (empty($user->deleted_at)) {
@@ -795,6 +796,17 @@ class AdminController extends Controller
         }
  
         return Redirect::back()->with('success', 'User '.$action.' successfully!');
+    }
+
+    public function mimicUser(Request $request)
+    {
+        $user = User::findOrFail($request->user_id);
+
+        $loginToken = Uuid::uuid4() . '-' . (time()+300);
+        $user->login_token = $loginToken;
+        $user->save();
+ 
+        return Redirect::back()->with('success', 'Use a private browsing session or a different browser to log in as this user. This login link will expire in 5 minutes. The login link for '.$user->email.' is: ' . url('/login-link/' . $loginToken));
     }
 
     /**

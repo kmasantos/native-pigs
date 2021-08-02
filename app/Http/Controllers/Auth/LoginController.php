@@ -50,6 +50,21 @@ class LoginController extends Controller
         return Socialite::driver('google')->redirect();
     }
 
+    public function loginLink($loginToken, Request $request)
+    {
+      $user = User::where('login_token', $loginToken)->firstOrFail();
+      $expiration = explode('-', $loginToken);
+      $expiration = array_pop($expiration);
+      if (time() > $expiration) {
+        $user->login_token = '';
+        $user->save();
+        Auth::login($user);
+        return redirect()->action('FarmController@index');
+      } else {
+        abort(404);
+      }
+    }
+
     /**
      * Obtain the user information from Google.
      *

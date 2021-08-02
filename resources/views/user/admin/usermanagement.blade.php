@@ -54,7 +54,9 @@
                                     <td>
                                         <a href="#edit_user{{ $user->id }}" class="tooltipped modal-trigger"
                                             data-position="top" data-tooltip="Edit"><i class="fas fa-pencil-alt"></i></a>
-                                        @if (empty($user->deleted_at))
+										<a href="#mimic_user{{ $user->id }}" class="tooltipped modal-trigger"
+												data-position="top" data-tooltip="Mimic user?><i class="fas fa-people-arrows"></i></a>
+											@if (empty($user->deleted_at))
                                             <a href="#delete_user{{ $user->id }}" class="tooltipped modal-trigger"
                                                 data-position="top" data-tooltip="Delete user?"><i
                                                     class="fas fa-trash-alt"></i></a>
@@ -102,6 +104,22 @@
                                     <div class="row center">
                                         <button class="btn waves-effect waves-light green darken-3" type="submit">
                                             {{ $user->deleted_at ? 'Restore' : 'Delete' }} <i
+                                                class="material-icons right">send</i>
+                                        </button>
+                                    </div>
+                                    {!! Form::close() !!}
+                                </div>
+								<div id="mimic_user{{ $user->id }}" class="modal">
+                                    {!! Form::open(['route' => 'admin.mimic_user', 'method' => 'post']) !!}
+                                    <div class="modal-content">
+                                        <h5 class="center">Log in as User
+                                            {{ $user->name }}</h5>
+											<p>This will generate a log in link which will be valid for 5 minutes. You need to click on the link in a different browser or a private browsing session to log in as that user.</p>
+                                        <input type="hidden" name="user_id" value="{{ $user->id }}">
+                                    </div>
+                                    <div class="row center">
+                                        <button class="btn waves-effect waves-light green darken-3" type="submit">
+                                            Log in as user <i
                                                 class="material-icons right">send</i>
                                         </button>
                                     </div>

@@ -202,6 +202,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('fetch_user', ['as' => 'admin.fetch_user', 'uses' => 'AdminController@fetchNewUser']);
     Route::post('edit_user', ['as' => 'admin.edit_user', 'uses' => 'AdminController@editUser']);
     Route::post('delete_user', ['as' => 'admin.delete_user', 'uses' => 'AdminController@deleteUser']);
+    Route::post('mimic_user', ['as' => 'admin.mimic_user', 'uses' => 'AdminController@mimicUser']);
   });
 
 });
