@@ -15,6 +15,8 @@ class MakeLoginTokenNullableInUsers extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('login_token');
+        });
+        Schema::table('users', function (Blueprint $table) {
             $table->string('login_token', 50)->nullable();
         });
     }
@@ -26,6 +28,6 @@ class MakeLoginTokenNullableInUsers extends Migration
      */
     public function down()
     {
-        
+
     }
 }
