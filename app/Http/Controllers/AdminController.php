@@ -8,10 +8,11 @@ use App\Models\Farm;
 use App\Models\User;
 use App\Models\Admin;
 use App\Models\Breed;
+use Ramsey\Uuid\Uuid;
 use App\Models\Animal;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redirect;
-use Ramsey\Uuid\Uuid;
 
 class AdminController extends Controller
 {
@@ -19,9 +20,7 @@ class AdminController extends Controller
     {
         $this->middleware('auth');
         $this->user = Auth::user();
-        if ($this->user->isadmin != 1) {
-            abort(403);
-        }
+        Log::debug('User log: ' . $this->user);
     }
 
     /**
