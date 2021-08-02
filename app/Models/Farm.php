@@ -6,10 +6,12 @@ use App\Models\Breed;
 use DB;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Farm extends Model
 {
-
+  use SoftDeletes;
+  
   protected $table = 'farms';
   public $timestamps = false;
   protected $fillable = [
