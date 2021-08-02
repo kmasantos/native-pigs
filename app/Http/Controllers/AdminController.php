@@ -8,20 +8,21 @@ use App\Models\Farm;
 use App\Models\User;
 use App\Models\Admin;
 use App\Models\Breed;
-use Ramsey\Uuid\Uuid;
 use App\Models\Animal;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redirect;
+use Ramsey\Uuid\Uuid;
 
 class AdminController extends Controller
 {
+    protected $user;
     public function __construct()
     {
-        $this->middleware('auth');
-        $this->user = Auth::user();
-        Log::debug('Auth ID: ' . Auth::id());
-        Log::debug('User log: ' . implode(', ',get_class_methods($this->user)));
+        $this->middleware(function ($request, $next) {
+            $this->user = Auth::user();
+            return $next($request);
+        });
+        Log::debug('User Found: ' . $this->user);
     }
 
     /**
@@ -96,7 +97,7 @@ class AdminController extends Controller
         if (empty($breed->deleted_at)) {
             // is there any farm using this breed?
 
-            $animal = Animal::where('breed_id', $request->breed_id)->join('farms','farms.id','=','animals.farmable_id')->whereNull('farms.deleted_at')->first();
+            $animal = Animal::where('breed_id', $request->breed_id)->join('farms', 'farms.id', '=', 'animals.farmable_id')->whereNull('farms.deleted_at')->first();
             if (!empty($animal)) {
                 return Redirect::back()->with('success', 'Breed cannot be deleted. You need to delete the farm using this breed first.');
             }
@@ -809,7 +810,7 @@ class AdminController extends Controller
         $user->login_token = $loginToken;
         $user->save();
  
-        return Redirect::back()->with('success', 'Use a private browsing session or a different browser to log in as this user. This login link will expire in 5 minutes. The login link for '.$user->email.' is: ' . url('/login/link/' . $loginToken));
+        return Redirect::back()->with('success', 'Use a private browsing session or a different browser to log in as this user. This login link will expire in 5 minutes. The login link for '.$user->email.' is: ' . url('/login-link/' . $loginToken));
     }
 
     /**
