@@ -20,7 +20,8 @@ class AdminController extends Controller
     {
         $this->middleware('auth');
         $this->user = Auth::user();
-        Log::debug('User log: ' . $this->user);
+        Log::debug('Auth ID: ' . Auth::id());
+        Log::debug('User log: ' . implode(', ',get_class_methods($this->user)));
     }
 
     /**
