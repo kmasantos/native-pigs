@@ -52,7 +52,7 @@
 								<div id="delete_farm{{ $farm->id }}" class="modal">
                                     {!! Form::open(['route' => 'admin.delete_farm', 'method' => 'post']) !!}
                                     <div class="modal-content">
-                                        <h5 class="center">{{ $farm>deleted_at ? 'Restore' : 'Delete' }} Farm
+                                        <h5 class="center">{{ $farm->deleted_at ? 'Restore' : 'Delete' }} Farm
                                             {{ $farm->name }}</h5>
                                         <input type="hidden" name="farm_id" value="{{ $farm->id }}">
                                     </div>
