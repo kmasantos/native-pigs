@@ -35,6 +35,7 @@
                         <li><a href="#farms">Farms</a></li>
                         <li><a href="#news">News</a></li>
                         <li><a href="#about">About Us</a></li>
+                        <li><a href="../?privacy" target="_blank">Privacy Policy</a></li>
                         <li><a href="{{url('login/google')}}">Login</a></li>
                     </ul>
                 </div>
