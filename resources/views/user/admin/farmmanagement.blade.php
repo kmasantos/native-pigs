@@ -38,16 +38,16 @@
                                     <td>{{ $farm->getBreed()->breed }}</td>
                                     <td><a href="#edit_farm{{ $farm->id }}" class="tooltipped modal-trigger"
                                             data-position="top" data-tooltip="Edit"><i class="fas fa-pencil-alt"></i></a>
-                                    </td>
-                                    @if (empty($farm->deleted_at))
-                                        <a href="#delete_farm{{ $farm->id }}" class="tooltipped modal-trigger"
-                                            data-position="top" data-tooltip="Delete farm?"><i
+                                            @if (empty($farm->deleted_at))
+                                            <a href="#delete_farm{{ $farm->id }}" class="tooltipped modal-trigger"
+                                                data-position="top" data-tooltip="Delete farm?"><i
                                                 class="fas fa-trash-alt"></i></a>
-                                    @else
-                                        <a href="#delete_farm{{ $farm->id }}" class="tooltipped modal-trigger"
-                                            data-position="top" data-tooltip="Restore farm?"><i
-                                                class="fas fa-trash-restore-alt"></i></a>
-                                    @endif
+                                                @else
+                                                <a href="#delete_farm{{ $farm->id }}" class="tooltipped modal-trigger"
+                                                    data-position="top" data-tooltip="Restore farm?"><i
+                                                    class="fas fa-trash-restore-alt"></i></a>
+                                                    @endif
+                                    </td>
                                 </tr>
 								<div id="delete_farm{{ $farm->id }}" class="modal">
                                     {!! Form::open(['route' => 'admin.delete_farm', 'method' => 'post']) !!}
