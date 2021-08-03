@@ -100,7 +100,7 @@ class AdminController extends Controller
         if (empty($breed->deleted_at)) {
             // is there any farm using this breed?
 
-            $animal = Animal::where('breed_id', $request->breed_id)->join('farms','farms.id','=','animals.farmable_id')->whereNull('farms.deleted_at')->first();
+            $animal = Animal::where('breed_id', $request->breed_id)->join('farms','farms.id','=','animals.farm_id')->whereNull('farms.deleted_at')->first();
             if (!empty($animal)) {
                 return Redirect::back()->with('success', 'Breed cannot be deleted. You need to delete the farm using this breed first.');
             }
@@ -813,7 +813,7 @@ class AdminController extends Controller
         $user->login_token = $loginToken;
         $user->save();
  
-        return Redirect::back()->with('success', 'Use a private browsing session or a different browser to log in as this user. This login link will expire in 5 minutes. The login link for '.$user->email.' is: ' . url('/login-link/' . $loginToken));
+        return Redirect::back()->with('success', 'Use a private browsing session or a different browser to log in as this user. This one-time login link will expire in 5 minutes. The login link for '.$user->email.' is: ' . url('/login/link/' . $loginToken));
     }
 
     /**
