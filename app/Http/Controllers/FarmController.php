@@ -12594,8 +12594,12 @@ class FarmController extends Controller
 						if(!is_null($groupingproperty) && $groupingproperty->value != "Not specified"){
 							$datefarrowed = Carbon::parse($groupingproperty->value);
 							if($datefarrowed->year == $filter && $datefarrowed->format('F') == $month){
-								$lsba = $group->getGroupingProperties()->where("property_id", 50)->first()->value;
-								array_push($lsbavalues, $lsba);
+								$lsba = $group->getGroupingProperties()->where("property_id", 50)->first();
+                                if (empty($lsba)) {
+									continue 2;
+                                } else {
+									array_push($lsbavalues, $lsba);
+								}
 							}
 						}
 					}
