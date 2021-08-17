@@ -12708,8 +12708,12 @@ class FarmController extends Controller
 						if(!is_null($groupingproperty) && $groupingproperty->value != "Not specified"){
 							$dateweaned = Carbon::parse($groupingproperty->value);
 							if($dateweaned->year == $filter && $dateweaned->format('F') == $month){
-								$numberweaned = $group->getGroupingProperties()->where("property_id", 57)->first()->value;
-								array_push($numberweanedvalues, $numberweaned);
+								$numberweaned = $group->getGroupingProperties()->where("property_id", 57)->first();
+								if (empty($numberweaned)) {
+									continue 2;
+                                } else {
+									array_push($numberweanedvalues, $numberweaned->value);
+								}
 							}
 						}
 					}
@@ -12733,9 +12737,13 @@ class FarmController extends Controller
 						if(!is_null($groupingproperty) && $groupingproperty->value != "Not specified"){
 							$dateweaned = Carbon::parse($groupingproperty->value);
 							if($dateweaned->year == $filter && $dateweaned->format('F') == $month){
-								array_push($groupsthismonth, $group);
-								$numberweaned = $group->getGroupingProperties()->where("property_id", 57)->first()->value;
-								array_push($numberweanedvalues, $numberweaned);
+								$numberweaned = $group->getGroupingProperties()->where("property_id", 57)->first();
+								if (empty($numberweaned)) {
+									continue 2;
+                                } else {
+									array_push($groupsthismonth, $group);
+									array_push($numberweanedvalues, $numberweaned->value);
+								}
 							}
 						}
 					}
@@ -12766,8 +12774,12 @@ class FarmController extends Controller
 						if(!is_null($groupingproperty) && $groupingproperty->value != "Not specified"){
 							$datefarrowed = Carbon::parse($groupingproperty->value);
 							if($datefarrowed->year == $filter && $datefarrowed->format('F') == $month){
-								$avebirthweight = $group->getGroupingProperties()->where("property_id", 56)->first()->value;
-								array_push($avebirthweights, $avebirthweight);
+								$avebirthweight = $group->getGroupingProperties()->where("property_id", 56)->first();
+								if (empty($avebirthweight)) {
+									continue 2;
+                                } else {
+									array_push($avebirthweights, $avebirthweight->value);
+								}
 							}
 						}
 					}
@@ -12797,8 +12809,12 @@ class FarmController extends Controller
 						if(!is_null($groupingproperty) && $groupingproperty->value != "Not specified"){
 							$dateweaned = Carbon::parse($groupingproperty->value);
 							if($dateweaned->year == $filter && $dateweaned->format('F') == $month){
-								$aveweaningweight = $group->getGroupingProperties()->where("property_id", 58)->first()->value;
-								array_push($aveweaningweights, $aveweaningweight);
+								$aveweaningweight = $group->getGroupingProperties()->where("property_id", 58)->first();
+								if (empty($aveweaningweight)) {
+									continue 2;
+                                } else {
+									array_push($aveweaningweights, $aveweaningweight->value);
+								}
 							}
 						}
 					}
