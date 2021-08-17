@@ -25,7 +25,7 @@ class AppServiceProvider extends ServiceProvider
     {
         $ip = $_SERVER['REMOTE_ADDR'] ?? '';
         if ($ip == '3.1.52.82') {
-            $this->app->register(new \Barryvdh\Debugbar\ServiceProvider($this->app));
+            \Debugbar::enable();
         }
     }
 }
