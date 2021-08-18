@@ -8432,16 +8432,16 @@ class FarmController extends Controller
 							}
 							if(!is_null($group->getGroupingProperties()->where("property_id", 62)->first())){
 								$litterwwvalue = $group->getGroupingProperties()->where("property_id", 62)->first()->value;
+								array_push($litterweaningweights, $litterwwvalue);
 							}
-							array_push($litterweaningweights, $litterwwvalue);
 							if(!is_null($group->getGroupingProperties()->where("property_id", 58)->first())){
 								$avewwvalue = $group->getGroupingProperties()->where("property_id", 58)->first()->value;
+								array_push($aveweaningweights, $avewwvalue);
 							}
-							array_push($aveweaningweights, $avewwvalue);
 							if(!is_null($group->getGroupingProperties()->where("property_id", 57)->first())){
 								$numberweanedvalue = $group->getGroupingProperties()->where("property_id", 57)->first()->value;
+								array_push($numberweaned, $numberweanedvalue);
 							}
-							array_push($numberweaned, $numberweanedvalue);
 							if(!is_null($group->getGroupingProperties()->where("property_id", 59)->first())){
 								$pwmvalue = $group->getGroupingProperties()->where("property_id", 59)->first()->value;
 								array_push($preweaningmortality, $pwmvalue);
