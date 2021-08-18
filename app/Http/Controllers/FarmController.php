@@ -9850,14 +9850,16 @@ class FarmController extends Controller
 			}
 
 			foreach ($temp_archived_sows as $temp_archived_sow) {
-				if($temp_archived_sow->getAnimalProperties()->where("property_id", 61)->first()->value > 0){
-					array_push($archived_sows, $temp_archived_sow);
+				$temp_sow_row = $temp_archived_sow->getAnimalProperties()->where("property_id", 61)->first();
+				if (!empty($temp_sow_row)) {
+					array_push($archived_sows, $temp_sow_row->value);
 				}
 			}
 
 			foreach ($temp_archived_boars as $temp_archived_boar) {
-				if($temp_archived_boar->getAnimalProperties()->where("property_id", 61)->first()->value > 0){
-					array_push($archived_boars, $temp_archived_boar);
+				$temp_boar_row = $temp_archived_boar->getAnimalProperties()->where("property_id", 61)->first();
+				if (!empty($temp_boar_row)) {
+					array_push($archived_boars, $temp_boar_row);
 				}
 			}
 
