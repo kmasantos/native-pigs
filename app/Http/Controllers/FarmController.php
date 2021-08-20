@@ -2096,9 +2096,9 @@ class FarmController extends Controller
 			$farm = $this->user->getFarm();
 			$breed = $farm->getBreed();
 			
-			$deadpigs = Mortality::join('animals', 'animals.id', '=', 'mortality.animal_id')
-								->where("mortality.animaltype_id", 3)
-								->where("mortality.breed_id", $breed->id)
+			$deadpigs = Mortality::join('animals', 'animals.id', '=', 'mortalities.animal_id')
+								->where("mortalities.animaltype_id", 3)
+								->where("mortalities.breed_id", $breed->id)
 								->where("animals.farm_id", $farm->id)
 								->get();
 
