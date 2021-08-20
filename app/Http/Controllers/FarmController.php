@@ -2095,9 +2095,24 @@ class FarmController extends Controller
 		public function getMortalityAndSalesPage(){ // function to display Mortality and Sales page
 			$farm = $this->user->getFarm();
 			$breed = $farm->getBreed();
-			$deadpigs = Mortality::where("animaltype_id", 3)->where("breed_id", $breed->id)->get();
-			$soldpigs = Sale::where("animaltype_id", 3)->where("breed_id", $breed->id)->get();
-			$removedpigs = RemovedAnimal::where("animaltype_id", 3)->where("breed_id", $breed->id)->get();
+			
+			$deadpigs = Mortality::join('animals', 'animals.id', '=', 'mortality.animal_id')
+								->where("animaltype_id", 3)
+								->where("mortality.breed_id", $breed->id)
+								->where("animals.farm_id", $farm->id)
+								->get();
+
+			$soldpigs = Sale::join('animals', 'animals.id', '=', 'sales.animal_id')
+							->where("animaltype_id", 3)
+							->where("sales.breed_id", $breed->id)
+							->where("animals.farm_id", $farm->id)
+							->get();
+
+			$removedpigs = RemovedAnimal::join('animals', 'animals.id', '=', 'removed_animals.animal_id')
+							->where("animaltype_id", 3)
+							->where("animals.farm_id", $farm->id)
+							->where("removed_animals.breed_id", $breed->id)
+							->get();
 
 			return view('pigs.mortalityandsales', compact('soldpigs', 'deadpigs', 'removedpigs', 'years'));
 		}
