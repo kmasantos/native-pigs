@@ -2099,7 +2099,7 @@ class FarmController extends Controller
 		public static function getNumPigsBornWithoutYear($filter){
 			$farm = Auth::User()->getFarm();
 			$breed = $farm->getBreed();
-			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where(function ($query) {
+			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("farm_id", $farm->id)->where(function ($query) {
 										$query->where("status", "breeder")
 													->orWhere("status", "sold breeder")
 													->orWhere("status", "dead breeder")
@@ -2139,7 +2139,7 @@ class FarmController extends Controller
 		public static function getNumPigsBornOnYear($year, $filter){ // function to get number of pigs born on specific year
 			$farm = Auth::User()->getFarm();
 			$breed = $farm->getBreed();
-			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where(function ($query) {
+			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("farm_id", $farm->id)->where(function ($query) {
 										$query->where("status", "breeder")
 													->orWhere("status", "sold breeder")
 													->orWhere("status", "dead breeder")
@@ -2195,7 +2195,7 @@ class FarmController extends Controller
 		public static function getGrossMorphologyWithoutYearOfBirth($property_id, $filter, $value){
 			$farm = Auth::User()->getFarm();
 			$breed = $farm->getBreed();
-			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where(function ($query) {
+			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("farm_id", $farm->id)->where(function ($query) {
 										$query->where("status", "breeder")
 													->orWhere("status", "sold breeder")
 													->orWhere("status", "dead breeder")
@@ -2273,7 +2273,7 @@ class FarmController extends Controller
 		public static function getGrossMorphologyPerYearOfBirth($year, $property_id, $filter, $value){ // function to get summarized gross morphology report per year of birth
 			$farm = Auth::User()->getFarm();
 			$breed = $farm->getBreed();
-			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where(function ($query) {
+			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("farm_id", $farm->id)->where(function ($query) {
 										$query->where("status", "breeder")
 													->orWhere("status", "sold breeder")
 													->orWhere("status", "dead breeder")
@@ -2365,7 +2365,7 @@ class FarmController extends Controller
 		public function grossMorphoAllDownloadPDF(){
 			$farm = $this->user->getFarm();
 			$breed = $farm->getBreed();
-			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where(function ($query) {
+			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("farm_id", $farm->id)->where(function ($query) {
 										$query->where("status", "breeder")
 													->orWhere("status", "sold breeder")
 													->orWhere("status", "dead breeder");
@@ -2531,7 +2531,7 @@ class FarmController extends Controller
 		public function grossMorphoSowDownloadPDF(){
 			$farm = $this->user->getFarm();
 			$breed = $farm->getBreed();
-			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where(function ($query) {
+			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("farm_id", $farm->id)->where(function ($query) {
 										$query->where("status", "breeder")
 													->orWhere("status", "sold breeder")
 													->orWhere("status", "dead breeder");
@@ -2714,7 +2714,7 @@ class FarmController extends Controller
 		public function grossMorphoBoarDownloadPDF(){
 			$farm = $this->user->getFarm();
 			$breed = $farm->getBreed();
-			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where(function ($query) {
+			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("farm_id", $farm->id)->where(function ($query) {
 										$query->where("status", "breeder")
 													->orWhere("status", "sold breeder")
 													->orWhere("status", "dead breeder");
@@ -2898,7 +2898,7 @@ class FarmController extends Controller
 		public function grossMorphoAllDownloadCSV(){
 			$farm = $this->user->getFarm();
 			$breed = $farm->getBreed();
-			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where(function ($query) {
+			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("farm_id", $farm->id)->where(function ($query) {
 										$query->where("status", "breeder")
 													->orWhere("status", "sold breeder")
 													->orWhere("status", "dead breeder");
@@ -3060,7 +3060,7 @@ class FarmController extends Controller
 		public function grossMorphoSowDownloadCSV(){
 			$farm = $this->user->getFarm();
 			$breed = $farm->getBreed();
-			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where(function ($query) {
+			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("farm_id", $farm->id)->where(function ($query) {
 										$query->where("status", "breeder")
 													->orWhere("status", "sold breeder")
 													->orWhere("status", "dead breeder");
@@ -3239,7 +3239,7 @@ class FarmController extends Controller
 		public function grossMorphoBoarDownloadCSV(){
 			$farm = $this->user->getFarm();
 			$breed = $farm->getBreed();
-			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where(function ($query) {
+			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("farm_id", $farm->id)->where(function ($query) {
 										$query->where("status", "breeder")
 													->orWhere("status", "sold breeder")
 													->orWhere("status", "dead breeder");
@@ -3419,7 +3419,7 @@ class FarmController extends Controller
 		public function getGrossMorphologyReportPage(){ // function to display Gross Morphology Report page
 			$farm = $this->user->getFarm();
 			$breed = $farm->getBreed();
-			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where(function ($query) {
+			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("farm_id", $farm->id)->where(function ($query) {
 										$query->where("status", "breeder")
 													->orWhere("status", "sold breeder")
 													->orWhere("status", "dead breeder")
@@ -3589,7 +3589,7 @@ class FarmController extends Controller
 		public function filterGrossMorphologyReport(Request $request){ // function to filter Gross Morphology Report onclick
 			$farm = $this->user->getFarm();
 			$breed = $farm->getBreed();
-			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where(function ($query) {
+			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("farm_id", $farm->id)->where(function ($query) {
 										$query->where("status", "breeder")
 													->orWhere("status", "sold breeder")
 													->orWhere("status", "dead breeder");
@@ -3988,7 +3988,7 @@ class FarmController extends Controller
 		public static function getMorphometricCharacteristicsWithoutYearOfBirth($property_id, $filter){
 			$farm = Auth::User()->getFarm();
 			$breed = $farm->getBreed();
-			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where(function ($query) {
+			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("farm_id", $farm->id)->where(function ($query) {
 										$query->where("status", "breeder")
 													->orWhere("status", "sold breeder")
 													->orWhere("status", "dead breeder")
@@ -4067,7 +4067,7 @@ class FarmController extends Controller
 		public static function getMorphometricCharacteristicsPerYearOfBirth($year, $property_id, $filter){ // function to display Morphometric Characteristics Report per year of birth
 			$farm = Auth::User()->getFarm();
 			$breed = $farm->getBreed();
-			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where(function ($query) {
+			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("farm_id", $farm->id)->where(function ($query) {
 										$query->where("status", "breeder")
 													->orWhere("status", "sold breeder")
 													->orWhere("status", "dead breeder")
@@ -4161,7 +4161,7 @@ class FarmController extends Controller
 		public function morphoCharsAllDownloadPDF(){
 			$farm = $this->user->getFarm();
 			$breed = $farm->getBreed();
-			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "breeder")->orWhere("status", "dead breeder")->orWhere("status", "sold breeder")->get();
+			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("farm_id", $farm->id)->where("status", "breeder")->orWhere("status", "dead breeder")->orWhere("status", "sold breeder")->get();
 
 			$alive = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "breeder")->get();
 			$sold = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "sold breeder")->get();
@@ -4339,7 +4339,7 @@ class FarmController extends Controller
 		public function morphoCharsSowDownloadPDF(){
 			$farm = $this->user->getFarm();
 			$breed = $farm->getBreed();
-			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "breeder")->orWhere("status", "dead breeder")->orWhere("status", "sold breeder")->get();
+			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("farm_id", $farm->id)->where("status", "breeder")->orWhere("status", "dead breeder")->orWhere("status", "sold breeder")->get();
 
 			$alive = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "breeder")->get();
 			$sold = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "sold breeder")->get();
@@ -4534,7 +4534,7 @@ class FarmController extends Controller
 		public function morphoCharsBoarDownloadPDF(){
 			$farm = $this->user->getFarm();
 			$breed = $farm->getBreed();
-			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "breeder")->orWhere("status", "dead breeder")->orWhere("status", "sold breeder")->get();
+			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("farm_id", $farm->id)->where("status", "breeder")->orWhere("status", "dead breeder")->orWhere("status", "sold breeder")->get();
 
 			$alive = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "breeder")->get();
 			$sold = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "sold breeder")->get();
@@ -4729,7 +4729,7 @@ class FarmController extends Controller
 		public function morphoCharsAllDownloadCSV(){
 			$farm = $this->user->getFarm();
 			$breed = $farm->getBreed();
-			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "breeder")->orWhere("status", "dead breeder")->orWhere("status", "sold breeder")->get();
+			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("farm_id", $farm->id)->where("status", "breeder")->orWhere("status", "dead breeder")->orWhere("status", "sold breeder")->get();
 
 			$alive = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "breeder")->get();
 			$sold = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "sold breeder")->get();
@@ -5043,7 +5043,7 @@ class FarmController extends Controller
 		public function morphoCharsSowDownloadCSV(){
 			$farm = $this->user->getFarm();
 			$breed = $farm->getBreed();
-			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "breeder")->orWhere("status", "dead breeder")->orWhere("status", "sold breeder")->get();
+			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("farm_id", $farm->id)->where("status", "breeder")->orWhere("status", "dead breeder")->orWhere("status", "sold breeder")->get();
 
 			$alive = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "breeder")->get();
 			$sold = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "sold breeder")->get();
@@ -5375,7 +5375,7 @@ class FarmController extends Controller
 		public function morphoCharsBoarDownloadCSV(){
 			$farm = $this->user->getFarm();
 			$breed = $farm->getBreed();
-			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "breeder")->orWhere("status", "dead breeder")->orWhere("status", "sold breeder")->get();
+			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("farm_id", $farm->id)->where("status", "breeder")->orWhere("status", "dead breeder")->orWhere("status", "sold breeder")->get();
 
 			$alive = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "breeder")->get();
 			$sold = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "sold breeder")->get();
@@ -5707,7 +5707,7 @@ class FarmController extends Controller
 		public function getMorphometricCharacteristicsReportPage(){ // function to display Morphometric Characteristics Report page
 			$farm = $this->user->getFarm();
 			$breed = $farm->getBreed();
-			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where(function ($query) {
+			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("farm_id", $farm->id)->where(function ($query) {
 										$query->where("status", "breeder")
 													->orWhere("status", "sold breeder")
 													->orWhere("status", "dead breeder")
@@ -5896,7 +5896,7 @@ class FarmController extends Controller
 		public function filterMorphometricCharacteristicsReport(Request $request){ // function to filter Morphometric Characteristics Report
 			$farm = $this->user->getFarm();
 			$breed = $farm->getBreed();
-			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "breeder")->orWhere("status", "dead breeder")->orWhere("status", "sold breeder")->get();
+			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("farm_id", $farm->id)->where("status", "breeder")->orWhere("status", "dead breeder")->orWhere("status", "sold breeder")->get();
 
 			$alive = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "breeder")->get();
 			$sold = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "sold breeder")->get();
@@ -6345,7 +6345,7 @@ class FarmController extends Controller
 		public static function getWeightsPerYearOfBirth($year, $property_id){ // function to get weights per year of birth
 			$farm = Auth::User()->getFarm();
 			$breed = $farm->getBreed();
-			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->get();
+			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("farm_id", $farm->id)->get();
 
 			// gets pigs born on specified year
 			$bornonyear = [];
@@ -6375,7 +6375,7 @@ class FarmController extends Controller
 		public function growthPerfDownloadPDF(){
 			$farm = $this->user->getFarm();
 			$breed = $farm->getBreed();
-			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->get();
+			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("farm_id", $farm->id)->get();
 			$breeders = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "breeder")->get();
 			$growers = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "active")->get();
 			$now = Carbon::now('Asia/Manila');
@@ -6670,7 +6670,7 @@ class FarmController extends Controller
 		public function growthPerfDownloadCSV(){
 			$farm = $this->user->getFarm();
 			$breed = $farm->getBreed();
-			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->get();
+			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("farm_id", $farm->id)->get();
 			$breeders = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "breeder")->get();
 			$growers = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "active")->get();
 			$now = Carbon::now('Asia/Manila');
@@ -7263,7 +7263,7 @@ class FarmController extends Controller
 		public function getGrowthPerformanceReportPage(){
 			$farm = $this->user->getFarm();
 			$breed = $farm->getBreed();
-			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->get();
+			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("farm_id", $farm->id)->get();
 			$breeders = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "breeder")->get();
 			$growers = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "active")->get();
 			$now = Carbon::now('Asia/Manila');
@@ -7556,7 +7556,7 @@ class FarmController extends Controller
 		public function getBreederProductionReportPage(){ // function to display Breeder Production Report page
 			$farm = $this->user->getFarm();
 			$breed = $farm->getBreed();
-			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->get();
+			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("farm_id", $farm->id)->get();
 			$breeders = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "breeder")->get();
 
 			// age at weaning
@@ -8012,7 +8012,7 @@ class FarmController extends Controller
 		public function fetchProdPerformanceParity(Request $request){
 			$farm = $this->user->getFarm();
 			$breed = $farm->getBreed();
-			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "breeder")->get();
+			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("farm_id", $farm->id)->where("status", "breeder")->get();
 
 			// sorts pigs by sex
 			$sows = [];
@@ -8365,7 +8365,7 @@ class FarmController extends Controller
 			$farm = Auth::User()->getFarm();
 			$breed = $farm->getBreed();
 			$groups = Grouping::whereNotNull("mother_id")->where("breed_id", $breed->id)->get();
-			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "breeder")->get();
+			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("farm_id", $farm->id)->where("status", "breeder")->get();
 
 			$sows = [];
 			$boars = [];
@@ -8785,7 +8785,7 @@ class FarmController extends Controller
 		public function productionPerfSummaryDownloadPDF(){
 			$farm = $this->user->getFarm();
 			$breed = $farm->getBreed();
-			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "breeder")->get();
+			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("farm_id", $farm->id)->where("status", "breeder")->get();
 
 			// sorts pigs by sex
 			$sows = [];
@@ -9111,7 +9111,7 @@ class FarmController extends Controller
 		public function productionPerfSummaryDownloadCSV(){
 			$farm = $this->user->getFarm();
 			$breed = $farm->getBreed();
-			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "breeder")->get();
+			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("farm_id", $farm->id)->where("status", "breeder")->get();
 
 			// sorts pigs by sex
 			$sows = [];
@@ -9792,7 +9792,7 @@ class FarmController extends Controller
 			set_time_limit(5000);
 			$farm = $this->user->getFarm();
 			$breed = $farm->getBreed();
-			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "breeder")->get();
+			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("farm_id", $farm->id)->where("status", "breeder")->get();
 			$archived_pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where(function ($query) {
 										$query->where("status", "dead breeder")
 													->orWhere("status", "sold breeder")
@@ -12837,7 +12837,7 @@ class FarmController extends Controller
 			set_time_limit(5000);
 			$farm = $this->user->getFarm();
 			$breed = $farm->getBreed();
-			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "breeder")->get();
+			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("farm_id", $farm->id)->where("status", "breeder")->get();
 			$now = Carbon::now('Asia/Manila');
 
 			// sorts pigs by sex
@@ -13015,7 +13015,7 @@ class FarmController extends Controller
 			set_time_limit(5000);
 			$farm = $this->user->getFarm();
 			$breed = $farm->getBreed();
-			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "breeder")->get();
+			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("farm_id", $farm->id)->where("status", "breeder")->get();
 			$now = Carbon::now('Asia/Manila');
 
 			// sorts pigs by sex
@@ -13290,7 +13290,7 @@ class FarmController extends Controller
 		public function growerInventoryDownloadPDF($filter){
 			$farm = $this->user->getFarm();
 			$breed = $farm->getBreed();
-			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "active")->get();
+			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("farm_id", $farm->id)->where("status", "active")->get();
 
 			// sorts pigs by sex
 			$sows = [];
@@ -13434,7 +13434,7 @@ class FarmController extends Controller
 		public function getGrowerInventoryPage($filter){ // function to display Grower Inventory page
 			$farm = $this->user->getFarm();
 			$breed = $farm->getBreed();
-			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "active")->get();
+			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("farm_id", $farm->id)->where("status", "active")->get();
 
 			// sorts pigs by sex
 			$sows = [];
@@ -13575,7 +13575,7 @@ class FarmController extends Controller
 		public function filterGrowerInventory(Request $request){
 			$farm = $this->user->getFarm();
 			$breed = $farm->getBreed();
-			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "active")->get();
+			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("farm_id", $farm->id)->where("status", "active")->get();
 
 			// sorts pigs by sex
 			$sows = [];
@@ -14013,7 +14013,7 @@ class FarmController extends Controller
 		public function getGrowerRecordsPage(){ // function to display Grower Records page
 			$farm = $this->user->getFarm();
 			$breed = $farm->getBreed();
-			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "active")->get();
+			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("farm_id", $farm->id)->where("status", "active")->get();
 
 			// sorts pigs by sex
 			$sows = [];
@@ -14033,7 +14033,7 @@ class FarmController extends Controller
 		static function addFrequency(){
 			$farm = Auth::User()->getFarm();
 			$breed = $farm->getBreed();
-			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "breeder")->get();
+			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("farm_id", $farm->id)->where("status", "breeder")->get();
 
 			// sorts pigs by sex
 			$sows = [];
@@ -14109,7 +14109,7 @@ class FarmController extends Controller
 		static function addPonderalIndices(){
 			$farm = Auth::User()->getFarm();
 			$breed = $farm->getBreed();
-			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "breeder")->get();
+			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("farm_id", $farm->id)->where("status", "breeder")->get();
 
 			// computes ponderal index = weight at 180 days divided by body length converted to meters cube
 			$ponderalIndexValue = 0;
@@ -14180,7 +14180,7 @@ class FarmController extends Controller
 			$farm = $this->user->getFarm();
 			$breed = $farm->getBreed();
 			$q = $request->q;
-			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "breeder")->get();
+			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("farm_id", $farm->id)->where("status", "breeder")->get();
 			$archived_pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where(function ($query) {
 										$query->where("status", "dead breeder")
 													->orWhere("status", "sold breeder")
@@ -14229,7 +14229,7 @@ class FarmController extends Controller
 			$farm = $this->user->getFarm();
 			$breed = $farm->getBreed();
 			$q = $request->q;
-			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "active")->get();
+			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("farm_id", $farm->id)->where("status", "active")->get();
 
 			// sorts pigs by sex
 			$sows = [];
@@ -14359,7 +14359,7 @@ class FarmController extends Controller
 		public function getBreederRecordsPage(){ // function to display Breeder Records page
 			$farm = $this->user->getFarm();
 			$breed = $farm->getBreed();
-			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "breeder")->get();
+			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("farm_id", $farm->id)->where("status", "breeder")->get();
 			$archived_pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where(function ($query) {
 										$query->where("status", "dead breeder")
 													->orWhere("status", "sold breeder")
@@ -16364,7 +16364,7 @@ class FarmController extends Controller
 				$weaningweight->value = $weaningWeightValue;
 				$weaningweight->save();
 
-				$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->get();
+				$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("farm_id", $farm->id)->get();
 				$founddam = 0;
 				$foundsire = 0;
 
