@@ -1891,13 +1891,13 @@ class FarmController extends Controller
 			$farm = $this->user->getFarm();
 			$breed = $farm->getBreed();
 			$breeders = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("farm_id", $farm->id)->where("status", "breeder")->get();
-			$family = Grouping::leftJoin('animals', 'animals.id', '=', 'groupings.mother_id')
+			$family = Grouping::join('animals', 'animals.id', '=', 'groupings.mother_id')
 								->whereNotNull("mother_id")
 								->where("groupings.breed_id", $breed->id)
 								->where("animals.farm_id", $farm->id)
 								->get();
 
-			$groups = Grouping::leftJoin('animals', 'animals.id', '=', 'groupings.mother_id')
+			$groups = Grouping::join('animals', 'animals.id', '=', 'groupings.mother_id')
 								->where("groupings.breed_id", $breed->id)
 								->where("animals.farm_id", $farm->id)
 								->join('grouping_properties', 'groupings.id', 'grouping_properties.grouping_id')
