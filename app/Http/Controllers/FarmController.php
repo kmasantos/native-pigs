@@ -1890,7 +1890,7 @@ class FarmController extends Controller
 		public function getBreedingRecordPage(){ // function to display Breeding Record page
 			$farm = $this->user->getFarm();
 			$breed = $farm->getBreed();
-			$breeders = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "breeder")->get();
+			$breeders = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("farm_id", $farm->id)->where("status", "breeder")->get();
 			$family = Grouping::whereNotNull("mother_id")->where("breed_id", $breed->id)->get();
 
 			$groups = Grouping::where("breed_id", $breed->id)
@@ -1980,7 +1980,7 @@ class FarmController extends Controller
 		public function getEditBreedingRecordPage($id){ //function to display edit breeding record page
 			$farm = $this->user->getFarm();
 			$breed = $farm->getBreed();
-			$breeders = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "breeder")->get();
+			$breeders = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("farm_id", $farm->id)->where("status", "breeder")->get();
 			$family = Grouping::find($id);
 			$groups = Grouping::whereNotNull("mother_id")->where("breed_id", $breed->id)->get();
 			$properties = GroupingProperty::where("grouping_id", $id)->get();
@@ -6376,7 +6376,7 @@ class FarmController extends Controller
 			$farm = $this->user->getFarm();
 			$breed = $farm->getBreed();
 			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("farm_id", $farm->id)->get();
-			$breeders = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "breeder")->get();
+			$breeders = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("farm_id", $farm->id)->where("status", "breeder")->get();
 			$growers = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "active")->get();
 			$now = Carbon::now('Asia/Manila');
 
@@ -6671,7 +6671,7 @@ class FarmController extends Controller
 			$farm = $this->user->getFarm();
 			$breed = $farm->getBreed();
 			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("farm_id", $farm->id)->get();
-			$breeders = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "breeder")->get();
+			$breeders = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("farm_id", $farm->id)->where("status", "breeder")->get();
 			$growers = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "active")->get();
 			$now = Carbon::now('Asia/Manila');
 
@@ -7264,7 +7264,7 @@ class FarmController extends Controller
 			$farm = $this->user->getFarm();
 			$breed = $farm->getBreed();
 			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("farm_id", $farm->id)->get();
-			$breeders = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "breeder")->get();
+			$breeders = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("farm_id", $farm->id)->where("status", "breeder")->get();
 			$growers = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "active")->get();
 			$now = Carbon::now('Asia/Manila');
 
@@ -7557,7 +7557,7 @@ class FarmController extends Controller
 			$farm = $this->user->getFarm();
 			$breed = $farm->getBreed();
 			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("farm_id", $farm->id)->get();
-			$breeders = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "breeder")->get();
+			$breeders = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("farm_id", $farm->id)->where("status", "breeder")->get();
 
 			// age at weaning
 			$sows = [];
@@ -7916,7 +7916,7 @@ class FarmController extends Controller
 		static function getAgeAtWeaning($year, $month, $filter){
 			$farm = Auth::User()->getFarm();
 			$breed = $farm->getBreed();
-			$breeders = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "breeder")->get();
+			$breeders = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("farm_id", $farm->id)->where("status", "breeder")->get();
 
 			$sows = [];
 			$boars = [];
@@ -14211,7 +14211,7 @@ class FarmController extends Controller
 			}
 
 			if($q != ' '){
-				$breeders = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where(function ($query) {
+				$breeders = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("farm_id", $farm->id)->where(function ($query) {
 										$query->where("status", "breeder")
 													->orWhere("status", "dead breeder")
 													->orWhere("status", "sold breeder")
@@ -14257,7 +14257,7 @@ class FarmController extends Controller
 			$q = $request->q;
 			$farm = $this->user->getFarm();
 			$breed = $farm->getBreed();
-			$breeders = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "breeder")->get();
+			$breeders = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("farm_id", $farm->id)->where("status", "breeder")->get();
 			$family = Grouping::whereNotNull("mother_id")->where("breed_id", $breed->id)->get();
 
 			$groups = Grouping::where("breed_id", $breed->id)
