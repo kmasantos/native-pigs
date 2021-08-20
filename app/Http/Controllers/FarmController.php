@@ -51,8 +51,8 @@ class FarmController extends Controller
 			$breed = Breed::find($farm->breedable_id);
 			$animaltype = AnimalType::find($breed->animaltype_id);
 			if($animaltype->species == "pig"){
-					$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "active")->get();
-					$breeders = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "breeder")->get();
+					$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("farm_id", $farm->id)->where("status", "active")->get();
+					$breeders = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("farm_id", $farm->id)->where("status", "breeder")->get();
 					$now = Carbon::now('Asia/Manila');
 
 					// sorts growers per sex
