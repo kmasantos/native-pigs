@@ -1138,6 +1138,9 @@ class FarmController extends Controller
 		}
 
 		static function addParityMother($id){
+			$farm = $this->user->getFarm();
+			$breed = $this->user->getBreed();
+			
 			$grouping = Grouping::find($id);
 			Log::debug("grouping ".json_encode($grouping)." for ".$id);
 			$mother = $grouping->getMother();
