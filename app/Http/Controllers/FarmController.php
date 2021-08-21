@@ -9814,7 +9814,7 @@ class FarmController extends Controller
 			$farm = $this->user->getFarm();
 			$breed = $farm->getBreed();
 			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("farm_id", $farm->id)->where("status", "breeder")->get();
-			$archived_pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where(function ($query) {
+			$archived_pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("farm_id", $farm->id)->where(function ($query) {
 										$query->where("status", "dead breeder")
 													->orWhere("status", "sold breeder")
 													->orWhere("status", "removed breeder");
@@ -9885,7 +9885,11 @@ class FarmController extends Controller
 			}
 
 			//gets all groups
-			$groups = Grouping::whereNotNull("mother_id")->where("breed_id", $breed->id)->get();
+			$groups = Grouping::join('animals', 'animals.id', '=', 'groupings.mother_id')
+								->whereNotNull("mother_id")
+								->where("groupings.breed_id", $breed->id)
+								->where("animals.farm_id", $farm->id)
+								->get();
 
 			/*** PER PARITY ***/
 			// gets unique parity
