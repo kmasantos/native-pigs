@@ -1145,7 +1145,7 @@ class FarmController extends Controller
 			$parityprop = $mother->getAnimalProperties()->where("property_id", 48)->first();
 			$paritypropgroup = $grouping->getGroupingProperties()->where("property_id", 48)->first();
 			$status = $grouping->getGroupingProperties()->where("property_id", 60)->first();
-			$family = Grouping::join('animals', 'animals.id', '=', 'groupings.mother_id')
+			$families = Grouping::join('animals', 'animals.id', '=', 'groupings.mother_id')
 							->whereNotNull("mother_id")
 							->where("groupings.breed_id", $mother->id)
 							->where("animals.farm_id", $mother->id)
