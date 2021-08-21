@@ -12034,7 +12034,11 @@ class FarmController extends Controller
 		public function getCumulativeReportPage($filter){
 			$farm = $this->user->getFarm();
 			$breed = $farm->getBreed();
-			$groups = Grouping::whereNotNull("mother_id")->where("breed_id", $breed->id)->get();
+			$groups = Grouping::join('animals', 'animals.id', '=', 'groupings.mother_id')
+								->whereNotNull("mother_id")
+								->where("groupings.breed_id", $breed->id)
+								->where("animals.farm_id", $farm->id)
+								->get();
 
 			$months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
