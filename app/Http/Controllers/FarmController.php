@@ -14277,7 +14277,7 @@ class FarmController extends Controller
 							->get();
 
 			if($q != ' '){
-				$mortalitysearch = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where(function ($query) {
+				$mortalitysearch = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("farm_id", $farm->id)->where(function ($query) {
 										$query->where("status", "breeder")
 													->orWhere("status", "active")
 													->orWhere("status", "dead breeder")
@@ -14300,7 +14300,7 @@ class FarmController extends Controller
 			$breed = $farm->getBreed();
 			$q = $request->q;
 			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("farm_id", $farm->id)->where("status", "breeder")->get();
-			$archived_pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where(function ($query) {
+			$archived_pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("farm_id", $farm->id)->where(function ($query) {
 										$query->where("status", "dead breeder")
 													->orWhere("status", "sold breeder")
 													->orWhere("status", "removed breeder");
@@ -14363,7 +14363,7 @@ class FarmController extends Controller
 			}
 
 			if($q != ' '){
-				$growers = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "active")->where('registryid', 'LIKE', '%'.$q.'%')->get();
+				$growers = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("farm_id", $farm->id)->where("status", "active")->where('registryid', 'LIKE', '%'.$q.'%')->get();
 				// dd($growers);
 				if(count($growers) > 0){
 					return view('pigs.growerrecords', compact('pigs', 'sows', 'boars'))->withDetails($growers)->withQuery($q);
@@ -14377,15 +14377,21 @@ class FarmController extends Controller
 			$farm = $this->user->getFarm();
 			$breed = $farm->getBreed();
 			$breeders = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("farm_id", $farm->id)->where("status", "breeder")->get();
-			$family = Grouping::whereNotNull("mother_id")->where("breed_id", $breed->id)->get();
+			$family = Grouping::join('animals', 'animals.id', '=', 'groupings.mother_id')
+								->whereNotNull("mother_id")
+								->where("groupings.breed_id", $breed->id)
+								->where("animals.farm_id", $farm->id)
+								->get();
 
-			$groups = Grouping::where("breed_id", $breed->id)
+			$groups = Grouping::join('animals', 'animals.id', '=', 'groupings.mother_id')
+								->where("groupings.breed_id", $breed->id)
+								->where("animals.farm_id", $farm->id)
 								->join('grouping_properties', 'groupings.id', 'grouping_properties.grouping_id')
 								->where("grouping_properties.property_id", 42)
 								->select('groupings.*', 'grouping_properties.*', 'groupings.id as id', 'grouping_properties.id as gp_id')
 								->orderBy('grouping_properties.value', 'desc')
 								->get();
-
+								
 			// sorts breeders per sex
 			$sows = [];
 			$boars = [];
