@@ -1138,13 +1138,18 @@ class FarmController extends Controller
 		}
 
 		static function addParityMother($id){
-			$mother = Animal::find($id);
-			Log::debug("grouping ".json_encode($mother)." for ".$id);
+			$grouping = Grouping::find($id);
+			Log::debug("grouping ".json_encode($grouping)." for ".$id);
+			$mother = $grouping->getMother();
 
 			$parityprop = $mother->getAnimalProperties()->where("property_id", 48)->first();
 			$paritypropgroup = $grouping->getGroupingProperties()->where("property_id", 48)->first();
 			$status = $grouping->getGroupingProperties()->where("property_id", 60)->first();
-			$families = Grouping::where("mother_id", $mother->id)->get();
+			$family = Grouping::join('animals', 'animals.id', '=', 'groupings.mother_id')
+							->whereNotNull("mother_id")
+							->where("groupings.breed_id", $breed->id)
+							->where("animals.farm_id", $farm->id)
+							->get();
 
 			//mother's parity property value == latest parity
 			$parities = [];
@@ -1969,7 +1974,7 @@ class FarmController extends Controller
 			$available = array_unique($available_temp);*/
 
 			// automatically updates mother's parity
-			foreach ($family as $group) {
+			foreach ($groups as $group) {
 				static::addParityMother($group->id);
 			}
 
