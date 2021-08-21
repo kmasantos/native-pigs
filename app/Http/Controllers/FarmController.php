@@ -14100,7 +14100,11 @@ class FarmController extends Controller
 		static function getMonthlyRemoved($year, $month){
 			$farm = Auth::User()->getFarm();
 			$breed = $farm->getBreed();
-			$removedpigs = RemovedAnimal::where("animaltype_id", 3)->where("breed_id", $breed->id)->get();
+			$removedpigs = RemovedAnimal::join('animals', 'animals.id', '=', 'removed_animals.animal_id')
+										->where("removed_animals.animaltype_id", 3)
+										->where("animals.farm_id", $farm->id)
+										->where("removed_animals.breed_id", $breed->id)
+										->get();
 
 			$monthlyremoved = [];
 			foreach ($removedpigs as $removedpig) {
