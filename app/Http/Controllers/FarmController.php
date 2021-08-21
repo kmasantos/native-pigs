@@ -1969,6 +1969,7 @@ class FarmController extends Controller
 
 			// automatically updates mother's parity
 			foreach ($family as $group) {
+				Log::debug("group_id is ".$group->id);
 				static::addParityMother($group->id);
 			}
 
