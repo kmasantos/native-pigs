@@ -12558,7 +12558,7 @@ class FarmController extends Controller
 		static function getMonthlyBred($filter, $month){
 			$farm = Auth::User()->getFarm();
 			$breed = $farm->getBreed();
-			$groups = Grouping::whereNotNull("mother_id")->where("breed_id", $breed->id)->get();
+			$groups = Grouping::whereNotNull("mother_id")->where("breed_id", $breed->id)->where("farm_id", $farm->id)->get();
 
 			$count = 0;
 			foreach ($groups as $group) {
@@ -12581,7 +12581,7 @@ class FarmController extends Controller
 		static function getMonthlyFarrowed($filter, $month){
 			$farm = Auth::User()->getFarm();
 			$breed = $farm->getBreed();
-			$groups = Grouping::whereNotNull("mother_id")->where("breed_id", $breed->id)->get();
+			$groups = Grouping::whereNotNull("mother_id")->where("breed_id", $breed->id)->where("farm_id", $farm->id)->get();
 
 			$count = 0;
 			foreach ($groups as $group) {
@@ -12604,7 +12604,7 @@ class FarmController extends Controller
 		static function getMonthlyWeaned($filter, $month){
 			$farm = Auth::User()->getFarm();
 			$breed = $farm->getBreed();
-			$groups = Grouping::whereNotNull("mother_id")->where("breed_id", $breed->id)->get();
+			$groups = Grouping::whereNotNull("mother_id")->where("breed_id", $breed->id)->where("farm_id", $farm->id)->get();
 
 			$count = 0;
 			foreach ($groups as $group) {
@@ -12627,7 +12627,7 @@ class FarmController extends Controller
 		static function getMonthlyLSBA($filter, $month){
 			$farm = Auth::User()->getFarm();
 			$breed = $farm->getBreed();
-			$groups = Grouping::whereNotNull("mother_id")->where("breed_id", $breed->id)->get();
+			$groups = Grouping::whereNotNull("mother_id")->where("breed_id", $breed->id)->where("farm_id", $farm->id)->get();
 
 			$lsbavalues = [];
 			foreach ($groups as $group) {
@@ -12655,7 +12655,7 @@ class FarmController extends Controller
 		static function getMonthlyNumberMales($filter, $month){
 			$farm = Auth::User()->getFarm();
 			$breed = $farm->getBreed();
-			$groups = Grouping::whereNotNull("mother_id")->where("breed_id", $breed->id)->get();
+			$groups = Grouping::whereNotNull("mother_id")->where("breed_id", $breed->id)->where("farm_id", $farm->id)->get();
 
 			$numbermalesvalues = [];
 			foreach ($groups as $group) {
@@ -12679,7 +12679,7 @@ class FarmController extends Controller
 		static function getMonthlyNumberFemales($filter, $month){
 			$farm = Auth::User()->getFarm();
 			$breed = $farm->getBreed();
-			$groups = Grouping::whereNotNull("mother_id")->where("breed_id", $breed->id)->get();
+			$groups = Grouping::whereNotNull("mother_id")->where("breed_id", $breed->id)->where("farm_id", $farm->id)->get();
 
 			$numberfemalesvalue = [];
 			foreach ($groups as $group) {
@@ -12703,7 +12703,7 @@ class FarmController extends Controller
 		static function getMonthlyAverageBorn($filter, $month){
 			$farm = Auth::User()->getFarm();
 			$breed = $farm->getBreed();
-			$groups = Grouping::whereNotNull("mother_id")->where("breed_id", $breed->id)->get();
+			$groups = Grouping::whereNotNull("mother_id")->where("breed_id", $breed->id)->where("farm_id", $farm->id)->get();
 
 			$lsbavalues = [];
 			$groupsthismonth = [];
@@ -12741,7 +12741,7 @@ class FarmController extends Controller
 		static function getMonthlyNumberWeaned($filter, $month){
 			$farm = Auth::User()->getFarm();
 			$breed = $farm->getBreed();
-			$groups = Grouping::whereNotNull("mother_id")->where("breed_id", $breed->id)->get();
+			$groups = Grouping::whereNotNull("mother_id")->where("breed_id", $breed->id)->where("farm_id", $farm->id)->get();
 
 			$numberweanedvalues = [];
 			foreach ($groups as $group) {
@@ -12769,7 +12769,7 @@ class FarmController extends Controller
 		static function getMonthlyAverageWeaned($filter, $month){
 			$farm = Auth::User()->getFarm();
 			$breed = $farm->getBreed();
-			$groups = Grouping::whereNotNull("mother_id")->where("breed_id", $breed->id)->get();
+			$groups = Grouping::whereNotNull("mother_id")->where("breed_id", $breed->id)->where("farm_id", $farm->id)->get();
 
 			$numberweanedvalues = [];
 			$groupsthismonth = [];
@@ -12807,7 +12807,7 @@ class FarmController extends Controller
 		static function getMonthlyAverageBirthWeight($filter, $month){
 			$farm = Auth::User()->getFarm();
 			$breed = $farm->getBreed();
-			$groups = Grouping::whereNotNull("mother_id")->where("breed_id", $breed->id)->get();
+			$groups = Grouping::whereNotNull("mother_id")->where("breed_id", $breed->id)->where("farm_id", $farm->id)->get();
 
 			$avebirthweights = [];
 			foreach ($groups as $group) {
@@ -12842,7 +12842,7 @@ class FarmController extends Controller
 		static function getMonthlyAverageWeaningWeight($filter, $month){
 			$farm = Auth::User()->getFarm();
 			$breed = $farm->getBreed();
-			$groups = Grouping::whereNotNull("mother_id")->where("breed_id", $breed->id)->get();
+			$groups = Grouping::whereNotNull("mother_id")->where("breed_id", $breed->id)->where("farm_id", $farm->id)->get();
 
 			$aveweaningweights = [];
 			foreach ($groups as $group) {
