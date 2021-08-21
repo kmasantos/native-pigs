@@ -604,6 +604,7 @@
 		    	<div class="row center">
 		    		<div class="col s6">
 		    			<p class="green-text text-lighten-1">Head Shape</p>
+						{{ dd($years) }}
 		    			<table class="centered">
 		    				<thead>
 		    					<tr>
