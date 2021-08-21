@@ -13116,8 +13116,12 @@ class FarmController extends Controller
 			}
 
 			// gets all groups available
-			$groups = Grouping::whereNotNull("mother_id")->where("breed_id", $breed->id)->get();
-
+			$groups = Grouping::join('animals', 'animals.id', '=', 'groupings.mother_id')
+								->whereNotNull("mother_id")
+								->where("groupings.breed_id", $breed->id)
+								->where("animals.farm_id", $farm->id)
+								->get();
+								
 			// BOAR INVENTORY
 			
 			// sorts male pigs into jr and sr boars
