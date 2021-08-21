@@ -1138,9 +1138,6 @@ class FarmController extends Controller
 		}
 
 		static function addParityMother($id){
-			$farm = $this->user->getFarm();
-			$breed = $this->user->getBreed();
-			
 			$grouping = Grouping::find($id);
 			Log::debug("grouping ".json_encode($grouping)." for ".$id);
 			$mother = $grouping->getMother();
@@ -1150,8 +1147,8 @@ class FarmController extends Controller
 			$status = $grouping->getGroupingProperties()->where("property_id", 60)->first();
 			$family = Grouping::join('animals', 'animals.id', '=', 'groupings.mother_id')
 							->whereNotNull("mother_id")
-							->where("groupings.breed_id", $breed->id)
-							->where("animals.farm_id", $farm->id)
+							->where("groupings.breed_id", $mother->id)
+							->where("animals.farm_id", $mother->id)
 							->get();
 
 			//mother's parity property value == latest parity
