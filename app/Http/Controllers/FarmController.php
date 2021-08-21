@@ -1139,7 +1139,7 @@ class FarmController extends Controller
 
 		static function addParityMother($id){
 			$mother = Animal::find($id);
-			Log::debug("grouping ".json_encode($grouping)." for ".$id);
+			Log::debug("grouping ".json_encode($mother)." for ".$id);
 
 			$parityprop = $mother->getAnimalProperties()->where("property_id", 48)->first();
 			$paritypropgroup = $grouping->getGroupingProperties()->where("property_id", 48)->first();
