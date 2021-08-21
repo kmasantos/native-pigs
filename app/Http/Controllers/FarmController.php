@@ -5735,10 +5735,10 @@ class FarmController extends Controller
 													->orWhere("status", "removed breeder");
 													})->get();
 
-			$alive = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "breeder")->get();
-			$sold = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "sold breeder")->get();
-			$dead = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "dead breeder")->get();
-			$removed = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("status", "removed breeder")->get();
+			$alive = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("farm_id", $farm->id)->where("status", "breeder")->get();
+			$sold = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("farm_id", $farm->id)->where("status", "sold breeder")->get();
+			$dead = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("farm_id", $farm->id)->where("status", "dead breeder")->get();
+			$removed = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("farm_id", $farm->id)->where("status", "removed breeder")->get();
 			$sowsalive = [];
 			$soldsows = [];
 			$deadsows = [];
