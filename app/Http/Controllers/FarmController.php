@@ -1988,7 +1988,13 @@ class FarmController extends Controller
 			$breed = $farm->getBreed();
 			$breeders = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("farm_id", $farm->id)->where("status", "breeder")->get();
 			$family = Grouping::find($id);
-			$groups = Grouping::whereNotNull("mother_id")->where("breed_id", $breed->id)->get();
+			
+			$groups = Grouping::join('animals', 'animals.id', '=', 'groupings.mother_id')
+								->whereNotNull("mother_id")
+								->where("groupings.breed_id", $breed->id)
+								->where("animals.farm_id", $farm->id)
+								->get();
+
 			$properties = GroupingProperty::where("grouping_id", $id)->get();
 
 			// sorts breeders per sex
@@ -7671,7 +7677,12 @@ class FarmController extends Controller
 			}
 
 			//age at first breeding
-			$groups = Grouping::whereNotNull("mother_id")->where("breed_id", $breed->id)->get();
+			$groups = Grouping::join('animals', 'animals.id', '=', 'groupings.mother_id')
+								->whereNotNull("mother_id")
+								->where("groupings.breed_id", $breed->id)
+								->where("animals.farm_id", $farm->id)
+								->get();
+
 
 			$firstbreds = [];
 			$firstbredsows = [];
@@ -8072,7 +8083,11 @@ class FarmController extends Controller
 				}
 			}
 
-			$groups = Grouping::whereNotNull("mother_id")->where("breed_id", $breed->id)->get();
+			$groups = Grouping::join('animals', 'animals.id', '=', 'groupings.mother_id')
+								->whereNotNull("mother_id")
+								->where("groupings.breed_id", $breed->id)
+								->where("animals.farm_id", $farm->id)
+								->get();
 
 			// gets unique parity
 			$parity = [];
@@ -8203,7 +8218,11 @@ class FarmController extends Controller
 			set_time_limit(5000);
 			$farm = Auth::User()->getFarm();
 			$breed = $farm->getBreed();
-			$groups = Grouping::whereNotNull("mother_id")->where("breed_id", $breed->id)->get();
+			$groups = Grouping::join('animals', 'animals.id', '=', 'groupings.mother_id')
+								->whereNotNull("mother_id")
+								->where("groupings.breed_id", $breed->id)
+								->where("animals.farm_id", $farm->id)
+								->get();
 
 			$groupswiththisparity = [];
 			foreach ($groups as $group) {
@@ -8385,7 +8404,12 @@ class FarmController extends Controller
 			set_time_limit(5000);
 			$farm = Auth::User()->getFarm();
 			$breed = $farm->getBreed();
-			$groups = Grouping::whereNotNull("mother_id")->where("breed_id", $breed->id)->get();
+			$groups = Grouping::join('animals', 'animals.id', '=', 'groupings.mother_id')
+								->whereNotNull("mother_id")
+								->where("groupings.breed_id", $breed->id)
+								->where("animals.farm_id", $farm->id)
+								->get();
+
 			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("farm_id", $farm->id)->where("status", "breeder")->get();
 
 			$sows = [];
@@ -8846,7 +8870,11 @@ class FarmController extends Controller
 			}
 
 			//gets all groups
-			$groups = Grouping::whereNotNull("mother_id")->where("breed_id", $breed->id)->get();
+			$groups = Grouping::join('animals', 'animals.id', '=', 'groupings.mother_id')
+								->whereNotNull("mother_id")
+								->where("groupings.breed_id", $breed->id)
+								->where("animals.farm_id", $farm->id)
+								->get();
 
 			$lsba_sow = [];
 			$numbermales_sow = [];
@@ -9172,7 +9200,11 @@ class FarmController extends Controller
 			}
 
 			//gets all groups
-			$groups = Grouping::whereNotNull("mother_id")->where("breed_id", $breed->id)->get();
+			$groups = Grouping::join('animals', 'animals.id', '=', 'groupings.mother_id')
+								->whereNotNull("mother_id")
+								->where("groupings.breed_id", $breed->id)
+								->where("animals.farm_id", $farm->id)
+								->get();
 
 			$lsba_sow = [];
 			$numbermales_sow = [];
@@ -11804,7 +11836,11 @@ class FarmController extends Controller
 		public function cumulativeDownloadPDF($filter){
 			$farm = $this->user->getFarm();
 			$breed = $farm->getBreed();
-			$groups = Grouping::whereNotNull("mother_id")->where("breed_id", $breed->id)->get();
+			$groups = Grouping::join('animals', 'animals.id', '=', 'groupings.mother_id')
+								->whereNotNull("mother_id")
+								->where("groupings.breed_id", $breed->id)
+								->where("animals.farm_id", $farm->id)
+								->get();
 
 			$months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
@@ -12496,7 +12532,11 @@ class FarmController extends Controller
 		public function monthlyPerfDownloadPDF($filter){
 			$farm = $this->user->getFarm();
 			$breed = $farm->getBreed();
-			$groups = Grouping::whereNotNull("mother_id")->where("breed_id", $breed->id)->get();
+			$groups = Grouping::join('animals', 'animals.id', '=', 'groupings.mother_id')
+								->whereNotNull("mother_id")
+								->where("groupings.breed_id", $breed->id)
+								->where("animals.farm_id", $farm->id)
+								->get();
 
 			$months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
@@ -12938,7 +12978,12 @@ class FarmController extends Controller
 			}
 
 			// gets all groups available
-			$groups = Grouping::whereNotNull("mother_id")->where("breed_id", $breed->id)->get();
+			$groups = Grouping::join('animals', 'animals.id', '=', 'groupings.mother_id')
+								->whereNotNull("mother_id")
+								->where("groupings.breed_id", $breed->id)
+								->where("animals.farm_id", $farm->id)
+								->get();
+
 			// BOAR INVENTORY
 			
 			// sorts male pigs into jr and sr boars
@@ -14154,7 +14199,11 @@ class FarmController extends Controller
 
 			if(!is_null($pigs)){
 				// gets all groups available
-				$groups = Grouping::whereNotNull("mother_id")->where("breed_id", $breed->id)->get();
+				$groups = Grouping::join('animals', 'animals.id', '=', 'groupings.mother_id')
+								->whereNotNull("mother_id")
+								->where("groupings.breed_id", $breed->id)
+								->where("animals.farm_id", $farm->id)
+								->get();
 
 				// BOAR INVENTORY
 				foreach ($boars as $boar) {	// adds frequency of boar service
@@ -14391,7 +14440,7 @@ class FarmController extends Controller
 								->select('groupings.*', 'grouping_properties.*', 'groupings.id as id', 'grouping_properties.id as gp_id')
 								->orderBy('grouping_properties.value', 'desc')
 								->get();
-								
+
 			// sorts breeders per sex
 			$sows = [];
 			$boars = [];
