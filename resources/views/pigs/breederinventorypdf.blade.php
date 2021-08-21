@@ -14,11 +14,19 @@
 <br>
 <h4 class="center">Sow Inventory</h4>
 @if($noage_sows == [])
-	<p class="center">Number of female breeders in the herd: <b>{{ count($sows) }}</b> (sows: {{ count($bredsows)+count($bredgilts)+count($pregnantsows)+count($lactatingsows)+$drysows }}, gilts: {{ count($gilts) }})</p>
-	<p class="center">Average age: <b>{{ round(array_sum($age_sows)/(count($sows)-count($noage_sows)), 2) }} months</b></p>
+	<p>Number of female breeders in the herd: <strong>{{ count($sows) }}</strong> (sows: {{ count($bredsows)+count($bredgilts)+count($pregnantsows)+count($lactatingsows)+$drysows }}, gilts: {{ count($gilts) }})</p>
+	@if (count($sows)== 0)
+		<p>Average age: <strong>No data available</strong></p>
+	@else
+		<p>Average age: <strong>{{ round(array_sum($age_sows)/(count($sows)-count($noage_sows)), 2) }} months</strong></p>
+	@endif
 @else
-	<p class="center">Number of female breeders in the herd: <b>{{ count($sows) }}</b> (sows: {{ count($bredsows)+count($bredgilts)+count($pregnantsows)+count($lactatingsows)+$drysows }}, gilts: {{ count($gilts) }})</p>
-	<p class="center">Average age: <b>{{ round(array_sum($age_sows)/(count($sows)-count($noage_sows)), 2) }} months</b> (female breeders without age data: {{ count($noage_sows) }})</p>
+	<p>Number of female breeders in the herd: <strong>{{ count($sows) }}</strong> (sows: {{ count($bredsows)+count($bredgilts)+count($pregnantsows)+count($lactatingsows)+$drysows }}, gilts: {{ count($gilts) }})</p>
+	@if (count($sows) == 0)
+		<p>Average age: No available data</strong></p>
+	@else
+		<p>Average age: <strong>{{ round(array_sum($age_sows)/(count($sows)-count($noage_sows)), 2) }} months</strong> (female breeders without age data: {{ count($noage_sows) }})</p>
+	@endif
 @endif
 <table class="centered">
 	<thead>
@@ -65,7 +73,11 @@
 <br><br>
 <h4 class="center">Boar Inventory</h4>
 <p class="center">Number of boars in the herd: <b>{{ count($boars) }}</b></p>
-<p class="center">Average age: <b>{{ round(array_sum($age_boars)/(count($srboars)+count($jrboars)), 2) }} months</b>*</p>
+@if (count($boars) == 0)
+	<p>Average age: <strong>No data available</strong>*</p>
+@else
+	<p>Average age: <strong>{{ round(array_sum($age_boars)/(count($srboars)+count($jrboars)), 2) }} months</strong>*</p>
+@endif
 <table class="centered">
 	<thead>
 		<tr>
