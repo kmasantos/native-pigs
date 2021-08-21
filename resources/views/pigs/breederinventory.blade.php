@@ -147,7 +147,11 @@
 			<div id="boarinventory" class="col s12">
 				<h5>Inventory for <strong>{{ Carbon\Carbon::parse($now)->format('F, Y') }}</strong> as of <strong>{{ Carbon\Carbon::parse($now)->format('F j, Y') }}</strong></h5>
 				<p>Number of boars in the herd: <strong>{{ count($boars) }}</strong></p>
-				<p>Average age: <strong>{{ round(array_sum($age_boars)/(count($srboars)+count($jrboars)), 2) }} months</strong>*</p>
+				@if (count($boars) == 0)
+				<p>Average age: <strong>No data available</strong>*</p>
+				@else
+					<p>Average age: <strong>{{ round(array_sum($age_boars)/(count($srboars)+count($jrboars)), 2) }} months</strong>*</p>
+				@endif
 				<div class="row">
 					<div class="col s12 m12 l6">
 						<div class="card">
