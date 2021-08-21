@@ -604,7 +604,6 @@
 		    	<div class="row center">
 		    		<div class="col s6">
 		    			<p class="green-text text-lighten-1">Head Shape</p>
-						{{ dd($years) }}
 		    			<table class="centered">
 		    				<thead>
 		    					<tr>
@@ -703,14 +702,14 @@
 		    					@forelse($years as $year)
 			    					<tr>
 			    						<td>{{ $year }}</td>
-			    						@if(App\Http\Controllers\FarmController::getGrossMorphologyWithoutYearOfBirth(17, $filter, "Drooping") == [] && App\Http\Controllers\FarmController::getGrossMorphologyWithoutYearOfBirth(17, $filter, "Semi-lop") == [] && App\Http\Controllers\FarmController::getGrossMorphologyWithoutYearOfBirth(17, $filter, "Erect") == [])
-			    							<td colspan="4">No data available</td>
-			    						@else
-			    							<td>{{ count(App\Http\Controllers\FarmController::getGrossMorphologyWithoutYearOfBirth(17, $filter, "Drooping")) }} ({{ round(((count(App\Http\Controllers\FarmController::getGrossMorphologyWithoutYearOfBirth(17, $filter, "Drooping"))/count(App\Http\Controllers\FarmController::getNumPigsBornWithoutYear($filter))))*100, 2) }}%)</td>
-			    							<td>{{ count(App\Http\Controllers\FarmController::getGrossMorphologyWithoutYearOfBirth(17, $filter, "Semi-lop")) }} ({{ round(((count(App\Http\Controllers\FarmController::getGrossMorphologyWithoutYearOfBirth(17, $filter, "Semi-lop"))/count(App\Http\Controllers\FarmController::getNumPigsBornWithoutYear($filter))))*100, 2) }}%)</td>
-			    							<td>{{ count(App\Http\Controllers\FarmController::getGrossMorphologyWithoutYearOfBirth(17, $filter, "Erect")) }} ({{ round(((count(App\Http\Controllers\FarmController::getGrossMorphologyWithoutYearOfBirth(17, $filter, "Erect"))/count(App\Http\Controllers\FarmController::getNumPigsBornWithoutYear($filter))))*100, 2) }}%)</td>
-			    							<td>{{ count(App\Http\Controllers\FarmController::getNumPigsBornWithoutYear($filter))-(count(App\Http\Controllers\FarmController::getGrossMorphologyWithoutYearOfBirth(17, $filter, "Drooping"))+count(App\Http\Controllers\FarmController::getGrossMorphologyWithoutYearOfBirth(17, $filter, "Semi-lop"))+count(App\Http\Controllers\FarmController::getGrossMorphologyWithoutYearOfBirth(17, $filter, "Erect"))) }} ({{ round(((count(App\Http\Controllers\FarmController::getNumPigsBornWithoutYear($filter))-(count(App\Http\Controllers\FarmController::getGrossMorphologyWithoutYearOfBirth(17, $filter, "Drooping"))+count(App\Http\Controllers\FarmController::getGrossMorphologyWithoutYearOfBirth(17, $filter, "Semi-lop"))+count(App\Http\Controllers\FarmController::getGrossMorphologyWithoutYearOfBirth(17, $filter, "Erect"))))/count(App\Http\Controllers\FarmController::getNumPigsBornWithoutYear($filter)))*100, 2) }}%)</td>
-			    						@endif
+			    						@if(App\Http\Controllers\FarmController::getGrossMorphologyPerYearOfBirth($year, 17, $filter, "Drooping") == [] && App\Http\Controllers\FarmController::getGrossMorphologyPerYearOfBirth($year, 17, $filter, "Semi-lop") == [] && App\Http\Controllers\FarmController::getGrossMorphologyPerYearOfBirth($year, 17, $filter, "Erect") == [])
+		    							<td colspan="4">No data available</td>
+										@else
+											<td>{{ count(App\Http\Controllers\FarmController::getGrossMorphologyPerYearOfBirth($year, 17, $filter, "Drooping")) }} ({{ round(((count(App\Http\Controllers\FarmController::getGrossMorphologyPerYearOfBirth($year, 17, $filter, "Drooping"))/count(App\Http\Controllers\FarmController::getNumPigsBornOnYear($year, $filter))))*100, 2) }}%)</td>
+											<td>{{ count(App\Http\Controllers\FarmController::getGrossMorphologyPerYearOfBirth($year, 17, $filter, "Semi-lop")) }} ({{ round(((count(App\Http\Controllers\FarmController::getGrossMorphologyPerYearOfBirth($year, 17, $filter, "Semi-lop"))/count(App\Http\Controllers\FarmController::getNumPigsBornOnYear($year, $filter))))*100, 2) }}%)</td>
+											<td>{{ count(App\Http\Controllers\FarmController::getGrossMorphologyPerYearOfBirth($year, 17, $filter, "Erect")) }} ({{ round(((count(App\Http\Controllers\FarmController::getGrossMorphologyPerYearOfBirth($year, 17, $filter, "Erect"))/count(App\Http\Controllers\FarmController::getNumPigsBornOnYear($year, $filter))))*100, 2) }}%)</td>
+											<td>{{ count(App\Http\Controllers\FarmController::getNumPigsBornOnYear($year, $filter))-(count(App\Http\Controllers\FarmController::getGrossMorphologyPerYearOfBirth($year, 17, $filter, "Drooping"))+count(App\Http\Controllers\FarmController::getGrossMorphologyPerYearOfBirth($year, 17, $filter, "Semi-lop"))+count(App\Http\Controllers\FarmController::getGrossMorphologyPerYearOfBirth($year, 17, $filter, "Erect"))) }} ({{ round(((count(App\Http\Controllers\FarmController::getNumPigsBornOnYear($year, $filter))-(count(App\Http\Controllers\FarmController::getGrossMorphologyPerYearOfBirth($year, 17, $filter, "Drooping"))+count(App\Http\Controllers\FarmController::getGrossMorphologyPerYearOfBirth($year, 17, $filter, "Semi-lop"))+count(App\Http\Controllers\FarmController::getGrossMorphologyPerYearOfBirth($year, 17, $filter, "Erect"))))/count(App\Http\Controllers\FarmController::getNumPigsBornOnYear($year, $filter)))*100, 2) }}%)</td>
+										@endif
 			    					</tr>
 			    				@empty
 			    					<tr>
@@ -719,14 +718,14 @@
 			    				@endforelse
 			    				<tr>
 			    					<td>No Year</td>
-			    					@if(App\Http\Controllers\FarmController::getGrossMorphologyPerYearOfBirth($year, 17, $filter, "Drooping") == [] && App\Http\Controllers\FarmController::getGrossMorphologyPerYearOfBirth($year, 17, $filter, "Semi-lop") == [] && App\Http\Controllers\FarmController::getGrossMorphologyPerYearOfBirth($year, 17, $filter, "Erect") == [])
-		    							<td colspan="4">No data available</td>
-		    						@else
-		    							<td>{{ count(App\Http\Controllers\FarmController::getGrossMorphologyPerYearOfBirth($year, 17, $filter, "Drooping")) }} ({{ round(((count(App\Http\Controllers\FarmController::getGrossMorphologyPerYearOfBirth($year, 17, $filter, "Drooping"))/count(App\Http\Controllers\FarmController::getNumPigsBornOnYear($year, $filter))))*100, 2) }}%)</td>
-		    							<td>{{ count(App\Http\Controllers\FarmController::getGrossMorphologyPerYearOfBirth($year, 17, $filter, "Semi-lop")) }} ({{ round(((count(App\Http\Controllers\FarmController::getGrossMorphologyPerYearOfBirth($year, 17, $filter, "Semi-lop"))/count(App\Http\Controllers\FarmController::getNumPigsBornOnYear($year, $filter))))*100, 2) }}%)</td>
-		    							<td>{{ count(App\Http\Controllers\FarmController::getGrossMorphologyPerYearOfBirth($year, 17, $filter, "Erect")) }} ({{ round(((count(App\Http\Controllers\FarmController::getGrossMorphologyPerYearOfBirth($year, 17, $filter, "Erect"))/count(App\Http\Controllers\FarmController::getNumPigsBornOnYear($year, $filter))))*100, 2) }}%)</td>
-		    							<td>{{ count(App\Http\Controllers\FarmController::getNumPigsBornOnYear($year, $filter))-(count(App\Http\Controllers\FarmController::getGrossMorphologyPerYearOfBirth($year, 17, $filter, "Drooping"))+count(App\Http\Controllers\FarmController::getGrossMorphologyPerYearOfBirth($year, 17, $filter, "Semi-lop"))+count(App\Http\Controllers\FarmController::getGrossMorphologyPerYearOfBirth($year, 17, $filter, "Erect"))) }} ({{ round(((count(App\Http\Controllers\FarmController::getNumPigsBornOnYear($year, $filter))-(count(App\Http\Controllers\FarmController::getGrossMorphologyPerYearOfBirth($year, 17, $filter, "Drooping"))+count(App\Http\Controllers\FarmController::getGrossMorphologyPerYearOfBirth($year, 17, $filter, "Semi-lop"))+count(App\Http\Controllers\FarmController::getGrossMorphologyPerYearOfBirth($year, 17, $filter, "Erect"))))/count(App\Http\Controllers\FarmController::getNumPigsBornOnYear($year, $filter)))*100, 2) }}%)</td>
-		    						@endif
+									@if(App\Http\Controllers\FarmController::getGrossMorphologyWithoutYearOfBirth(17, $filter, "Drooping") == [] && App\Http\Controllers\FarmController::getGrossMorphologyWithoutYearOfBirth(17, $filter, "Semi-lop") == [] && App\Http\Controllers\FarmController::getGrossMorphologyWithoutYearOfBirth(17, $filter, "Erect") == [])
+										<td colspan="4">No data available</td>
+									@else
+										<td>{{ count(App\Http\Controllers\FarmController::getGrossMorphologyWithoutYearOfBirth(17, $filter, "Drooping")) }} ({{ round(((count(App\Http\Controllers\FarmController::getGrossMorphologyWithoutYearOfBirth(17, $filter, "Drooping"))/count(App\Http\Controllers\FarmController::getNumPigsBornWithoutYear($filter))))*100, 2) }}%)</td>
+										<td>{{ count(App\Http\Controllers\FarmController::getGrossMorphologyWithoutYearOfBirth(17, $filter, "Semi-lop")) }} ({{ round(((count(App\Http\Controllers\FarmController::getGrossMorphologyWithoutYearOfBirth(17, $filter, "Semi-lop"))/count(App\Http\Controllers\FarmController::getNumPigsBornWithoutYear($filter))))*100, 2) }}%)</td>
+										<td>{{ count(App\Http\Controllers\FarmController::getGrossMorphologyWithoutYearOfBirth(17, $filter, "Erect")) }} ({{ round(((count(App\Http\Controllers\FarmController::getGrossMorphologyWithoutYearOfBirth(17, $filter, "Erect"))/count(App\Http\Controllers\FarmController::getNumPigsBornWithoutYear($filter))))*100, 2) }}%)</td>
+										<td>{{ count(App\Http\Controllers\FarmController::getNumPigsBornWithoutYear($filter))-(count(App\Http\Controllers\FarmController::getGrossMorphologyWithoutYearOfBirth(17, $filter, "Drooping"))+count(App\Http\Controllers\FarmController::getGrossMorphologyWithoutYearOfBirth(17, $filter, "Semi-lop"))+count(App\Http\Controllers\FarmController::getGrossMorphologyWithoutYearOfBirth(17, $filter, "Erect"))) }} ({{ round(((count(App\Http\Controllers\FarmController::getNumPigsBornWithoutYear($filter))-(count(App\Http\Controllers\FarmController::getGrossMorphologyWithoutYearOfBirth(17, $filter, "Drooping"))+count(App\Http\Controllers\FarmController::getGrossMorphologyWithoutYearOfBirth(17, $filter, "Semi-lop"))+count(App\Http\Controllers\FarmController::getGrossMorphologyWithoutYearOfBirth(17, $filter, "Erect"))))/count(App\Http\Controllers\FarmController::getNumPigsBornWithoutYear($filter)))*100, 2) }}%)</td>
+									@endif
 			    				</tr>
 		    				</tbody>
 		    			</table>
