@@ -13121,7 +13121,7 @@ class FarmController extends Controller
 								->where("groupings.breed_id", $breed->id)
 								->where("animals.farm_id", $farm->id)
 								->get();
-								
+
 			// BOAR INVENTORY
 			
 			// sorts male pigs into jr and sr boars
@@ -13887,9 +13887,25 @@ class FarmController extends Controller
 		public function getMortalityAndSalesReportPage(){ // function to display Mortality and Sales Report page
 			$farm = $this->user->getFarm();
 			$breed = $farm->getBreed();
-			$deadpigs = Mortality::where("animaltype_id", 3)->where("breed_id", $breed->id)->get();
-			$soldpigs = Sale::where("animaltype_id", 3)->where("breed_id", $breed->id)->get();
-			$removedpigs = RemovedAnimal::where("animaltype_id", 3)->where("breed_id", $breed->id)->get();
+
+			$deadpigs = Mortality::join('animals', 'animals.id', '=', 'mortalities.animal_id')
+								->where("mortalities.animaltype_id", 3)
+								->where("mortalities.breed_id", $breed->id)
+								->where("animals.farm_id", $farm->id)
+								->get();
+
+			$soldpigs = Sale::join('animals', 'animals.id', '=', 'sales.animal_id')
+							->where("sales.animaltype_id", 3)
+							->where("sales.breed_id", $breed->id)
+							->where("animals.farm_id", $farm->id)
+							->get();
+
+			$removedpigs = RemovedAnimal::join('animals', 'animals.id', '=', 'removed_animals.animal_id')
+							->where("removed_animals.animaltype_id", 3)
+							->where("animals.farm_id", $farm->id)
+							->where("removed_animals.breed_id", $breed->id)
+							->get();
+
 			$now = Carbon::now('Asia/Manila');
 
 			// sorts pigs by status
@@ -14242,9 +14258,23 @@ class FarmController extends Controller
 			$farm = $this->user->getFarm();
 			$breed = $farm->getBreed();
 			$q = $request->q;
-			$deadpigs = Mortality::where("animaltype_id", 3)->where("breed_id", $breed->id)->get();
-			$soldpigs = Sale::where("animaltype_id", 3)->where("breed_id", $breed->id)->get();
-			$removedpigs = RemovedAnimal::where("animaltype_id", 3)->where("breed_id", $breed->id)->get();
+			$deadpigs = Mortality::join('animals', 'animals.id', '=', 'mortalities.animal_id')
+								->where("mortalities.animaltype_id", 3)
+								->where("mortalities.breed_id", $breed->id)
+								->where("animals.farm_id", $farm->id)
+								->get();
+
+			$soldpigs = Sale::join('animals', 'animals.id', '=', 'sales.animal_id')
+							->where("sales.animaltype_id", 3)
+							->where("sales.breed_id", $breed->id)
+							->where("animals.farm_id", $farm->id)
+							->get();
+
+			$removedpigs = RemovedAnimal::join('animals', 'animals.id', '=', 'removed_animals.animal_id')
+							->where("removed_animals.animaltype_id", 3)
+							->where("animals.farm_id", $farm->id)
+							->where("removed_animals.breed_id", $breed->id)
+							->get();
 
 			if($q != ' '){
 				$mortalitysearch = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where(function ($query) {

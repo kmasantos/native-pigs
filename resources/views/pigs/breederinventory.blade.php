@@ -21,7 +21,7 @@
 				@if($noage_sows == [])
 					<p>Number of female breeders in the herd: <strong>{{ count($sows) }}</strong> (sows: {{ count($bredsows)+count($bredgilts)+count($pregnantsows)+count($lactatingsows)+$drysows }}, gilts: {{ count($gilts) }})</p>
 					@if (count($sows)== 0)
-						<p>Average age: No available data</strong></p>
+						<p>Average age: <strong>No data available</strong></p>
 					@else
 						<p>Average age: <strong>{{ round(array_sum($age_sows)/(count($sows)-count($noage_sows)), 2) }} months</strong></p>
 					@endif
