@@ -25,6 +25,7 @@ use App\Http\Controllers\HelperController;
 use Input;
 use PDF;
 use Excel;
+use Illuminate\Support\Facades\Log;
 
 class FarmController extends Controller
 {
