@@ -14527,7 +14527,7 @@ class FarmController extends Controller
 			$available = array_unique($available_temp);*/
 
 			// automatically updates mother's parity
-			foreach ($family as $group) {
+			foreach ($groups as $group) {
 				static::addParityMother($group->id);
 			}
 
