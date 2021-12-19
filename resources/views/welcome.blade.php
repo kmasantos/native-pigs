@@ -17,30 +17,30 @@
             .facebook {
                 background-color: #3C5A99 !important;
             }
+
             nav#govph {
-            height: 110px;
-        }
+                height: 80px;
+            }
 
-        nav#nativepigs {
-            height: 160px;
-        }
+            nav#nativepigs {
+                height: 160px;
+            }
 
-        #gicon {
-            margin-top: -5px;
-        }
+            #gicon {
+                margin-top: -5px;
+            }
 
-        nav#govph .nav-wrapper {
-            height: 110px;
-            padding-top: 5px;
-            padding-left: 12rem;
-        }
+            nav#govph .nav-wrapper {
+                height: 110px;
+                padding-top: 5px;
+                padding-left: 12rem;
+            }
 
-        nav#nativepigs .nav-wrapper {
-            height: 160px;
-            padding-top: 5px;
-            padding-left: 12rem;
-        }
-
+            nav#nativepigs .nav-wrapper {
+                height: 160px;
+                padding-top: 5px;
+                padding-left: 12rem;
+            }
 
         </style>
         <!-- Styles -->
