@@ -419,9 +419,36 @@
                     </div>
                 </div>
             </div>
-            <div class="footer-copyright">
-                <div class="container">
-                    © 2017 All Rights Reserved
+        </footer>
+        <footer style="background:#efefef;color:#444;font-size:0.8em;">
+            <div class="container" style="margin-top:30px;">
+                <div class="row">
+                    <div class="m3 col">
+                        <img src="http://www.pcaarrd.dost.gov.ph/home/portal/images/govph-seal-mono-footer.png"
+                            width="200" />
+                    </div>
+                    <div class="m3 col">
+                        Republic of the Philippines<br />
+                        All content is in the public domain unless otherwise stated.
+                    </div>
+                    <div class="m3 col">
+                        About GOVPH<br />
+                        Learn more about the Philippine government, its structure, how government works and the people
+                        behind it.
+                        <br /><br />
+                        <a href="https://www.gov.ph">Official Gazette</a><br />
+                        <a href="https://data.gov.ph">Open Data Portal</a>
+                    </div>
+                    <div class="m3 col">
+                        Government Links<br /><br />
+                        <a href="http://president.gov.ph/">Office of the President</a><br />
+                        <a href="http://ovp.gov.ph/">Office of the Vice President</a><br />
+                        <a href="http://www.senate.gov.ph/">Senate of the Philippines</a><br />
+                        <a href="http://www.congress.gov.ph/">House of Representatives</a><br />
+                        <a href="http://sc.judiciary.gov.ph/">Supreme Court</a><br />
+                        <a href="http://ca.judiciary.gov.ph/">Court of Appeals</a><br />
+                        <a href="http://sb.judiciary.gov.ph/">Sandiganbayan</a><br />
+                    </div>
                 </div>
             </div>
         </footer>
