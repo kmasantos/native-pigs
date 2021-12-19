@@ -51,7 +51,7 @@
     </head>
     <body>
         <div class="navbar">
-            <nav class="grey darken-3" role="navigation">
+            <nav id="govph" class="grey darken-3" role="navigation">
                 <div class="nav-wrapper">
                     <ul class="hide-on-med-and-down">
                         <li><a href="https://www.gov.ph">GOVPH</a></li>
@@ -68,7 +68,7 @@
             <nav id="nativepigs">
                 <div class="nav-wrapper green lighten-1">
                     <a href="{{ url('/') }}" class="brand-logo"><img id="nav-logo-image"
-                            src="{{asset('images/logo-swine.png')}}" alt="Native Pigs" height="110" /></a>
+                            src="{{asset('images/logo-swine.png')}}" alt="Native Pigs" height="150" /></a>
                 </div>
             </nav>
         </div>
