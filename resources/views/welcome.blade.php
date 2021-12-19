@@ -42,6 +42,12 @@
                 padding-left: 12rem;
             }
 
+            #home {
+                width: 70%;
+                margin: 0 auto;
+            }
+            
+
         </style>
         <!-- Styles -->
         {{-- <link rel="stylesheet" href="{{asset('thirdparty/materialize/css/materialize.min.css')}}"> --}}
