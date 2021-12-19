@@ -421,7 +421,7 @@
             </div>
         </footer>
         <footer style="background:#efefef;color:#444;font-size:0.8em;">
-            <div class="container" style="margin-top:30px;">
+            <div class="container" style="padding-top:30px;">
                 <div class="row">
                     <div class="m3 col">
                         <img src="http://www.pcaarrd.dost.gov.ph/home/portal/images/govph-seal-mono-footer.png"
