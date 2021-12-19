@@ -17,6 +17,31 @@
             .facebook {
                 background-color: #3C5A99 !important;
             }
+            nav#govph {
+            height: 110px;
+        }
+
+        nav#nativepigs {
+            height: 160px;
+        }
+
+        #gicon {
+            margin-top: -5px;
+        }
+
+        nav#govph .nav-wrapper {
+            height: 110px;
+            padding-top: 5px;
+            padding-left: 12rem;
+        }
+
+        nav#nativepigs .nav-wrapper {
+            height: 160px;
+            padding-top: 5px;
+            padding-left: 12rem;
+        }
+
+
         </style>
         <!-- Styles -->
         {{-- <link rel="stylesheet" href="{{asset('thirdparty/materialize/css/materialize.min.css')}}"> --}}
@@ -25,19 +50,25 @@
         {{-- <link type="text/css" rel="stylesheet" href="{{asset('css/pig.css')}}"  media="screen,projection"/> --}}
     </head>
     <body>
-        <div class="navbar-fixed">
-            <nav class="green lighten-1" role="navigation">
+        <div class="navbar">
+            <nav class="grey darken-3" role="navigation">
                 <div class="nav-wrapper">
-                    <a href={{ url('/') }} class="brand-logo"><img src="{{asset('images/logo-swine.png')}}" alt="Native Pigs" height="65" / ></a>
-                    <ul class="right hide-on-med-and-down">
+                    <ul class="hide-on-med-and-down">
+                        <li><a href="https://www.gov.ph">GOVPH</a></li>
                         <li><a href="#home">Home</a></li>
                         <li><a href="#breeds">Breeds</a></li>
                         <li><a href="#farms">Farms</a></li>
                         <li><a href="#news">News</a></li>
                         <li><a href="#about">About Us</a></li>
                         <li><a href="../?privacy" target="_blank">Privacy Policy</a></li>
-                        <li><a href="{{url('login/google')}}">Login</a></li>
+                        <li><a href="{{url('login/google')}}">Log In</a></li>
                     </ul>
+                </div>
+            </nav>
+            <nav id="nativepigs">
+                <div class="nav-wrapper green lighten-1">
+                    <a href="{{ url('/') }}" class="brand-logo"><img id="nav-logo-image"
+                            src="{{asset('images/logo-swine.png')}}" alt="Native Pigs" height="110" /></a>
                 </div>
             </nav>
         </div>
