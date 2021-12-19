@@ -79,33 +79,35 @@
             </nav>
         </div>
 
-        <div id="home" class="slider scrollspy">
-            <ul class="slides">
-                <li>
-                    <img src="{{asset('images/header1.jpeg')}}">
-                </li>
-                <li>
-                    <img src="{{asset('images/header2.jpg')}}">
-                    <div class="caption right-align">
-                        <h3>Boar Shed originally designed by MSC</h3>
-                    </div>
-                </li>
-                <li>
-                    <img src="{{asset('images/header3.jpg')}}">
-                    <div class="caption right-align">
-                        <h3 class="light grey-text text-lighten-3">Photo courtesy of BAI-NSPRDC</h3>
-                    </div>
-                </li>
-                <li>
-                    <img src="{{asset('images/header4.jpg')}}">
-                </li>
-                <li>
-                    <img src="{{asset('images/header5.jpg')}}">
-                    <div class="caption right-align">
-                        <h3 class="light yellow-text">Photo courtesy of BAI-NSPRDC</h3>
-                    </div>
-                </li>
-            </ul>
+        <div class="grey darken-3">
+            <div id="home" class="slider scrollspy">
+                <ul class="slides">
+                    <li>
+                        <img src="{{asset('images/header1.jpeg')}}">
+                    </li>
+                    <li>
+                        <img src="{{asset('images/header2.jpg')}}">
+                        <div class="caption right-align">
+                            <h3>Boar Shed originally designed by MSC</h3>
+                        </div>
+                    </li>
+                    <li>
+                        <img src="{{asset('images/header3.jpg')}}">
+                        <div class="caption right-align">
+                            <h3 class="light grey-text text-lighten-3">Photo courtesy of BAI-NSPRDC</h3>
+                        </div>
+                    </li>
+                    <li>
+                        <img src="{{asset('images/header4.jpg')}}">
+                    </li>
+                    <li>
+                        <img src="{{asset('images/header5.jpg')}}">
+                        <div class="caption right-align">
+                            <h3 class="light yellow-text">Photo courtesy of BAI-NSPRDC</h3>
+                        </div>
+                    </li>
+                </ul>
+            </div>
         </div>
 
         <div class="container">
