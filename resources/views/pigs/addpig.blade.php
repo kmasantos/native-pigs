@@ -58,7 +58,7 @@
       			<label for="birth_weight">Birth weight, kg</label>
       		</div>
     			<div class="col s4">
-    				<input id="date_weaned" type="text" placeholder="Pick a date" name="date_weaned" class="datepicker">
+    				<input id="date_weaned" type="date" name="date_weaned">
       			<label for="date_weaned">Date Weaned</label>
     			</div>
   				<div class="col s4">
