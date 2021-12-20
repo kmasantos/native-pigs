@@ -90,7 +90,7 @@
 @endsection
 
 @section('scripts')
-  <script type="text/javascript">
+  {{-- <script type="text/javascript">
     $('.datepicker').pickadate({
       selectMonths: true, // Creates a dropdown to control month
       selectYears: 15, // Creates a dropdown of 15 years to control year,
@@ -101,5 +101,5 @@
       format: 'yyyy-mm-dd', 
       max: new Date()
     });
-  </script>
+  </script> --}}
 @endsection
