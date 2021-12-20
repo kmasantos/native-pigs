@@ -1996,6 +1996,7 @@ class FarmController extends Controller
 			$family = Grouping::find($id);
 			
 			$groups = Grouping::join('animals', 'animals.id', '=', 'groupings.mother_id')
+                                ->selectRaw('groupings.id AS id')
 								->whereNotNull("mother_id")
 								->where("groupings.breed_id", $breed->id)
 								->where("animals.farm_id", $farm->id)
