@@ -25,12 +25,12 @@
             </div>
             <div class="col s4">
               @if(!is_null($properties->where("property_id", 3)->first()))
-                <input disabled id="date_farrowed" type="text" placeholder="Date Collected" name="date_farrowed" value="{{ $properties->where("property_id", 3)->first()->value }}" class="datepicker">
+                <input disabled id="date_farrowed" type="date" placeholder="Date Collected" name="date_farrowed" value="{{ $properties->where("property_id", 3)->first()->value }}" >
                 @if($properties->where("property_id", 3)->first()->value != "Not specified")
                   <label for="date_farrowed">{{ Carbon\Carbon::parse($properties->where("property_id", 3)->first()->value)->format('j F, Y') }}</label>
                 @endif
               @else
-                <input disabled id="date_farrowed" type="text" placeholder="Date Collected" name="date_farrowed" class="datepicker">
+                <input disabled id="date_farrowed" type="date" placeholder="Date Collected" name="date_farrowed">
               @endif
             </div>
           </div>
@@ -51,12 +51,12 @@
             </div>
             <div class="col s4">
               @if(!is_null($properties->where("property_id", 6)->first()))
-                <input id="date_weaned" type="text" placeholder="Date Collected" name="date_weaned" value="{{ $properties->where("property_id", 6)->first()->value }}" class="datepicker">
+                <input id="date_weaned" type="date" placeholder="Date Collected" name="date_weaned" value="{{ $properties->where("property_id", 6)->first()->value }}" >
                 @if($properties->where("property_id", 6)->first()->value != "Not specified")
                   <label for="date_weaned">{{ Carbon\Carbon::parse($properties->where("property_id", 6)->first()->value)->format('j F, Y') }}</label>
                 @endif
               @else
-                <input id="date_weaned" type="text" placeholder="Date Collected" name="date_weaned" class="datepicker">
+                <input id="date_weaned" type="date" placeholder="Date Collected" name="date_weaned">
               @endif
             </div>
           </div>
@@ -81,10 +81,10 @@
             </div>
             <div class="col s4">
               @if(!is_null($properties->where("property_id", 37)->first()))
-                <input id="date_collected_45_days" type="text" placeholder="Date Collected" name="date_collected_45_days" value="{{ $properties->where("property_id", 37)->first()->value }}" class="datepicker">
+                <input id="date_collected_45_days" type="date" placeholder="Date Collected" name="date_collected_45_days" value="{{ $properties->where("property_id", 37)->first()->value }}" >
                 <label for="date_collected_45_days">{{ Carbon\Carbon::parse($properties->where("property_id", 37)->first()->value)->format('j F, Y') }}</label>
               @else
-                <input id="date_collected_45_days" type="text" placeholder="Date Collected" name="date_collected_45_days" class="datepicker">
+                <input id="date_collected_45_days" type="date" placeholder="Date Collected" name="date_collected_45_days" >
               @endif
             </div>
           </div>
@@ -109,10 +109,10 @@
             </div>
             <div class="col s4">
               @if(!is_null($properties->where("property_id", 38)->first()))
-                <input id="date_collected_60_days" type="text" placeholder="Date Collected" name="date_collected_60_days" value="{{ $properties->where("property_id", 38)->first()->value }}" class="datepicker">
+                <input id="date_collected_60_days" type="date" placeholder="Date Collected" name="date_collected_60_days" value="{{ $properties->where("property_id", 38)->first()->value }}" >
                 <label for="date_collected_60_days">{{ Carbon\Carbon::parse($properties->where("property_id", 38)->first()->value)->format('j F, Y') }}</label>
               @else
-                <input id="date_collected_60_days" type="text" placeholder="Date Collected" name="date_collected_60_days" class="datepicker">
+                <input id="date_collected_60_days" type="date" placeholder="Date Collected" name="date_collected_60_days" >
               @endif
             </div>
           </div>
@@ -137,10 +137,10 @@
             </div>
             <div class="col s4">
               @if(!is_null($properties->where("property_id", 39)->first()))
-                <input id="date_collected_90_days" type="text" placeholder="Date Collected" name="date_collected_90_days" value="{{ $properties->where("property_id", 39)->first()->value }}" class="datepicker">
+                <input id="date_collected_90_days" type="date" placeholder="Date Collected" name="date_collected_90_days" value="{{ $properties->where("property_id", 39)->first()->value }}" >
                 <label for="date_collected_90_days">{{ Carbon\Carbon::parse($properties->where("property_id", 39)->first()->value)->format('j F, Y') }}</label>
               @else
-                <input id="date_collected_90_days" type="text" placeholder="Date Collected" name="date_collected_90_days" class="datepicker">
+                <input id="date_collected_90_days" type="date" placeholder="Date Collected" name="date_collected_90_days" >
               @endif
             </div>
           </div>
@@ -165,10 +165,10 @@
             </div>
             <div class="col s4">
               @if(!is_null($properties->where("property_id", 40)->first()))
-                <input id="date_collected_150_days" type="text" placeholder="Date Collected" name="date_collected_150_days" value="{{ $properties->where("property_id", 40)->first()->value }}" class="datepicker">
+                <input id="date_collected_150_days" type="date" placeholder="Date Collected" name="date_collected_150_days" value="{{ $properties->where("property_id", 40)->first()->value }}" >
                 <label for="date_collected_150_days">{{ Carbon\Carbon::parse($properties->where("property_id", 40)->first()->value)->format('j F, Y') }}</label>
               @else
-                <input id="date_collected_150_days" type="text" placeholder="Date Collected" name="date_collected_150_days" class="datepicker">
+                <input id="date_collected_150_days" type="date" placeholder="Date Collected" name="date_collected_150_days" >
               @endif
             </div>
           </div>
@@ -193,10 +193,10 @@
             </div>
             <div class="col s4">
               @if(!is_null($properties->where("property_id", 41)->first()))
-                <input id="date_collected_180_days" type="text" placeholder="Date Collected" name="date_collected_180_days" value="{{ $properties->where("property_id", 41)->first()->value }}" class="datepicker">
+                <input id="date_collected_180_days" type="date" placeholder="Date Collected" name="date_collected_180_days" value="{{ $properties->where("property_id", 41)->first()->value }}" >
                 <label for="date_collected_180_days">{{ Carbon\Carbon::parse($properties->where("property_id", 41)->first()->value)->format('j F, Y') }}</label>
               @else
-                <input id="date_collected_180_days" type="text" placeholder="Date Collected" name="date_collected_180_days" class="datepicker">
+                <input id="date_collected_180_days" type="date" placeholder="Date Collected" name="date_collected_180_days" >
               @endif
             </div>
           </div>

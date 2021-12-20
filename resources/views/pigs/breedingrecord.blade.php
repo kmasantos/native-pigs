@@ -78,7 +78,7 @@
 												{!! Form::open(['route' => 'farm.pig.add_date_aborted', 'method' => 'post', 'id' => 'add_dateaborted']) !!}
 													<td class="input-field" width="120">
 														<input type="hidden" name="group_id" value="{{ $group->id }}">
-														<input id="{{ $group->id }}" type="text" placeholder="Date Aborted" name="date_aborted" class="datepicker" onchange="document.getElementById('add_dateaborted').submit();">
+														<input id="{{ $group->id }}" type="date" placeholder="Date Aborted" name="date_aborted" onchange="document.getElementById('add_dateaborted').submit();">
 													</td>
 												{!! Form::close() !!}
 											@else
@@ -149,7 +149,7 @@
 									</td>
 									{{-- date bred --}}
 									<td class="input-field">
-										<input id="date_bred" type="text" placeholder="Pick date" name="date_bred" class="datepicker" required>
+										<input id="date_bred" type="date" name="date_bred" required>
 									</td>
 									{{-- submit button --}}
 									<td colspan="4" class="center">
@@ -276,7 +276,7 @@
 													{!! Form::open(['route' => 'farm.pig.add_date_aborted', 'method' => 'post', 'id' => 'add_dateaborted']) !!}
 														<td class="input-field" width="120">
 															<input type="hidden" name="group_id" value="{{ $breedingRecord->id }}">
-															<input id="{{ $breedingRecord->id }}" type="text" placeholder="Date Aborted" name="date_aborted" class="datepicker" onchange="document.getElementById('add_dateaborted').submit();">
+															<input id="{{ $breedingRecord->id }}" type="date" placeholder="Date Aborted" name="date_aborted" onchange="document.getElementById('add_dateaborted').submit();">
 														</td>
 													{!! Form::close() !!}
 												@else

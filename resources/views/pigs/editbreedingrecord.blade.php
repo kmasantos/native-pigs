@@ -45,10 +45,10 @@
 			</div>
 			<div class="col s4">
 				@if(!is_null($properties->where("property_id", 42)->first()))
-					<input id="date_bred" type="text" value="{{ Carbon\Carbon::parse($properties->where("property_id", 42)->first()->value)->format('Y-m-d') }}" name="date_bred" class="datepicker">
+					<input id="date_bred" type="date" value="{{ Carbon\Carbon::parse($properties->where("property_id", 42)->first()->value)->format('Y-m-d') }}" name="date_bred">
 					<label for="date_bred">{{ Carbon\Carbon::parse($properties->where("property_id", 42)->first()->value)->format('j F, Y') }}</label>
 				@else
-					<input id="date_bred" type="text" name="date_bred" class="datepicker">
+					<input id="date_bred" type="date" name="date_bred">
 				@endif
 			</div>
 			<div class="col s6 center">

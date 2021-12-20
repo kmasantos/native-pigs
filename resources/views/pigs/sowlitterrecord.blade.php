@@ -68,14 +68,14 @@
 										<p>Date Farrowed</p>
 									</div>
 									<div class="col s6">
-										<input id="date_farrowed" type="text" name="date_farrowed" placeholder="Pick date" class="datepicker">
+										<input id="date_farrowed" type="date" name="date_farrowed">
 									</div>
 								@else
 									<div class="col s6">
 										Date Farrowed
 									</div>
 									<div class="col s6">
-										<input id="datefarrowed" type="text" name="date_farrowed" class="datepicker" value="{{ Carbon\Carbon::parse($family->getGroupingProperties()->where("property_id", 3)->first()->value)->format('j F, Y') }}">
+										<input id="datefarrowed" type="date" name="date_farrowed" value="{{ Carbon\Carbon::parse($family->getGroupingProperties()->where("property_id", 3)->first()->value)->format('j F, Y') }}">
 									</div>
 								@endif
 							</div>
@@ -103,7 +103,7 @@
 										</div>
 										<div class="col s6">
 											@if($family->getGroupingProperties()->where("property_id", 6)->first()->value != "Not specified")
-												<input id="dateweaned" type="text" name="date_weaned" class="datepicker" value="{{ Carbon\Carbon::parse($family->getGroupingProperties()->where("property_id", 6)->first()->value)->format('j F, Y') }}">
+												<input id="dateweaned" type="date" name="date_weaned" value="{{ Carbon\Carbon::parse($family->getGroupingProperties()->where("property_id", 6)->first()->value)->format('j F, Y') }}">
 											@else
 												No offsprings to wean
 											@endif
@@ -504,11 +504,11 @@
 																		Date Weaned:
 																		@if(is_null($family->getGroupingProperties()->where("property_id", 6)->first()))
 																			<div class="input-field inline">
-																				<input id="date_weaned" type="text" name="date_weaned" placeholder="Pick date" class="datepicker">
+																				<input id="date_weaned" type="date" name="date_weaned">
 																			</div>
 																		@else
 																			<div class="input-field inline">
-																				<input id="date_weaned" type="text" name="date_weaned" class="datepicker" value="{{ $family->getGroupingProperties()->where("property_id", 6)->first()->value }}">
+																				<input id="date_weaned" type="date" name="date_weaned" value="{{ $family->getGroupingProperties()->where("property_id", 6)->first()->value }}">
 																			</div>
 																		@endif
 																	</div>
@@ -611,11 +611,11 @@
 																			Date Weaned:
 																			@if(is_null($family->getGroupingProperties()->where("property_id", 6)->first()))
 																				<div class="input-field inline">
-																					<input id="date_weaned" type="text" name="date_weaned" placeholder="Pick date" class="datepicker">
+																					<input id="date_weaned" type="date" name="date_weaned"  >
 																				</div>
 																			@else
 																				<div class="input-field inline">
-																					<input id="date_weaned" type="text" name="date_weaned" class="datepicker" value="{{ $family->getGroupingProperties()->where("property_id", 6)->first()->value }}">
+																					<input id="date_weaned" type="date" name="date_weaned"  value="{{ $family->getGroupingProperties()->where("property_id", 6)->first()->value }}">
 																				</div>
 																			@endif
 																		</div>
@@ -836,11 +836,11 @@
 																			Date Weaned:
 																			@if(is_null($family->getGroupingProperties()->where("property_id", 6)->first()))
 																				<div class="input-field inline">
-																					<input id="date_weaned" type="text" name="date_weaned" placeholder="Pick date" class="datepicker">
+																					<input id="date_weaned" type="date" name="date_weaned"  >
 																				</div>
 																			@else
 																				<div class="input-field inline">
-																					<input id="date_weaned" type="text" name="date_weaned" class="datepicker" value="{{ $family->getGroupingProperties()->where("property_id", 6)->first()->value }}">
+																					<input id="date_weaned" type="date" name="date_weaned"  value="{{ $family->getGroupingProperties()->where("property_id", 6)->first()->value }}">
 																				</div>
 																			@endif
 																		</div>
@@ -943,11 +943,11 @@
 																				Date Weaned:
 																				@if(is_null($family->getGroupingProperties()->where("property_id", 6)->first()))
 																					<div class="input-field inline">
-																						<input id="date_weaned" type="text" name="date_weaned" placeholder="Pick date" class="datepicker">
+																						<input id="date_weaned" type="date" name="date_weaned"  >
 																					</div>
 																				@else
 																					<div class="input-field inline">
-																						<input id="date_weaned" type="text" name="date_weaned" class="datepicker" value="{{ $family->getGroupingProperties()->where("property_id", 6)->first()->value }}">
+																						<input id="date_weaned" type="date" name="date_weaned"  value="{{ $family->getGroupingProperties()->where("property_id", 6)->first()->value }}">
 																					</div>
 																				@endif
 																			</div>
@@ -1159,11 +1159,11 @@
 																			Date Weaned:
 																			@if(is_null($family->getGroupingProperties()->where("property_id", 6)->first()))
 																				<div class="input-field inline">
-																					<input id="date_weaned" type="text" name="date_weaned" placeholder="Pick date" class="datepicker">
+																					<input id="date_weaned" type="date" name="date_weaned"  >
 																				</div>
 																			@else
 																				<div class="input-field inline">
-																					<input id="date_weaned" type="text" name="date_weaned" class="datepicker" value="{{ $family->getGroupingProperties()->where("property_id", 6)->first()->value }}">
+																					<input id="date_weaned" type="date" name="date_weaned"  value="{{ $family->getGroupingProperties()->where("property_id", 6)->first()->value }}">
 																				</div>
 																			@endif
 																		</div>
@@ -1266,11 +1266,11 @@
 																				Date Weaned:
 																				@if(is_null($family->getGroupingProperties()->where("property_id", 6)->first()))
 																					<div class="input-field inline">
-																						<input id="date_weaned" type="text" name="date_weaned" placeholder="Pick date" class="datepicker">
+																						<input id="date_weaned" type="date" name="date_weaned"  >
 																					</div>
 																				@else
 																					<div class="input-field inline">
-																						<input id="date_weaned" type="text" name="date_weaned" class="datepicker" value="{{ $family->getGroupingProperties()->where("property_id", 6)->first()->value }}">
+																						<input id="date_weaned" type="date" name="date_weaned"  value="{{ $family->getGroupingProperties()->where("property_id", 6)->first()->value }}">
 																					</div>
 																				@endif
 																			</div>
@@ -1490,11 +1490,11 @@
 																				Date Weaned:
 																				@if(is_null($family->getGroupingProperties()->where("property_id", 6)->first()))
 																					<div class="input-field inline">
-																						<input id="date_weaned" type="text" name="date_weaned" placeholder="Pick date" class="datepicker">
+																						<input id="date_weaned" type="date" name="date_weaned"  >
 																					</div>
 																				@else
 																					<div class="input-field inline">
-																						<input id="date_weaned" type="text" name="date_weaned" class="datepicker" value="{{ $family->getGroupingProperties()->where("property_id", 6)->first()->value }}">
+																						<input id="date_weaned" type="date" name="date_weaned"  value="{{ $family->getGroupingProperties()->where("property_id", 6)->first()->value }}">
 																					</div>
 																				@endif
 																			</div>
@@ -1597,11 +1597,11 @@
 																					Date Weaned:
 																					@if(is_null($family->getGroupingProperties()->where("property_id", 6)->first()))
 																						<div class="input-field inline">
-																							<input id="date_weaned" type="text" name="date_weaned" placeholder="Pick date" class="datepicker">
+																							<input id="date_weaned" type="date" name="date_weaned"  >
 																						</div>
 																					@else
 																						<div class="input-field inline">
-																							<input id="date_weaned" type="text" name="date_weaned" class="datepicker" value="{{ $family->getGroupingProperties()->where("property_id", 6)->first()->value }}">
+																							<input id="date_weaned" type="date" name="date_weaned"  value="{{ $family->getGroupingProperties()->where("property_id", 6)->first()->value }}">
 																						</div>
 																					@endif
 																				</div>
@@ -1792,11 +1792,11 @@
 																			Date Weaned:
 																			@if(is_null($family->getGroupingProperties()->where("property_id", 6)->first()))
 																				<div class="input-field inline">
-																					<input id="date_weaned" type="text" name="date_weaned" placeholder="Pick date" class="datepicker">
+																					<input id="date_weaned" type="date" name="date_weaned"  >
 																				</div>
 																			@else
 																				<div class="input-field inline">
-																					<input id="date_weaned" type="text" name="date_weaned" class="datepicker" value="{{ $family->getGroupingProperties()->where("property_id", 6)->first()->value }}">
+																					<input id="date_weaned" type="date" name="date_weaned"  value="{{ $family->getGroupingProperties()->where("property_id", 6)->first()->value }}">
 																				</div>
 																			@endif
 																		</div>
@@ -1899,11 +1899,11 @@
 																				Date Weaned:
 																				@if(is_null($family->getGroupingProperties()->where("property_id", 6)->first()))
 																					<div class="input-field inline">
-																						<input id="date_weaned" type="text" name="date_weaned" placeholder="Pick date" class="datepicker">
+																						<input id="date_weaned" type="date" name="date_weaned"  >
 																					</div>
 																				@else
 																					<div class="input-field inline">
-																						<input id="date_weaned" type="text" name="date_weaned" class="datepicker" value="{{ $family->getGroupingProperties()->where("property_id", 6)->first()->value }}">
+																						<input id="date_weaned" type="date" name="date_weaned"  value="{{ $family->getGroupingProperties()->where("property_id", 6)->first()->value }}">
 																					</div>
 																				@endif
 																			</div>
@@ -2123,11 +2123,11 @@
 																				Date Weaned:
 																				@if(is_null($family->getGroupingProperties()->where("property_id", 6)->first()))
 																					<div class="input-field inline">
-																						<input id="date_weaned" type="text" name="date_weaned" placeholder="Pick date" class="datepicker">
+																						<input id="date_weaned" type="date" name="date_weaned"  >
 																					</div>
 																				@else
 																					<div class="input-field inline">
-																						<input id="date_weaned" type="text" name="date_weaned" class="datepicker" value="{{ $family->getGroupingProperties()->where("property_id", 6)->first()->value }}">
+																						<input id="date_weaned" type="date" name="date_weaned"  value="{{ $family->getGroupingProperties()->where("property_id", 6)->first()->value }}">
 																					</div>
 																				@endif
 																			</div>
@@ -2230,11 +2230,11 @@
 																					Date Weaned:
 																					@if(is_null($family->getGroupingProperties()->where("property_id", 6)->first()))
 																						<div class="input-field inline">
-																							<input id="date_weaned" type="text" name="date_weaned" placeholder="Pick date" class="datepicker">
+																							<input id="date_weaned" type="date" name="date_weaned"  >
 																						</div>
 																					@else
 																						<div class="input-field inline">
-																							<input id="date_weaned" type="text" name="date_weaned" class="datepicker" value="{{ $family->getGroupingProperties()->where("property_id", 6)->first()->value }}">
+																							<input id="date_weaned" type="date" name="date_weaned"  value="{{ $family->getGroupingProperties()->where("property_id", 6)->first()->value }}">
 																						</div>
 																					@endif
 																				</div>

@@ -48,7 +48,7 @@
             <label for="select_sex">Sex *</label>
       		</div>
       		<div class="col s4">
-      			<input id="birthday" type="date" name="date_farrowed" class="datepicker">
+      			<input id="birthday" type="date" name="date_farrowed">
       			<label for="birthday">Date of Birth</label>
       		</div>
       	</div>

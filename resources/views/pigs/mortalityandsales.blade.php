@@ -70,7 +70,7 @@
 								      <div class="row">
 								      	<input type="hidden" name="animal_id" value="{{ $search_mortality->id }}">
 								      	<div class="col s6">
-								      		<input id="date_died" type="text" class="datepicker" name="date_died" placeholder="Date of Death">
+								      		<input id="date_died" type="date" name="date_died" placeholder="Date of Death">
 								      	</div>
 								      	<div class="col s6">
 								      		<input id="cause_death" type="text" class="validate" name="cause_death" placeholder="Cause of Death">
@@ -91,7 +91,7 @@
 								      <div class="row">
 								      	<input type="hidden" name="animal_id" value="{{ $search_mortality->id }}">
 								      	<div class="col s4">
-								      		<input id="date_sold" type="text" class="datepicker" name="date_sold" placeholder="Date Sold">
+								      		<input id="date_sold" type="date" name="date_sold" placeholder="Date Sold">
 								      	</div>
 								      	<div class="col s4">
 								      		<input id="weight_sold" type="text" class="validate" name="weight_sold" placeholder="Weight Sold, kg">
@@ -115,7 +115,7 @@
 								      <div class="row">
 								      	<input type="hidden" name="animal_id" value="{{ $search_mortality->id }}">
 								      	<div class="col s6">
-								      		<input id="date_removed" type="text" class="datepicker" name="date_removed" placeholder="Date Removal">
+								      		<input id="date_removed" type="date" name="date_removed" placeholder="Date Removal">
 								      	</div>
 								      	<div class="col s6">
 								      		<input id="reason_removed" type="text" class="validate" name="reason_removed" placeholder="Cause of Removal">

@@ -17,7 +17,7 @@
               Date Collected
             </div>
             <div class="col s7">
-              <input id="date_collected_morpho" type="text" value="{{ Carbon\Carbon::parse($properties->where("property_id", 21)->first()->value)->format('Y-m-d') }}" name="date_collected_morpho" class="datepicker">
+              <input id="date_collected_morpho" type="date" value="{{ Carbon\Carbon::parse($properties->where("property_id", 21)->first()->value)->format('Y-m-d') }}" name="date_collected_morpho">
               <label for="date_collected_morpho">{{ Carbon\Carbon::parse($properties->where("property_id", 21)->first()->value)->format('j F, Y') }}</label>
             </div>
           </div>

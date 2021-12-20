@@ -17,7 +17,7 @@
               Date Collected
             </div>
             <div class="col s7">
-              <input id="date_collected_morpho" type="text" placeholder="Date Collected" name="date_collected_morpho" class="datepicker">
+              <input id="date_collected_morpho" type="date" placeholder="Date Collected" name="date_collected_morpho">
             </div>
           </div>
           <div class="row">

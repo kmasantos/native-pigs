@@ -22,14 +22,14 @@
                 <input type="hidden" name="body_weight_at_45_days" value="{{ $properties->where("property_id", 7)->first()->value }}">
               </div>
               <div class="col s4">
-                <input id="date_collected_45_days" type="text" placeholder="Date Collected" name="date_collected_45_days" value="{{ Carbon\Carbon::parse($properties->where("property_id", 6)->first()->value)->format('Y-m-d') }}" class="datepicker">
+                <input id="date_collected_45_days" type="date" placeholder="Date Collected" name="date_collected_45_days" value="{{ Carbon\Carbon::parse($properties->where("property_id", 6)->first()->value)->format('Y-m-d') }}">
               </div>
             @else
               <div class="col s4">
                 <input id="body_weight_at_45_days" type="number" placeholder="Weight" name="body_weight_at_45_days" class="validate" min="0" step="0.001">
               </div>
               <div class="col s4">
-                <input id="date_collected_45_days" type="text" placeholder="Date Collected" name="date_collected_45_days" class="datepicker">
+                <input id="date_collected_45_days" type="date" placeholder="Date Collected" name="date_collected_45_days">
               </div>
             @endif
           </div>
@@ -43,14 +43,14 @@
                 <input type="hidden" name="body_weight_at_60_days" value="{{ $properties->where("property_id", 7)->first()->value }}">
               </div>
               <div class="col s4">
-                <input id="date_collected_60_days" type="text" placeholder="Date Collected" name="date_collected_60_days" value="{{ Carbon\Carbon::parse($properties->where("property_id", 6)->first()->value)->format('Y-m-d') }}" class="datepicker">
+                <input id="date_collected_60_days" type="date" placeholder="Date Collected" name="date_collected_60_days" value="{{ Carbon\Carbon::parse($properties->where("property_id", 6)->first()->value)->format('Y-m-d') }}">
               </div>
             @else
               <div class="col s4">
                 <input id="body_weight_at_60_days" type="number" placeholder="Weight" name="body_weight_at_60_days" class="validate" min="0" step="0.001">
               </div>
               <div class="col s4">
-                <input id="date_collected_60_days" type="text" placeholder="Date Collected" name="date_collected_60_days" class="datepicker">
+                <input id="date_collected_60_days" type="date" placeholder="Date Collected" name="date_collected_60_days">
               </div>
             @endif
           </div>
@@ -62,7 +62,7 @@
               <input id="body_weight_at_90_days" type="number" placeholder="Weight" name="body_weight_at_90_days" class="validate" min="0" step="0.001">
             </div>
             <div class="col s4">
-              <input id="date_collected_90_days" type="text" placeholder="Date Collected" name="date_collected_90_days" class="datepicker">
+              <input id="date_collected_90_days" type="date" placeholder="Date Collected" name="date_collected_90_days">
             </div>
           </div>
           <div class="row">
@@ -73,7 +73,7 @@
               <input id="body_weight_at_150_days" type="number" placeholder="Weight" name="body_weight_at_150_days" class="validate" min="0" max="50.999" step="0.001">
             </div>
             <div class="col s4">
-              <input id="date_collected_150_days" type="text" placeholder="Date Collected" name="date_collected_150_days" class="datepicker">
+              <input id="date_collected_150_days" type="date" placeholder="Date Collected" name="date_collected_150_days">
             </div>
           </div>
           <div class="row">
@@ -84,7 +84,7 @@
               <input id="body_weight_at_180_days" type="number" placeholder="Weight" name="body_weight_at_180_days" class="validate" min="0" max="50.999" step="0.001">
             </div>
             <div class="col s4">
-              <input id="date_collected_180_days" type="text" placeholder="Date Collected" name="date_collected_180_days" class="datepicker">
+              <input id="date_collected_180_days" type="date" placeholder="Date Collected" name="date_collected_180_days">
             </div>
           </div>
         </div>

@@ -17,7 +17,7 @@
               Date Collected
             </div>
             <div class="col s8">
-              <input id="date_collected_gross" type="text" placeholder="Date Collected" name="date_collected_gross" class="datepicker">
+              <input id="date_collected_gross" type="date" placeholder="Date Collected" name="date_collected_gross">
             </div>
           </div>
           <div class="row">
