@@ -33,13 +33,15 @@
             nav#govph .nav-wrapper {
                 height: 110px;
                 padding-top: 5px;
-                padding-left: 12rem;
+                width: 70%;
+                margin: 0 auto;
             }
 
             nav#nativepigs .nav-wrapper {
                 height: 160px;
                 padding-top: 5px;
-                padding-left: 12rem;
+                width: 70%;
+                margin: 0 auto;
             }
 
             #home {
@@ -67,14 +69,24 @@
                         <li><a href="#news">News</a></li>
                         <li><a href="#about">About Us</a></li>
                         <li><a href="../?privacy" target="_blank">Privacy Policy</a></li>
+                        <li><a href="http://www.pcaarrd.dost.gov.ph/home/portal/index.php/philippine-transparency-seal/" target="_blank">Transparency Seal</a></li>
                         <li><a href="{{url('login/google')}}">Log In</a></li>
                     </ul>
                 </div>
             </nav>
-            <nav id="nativepigs">
-                <div class="nav-wrapper green lighten-1">
-                    <a href="{{ url('/') }}" class="brand-logo"><img id="nav-logo-image"
-                            src="{{asset('images/logo-swine.png')}}" alt="Native Pigs" height="150" /></a>
+            <nav id="nativepigs" style="background:#6d929b;">
+                <div class="nav-wrapper">
+                    <div class="row">
+                        <div class="col s12 m10">
+                            <a href="{{ url('/') }}" class="brand-logo"><img id="nav-logo-image"
+                                src="{{asset('images/pcaarrd-header.png')}}" alt="DOST-PCAARRD" height="85" style="margin-top:10px;" /></a>
+                                <br />
+                                <h1 style="font-size:2em;text-align:left;margin-left:90px;text-transform:uppercase;letter-spacing:-0.05em">Philippine Native Pig Breed Information System</h1>    
+                        </div>
+                        <div class="col s12 m2">
+                            <a href="http://www.pcaarrd.dost.gov.ph/home/portal/index.php/philippine-transparency-seal/" target="_blank"><img src="{{asset('images/transparency-seal.png')}}" width="100%" /></a>
+                        </div>
+                    </div>
                 </div>
             </nav>
         </div>
@@ -406,7 +418,8 @@
             <div class="container">
                 <div class="row">
                     <div class="col l6 s12">
-                        <h5 class="white-text">Philippine Native Pig Breed Information System</h5>
+                        <img src="{{asset('images/logo-swine.png')}}" height="175">
+                        <h5 class="white-text" style="letter-spacing:-0.03em">Philippine Native Pig Breed Information System</h5>
                         <p class="grey-text text-lighten-4" style="text-align: justify;">The "Development of Philippine Native Pig Breed Information System" is a DOST-PCAARRD funded project of the Institute of Animal Science in cooperation with the Institute of Computer Science, University of the Philippines Los Ba&ntilde;os. The project aims to provide an accessible information source regarding selected Philippine Native Pig Breeds.</p>
                     </div>
                     <div class="col l4 offset-l2 s12">
