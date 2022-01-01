@@ -79,9 +79,7 @@
                     <div class="row">
                         <div class="col s12 m10">
                             <a href="{{ url('/') }}" class="brand-logo"><img id="nav-logo-image"
-                                src="{{asset('images/pcaarrd-header.png')}}" alt="DOST-PCAARRD" height="85" style="margin-top:10px;" /></a>
-                                <br />
-                                <h1 style="font-size:1.5em;text-align:left;margin-left:95px;text-transform:uppercase;letter-spacing:-0.05em">Philippine Native Pig Breed Information System</h1>    
+                                src="{{asset('images/pcaarrd-native-pigs-header.png')}}" alt="Philippine Native Pig Breed Information System" height="85" style="margin-top:10px;" /></a>
                         </div>
                         <div class="col s12 m2">
                             <a href="http://www.pcaarrd.dost.gov.ph/home/portal/index.php/philippine-transparency-seal/" target="_blank"><img src="{{asset('images/transparency-seal.png')}}" width="100%" /></a>
