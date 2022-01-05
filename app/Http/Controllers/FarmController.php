@@ -1145,7 +1145,7 @@ class FarmController extends Controller
 			$parityprop = $mother->getAnimalProperties()->where("property_id", 48)->first();
 			$paritypropgroup = $grouping->getGroupingProperties()->where("property_id", 48)->first();
 			$status = $grouping->getGroupingProperties()->where("property_id", 60)->first();
-			$families = Grouping::join('animals', 'animals.id', '=', 'groupings.mother_id')
+			$families = Grouping::join('animals', 'animals.id', '=', 'groupings.mother_id')->selectRaw('groupings.id AS id')
 							->whereNotNull("mother_id")
 							->where("groupings.breed_id", $mother->id)
 							->where("animals.farm_id", $mother->id)
@@ -1897,13 +1897,13 @@ class FarmController extends Controller
 			$farm = $this->user->getFarm();
 			$breed = $farm->getBreed();
 			$breeders = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("farm_id", $farm->id)->where("status", "breeder")->get();
-			$family = Grouping::join('animals', 'animals.id', '=', 'groupings.mother_id')
+			$family = Grouping::join('animals', 'animals.id', '=', 'groupings.mother_id')->selectRaw('groupings.id AS id')
 								->whereNotNull("mother_id")
 								->where("groupings.breed_id", $breed->id)
 								->where("animals.farm_id", $farm->id)
 								->get();
 
-			$groups = Grouping::join('animals', 'animals.id', '=', 'groupings.mother_id')
+			$groups = Grouping::join('animals', 'animals.id', '=', 'groupings.mother_id')->selectRaw('groupings.id AS id')
 								->where("groupings.breed_id", $breed->id)
 								->where("animals.farm_id", $farm->id)
 								->join('grouping_properties', 'groupings.id', 'grouping_properties.grouping_id')
@@ -1995,7 +1995,7 @@ class FarmController extends Controller
 			$breeders = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("farm_id", $farm->id)->where("status", "breeder")->get();
 			$family = Grouping::find($id);
 			
-			$groups = Grouping::join('animals', 'animals.id', '=', 'groupings.mother_id')
+			$groups = Grouping::join('animals', 'animals.id', '=', 'groupings.mother_id')->selectRaw('groupings.id AS id')
                                 ->selectRaw('groupings.id AS id')
 								->whereNotNull("mother_id")
 								->where("groupings.breed_id", $breed->id)
@@ -7684,7 +7684,7 @@ class FarmController extends Controller
 			}
 
 			//age at first breeding
-			$groups = Grouping::join('animals', 'animals.id', '=', 'groupings.mother_id')
+			$groups = Grouping::join('animals', 'animals.id', '=', 'groupings.mother_id')->selectRaw('groupings.id AS id')
 								->whereNotNull("mother_id")
 								->where("groupings.breed_id", $breed->id)
 								->where("animals.farm_id", $farm->id)
@@ -8090,7 +8090,7 @@ class FarmController extends Controller
 				}
 			}
 
-			$groups = Grouping::join('animals', 'animals.id', '=', 'groupings.mother_id')
+			$groups = Grouping::join('animals', 'animals.id', '=', 'groupings.mother_id')->selectRaw('groupings.id AS id')
 								->whereNotNull("mother_id")
 								->where("groupings.breed_id", $breed->id)
 								->where("animals.farm_id", $farm->id)
@@ -8225,7 +8225,7 @@ class FarmController extends Controller
 			set_time_limit(5000);
 			$farm = Auth::User()->getFarm();
 			$breed = $farm->getBreed();
-			$groups = Grouping::join('animals', 'animals.id', '=', 'groupings.mother_id')
+			$groups = Grouping::join('animals', 'animals.id', '=', 'groupings.mother_id')->selectRaw('groupings.id AS id')
 								->whereNotNull("mother_id")
 								->where("groupings.breed_id", $breed->id)
 								->where("animals.farm_id", $farm->id)
@@ -8411,7 +8411,7 @@ class FarmController extends Controller
 			set_time_limit(5000);
 			$farm = Auth::User()->getFarm();
 			$breed = $farm->getBreed();
-			$groups = Grouping::join('animals', 'animals.id', '=', 'groupings.mother_id')
+			$groups = Grouping::join('animals', 'animals.id', '=', 'groupings.mother_id')->selectRaw('groupings.id AS id')
 								->whereNotNull("mother_id")
 								->where("groupings.breed_id", $breed->id)
 								->where("animals.farm_id", $farm->id)
@@ -8877,7 +8877,7 @@ class FarmController extends Controller
 			}
 
 			//gets all groups
-			$groups = Grouping::join('animals', 'animals.id', '=', 'groupings.mother_id')
+			$groups = Grouping::join('animals', 'animals.id', '=', 'groupings.mother_id')->selectRaw('groupings.id AS id')
 								->whereNotNull("mother_id")
 								->where("groupings.breed_id", $breed->id)
 								->where("animals.farm_id", $farm->id)
@@ -9207,7 +9207,7 @@ class FarmController extends Controller
 			}
 
 			//gets all groups
-			$groups = Grouping::join('animals', 'animals.id', '=', 'groupings.mother_id')
+			$groups = Grouping::join('animals', 'animals.id', '=', 'groupings.mother_id')->selectRaw('groupings.id AS id')
 								->whereNotNull("mother_id")
 								->where("groupings.breed_id", $breed->id)
 								->where("animals.farm_id", $farm->id)
@@ -9924,7 +9924,7 @@ class FarmController extends Controller
 			}
 
 			//gets all groups
-			$groups = Grouping::join('animals', 'animals.id', '=', 'groupings.mother_id')
+			$groups = Grouping::join('animals', 'animals.id', '=', 'groupings.mother_id')->selectRaw('groupings.id AS id')
 								->whereNotNull("mother_id")
 								->where("groupings.breed_id", $breed->id)
 								->where("animals.farm_id", $farm->id)
@@ -11843,7 +11843,7 @@ class FarmController extends Controller
 		public function cumulativeDownloadPDF($filter){
 			$farm = $this->user->getFarm();
 			$breed = $farm->getBreed();
-			$groups = Grouping::join('animals', 'animals.id', '=', 'groupings.mother_id')
+			$groups = Grouping::join('animals', 'animals.id', '=', 'groupings.mother_id')->selectRaw('groupings.id AS id')
 								->whereNotNull("mother_id")
 								->where("groupings.breed_id", $breed->id)
 								->where("animals.farm_id", $farm->id)
@@ -12077,7 +12077,7 @@ class FarmController extends Controller
 		public function getCumulativeReportPage($filter){
 			$farm = $this->user->getFarm();
 			$breed = $farm->getBreed();
-			$groups = Grouping::join('animals', 'animals.id', '=', 'groupings.mother_id')
+			$groups = Grouping::join('animals', 'animals.id', '=', 'groupings.mother_id')->selectRaw('groupings.id AS id')
 								->whereNotNull("mother_id")
 								->where("groupings.breed_id", $breed->id)
 								->where("animals.farm_id", $farm->id)
@@ -12308,7 +12308,7 @@ class FarmController extends Controller
 		public function filterCumulativeReport(Request $request){
 			$farm = $this->user->getFarm();
 			$breed = $farm->getBreed();
-			$groups = Grouping::join('animals', 'animals.id', '=', 'groupings.mother_id')
+			$groups = Grouping::join('animals', 'animals.id', '=', 'groupings.mother_id')->selectRaw('groupings.id AS id')
 							->whereNotNull("mother_id")
 							->where("groupings.breed_id", $breed->id)
 							->where("animals.farm_id", $farm->id)
@@ -12539,7 +12539,7 @@ class FarmController extends Controller
 		public function monthlyPerfDownloadPDF($filter){
 			$farm = $this->user->getFarm();
 			$breed = $farm->getBreed();
-			$groups = Grouping::join('animals', 'animals.id', '=', 'groupings.mother_id')
+			$groups = Grouping::join('animals', 'animals.id', '=', 'groupings.mother_id')->selectRaw('groupings.id AS id')
 								->whereNotNull("mother_id")
 								->where("groupings.breed_id", $breed->id)
 								->where("animals.farm_id", $farm->id)
@@ -12561,7 +12561,7 @@ class FarmController extends Controller
 		public function getMonthlyPerformanceReportPage($filter){
 			$farm = $this->user->getFarm();
 			$breed = $farm->getBreed();
-			$groups = Grouping::join('animals', 'animals.id', '=', 'groupings.mother_id')
+			$groups = Grouping::join('animals', 'animals.id', '=', 'groupings.mother_id')->selectRaw('groupings.id AS id')
 								->whereNotNull("mother_id")
 								->where("groupings.breed_id", $breed->id)
 								->where("animals.farm_id", $farm->id)
@@ -12583,7 +12583,7 @@ class FarmController extends Controller
 		public function filterMonthlyPerformance(Request $request){
 			$farm = $this->user->getFarm();
 			$breed = $farm->getBreed();
-			$groups = Grouping::join('animals', 'animals.id', '=', 'groupings.mother_id')
+			$groups = Grouping::join('animals', 'animals.id', '=', 'groupings.mother_id')->selectRaw('groupings.id AS id')
 								->whereNotNull("mother_id")
 								->where("groupings.breed_id", $breed->id)
 								->where("animals.farm_id", $farm->id)
@@ -12605,7 +12605,7 @@ class FarmController extends Controller
 		static function getMonthlyBred($filter, $month){
 			$farm = Auth::User()->getFarm();
 			$breed = $farm->getBreed();
-			$groups = Grouping::join('animals', 'animals.id', '=', 'groupings.mother_id')
+			$groups = Grouping::join('animals', 'animals.id', '=', 'groupings.mother_id')->selectRaw('groupings.id AS id')
 								->whereNotNull("mother_id")
 								->where("groupings.breed_id", $breed->id)
 								->where("animals.farm_id", $farm->id)
@@ -12632,7 +12632,7 @@ class FarmController extends Controller
 		static function getMonthlyFarrowed($filter, $month){
 			$farm = Auth::User()->getFarm();
 			$breed = $farm->getBreed();
-			$groups = Grouping::join('animals', 'animals.id', '=', 'groupings.mother_id')
+			$groups = Grouping::join('animals', 'animals.id', '=', 'groupings.mother_id')->selectRaw('groupings.id AS id')
 								->whereNotNull("mother_id")
 								->where("groupings.breed_id", $breed->id)
 								->where("animals.farm_id", $farm->id)
@@ -12659,7 +12659,7 @@ class FarmController extends Controller
 		static function getMonthlyWeaned($filter, $month){
 			$farm = Auth::User()->getFarm();
 			$breed = $farm->getBreed();
-			$groups = Grouping::join('animals', 'animals.id', '=', 'groupings.mother_id')
+			$groups = Grouping::join('animals', 'animals.id', '=', 'groupings.mother_id')->selectRaw('groupings.id AS id')
 								->whereNotNull("mother_id")
 								->where("groupings.breed_id", $breed->id)
 								->where("animals.farm_id", $farm->id)
@@ -12686,7 +12686,7 @@ class FarmController extends Controller
 		static function getMonthlyLSBA($filter, $month){
 			$farm = Auth::User()->getFarm();
 			$breed = $farm->getBreed();
-			$groups = Grouping::join('animals', 'animals.id', '=', 'groupings.mother_id')
+			$groups = Grouping::join('animals', 'animals.id', '=', 'groupings.mother_id')->selectRaw('groupings.id AS id')
 								->whereNotNull("mother_id")
 								->where("groupings.breed_id", $breed->id)
 								->where("animals.farm_id", $farm->id)
@@ -12718,7 +12718,7 @@ class FarmController extends Controller
 		static function getMonthlyNumberMales($filter, $month){
 			$farm = Auth::User()->getFarm();
 			$breed = $farm->getBreed();
-			$groups = Grouping::join('animals', 'animals.id', '=', 'groupings.mother_id')
+			$groups = Grouping::join('animals', 'animals.id', '=', 'groupings.mother_id')->selectRaw('groupings.id AS id')
 								->whereNotNull("mother_id")
 								->where("groupings.breed_id", $breed->id)
 								->where("animals.farm_id", $farm->id)
@@ -12746,7 +12746,7 @@ class FarmController extends Controller
 		static function getMonthlyNumberFemales($filter, $month){
 			$farm = Auth::User()->getFarm();
 			$breed = $farm->getBreed();
-			$groups = Grouping::join('animals', 'animals.id', '=', 'groupings.mother_id')
+			$groups = Grouping::join('animals', 'animals.id', '=', 'groupings.mother_id')->selectRaw('groupings.id AS id')
 								->whereNotNull("mother_id")
 								->where("groupings.breed_id", $breed->id)
 								->where("animals.farm_id", $farm->id)
@@ -12774,7 +12774,7 @@ class FarmController extends Controller
 		static function getMonthlyAverageBorn($filter, $month){
 			$farm = Auth::User()->getFarm();
 			$breed = $farm->getBreed();
-			$groups = Grouping::join('animals', 'animals.id', '=', 'groupings.mother_id')
+			$groups = Grouping::join('animals', 'animals.id', '=', 'groupings.mother_id')->selectRaw('groupings.id AS id')
 								->whereNotNull("mother_id")
 								->where("groupings.breed_id", $breed->id)
 								->where("animals.farm_id", $farm->id)
@@ -12816,7 +12816,7 @@ class FarmController extends Controller
 		static function getMonthlyNumberWeaned($filter, $month){
 			$farm = Auth::User()->getFarm();
 			$breed = $farm->getBreed();
-			$groups = Grouping::join('animals', 'animals.id', '=', 'groupings.mother_id')
+			$groups = Grouping::join('animals', 'animals.id', '=', 'groupings.mother_id')->selectRaw('groupings.id AS id')
 								->whereNotNull("mother_id")
 								->where("groupings.breed_id", $breed->id)
 								->where("animals.farm_id", $farm->id)
@@ -12848,7 +12848,7 @@ class FarmController extends Controller
 		static function getMonthlyAverageWeaned($filter, $month){
 			$farm = Auth::User()->getFarm();
 			$breed = $farm->getBreed();
-			$groups = Grouping::join('animals', 'animals.id', '=', 'groupings.mother_id')
+			$groups = Grouping::join('animals', 'animals.id', '=', 'groupings.mother_id')->selectRaw('groupings.id AS id')
 								->whereNotNull("mother_id")
 								->where("groupings.breed_id", $breed->id)
 								->where("animals.farm_id", $farm->id)
@@ -12890,7 +12890,7 @@ class FarmController extends Controller
 		static function getMonthlyAverageBirthWeight($filter, $month){
 			$farm = Auth::User()->getFarm();
 			$breed = $farm->getBreed();
-			$groups = Grouping::join('animals', 'animals.id', '=', 'groupings.mother_id')
+			$groups = Grouping::join('animals', 'animals.id', '=', 'groupings.mother_id')->selectRaw('groupings.id AS id')
 								->whereNotNull("mother_id")
 								->where("groupings.breed_id", $breed->id)
 								->where("animals.farm_id", $farm->id)
@@ -12929,7 +12929,7 @@ class FarmController extends Controller
 		static function getMonthlyAverageWeaningWeight($filter, $month){
 			$farm = Auth::User()->getFarm();
 			$breed = $farm->getBreed();
-			$groups = Grouping::join('animals', 'animals.id', '=', 'groupings.mother_id')
+			$groups = Grouping::join('animals', 'animals.id', '=', 'groupings.mother_id')->selectRaw('groupings.id AS id')
 								->whereNotNull("mother_id")
 								->where("groupings.breed_id", $breed->id)
 								->where("animals.farm_id", $farm->id)
@@ -12985,7 +12985,7 @@ class FarmController extends Controller
 			}
 
 			// gets all groups available
-			$groups = Grouping::join('animals', 'animals.id', '=', 'groupings.mother_id')
+			$groups = Grouping::join('animals', 'animals.id', '=', 'groupings.mother_id')->selectRaw('groupings.id AS id')
 								->whereNotNull("mother_id")
 								->where("groupings.breed_id", $breed->id)
 								->where("animals.farm_id", $farm->id)
@@ -13168,7 +13168,7 @@ class FarmController extends Controller
 			}
 
 			// gets all groups available
-			$groups = Grouping::join('animals', 'animals.id', '=', 'groupings.mother_id')
+			$groups = Grouping::join('animals', 'animals.id', '=', 'groupings.mother_id')->selectRaw('groupings.id AS id')
 								->whereNotNull("mother_id")
 								->where("groupings.breed_id", $breed->id)
 								->where("animals.farm_id", $farm->id)
@@ -14226,7 +14226,7 @@ class FarmController extends Controller
 
 			if(!is_null($pigs)){
 				// gets all groups available
-				$groups = Grouping::join('animals', 'animals.id', '=', 'groupings.mother_id')
+				$groups = Grouping::join('animals', 'animals.id', '=', 'groupings.mother_id')->selectRaw('groupings.id AS id')
 								->whereNotNull("mother_id")
 								->where("groupings.breed_id", $breed->id)
 								->where("animals.farm_id", $farm->id)
@@ -14453,13 +14453,13 @@ class FarmController extends Controller
 			$farm = $this->user->getFarm();
 			$breed = $farm->getBreed();
 			$breeders = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("farm_id", $farm->id)->where("status", "breeder")->get();
-			$family = Grouping::join('animals', 'animals.id', '=', 'groupings.mother_id')
+			$family = Grouping::join('animals', 'animals.id', '=', 'groupings.mother_id')->selectRaw('groupings.id AS id')
 								->whereNotNull("mother_id")
 								->where("groupings.breed_id", $breed->id)
 								->where("animals.farm_id", $farm->id)
 								->get();
 
-			$groups = Grouping::join('animals', 'animals.id', '=', 'groupings.mother_id')
+			$groups = Grouping::join('animals', 'animals.id', '=', 'groupings.mother_id')->selectRaw('groupings.id AS id')
 								->where("groupings.breed_id", $breed->id)
 								->where("animals.farm_id", $farm->id)
 								->join('grouping_properties', 'groupings.id', 'grouping_properties.grouping_id')
