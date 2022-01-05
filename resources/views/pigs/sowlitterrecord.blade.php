@@ -2306,7 +2306,7 @@
 
 @section('scripts')
 	<script>
-		$("#date_farrowed").pickadate({
+		/*$("#date_farrowed").pickadate({
 			format: 'yyyy-mm-dd',
 			min: new Date(<?php echo Carbon\Carbon::parse($family->getGroupingProperties()->where("property_id", 42)->first()->value)->addDays(109)->format('Y') ?>, <?php echo Carbon\Carbon::parse($family->getGroupingProperties()->where("property_id", 42)->first()->value)->addDays(109)->format('m')-1 ?>, <?php echo Carbon\Carbon::parse($family->getGroupingProperties()->where("property_id", 42)->first()->value)->addDays(109)->format('d') ?>),
 			max: new Date()
@@ -2325,7 +2325,7 @@
 			format: 'yyyy-mm-dd',
 			min: new Date(<?php echo Carbon\Carbon::parse($family->getGroupingProperties()->where("property_id", 42)->first()->value)->addDays(130)->format('Y') ?>, <?php echo Carbon\Carbon::parse($family->getGroupingProperties()->where("property_id", 42)->first()->value)->addDays(130)->format('m')-1 ?>, <?php echo Carbon\Carbon::parse($family->getGroupingProperties()->where("property_id", 42)->first()->value)->addDays(130)->format('d') ?>),
 			max: new Date()
-		});
+		});*/
 		$('.datepicker').pickadate({
 		  selectMonths: true, // Creates a dropdown to control month
 		  selectYears: 15, // Creates a dropdown of 15 years to control year,
