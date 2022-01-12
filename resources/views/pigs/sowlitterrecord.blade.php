@@ -2341,7 +2341,7 @@
 	    });
 		$(document).ready(function(){
 		  $("#datefarrowed").change(function (event) {
-		    event.preventDefault();
+		    // event.preventDefault();
 		    var familyidvalue = $('input[name=grouping_id]').val();
 		    var datefarrowedvalue = $('input[name=date_farrowed]').val();
 		    $.ajax({
@@ -2359,7 +2359,7 @@
 		    });
 		  });
 		  $("#dateweaned").change(function (event) {
-		    event.preventDefault();
+		    // event.preventDefault();
 		    var familyidvalue = $('input[name=grouping_id]').val();
 		    var dateweanedvalue = $('input[name=date_weaned]').val();
 		    $.ajax({
