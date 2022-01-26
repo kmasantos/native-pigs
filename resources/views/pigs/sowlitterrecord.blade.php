@@ -556,6 +556,7 @@
 											@if($family->getGroupingProperties()->where("property_id", 6)->first()->value == "Not specified")
 											{{-- all offsprings dead/sold before weaning --}}
 												<td>
+                                                    DEBUG=NOTSPECIFIED2
 													<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Inactive grower (dead/sold/removed)" style="vertical-align: middle;">info_outline</i>
 												</td>
 											@else
@@ -890,6 +891,7 @@
 												@if($family->getGroupingProperties()->where("property_id", 6)->first()->value == "Not specified")
 												{{-- all offsprings dead/sold before weaning --}}
 													<td>
+                                                        DEBUG=NOTSPECIFIED3
 														<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Inactive grower (dead/sold/removed)" style="vertical-align: middle;">info_outline</i>
 													</td>
 												@else
@@ -1215,6 +1217,7 @@
 												@if($family->getGroupingProperties()->where("property_id", 6)->first()->value == "Not specified")
 												{{-- all offsprings dead/sold before weaning --}}
 													<td>
+                                                        DEBUG=NOTSPECIFIED4
 														<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Inactive grower (dead/sold/removed)" style="vertical-align: middle;">info_outline</i>
 													</td>
 												@else
@@ -1548,6 +1551,7 @@
 													@if($family->getGroupingProperties()->where("property_id", 6)->first()->value == "Not specified")
 													{{-- all offsprings dead/sold before weaning --}}
 														<td>
+                                                            DEBUG=NOTSPECIFIED5
 															<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Inactive grower (dead/sold/removed)" style="vertical-align: middle;">info_outline</i>
 														</td>
 													@else
@@ -1852,6 +1856,7 @@
 												@if($family->getGroupingProperties()->where("property_id", 6)->first()->value == "Not specified")
 												{{-- all offsprings dead/sold before weaning --}}
 													<td>
+                                                        DEBUG=NOTSPECIFIED6
 														<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Inactive grower (dead/sold/removed)" style="vertical-align: middle;">info_outline</i>
 													</td>
 												@else
@@ -2186,6 +2191,7 @@
 													{{-- all offsprings dead/sold before weaning --}}
 														<td>
 															<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Inactive grower (dead/sold/removed)" style="vertical-align: middle;">info_outline</i>
+                                                            DEBUG=NOTSPECIFIED1
 														</td>
 													@else
 													{{-- if at least 1 offspring is alive --}}
