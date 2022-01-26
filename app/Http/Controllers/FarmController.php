@@ -1873,7 +1873,7 @@ class FarmController extends Controller
 			if(!is_null($datebredprop) && !is_null($datefarrowedprop)){
 				$datebred = Carbon::parse($datebredprop->value);
 				$datefarrowed = Carbon::parse($datefarrowedprop->value);
-				$gestationperiod = $datefarrowed->diffInDays($datebred);
+				$gestationperiod = $datefarrowed->diffInDays($datebred) . " [debug: datebred=$datebred datefarrowed=$datefarrowed]";
 			}
 			else{
 				$gestationperiod = "";
