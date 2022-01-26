@@ -479,6 +479,7 @@
 												{{-- inactive grower --}}
 												<td>
 													<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Inactive grower (dead/sold/removed)" style="vertical-align: middle;">info_outline</i>
+                                                    {{ json_encode($offspring->getChild()) }}
 												</td>
 											@else
 												@if(is_null($offspring->getAnimalProperties()->where("property_id", 7)->first()))
