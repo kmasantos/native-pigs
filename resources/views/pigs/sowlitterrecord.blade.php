@@ -479,7 +479,7 @@
 												{{-- inactive grower --}}
 												<td>
 													<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Inactive grower (dead/sold/removed)" style="vertical-align: middle;">info_outline</i>
-                                                    {{ json_encode($offspring->getChild()) }}
+                                                    #1{{ json_encode($offspring->getChild()) }}
 												</td>
 											@else
 												@if(is_null($offspring->getAnimalProperties()->where("property_id", 7)->first()))
@@ -565,6 +565,7 @@
 													@if(is_null($offspring->getAnimalProperties()->where("property_id", 7)->first()))
 														<td>
 															<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Inactive grower (dead/sold/removed)" style="vertical-align: middle;">info_outline</i>
+                                                            #2{{ json_encode($offspring->getChild()) }}
 														</td>
 													@else
 													{{-- active with weaning weight--}}
@@ -812,6 +813,7 @@
 													{{-- inactive grower --}}
 													<td>
 														<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Inactive grower (dead/sold/removed)" style="vertical-align: middle;">info_outline</i>
+                                                        #3{{ json_encode($offspring->getChild()) }}
 													</td>
 												@else
 													@if(is_null($offspring->getAnimalProperties()->where("property_id", 7)->first()))
@@ -897,6 +899,7 @@
 														@if(is_null($offspring->getAnimalProperties()->where("property_id", 7)->first()))
 															<td>
 																<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Inactive grower (dead/sold/removed)" style="vertical-align: middle;">info_outline</i>
+                                                                #4{{ json_encode($offspring->getChild()) }}
 															</td>
 														@else
 														{{-- active with weaning weight--}}
@@ -1135,6 +1138,7 @@
 													{{-- inactive grower --}}
 													<td>
 														<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Inactive grower (dead/sold/removed)" style="vertical-align: middle;">info_outline</i>
+                                                        #5{{ json_encode($offspring->getChild()) }}
 													</td>
 												@else
 													@if(is_null($offspring->getAnimalProperties()->where("property_id", 7)->first()))
@@ -1220,6 +1224,7 @@
 														@if(is_null($offspring->getAnimalProperties()->where("property_id", 7)->first()))
 															<td>
 																<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Inactive grower (dead/sold/removed)" style="vertical-align: middle;">info_outline</i>
+                                                                #6{{ json_encode($offspring->getChild()) }}
 															</td>
 														@else
 														{{-- active with weaning weight--}}
@@ -1466,6 +1471,7 @@
 														{{-- inactive grower --}}
 														<td>
 															<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Inactive grower (dead/sold/removed)" style="vertical-align: middle;">info_outline</i>
+                                                            #7{{ json_encode($offspring->getChild()) }}
 														</td>
 													@else
 														@if(is_null($offspring->getAnimalProperties()->where("property_id", 7)->first()))
@@ -1551,6 +1557,7 @@
 															@if(is_null($offspring->getAnimalProperties()->where("property_id", 7)->first()))
 																<td>
 																	<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Inactive grower (dead/sold/removed)" style="vertical-align: middle;">info_outline</i>
+                                                                    #8{{ json_encode($offspring->getChild()) }}
 																</td>
 															@else
 															{{-- active with weaning weight--}}
@@ -1768,6 +1775,7 @@
 													{{-- inactive grower --}}
 													<td>
 														<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Inactive grower (dead/sold/removed)" style="vertical-align: middle;">info_outline</i>
+                                                        #9{{ json_encode($offspring->getChild()) }}
 													</td>
 												@else
 													@if(is_null($offspring->getAnimalProperties()->where("property_id", 7)->first()))
@@ -1853,6 +1861,7 @@
 														@if(is_null($offspring->getAnimalProperties()->where("property_id", 7)->first()))
 															<td>
 																<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Inactive grower (dead/sold/removed)" style="vertical-align: middle;">info_outline</i>
+                                                                #10{{ json_encode($offspring->getChild()) }}
 															</td>
 														@else
 														{{-- active with weaning weight--}}
@@ -2099,6 +2108,7 @@
 														{{-- inactive grower --}}
 														<td>
 															<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Inactive grower (dead/sold/removed)" style="vertical-align: middle;">info_outline</i>
+                                                            #11{{ json_encode($offspring->getChild()) }}
 														</td>
 													@else
 														@if(is_null($offspring->getAnimalProperties()->where("property_id", 7)->first()))
@@ -2184,6 +2194,7 @@
 															@if(is_null($offspring->getAnimalProperties()->where("property_id", 7)->first()))
 																<td>
 																	<a class="btn disabled">Add <i class="material-icons right">add</i></a> <i class="material-icons tooltipped" data-position="top" data-tooltip="Inactive grower (dead/sold/removed)" style="vertical-align: middle;">info_outline</i>
+                                                                    #12{{ json_encode($offspring->getChild()) }}
 																</td>
 															@else
 															{{-- active with weaning weight--}}
