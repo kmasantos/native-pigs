@@ -103,7 +103,7 @@
 										</div>
 										<div class="col s6">
 											@if($family->getGroupingProperties()->where("property_id", 6)->first()->value != "Not specified")
-												<input id="dateweaned" type="date" name="date_weaned" value="{{ Carbon\Carbon::parse($family->getGroupingProperties()->where("property_id", 6)->first()->value)->format('j F, Y') }}">
+												<input id="dateweaned" type="date" name="date_weaned" value="{{ Carbon\Carbon::parse($family->getGroupingProperties()->where("property_id", 6)->first()->value)->format('Y-m-d') }}">
 											@else
 												No offsprings to wean
 											@endif
