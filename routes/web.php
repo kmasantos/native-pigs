@@ -214,4 +214,6 @@ Route::get('login/google/callback', 'Auth\LoginController@handleProviderCallback
 Route::get('login/link/{token}', 'Auth\LoginController@loginLink');
 Route::get('farm/logout', 'Auth\LoginController@logout');
 Route::get('admin/logout', 'Auth\LoginController@logout');
+Route::post('admin/logout', 'Auth\LoginController@logout');
 Route::get('logout', 'Auth\LoginController@logout');
+Route::post('logout', 'Auth\LoginController@logout');
