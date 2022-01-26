@@ -75,7 +75,7 @@
 										Date Farrowed
 									</div>
 									<div class="col s6">
-										<input id="datefarrowed" type="date" name="date_farrowed" value="{{ Carbon\Carbon::parse($family->getGroupingProperties()->where("property_id", 3)->first()->value)->format('j F, Y') }}">
+										<input id="datefarrowed" type="date" name="date_farrowed" value="{{ Carbon\Carbon::parse($family->getGroupingProperties()->where("property_id", 3)->first()->value)->format('Y-m-d') }}">
 									</div>
 								@endif
 							</div>
