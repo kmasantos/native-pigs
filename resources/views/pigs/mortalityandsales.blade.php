@@ -164,20 +164,12 @@
 												<td>{{ $deadpig->getRegistryId() }}</td>
 												<td>{{ Carbon\Carbon::parse($deadpig->datedied)->format('j F, Y') }}</td>
 												<td>{{ $deadpig->cause }}</td>
+                                                @php
+                                                    $age = (strtotime($deadpig->datedied) - strtotime(App\Models\AnimalProperty::where('animal_id', $deadpig->animal_id)->where('property_id', 3)->first()->value)) / 86400;
+                                                    $age = floor($age / 30) . ' month(s), ' . ($age % 30) . ' day(s)';
+                                                @endphp
 												@if($deadpig->age != "Age unavailable")
-													@if(floor($deadpig->age/30) == 1)
-														@if($deadpig->age % 30 == 1)
-															<td>{{ floor($deadpig->age/30) }} month, {{ $deadpig->age % 30 }} day</td>
-														@else
-															<td>{{ floor($deadpig->age/30) }} month, {{ $deadpig->age % 30 }} days</td>
-														@endif
-													@else
-														@if($deadpig->age % 30 == 1)
-															<td>{{ floor($deadpig->age/30) }} months, {{ $deadpig->age % 30 }} day</td>
-														@else
-															<td>{{ floor($deadpig->age/30) }} months, {{ $deadpig->age % 30 }} days</td>
-														@endif
-													@endif
+													<td>{{ $age }}</td>
 												@else
 													<td>Age unavailable</td>
 												@endif
@@ -212,20 +204,12 @@
 												<td>{{ Carbon\Carbon::parse($soldpig->datesold)->format('j F, Y') }}</td>
 												<td>{{ $soldpig->weight }}</td>
 												<td>{{ $soldpig->price }}</td>
+                                                @php
+                                                    $age = (strtotime($soldpig->datesold) - strtotime(App\Models\AnimalProperty::where('animal_id', $soldpig->animal_id)->where('property_id', 3)->first()->value)) / 86400;
+                                                    $age = floor($age / 30) . ' month(s), ' . ($age % 30) . ' day(s)';
+                                                @endphp
 												@if($soldpig->age != "Age unavailable")
-													@if(floor($soldpig->age/30) == 1)
-														@if($soldpig->age % 30 == 1)
-															<td>{{ floor($soldpig->age/30) }} month, {{ $soldpig->age % 30 }} day</td>
-														@else
-															<td>{{ floor($soldpig->age/30) }} month, {{ $soldpig->age % 30 }} days</td>
-														@endif
-													@else
-														@if($soldpig->ages % 30 == 1)
-															<td>{{ floor($soldpig->age/30) }} months, {{ $soldpig->age % 30 }} day</td>
-														@else
-															<td>{{ floor($soldpig->age/30) }} months, {{ $soldpig->age % 30 }} days</td>
-														@endif
-													@endif
+													<td>{{ $age }}</td>
 												@else
 													<td>Age unavailable</td>
 												@endif
@@ -258,20 +242,12 @@
 												<td>{{ $removedpig->getRegistryId() }}</td>
 												<td>{{ Carbon\Carbon::parse($removedpig->dateremoved)->format('j F, Y') }}</td>
 												<td>{{ $removedpig->reason }}</td>
+                                                @php
+                                                    $age = (strtotime($removedpig->dateremoved) - strtotime(App\Models\AnimalProperty::where('animal_id', $removedpig->animal_id)->where('property_id', 3)->first()->value)) / 86400;
+                                                    $age = floor($age / 30) . ' month(s), ' . ($age % 30) . ' day(s)';
+                                                @endphp
 												@if($removedpig->age != "Age unavailable")
-													@if(floor($removedpig->age/30) == 1)
-														@if($removedpig->age % 30 == 1)
-															<td>{{ floor($removedpig->age/30) }} month, {{ $removedpig->age % 30 }} day</td>
-														@else
-															<td>{{ floor($removedpig->age/30) }} month, {{ $removedpig->age % 30 }} days</td>
-														@endif
-													@else
-														@if($removedpig->age % 30 == 1)
-															<td>{{ floor($removedpig->age/30) }} months, {{ $removedpig->age % 30 }} day</td>
-														@else
-															<td>{{ floor($removedpig->age/30) }} months, {{ $removedpig->age % 30 }} days</td>
-														@endif
-													@endif
+													<td>{{ $age }}</td>
 												@else
 													<td>Age unavailable</td>
 												@endif
