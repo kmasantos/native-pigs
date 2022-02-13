@@ -17204,20 +17204,20 @@ class FarmController extends Controller
 			$dcgross->value = $dcgrossValue;
 
 			$hairtype = $properties->where("property_id", 11)->first();
-			if(is_null($request->hair_type1)){
+			if(is_null($request->hair_type)){
 				$hairTypeValue = "Not specified";
 			}
 			else{
-				$hairTypeValue = $request->hair_type1;
+				$hairTypeValue = $request->hair_type;
 			}
 			$hairtype->value = $hairTypeValue;
 
 			$hairlength = $properties->where("property_id", 12)->first();
-			if(is_null($request->hair_type2)){
+			if(is_null($request->hair_length)){
 				$hairLengthValue = "Not specified";
 			}
 			else{
-				$hairLengthValue = $request->hair_type2;
+				$hairLengthValue = $request->hair_length;
 			}
 			$hairlength->value = $hairLengthValue;
 
