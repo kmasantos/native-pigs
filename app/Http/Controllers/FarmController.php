@@ -2109,19 +2109,19 @@ class FarmController extends Controller
 			$farm = $this->user->getFarm();
 			$breed = $farm->getBreed();
 			
-			$deadpigs = Mortality::join('animals', 'animals.id', '=', 'mortalities.animal_id')
+			$deadpigs = Mortality::join('animals', 'animals.id', '=', 'mortalities.animal_id')->select('*')->selectRaw('animals.id AS id')
 								->where("mortalities.animaltype_id", 3)
 								->where("mortalities.breed_id", $breed->id)
 								->where("animals.farm_id", $farm->id)
 								->get();
 
-			$soldpigs = Sale::join('animals', 'animals.id', '=', 'sales.animal_id')
+			$soldpigs = Sale::join('animals', 'animals.id', '=', 'sales.animal_id')->select('*')->selectRaw('animals.id AS id')
 							->where("sales.animaltype_id", 3)
 							->where("sales.breed_id", $breed->id)
 							->where("animals.farm_id", $farm->id)
 							->get();
 
-			$removedpigs = RemovedAnimal::join('animals', 'animals.id', '=', 'removed_animals.animal_id')
+			$removedpigs = RemovedAnimal::join('animals', 'animals.id', '=', 'removed_animals.animal_id')->select('*')->selectRaw('animals.id AS id')
 							->where("removed_animals.animaltype_id", 3)
 							->where("animals.farm_id", $farm->id)
 							->where("removed_animals.breed_id", $breed->id)
@@ -8052,6 +8052,37 @@ class FarmController extends Controller
 			$farm = $this->user->getFarm();
 			$breed = $farm->getBreed();
 			$pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("farm_id", $farm->id)->where("status", "breeder")->get();
+            $archived_pigs = Animal::where("animaltype_id", 3)->where("breed_id", $breed->id)->where("farm_id", $farm->id)->where(function ($query) {
+                $query->where("status", "dead breeder")
+                            ->orWhere("status", "sold breeder")
+                            ->orWhere("status", "removed breeder");
+                            })->get();
+            $archived_sows = [];
+            $archived_boars = [];
+            $temp_archived_sows = [];
+            $temp_archived_boars = [];
+            foreach ($archived_pigs as $archived_pig) {
+                if(substr($archived_pig->registryid, -7, 1) == 'F'){
+                    array_push($temp_archived_sows, $archived_pig);
+                }
+                if(substr($archived_pig->registryid, -7, 1) == 'M'){
+                    array_push($temp_archived_boars, $archived_pig);
+                }
+            }
+
+            foreach ($temp_archived_sows as $temp_archived_sow) {
+                $temp_sow_row = $temp_archived_sow->getAnimalProperties()->where("property_id", 61)->first();
+                if (!empty($temp_sow_row)) {
+                    array_push($archived_sows, $temp_archived_sow);
+                }
+            }
+
+            foreach ($temp_archived_boars as $temp_archived_boar) {
+                $temp_boar_row = $temp_archived_boar->getAnimalProperties()->where("property_id", 61)->first();
+                if (!empty($temp_boar_row)) {
+                    array_push($archived_boars, $temp_archived_boar);
+                }
+            }
 
 			// sorts pigs by sex
 			$sows = [];
@@ -8218,7 +8249,7 @@ class FarmController extends Controller
 				}
 			}
 
-			return view('pigs.productionperformance', compact('sowbreeders', 'boarbreeders', 'parity', 'groupswiththisparity', 'filter', 'lsba', 'numbermales', 'numberfemales', 'stillborn', 'mummified', 'litterbirthweights', 'avebirthweights', 'litterweaningweights', 'aveweaningweights', 'adjweaningweights', 'numberweaned', 'agesweaned', 'preweaningmortality'));
+			return view('pigs.productionperformance', compact('sowbreeders', 'boarbreeders', 'parity', 'groupswiththisparity', 'filter', 'lsba', 'numbermales', 'numberfemales', 'stillborn', 'mummified', 'litterbirthweights', 'avebirthweights', 'litterweaningweights', 'aveweaningweights', 'adjweaningweights', 'numberweaned', 'agesweaned', 'preweaningmortality', 'archived_sows', 'archived_boars'));
 		}
 
 		static function getPropertyAveragePerParity($parity, $filter){
@@ -13857,19 +13888,19 @@ class FarmController extends Controller
 			$farm = $this->user->getFarm();
 			$breed = $farm->getBreed();
 			
-			$deadpigs = Mortality::join('animals', 'animals.id', '=', 'mortalities.animal_id')
+			$deadpigs = Mortality::join('animals', 'animals.id', '=', 'mortalities.animal_id')->select('*')->selectRaw('animals.id AS id')
 								->where("mortalities.animaltype_id", 3)
 								->where("mortalities.breed_id", $breed->id)
 								->where("animals.farm_id", $farm->id)
 								->get();
 
-			$soldpigs = Sale::join('animals', 'animals.id', '=', 'sales.animal_id')
+			$soldpigs = Sale::join('animals', 'animals.id', '=', 'sales.animal_id')->select('*')->selectRaw('animals.id AS id')
 							->where("sales.animaltype_id", 3)
 							->where("sales.breed_id", $breed->id)
 							->where("animals.farm_id", $farm->id)
 							->get();
 
-			$removedpigs = RemovedAnimal::join('animals', 'animals.id', '=', 'removed_animals.animal_id')
+			$removedpigs = RemovedAnimal::join('animals', 'animals.id', '=', 'removed_animals.animal_id')->select('*')->selectRaw('animals.id AS id')
 							->where("removed_animals.animaltype_id", 3)
 							->where("animals.farm_id", $farm->id)
 							->where("removed_animals.breed_id", $breed->id)
@@ -13956,19 +13987,19 @@ class FarmController extends Controller
 			$farm = $this->user->getFarm();
 			$breed = $farm->getBreed();
 
-			$deadpigs = Mortality::join('animals', 'animals.id', '=', 'mortalities.animal_id')
+			$deadpigs = Mortality::join('animals', 'animals.id', '=', 'mortalities.animal_id')->select('*')->selectRaw('animals.id AS id')
 								->where("mortalities.animaltype_id", 3)
 								->where("mortalities.breed_id", $breed->id)
 								->where("animals.farm_id", $farm->id)
 								->get();
 
-			$soldpigs = Sale::join('animals', 'animals.id', '=', 'sales.animal_id')
+			$soldpigs = Sale::join('animals', 'animals.id', '=', 'sales.animal_id')->select('*')->selectRaw('animals.id AS id')
 							->where("sales.animaltype_id", 3)
 							->where("sales.breed_id", $breed->id)
 							->where("animals.farm_id", $farm->id)
 							->get();
 
-			$removedpigs = RemovedAnimal::join('animals', 'animals.id', '=', 'removed_animals.animal_id')
+			$removedpigs = RemovedAnimal::join('animals', 'animals.id', '=', 'removed_animals.animal_id')->select('*')->selectRaw('animals.id AS id')
 							->where("removed_animals.animaltype_id", 3)
 							->where("animals.farm_id", $farm->id)
 							->where("removed_animals.breed_id", $breed->id)
@@ -14075,7 +14106,12 @@ class FarmController extends Controller
 		static function getMonthlyMortality($year, $month){
 			$farm = Auth::User()->getFarm();
 			$breed = $farm->getBreed();
-			$deadpigs = Mortality::where("animaltype_id", 3)->where("breed_id", $breed->id)->get();
+			// $deadpigs = Mortality::where("animaltype_id", 3)->where("breed_id", $breed->id)->get();
+            $deadpigs = Mortality::join('animals', 'animals.id', '=', 'mortalities.animal_id')->select('*')->selectRaw('animals.id AS id')
+								->where("mortalities.animaltype_id", 3)
+								->where("mortalities.breed_id", $breed->id)
+								->where("animals.farm_id", $farm->id)
+								->get();
 
 			$monthlymortality = [];
 			foreach ($deadpigs as $deadpig) {
@@ -14091,7 +14127,12 @@ class FarmController extends Controller
 		static function getMonthlySales($year, $month){
 			$farm = Auth::User()->getFarm();
 			$breed = $farm->getBreed();
-			$soldpigs = Sale::where("animaltype_id", 3)->where("breed_id", $breed->id)->get();
+			// $soldpigs = Sale::where("animaltype_id", 3)->where("breed_id", $breed->id)->get();
+			$soldpigs = Sale::join('animals', 'animals.id', '=', 'sales.animal_id')->select('*')->selectRaw('animals.id AS id')
+							->where("sales.animaltype_id", 3)
+							->where("sales.breed_id", $breed->id)
+							->where("animals.farm_id", $farm->id)
+							->get();
 
 			$monthlysales = [];
 			foreach ($soldpigs as $soldpig) {
@@ -14107,7 +14148,7 @@ class FarmController extends Controller
 		static function getMonthlyRemoved($year, $month){
 			$farm = Auth::User()->getFarm();
 			$breed = $farm->getBreed();
-			$removedpigs = RemovedAnimal::join('animals', 'animals.id', '=', 'removed_animals.animal_id')
+			$removedpigs = RemovedAnimal::join('animals', 'animals.id', '=', 'removed_animals.animal_id')->select('*')->selectRaw('animals.id AS id')
 										->where("removed_animals.animaltype_id", 3)
 										->where("animals.farm_id", $farm->id)
 										->where("removed_animals.breed_id", $breed->id)
@@ -14127,8 +14168,20 @@ class FarmController extends Controller
 		static function getMonthlyAverageAge($year, $month, $type){
 			$farm = Auth::User()->getFarm();
 			$breed = $farm->getBreed();
-			$deadpigs = Mortality::where("animaltype_id", 3)->where("breed_id", $breed->id)->get();
-			$soldpigs = Sale::where("animaltype_id", 3)->where("breed_id", $breed->id)->get();
+			// $deadpigs = Mortality::where("animaltype_id", 3)->where("breed_id", $breed->id)->get();
+			// $soldpigs = Sale::where("animaltype_id", 3)->where("breed_id", $breed->id)->get();
+
+            $deadpigs = Mortality::join('animals', 'animals.id', '=', 'mortalities.animal_id')->select('*')->selectRaw('animals.id AS id')
+								->where("mortalities.animaltype_id", 3)
+								->where("mortalities.breed_id", $breed->id)
+								->where("animals.farm_id", $farm->id)
+								->get();
+
+			$soldpigs = Sale::join('animals', 'animals.id', '=', 'sales.animal_id')->select('*')->selectRaw('animals.id AS id')
+							->where("sales.animaltype_id", 3)
+							->where("sales.breed_id", $breed->id)
+							->where("animals.farm_id", $farm->id)
+							->get();
 
 			$ages = [];
 			if ($type == "dead"){
@@ -14158,7 +14211,13 @@ class FarmController extends Controller
 		static function getMonthlyAverageWeightSold($year, $month){
 			$farm = Auth::User()->getFarm();
 			$breed = $farm->getBreed();
-			$soldpigs = Sale::where("animaltype_id", 3)->where("breed_id", $breed->id)->get();
+			// $soldpigs = Sale::where("animaltype_id", 3)->where("breed_id", $breed->id)->get();
+
+			$soldpigs = Sale::join('animals', 'animals.id', '=', 'sales.animal_id')->select('*')->selectRaw('animals.id AS id')
+							->where("sales.animaltype_id", 3)
+							->where("sales.breed_id", $breed->id)
+							->where("animals.farm_id", $farm->id)
+							->get();
 
 			$weights = [];
 			foreach ($soldpigs as $soldpig) {
@@ -14334,19 +14393,19 @@ class FarmController extends Controller
 			$farm = $this->user->getFarm();
 			$breed = $farm->getBreed();
 			$q = $request->q;
-			$deadpigs = Mortality::join('animals', 'animals.id', '=', 'mortalities.animal_id')
+			$deadpigs = Mortality::join('animals', 'animals.id', '=', 'mortalities.animal_id')->select('*')->selectRaw('animals.id AS id')
 								->where("mortalities.animaltype_id", 3)
 								->where("mortalities.breed_id", $breed->id)
 								->where("animals.farm_id", $farm->id)
 								->get();
 
-			$soldpigs = Sale::join('animals', 'animals.id', '=', 'sales.animal_id')
+			$soldpigs = Sale::join('animals', 'animals.id', '=', 'sales.animal_id')->select('*')->selectRaw('animals.id AS id')
 							->where("sales.animaltype_id", 3)
 							->where("sales.breed_id", $breed->id)
 							->where("animals.farm_id", $farm->id)
 							->get();
 
-			$removedpigs = RemovedAnimal::join('animals', 'animals.id', '=', 'removed_animals.animal_id')
+			$removedpigs = RemovedAnimal::join('animals', 'animals.id', '=', 'removed_animals.animal_id')->select('*')->selectRaw('animals.id AS id')
 							->where("removed_animals.animaltype_id", 3)
 							->where("animals.farm_id", $farm->id)
 							->where("removed_animals.breed_id", $breed->id)
