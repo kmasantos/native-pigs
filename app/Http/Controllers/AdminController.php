@@ -84,6 +84,8 @@ class AdminController extends Controller
             $new_breed->animaltype_id = 3;
             $new_breed->save();
 
+            $breeds->push($new_breed);
+
             $message = "Successfully added new breed!";
             return view('user.admin.breedmanagement', compact('now', 'breeds'))->withMessage($message);
         } else {
